@@ -1,0 +1,377 @@
+.anim.ng-enter,
+.anim.ng-leave {
+  transition: all 0.3s ease-in;
+}
+.anim.ng-enter,
+.anim.ng-leave.ng-leave-active {
+  -webkit-transform: translateX(100%);
+  transform: translateX(100%);
+}
+.anim.ng-enter.ng-enter-active {
+  -webkit-transform: translateX(0%);
+  transform: translateX(0%);
+}
+
+
+.white-bg {
+  background-color: #fff !important;
+}
+
+.info-container {
+  width: 340px;
+  background-color: #fff;
+  margin-left: 2em;
+  margin-top: 40px;
+  padding: 2em;
+  line-height: 1em;
+  position: absolute;
+  color: #afafaf;
+}
+.info-container .header {
+  padding: 0.5em;
+  border-bottom: 1px solid #606060;
+}
+.info-container .header .title {
+  font-weight: normal;
+  color: #006bb9;
+  padding: 0px;
+  margin: 0px;
+  line-height: 0.8em;
+  font-size: 2em;
+}
+.info-container .header .subtitle {
+  color: #006bb9;
+  line-height: 1em;
+}
+.info-container .header .info-icon {
+  cursor: pointer;
+}
+.info-container .header .info-icon * {
+  fill: #d7dddd;
+}
+.info-container .header .info-icon:hover * {
+  fill: #006bb9;
+}
+.info-container .close-it {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  transition: all .25s ease;
+  cursor: pointer;
+}
+.info-container .close-it * {
+  fill: #d7dddd;
+}
+.info-container .close-it:hover * {
+  fill: #afafaf;
+}
+.info-container .module {
+  margin: 1.5em 0;
+}
+.info-container .module.rank .chart {
+  color: #333333;
+}
+.info-container .module.rank .chart .title {
+  margin-bottom: 0.5em;
+}
+.info-container .module.rank .chart .data .value {
+  border: 2px solid #00ccaa;
+  border-radius: 50%;
+  height: 80px;
+  width: 80px;
+}
+.info-container .module.rank .chart .tendency path {
+  fill: #d7dddd;
+}
+.info-container .module.rank .chart .tendency.active path {
+  fill: #00ccaa;
+}
+.info-container .module.rank .mini-list {
+  font-size: 0.9em;
+}
+.info-container .module.rank .mini-list .title {
+  margin-bottom: 0.5em;
+}
+.info-container .module.rank .mini-list .list ul {
+  padding: 0px;
+  margin: 0px;
+}
+.info-container .module.rank .mini-list .list ul li {
+  list-style-type: none;
+}
+.info-container .module.rank .mini-list .list ul li.active {
+  color: #00ccaa;
+}
+.info-container .module.rank .mini-list .list ul li .number {
+  margin-right: 0.5em;
+}
+.info-container .module.median {
+  position: relative;
+}
+.info-container .module.median .title {
+  margin: 0.5em;
+  text-align: center;
+}
+.info-container .module.median .gradient {
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,22ea9d+53,000000+100 */
+  background: #ffffff;
+  /* Old browsers */
+  /* FF3.6+ */
+  /* Chrome,Safari4+ */
+  /* Chrome10+,Safari5.1+ */
+  /* Opera 11.10+ */
+  /* IE10+ */
+  background: linear-gradient(to right, #ffffff 0%, #22ea9d 53%, #000000 100%);
+  /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#000000', GradientType=1);
+  /* IE6-9 */
+  opacity: .6;
+  border-radius: 1.75em;
+  position: relative;
+  width: 100%;
+  height: 2.5em;
+}
+.info-container .module.median .gradient::after {
+  content: '';
+  position: absolute;
+  width: 1px;
+  height: 100%;
+  left: 50%;
+  border-left: 1px dashed #606060;
+}
+.info-container .module.median .gradient .value {
+  height: 2.5em;
+  width: 2.5em;
+  border-radius: 50%;
+  position: absolute;
+  top: 0px;
+  color: #fff;
+}
+.info-container .module.median .gradient .value.max {
+  border: 1px solid;
+  right: 0px;
+  color: #fff;
+}
+.info-container .module.median .gradient .value.min {
+  color: #606060;
+}
+.info-container .module.median .gradient .value.actual {
+  color: #000;
+  transition: all 0.5s ease-out;
+  background-color: #00ccaa;
+  left: 0%;
+  margin-left: -1.25em;
+  z-index: 1;
+}
+.info-container .module:last-child {
+  margin-bottom: 0px;
+}
+.info-container .country_list {
+  position: absolute;
+  left: 100%;
+  top: 0px;
+  height: 100%;
+  background-color: #fff;
+  overflow-y: auto;
+  width: 300px;
+}
+.info-container .country_list md-content {
+  height: 100%;
+}
+
+.md-toolbar-tools {
+  font-size: 16px;
+}
+.md-blueframe-z1 {
+  box-shadow: 0px 3px 1px -2px rgba(0, 0, 255, 0.14), 0px 2px 2px 0px rgba(0, 0, 255, 0.098), 0px 1px 5px 0px rgba(0, 0, 255, 0.084);
+}
+.md-button {
+  border-radius: 20px;
+  padding: 0 30px;
+  text-transform: none;
+}
+.md-ripple-container {
+  border-radius: 20px;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+body {
+  padding-bottom: 0 !important;
+  font-family: 'Gorgia';
+  font-size: 16px;
+  color: #606060;
+}
+* {
+  fill: #606060;
+}
+.Page {
+  position: absolute;
+  top: 64px;
+  width: 100%;
+  left: 0px;
+}
+.Page-name {
+  color: #006bb9;
+}
+.logo {
+  color: #0000ff;
+  font-size: 1.5em;
+}
+.icon-space {
+  position: relative;
+  top: 4px;
+  left: 5px;
+}
+.inline-list li {
+  display: inline;
+}
+.inline-list.menu-list li {
+  position: relative;
+  padding: 0px 1em;
+}
+.inline-list.menu-list li::before {
+  content: "/";
+  position: absolute;
+  right: 0px;
+  top: 0px;
+}
+.inline-list.menu-list li:last-child::before {
+  content: "";
+}
+.inline-list.menu-list li.active a {
+  color: #006bb9;
+}
+.inline-list.menu-list li a {
+  position: relative;
+}
+.inline-list.menu-list li a::after {
+  content: '';
+  position: absolute;
+  height: 1px;
+  width: 0;
+  left: 50%;
+  bottom: -5px;
+  border-bottom: 1px solid #006bb9;
+  transition: all 0.2s ease;
+}
+.inline-list.menu-list li a:hover::after {
+  width: 100%;
+  left: 0;
+}
+
+md-toast[md-theme=warn] {
+  background-color: #F44336;
+  border-radius: 2px;
+}
+
+.u-center {
+  text-align: center;
+}
+
+
+
+
+
+.Header {
+  position: fixed;
+  left: 0px;
+  right: 0;
+  z-index: 3;
+  top: 0px;
+}
+
+
+
+#Map_Container {
+  height: calc(100% - 165px);
+}
+#map {
+  position: absolute;
+  width: 100%;
+  top: 64px;
+  height: calc(100% - 64px);
+}
+.angular-leaflet-map {
+  width: 100%;
+  height: 100%;
+}
+.country_info {
+  background-color: #fff;
+  padding: 10px;
+  padding-right: 20px;
+  position: fixed;
+  bottom: 20px;
+  right: 00px;
+}
+
+
+
+.Sidebar {
+  position: fixed !important;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 250px !important;
+  min-width: 250px !important;
+  max-width: 250px !important;
+  background-color: #3f51b5;
+}
+.Sidebar-title {
+  font-size: 25px;
+  height: 100px;
+  max-height: 100px;
+  text-align: center;
+  font-weight: 500;
+}
+.Sidebar-pages {
+  background-color: #3f51b5;
+  color: white;
+}
+.Sidebar-pages md-list md-list-item button.md-button:not([disabled]):hover {
+  background-color: rgba(158, 158, 158, 0.2) !important;
+}
+.Sidebar-page {
+  cursor: pointer;
+}
+.Sidebar-page md-list-item {
+  /*IE centering fix*/
+  height: 48px;
+}
+.Sidebar-page.active {
+  background-color: rgba(158, 158, 158, 0.3) !important;
+}
+.Sidebar-version {
+  margin: 0 0 20px 0;
+  text-align: center;
+  font-weight: normal;
+}
+.Sidebar-version a {
+  color: white;
+}
+
+.Dashboard-Container li {
+  line-height: 26px;
+}
+
+[ui-view].ng-enter,
+[ui-view].ng-leave {
+  transition: opacity ease-in-out 200ms;
+}
+[ui-view].ng-enter,
+[ui-view].ng-leave.ng-leave-active {
+  opacity: 0;
+}
+[ui-view].ng-enter.ng-enter-active {
+  opacity: 1;
+}
+
+
+
+
+
+
+/*# sourceMappingURL=app.css.map */

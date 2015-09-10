@@ -1,0 +1,24 @@
+<div class="Header md-blueframe-z1" ng-controller="HeaderCtrl">
+
+	<md-toolbar class="md-accent white-bg">
+		<div class="md-toolbar-tools"  style="padding:0 2em;margin:0 16px;">
+
+			<h2 style="margin-left:0px">
+				<span class="logo">23°</span>
+			</h2>
+			<ng-md-icon icon="chevron_left" class="icon-space"></ng-md-icon>
+			<ul class="inline-list menu-list">
+						<li>
+								<a href="">Human</a>
+						</li>
+						<li>
+								<a href="">Animal</a>
+						</li>
+						<li ui-sref-active="active">
+								<a href="" ui-sref="app.epi()">Environment</a>
+						</li>
+				</ul>
+
+		</div>
+	</md-toolbar>
+</div>
