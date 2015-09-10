@@ -205,14 +205,11 @@ body {
   font-size: 16px;
   color: #606060;
 }
-* {
-  fill: #606060;
-}
 .Page {
   position: absolute;
   top: 64px;
   width: 100%;
-  left: 0px;
+  left: 0;
 }
 .Page-name {
   color: #006bb9;
@@ -231,13 +228,13 @@ body {
 }
 .inline-list.menu-list li {
   position: relative;
-  padding: 0px 1em;
+  padding: 0 1em;
 }
 .inline-list.menu-list li::before {
   content: "/";
   position: absolute;
-  right: 0px;
-  top: 0px;
+  right: 0;
+  top: 0;
 }
 .inline-list.menu-list li:last-child::before {
   content: "";
