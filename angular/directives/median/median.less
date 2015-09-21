@@ -1,0 +1,59 @@
+median {
+    overflow: hidden;
+    border-radius: 20px;
+    display: inline-block;
+    height: 40px;
+    .startLabel {
+        fill: #fff;
+        stroke-width: 0;
+        text {
+            fill: #606060;
+        }
+    }
+
+.endLabel {
+        fill: none;
+        stroke: #fff;
+        stroke-width: 1px;
+        text {
+            fill: #fff;
+            stroke-width: 0;
+        }
+    }
+
+.axis {
+        font: 10px sans-serif;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+        .domain {
+            fill: none;
+            stroke: #000;
+            stroke-opacity: 0.3;
+            stroke-width: 10px;
+            stroke-linecap: round;
+        }
+
+.halo {
+            fill: none;
+            stroke: #ddd;
+            stroke-width: 40px;
+            stroke-linecap: round;
+        }
+    }
+
+.slider {
+        .handle {
+            fill: #0ca;
+            stroke-width: 0;
+            cursor: ew-resize;
+        }
+
+text {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+            cursor: ew-resize;
+        }
+    }
+}

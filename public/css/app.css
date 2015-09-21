@@ -11,7 +11,77 @@
   -webkit-transform: translateX(0%);
   transform: translateX(0%);
 }
+.anim-opacity.ng-enter,
+.anim-opacity.ng-leave {
+  transition: all 0.3s ease-in;
+}
+.anim-opacity.ng-enter,
+.anim-opacity.ng-leave.ng-leave-active {
+  opacity: 0;
+}
+.anim-opacity.ng-enter.ng-enter-active {
+  opacity: 1;
+}
+.anim-height.ng-enter,
+.anim-height.ng-leave {
+  transition: all 0.5s ease-in;
+}
+.anim-height.ng-enter,
+.anim-height.ng-leave.ng-leave-active {
+  height: 0px;
+}
+.anim-height.ng-enter.ng-enter-active {
+  height: 350px;
+}
 
+
+@font-face {
+  font-family: 'epi';
+  src: url('fonts/epi.eot?-47ygze');
+  src: url('fonts/epi.eot?#iefix-47ygze') format('embedded-opentype'), url('fonts/epi.ttf?-47ygze') format('truetype'), url('fonts/epi.woff?-47ygze') format('woff'), url('fonts/epi.svg?-47ygze#epi') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+[class^="icon-"],
+[class*=" icon-"] {
+  font-family: 'epi';
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.icon-agrar:before {
+  content: "\e600";
+}
+.icon-anchor:before {
+  content: "\e601";
+}
+.icon-butterfly:before {
+  content: "\e602";
+}
+.icon-energy:before {
+  content: "\e603";
+}
+.icon-fabric:before {
+  content: "\e604";
+}
+.icon-man:before {
+  content: "\e605";
+}
+.icon-sink:before {
+  content: "\e606";
+}
+.icon-tree:before {
+  content: "\e607";
+}
+.icon-water:before {
+  content: "\e608";
+}
 
 .white-bg {
   background-color: #fff !important;
@@ -24,8 +94,23 @@
   margin-top: 40px;
   padding: 2em;
   line-height: 1em;
+  left: 0;
   position: absolute;
   color: #afafaf;
+  transition: all 0.25s ease-in;
+  -webkit-transform: translateX(0);
+  transform: translateX(0);
+}
+.info-container.closed {
+  -webkit-transform: translateX(-100%);
+  transform: translateX(-100%);
+}
+.info-container:hover.closed {
+  -webkit-transform: translateX(-95%);
+  transform: translateX(-95%);
+}
+.info-container:hover.closed .close-it {
+  width: 100%;
 }
 .info-container .header {
   padding: 0.5em;
@@ -34,8 +119,8 @@
 .info-container .header .title {
   font-weight: normal;
   color: #006bb9;
-  padding: 0px;
-  margin: 0px;
+  padding: 0;
+  margin: 0;
   line-height: 0.8em;
   font-size: 2em;
 }
@@ -54,10 +139,12 @@
 }
 .info-container .close-it {
   position: absolute;
-  top: 10px;
-  right: 10px;
-  transition: all .25s ease;
+  top: 0;
+  right: 0;
+  transition: all 0.25s ease;
   cursor: pointer;
+  padding: 0.5em;
+  height: 100%;
 }
 .info-container .close-it * {
   fill: #d7dddd;
@@ -92,12 +179,19 @@
 .info-container .module.rank .mini-list .title {
   margin-bottom: 0.5em;
 }
+.info-container .module.rank .mini-list .list {
+  height: 3.5em;
+  overflow: hidden;
+}
 .info-container .module.rank .mini-list .list ul {
-  padding: 0px;
-  margin: 0px;
+  transition: all 0.5s ease-out;
+  padding: 0;
+  margin: 0;
 }
 .info-container .module.rank .mini-list .list ul li {
   list-style-type: none;
+  cursor: pointer;
+  transition: all 0.5s ease-out;
 }
 .info-container .module.rank .mini-list .list ul li.active {
   color: #00ccaa;
@@ -125,7 +219,7 @@
   /* W3C */
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#000000', GradientType=1);
   /* IE6-9 */
-  opacity: .6;
+  opacity: 0.6;
   border-radius: 1.75em;
   position: relative;
   width: 100%;
@@ -144,12 +238,12 @@
   width: 2.5em;
   border-radius: 50%;
   position: absolute;
-  top: 0px;
+  top: 0;
   color: #fff;
 }
 .info-container .module.median .gradient .value.max {
   border: 1px solid;
-  right: 0px;
+  right: 0;
   color: #fff;
 }
 .info-container .module.median .gradient .value.min {
@@ -159,17 +253,17 @@
   color: #000;
   transition: all 0.5s ease-out;
   background-color: #00ccaa;
-  left: 0%;
+  left: 0;
   margin-left: -1.25em;
   z-index: 1;
 }
 .info-container .module:last-child {
-  margin-bottom: 0px;
+  margin-bottom: 0;
 }
 .info-container .country_list {
   position: absolute;
   left: 100%;
-  top: 0px;
+  top: 0;
   height: 100%;
   background-color: #fff;
   overflow-y: auto;
@@ -194,6 +288,10 @@
   border-radius: 20px;
 }
 
+*:focus {
+  border: 0;
+  outline: 0;
+}
 html,
 body {
   width: 100%;
@@ -368,7 +466,120 @@ md-toast[md-theme=warn] {
 
 
 
+.bubbles {
+  border-top: 1px solid;
+  border-bottom: 1px solid;
+  overflow: hidden;
+}
+.bubbles h3 {
+  text-align: center;
+  text-decoration: underline;
+  font-weight: normal;
+  position: relative;
+}
+.bubbles h3.eh {
+  color: #be5f00;
+  top: 1em;
+}
+.bubbles h3.ev {
+  color: #006bb6;
+  bottom: 1em;
+}
+.tooltip {
+  position: fixed;
+  padding: 1em;
+  background-color: #fff;
+  border: 1px solid;
+  z-index: 1;
+}
+.tooltip::after,
+.tooltip::before {
+  right: 100%;
+  top: 50%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+.tooltip::after {
+  border-right-color: #fff;
+  border-width: 10px;
+  margin-top: -10px;
+}
+.tooltip::before {
+  border-right-color: rgba(0, 0, 0, 0.87);
+  border-width: 11px;
+  margin-top: -11px;
+}
+.tooltip .close-it {
+  position: absolute;
+  top: 2px;
+  right: 4px;
+  cursor: pointer;
+  color: #d7dddd;
+}
+.tooltip .close-it:hover {
+  color: rgba(0, 0, 0, 0.87);
+}
 
 
+
+
+median {
+  overflow: hidden;
+  border-radius: 20px;
+  display: inline-block;
+  height: 40px;
+}
+median .startLabel {
+  fill: #fff;
+  stroke-width: 0;
+}
+median .startLabel text {
+  fill: #606060;
+}
+median .endLabel {
+  fill: none;
+  stroke: #fff;
+  stroke-width: 1px;
+}
+median .endLabel text {
+  fill: #fff;
+  stroke-width: 0;
+}
+median .axis {
+  font: 10px sans-serif;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+median .axis .domain {
+  fill: none;
+  stroke: #000;
+  stroke-opacity: 0.3;
+  stroke-width: 10px;
+  stroke-linecap: round;
+}
+median .axis .halo {
+  fill: none;
+  stroke: #ddd;
+  stroke-width: 40px;
+  stroke-linecap: round;
+}
+median .slider .handle {
+  fill: #0ca;
+  stroke-width: 0;
+  cursor: ew-resize;
+}
+median .slider text {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  cursor: ew-resize;
+}
 
 /*# sourceMappingURL=app.css.map */

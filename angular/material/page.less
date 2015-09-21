@@ -1,4 +1,12 @@
 @import (less) 'colors.less';
+
+* {
+    &:focus {
+        border: 0;
+        outline: 0;
+    }
+}
+
 html,
 body {
     width: 100%;
@@ -38,32 +46,34 @@ body {
     li {
         display: inline;
     }
-    
-&.menu-list {
+
+    &.menu-list {
         li {
             position: relative;
             padding: 0 1em;
+
             &::before {
                 content: "/";
                 position: absolute;
                 right: 0;
                 top: 0;
             }
-            
-&:last-child {
+
+            &:last-child {
                 &::before {
                     content: "";
                 }
             }
-            
-&.active {
+
+            &.active {
                 a {
                     color: @base;
                 }
             }
-            
-a {
+
+            a {
                 position: relative;
+
                 &::after {
                     content: '';
                     position: absolute;
@@ -74,8 +84,8 @@ a {
                     border-bottom: 1px solid @base;
                     transition: all 0.2s ease;
                 }
-                
-&:hover {
+
+                &:hover {
                     &::after {
                         width: 100%;
                         left: 0;

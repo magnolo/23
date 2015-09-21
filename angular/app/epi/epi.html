@@ -1,95 +1,98 @@
-<div ng-controller="EpiCtrl" style="margin:0 2em" >
-  <!--<md-toolbar class="md-accent">
-    <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
-      <h2><a href=""><ng-md-icon icon="{{menu.icon || 'menu'}}"></ng-icon></a></h2>
-      <span class="Page-name">{{current_page}}</span>
-      <span class="search">
-        <md-input-container class="md-icon-float" >
-        <ng-md-icon icon="search"></ng-md-icon>
-        <input ng-model="user.name" type="text">
-      </md-input-container>
-      </div>
-  </md-toolbar>-->
-  <div class="info-container">
-    <div class="header" layout="row" layout-align="space-between end">
-        <span class="title">EPI</span>
-        <span class="subtitle">{{current_page}}</span>
-        <span class="info-icon">
-          <ng-md-icon icon="info_outline"></ng-md-icon>
-        </span>
-    </div>
-    <div class="rank module" layout="row" layout-align="space-between center">
-      <div class="chart" layout="row">
-          <div layout="column" layout-align="">
-            <div class="title" layout="row" layout-align="center center">Rank</div>
-            <div class="data" layout="row">
-                <div class="value" layout="column" layout-align="center center">{{current.rank || 0}}/{{ epi.length }}</div>
-            </div>
-          </div>
-          <div class="tendency" ng-class="{active:current}" layout="column" layout-align="center center" >
-            <div>&nbsp;</div>
-            <ng-md-icon class="icon-space" options='{"rotation": "none"}' icon="{{getTendency()}}"></ng-md-icon>
-          </div>
-      </div>
-      <div class="mini-list">
-          <div class="title">
-            <span ng-if="!current.id">Top</span>
-            <span ng-if="current.id">Actual</span>
-          </div>
-          <div class="list">
-              <ul>
-                  <li ng-click="setCurrent(nat)" ng-repeat="nat in epi | orderBy:'+rank' | limitTo:3:getOffset()" ng-class="{active: nat.id == current.id}">
-                    <span class="number">{{nat.rank}}.</span>
-                    <span class="value">{{nat.country}}</span>
-                  </li>
-              </ul>
-          </div>
-      </div>
-      <div class="mini-list">
-          <div class="title">Bottom</div>
-          <div class="list">
-            <ul>
-                <li ng-click="setCurrent(nat)" ng-repeat="nat in epi | orderBy:'-rank' | limitTo:3">
-                  <span class="number">{{nat.rank}}.</span>
-                  <span class="value">{{nat.country}}</span>
-                </li>
-            </ul>
-          </div>
-      </div>
-    </div>
-    <div class="median module">
-        <div class="gradient">
-          <div class="min value" layout="column" layout-align="center center">0</div>
-          <div class="actual value" ng-if="current" layout="column" ng-style="{'left':(current.score || 0)+'%'}" layout-align="center center">{{ current.score | number:0 || 0 }}</div>
-          <div class="max value" layout="column" layout-align="center center">100</div>
-        </div>
-        <div class="title">median</div>
-    </div>
-    <!--<div class="history module">
+<div ng-controller="EpiCtrl" style="margin:0 2em">
+				<div class="info-container md-whiteframe-z2" ng-class="{'closed': !menueOpen}">
+								<div class="header" layout-align="space-between end" layout="row">
+												<span class="title">EPI</span>
+												<span class="subtitle">{{current_page}}</span>
+												<span class="info-icon">
+																<ng-md-icon icon="info_outline"></ng-md-icon>
+												</span>
+								</div>
+								<div class="rank module" layout-align="space-between center" layout="row">
+												<div class="chart" layout="row">
+																<div layout-align="" layout="column">
+																				<div class="title" layout-align="center center" layout="row">Rank</div>
+																				<div layout="row">
+																								<circlegraph ng-model="current"></circlegraph>
+																				</div>
+<!--<div class="data" layout="row">
+						<div class="value" layout="column" layout-align="center center">{{current.rank || 0}}/{{ epi.length }}</div>
+					</div>-->
+																</div>
+																<div class="tendency" layout-align="center center" layout="column" ng-class="{active:current}">
+																				<div>&nbsp;</div>
+																				<ng-md-icon class="icon-space" icon="{{getTendency()}}" options='{"rotation": "none"}'></ng-md-icon>
+																</div>
+												</div>
+												<div class="mini-list">
+																<div class="title">
+																				<span ng-if="!current.id">Top</span>
+																				<span ng-if="current.id">Actual</span>
+																</div>
+																<div class="list">
+																				<ul style="transform:translateY(-{{getOffset()}}px)">
+																								<li ng-class="{active: nat.id == current.id}" ng-click="setCurrent(nat)" ng-repeat="nat in epi | orderBy:'+rank'">
+																												<span class="number">{{nat.rank}}.</span>
+																												<span class="value">{{nat.alpha3Code}}</span>
+																												<md-tooltip md-delay="700" md-direction="right">
+																																{{nat.country}}
+																												</md-tooltip>
+																								</li>
+																				</ul>
+																</div>
+												</div>
+												<div class="mini-list">
+																<div class="title">Bottom</div>
+																<div class="list">
+																				<ul>
+																								<li ng-click="setCurrent(nat)" ng-repeat="nat in epi | orderBy:'-rank' | limitTo:3">
+																												<span class="number">{{nat.rank}}.</span>
+																												<span class="value">{{nat.alpha3Code}}</span>
+																												<md-tooltip md-delay="700" md-direction="right">
+																																{{nat.country}}
+																												</md-tooltip>
+																								</li>
+																				</ul>
+																</div>
+												</div>
+								</div>
+								<div class="module">
+												<median data="epi" ng-model="current"></median>
+								</div>
+<!--<div class="median module">
+			<div class="gradient">
+				<div class="min value" layout="column" layout-align="center center">0</div>
+				<div class="actual value" ng-if="current" layout="column" ng-style="{'left':(current.score || 0)+'%'}" layout-align="center center">{{ current.score | number:0 || 0 }}</div>
+				<div class="max value" layout="column" layout-align="center center">100</div>
+			</div>
+			<div class="title">median</div>
+		</div>
+		<!--<div class="history module">
       <canvas id="line" class="chart chart-line" chart-data="data" chart-labels="labels"  chart-legend="false" chart-series="series" chart-click="onClick" >
       </canvas>
     </div>-->
-    <div class="module bubbles">
-      <bubbles chartdata="current" width="340" height="340" sizefactor="3"></bubbles>
-    </div>
-    <div class="action module" layout="row" layout-align="center center">
-       <md-button class="md-raised" ng-disabled="true">click on a country</md-button>
-    </div>
-    <div class="action module" layout="row" layout-align="center center">
-      or
-    </div>
-    <div class="action module" layout="row" layout-align="center center">
-      <md-input-container>
-        <label>choose from list</label>
-        <md-select ng-model="current">
-          <md-option ng-repeat="nat in epi | orderBy:'+country' " ng-value="{{nat}}">{{nat.country}}</md-option>
-        </md-select>
-      </md-input-container>
-    </div>
-    <div class="close-it">
-      <ng-md-icon icon="close"></ng-md-icon>
-    </div>
-    <!--<div class="country_list md-whiteframe-z1">
+                <div class="module bubbles anim-height" ng-if="current" >
+                  <h3 class="eh">Environmental Health</h3>
+                  <bubbles chartdata="current" width="340" height="340" sizefactor="3"></bubbles>
+                  <h3 class="ev">Environmental Validity</h3>
+                </div>
+								<div class="action module" layout-align="center center" layout="row">
+												<md-button class="md-raised" ng-disabled="true">click on a country</md-button>
+								</div>
+								<div class="action module" layout-align="center center" layout="row">
+												or
+								</div>
+								<div class="action module" layout-align="center center" layout="row">
+												<md-input-container>
+																<label>choose from list</label>
+																<md-select ng-model="current">
+																				<md-option ng-repeat="nat in epi | orderBy:'+country' " ng-value="{{nat}}">{{nat.country}}</md-option>
+																</md-select>
+												</md-input-container>
+								</div>
+								<div class="close-it" ng-click="toggleOpen()">
+												<ng-md-icon icon="{{closeIcon}}"></ng-md-icon>
+								</div>
+<!--<div class="country_list md-whiteframe-z1">
       <md-content>
         <md-subheader layout="row" layout-align="space-between center">
           <span>Countries</span>
@@ -105,7 +108,7 @@
     <div class="close-it">
 
     </div>-->
-  </div>
-  </div>
+				</div>
+</div>
 
 </div>
