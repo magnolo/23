@@ -88,35 +88,39 @@
 }
 
 .info-container {
-  width: 340px;
-  background-color: #fff;
-  margin-left: 2em;
-  margin-top: 40px;
-  padding: 2em;
   line-height: 1em;
-  left: 0;
+  left: 1em;
+  top: 1em;
   position: absolute;
   color: #afafaf;
   transition: all 0.25s ease-in;
   -webkit-transform: translateX(0);
   transform: translateX(0);
 }
-.info-container.closed {
+.info-container .info-box {
+  background-color: #fff;
+  margin-left: 1em;
+  margin-top: 1em;
+  padding: 2em;
+  position: relative;
+}
+.info-container .info-box.closed {
   -webkit-transform: translateX(-100%);
   transform: translateX(-100%);
 }
-.info-container:hover.closed {
+.info-container .info-box:hover.closed {
   -webkit-transform: translateX(-95%);
   transform: translateX(-95%);
 }
-.info-container:hover.closed .close-it {
+.info-container .info-box:hover.closed .close-it {
   width: 100%;
 }
-.info-container .header {
+.info-container .info-box .header {
   padding: 0.5em;
-  border-bottom: 1px solid #606060;
+  padding-bottom: 1em;
+  border-bottom: 1px solid #d7dddd;
 }
-.info-container .header .title {
+.info-container .info-box .header .title {
   font-weight: normal;
   color: #006bb9;
   padding: 0;
@@ -124,20 +128,36 @@
   line-height: 0.8em;
   font-size: 2em;
 }
-.info-container .header .subtitle {
+.info-container .info-box .header .subtitle {
   color: #006bb9;
   line-height: 1em;
 }
-.info-container .header .info-icon {
+.info-container .info-box .header .info-icon {
   cursor: pointer;
 }
-.info-container .header .info-icon * {
+.info-container .info-box .header .info-icon * {
   fill: #d7dddd;
 }
-.info-container .header .info-icon:hover * {
+.info-container .info-box .header .info-icon:hover * {
   fill: #006bb9;
 }
-.info-container .close-it {
+.info-container .info-box .header.info {
+  border: 0;
+  padding: 0.5em;
+  padding-top: 0px;
+}
+.info-container .info-box .header.info .title {
+  line-height: 1.2em;
+}
+.info-container .info-box .header.info .md-button {
+  margin: 0px;
+  margin-right: -0.5em;
+}
+.info-container .info-box .header.center .title {
+  margin-top: 0.5em;
+  font-size: 1.8em;
+}
+.info-container .info-box .close-it {
   position: absolute;
   top: 0;
   right: 0;
@@ -146,121 +166,63 @@
   padding: 0.5em;
   height: 100%;
 }
-.info-container .close-it * {
+.info-container .info-box .close-it * {
   fill: #d7dddd;
 }
-.info-container .close-it:hover * {
+.info-container .info-box .close-it:hover * {
   fill: #afafaf;
 }
-.info-container .module {
-  margin: 1.5em 0;
+.info-container .info-box .module {
+  margin: 1em 0;
 }
-.info-container .module.rank .chart {
+.info-container .info-box .module.rank .chart {
   color: #333333;
 }
-.info-container .module.rank .chart .title {
+.info-container .info-box .module.rank .chart .title {
   margin-bottom: 0.5em;
 }
-.info-container .module.rank .chart .data .value {
+.info-container .info-box .module.rank .chart .data .value {
   border: 2px solid #00ccaa;
   border-radius: 50%;
   height: 80px;
   width: 80px;
 }
-.info-container .module.rank .chart .tendency path {
+.info-container .info-box .module.rank .chart .tendency path {
   fill: #d7dddd;
 }
-.info-container .module.rank .chart .tendency.active path {
+.info-container .info-box .module.rank .chart .tendency.active path {
   fill: #00ccaa;
 }
-.info-container .module.rank .mini-list {
+.info-container .info-box .module.rank .mini-list {
   font-size: 0.9em;
 }
-.info-container .module.rank .mini-list .title {
+.info-container .info-box .module.rank .mini-list .title {
   margin-bottom: 0.5em;
 }
-.info-container .module.rank .mini-list .list {
+.info-container .info-box .module.rank .mini-list .list {
   height: 3.5em;
   overflow: hidden;
 }
-.info-container .module.rank .mini-list .list ul {
+.info-container .info-box .module.rank .mini-list .list ul {
   transition: all 0.5s ease-out;
   padding: 0;
   margin: 0;
 }
-.info-container .module.rank .mini-list .list ul li {
+.info-container .info-box .module.rank .mini-list .list ul li {
   list-style-type: none;
   cursor: pointer;
   transition: all 0.5s ease-out;
 }
-.info-container .module.rank .mini-list .list ul li.active {
+.info-container .info-box .module.rank .mini-list .list ul li.active {
   color: #00ccaa;
 }
-.info-container .module.rank .mini-list .list ul li .number {
+.info-container .info-box .module.rank .mini-list .list ul li .number {
   margin-right: 0.5em;
 }
-.info-container .module.median {
-  position: relative;
+.info-container .info-box .module:last-child {
+  margin-bottom: 0px;
 }
-.info-container .module.median .title {
-  margin: 0.5em;
-  text-align: center;
-}
-.info-container .module.median .gradient {
-  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,22ea9d+53,000000+100 */
-  background: #ffffff;
-  /* Old browsers */
-  /* FF3.6+ */
-  /* Chrome,Safari4+ */
-  /* Chrome10+,Safari5.1+ */
-  /* Opera 11.10+ */
-  /* IE10+ */
-  background: linear-gradient(to right, #ffffff 0%, #22ea9d 53%, #000000 100%);
-  /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#000000', GradientType=1);
-  /* IE6-9 */
-  opacity: 0.6;
-  border-radius: 1.75em;
-  position: relative;
-  width: 100%;
-  height: 2.5em;
-}
-.info-container .module.median .gradient::after {
-  content: '';
-  position: absolute;
-  width: 1px;
-  height: 100%;
-  left: 50%;
-  border-left: 1px dashed #606060;
-}
-.info-container .module.median .gradient .value {
-  height: 2.5em;
-  width: 2.5em;
-  border-radius: 50%;
-  position: absolute;
-  top: 0;
-  color: #fff;
-}
-.info-container .module.median .gradient .value.max {
-  border: 1px solid;
-  right: 0;
-  color: #fff;
-}
-.info-container .module.median .gradient .value.min {
-  color: #606060;
-}
-.info-container .module.median .gradient .value.actual {
-  color: #000;
-  transition: all 0.5s ease-out;
-  background-color: #00ccaa;
-  left: 0;
-  margin-left: -1.25em;
-  z-index: 1;
-}
-.info-container .module:last-child {
-  margin-bottom: 0;
-}
-.info-container .country_list {
+.info-container .info-box .country_list {
   position: absolute;
   left: 100%;
   top: 0;
@@ -269,8 +231,45 @@
   overflow-y: auto;
   width: 300px;
 }
-.info-container .country_list md-content {
+.info-container .info-box .country_list md-content {
   height: 100%;
+}
+.info-container .info-box .md-button {
+  border-radius: 20px;
+  padding: 0 30px;
+  text-transform: none;
+  border: 1px solid;
+}
+.info-container .info-box .md-ripple-container {
+  border-radius: 20px;
+}
+
+.leaflet-top {
+  top: 1em;
+  left: auto;
+  right: 1em;
+  z-index: 2;
+}
+.leaflet-top .leaflet-control-zoom.leaflet-bar {
+  margin-right: 1em;
+  margin-left: 0px;
+}
+.leaflet-top .leaflet-control-zoom.leaflet-bar a {
+  width: 32px;
+  height: 32px;
+  line-height: 32px;
+  font-family: Georgia;
+  font-size: 2em;
+  font-weight: normal;
+}
+.leaflet-top .leaflet-control-zoom.leaflet-bar a:first-child {
+  border-radius: 0px;
+}
+.leaflet-top .leaflet-control-zoom.leaflet-bar a:last-child {
+  border-radius: 0px;
+}
+.leaflet-right .leaflet-control {
+  display: none;
 }
 
 .md-toolbar-tools {
@@ -357,6 +356,39 @@ body {
   width: 100%;
   left: 0;
 }
+.icon-bubble {
+  background-color: #d7dddd;
+  color: #fff;
+  border-radius: 50%;
+  font-size: 4em;
+}
+.icon-bubble.fisheries {
+  background-color: #008c8c;
+}
+.icon-bubble.healthimpact {
+  background-color: #ff9600;
+}
+.icon-bubble.airquality {
+  background-color: #f7c80b;
+}
+.icon-bubble.watersanitation {
+  background-color: #ff6d24;
+}
+.icon-bubble.waterresources {
+  background-color: #7993f2;
+}
+.icon-bubble.agriculture {
+  background-color: #009bcc;
+}
+.icon-bubble.forest {
+  background-color: #2e74ba;
+}
+.icon-bubble.biodiversity {
+  background-color: #00ccaa;
+}
+.icon-bubble.climate {
+  background-color: #1cb85d;
+}
 
 md-toast[md-theme=warn] {
   background-color: #F44336;
@@ -379,6 +411,53 @@ md-toast[md-theme=warn] {
   top: 0px;
 }
 
+md-toolbar.md-menu-toolbar {
+  background-color: #ffffff;
+  color: rgba(0, 0, 0, 0.87);
+}
+md-toolbar.md-menu-toolbar md-button {
+  color: rgba(0, 0, 0, 0.87);
+}
+md-toolbar.md-menu-toolbar md-toolbar-filler {
+  background-color: #106cc8;
+  color: rgba(255, 255, 255, 0.87);
+}
+md-toolbar.md-menu-toolbar h2.md-toolbar-tools {
+  height: auto;
+  line-height: 1rem;
+  padding: 28px 28px 12px;
+}
+md-menu-bar md-menu.md-open > button,
+md-menu-bar md-menu > button:focus {
+  background: #eeeeee none repeat scroll 0 0;
+  outline: medium none;
+}
+md-menu-bar button {
+  background-color: transparent;
+  border: 0 none;
+  font-size: 14px;
+  height: 40px;
+  margin: 0;
+  padding: 0 10px;
+}
+md-menu-bar {
+  display: block;
+  padding: 0 20px;
+  position: relative;
+  z-index: 2;
+}
+.editContent .page-container {
+  background-color: #f1f1f1;
+  padding: 32px;
+}
+.editContent .page {
+  background-color: white;
+  box-shadow: 0 1px 2px 1px rgba(0, 0, 0, 0.25);
+  margin: 0 auto;
+  max-width: 680px;
+  padding: 24px;
+}
+
 
 
 #Map_Container {
@@ -396,14 +475,30 @@ md-toast[md-theme=warn] {
 }
 .country_info {
   background-color: #fff;
-  padding: 10px;
-  padding-right: 20px;
+  padding: 00px;
+  padding-right: 00px;
   position: fixed;
   bottom: 20px;
   right: 00px;
 }
 
 
+
+.Dashboard-Container li {
+  line-height: 26px;
+}
+
+[ui-view].ng-enter,
+[ui-view].ng-leave {
+  transition: opacity ease-in-out 200ms;
+}
+[ui-view].ng-enter,
+[ui-view].ng-leave.ng-leave-active {
+  opacity: 0;
+}
+[ui-view].ng-enter.ng-enter-active {
+  opacity: 1;
+}
 
 .Sidebar {
   position: fixed !important;
@@ -448,22 +543,6 @@ md-toast[md-theme=warn] {
   color: white;
 }
 
-.Dashboard-Container li {
-  line-height: 26px;
-}
-
-[ui-view].ng-enter,
-[ui-view].ng-leave {
-  transition: opacity ease-in-out 200ms;
-}
-[ui-view].ng-enter,
-[ui-view].ng-leave.ng-leave-active {
-  opacity: 0;
-}
-[ui-view].ng-enter.ng-enter-active {
-  opacity: 1;
-}
-
 
 
 .bubbles {
@@ -484,6 +563,9 @@ md-toast[md-theme=warn] {
 .bubbles h3.ev {
   color: #006bb6;
   bottom: 1em;
+}
+.node {
+  cursor: pointer;
 }
 .tooltip {
   position: fixed;
@@ -523,6 +605,7 @@ md-toast[md-theme=warn] {
 .tooltip .close-it:hover {
   color: rgba(0, 0, 0, 0.87);
 }
+
 
 
 

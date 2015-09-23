@@ -50,7 +50,7 @@
 				var svg = d3.select(element[0]).append("svg")
 					.attr("width", options.width)
 					.attr("height", options.height + options.margin.top + options.margin.bottom)
-					.append("g")
+					.append("g");
 					//.attr("transform", "translate(0," + options.margin.top / 2 + ")");
 				var gradient = svg.append('svg:defs')
 					.append("svg:linearGradient")

@@ -16,7 +16,7 @@
 			lng: 0,
 			zoom: 3
 		};*/
-		angular.extend($scope, {
+		angular.extend($rootScope, {
 			center: {
 				lat: 0,
 				lng: 0,

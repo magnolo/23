@@ -25,5 +25,8 @@ Route::group(['prefix' => 'api/1/'], function () {
 
     Route::post('test/sample', 'WelcomeController@sample');
     Route::get('epi', 'EpiController@index');
+    Route::get('epi/year/{year}', 'EpiController@showByYear');
+    Route::get('nations', 'NationsController@index');
+    Route::get('nations/{iso}', 'NationsController@show');
 
 });

@@ -1,0 +1,13 @@
+<md-dialog aria-label="List dialog">
+             <md-dialog-content>
+               <ng-csv-import content="csv.content"
+                   header="csv.header"
+                   separator="csv.separator"
+                   result="csv.result"></ng-csv-import>
+            </md-dialog-content>
+            <div class="md-actions">'
+               <md-button ng-click="closeDialog()" class="md-primary">
+                 Close Dialog
+              </md-button>
+             </div>
+           </md-dialog>

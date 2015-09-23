@@ -259,7 +259,7 @@
 						.attr("d", arcBottom)
 						.attr("fill", "#006bb6")
 						.attr("transform", "translate(170,180)");
-					options.containers = options.vis.selectAll('g.node').data(nodes).enter().append('g').attr('transform', 'translate(' + (options.width / 2) + ',' + (options.height / 2) + ')');
+					options.containers = options.vis.selectAll('g.node').data(nodes).enter().append('g').attr('transform', 'translate(' + (options.width / 2) + ',' + (options.height / 2) + ')').attr('class', 'node');
 
 					/*options.circles = options.containers.selectAll("circle").data(nodes, function (d) {
 						return d.id;

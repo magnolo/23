@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -53,6 +54,12 @@ class EpiController extends Controller
         //
     }
 
+    public function showByYear($year)
+    {
+        //
+        return EPI::where('year', $year)->orderBy('score', 'desc')->get();
+
+    }
     /**
      * Show the form for editing the specified resource.
      *

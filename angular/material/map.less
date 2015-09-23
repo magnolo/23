@@ -1,0 +1,33 @@
+.leaflet-top{
+
+  top: 1em;
+  left:auto;
+  right:1em;
+  z-index:2;
+  .leaflet-control-zoom{
+      &.leaflet-bar{
+        margin-right:1em;
+        margin-left:0px;
+        a{
+          width: 32px;
+    height: 32px;
+    line-height: 32px;
+    font-family: Georgia;
+    font-size:2em;
+    font-weight: normal;
+          &:first-child{
+            border-radius: 0px;
+          }
+          &:last-child{
+            border-radius: 0px;
+          }
+        }
+      }
+  }
+}
+.leaflet-right{
+
+   .leaflet-control{
+      display:none;
+   }
+ }

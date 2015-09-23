@@ -1,228 +1,209 @@
 @import (less) 'colors.less';
+
 .info-container {
-    width: 340px;
-    background-color: #fff;
-    margin-left: 2em;
-    margin-top: 40px;
-    padding: 2em;
     line-height: 1em;
-    left: 0;
+    left: 1em;
+    top: 1em;
     position: absolute;
     color: @grey;
     transition: all 0.25s ease-in;
     transform: translateX(0);
-    &.closed {
-        transform: translateX(-100%);
-    }
 
-&:hover {
+    .info-box {
+        background-color: #fff;
+        margin-left: 1em;
+        margin-top: 1em;
+        padding: 2em;
+        position: relative;
+
         &.closed {
-            transform: translateX(-95%);
-            .close-it {
-                width: 100%;
+            transform: translateX(-100%);
+        }
+
+        &:hover {
+            &.closed {
+                transform: translateX(-95%);
+
+                .close-it {
+                    width: 100%;
+                }
             }
         }
-    }
 
-.header {
-        padding: 0.5em;
-        .title {
-            font-weight: normal;
-            color: @base;
-            padding: 0;
-            margin: 0;
-            line-height: 0.8em;
-            font-size: 2em;
+        .header {
+            padding: 0.5em;
+            padding-bottom:1em;
+
+            .title {
+                font-weight: normal;
+                color: @base;
+                padding: 0;
+                margin: 0;
+                line-height: 0.8em;
+                font-size: 2em;
+            }
+
+            .subtitle {
+                color: @base;
+                line-height: 1em;
+            }
+
+            .info-icon {
+                cursor: pointer;
+
+                * {
+                    fill: @grey-light;
+                }
+
+                &:hover {
+                    * {
+                        fill: @base;
+                    }
+                }
+            }
+            border-bottom: 1px solid @grey-light;
+
+            &.info {
+                border: 0;
+                padding: 0.5em;
+                padding-top:0px;
+
+                .title {
+                    line-height: 1.2em;
+                }
+
+                .md-button {
+                    margin:0px;
+                    margin-right: -0.5em;
+                }
+            }
+            &.center{
+              .title{
+                margin-top:0.5em;
+                font-size:1.8em;
+              }
+            }
         }
 
-.subtitle {
-            color: @base;
-            line-height: 1em;
-        }
-
-.info-icon {
+        .close-it {
+            position: absolute;
+            top: 0;
+            right: 0;
+            transition: all 0.25s ease;
             cursor: pointer;
+            padding: 0.5em;
+            height: 100%;
+
             * {
                 fill: @grey-light;
             }
 
-&:hover {
+            &:hover {
                 * {
-                    fill: @base;
+                    fill: @grey;
                 }
             }
         }
 
-border-bottom: 1px solid @main-color;
-    }
+        .module {
+            margin: 1em 0;
 
-.close-it {
-        position: absolute;
-        top: 0;
-        right: 0;
-        transition: all 0.25s ease;
-        cursor: pointer;
-        padding: 0.5em;
-        height: 100%;
-        * {
-            fill: @grey-light;
-        }
+            &.rank {
+                .chart {
+                    color: @dark-color;
 
-&:hover {
-            * {
-                fill: @grey;
-            }
-        }
-    }
-
-.module {
-        margin: 1.5em 0;
-        &.rank {
-            .chart {
-                color: @dark-color;
-                .title {
-                    margin-bottom: 0.5em;
-                }
-
-.data {
-                    .value {
-                        border: 2px solid @green;
-                        border-radius: 50%;
-                        height: 80px;
-                        width: 80px;
-                    }
-                }
-
-.tendency {
-                    path {
-                        fill: @grey-light;
+                    .title {
+                        margin-bottom: 0.5em;
                     }
 
-&.active {
+                    .data {
+                        .value {
+                            border: 2px solid @green;
+                            border-radius: 50%;
+                            height: 80px;
+                            width: 80px;
+                        }
+                    }
+
+                    .tendency {
                         path {
-                            fill: @green;
+                            fill: @grey-light;
+                        }
+
+                        &.active {
+                            path {
+                                fill: @green;
+                            }
                         }
                     }
                 }
-            }
 
-.mini-list {
-                font-size: 0.9em;
-                .title {
-                    margin-bottom: 0.5em;
-                }
+                .mini-list {
+                    font-size: 0.9em;
 
-.list {
-                    height: 3.5em;
-                    overflow: hidden;
-                    ul {
-                        transition: all 0.5s ease-out;
-                        padding: 0;
-                        margin: 0;
-                        li {
-                            list-style-type: none;
-                            cursor: pointer;
+                    .title {
+                        margin-bottom: 0.5em;
+                    }
+
+                    .list {
+                        height: 3.5em;
+                        overflow: hidden;
+
+                        ul {
                             transition: all 0.5s ease-out;
-                            &.active {
-                                color: @green;
-                            }
+                            padding: 0;
+                            margin: 0;
 
-.number {
-                                margin-right: 0.5em;
-                            }
+                            li {
+                                list-style-type: none;
+                                cursor: pointer;
+                                transition: all 0.5s ease-out;
 
-.value {
+                                &.active {
+                                    color: @green;
+                                }
 
+                                .number {
+                                    margin-right: 0.5em;
+                                }
+
+                                .value {
+
+                                }
                             }
                         }
                     }
                 }
             }
-        }
+            &:last-child{
+              margin-bottom:0px;
 
-&.median {
-            position: relative;
-            .title {
-                margin: 0.5em;
-                text-align: center;
-            }
-
-.gradient {
-                /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,22ea9d+53,000000+100 */
-                background: rgb(255,255,255);
-                /* Old browsers */
-                background: -moz-linear-gradient(left, rgba(255,255,255,1) 0%, rgba(34,234,157,1) 53%, rgba(0,0,0,1) 100%);
-                /* FF3.6+ */
-                background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(255,255,255,1)), color-stop(53%,rgba(34,234,157,1)), color-stop(100%,rgba(0,0,0,1)));
-                /* Chrome,Safari4+ */
-                background: -webkit-linear-gradient(left, rgba(255,255,255,1) 0%,rgba(34,234,157,1) 53%,rgba(0,0,0,1) 100%);
-                /* Chrome10+,Safari5.1+ */
-                background: -o-linear-gradient(left, rgba(255,255,255,1) 0%,rgba(34,234,157,1) 53%,rgba(0,0,0,1) 100%);
-                /* Opera 11.10+ */
-                background: -ms-linear-gradient(left, rgba(255,255,255,1) 0%,rgba(34,234,157,1) 53%,rgba(0,0,0,1) 100%);
-                /* IE10+ */
-                background: linear-gradient(to right, rgba(255,255,255,1) 0%,rgba(34,234,157,1) 53%,rgba(0,0,0,1) 100%);
-                /* W3C */
-                filter:progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#000000',GradientType=1 );
-                /* IE6-9 */
-                opacity: 0.6;
-                border-radius: 1.75em;
-                position: relative;
-                width: 100%;
-                height: 2.5em;
-                &::after {
-                    content: '';
-                    position: absolute;
-                    width: 1px;
-                    height: 100%;
-                    left: 50%;
-                    border-left: 1px dashed @main-color;
-                }
-
-.value {
-                    height: 2.5em;
-                    width: 2.5em;
-                    border-radius: 50%;
-                    position: absolute;
-                    top: 0;
-                    color: #fff;
-                    &.max {
-                        border: 1px solid;
-                        right: 0;
-                        color: #fff;
-                    }
-
-&.min {
-                        color: @main-color;
-                    }
-
-&.actual {
-                        color: #000;
-                        transition: all 0.5s ease-out;
-                        background-color: @green;
-                        left: 0;
-                        margin-left: -1.25em;
-                        z-index: 1;
-                    }
-                }
             }
         }
 
-&:last-child {
-            margin-bottom: 0;
-        }
-    }
-
-.country_list {
-        position: absolute;
-        left: 100%;
-        top: 0;
-        height: 100%;
-        background-color: #fff;
-        overflow-y: auto;
-        width: 300px;
-        md-content {
+        .country_list {
+            position: absolute;
+            left: 100%;
+            top: 0;
             height: 100%;
+            background-color: #fff;
+            overflow-y: auto;
+            width: 300px;
+
+            md-content {
+                height: 100%;
+            }
+        }
+
+        .md-button {
+            border-radius: 20px;
+            padding: 0 30px;
+            text-transform: none;
+            border: 1px solid;
+        }
+
+        .md-ripple-container {
+            border-radius: 20px;
         }
     }
 }
