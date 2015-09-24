@@ -12,10 +12,13 @@
 			 score_field_name: 'score',
 			 change_field_name: 'percent_change',
 			 order_field: 'year',
+			 countries_id_field: 'country_id',
+			 countries_iso_field: 'iso',
 			 data_tree:[{
 				 column_name: 'eh',
 				 title: 'Enviromental Health',
 				 range:[0, 100],
+				 weigth: 40,
 				 icon:'',
 				 color:'',
 				 children:[{
@@ -80,6 +83,7 @@
 				 column_name: 'ev',
 				 title: 'Enviromental Validity',
 				 range:[0, 100],
+				 weight:60,
 				 icon:'',
 				 color:'',
 				 children:[{
