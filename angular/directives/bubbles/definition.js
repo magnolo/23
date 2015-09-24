@@ -4,11 +4,6 @@
 	function CustomTooltip(tooltipId, width) {
 		var tooltipId = tooltipId;
 		angular.element(document).find('body').append("<div class='tooltip md-whiteframe-z3' id='" + tooltipId + "'></div>");
-
-		/*if (width) {
-		  //$("#" + tooltipId).css("width", width);
-		}*/
-
 		hideTooltip();
 
 		function showTooltip(content, data, event) {
@@ -66,7 +61,9 @@
 				chartdata: '=',
 				direction: '=',
 				gravity: '=',
-				sizefactor: '='
+				sizefactor: '=',
+				indexer:'=',
+				connect: '='
 			},
 			link: function (scope, elem, attrs) {
 				var options = angular.extend(defaults(), attrs);
@@ -95,146 +92,23 @@
 					}
 				};
 				var create_nodes = function () {
-					nodes = [{
-						id: 1,
-						type: 'eh_hi',
-						radius: scope.chartdata.eh_hi / scope.sizefactor,
-						value: scope.chartdata.eh_hi / scope.sizefactor,
-						name: 'Health Impact',
-						group: 'eh',
-						x: options.center.x,
-						y: options.center.y,
-						color: '#ff9600',
-						icon: 'man',
-						unicode: '\ue605'
-					}, {
-						id: 2,
-						type: 'eh_aq',
-						radius: scope.chartdata.eh_aq / scope.sizefactor,
-						value: scope.chartdata.eh_aq / scope.sizefactor,
-						name: 'Air Quality',
-						group: 'eh',
-						x: options.center.x,
-						y: options.center.y,
-						color: '#f7c80b',
-						icon: 'sink',
-						unicode: '\ue606'
-					}, {
-						id: 3,
-						type: 'eh_ws',
-						radius: scope.chartdata.eh_ws / scope.sizefactor,
-						value: scope.chartdata.eh_ws / scope.sizefactor,
-						name: 'Water Sanitation',
-						group: 'eh',
-						x: options.center.x,
-						y: options.center.y,
-						color: '#ff6d24',
-						icon: 'fabric',
-						unicode: '\ue604'
-					}, {
-						id: 4,
-						type: 'ev_wr',
-						radius: scope.chartdata.ev_wr / scope.sizefactor,
-						value: scope.chartdata.ev_wr / scope.sizefactor,
-						name: 'Water Resources',
-						group: 'ev',
-						x: options.center.x,
-						y: options.center.y,
-						color: '#7993f2',
-						icon: 'water',
-						unicode: '\ue608'
-					}, {
-						id: 5,
-						type: 'ev_ag',
-						radius: scope.chartdata.ev_ag / scope.sizefactor,
-						value: scope.chartdata.ev_ag / scope.sizefactor,
-						name: 'Agriculture',
-						group: 'ev',
-						x: options.center.x,
-						y: options.center.y,
-						color: '#009bcc',
-						icon: 'agrar',
-						unicode: '\ue600'
-					}, {
-						id: 6,
-						type: 'ev_fo',
-						radius: scope.chartdata.ev_fo / scope.sizefactor,
-						value: scope.chartdata.ev_fo / scope.sizefactor,
-						name: 'Forest',
-						group: 'ev',
-						x: options.center.x,
-						y: options.center.y,
-						color: '#2e74ba',
-						icon: 'tree',
-						unicode: '\ue607'
-					}, {
-						id: 7,
-						type: 'ev_fi',
-						radius: scope.chartdata.ev_fi / scope.sizefactor,
-						value: scope.chartdata.ev_fi / scope.sizefactor,
-						name: 'Fisheries',
-						group: 'ev',
-						x: options.center.x,
-						y: options.center.y,
-						color: '#008c8c',
-						icon: 'anchor',
-						unicode: '\ue601'
-					}, {
-						id: 8,
-						type: 'ev_bd',
-						radius: scope.chartdata.ev_bd / scope.sizefactor,
-						value: scope.chartdata.ev_bd / scope.sizefactor,
-						name: 'Biodiversity and Habitat',
-						group: 'ev',
-						x: options.center.x,
-						y: options.center.y,
-						color: '#00ccaa',
-						icon: 'butterfly',
-						unicode: '\ue602'
-					}, {
-						id: 9,
-						type: 'ev_ce',
-						radius: scope.chartdata.ev_ce / scope.sizefactor,
-						value: scope.chartdata.ev_ce / scope.sizefactor,
-						name: 'Climate and Energy',
-						group: 'ev',
-						x: options.center.x,
-						y: options.center.y,
-						color: '#1cb85d',
-						icon: 'energy',
-						unicode: '\ue603'
-					}];
-					/*scope.chartdata.forEach((function (_this) {
-
-						return function (d) {
-							var node;
-							node = {
-								id: d.id,
-								radius: d.value,
-								value: d.value,
-								name: d.name,
-								org: 'bla',
-								group: d.group,
-								//year: d.start_year,
+					angular.forEach(scope.indexer.data_tree, function(group){
+						angular.forEach(group.children, function(item){
+							nodes.push({
+								type: item.column_name,
+								radius: scope.chartdata[item.column_name] / scope.sizefactor,
+								value: scope.chartdata[item.column_name] / scope.sizefactor,
+								name:item.title,
+								group: group.column_name,
 								x: options.center.x,
-								y: options.center.y
-							};
-							return nodes.push(node);
-
-						};
-					})(this));
-					return nodes.sort(function (a, b) {
-						return b.value - a.value;
+								y: options.center.y,
+								color:item.color,
+								icon:item.icon,
+								unicode: item.unicode,
+								data: item
+							});
+						});
 					});
-					links = [
-						{source:0, target:1},
-						{source:0, target:2},
-						{source:0, target:3},
-						{source:4, target:5},
-						{source:4, target:6},
-						{source:4, target:7},
-						{source:4, target:8}
-					]*/
 				};
 				var create_vis = function () {
 					angular.element(elem).html('');
@@ -286,11 +160,12 @@
 						return show_details(d, i, this);
 					}).on("mouseout", function (d, i) {
 						return hide_details(d, i, this);
+					}).on("click", function(d, i){
+						console.log(scope.connect);
+						scope.connect = d;
+						console.log(scope.connect);
+						scope.$apply();
 					});
-					/*options.tooltips = options.containers.append('md-tooltip').html('Photos');
-					options.tooltips.call(function () {
-						$compile(this[0].parentNode)(scope);
-					});*/
 					options.circles.transition().duration(options.duration).attr("r", function (d) {
 						return d.radius;
 					});
@@ -324,7 +199,7 @@
 				var start = function () {
 					return options.force = d3.layout.force().nodes(nodes).size([options.width, options.height]).links(links);
 				};
-				/*var display_group_all = function () {
+				var display_group_all = function () {
 					options.force.gravity(options.layout_gravity).charge(charge).friction(0.9).on("tick", function (e) {
 						return options.circles.each(move_towards_center(e.alpha)).attr('cx', function (d) {
 							return d.x;
@@ -333,19 +208,14 @@
 						})
 					});
 					options.force.start();
-					//return this.hide_years();
-				};*/
+				};
 				var display_by_cat = function () {
 					options.force.gravity(options.layout_gravity).charge(charge).friction(0.9).on("tick", function (e) {
 						options.containers.each(move_towards_cat(e.alpha)).attr("transform", function (d) {
 							return 'translate(' + d.x + ',' + d.y + ')';
 						});
-						/*options.icons.each(move_towards_cat(e.alpha)).attr("transform", function (d) {
-							return "translate(" + (d.x) + ", " + (d.y) + ")";
-						});*/
 					});
 					options.force.start();
-					//return this.display_years();
 				};
 				var move_towards_center = function (alpha) {
 					return (function (_this) {
@@ -375,12 +245,10 @@
 				};
 				var show_details = function (data, i, element) {
 					var content;
-					//d3.select(element).attr("stroke", "black");
 					content = "<span class=\"title\">" + data.name + ":</span><br/>";
-					//content +='<div class="close-it" ng-click="options.tooltip.hideTooltip()"><ng-md-icon size="12" icon="close"></ng-md-icon></div>';
-					//content += "<span class=\"name\">Value:</span><span class=\"value\"> " + (addCommas(data.value)) + "</span><br/>";
-					//content += "<span class=\"name\">Year:</span><span class=\"value\"> " + data.value + "</span>";
-
+					angular.forEach(data.data.children, function(info){
+						content += "<span class=\"name\" style=\"color:"+(info.color || data.color)+"\"> " + (info.title) + "</span><br/>";
+					});
 					$compile(options.tooltip.showTooltip(content, data, d3.event).contents())(scope);
 				};
 
@@ -388,19 +256,16 @@
 					return options.tooltip.hideTooltip();
 				};
 
-
 				scope.$watch('chartdata', function (data, oldData) {
 					options.tooltip.hideTooltip();
 					if (options.circles == null) {
-						create_nodes();
+						create_nodes(); 
 						create_vis();
 						start();
 					} else {
 						update_vis();
 					}
-
 					display_by_cat();
-					//$compile(elem)(scope);
 				});
 
 				scope.$watch('direction', function (oldD, newD) {

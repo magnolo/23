@@ -460,6 +460,7 @@ md-menu-bar {
 
 
 
+
 #Map_Container {
   height: calc(100% - 165px);
 }
@@ -480,24 +481,6 @@ md-menu-bar {
   position: fixed;
   bottom: 20px;
   right: 00px;
-}
-
-
-
-.Dashboard-Container li {
-  line-height: 26px;
-}
-
-[ui-view].ng-enter,
-[ui-view].ng-leave {
-  transition: opacity ease-in-out 200ms;
-}
-[ui-view].ng-enter,
-[ui-view].ng-leave.ng-leave-active {
-  opacity: 0;
-}
-[ui-view].ng-enter.ng-enter-active {
-  opacity: 1;
 }
 
 .Sidebar {
@@ -541,6 +524,23 @@ md-menu-bar {
 }
 .Sidebar-version a {
   color: white;
+}
+
+
+.Dashboard-Container li {
+  line-height: 26px;
+}
+
+[ui-view].ng-enter,
+[ui-view].ng-leave {
+  transition: opacity ease-in-out 200ms;
+}
+[ui-view].ng-enter,
+[ui-view].ng-leave.ng-leave-active {
+  opacity: 0;
+}
+[ui-view].ng-enter.ng-enter-active {
+  opacity: 1;
 }
 
 
@@ -605,7 +605,6 @@ md-menu-bar {
 .tooltip .close-it:hover {
   color: rgba(0, 0, 0, 0.87);
 }
-
 
 
 
