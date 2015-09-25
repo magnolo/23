@@ -33,7 +33,11 @@
 						templateUrl: getView('map')
 					}
 				}
-			}).state('app.importcsv', {
+			})
+			.state('app.epi.selected',{
+				url: '/:item'
+			})
+			.state('app.importcsv', {
 				url: '/importer',
 				data: {pageName: 'Import CSV'},
 				views: {

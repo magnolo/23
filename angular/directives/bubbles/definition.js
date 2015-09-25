@@ -56,16 +56,15 @@
 		};
 		return {
 			restrict: 'E',
-			//controller: 'BubblesCtrl',
 			scope: {
 				chartdata: '=',
 				direction: '=',
 				gravity: '=',
 				sizefactor: '=',
-				indexer:'=',
-				connect: '='
+				indexer:'='
 			},
-			link: function (scope, elem, attrs) {
+			require: 'ngModel',
+			link: function (scope, elem, attrs, ngModel) {
 				var options = angular.extend(defaults(), attrs);
 				var nodes = [],
 					links = [];
@@ -161,10 +160,10 @@
 					}).on("mouseout", function (d, i) {
 						return hide_details(d, i, this);
 					}).on("click", function(d, i){
-						console.log(scope.connect);
-						scope.connect = d;
-						console.log(scope.connect);
-						scope.$apply();
+						ngModel.$setViewValue(d);
+						ngModel.$render();
+					
+
 					});
 					options.circles.transition().duration(options.duration).attr("r", function (d) {
 						return d.radius;
@@ -259,7 +258,7 @@
 				scope.$watch('chartdata', function (data, oldData) {
 					options.tooltip.hideTooltip();
 					if (options.circles == null) {
-						create_nodes(); 
+						create_nodes();
 						create_vis();
 						start();
 					} else {

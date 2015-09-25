@@ -1,7 +1,7 @@
 (function () {
 	"use strict";
 
-	angular.module('app.controllers').controller('EpiCtrl', function ($scope, Restangular, leafletData, MapService) {
+	angular.module('app.controllers').controller('EpiCtrl', function ($scope,$state, Restangular, leafletData, MapService) {
 
 		$scope.indexData = {
 			 name:'EPI',
@@ -210,46 +210,26 @@
 			 }]
 		};
 		$scope.current = "";
-		$scope.chart = {
-			options: {
-				chart: {
-					type: 'lineChart',
-					height: 200,
-					margin: {
-						top: 20,
-						right: 20,
-						bottom: 20,
-						left: 40
-					},
-					x: function (d) {
-						return d.x;
-					},
-					y: function (d) {
-						return d.y;
-					},
-					showValues: false,
-					transitionDuration: 500,
-					forceY:[100,0],
-					xAxis: {
-						axisLabel: ''
-					},
-					yAxis: {
-						axisLabel: '',
-						axisLabelDistance: 30
-					}
-				}
-			},
-			data: []
+		$scope.display = {
+			selectedCat: ''
 		};
-		$scope.selectedCat = "";
 		$scope.menueOpen = true;
 		$scope.details = false;
 		$scope.closeIcon = 'chevron_left';
-
+		$scope.setState = function(iso){
+			angular.forEach($scope.epi, function(epi){
+				if(epi.iso == iso){
+					$scope.current = epi;
+				}
+			});
+		};
 		var epi = Restangular.all('epi/year/2014');
 		epi.getList().then(function (data) {
 			$scope.epi = data;
 			$scope.drawCountries();
+			if($state.current.name == "app.epi.selected"){
+			//setState($state.params.item);
+			}
 		});
 		$scope.toggleOpen = function () {
 			$scope.menueOpen = !$scope.menueOpen;
@@ -277,53 +257,16 @@
 			}
 			return $scope.current.percent_change > 0 ? 'arrow_drop_up' : 'arrow_drop_down';
 		};
-		$scope.calculateGraph = function(){
-			var fi = [],
-				stock = [],
-				coast = [];
-			angular.forEach($scope.country.epi, function (item) {
-				fi.push({
-					x: item.year,
-					y: item.ev_fi
-				});
-				stock.push({
-					x: item.year,
-					y: item.ev_fi_fish_stocks
-				});
-				coast.push({
-					x: item.year,
-					y: item.ev_fi_coastal_shelf_fishing_pressure
-				});
-			});
-			var chartData = [/*{
-				values: fi,
-				key: 'Fisheries',
-				color: '#ff7f0e'
-			}, */{
-				values: stock,
-				key: 'Fish Stock',
-				color: '#2ca02c'
-			},{
-				values: coast,
-				key: 'Coastal Shelf Fishing Pressure',
-				color:'#006bb6'
-			}];
-			console.log(chartData);
-			$scope.chart.data = chartData;
-		};
-		$scope.$watch('selectedCat', function(newItem, oldItem){
-			if (newItem === oldItem) {
-				return;
-			}
-			console.log(newItem);
-		},true);
+
 		$scope.$watch('current', function (newItem, oldItem) {
 			if (newItem === oldItem) {
 				return;
 			}
 			var country = Restangular.one('nations', newItem.iso).get();
+
 			country.then(function (data) {
 				$scope.country = data;
+				$state.go('app.epi.selected', {item:newItem.iso})
 			});
 		});
 		var getNationByName = function (name) {
@@ -376,12 +319,12 @@
 						]);
 						debugger;*/
 						if ($scope.current.country != evt.feature.properties.admin) {
-							//map.panTo(evt.latlng);
-							//map.panBy(new L.Point(-200,0));
-							map.fitBounds([
+							map.panTo(evt.latlng);
+							map.panBy(new L.Point(-200,0));
+						/*	map.fitBounds([
 								[evt.feature.bbox()[0] / (evt.feature.extent / evt.feature.tileSize), evt.feature.bbox()[1] / (evt.feature.extent / evt.feature.tileSize)],
 								[evt.feature.bbox()[2] / (evt.feature.extent / evt.feature.tileSize), evt.feature.bbox()[3] / (evt.feature.extent / evt.feature.tileSize)],
-							])
+							])*/
 						}
 						$scope.current = getNationByName(evt.feature.properties.admin);
 					},

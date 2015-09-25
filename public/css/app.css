@@ -4,12 +4,12 @@
 }
 .anim.ng-enter,
 .anim.ng-leave.ng-leave-active {
-  -webkit-transform: translateX(100%);
-  transform: translateX(100%);
+  -webkit-transform: translateY(100%);
+  transform: translateY(100%);
 }
 .anim.ng-enter.ng-enter-active {
-  -webkit-transform: translateX(0%);
-  transform: translateX(0%);
+  -webkit-transform: translateY(0%);
+  transform: translateY(0%);
 }
 .anim-opacity.ng-enter,
 .anim-opacity.ng-leave {
@@ -22,16 +22,20 @@
 .anim-opacity.ng-enter.ng-enter-active {
   opacity: 1;
 }
-.anim-height.ng-enter,
-.anim-height.ng-leave {
+.anim-height {
   transition: all 0.5s ease-in;
 }
 .anim-height.ng-enter,
+.anim-height.ng-leave {
+  transition: all 0.5s ease-in;
+  overflow: hidden;
+}
+.anim-height.ng-enter,
 .anim-height.ng-leave.ng-leave-active {
-  height: 0px;
+  max-height: 0px;
 }
 .anim-height.ng-enter.ng-enter-active {
-  height: 350px;
+  max-height: 1000px;
 }
 
 
@@ -96,6 +100,7 @@
   transition: all 0.25s ease-in;
   -webkit-transform: translateX(0);
   transform: translateX(0);
+  padding-bottom: 2em;
 }
 .info-container .info-box {
   background-color: #fff;
@@ -242,6 +247,12 @@
 }
 .info-container .info-box .md-ripple-container {
   border-radius: 20px;
+}
+.nvd3 text {
+  font-family: Georgia;
+}
+.nvd3.nv-legend text {
+  font-size: 1em;
 }
 
 .leaflet-top {
@@ -460,7 +471,6 @@ md-menu-bar {
 
 
 
-
 #Map_Container {
   height: calc(100% - 165px);
 }
@@ -482,6 +492,8 @@ md-menu-bar {
   bottom: 20px;
   right: 00px;
 }
+
+
 
 .Sidebar {
   position: fixed !important;
@@ -525,7 +537,6 @@ md-menu-bar {
 .Sidebar-version a {
   color: white;
 }
-
 
 .Dashboard-Container li {
   line-height: 26px;
@@ -663,5 +674,6 @@ median .slider text {
   user-select: none;
   cursor: ew-resize;
 }
+
 
 /*# sourceMappingURL=app.css.map */

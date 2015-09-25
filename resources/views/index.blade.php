@@ -4,8 +4,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <link rel="stylesheet" href="/css/vendor.css">
     <link rel="stylesheet" href="/css/app.css">
-    <link rel="stylesheet" href="/css/prism.css">
-    <link href='//fonts.googleapis.com/css?family=Roboto:500,400' rel='stylesheet' type='text/css'>
     <title>23°</title>
     <!--[if lte IE 10]>
     <script type="text/javascript">document.location.href = '/unsupported-browser'</script>
@@ -27,7 +25,6 @@
 <script src="https://cdn.rawgit.com/devTristan/hoverboard/master/dist/hoverboard.js"></script>
 <script src="js/Leaflet.MapboxVectorTile.js"></script>
 <script src="/js/app.js"></script>
-<script src="/js/prism.js"></script>
 
 {{--livereload--}}
 @if ( Config::get('app.debug') )

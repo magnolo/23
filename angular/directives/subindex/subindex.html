@@ -1,0 +1,11 @@
+<div>
+  <div class="header center" layout-align="center center" layout="column">
+          <span class="icon"><i class="icon icon-bubble icon-{{selected.icon}} fisheries" ng-style="{'background-color':selected.color}"></i></span>
+          <span class="title">{{selected.name}}</span>
+          <span class="info-icon">
+          </span>
+  </div>
+  <div class="module linechart">
+    <nvd3 options="chart.options" data="chart.data">
+  </div>
+</div>
