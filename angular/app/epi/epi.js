@@ -87,7 +87,7 @@
 
 			if(toState.name == "app.epi.selected"){
 				$scope.setState( toParams.item);
-				DataService.getOne('nations', toParams.iso).then(function (data) {
+				DataService.getOne('nations', toParams.item).then(function (data) {
 					$scope.country = data;
 				});
 			}
