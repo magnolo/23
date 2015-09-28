@@ -1,7 +1,7 @@
 (function() {
 	"use strict";
 
-	angular.module('app.directives').directive('circlegraph', function() {
+	angular.module('app.directives').directive('circlegraph', function($timeout) {
 		var defaults = function() {
 			return {
 				width: 80,
@@ -93,10 +93,17 @@
 						return ngModel.$modelValue;
 					},
 					function(newValue, oldValue) {
-						if (newValue === oldValue)
-							return;
-						animateIt(newValue.rank)
-					}, true);
+						if (!newValue){
+							newValue = {
+								rank: options.size
+							};
+						}
+
+						$timeout(function(){
+							animateIt(newValue.rank)
+						});
+
+					});
 			}
 		};
 

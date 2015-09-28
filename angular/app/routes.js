@@ -24,10 +24,15 @@
 			})
 			.state('app.epi', {
 				url: '/epi',
-				data: {pageName: 'Environment Performance Index'},
 				views: {
 					'main@': {
-						templateUrl: getView('epi')
+						templateUrl: getView('epi'),
+						controller: 'EpiCtrl',
+						resolve:{
+							EPI: function(DataService){
+								return DataService.getAll('/epi/year/2014')
+							}
+						}
 					},
 					'map@':{
 						templateUrl: getView('map')

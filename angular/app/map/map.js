@@ -10,12 +10,12 @@
 			maxZoom: 14,
 			detectRetina: true,
 			attribution: ''
-		};
+		};*/
 		$scope.center = {
 			lat: 0,
 			lng: 0,
 			zoom: 3
-		};*/
+		};
 		angular.extend($rootScope, {
 			center: {
 				lat: 0,
@@ -40,7 +40,7 @@
 				}
 			}
 		});
-		$scope.searchIP = function (ip) {
+		/*$scope.searchIP = function (ip) {
 			var url = "http://freegeoip.net/json/" + ip;
 			$http.get(url).success(function (res) {
 				$scope.center = {
@@ -50,9 +50,9 @@
 				}
 				$scope.ip = res.ip;
 			})
-		};
+		};*/
 
-		$scope.searchIP("");
+		//$scope.searchIP("");
 		$scope.interactivity = "";
 		$scope.flag = "";
 		$scope.$on('leafletDirectiveMap.utfgridMouseover', function (event, leafletEvent) {

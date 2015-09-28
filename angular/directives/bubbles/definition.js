@@ -162,8 +162,6 @@
 					}).on("click", function(d, i){
 						ngModel.$setViewValue(d);
 						ngModel.$render();
-					
-
 					});
 					options.circles.transition().duration(options.duration).attr("r", function (d) {
 						return d.radius;

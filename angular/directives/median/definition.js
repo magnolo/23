@@ -113,9 +113,9 @@
 					.text(0)
 					.attr("text-anchor", "middle").attr('y', '0.3em');
 
-				slider
-					.call(brush.extent([0, 0]))
-					.call(brush.event);
+				//slider
+					//.call(brush.extent([0, 0]))
+					//.call(brush.event);
 
 				function brush() {
 					var value = brush.extent()[0];
@@ -132,18 +132,19 @@
 					var value = brush.extent()[0],
 						count = 0,
 						found = false;
-
+					var final = "";
 					do {
 						angular.forEach($scope.data, function(nat, key) {
 							if (parseInt(nat.score) == parseInt(value)) {
-								ngModel.$setViewValue(nat);
-								ngModel.$render();
+								final = nat;
 								found = true;
 							}
 						});
 						count++;
 						value = value > 50 ? value - 1 : value + 1;
-					} while (!found && count < 100)
+					} while (!found && count < 100);
+					ngModel.$setViewValue(final);
+					ngModel.$render();
 				}
 
 				$scope.$watch(
@@ -151,11 +152,20 @@
 						return ngModel.$modelValue;
 					},
 					function(newValue, oldValue) {
-						if (newValue === oldValue)
+						if (!newValue){
+							handleLabel.text(parseInt(0));
+							handleCont.attr("transform", 'translate(' + x(0) + ',' + options.height / 2 + ')');
 							return;
+						}
 						handleLabel.text(parseInt(newValue.score));
-						handleCont.transition().duration(500).ease('quad').attr("transform", 'translate(' + x(newValue.score) + ',' + options.height / 2 + ')');
-					}, true);
+						if(newValue == oldValue){
+							handleCont.attr("transform", 'translate(' + x(newValue.score) + ',' + options.height / 2 + ')');
+						}
+						else{
+							handleCont.transition().duration(500).ease('quad').attr("transform", 'translate(' + x(newValue.score) + ',' + options.height / 2 + ')');
+
+						}
+					});
 			}
 		};
 
