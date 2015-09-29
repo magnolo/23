@@ -8,6 +8,7 @@
 	function subindex($timeout, smoothScroll) {
 		return {
 			restrict: 'E',
+			replace: true,
 			scope: {
 				country: '=',
 				selected: '='
@@ -66,7 +67,10 @@
 								axisLabelDistance: 30
 							},
 							legend:{
-								rightAlign:false
+								rightAlign:false,
+								margin:{
+									bottom:30
+								}
 							},
 							lines:{
 								interpolate:'cardinal'

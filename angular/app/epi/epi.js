@@ -5,13 +5,27 @@
 
 		$scope.current = "";
 		$scope.display = {
-			selectedCat: ''
+			selectedCat: '',
+			history: [{
+				fields: {x: 'year',y:'score'},
+				title: 'Score',
+				color:'#0066b9',
+				yDomain:[100,0]
+			},{
+				fields: {x: 'year',y:'rank'},
+				title: 'Rank',
+				color:'#52b695'
+			}]
 		};
 		$scope.indexData = IndexService.getEpi();
 		$scope.epi = [];
 		$scope.menueOpen = true;
 		$scope.details = false;
 		$scope.closeIcon = 'chevron_left';
+		$scope.compare= {
+			active: false,
+			countries:[]
+		};
 
 		$scope.setState = function(iso){
 			angular.forEach($scope.epi, function(epi){
@@ -21,6 +35,7 @@
 			});
 		};
 		$scope.epi = EPI;
+
 		/*.getList().then(function(data){
 
 				if($state.current.name == "app.epi.selected"){
@@ -32,7 +47,7 @@
 
 		/*DataService.getAll('epi/year/2014').then(function (data) {
 			$scope.epi = data;
-			$scope.drawCountries();
+
 			if($state.current.name == "app.epi.selected"){
 				console.log($state.params.item);
 				$scope.setState($state.params.item);
@@ -54,7 +69,25 @@
 		};
 		$scope.toggleDetails = function () {
 			return $scope.details = !$scope.details;
-		}
+		};
+		$scope.toggleComparison = function(){
+			$scope.compare.countries = [$scope.current];
+			return $scope.compare.active = !$scope.compare.active;
+		};
+		$scope.toggleCountrieList = function(country){
+			var found = false;
+			angular.forEach($scope.compare.countries, function(nat, key){
+					if(country == nat){
+						$scope.compare.countries.splice(key, 1);
+						found = true;
+					}
+			});
+			if(!found){
+				$scope.compare.countries.push(country);
+			};
+			console.log($scope.compare.countries);
+			return !found;
+		};
 		$scope.getOffset = function () {
 			if (!$scope.current) {
 				return 0;
@@ -73,15 +106,19 @@
 			if (newItem === oldItem) {
 				return;
 			}
-			console.log(newItem);
 			$scope.display.selectedCat = "";
 			if(newItem.iso){
-				$state.go('app.epi.selected', {item:newItem.iso})
+				if($scope.compare.active){
+					$scope.toggleCountrieList(newItem);
+				}
+				else{
+					$state.go('app.epi.selected', {item:newItem.iso})
+				}
+
 			}
 			else{
 				$state.go('app.epi');
 			}
-
 		});
 		$scope.$on("$stateChangeSuccess", function(event, toState, toParams){
 
@@ -93,6 +130,7 @@
 			}
 			else{
 				$scope.country = $scope.current = "";
+				$scope.details = false;
 			}
 		});
 		var getNationByName = function (name) {
@@ -161,7 +199,8 @@
 								[evt.feature.bbox()[2] / (evt.feature.extent / evt.feature.tileSize), evt.feature.bbox()[3] / (evt.feature.extent / evt.feature.tileSize)],
 							])*/
 						}
-						$scope.current = getNationByName(evt.feature.properties.admin);
+						console.log(evt.feature);
+						$scope.current = getNationByIso(evt.feature.properties.adm0_a3);
 					},
 					getIDForLayerFeature: function (feature) {
 
@@ -262,6 +301,6 @@
 				map.addLayer(mvtSource);
 			});
 		};
-		//	$scope.drawCountries();
+		$scope.drawCountries();
 	});
 })();

@@ -16,6 +16,9 @@
 			lng: 0,
 			zoom: 3
 		};
+		$scope.defaults = {
+			scrollWheelZoom: false
+		};
 		angular.extend($rootScope, {
 			center: {
 				lat: 0,

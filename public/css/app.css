@@ -101,6 +101,7 @@
   -webkit-transform: translateX(0);
   transform: translateX(0);
   padding-bottom: 2em;
+  max-width: 420px;
 }
 .info-container .info-box {
   background-color: #fff;
@@ -162,6 +163,10 @@
   margin-top: 0.5em;
   font-size: 1.8em;
 }
+.info-container .info-box .header.smaller .title {
+  font-size: 1.8em;
+  font-style: italic;
+}
 .info-container .info-box .close-it {
   position: absolute;
   top: 0;
@@ -179,6 +184,7 @@
 }
 .info-container .info-box .module {
   margin: 1em 0;
+  background: #fff;
 }
 .info-container .info-box .module.rank .chart {
   color: #333333;
@@ -248,11 +254,28 @@
 .info-container .info-box .md-ripple-container {
   border-radius: 20px;
 }
+.info-container .info-box#index-comparison > div {
+  text-align: center;
+  margin-bottom: 1em;
+}
+.info-container .info-box#index-comparison > div h4 {
+  color: #333;
+  font-weight: normal;
+  font-size: 1.2em;
+  line-height: 1em;
+  margin-bottom: 0.5em;
+}
 .nvd3 text {
   font-family: Georgia;
 }
 .nvd3.nv-legend text {
   font-size: 1em;
+}
+.nvd3 .nv-axis .nv-axisMaxMin text {
+  font-weight: normal;
+}
+.nvtooltip {
+  border-radius: 0px;
 }
 
 .cssload-container {
@@ -538,7 +561,7 @@ md-menu-bar {
   height: calc(100% - 165px);
 }
 #map {
-  position: absolute;
+  position: fixed;
   width: 100%;
   top: 64px;
   height: calc(100% - 64px);
@@ -644,7 +667,7 @@ md-menu-bar {
 .tooltip {
   position: fixed;
   padding: 1em;
-  background-color: #fff;
+  background-color: rgba(255, 255, 255, 0.8);
   border: 1px solid;
   z-index: 1;
 }
@@ -679,7 +702,6 @@ md-menu-bar {
 .tooltip .close-it:hover {
   color: rgba(0, 0, 0, 0.87);
 }
-
 
 
 
@@ -736,6 +758,14 @@ median .slider text {
   -ms-user-select: none;
   user-select: none;
   cursor: ew-resize;
+}
+
+
+.slide-toggle {
+  transition: all .5s;
+}
+.slide-toggle.ng-animate {
+  overflow: hidden;
 }
 
 
