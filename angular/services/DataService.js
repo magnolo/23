@@ -11,7 +11,11 @@
         };
 
         function getAll(route){
-          return Restangular.all(route).getList();
+          var data = Restangular.all(route).getList();
+            data.then(function(){}, function(){
+              alert('error');
+            });
+            return data;
         }
         function getOne(route, id){
           return Restangular.one(route, id).get();
