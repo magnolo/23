@@ -1,6 +1,6 @@
-<div style="margin:0 2em">
-				<div class="info-container" ng-class="{'closed': !menueOpen}">
-						<div class="info-box  md-whiteframe-z2" layout="column">
+
+				<div class="info-container" ng-class="{'out': country && details && display.selectedCat}">
+						<div class="info-box  md-whiteframe-z3" layout="column">
 							<div class="header info" ng-if="current" layout-align="space-between end" layout="row" >
 										<span class="title">{{current.country}}</span>
 										<md-button>Visit Country</md-button>
@@ -9,7 +9,7 @@
 												<span class="title">{{indexData.name}}</span>
 												<span class="subtitle">{{indexData.full_name}}</span>
 												<span class="info-icon">
-																<ng-md-icon icon="info_outline"></ng-md-icon>
+																<ng-md-icon ng-click="info = !info" icon="info_outline"></ng-md-icon>
 												</span>
 								</div>
 								<div class="rank module" layout-align="space-between center" layout="row">
@@ -58,18 +58,13 @@
 												</div>
 								</div>
 								<div class="module" layout="column" layout-align="center center">
+												<p>Score</p>
 												<median data="epi" ng-model="current"></median>
 												<p>median</p>
 								</div>
-								<div class="module slide-toggle" layout="column" ng-if="current && details">
-										<div class="header smaller">
-											<span class="title">History</span>
-										</div>
-										<simplelinechart selection="display.history" data="country.epi"></simplelinechart>
-								</div>
 								<div class="module bubbles slide-toggle" ng-if="current && details">
 												<h3 class="eh">Environmental Health</h3>
-												<bubbles chartdata="current" height="340" sizefactor="3" width="340" ng-model="display.selectedCat" indexer="indexData.data_tree"></bubbles>
+												<bubbles chartdata="current" height="340" sizefactor="3" width="340" ng-model="display.selectedCat" indexer="indexData.children"></bubbles>
 												<h3 class="ev">Ecosystem Validity</h3>
 								</div>
 								<div class="action module slide-toggle" layout-align="center center" layout="row" ng-if="!current">
@@ -77,6 +72,24 @@
 								</div>
 								<div class="action module slide-toggle" layout-align="center center" layout="row" ng-if="current && !details">
 												<md-button flex="50" ng-click="toggleDetails()"><span ng-if="!details">Details</span><span ng-if="details">Less Info</span></md-button>
+								</div>
+
+								<div class="module anim tabs" layout="column" ng-if="current && details">
+									<div class="header smaller" layout="row" layout-align="space-between end">
+											<span class="title" ng-class="{'active': tabContent == 'rank'}" ng-click="showTabContent('rank')">Rank History</span>
+											<span class="title" ng-class="{'active': tabContent == 'score'}" ng-click="showTabContent('score')">Score History</span>
+											<span class="switcher" ng-click="showTabContent('')">
+												<ng-md-icon icon="{{ toggleButton }}" class="icon-space" style="fill:#afafaf"></ng-md-icon>
+											</span>
+									</div>
+									<div class="content slide-toggle" ng-if="tabContent != ''">
+										<div class="rank slide-toggle" ng-if="tabContent == 'rank'">
+											<simplelinechart selection="display.rank" data="country.epi"></simplelinechart>
+										</div>
+										<div class="score slide-toggle" ng-if="tabContent == 'score'">
+												<simplelinechart selection="display.score" data="country.epi"></simplelinechart>
+										</div>
+									</div>
 								</div>
 								<div class="module" ng-if="current && details">
 									<md-button ng-class="{'md-raised md-primary': compare.active}" ng-click="toggleComparison()">Compare to other countries</md-button>
@@ -92,18 +105,28 @@
 																</md-select>
 												</md-input-container>
 								</div>-->
-								<div class="close-it" ng-click="toggleOpen()">
+								<!--<div class="close-it" ng-click="toggleOpen()">
 											<ng-md-icon icon="{{closeIcon}}"></ng-md-icon>
-								</div>
+								</div>-->
 				</div>
-				<div id="sub-index" class="info-box md-whiteframe-z2 slide-toggle" ng-if="country && details && display.selectedCat">
-					<subindex country="country" selected="display.selectedCat"></subindex>
+				<div id="sub-index" class="info-box md-whiteframe-z2 anim-left sub-box" ng-if="country && details && display.selectedCat">
+						<subindex country="country" selected="display.selectedCat"></subindex>
+						<div class="close-box">
+								<ng-md-icon ng-click="display.selectedCat = ''" options='{"rotation": "none", "duration":375}' ng-mouseleave="closeIcon = 'close'" ng-mouseover="closeIcon = 'chevron_left'" icon="{{closeIcon || 'close'}}" size="32"></ng-md-icon>
+						</div>
 				</div>
-				<div id="index-comparison" class="info-box md-whiteframe-z2 anim" layout="row" layout-wrap ng-if="country && details && compare.active && compare.countries.length">
+				<div id="index-comparison" class="info-box md-whiteframe-z2 anim sub-box" layout="row" layout-wrap ng-if="country && details && compare.active && compare.countries.length">
 					<div class="slide-toggle" ng-repeat="country in compare.countries"  flex="50">
 							<h4>{{country.country}}</h4>
 							<bubbles chartdata="country" borders="false" height="150" width="150" sizefactor="5" ng-model="display.selectedCat" indexer="indexData.data_tree"></bubbles>
 					</div>
 				</div>
+				<div id="sub-info" class="info-box md-whiteframe-z2 anim-left sub-box" ng-if="info" style="width:800px">
+						<div>
+							<sunburst data="indexData"></sunburtst>
+						</div>
+						<div class="close-box">
+								<ng-md-icon ng-click="info = !info" options='{"rotation": "none", "duration":375}' ng-mouseleave="closeIcon = 'close'" ng-mouseover="closeIcon = 'chevron_left'" icon="{{closeIcon || 'close'}}" size="32"></ng-md-icon>
+						</div>
+				</div>
 			</div>
-</div>

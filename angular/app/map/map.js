@@ -39,7 +39,18 @@
 						type: 'utfGrid',
 						url: 'http://{s}.tiles.mapbox.com/v3/mapbox.geography-class/{z}/{x}/{y}.grid.json?callback={cb}',
 						visible: true
-					}
+					},
+					/*wms: {
+													 name: 'EEUU States (WMS)',
+													 type: 'wms',
+													 visible: true,
+													 url: 'http://suite.opengeo.org/geoserver/usa/wms',
+													 layerParams: {
+															 layers: 'usa:states',
+															 format: 'image/png',
+															 transparent: true
+													 }
+											 }*/
 				}
 			}
 		});

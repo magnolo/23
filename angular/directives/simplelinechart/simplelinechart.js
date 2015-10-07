@@ -36,8 +36,8 @@
 						showYAxis: false,
 						transitionDuration: 500,
 						useInteractiveGuideline: true,
-						forceY: [100, 0],
-						yRange:[100,0],
+						//forceY: [100, 0],
+						//yRange:[100,0],
 						xAxis: {
 							axisLabel: ''
 						},

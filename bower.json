@@ -25,6 +25,9 @@
     "ngstorage": "~0.3.3",
     "restangular": "~1.5.1",
     "satellizer": "~0.11.2",
-    "svg-morpheus": "~0.1.8"
+    "svg-morpheus": "~0.1.8",
+    "mapbox-gl-leaflet": "https://github.com/mapbox/mapbox-gl-leaflet.git#~0.0.1",
+    "mapbox-gl-js": "~0.11.0",
+    "ngSticky": "~1.7.11"
   }
 }

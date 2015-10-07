@@ -3,10 +3,29 @@
 }
 .anim.ng-enter, .anim.ng-leave.ng-leave-active {
   transform: translateY(100%);
+
+  opacity: 0;
 }
 .anim.ng-enter.ng-enter-active {
     transform: translateY(0%);
+    opacity: 1;
 }
+.anim-left.ng-enter, .anim-left.ng-leave {
+  transition:all .3s ease;
+
+}
+.anim-left.ng-enter, .anim-left.ng-leave.ng-leave-active {
+  transform: translateX(-100%);
+z-index:-1;
+  opacity: 1;
+}
+.anim-left.ng-enter.ng-enter-active {
+    transform: translateX(0%);
+    opacity: 1;
+    z-index:-1;
+}
+
+
 
 .anim-opacity.ng-enter, .anim-opacity.ng-leave {
   transition:all .3s ease-in;

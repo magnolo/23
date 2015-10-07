@@ -6,10 +6,29 @@
 .anim.ng-leave.ng-leave-active {
   -webkit-transform: translateY(100%);
   transform: translateY(100%);
+  opacity: 0;
 }
 .anim.ng-enter.ng-enter-active {
   -webkit-transform: translateY(0%);
   transform: translateY(0%);
+  opacity: 1;
+}
+.anim-left.ng-enter,
+.anim-left.ng-leave {
+  transition: all .3s ease;
+}
+.anim-left.ng-enter,
+.anim-left.ng-leave.ng-leave-active {
+  -webkit-transform: translateX(-100%);
+  transform: translateX(-100%);
+  z-index: -1;
+  opacity: 1;
+}
+.anim-left.ng-enter.ng-enter-active {
+  -webkit-transform: translateX(0%);
+  transform: translateX(0%);
+  opacity: 1;
+  z-index: -1;
 }
 .anim-opacity.ng-enter,
 .anim-opacity.ng-leave {
@@ -97,22 +116,20 @@
   top: 1em;
   position: absolute;
   color: #afafaf;
-  transition: all 0.25s ease-in;
+  transition: all .3s ease;
   -webkit-transform: translateX(0);
   transform: translateX(0);
   padding-bottom: 2em;
   max-width: 420px;
 }
-.info-container .info-box {
-  background-color: #fff;
-  margin-left: 1em;
-  margin-top: 1em;
-  padding: 2em;
-  position: relative;
-}
-.info-container .info-box.closed {
+.info-container.out {
   -webkit-transform: translateX(-100%);
   transform: translateX(-100%);
+}
+.info-container .info-box {
+  background-color: #fff;
+  padding: 2em;
+  position: relative;
 }
 .info-container .info-box:hover.closed {
   -webkit-transform: translateX(-95%);
@@ -164,7 +181,7 @@
   font-size: 1.8em;
 }
 .info-container .info-box .header.smaller .title {
-  font-size: 1.8em;
+  font-size: 1.5em;
   font-style: italic;
 }
 .info-container .info-box .close-it {
@@ -233,6 +250,16 @@
 .info-container .info-box .module:last-child {
   margin-bottom: 0px;
 }
+.info-container .info-box .module.tabs .header .title {
+  opacity: 0.5;
+  transition: all 0.2s ease-in-out;
+}
+.info-container .info-box .module.tabs .header .title.active {
+  opacity: 1;
+}
+.info-container .info-box .module.tabs .header * {
+  cursor: pointer;
+}
 .info-container .info-box .country_list {
   position: absolute;
   left: 100%;
@@ -264,6 +291,22 @@
   font-size: 1.2em;
   line-height: 1em;
   margin-bottom: 0.5em;
+}
+.info-container .info-box.sub-box {
+  position: absolute;
+  top: 0px;
+  width: 320px;
+  left: 100%;
+  margin-left: 1em;
+}
+.info-container .info-box.sub-box .close-box {
+  position: absolute;
+  top: 1em;
+  left: 1em;
+  cursor: pointer;
+}
+.info-container .info-box.sub-box .close-box path {
+  fill: #006bb9;
 }
 .nvd3 text {
   font-family: Georgia;
@@ -767,6 +810,7 @@ median .slider text {
 .slide-toggle.ng-animate {
   overflow: hidden;
 }
+
 
 
 /*# sourceMappingURL=app.css.map */
