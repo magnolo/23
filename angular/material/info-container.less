@@ -2,22 +2,21 @@
 
 .info-container {
     line-height: 1em;
-    left: 1em;
-    top: 1em;
-    position: absolute;
+    top:1em;
+    left:1em;
+    position:absolute;
     color: @grey;
     transition: all .3s ease;
     transform: translateX(0);
     padding-bottom:2em;
-
-    max-width:420px;
     &.out {
-        transform: translateX(-100%);
+        transform: translateX(-440px);
     }
     .info-box {
         background-color: #fff;
         //margin-left: 1em;
         //margin-top: 1em;
+        width:420px;
         padding: 2em;
         position: relative;
 
@@ -116,6 +115,7 @@
         .module {
             margin: 1em 0;
             background:#fff;
+
             &.rank {
                 .chart {
                     color: @dark-color;
@@ -202,6 +202,24 @@
               }
 
             }
+            &.description{
+              .header{
+                .sub-title{
+                  color:@base;
+                }
+              }
+              .text{
+                color:@base;
+                margin-bottom:2em;
+                text-align:justify;
+                line-height: 1.2em;
+              }
+              .caption{
+                font-style:italic;
+                padding:1em;
+              }
+            }
+
         }
 
         .country_list {
@@ -229,32 +247,43 @@
             border-radius: 20px;
         }
         &#index-comparison{
-          > div{
-            text-align: center;
-            margin-bottom:1em;
+
             h4{
-              color:#333;
+              color:@base;
               font-weight:normal;
               font-size:1.2em;
               line-height: 1em;
-              margin-bottom:0.5em;
+              margin-bottom:1.5em;
+              .number{
+                color:@green;
+                font-size:0.9em;
+
+              }
             }
-          }
+            .country{
+              text-align:center;
+            }
+
         }
         &.sub-box{
           position:absolute;
           top:0px;
           width:320px;
-          left:100%;
+          left:420px;
           margin-left:1em;
+
           .close-box{
-            position:absolute;
-            top:1em;
-            left:1em;
+            margin-bottom:0px;
+            margin-top:-1em;
+            margin-left:-1em;
+            text-align:left;
             cursor:pointer;
             path{
               fill:@base;
             }
+          }
+          &#sub-info{
+            width:700px; //calc(~"100% - 420px - 5em");
           }
         }
     }
@@ -275,6 +304,17 @@
         font-weight: normal;
         }
      }
+  }
+  &.nv-sunburst{
+    g{
+      &:first-child{
+        text{
+            font-size:2em;
+            top:0.25em;
+        }
+
+      }
+    }
   }
 
 }

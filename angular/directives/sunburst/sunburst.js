@@ -58,20 +58,26 @@
 					'size': item.size,
 					'color': item.color,
 					'children': buildTree(item.children)
+				};
+				if(item.color){
+					child.color = item.color
+				}
+				if(item.size){
+					child.size = item.size
 				}
 				children.push(child);
 			});
 			return children;
 		};
 		$scope.calculateGraph = function () {
-			console.log($scope.data);
-			var chartData = [{
+			var chartData = {
 				"name": $scope.data.name,
 				"color": $scope.data.color,
 				"children": buildTree($scope.data.children),
-				"size": 5
-			}];
+				"size": 1
+			};
 			$scope.chart.data = chartData;
+			return chartData;
 		};
 		$scope.$watch('data', function (n, o) {
 			if (!n) {

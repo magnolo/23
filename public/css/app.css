@@ -112,22 +112,22 @@
 
 .info-container {
   line-height: 1em;
-  left: 1em;
   top: 1em;
+  left: 1em;
   position: absolute;
   color: #afafaf;
   transition: all .3s ease;
   -webkit-transform: translateX(0);
   transform: translateX(0);
   padding-bottom: 2em;
-  max-width: 420px;
 }
 .info-container.out {
-  -webkit-transform: translateX(-100%);
-  transform: translateX(-100%);
+  -webkit-transform: translateX(-440px);
+  transform: translateX(-440px);
 }
 .info-container .info-box {
   background-color: #fff;
+  width: 420px;
   padding: 2em;
   position: relative;
 }
@@ -260,6 +260,19 @@
 .info-container .info-box .module.tabs .header * {
   cursor: pointer;
 }
+.info-container .info-box .module.description .header .sub-title {
+  color: #006bb9;
+}
+.info-container .info-box .module.description .text {
+  color: #006bb9;
+  margin-bottom: 2em;
+  text-align: justify;
+  line-height: 1.2em;
+}
+.info-container .info-box .module.description .caption {
+  font-style: italic;
+  padding: 1em;
+}
 .info-container .info-box .country_list {
   position: absolute;
   left: 100%;
@@ -281,32 +294,39 @@
 .info-container .info-box .md-ripple-container {
   border-radius: 20px;
 }
-.info-container .info-box#index-comparison > div {
-  text-align: center;
-  margin-bottom: 1em;
-}
-.info-container .info-box#index-comparison > div h4 {
-  color: #333;
+.info-container .info-box#index-comparison h4 {
+  color: #006bb9;
   font-weight: normal;
   font-size: 1.2em;
   line-height: 1em;
-  margin-bottom: 0.5em;
+  margin-bottom: 1.5em;
+}
+.info-container .info-box#index-comparison h4 .number {
+  color: #00ccaa;
+  font-size: 0.9em;
+}
+.info-container .info-box#index-comparison .country {
+  text-align: center;
 }
 .info-container .info-box.sub-box {
   position: absolute;
   top: 0px;
   width: 320px;
-  left: 100%;
+  left: 420px;
   margin-left: 1em;
 }
 .info-container .info-box.sub-box .close-box {
-  position: absolute;
-  top: 1em;
-  left: 1em;
+  margin-bottom: 0px;
+  margin-top: -1em;
+  margin-left: -1em;
+  text-align: left;
   cursor: pointer;
 }
 .info-container .info-box.sub-box .close-box path {
   fill: #006bb9;
+}
+.info-container .info-box.sub-box#sub-info {
+  width: 700px;
 }
 .nvd3 text {
   font-family: Georgia;
@@ -316,6 +336,10 @@
 }
 .nvd3 .nv-axis .nv-axisMaxMin text {
   font-weight: normal;
+}
+.nvd3.nv-sunburst g:first-child text {
+  font-size: 2em;
+  top: 0.25em;
 }
 .nvtooltip {
   border-radius: 0px;
@@ -443,8 +467,7 @@ body {
   color: #606060;
 }
 .Page {
-  position: absolute;
-  top: 64px;
+  margin-top: 64px;
   width: 100%;
   left: 0;
 }
@@ -812,5 +835,129 @@ median .slider text {
 }
 
 
+.section {
+  padding: 30px;
+  margin-bottom: 40px;
+}
+.field-name-field-intro-text {
+  margin-bottom: 40px;
+}
+.field-name-field-framework-text {
+  /*  @include sans-light;
+        @include font-size(20,24);
+        color: $grey-label;*/
+  margin-bottom: 35px;
+}
+.framework h3 {
+  /*    @include sans-bold;
+            @include font-size(16,16);
+            color: $turq-medium;
+            */
+  text-transform: uppercase;
+}
+.framework div + h3 {
+  margin-top: 35px;
+}
+.framework .wrap {
+  padding: 0 30px;
+}
+.framework .views-row {
+  position: relative;
+  clear: both;
+  min-height: 35px;
+  margin: 15px 0;
+  display: table;
+}
+.framework .views-row .views-field-field-icon-svg {
+  display: table-cell;
+  padding-right: 10px;
+  vertical-align: middle;
+}
+.framework .views-row .views-field-field-icon-svg svg {
+  width: 35px;
+  height: 35px;
+}
+.framework .views-row .views-field-title-1 {
+  display: table-cell;
+  vertical-align: middle;
+  width: 140px;
+}
+.framework .views-row .views-field-title-1 a {
+  /*  @include sans-regular;
+                    @include font-size(20,22);
+                    color: $black;*/
+}
+.framework .field-name-field-caption {
+  /*  margin-top: 30px;
+            @include font-size(16,21);
+            color: $grey-medium2;
+            @include sans-lightitalic;
+            strong {
+                @include sans-mediumitalic;
+            }*/
+}
+.framework #vis {
+  width: 610px;
+}
+.framework #depth0 {
+  fill: #fff;
+  font-size: 160%;
+  font-weight: bold;
+  text-align: center !important;
+}
+.framework #depth1 {
+  font-size: 65%;
+  fill: #fff;
+  width: 100px !important;
+}
+.framework #depth2 {
+  font-size: 70%;
+  fill: #fff;
+}
+.framework #depth3 {
+  font-size: 70%;
+  width: 120px !important;
+  fill: #2d2019;
+}
+.framework .sector {
+  font-family: centro, sans-serif;
+}
+.framework path {
+  stroke: #fff;
+  stroke-width: 1.5;
+  cursor: pointer;
+}
+.framework text {
+  font: 11px sans-serif;
+  cursor: pointer;
+}
+.framework body {
+  width: 880px;
+  margin: 0 auto;
+}
+.framework h1 {
+  text-align: center;
+  margin: 0.5em 0;
+}
+.framework p#intro {
+  text-align: center;
+  margin: 1em 0;
+}
+.framework tspan {
+  text-align: center !important;
+  color: #00f !important;
+}
+.calculating {
+  margin-bottom: 0;
+}
+.calculating .field-name-field-calculating-intro {
+  /*@include sans-light;
+            @include font-size(20,24);
+            color: $grey-medium;*/
+  margin-bottom: 15px;
+}
+.calculating .field-name-field-calculating-text {
+  padding-right: 220px;
+}
 
 /*# sourceMappingURL=app.css.map */

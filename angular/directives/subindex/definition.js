@@ -83,7 +83,7 @@
 			}
 			function gotoBox(){
 				$timeout(function(){
-						smoothScroll(element[0], {offset:150});
+						smoothScroll(element[0], {offset:120, duration:250});
 				});
 
 			}

@@ -3,7 +3,10 @@
 
 	function CustomTooltip(tooltipId, width) {
 		var tooltipId = tooltipId;
-		angular.element(document).find('body').append("<div class='tooltip md-whiteframe-z3' id='" + tooltipId + "'></div>");
+		var elem = document.getElementById(tooltipId);
+		if(elem == null){
+			angular.element(document).find('body').append("<div class='tooltip md-whiteframe-z3' id='" + tooltipId + "'></div>");
+		}
 		hideTooltip();
 		function showTooltip(content, data, event, element) {
 			angular.element(document.querySelector('#' + tooltipId)).html(content);
@@ -89,7 +92,7 @@
 					}
 				};
 				var create_nodes = function () {
-					console.log(scope.chartdata);
+
 					angular.forEach(scope.indexer, function (group) {
 						angular.forEach(group.children, function (item) {
 							console.log(scope.chartdata[item.column_name], scope.chartdata[item.column_name] / scope.sizefactor);
@@ -110,7 +113,7 @@
 							}
 						});
 					});
-					console.log(nodes);
+
 				};
 				var create_vis = function () {
 					angular.element(elem).html('');

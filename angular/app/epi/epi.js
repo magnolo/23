@@ -1,7 +1,7 @@
 (function () {
 	"use strict";
 
-	angular.module('app.controllers').controller('EpiCtrl', function ($scope,$state, IndexService, EPI, DataService, leafletData, MapService) {
+	angular.module('app.controllers').controller('EpiCtrl', function ($scope,$state, $timeout, smoothScroll, IndexService, EPI, DataService, leafletData, MapService) {
 
 		$scope.current = "";
 		$scope.display = {
@@ -78,12 +78,23 @@
 		$scope.getRank = function (nat) {
 			return $scope.epi.indexOf(nat) + 1;
 		};
+		$scope.toggleInfo = function(){
+				$scope.display.selectedCat = '';
+				$scope.info = !$scope.info;
+		};
 		$scope.toggleDetails = function () {
 			return $scope.details = !$scope.details;
 		};
 		$scope.toggleComparison = function(){
 			$scope.compare.countries = [$scope.current];
-			return $scope.compare.active = !$scope.compare.active;
+			$scope.compare.active = !$scope.compare.active;
+			if($scope.compare.active){
+				$timeout(function(){
+					var element = document.getElementById('index-comparison');
+					smoothScroll(element,{offset:120, duration:200});
+
+				})
+			}
 		};
 		$scope.toggleCountrieList = function(country){
 			var found = false;
@@ -96,7 +107,6 @@
 			if(!found){
 				$scope.compare.countries.push(country);
 			};
-			console.log($scope.compare.countries);
 			return !found;
 		};
 		$scope.getOffset = function () {

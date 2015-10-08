@@ -12,8 +12,10 @@
 			templateUrl: 'views/directives/simplelinechart/simplelinechart.html',
 			controller: 'SimplelinechartCtrl',
 			link: function( $scope, element, $attrs ){
-				$scope.setChart();
+				$scope.options = $attrs;
 				$scope.calculateGraph();
+				$scope.setChart();
+
 			}
 		};
 
