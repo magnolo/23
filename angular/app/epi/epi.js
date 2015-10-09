@@ -127,7 +127,7 @@
 			if (newItem === oldItem) {
 				return;
 			}
-			$scope.display.selectedCat = "";
+			//$scope.display.selectedCat = "";
 			if(newItem.iso){
 				if($scope.compare.active){
 					$scope.toggleCountrieList(newItem);
@@ -140,6 +140,17 @@
 			else{
 				$state.go('app.epi');
 			}
+		});
+		$scope.$watch('display.selectedCat', function(n, o){
+				if(n === o){
+					return
+				}
+				if(n)
+				updateCanvas(n.color);
+				else {
+					updateCanvas('rgba(128, 243, 198,1)');
+				};
+				$scope.mvtSource.setStyle(countriesStyle);
 		});
 		$scope.$on("$stateChangeSuccess", function(event, toState, toParams){
 
@@ -184,10 +195,89 @@
 			$scope.ctx.fillStyle = gradient;
 			$scope.ctx.fillRect(0, 0, 256, 10);
 			$scope.palette = $scope.ctx.getImageData(0, 0, 256, 1).data;
-			//document.getElementsByTagName('body')[0].appendChild($scope.canvas);
+			document.getElementsByTagName('body')[0].appendChild($scope.canvas);
 		}
+		var updateCanvas = function(color){
+			var gradient = $scope.ctx.createLinearGradient(0, 0, 256, 10);
+			gradient.addColorStop(0, 'rgba(255,255,255,0)');
+			gradient.addColorStop(0.53, color);
+			gradient.addColorStop(1, 'rgba(102,102,102,1)');
+			$scope.ctx.fillStyle = gradient;
+			$scope.ctx.fillRect(0, 0, 256, 10);
+			$scope.palette = $scope.ctx.getImageData(0, 0, 256, 1).data;
+		};
 		createCanvas();
 
+		var countriesStyle = function (feature) {
+			var style = {};
+			var iso = feature.properties.adm0_a3;
+			console.log(iso);
+			var nation = getNationByIso(iso);
+			var field = $scope.display.selectedCat.type || 'score';
+			var type = feature.type;
+			switch (type) {
+			case 1: //'Point' 
+				style.color = 'rgba(49,79,79,0.01)';
+				style.radius = 5;
+				style.selected = {
+					color: 'rgba(255,255,0,0.5)',
+					radius: 0
+				};
+				break;
+			case 2: //'LineString'
+				style.color = 'rgba(255,0,0,1)';
+				style.size = 1;
+				style.selected = {
+					color: 'rgba(255,25,0,1)',
+					size: 2
+				};
+				break;
+			case 3: //'Polygon'
+				if (nation[field]) {
+					var colorPos = parseInt(256 / 100 * nation[field]) * 4;
+					var color = 'rgba(' + $scope.palette[colorPos] + ', ' + $scope.palette[colorPos + 1] + ', ' + $scope.palette[colorPos + 2] + ',' + $scope.palette[colorPos + 3] + ')';
+					style.color = color;
+					style.outline = {
+						color: 'rgba(50,50,50,0.4)',
+						size: 1
+					};
+					style.selected = {
+						color: 'rgba(255,255,255,0.0)',
+						outline: {
+							color: 'rgba(0,0,0,0.5)',
+							size: 1
+						}
+					};
+					break;
+				} else {
+					style.color = 'rgba(255,255,255,0)';
+					style.outline = {
+						color: 'rgba(255,255,255,0)',
+						size: 1
+					};
+				}
+			}
+
+			//	if (feature.layer.name === 'gaul_2014_adm1_label') {
+			style.ajaxSource = function (mvtFeature) {
+				var id = mvtFeature.id;
+				//	console.log(id);
+				//return 'http://spatialserver.spatialdev.com/fsp/2014/fsp/aggregations-no-name/' + id + '.json';
+			};
+
+			style.staticLabel = function (mvtFeature, ajaxData) {
+				var style = {
+					html: feature.properties.name,
+					iconSize: [33, 33],
+					cssClass: 'label-icon-number',
+					cssSelectedClass: 'label-icon-number-selected'
+				};
+				return style;
+			};
+			//	}
+
+			return style;
+		};
 
 		$scope.drawCountries = function () {
 			leafletData.getMap('map').then(function (map) {
@@ -195,34 +285,30 @@
 
 				//	L.tileLayer('http://localhost:3001/services/postgis/countries_big/geom/dynamicMap/{z}/{x}/{y}.png').addTo(map);
 				var debug = {};
-				/*var mapzen = 'http://vector.mapzen.com/osm/{layers}/{z}/{x}/{y}.{format}?api_key={api_key}'
-				var url = 'http://localhost:3001/services/postgis/countries_big/geom/vector-tiles/{z}/{x}/{y}.pbf?fields=id,admin,adm0_a3,name,name_long'; //
+				var mb = 'https://a.tiles.mapbox.com/v4/mapbox.mapbox-terrain-v1,mapbox.mapbox-streets-v6-dev/{z}/{x}/{y}.vector.pbf?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6IlhHVkZmaW8ifQ.hAMX5hSW-QnTeRCMAy9A8Q';
+				var mapzen = 'http://vector.mapzen.com/osm/{layers}/{z}/{x}/{y}.{format}?api_key={api_key}'
+				var url = 'http://localhost:3001/services/postgis/countries_big/geom/vector-tiles/{z}/{x}/{y}.pbf?fields=id,admin,adm0_a3,wb_a3,su_a3,iso_a3,name,name_long'; //
 				var url2 = 'https://a.tiles.mapbox.com/v4/mapbox.mapbox-streets-v6-dev/{z}/{x}/{y}.vector.pbf?access_token=' + apiKey;
-				var mvtSource = new L.TileLayer.MVTSource({
+				$scope.mvtSource = new L.TileLayer.MVTSource({
 					url: url, //"http://spatialserver.spatialdev.com/services/vector-tiles/gaul_fsp_india/{z}/{x}/{y}.pbf",
 					debug: false,
+					opacity: 0.6,
 					clickableLayers: ['countries_big_geom'],
-					mutexToggle: true,
+					//mutexToggle: true,
 					onClick: function (evt, t) {
 						//map.fitBounds(evt.target.getBounds());
-						/*console.log(evt.latlng);
+
 						var x = evt.feature.bbox()[0]/ (evt.feature.extent / evt.feature.tileSize);
 						var y = evt.feature.bbox()[1]/(evt.feature.extent / evt.feature.tileSize)
-						console.log(new L.Point(x,y));
-						console.log([
-							[evt.feature.bbox()[0]/ (evt.feature.extent / evt.feature.tileSize), evt.feature.bbox()[1]/(evt.feature.extent / evt.feature.tileSize)],
-							[evt.feature.bbox()[2]/(evt.feature.extent / evt.feature.tileSize), evt.feature.bbox()[3]/(evt.feature.extent / evt.feature.tileSize)],
-						]);
-						debugger;
 						if ($scope.current.country != evt.feature.properties.admin) {
 							map.panTo(evt.latlng);
 							map.panBy(new L.Point(-200,0));
 						/*	map.fitBounds([
 								[evt.feature.bbox()[0] / (evt.feature.extent / evt.feature.tileSize), evt.feature.bbox()[1] / (evt.feature.extent / evt.feature.tileSize)],
 								[evt.feature.bbox()[2] / (evt.feature.extent / evt.feature.tileSize), evt.feature.bbox()[3] / (evt.feature.extent / evt.feature.tileSize)],
-							])
+							])*/
 						}
-						console.log(evt.feature);
+						//console.log(evt.feature);
 						$scope.current = getNationByIso(evt.feature.properties.adm0_a3);
 					},
 					getIDForLayerFeature: function (feature) {
@@ -243,73 +329,7 @@
 						return true;
 					},
 
-					style: function (feature) {
-						var style = {};
-						var nation = getNationByName(feature.properties.admin);
-						var type = feature.type;
-						switch (type) {
-						case 1: //'Point'
-							style.color = 'rgba(49,79,79,0.01)';
-							style.radius = 5;
-							style.selected = {
-								color: 'rgba(255,255,0,0.5)',
-								radius: 0
-							};
-							break;
-						case 2: //'LineString'
-							style.color = 'rgba(255,0,0,1)';
-							style.size = 1;
-							style.selected = {
-								color: 'rgba(255,25,0,1)',
-								size: 2
-							};
-							break;
-						case 3: //'Polygon'
-							if (nation.score) {
-								var colorPos = parseInt(256 / 100 * nation.score) * 4;
-								var color = 'rgba(' + $scope.palette[colorPos] + ', ' + $scope.palette[colorPos + 1] + ', ' + $scope.palette[colorPos + 2] + ',' + $scope.palette[colorPos + 3] + ')';
-								style.color = color;
-								style.outline = {
-									color: 'rgba(50,50,50,0.4)',
-									size: 1
-								};
-								style.selected = {
-									color: 'rgba(255,255,255,0.0)',
-									outline: {
-										color: 'rgba(0,0,0,0.5)',
-										size: 1
-									}
-								};
-								break;
-							} else {
-								style.color = 'rgba(255,255,255,0)';
-								style.outline = {
-									color: 'rgba(255,255,255,0)',
-									size: 1
-								};
-							}
-						}
-
-						//	if (feature.layer.name === 'gaul_2014_adm1_label') {
-						style.ajaxSource = function (mvtFeature) {
-							var id = mvtFeature.id;
-							//	console.log(id);
-							//return 'http://spatialserver.spatialdev.com/fsp/2014/fsp/aggregations-no-name/' + id + '.json';
-						};
-
-						style.staticLabel = function (mvtFeature, ajaxData) {
-							var style = {
-								html: ajaxData.total_count,
-								iconSize: [33, 33],
-								cssClass: 'label-icon-number',
-								cssSelectedClass: 'label-icon-number-selected'
-							};
-							return style;
-						};
-						//	}
-
-						return style;
-					},
+					style: countriesStyle,
 
 
 					layerLink: function (layerName) {
@@ -320,8 +340,8 @@
 					}
 
 				});
-				debug.mvtSource = mvtSource;
-				map.addLayer(mvtSource);*/
+				debug.mvtSource = $scope.mvtSource;
+				map.addLayer($scope.mvtSource);
 			});
 		};
 		$scope.drawCountries();

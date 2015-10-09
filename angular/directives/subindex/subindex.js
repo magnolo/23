@@ -1,8 +1,95 @@
 (function(){
 	"use strict";
 
-	angular.module( 'app.controllers' ).controller( 'SubindexCtrl', function(){
-		//
+	angular.module( 'app.controllers' ).controller( 'SubindexCtrl', function($scope, $timeout, smoothScroll){
+		$scope.setChart = setChart;
+		$scope.calculateGraph = calculateGraph;
+		$scope.createIndexer = createIndexer;
+		activate();
+
+
+		function activate(){
+			$scope.setChart();
+			$scope.calculateGraph();
+			$scope.createIndexer();
+			$scope.$watch('selected', function (newItem, oldItem) {
+				if (newItem === oldItem) {
+					return false;
+				}
+				$scope.calculateGraph();
+				$scope.gotoBox();
+			})
+		}
+		function createIndexer(){
+		 	$scope.indexer = [$scope.selected.data];
+
+		}
+		function setChart() {
+			$scope.chart = {
+				options: {
+					chart: {
+						type: 'lineChart',
+						//height: 200,
+						legendPosition: 'left',
+						margin: {
+							top: 20,
+							right: 20,
+							bottom: 20,
+							left: 20
+						},
+						x: function (d) {
+							return d.x;
+						},
+						y: function (d) {
+							return d.y;
+						},
+						showValues: false,
+						showYAxis: false,
+						transitionDuration: 500,
+						useInteractiveGuideline: true,
+						forceY: [100, 0],
+						xAxis: {
+							axisLabel: ''
+						},
+						yAxis: {
+							axisLabel: '',
+							axisLabelDistance: 30
+						},
+						legend:{
+							rightAlign:false,
+							margin:{
+								bottom:30
+							}
+						},
+						lines:{
+							interpolate:'cardinal'
+						}
+					}
+				},
+				data: []
+			};
+			return $scope.chart;
+		}
+
+		function calculateGraph() {
+
+			var chartData = [];
+			angular.forEach($scope.selected.data.children, function (item, key) {
+				var graph = {
+					key: item.title,
+					color: item.color,
+					values: []
+				};
+				angular.forEach($scope.country.epi, function (data) {
+					graph.values.push({
+						x: data.year,
+						y: data[item.column_name]
+					});
+				});
+				chartData.push(graph);
+			});
+			$scope.chart.data = chartData;
+		}
     });
 
 })();

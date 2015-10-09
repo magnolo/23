@@ -42,6 +42,7 @@
 				width: 320,
 				height: 300,
 				layout_gravity: 0,
+				sizefactor:3,
 				vis: null,
 				force: null,
 				damper: 0.1,
@@ -68,7 +69,8 @@
 			link: function (scope, elem, attrs, ngModel) {
 				var options = angular.extend(defaults(), attrs);
 				var nodes = [],
-					links = [];
+					links = [],
+					groups = [];
 
 				var max_amount = d3.max(scope.chartdata, function (d) {
 					return parseInt(d.value);
@@ -82,38 +84,63 @@
 				options.cat_centers = {
 					"eh": {
 						x: options.width / 2,
-						y: options.height / 100 * 45,
+						y: options.height  * 0.45,
 						damper: 0.085
 					},
 					"ev": {
 						x: options.width / 2,
-						y: options.height / 100 * 55,
+						y: options.height  * 0.55,
 						damper: 0.085
 					}
 				};
 				var create_nodes = function () {
-
+					//console.log(scope.indexer);
+					//console.log(scope.chartdata);
 					angular.forEach(scope.indexer, function (group) {
 						angular.forEach(group.children, function (item) {
-							console.log(scope.chartdata[item.column_name], scope.chartdata[item.column_name] / scope.sizefactor);
+							//console.log(scope.chartdata[item.column_name], scope.chartdata[item.column_name] / scope.sizefactor);
 							if (scope.chartdata[item.column_name]) {
-								nodes.push({
+								var node = {
 									type: item.column_name,
 									radius: scope.chartdata[item.column_name] / scope.sizefactor,
 									value: scope.chartdata[item.column_name] / scope.sizefactor,
 									name: item.title,
-									group: group.column_name,
+									group: group.column_name.substring(0,2),
 									x: options.center.x,
 									y: options.center.y,
 									color: item.color,
 									icon: item.icon,
 									unicode: item.unicode,
 									data: item
-								});
+								};
+								nodes.push(node);
 							}
 						});
 					});
+					create_groups();
+				};
+				var create_groups = function(){
+					groups = {};
+					var count = 0;
+					angular.forEach(nodes, function(node){
+							var exists = false;
+							var group = {};
+							angular.forEach(groups, function(group, index){
+								if(node.group == index){
+									exists = true;
+								}
+							});
+							if(!exists){
+								count++;
+								groups[node.group] = {
+									x: options.width / 2,
+									y: options.width / 2 + (1 - count),
+									damper: 0.085
+								};
 
+							}
+					});
+					console.log(groups);
 				};
 				var create_vis = function () {
 					angular.element(elem).html('');

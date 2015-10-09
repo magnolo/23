@@ -44,7 +44,7 @@
         					 title:'Air Quality',
         					 color: '#f6c70a',
         					 icon: 'sink',
-        					 unicode: '\ue606',
+        					 unicode: '\ue604',
         					 children:[{
         						 column_name: 'eh_aq_household_air_quality',
         						 title:'Household Air Quality',
@@ -72,7 +72,7 @@
         					 title:'Water Sanitation',
         					 color: '#ed6c2e',
         					 icon: 'fabric',
-        					 unicode: '\ue604',
+        					 unicode: '\ue606',
         					 children:[{
         						column_name: 'eh_ws_access_to_drinking_water',
         						title:'Access to Drinking Water',

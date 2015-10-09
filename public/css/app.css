@@ -90,13 +90,13 @@
 .icon-energy:before {
   content: "\e603";
 }
-.icon-fabric:before {
+.icon-sink:before {
   content: "\e604";
 }
 .icon-man:before {
   content: "\e605";
 }
-.icon-sink:before {
+.icon-fabric:before {
   content: "\e606";
 }
 .icon-tree:before {
@@ -466,6 +466,12 @@ body {
   font-size: 16px;
   color: #606060;
 }
+body > canvas {
+  z-index: 1000;
+  position: fixed;
+  right: 10px;
+  bottom: 10px;
+}
 .Page {
   margin-top: 64px;
   width: 100%;
@@ -771,6 +777,7 @@ md-menu-bar {
 
 
 
+
 median {
   overflow: hidden;
   border-radius: 20px;
@@ -825,7 +832,6 @@ median .slider text {
   user-select: none;
   cursor: ew-resize;
 }
-
 
 .slide-toggle {
   transition: all .5s;

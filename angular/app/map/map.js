@@ -29,8 +29,8 @@
 				baselayers: {
 					xyz: {
 						name: 'MapBox Pencil',
-						url: 'https://{s}.tiles.mapbox.com/v4/mapbox.pencil/{z}/{x}/{y}.png?access_token=' + apiKey,
-						type: 'xyz'
+						url: 'https://{s}.tiles.mapbox.com/v4/mapbox.outdoors/{z}/{x}/{y}.png?access_token=' + apiKey,
+						type: 'xyz',
 					}
 				},
 				overlays: {

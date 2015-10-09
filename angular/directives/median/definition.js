@@ -8,6 +8,8 @@
 				width: 340,
 				height: 40,
 				info: true,
+				field: 'score',
+				handling: true,
 				margin: {
 					left: 20,
 					right: 20,
@@ -36,7 +38,12 @@
 			},
 			require: 'ngModel',
 			link: function ($scope, element, $attrs, ngModel) {
+
 				var options = angular.extend(defaults(), $attrs);
+				//console.log(options.color);
+				if(options.color){
+					options.colors[1].color = options.color;
+				}
 				element.css('height', options.height + 'px').css('border-radius', options.height / 2 + 'px');
 				var x = d3.scale.linear()
 					.domain([0, 100])
@@ -56,7 +63,7 @@
 				//.attr("transform", "translate(0," + options.margin.top / 2 + ")");
 				var gradient = svg.append('svg:defs')
 					.append("svg:linearGradient")
-					.attr('id', options.id)
+					.attr('id', options.field)
 					.attr('x1', '0%')
 					.attr('y1', '0%')
 					.attr('x2', '100%')
@@ -71,7 +78,7 @@
 				svg.append('svg:rect')
 					.attr('width', options.width)
 					.attr('height', options.height)
-					.style('fill', 'url(#' + options.id + ')');
+					.style('fill', 'url(#' + options.field + ')');
 				var legend = svg.append('g').attr('transform', 'translate(' + options.height / 2 + ', ' + options.height / 2 + ')')
 					.attr('class', 'startLabel')
 
@@ -99,8 +106,10 @@
 						.attr('y', '.35em')
 				}
 				var slider = svg.append("g")
-					.attr("class", "slider")
-					.call(brush);
+					.attr("class", "slider");
+				if(options.handling == true){
+					slider.call(brush);
+				}
 
 				slider.select(".background")
 					.attr("height", options.height);
@@ -120,6 +129,9 @@
 				var handle = handleCont.append("circle")
 					.attr("class", "handle")
 					.attr("r", options.height / 2);
+					if(options.color){
+						handle.style('fill', options.color);
+					}
 				var handleLabel = handleCont.append('text')
 					.text(0)
 					.style('font-size', options.height/2.5)
@@ -146,8 +158,9 @@
 						found = false;
 					var final = "";
 					do {
+
 						angular.forEach($scope.data, function (nat, key) {
-							if (parseInt(nat.score) == parseInt(value)) {
+							if (parseInt(nat[options.field]) == parseInt(value)) {
 								final = nat;
 								found = true;
 							}
@@ -164,16 +177,17 @@
 						return ngModel.$modelValue;
 					},
 					function (newValue, oldValue) {
+						console.log(newValue);
 						if (!newValue) {
 							handleLabel.text(parseInt(0));
 							handleCont.attr("transform", 'translate(' + x(0) + ',' + options.height / 2 + ')');
 							return;
 						}
-						handleLabel.text(parseInt(newValue.score));
+						handleLabel.text(parseInt(newValue[options.field]));
 						if (newValue == oldValue) {
-							handleCont.attr("transform", 'translate(' + x(newValue.score) + ',' + options.height / 2 + ')');
+							handleCont.attr("transform", 'translate(' + x(newValue[options.field]) + ',' + options.height / 2 + ')');
 						} else {
-							handleCont.transition().duration(500).ease('quad').attr("transform", 'translate(' + x(newValue.score) + ',' + options.height / 2 + ')');
+							handleCont.transition().duration(500).ease('quad').attr("transform", 'translate(' + x(newValue[options.field]) + ',' + options.height / 2 + ')');
 
 						}
 					});
