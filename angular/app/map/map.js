@@ -14,7 +14,7 @@
 		$scope.center = {
 			lat: 0,
 			lng: 0,
-			zoom: 3
+			zoom: 4
 		};
 		$scope.defaults = {
 			scrollWheelZoom: false
@@ -23,7 +23,7 @@
 			center: {
 				lat: 0,
 				lng: 0,
-				zoom: 3
+				zoom: 4
 			},
 			layers: {
 				baselayers: {
@@ -54,17 +54,17 @@
 				}
 			}
 		});
-		/*$scope.searchIP = function (ip) {
+		$scope.searchIP = function (ip) {
 			var url = "http://freegeoip.net/json/" + ip;
 			$http.get(url).success(function (res) {
 				$scope.center = {
 					lat: res.latitude,
 					lng: res.longitude,
-					zoom: 3
+					zoom: 4
 				}
 				$scope.ip = res.ip;
 			})
-		};*/
+		};
 
 		//$scope.searchIP("");
 		$scope.interactivity = "";
