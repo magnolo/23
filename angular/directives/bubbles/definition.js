@@ -3,25 +3,25 @@
 
 	function CustomTooltip(tooltipId, width) {
 		var tooltipId = tooltipId;
-		angular.element(document).find('body').append("<div class='tooltip md-whiteframe-z3' id='" + tooltipId + "'></div>");
+		var elem = document.getElementById(tooltipId);
+		if(elem == null){
+			angular.element(document).find('body').append("<div class='tooltip md-whiteframe-z3' id='" + tooltipId + "'></div>");
+		}
 		hideTooltip();
-
-		function showTooltip(content, data, event) {
+		function showTooltip(content, data, event, element) {
 			angular.element(document.querySelector('#' + tooltipId)).html(content);
 			angular.element(document.querySelector('#' + tooltipId)).css('display', 'block');
 
-			return updatePosition(event, data);
+			return updatePosition(event, data, element);
 		}
-
 		function hideTooltip() {
 			angular.element(document.querySelector('#' + tooltipId)).css('display', 'none');
 		}
-
-		function updatePosition(event, d) {
+		function updatePosition(event, d, element) {
 			var ttid = "#" + tooltipId;
 			var xOffset = 20;
 			var yOffset = 10;
-			var svg = document.querySelector('#svg_vis');
+			var svg = element.find('svg')[0];//document.querySelector('#svg_vis');
 			var wscrY = window.scrollY;
 			var ttw = angular.element(document.querySelector(ttid)).offsetWidth;
 			var tth = document.querySelector(ttid).offsetHeight;
@@ -29,7 +29,6 @@
 			var ttleft = svg.getBoundingClientRect().left + d.x + d.radius + 12;
 			return angular.element(document.querySelector(ttid)).css('top', tttop + 'px').css('left', ttleft + 'px');
 		}
-
 		return {
 			showTooltip: showTooltip,
 			hideTooltip: hideTooltip,
@@ -40,13 +39,15 @@
 		var defaults;
 		defaults = function () {
 			return {
-				width: 940,
-				height: 600,
+				width: 320,
+				height: 300,
 				layout_gravity: 0,
+				sizefactor:3,
 				vis: null,
 				force: null,
 				damper: 0.1,
 				circles: null,
+				borders: true,
 				fill_color: d3.scale.ordinal().domain(["eh", "ev"]).range(["#a31031", "#beccae"]),
 				max_amount: '',
 				radius_scale: '',
@@ -61,13 +62,15 @@
 				direction: '=',
 				gravity: '=',
 				sizefactor: '=',
-				indexer:'='
+				indexer: '=',
+				borders: '@'
 			},
 			require: 'ngModel',
 			link: function (scope, elem, attrs, ngModel) {
 				var options = angular.extend(defaults(), attrs);
 				var nodes = [],
-					links = [];
+					links = [],
+					groups = [];
 
 				var max_amount = d3.max(scope.chartdata, function (d) {
 					return parseInt(d.value);
@@ -81,57 +84,90 @@
 				options.cat_centers = {
 					"eh": {
 						x: options.width / 2,
-						y: options.height / 100 * 45,
+						y: options.height  * 0.45,
 						damper: 0.085
 					},
 					"ev": {
 						x: options.width / 2,
-						y: options.height / 100 * 55,
+						y: options.height  * 0.55,
 						damper: 0.085
 					}
 				};
 				var create_nodes = function () {
-					angular.forEach(scope.indexer.data_tree, function(group){
-						angular.forEach(group.children, function(item){
-							nodes.push({
-								type: item.column_name,
-								radius: scope.chartdata[item.column_name] / scope.sizefactor,
-								value: scope.chartdata[item.column_name] / scope.sizefactor,
-								name:item.title,
-								group: group.column_name,
-								x: options.center.x,
-								y: options.center.y,
-								color:item.color,
-								icon:item.icon,
-								unicode: item.unicode,
-								data: item
-							});
+					//console.log(scope.indexer);
+					//console.log(scope.chartdata);
+					angular.forEach(scope.indexer, function (group) {
+						angular.forEach(group.children, function (item) {
+							//console.log(scope.chartdata[item.column_name], scope.chartdata[item.column_name] / scope.sizefactor);
+							if (scope.chartdata[item.column_name]) {
+								var node = {
+									type: item.column_name,
+									radius: scope.chartdata[item.column_name] / scope.sizefactor,
+									value: scope.chartdata[item.column_name] / scope.sizefactor,
+									name: item.title,
+									group: group.column_name.substring(0,2),
+									x: options.center.x,
+									y: options.center.y,
+									color: item.color,
+									icon: item.icon,
+									unicode: item.unicode,
+									data: item
+								};
+								nodes.push(node);
+							}
 						});
 					});
+					create_groups();
+				};
+				var create_groups = function(){
+					groups = {};
+					var count = 0;
+					angular.forEach(nodes, function(node){
+							var exists = false;
+							var group = {};
+							angular.forEach(groups, function(group, index){
+								if(node.group == index){
+									exists = true;
+								}
+							});
+							if(!exists){
+								count++;
+								groups[node.group] = {
+									x: options.width / 2,
+									y: options.height / 2 + (options.height 1 - count),
+									damper: 0.085
+								};
+
+							}
+					});
+					console.log(groups);
 				};
 				var create_vis = function () {
 					angular.element(elem).html('');
 					options.vis = d3.select(elem[0]).append("svg").attr("width", options.width).attr("height", options.height).attr("id", "svg_vis");
-					var pi = Math.PI;
-					var arcTop = d3.svg.arc()
-						.innerRadius(109)
-						.outerRadius(110)
-						.startAngle(-90 * (pi / 180)) //converting from degs to radians
-						.endAngle(90 * (pi / 180)); //just radians
-					var arcBottom = d3.svg.arc()
-						.innerRadius(134)
-						.outerRadius(135)
-						.startAngle(90 * (pi / 180)) //converting from degs to radians
-						.endAngle(270 * (pi / 180)); //just radians
 
-					options.arcTop = options.vis.append("path")
-						.attr("d", arcTop)
-						.attr("fill", "#be5f00")
-						.attr("transform", "translate(170,140)");
-					options.arcBottom = options.vis.append("path")
-						.attr("d", arcBottom)
-						.attr("fill", "#006bb6")
-						.attr("transform", "translate(170,180)");
+					if (!options.borders) {
+						var pi = Math.PI;
+						var arcTop = d3.svg.arc()
+							.innerRadius(109)
+							.outerRadius(110)
+							.startAngle(-90 * (pi / 180)) //converting from degs to radians
+							.endAngle(90 * (pi / 180)); //just radians
+						var arcBottom = d3.svg.arc()
+							.innerRadius(134)
+							.outerRadius(135)
+							.startAngle(90 * (pi / 180)) //converting from degs to radians
+							.endAngle(270 * (pi / 180)); //just radians
+
+						options.arcTop = options.vis.append("path")
+							.attr("d", arcTop)
+							.attr("fill", "#be5f00")
+							.attr("transform", "translate(170,140)");
+						options.arcBottom = options.vis.append("path")
+							.attr("d", arcBottom)
+							.attr("fill", "#006bb6")
+							.attr("transform", "translate(170,180)");
+					}
 					options.containers = options.vis.selectAll('g.node').data(nodes).enter().append('g').attr('transform', 'translate(' + (options.width / 2) + ',' + (options.height / 2) + ')').attr('class', 'node');
 
 					/*options.circles = options.containers.selectAll("circle").data(nodes, function (d) {
@@ -159,11 +195,9 @@
 						return show_details(d, i, this);
 					}).on("mouseout", function (d, i) {
 						return hide_details(d, i, this);
-					}).on("click", function(d, i){
+					}).on("click", function (d, i) {
 						ngModel.$setViewValue(d);
 						ngModel.$render();
-					
-
 					});
 					options.circles.transition().duration(options.duration).attr("r", function (d) {
 						return d.radius;
@@ -245,10 +279,10 @@
 				var show_details = function (data, i, element) {
 					var content;
 					content = "<span class=\"title\">" + data.name + ":</span><br/>";
-					angular.forEach(data.data.children, function(info){
-						content += "<span class=\"name\" style=\"color:"+(info.color || data.color)+"\"> " + (info.title) + "</span><br/>";
+					angular.forEach(data.data.children, function (info) {
+						content += "<span class=\"name\" style=\"color:" + (info.color || data.color) + "\"> " + (info.title) + "</span><br/>";
 					});
-					$compile(options.tooltip.showTooltip(content, data, d3.event).contents())(scope);
+					$compile(options.tooltip.showTooltip(content, data, d3.event, elem).contents())(scope);
 				};
 
 				var hide_details = function (data, i, element) {

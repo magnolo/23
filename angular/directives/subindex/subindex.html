@@ -1,11 +1,20 @@
 <div>
+  <div class="header info" layout-align="center center" layout="row">
+        <span class="title">{{country.country}}</span>
+  </div>
   <div class="header center" layout-align="center center" layout="column">
           <span class="icon"><i class="icon icon-bubble icon-{{selected.icon}} fisheries" ng-style="{'background-color':selected.color}"></i></span>
           <span class="title">{{selected.name}}</span>
-          <span class="info-icon">
-          </span>
+          <span class="info-icon"></span>
   </div>
-  <div class="module linechart">
-    <nvd3 options="chart.options" data="chart.data">
+
+  <div class="module" layout-align="center center" layout="column">
+        <p>Score</p>
+        <median data="" handling="{{ false }}" color="{{selected.color}}" field="{{selected.type}}" ng-model="country.epi[0]"></median>
+        <p>median</p>
   </div>
+  <div class="module">
+    <bubbles borders="false" ng-model="selected" indexer="indexer" chartdata="country.epi[0]" sizefactor="3" ></bubbles>
+  </div>
+
 </div>

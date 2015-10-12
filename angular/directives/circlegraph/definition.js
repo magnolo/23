@@ -1,7 +1,7 @@
 (function() {
 	"use strict";
 
-	angular.module('app.directives').directive('circlegraph', function() {
+	angular.module('app.directives').directive('circlegraph', function($timeout) {
 		var defaults = function() {
 			return {
 				width: 80,
@@ -57,8 +57,10 @@
 					.enter()
 					.append('text')
 					.text(function(d) {
-						return d + '/' + options.size;
+						return 'N°' + d;
 					})
+						.style("fill", options.color)
+					.style('font-weight', 'bold')
 					.attr('text-anchor', 'middle')
 					.attr('y', '0.35em');
 
@@ -68,10 +70,11 @@
 						.duration(750)
 						.call(arcTween, rotate(radius) * 2 * Math.PI);
 					text.transition().duration(750).tween('text', function(d) {
-						var data = this.textContent.split("/");
-						var i = d3.interpolate(data[0], radius);
+						var data = this.textContent.split('N°');
+
+						var i = d3.interpolate(data[1], radius);
 						return function(t) {
-							this.textContent = (Math.round(i(t) * 1) / 1) + '/' + options.size;
+							this.textContent =  'N°' + (Math.round(i(t) * 1) / 1);
 						};
 					})
 				}
@@ -93,10 +96,17 @@
 						return ngModel.$modelValue;
 					},
 					function(newValue, oldValue) {
-						if (newValue === oldValue)
-							return;
-						animateIt(newValue.rank)
-					}, true);
+						if (!newValue){
+							newValue = {
+								rank: options.size
+							};
+						}
+
+						$timeout(function(){
+							animateIt(newValue.rank)
+						});
+
+					});
 			}
 		};
 

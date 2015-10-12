@@ -10,24 +10,27 @@
 			maxZoom: 14,
 			detectRetina: true,
 			attribution: ''
-		};
+		};*/
 		$scope.center = {
 			lat: 0,
 			lng: 0,
-			zoom: 3
-		};*/
+			zoom: 4
+		};
+		$scope.defaults = {
+			scrollWheelZoom: false
+		};
 		angular.extend($rootScope, {
 			center: {
 				lat: 0,
 				lng: 0,
-				zoom: 3
+				zoom: 4
 			},
 			layers: {
 				baselayers: {
 					xyz: {
 						name: 'MapBox Pencil',
-						url: 'https://{s}.tiles.mapbox.com/v4/mapbox.pencil/{z}/{x}/{y}.png?access_token=' + apiKey,
-						type: 'xyz'
+						url: 'https://{s}.tiles.mapbox.com/v4/mapbox.outdoors/{z}/{x}/{y}.png?access_token=' + apiKey,
+						type: 'xyz',
 					}
 				},
 				overlays: {
@@ -36,7 +39,18 @@
 						type: 'utfGrid',
 						url: 'http://{s}.tiles.mapbox.com/v3/mapbox.geography-class/{z}/{x}/{y}.grid.json?callback={cb}',
 						visible: true
-					}
+					},
+					/*wms: {
+													 name: 'EEUU States (WMS)',
+													 type: 'wms',
+													 visible: true,
+													 url: 'http://suite.opengeo.org/geoserver/usa/wms',
+													 layerParams: {
+															 layers: 'usa:states',
+															 format: 'image/png',
+															 transparent: true
+													 }
+											 }*/
 				}
 			}
 		});
@@ -46,13 +60,13 @@
 				$scope.center = {
 					lat: res.latitude,
 					lng: res.longitude,
-					zoom: 3
+					zoom: 4
 				}
 				$scope.ip = res.ip;
 			})
 		};
 
-		$scope.searchIP("");
+		//$scope.searchIP("");
 		$scope.interactivity = "";
 		$scope.flag = "";
 		$scope.$on('leafletDirectiveMap.utfgridMouseover', function (event, leafletEvent) {

@@ -3,15 +3,13 @@
 
 	angular.module('app.routes').run(function($rootScope){
 		$rootScope.$on("$stateChangeStart", function(event, toState){
-
 			if (toState.data && toState.data.pageName){
 				$rootScope.current_page = toState.data.pageName;
 			}
-
-
+			 $rootScope.stateIsLoading = true;
 		});
-		$rootScope.$on("$viewContentLoaded", function(event, toState){
-			window.Prism.highlightAll();
+		$rootScope.$on("$stateChangeSuccess", function(event, toState){
+			 $rootScope.stateIsLoading = false;
 		});
 	});
 

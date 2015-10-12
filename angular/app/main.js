@@ -13,10 +13,10 @@
 
 
 	angular.module('app.routes', ['ui.router', 'ngStorage', 'satellizer']);
-	angular.module('app.controllers', ['ui.router', 'ngMaterial', 'ngStorage', 'restangular', 'ngMdIcons', 'angular-loading-bar', 'ngMessages', "leaflet-directive",'nvd3', 'ngCsvImport']);
+	angular.module('app.controllers', ['smoothScroll','ui.router', 'ngMaterial', 'ngStorage', 'restangular', 'ngMdIcons', 'angular-loading-bar', 'ngMessages', 'ngSanitize', "leaflet-directive",'nvd3', 'ngCsvImport','sticky']);
 	angular.module('app.filters', []);
 	angular.module('app.services', ['ui.router', 'ngStorage', 'restangular']);
-	angular.module('app.directives', []);
+	angular.module('app.directives', ['smoothScroll']);
 	angular.module('app.config', []);
 
 })();
