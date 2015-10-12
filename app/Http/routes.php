@@ -26,6 +26,8 @@ Route::group(['prefix' => 'api/1/'], function () {
     Route::get('epi', 'EpiController@index');
     Route::get('epi/year/{year}', 'EpiController@showByYear');
     Route::get('nations', 'NationsController@index');
+    Route::get('nations/bbox/{countries}', 'NationsController@getBBox');
     Route::get('nations/{iso}', 'NationsController@show');
+
 
 });

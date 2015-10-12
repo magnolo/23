@@ -134,6 +134,9 @@
 				}
 				else{
 					$state.go('app.epi.selected', {item:newItem.iso})
+					DataService.getOne('nations/bbox', [$scope.current.iso]).then(function(data){
+						$scope.bbox = data;
+					});
 				}
 
 			}
@@ -280,6 +283,22 @@
 
 		$scope.drawCountries = function () {
 			leafletData.getMap('map').then(function (map) {
+				$scope.$watch('bbox', function(n, o){
+						if(n === o){
+							return;
+						}
+
+						var lat = [n.coordinates[0][0][1],[n.coordinates[0][0][0]]],
+						lng = [n.coordinates[0][2][1],[n.coordinates[0][2][0]]]
+						var southWest = L.latLng(n.coordinates[0][0][1], n.coordinates[0][0][0]),
+    northEast = L.latLng(n.coordinates[0][2][1], n.coordinates[0][2][0]),
+    bounds = L.latLngBounds(southWest, northEast);
+
+						//map.panInsideBounds(bounds,{zoom:true});
+						map.fitBounds(bounds, {
+							paddingTopLeft: [300,0]
+						});
+				});
 				var apiKey = 'pk.eyJ1IjoibWFnbm9sbyIsImEiOiJuSFdUYkg4In0.5HOykKk0pNP1N3isfPQGTQ';
 
 				//	L.tileLayer('http://localhost:3001/services/postgis/countries_big/geom/dynamicMap/{z}/{x}/{y}.png').addTo(map);
@@ -299,14 +318,14 @@
 
 						//var x = evt.feature.bbox()[0]/ (evt.feature.extent / evt.feature.tileSize);
 						//var y = evt.feature.bbox()[1]/(evt.feature.extent / evt.feature.tileSize)
-						if ($scope.current.country != evt.feature.properties.admin) {
-							map.panTo(evt.latlng);
-							map.panBy(new L.Point(-200,0));
+						//if ($scope.current.country != evt.feature.properties.admin) {
+							//map.panTo(evt.latlng);
+							//map.panBy(new L.Point(-200,0));
 						/*	map.fitBounds([
 								[evt.feature.bbox()[0] / (evt.feature.extent / evt.feature.tileSize), evt.feature.bbox()[1] / (evt.feature.extent / evt.feature.tileSize)],
 								[evt.feature.bbox()[2] / (evt.feature.extent / evt.feature.tileSize), evt.feature.bbox()[3] / (evt.feature.extent / evt.feature.tileSize)],
 							])*/
-						}
+						//}
 						//console.log(evt.feature);
 						$scope.current = getNationByIso(evt.feature.properties.adm0_a3);
 					},
