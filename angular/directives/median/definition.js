@@ -177,7 +177,7 @@
 						return ngModel.$modelValue;
 					},
 					function (newValue, oldValue) {
-						console.log(newValue);
+						//console.log(newValue);
 						if (!newValue) {
 							handleLabel.text(parseInt(0));
 							handleCont.attr("transform", 'translate(' + x(0) + ',' + options.height / 2 + ')');

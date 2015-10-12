@@ -134,7 +134,7 @@
 								count++;
 								groups[node.group] = {
 									x: options.width / 2,
-									y: options.height / 2 + (options.height 1 - count),
+									y: options.height / 2 + (1 - count),
 									damper: 0.085
 								};
 

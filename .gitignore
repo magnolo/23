@@ -6,6 +6,7 @@
 npm-debug.log
 .idea/
 .elasticbeanstalk
+/public/bower_components
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
