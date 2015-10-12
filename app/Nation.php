@@ -10,6 +10,6 @@ class Nation extends Model
     protected $table = "nations";
 
     public function epi(){
-      return $this->hasMany('App\Epi', 'country_id', 'id')->orderBy('year', 'ASC');
+      return $this->hasMany('App\EPI', 'country_id', 'id')->orderBy('year', 'ASC');
     }
 }

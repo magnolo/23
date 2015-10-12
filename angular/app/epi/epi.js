@@ -211,12 +211,11 @@
 		var countriesStyle = function (feature) {
 			var style = {};
 			var iso = feature.properties.adm0_a3;
-			console.log(iso);
 			var nation = getNationByIso(iso);
 			var field = $scope.display.selectedCat.type || 'score';
 			var type = feature.type;
 			switch (type) {
-			case 1: //'Point' 
+			case 1: //'Point'
 				style.color = 'rgba(49,79,79,0.01)';
 				style.radius = 5;
 				style.selected = {
@@ -244,8 +243,8 @@
 					style.selected = {
 						color: 'rgba(255,255,255,0.0)',
 						outline: {
-							color: 'rgba(0,0,0,0.5)',
-							size: 1
+							color: 'rgba(0,0,0,0.3)',
+							size: 2
 						}
 					};
 					break;
@@ -294,12 +293,12 @@
 					debug: false,
 					opacity: 0.6,
 					clickableLayers: ['countries_big_geom'],
-					//mutexToggle: true,
+					mutexToggle: true,
 					onClick: function (evt, t) {
 						//map.fitBounds(evt.target.getBounds());
 
-						var x = evt.feature.bbox()[0]/ (evt.feature.extent / evt.feature.tileSize);
-						var y = evt.feature.bbox()[1]/(evt.feature.extent / evt.feature.tileSize)
+						//var x = evt.feature.bbox()[0]/ (evt.feature.extent / evt.feature.tileSize);
+						//var y = evt.feature.bbox()[1]/(evt.feature.extent / evt.feature.tileSize)
 						if ($scope.current.country != evt.feature.properties.admin) {
 							map.panTo(evt.latlng);
 							map.panBy(new L.Point(-200,0));
