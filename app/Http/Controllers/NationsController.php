@@ -55,6 +55,10 @@ class NationsController extends Controller
         return Nation::where('iso', strtoupper($iso))->first()->load('epi');
     }
 
+    public function getBBox($countries){
+        $box =  \DB::table('countries')->select('iso_a3', \DB::raw('st_asgeojson(St_envelope(geom)) as bbox'))->where('iso_a3', '=',$countries)->first();
+        return $box->bbox;
+    }
     /**
      * Show the form for editing the specified resource.
      *
