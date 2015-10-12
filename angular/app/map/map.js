@@ -14,7 +14,7 @@
 		$scope.center = {
 			lat: 0,
 			lng: 0,
-			zoom: 4
+			zoom: 3
 		};
 		$scope.defaults = {
 			scrollWheelZoom: false
@@ -23,7 +23,7 @@
 			center: {
 				lat: 0,
 				lng: 0,
-				zoom: 4
+				zoom: 3
 			},
 			layers: {
 				baselayers: {
@@ -60,7 +60,7 @@
 				$scope.center = {
 					lat: res.latitude,
 					lng: res.longitude,
-					zoom: 4
+					zoom: 3
 				}
 				$scope.ip = res.ip;
 			})
