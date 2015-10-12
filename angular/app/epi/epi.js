@@ -195,7 +195,7 @@
 			$scope.ctx.fillStyle = gradient;
 			$scope.ctx.fillRect(0, 0, 256, 10);
 			$scope.palette = $scope.ctx.getImageData(0, 0, 256, 1).data;
-			document.getElementsByTagName('body')[0].appendChild($scope.canvas);
+			//document.getElementsByTagName('body')[0].appendChild($scope.canvas);
 		}
 		var updateCanvas = function(color){
 			var gradient = $scope.ctx.createLinearGradient(0, 0, 256, 10);
