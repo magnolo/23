@@ -633,6 +633,7 @@ md-menu-bar {
 
 
 
+
 #Map_Container {
   height: calc(100% - 165px);
 }
@@ -666,7 +667,6 @@ md-menu-bar {
   bottom: 20px;
   right: 00px;
 }
-
 
 
 .Sidebar {
@@ -730,6 +730,8 @@ md-menu-bar {
 
 
 
+
+
 .bubbles {
   overflow: hidden;
 }
@@ -787,8 +789,6 @@ md-menu-bar {
 .tooltip .close-it:hover {
   color: rgba(0, 0, 0, 0.87);
 }
-
-
 
 median {
   overflow: hidden;
