@@ -39,7 +39,7 @@
 		var defaults;
 		defaults = function () {
 			return {
-				width: 320,
+				width: 300,
 				height: 300,
 				layout_gravity: 0,
 				sizefactor:3,
@@ -75,7 +75,7 @@
 				var max_amount = d3.max(scope.chartdata, function (d) {
 					return parseInt(d.value);
 				});
-
+				//options.height = options.width * 1.1;
 				options.radius_scale = d3.scale.pow().exponent(0.5).domain([0, max_amount]).range([2, 85]);
 				options.center = {
 					x: options.width / 2,
@@ -162,11 +162,11 @@
 						options.arcTop = options.vis.append("path")
 							.attr("d", arcTop)
 							.attr("fill", "#be5f00")
-							.attr("transform", "translate(170,140)");
+							.attr("transform", "translate("+(options.width/2)+","+(options.height/2 - options.height/10)+")");
 						options.arcBottom = options.vis.append("path")
 							.attr("d", arcBottom)
 							.attr("fill", "#006bb6")
-							.attr("transform", "translate(170,180)");
+							.attr("transform", "translate("+(options.width/2)+","+(options.height/2)+")");
 					}
 					options.containers = options.vis.selectAll('g.node').data(nodes).enter().append('g').attr('transform', 'translate(' + (options.width / 2) + ',' + (options.height / 2) + ')').attr('class', 'node');
 

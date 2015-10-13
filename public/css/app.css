@@ -122,12 +122,12 @@
   padding-bottom: 2em;
 }
 .info-container.out {
-  -webkit-transform: translateX(-440px);
-  transform: translateX(-440px);
+  -webkit-transform: translateX(-380px);
+  transform: translateX(-380px);
 }
 .info-container .info-box {
   background-color: #fff;
-  width: 420px;
+  width: 360px;
   padding: 2em;
   position: relative;
 }
@@ -149,11 +149,12 @@
   padding: 0;
   margin: 0;
   line-height: 0.8em;
-  font-size: 2em;
+  font-size: 1.8em;
 }
 .info-container .info-box .header .subtitle {
   color: #006bb9;
   line-height: 1em;
+  font-size: 0.9em;
 }
 .info-container .info-box .header .info-icon {
   cursor: pointer;
@@ -181,7 +182,7 @@
   font-size: 1.8em;
 }
 .info-container .info-box .header.smaller .title {
-  font-size: 1.5em;
+  font-size: 1.3em;
   font-style: italic;
 }
 .info-container .info-box .close-it {
@@ -202,6 +203,9 @@
 .info-container .info-box .module {
   margin: 1em 0;
   background: #fff;
+}
+.info-container .info-box .module.no-margin {
+  margin: 0px;
 }
 .info-container .info-box .module.rank .chart {
   color: #333333;
@@ -311,8 +315,8 @@
 .info-container .info-box.sub-box {
   position: absolute;
   top: 0px;
-  width: 320px;
-  left: 420px;
+  width: 280px;
+  left: 365px;
   margin-left: 1em;
 }
 .info-container .info-box.sub-box .close-box {
@@ -727,8 +731,6 @@ md-menu-bar {
 
 
 .bubbles {
-  border-top: 1px solid;
-  border-bottom: 1px solid;
   overflow: hidden;
 }
 .bubbles h3 {
@@ -736,14 +738,13 @@ md-menu-bar {
   text-decoration: underline;
   font-weight: normal;
   position: relative;
+  margin: 0;
 }
 .bubbles h3.eh {
   color: #be5f00;
-  top: 1em;
 }
 .bubbles h3.ev {
   color: #006bb6;
-  bottom: 1em;
 }
 .node {
   cursor: pointer;
@@ -786,6 +787,7 @@ md-menu-bar {
 .tooltip .close-it:hover {
   color: rgba(0, 0, 0, 0.87);
 }
+
 
 
 median {
@@ -842,7 +844,6 @@ median .slider text {
   user-select: none;
   cursor: ew-resize;
 }
-
 
 
 .slide-toggle {

@@ -7,7 +7,8 @@
 				width: 80,
 				height: 80,
 				color: '#00ccaa',
-				size: 178
+				size: 178,
+				field: 'rank'
 			}
 		}
 		return {
@@ -17,6 +18,7 @@
 			require: 'ngModel',
 			link: function($scope, element, $attrs, ngModel) {
 				//Fetching Options
+
 				var options = angular.extend(defaults(), $attrs);
 
 				//Creating the Scale
@@ -96,14 +98,14 @@
 						return ngModel.$modelValue;
 					},
 					function(newValue, oldValue) {
+						console.log(newValue)
 						if (!newValue){
-							newValue = {
-								rank: options.size
-							};
+							newValue = {};
+							newValue[options.field] = options.size;
 						}
 
 						$timeout(function(){
-							animateIt(newValue.rank)
+							animateIt(newValue[options.field])
 						});
 
 					});

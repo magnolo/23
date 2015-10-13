@@ -7,14 +7,54 @@
           <span class="title">{{selected.name}}</span>
           <span class="info-icon"></span>
   </div>
+  <div class="rank module" layout-align="space-between center" layout="row">
+          <div class="chart" layout="row">
+                  <div layout-align="" layout="column">
+                          <div class="title" layout-align="center center" layout="row">Rank</div>
+                          <div layout="row">
+                                <circlegraph ng-model="country"  color="{{selected.color}}"></circlegraph>
+                          </div>
+                  </div>
 
+          </div>
+          <div class="mini-list">
+                  <div class="title">
+                          <span ng-if="!current.id">Top</span>
+                          <span ng-if="current.id">Actual</span>
+                  </div>
+                  <div class="list">
+                          <ul style="transform:translateY(-{{getOffset()}}px)">
+                                  <li ng-class="{active: nat.id == current.id}" ng-click="setCurrent(nat)" ng-repeat="(key, nat) in data | orderBy:'-'+selected.type | limitTo:3">
+                                          <span class="number">{{key+1}}.</span>
+                                          <span class="value">{{nat.iso}}</span>
+                                          <md-tooltip md-delay="700" md-direction="right">
+                                                  {{nat.country}}
+                                          </md-tooltip>
+                                  </li>
+                          </ul>
+                  </div>
+          </div>
+          <div class="mini-list">
+                  <div class="title">Bottom</div>
+                  <div class="list">
+                          <ul>
+                                  <li ng-click="setCurrent(nat)" ng-repeat="(key, nat) in data | orderBy:selected.type | limitTo:3">
+                                          <span class="number">{{getRank(nat)}}.</span>
+                                          <span class="value">{{nat.iso}}</span>
+                                          <md-tooltip md-delay="700" md-direction="right">
+                                                  {{nat.country}}
+                                          </md-tooltip>
+                                  </li>
+                          </ul>
+                  </div>
+          </div>
+  </div>
   <div class="module" layout-align="center center" layout="column">
         <p>Score</p>
-        <median data="" handling="{{ false }}" color="{{selected.color}}" field="{{selected.type}}" ng-model="country.epi[0]"></median>
+        <median data="" handling="{{ false }}" color="{{selected.color}}" field="{{selected.type}}" ng-model="country.epi[5]"></median>
         <p>median</p>
   </div>
   <div class="module">
     <bubbles borders="false" ng-model="selected" indexer="indexer" chartdata="country.epi[0]" sizefactor="3" ></bubbles>
   </div>
-
 </div>

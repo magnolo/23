@@ -1,14 +1,16 @@
 (function(){
 	"use strict";
 
-	angular.module( 'app.controllers' ).controller( 'SubindexCtrl', function($scope, $timeout, smoothScroll){
+	angular.module( 'app.controllers' ).controller( 'SubindexCtrl', function($scope, $filter, $timeout, smoothScroll){
 		$scope.setChart = setChart;
 		$scope.calculateGraph = calculateGraph;
 		$scope.createIndexer = createIndexer;
+		$scope.calcSubRank = calcSubRank;
+
 		activate();
 
-
 		function activate(){
+			$scope.calcSubRank();
 			$scope.setChart();
 			$scope.calculateGraph();
 			$scope.createIndexer();
@@ -18,11 +20,31 @@
 				}
 				$scope.calculateGraph();
 				$scope.gotoBox();
+
+			});
+			$scope.$watch('country', function(n, o){
+				if(n === o){
+					return;
+				}
+				$scope.calcSubRank();
 			})
+		}
+		function calcSubRank(){
+				var rank = 0;
+				angular.forEach($scope.data, function(item){
+					item[$scope.selected.type] = parseFloat(item[$scope.selected.type]);
+					item['score'] = parseInt(item['score']);
+				})
+				var filter = $filter('orderBy')($scope.data, [$scope.selected.type,"score"] , true);
+				for(var i = 0;i < filter.length; i++){
+					if(filter[i].iso == $scope.country.iso){
+						rank = i+1;
+					}
+				}
+				$scope.country.rank = rank;
 		}
 		function createIndexer(){
 		 	$scope.indexer = [$scope.selected.data];
-
 		}
 		function setChart() {
 			$scope.chart = {
