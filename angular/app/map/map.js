@@ -54,7 +54,7 @@
 				}
 			}
 		});
-		$scope.searchIP = function (ip) {
+		/*$scope.searchIP = function (ip) {
 			var url = "http://freegeoip.net/json/" + ip;
 			$http.get(url).success(function (res) {
 				$scope.center = {
@@ -64,7 +64,7 @@
 				}
 				$scope.ip = res.ip;
 			})
-		};
+		};*/
 
 		//$scope.searchIP("");
 		$scope.interactivity = "";

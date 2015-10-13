@@ -1,7 +1,7 @@
-(function() {
+(function () {
 	"use strict";
 
-	angular.module('app.controllers').controller('EpiCtrl', function($scope, $state, $timeout, smoothScroll, IndexService, EPI, DataService, leafletData, MapService) {
+	angular.module('app.controllers').controller('EpiCtrl', function ($scope, $state, $timeout, smoothScroll, IndexService, EPI, DataService, leafletData, MapService) {
 
 		$scope.current = "";
 		$scope.display = {
@@ -35,7 +35,7 @@
 			active: false,
 			countries: []
 		};
-		$scope.showTabContent = function(content) {
+		$scope.showTabContent = function (content) {
 			if (content == '' && $scope.tabContent == '') {
 				$scope.tabContent = 'rank';
 			} else {
@@ -43,8 +43,8 @@
 			}
 			$scope.toggleButton = $scope.tabContent ? 'arrow_drop_up' : 'arrow_drop_down';
 		};
-		$scope.setState = function(iso) {
-			angular.forEach($scope.epi, function(epi) {
+		$scope.setState = function (iso) {
+			angular.forEach($scope.epi, function (epi) {
 				if (epi.iso == iso) {
 					$scope.current = epi;
 				}
@@ -69,33 +69,33 @@
 				$scope.setState($state.params.item);
 			}
 		});*/
-		$scope.setState = function(item) {
+		$scope.setState = function (item) {
 			$scope.setCurrent(getNationByIso(item));
 		};
 		//$scope.epi = Restangular.all('epi/year/2014').getList().$object;
-		$scope.toggleOpen = function() {
+		$scope.toggleOpen = function () {
 			$scope.menueOpen = !$scope.menueOpen;
 			$scope.closeIcon = $scope.menueOpen == true ? 'chevron_left' : 'chevron_right';
 		}
-		$scope.setCurrent = function(nat) {
+		$scope.setCurrent = function (nat) {
 			$scope.current = nat;
 		};
-		$scope.getRank = function(nat) {
+		$scope.getRank = function (nat) {
 			return $scope.epi.indexOf(nat) + 1;
 		};
-		$scope.toggleInfo = function() {
+		$scope.toggleInfo = function () {
 			$scope.display.selectedCat = '';
 			$scope.info = !$scope.info;
 		};
-		$scope.toggleDetails = function() {
+		$scope.toggleDetails = function () {
 			return $scope.details = !$scope.details;
 		};
-		$scope.toggleComparison = function() {
+		$scope.toggleComparison = function () {
 			$scope.compare.countries = [$scope.current];
 			$scope.compare.active = !$scope.compare.active;
 			if ($scope.compare.active) {
-					$scope.mvtSource.options.mutexToggle = false;
-				$timeout(function() {
+				$scope.mvtSource.options.mutexToggle = false;
+				$timeout(function () {
 					var element = document.getElementById('index-comparison');
 					smoothScroll(element, {
 						offset: 120,
@@ -105,9 +105,9 @@
 				})
 			}
 		};
-		$scope.toggleCountrieList = function(country) {
+		$scope.toggleCountrieList = function (country) {
 			var found = false;
-			angular.forEach($scope.compare.countries, function(nat, key) {
+			angular.forEach($scope.compare.countries, function (nat, key) {
 				if (country == nat) {
 					$scope.compare.countries.splice(key, 1);
 					found = true;
@@ -118,21 +118,21 @@
 			};
 			return !found;
 		};
-		$scope.getOffset = function() {
+		$scope.getOffset = function () {
 			if (!$scope.current) {
 				return 0;
 			}
 			return ($scope.current.rank == 1 ? 0 : $scope.current.rank == $scope.current.length + 1 ? $scope.current.rank : $scope.current.rank - 2) * 16;
 			//return $scope.current.rank - 2 || 0;
 		};
-		$scope.getTendency = function() {
+		$scope.getTendency = function () {
 			if (!$scope.current) {
 				return 'arrow_drop_down'
 			}
 			return $scope.current.percent_change > 0 ? 'arrow_drop_up' : 'arrow_drop_down';
 		};
 
-		$scope.$watch('current', function(newItem, oldItem) {
+		$scope.$watch('current', function (newItem, oldItem) {
 			if (newItem === oldItem) {
 				return;
 			}
@@ -141,19 +141,19 @@
 				if ($scope.compare.active) {
 					$scope.toggleCountrieList(newItem);
 					var isos = [];
-					angular.forEach($scope.compare.countries, function(item, key){
-							isos.push(item.iso);
+					angular.forEach($scope.compare.countries, function (item, key) {
+						isos.push(item.iso);
 					});
 					console.log(isos);
-					DataService.getOne('nations/bbox', isos).then(function(data) {
+					DataService.getOne('nations/bbox', isos).then(function (data) {
 						$scope.bbox = data;
 					});
 				} else {
 					$state.go('app.epi.selected', {
 						item: newItem.iso
 					})
-						$scope.mvtSource.options.mutexToggle = true;
-					DataService.getOne('nations/bbox', [$scope.current.iso]).then(function(data) {
+					$scope.mvtSource.options.mutexToggle = true;
+					DataService.getOne('nations/bbox', [$scope.current.iso]).then(function (data) {
 						$scope.bbox = data;
 					});
 				}
@@ -162,7 +162,7 @@
 				$state.go('app.epi');
 			}
 		});
-		$scope.$watch('display.selectedCat', function(n, o) {
+		$scope.$watch('display.selectedCat', function (n, o) {
 			if (n === o) {
 				return
 			}
@@ -173,37 +173,40 @@
 			};
 			$scope.mvtSource.setStyle(countriesStyle);
 		});
-		$scope.$on("$stateChangeSuccess", function(event, toState, toParams) {
+		$scope.$on("$stateChangeSuccess", function (event, toState, toParams) {
 
 			if (toState.name == "app.epi.selected") {
 				$scope.setState(toParams.item);
-				DataService.getOne('nations', toParams.item).then(function(data) {
+				DataService.getOne('nations', toParams.item).then(function (data) {
 					$scope.country = data;
+					DataService.getOne('nations/bbox', [$scope.country.iso]).then(function (data) {
+						$scope.bbox = data;
+					});
 				});
 			} else {
 				$scope.country = $scope.current = "";
 				$scope.details = false;
 			}
 		});
-		var getNationByName = function(name) {
+		var getNationByName = function (name) {
 			var nation = {};
-			angular.forEach($scope.epi, function(nat) {
+			angular.forEach($scope.epi, function (nat) {
 				if (nat.country == name) {
 					nation = nat;
 				}
 			});
 			return nation;
 		};
-		var getNationByIso = function(iso) {
+		var getNationByIso = function (iso) {
 			var nation = {};
-			angular.forEach($scope.epi, function(nat) {
+			angular.forEach($scope.epi, function (nat) {
 				if (nat.iso == iso) {
 					nation = nat;
 				}
 			});
 			return nation;
 		};
-		var createCanvas = function(colors) {
+		var createCanvas = function (colors) {
 			$scope.canvas = document.createElement('canvas');
 			$scope.canvas.width = 256;
 			$scope.canvas.height = 10;
@@ -217,7 +220,7 @@
 			$scope.palette = $scope.ctx.getImageData(0, 0, 256, 1).data;
 			//document.getElementsByTagName('body')[0].appendChild($scope.canvas);
 		}
-		var updateCanvas = function(color) {
+		var updateCanvas = function (color) {
 			var gradient = $scope.ctx.createLinearGradient(0, 0, 256, 10);
 			gradient.addColorStop(0, 'rgba(255,255,255,0)');
 			gradient.addColorStop(0.53, color);
@@ -228,63 +231,63 @@
 		};
 		createCanvas();
 
-		var countriesStyle = function(feature) {
+		var countriesStyle = function (feature) {
 			var style = {};
 			var iso = feature.properties.adm0_a3;
 			var nation = getNationByIso(iso);
 			var field = $scope.display.selectedCat.type || 'score';
 			var type = feature.type;
 			switch (type) {
-				case 1: //'Point'
-					style.color = 'rgba(49,79,79,0.01)';
-					style.radius = 5;
+			case 1: //'Point'
+				style.color = 'rgba(49,79,79,0.01)';
+				style.radius = 5;
+				style.selected = {
+					color: 'rgba(255,255,0,0.5)',
+					radius: 0
+				};
+				break;
+			case 2: //'LineString'
+				style.color = 'rgba(255,0,0,1)';
+				style.size = 1;
+				style.selected = {
+					color: 'rgba(255,25,0,1)',
+					size: 2
+				};
+				break;
+			case 3: //'Polygon'
+				if (nation[field]) {
+					var colorPos = parseInt(256 / 100 * nation[field]) * 4;
+					var color = 'rgba(' + $scope.palette[colorPos] + ', ' + $scope.palette[colorPos + 1] + ', ' + $scope.palette[colorPos + 2] + ',' + $scope.palette[colorPos + 3] + ')';
+					style.color = color;
+					style.outline = {
+						color: color,
+						size: 1
+					};
 					style.selected = {
-						color: 'rgba(255,255,0,0.5)',
-						radius: 0
+						color: 'rgba(255,255,255,0.0)',
+						outline: {
+							color: 'rgba(0,0,0,0.3)',
+							size: 2
+						}
 					};
 					break;
-				case 2: //'LineString'
-					style.color = 'rgba(255,0,0,1)';
-					style.size = 1;
-					style.selected = {
-						color: 'rgba(255,25,0,1)',
-						size: 2
+				} else {
+					style.color = 'rgba(255,255,255,0)';
+					style.outline = {
+						color: 'rgba(255,255,255,0)',
+						size: 1
 					};
-					break;
-				case 3: //'Polygon'
-					if (nation[field]) {
-						var colorPos = parseInt(256 / 100 * nation[field]) * 4;
-						var color = 'rgba(' + $scope.palette[colorPos] + ', ' + $scope.palette[colorPos + 1] + ', ' + $scope.palette[colorPos + 2] + ',' + $scope.palette[colorPos + 3] + ')';
-						style.color = color;
-						style.outline = {
-							color: color,
-							size: 1
-						};
-						style.selected = {
-							color: 'rgba(255,255,255,0.0)',
-							outline: {
-								color: 'rgba(0,0,0,0.3)',
-								size: 2
-							}
-						};
-						break;
-					} else {
-						style.color = 'rgba(255,255,255,0)';
-						style.outline = {
-							color: 'rgba(255,255,255,0)',
-							size: 1
-						};
-					}
+				}
 			}
 
 			//	if (feature.layer.name === 'gaul_2014_adm1_label') {
-			style.ajaxSource = function(mvtFeature) {
+			style.ajaxSource = function (mvtFeature) {
 				var id = mvtFeature.id;
 				//	console.log(id);
 				//return 'http://spatialserver.spatialdev.com/fsp/2014/fsp/aggregations-no-name/' + id + '.json';
 			};
 
-			style.staticLabel = function(mvtFeature, ajaxData) {
+			style.staticLabel = function (mvtFeature, ajaxData) {
 				var style = {
 					html: feature.properties.name,
 					iconSize: [33, 33],
@@ -298,9 +301,9 @@
 			return style;
 		};
 
-		$scope.drawCountries = function() {
-			leafletData.getMap('map').then(function(map) {
-				$scope.$watch('bbox', function(n, o) {
+		$scope.drawCountries = function () {
+			leafletData.getMap('map').then(function (map) {
+				$scope.$watch('bbox', function (n, o) {
 					if (n === o) {
 						return;
 					}
@@ -325,16 +328,45 @@
 				//	L.tileLayer('http://localhost:3001/services/postgis/countries_big/geom/dynamicMap/{z}/{x}/{y}.png').addTo(map);
 				var debug = {};
 				var mb = 'https://a.tiles.mapbox.com/v4/mapbox.mapbox-terrain-v1,mapbox.mapbox-streets-v6-dev/{z}/{x}/{y}.vector.pbf?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6IlhHVkZmaW8ifQ.hAMX5hSW-QnTeRCMAy9A8Q';
-				var mapzen = 'http://vector.mapzen.com/osm/{layers}/{z}/{x}/{y}.{format}?api_key={api_key}'
+				var mapzen = 'http://vector.mapzen.com/osm/places/{z}/{x}/{y}.mvt?api_key=vector-tiles-Q3_Os5w'
 				var url = 'http://v22015052835825358.yourvserver.net:3001/services/postgis/countries_big/geom/vector-tiles/{z}/{x}/{y}.pbf?fields=id,admin,adm0_a3,wb_a3,su_a3,iso_a3,name,name_long'; //
 				var url2 = 'https://a.tiles.mapbox.com/v4/mapbox.mapbox-streets-v6-dev/{z}/{x}/{y}.vector.pbf?access_token=' + apiKey;
+			/*	$scope.labelSource = new L.TileLayer.MVTSource({
+					url: mapzen,
+					debug:false,
+					filter: function (feature, context) {
+						if (feature.properties.kind == 'country') {
+							return true;
+						}
+						return false;
+					},
+					getIDForLayerFeature: function (feature) {
+						return feature.properties.id;
+					},
+					style: function (feature) {
+						//console.log(feature.properties['name:de']);
+						var style = {};
+
+						if(typeof feature.properties['name:en'] != "undefined"){
+							style.staticLabel = function () {
+								var style = {
+									html: feature.properties['name:en'],
+									iconSize: [125, 30],
+									cssClass: 'label-icon-text'
+								};
+								return style;
+							};
+						}
+						return style;
+					}
+				})*/
 				$scope.mvtSource = new L.TileLayer.MVTSource({
 					url: url, //"http://spatialserver.spatialdev.com/services/vector-tiles/gaul_fsp_india/{z}/{x}/{y}.pbf",
 					debug: false,
 					opacity: 0.6,
 					clickableLayers: ['countries_big_geom'],
 					mutexToggle: true,
-					onClick: function(evt, t) {
+					onClick: function (evt, t) {
 						//map.fitBounds(evt.target.getBounds());
 
 						//var x = evt.feature.bbox()[0]/ (evt.feature.extent / evt.feature.tileSize);
@@ -351,13 +383,13 @@
 						console.log(evt.feature.properties);
 						$scope.current = getNationByIso(evt.feature.properties.adm0_a3);
 					},
-					getIDForLayerFeature: function(feature) {
+					getIDForLayerFeature: function (feature) {
 
 						return feature.properties.id;
 					},
-					filter: function(feature, context) {
+					filter: function (feature, context) {
 
-						if (feature.layer.name === 'admin' || feature.layer.name === 'gaul_2014_adm1_label') {
+						/*if (feature.layer.name === 'admin' || feature.layer.name === 'gaul_2014_adm1_label') {
 							//console.log(feature);
 							if (feature.properties.admin_level == 0 || feature.properties.admin_level == 1 || feature.properties.admin_level == 2) {
 								return true;
@@ -365,14 +397,14 @@
 								return false;
 							}
 
-						}
+						}*/
 						return true;
 					},
 
 					style: countriesStyle,
 
 
-					layerLink: function(layerName) {
+					layerLink: function (layerName) {
 						if (layerName.indexOf('_label') > -1) {
 							return layerName.replace('_label', '');
 						}
@@ -380,8 +412,9 @@
 					}
 
 				});
-				debug.mvtSource = $scope.mvtSource;
+				//debug.mvtSource = $scope.mvtSource;
 				map.addLayer($scope.mvtSource);
+				//map.addLayer($scope.labelSource);
 			});
 		};
 		$scope.drawCountries();
