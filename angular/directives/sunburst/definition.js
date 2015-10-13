@@ -2,7 +2,11 @@
 	"use strict";
 
 	angular.module('app.directives').directive('sunburst', function () {
-
+		var defaults = function(){
+				return {
+					 mode: 'size'
+				}
+		};
 		return {
 			restrict: 'E',
 			//templateUrl: 'views/directives/sunburst/sunburst.html',
@@ -11,6 +15,7 @@
 				data: '='
 			},
 			link: function ($scope, element, $attrs) {
+				var options = angular.extend(defaults(), $attrs);
 				$scope.setChart();
 				$scope.calculateGraph();
 				var width = 610,
@@ -42,7 +47,7 @@
 				var partition = d3.layout.partition()
 					.sort(null)
 					.value(function (d) {
-						return d.size;
+						return 1;
 					});
 
 				var arc = d3.svg.arc()
@@ -65,166 +70,166 @@
 					special4 = "Pesticide Regulation";
 
 
-					var nodes = partition.nodes(	$scope.calculateGraph());
+				var nodes = partition.nodes($scope.calculateGraph());
 
-					var path = vis.selectAll("path").data(nodes);
-					path.enter().append("path")
-						.attr("id", function (d, i) {
-							return "path-" + i;
-						})
-						.attr("d", arc)
-						.attr("fill-rule", "evenodd")
-						.attr("class", function (d) {
-							return d.depth ? "branch" : "root";
-						})
-						.style("fill", setColor)
-						.on("click", click);
+				var path = vis.selectAll("path").data(nodes);
+				path.enter().append("path")
+					.attr("id", function (d, i) {
+						return "path-" + i;
+					})
+					.attr("d", arc)
+					.attr("fill-rule", "evenodd")
+					.attr("class", function (d) {
+						return d.depth ? "branch" : "root";
+					})
+					.style("fill", setColor)
+					.on("click", click);
 
-					var text = vis.selectAll("text").data(nodes);
-					var textEnter = text.enter().append("text")
-						.style("fill-opacity", 1)
-						.attr("text-anchor", function (d) {
-							if (d.depth)
-								return "middle";
-							//~ return x(d.x + d.dx / 2) > Math.PI ? "end" : "start";
-							else
-								return "middle";
-						})
-						.attr("id", function (d) {
-							return "depth" + d.depth;
-						})
-						.attr("class", function (d) {
-							return "sector"
-						})
-						.attr("dy", function (d) {
-							return d.depth ? ".2em" : "0.35em";
-						})
-						.attr("transform", function (d) {
-							var multiline = (d.name || "").split(" ").length > 2,
-								angleAlign = (d.x > 0.5 ? 2 : -2),
+				var text = vis.selectAll("text").data(nodes);
+				var textEnter = text.enter().append("text")
+					.style("fill-opacity", 1)
+					.attr("text-anchor", function (d) {
+						if (d.depth)
+							return "middle";
+						//~ return x(d.x + d.dx / 2) > Math.PI ? "end" : "start";
+						else
+							return "middle";
+					})
+					.attr("id", function (d) {
+						return "depth" + d.depth;
+					})
+					.attr("class", function (d) {
+						return "sector"
+					})
+					.attr("dy", function (d) {
+						return d.depth ? ".2em" : "0.35em";
+					})
+					.attr("transform", function (d) {
+						var multiline = (d.name || "").split(" ").length > 2,
+							angleAlign = (d.x > 0.5 ? 2 : -2),
 							angle = x(d.x + d.dx / 2) * 180 / Math.PI - 90 + (multiline ? angleAlign : 0),
-								rotate = angle + (multiline ? -.5 : 0),
+							rotate = angle + (multiline ? -.5 : 0),
 							transl = (y(d.y) + circPadding) + 35,
 							secAngle = (angle > 90 ? -180 : 0);
-							if (d.name == special3 || d.name == special4) rotate += 1;
-							if (d.depth == 0) {
-								transl = -2.50;
-								rotate = 0;
-								secAngle = 0;
-							} else if (d.depth == 1) transl += -9;
-							else if (d.depth == 2) transl += -5;
-							else if (d.depth == 3) transl += 4;
-							return "rotate(" + rotate + ")translate(" + transl + ")rotate(" + secAngle + ")";
+						if (d.name == special3 || d.name == special4) rotate += 1;
+						if (d.depth == 0) {
+							transl = -2.50;
+							rotate = 0;
+							secAngle = 0;
+						} else if (d.depth == 1) transl += -9;
+						else if (d.depth == 2) transl += -5;
+						else if (d.depth == 3) transl += 4;
+						return "rotate(" + rotate + ")translate(" + transl + ")rotate(" + secAngle + ")";
+					})
+					.on("click", click);
+
+				// Add labels. Very ugly code to split sentences into lines. Can only make
+				// code better if find a way to use d outside calls such as .text(function(d))
+
+				// This block replaces the two blocks arround it. It is 'useful' because it
+				// uses foreignObject, so that text will wrap around like in regular HTML. I tried
+				// to get it to work, but it only introduced more bugs. Unfortunately, the
+				// ugly solution (hard coded line splicing) won.
+				//~ var textEnter = text.enter().append("foreignObject")
+				//~ .attr("x",0)
+				//~ .attr("y",-20)
+				//~ .attr("height", 100)
+				//~ .attr("width", function(d){ return (y(d.dy) +50); })
+				//~ .attr("transform", function(d) {
+				//~ var angleAlign = (d.x > 0.5 ? 2 : -2),
+				//~ angle = x(d.x + d.dx / 2) * 180 / Math.PI - 90,
+				//~ transl = (y(d.y) + circPadding);
+				//~ d.rot = angle;
+				//~ if (!d.depth) transl = -50;
+				//~ if (angle > 90) transl += 120;
+				//~ if (d.depth)
+				//~ return "rotate(" + angle + ")translate(" + transl + ")rotate(" + (angle > 90 ? -180 : 0) + ")";
+				//~ else
+				//~ return "translate(" + transl + ")";
+				//~ })
+				//~ .append("xhtml:body")
+				//~ .style("background", "none")
+				//~ .style("text-align", function(d){ return (d.rot > 90 ? "left" : "right")})
+				//~ .html(function(d){ return '<div class=' +"depth" + d.depth +' style=\"width: ' +(y(d.dy) +50) +'px;' +"text-align: " + (d.rot > 90 ? "right" : "left") +'">' +d.name +'</div>';})
+
+				textEnter.append("tspan")
+					.attr("x", 0)
+					.text(function (d) {
+
+						if (d.depth == 3 && d.name != special1 && d.name != special2 && d.name != special3 && d.name != special4)
+							return d.name.split(" ")[0] + " " + (d.name.split(" ")[1] || "");
+						else
+							return d.name.split(" ")[0];
+					});
+				textEnter.append("tspan")
+					.attr("x", 0)
+					.attr("dy", "1em")
+					.text(function (d) {
+
+						if (d.depth == 3 && d.name != special1 && d.name != special2 && d.name != special3 && d.name != special4)
+							return (d.name.split(" ")[2] || "") + " " + (d.name.split(" ")[3] || "");
+						else
+							return (d.name.split(" ")[1] || "") + " " + (d.name.split(" ")[2] || "");
+					});
+				textEnter.append("tspan")
+					.attr("x", 0)
+					.attr("dy", "1em")
+					.text(function (d) {
+						if (d.depth == 3 && d.name != special1 && d.name != special2 && d.name != special3 && d.name != special4)
+							return (d.name.split(" ")[4] || "") + " " + (d.name.split(" ")[5] || "");
+						else
+							return (d.name.split(" ")[3] || "") + " " + (d.name.split(" ")[4] || "");;
+					});
+
+				function click(d) {
+					// Control arc transition
+					path.transition()
+						.duration(duration)
+						.attrTween("d", arcTween(d));
+
+					// Somewhat of a hack as we rely on arcTween updating the scales.
+					// Control the text transition
+					text.style("visibility", function (e) {
+							return isParentOf(d, e) ? null : d3.select(this).style("visibility");
 						})
-						.on("click", click);
-
-					// Add labels. Very ugly code to split sentences into lines. Can only make
-					// code better if find a way to use d outside calls such as .text(function(d))
-
-					// This block replaces the two blocks arround it. It is 'useful' because it
-					// uses foreignObject, so that text will wrap around like in regular HTML. I tried
-					// to get it to work, but it only introduced more bugs. Unfortunately, the
-					// ugly solution (hard coded line splicing) won.
-					//~ var textEnter = text.enter().append("foreignObject")
-					//~ .attr("x",0)
-					//~ .attr("y",-20)
-					//~ .attr("height", 100)
-					//~ .attr("width", function(d){ return (y(d.dy) +50); })
-					//~ .attr("transform", function(d) {
-					//~ var angleAlign = (d.x > 0.5 ? 2 : -2),
-					//~ angle = x(d.x + d.dx / 2) * 180 / Math.PI - 90,
-					//~ transl = (y(d.y) + circPadding);
-					//~ d.rot = angle;
-					//~ if (!d.depth) transl = -50;
-					//~ if (angle > 90) transl += 120;
-					//~ if (d.depth)
-					//~ return "rotate(" + angle + ")translate(" + transl + ")rotate(" + (angle > 90 ? -180 : 0) + ")";
-					//~ else
-					//~ return "translate(" + transl + ")";
-					//~ })
-					//~ .append("xhtml:body")
-					//~ .style("background", "none")
-					//~ .style("text-align", function(d){ return (d.rot > 90 ? "left" : "right")})
-					//~ .html(function(d){ return '<div class=' +"depth" + d.depth +' style=\"width: ' +(y(d.dy) +50) +'px;' +"text-align: " + (d.rot > 90 ? "right" : "left") +'">' +d.name +'</div>';})
-
-					textEnter.append("tspan")
-						.attr("x", 0)
-						.text(function (d) {
-
-							if (d.depth == 3 && d.name != special1 && d.name != special2 && d.name != special3 && d.name != special4)
-								return d.name.split(" ")[0] + " " + (d.name.split(" ")[1] || "");
-							else
-								return d.name.split(" ")[0];
-						});
-					textEnter.append("tspan")
-						.attr("x", 0)
-						.attr("dy", "1em")
-						.text(function (d) {
-
-							if (d.depth == 3 && d.name != special1 && d.name != special2 && d.name != special3 && d.name != special4)
-								return (d.name.split(" ")[2] || "") + " " + (d.name.split(" ")[3] || "");
-							else
-								return (d.name.split(" ")[1] || "") + " " + (d.name.split(" ")[2] || "");
-						});
-					textEnter.append("tspan")
-						.attr("x", 0)
-						.attr("dy", "1em")
-						.text(function (d) {
-							if (d.depth == 3 && d.name != special1 && d.name != special2 && d.name != special3 && d.name != special4)
-								return (d.name.split(" ")[4] || "") + " " + (d.name.split(" ")[5] || "");
-							else
-								return (d.name.split(" ")[3] || "") + " " + (d.name.split(" ")[4] || "");;
-						});
-
-					function click(d) {
-						// Control arc transition
-						path.transition()
-							.duration(duration)
-							.attrTween("d", arcTween(d));
-
-						// Somewhat of a hack as we rely on arcTween updating the scales.
-						// Control the text transition
-						text.style("visibility", function (e) {
-								return isParentOf(d, e) ? null : d3.select(this).style("visibility");
-							})
-							.transition()
-							.duration(duration)
-							.attrTween("text-anchor", function (d) {
-								return function () {
-									if (d.depth)
-										return "middle";
-									//~ return x(d.x + d.dx / 2) > Math.PI ? "end" : "start";
-									else
-										return "middle";
-								};
-							})
-							.attrTween("transform", function (d) {
-								var multiline = (d.name || "").split(" ").length > 2;
-								return function () {
-									var multiline = (d.name || "").split(" ").length > 2,
-										angleAlign = (d.x > 0.5 ? 2 : -2),
+						.transition()
+						.duration(duration)
+						.attrTween("text-anchor", function (d) {
+							return function () {
+								if (d.depth)
+									return "middle";
+								//~ return x(d.x + d.dx / 2) > Math.PI ? "end" : "start";
+								else
+									return "middle";
+							};
+						})
+						.attrTween("transform", function (d) {
+							var multiline = (d.name || "").split(" ").length > 2;
+							return function () {
+								var multiline = (d.name || "").split(" ").length > 2,
+									angleAlign = (d.x > 0.5 ? 2 : -2),
 									angle = x(d.x + d.dx / 2) * 180 / Math.PI - 90 + (multiline ? angleAlign : 0),
-										rotate = angle + (multiline ? -.5 : 0),
+									rotate = angle + (multiline ? -.5 : 0),
 									transl = (y(d.y) + circPadding) + 35,
 									secAngle = (angle > 90 ? -180 : 0);
-									if (d.name == special3 || d.name == special4) rotate += 1;
-									if (d.depth == 0) {
-										transl = -2.50;
-										rotate = 0;
-										secAngle = 0;
-									} else if (d.depth == 1) transl += -9;
-									else if (d.depth == 2) transl += -5;
-									else if (d.depth == 3) transl += 4;
-									return "rotate(" + rotate + ")translate(" + transl + ")rotate(" + secAngle + ")";
-								};
-							})
-							.style("fill-opacity", function (e) {
-								return isParentOf(d, e) ? 1 : 1e-6;
-							})
-							.each("end", function (e) {
-								d3.select(this).style("visibility", isParentOf(d, e) ? null : "hidden");
-							});
-					}
+								if (d.name == special3 || d.name == special4) rotate += 1;
+								if (d.depth == 0) {
+									transl = -2.50;
+									rotate = 0;
+									secAngle = 0;
+								} else if (d.depth == 1) transl += -9;
+								else if (d.depth == 2) transl += -5;
+								else if (d.depth == 3) transl += 4;
+								return "rotate(" + rotate + ")translate(" + transl + ")rotate(" + secAngle + ")";
+							};
+						})
+						.style("fill-opacity", function (e) {
+							return isParentOf(d, e) ? 1 : 1e-6;
+						})
+						.each("end", function (e) {
+							d3.select(this).style("visibility", isParentOf(d, e) ? null : "hidden");
+						});
+				}
 
 
 				function isParentOf(p, c) {

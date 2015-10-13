@@ -788,7 +788,6 @@ md-menu-bar {
 }
 
 
-
 median {
   overflow: hidden;
   border-radius: 20px;
@@ -843,6 +842,7 @@ median .slider text {
   user-select: none;
   cursor: ew-resize;
 }
+
 
 
 .slide-toggle {
