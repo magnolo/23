@@ -11,7 +11,8 @@
 			replace: true,
 			scope: {
 				country: '=',
-				selected: '='
+				selected: '=',
+				data: '='
 			},
 			controller: 'SubindexCtrl',
 			templateUrl: 'views/directives/subindex/subindex.html',

@@ -349,8 +349,8 @@
 						return layerName + '_label';
 					}*/
 				});
-				map.addLayer($scope.mvtSource);
-				mvtSource.setOpacity(0.5);
+				map.addLayer($scope.mvtSource); 
+				$scope.mvtSource.setOpacity(0.5);
 
 			});
 		};

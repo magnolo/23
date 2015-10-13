@@ -10,13 +10,13 @@
     transform: translateX(0);
     padding-bottom:2em;
     &.out {
-        transform: translateX(-440px);
+        transform: translateX(-380px);
     }
     .info-box {
         background-color: #fff;
         //margin-left: 1em;
         //margin-top: 1em;
-        width:420px;
+        width:360px;
         padding: 2em;
         position: relative;
 
@@ -41,12 +41,13 @@
                 padding: 0;
                 margin: 0;
                 line-height: 0.8em;
-                font-size: 2em;
+                font-size: 1.8em;
             }
 
             .subtitle {
                 color: @base;
                 line-height: 1em;
+                font-size:0.9em;
             }
 
             .info-icon {
@@ -86,7 +87,7 @@
             }
             &.smaller{
               .title{
-                font-size:1.5em;
+                font-size:1.3em;
                 font-style:italic;
               }
             }
@@ -115,7 +116,9 @@
         .module {
             margin: 1em 0;
             background:#fff;
-
+            &.no-margin{
+              margin:0px;
+            }
             &.rank {
                 .chart {
                     color: @dark-color;
@@ -206,6 +209,7 @@
               .header{
                 .sub-title{
                   color:@base;
+
                 }
               }
               .text{
@@ -268,8 +272,8 @@
         &.sub-box{
           position:absolute;
           top:0px;
-          width:320px;
-          left:420px;
+          width:280px;
+          left:365px;
           margin-left:1em;
 
           .close-box{

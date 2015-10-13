@@ -5,9 +5,9 @@
 		var defaults = function () {
 			return {
 				id: 'gradient',
-				width: 340,
+				width: 300,
 				height: 40,
-				info: true,
+				info: true, 
 				field: 'score',
 				handling: true,
 				margin: {
