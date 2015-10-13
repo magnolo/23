@@ -18,13 +18,9 @@
     <div class="cssload-container" ng-if="stateIsLoading">
         <div class="cssload-whirlpool"></div>
     </div>
-    <script src="https://cdn.rawgit.com/jondavidjohn/hidpi-canvas-polyfill/master/dist/hidpi-canvas.min.js"></script>
-    <script src="https://cdn.rawgit.com/mbostock/d3/master/d3.min.js"></script>
-    <script src="https://cdn.rawgit.com/devTristan/pbf/master/dist/pbf.min.js"></script>
-    <script src="https://rawgit.com/devTristan/vector-tile-js/master/dist/vectortile.min.js"></script>
 
+    <script src="https://cdn.rawgit.com/devTristan/pbf/master/dist/pbf.min.js"></script>
     <script src="/js/vendor.js"></script>
-    <script src="https://cdn.rawgit.com/devTristan/hoverboard/master/dist/hoverboard.js"></script>
     <script src="js/Leaflet.MapboxVectorTile.js"></script>
     <script src="/js/app.js"></script>
     {{--livereload--}} @if ( Config::get('app.debug') )
