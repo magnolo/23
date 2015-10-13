@@ -96,20 +96,6 @@
 								<div class="module" ng-if="current && details">
 												<md-button ng-class="{'md-raised md-primary': compare.active}" ng-click="toggleComparison()">Compare to other countries</md-button>
 								</div>
-								<!--<div class="action module" layout-align="center center" layout="row"  ng-if="!current">
-												or
-								</div>
-								<div class="action module" layout-align="center center" layout="row"  ng-if="!current">
-												<md-input-container>
-																<label>choose from list</label>
-																<md-select ng-model="current">
-																				<md-option ng-repeat="nat in epi | orderBy:'+country' " ng-value="{{nat}}">{{nat.country}}</md-option>
-																</md-select>
-												</md-input-container>
-								</div>-->
-								<!--<div class="close-it" ng-click="toggleOpen()">
-											<ng-md-icon icon="{{closeIcon}}"></ng-md-icon>
-								</div>-->
 				</div>
 				<div class="info-box md-whiteframe-z2 anim sub-box" id="sub-index" ng-if="country && details && display.selectedCat">
 					<div class="close-box">
