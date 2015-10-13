@@ -56,7 +56,8 @@ class NationsController extends Controller
     }
 
     public function getBBox($countries){
-        $box =  \DB::table('countries')->select('iso_a3', \DB::raw('st_asgeojson(St_envelope(geom)) as bbox'))->where('iso_a3', '=',$countries)->first();
+
+        $box =  \DB::table('countries')->select(\DB::raw('st_asgeojson(St_envelope(ST_Union(geom))) as bbox'))->whereIn('iso_a3', explode(",",$countries))->first();
         return $box->bbox;
     }
     /**
