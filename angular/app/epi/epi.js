@@ -302,9 +302,14 @@
 					var southWest = L.latLng(n.coordinates[0][0][1], n.coordinates[0][0][0]),
 						northEast = L.latLng(n.coordinates[0][2][1], n.coordinates[0][2][0]),
 						bounds = L.latLngBounds(southWest, northEast);
+					var pad = [[350, 200], [0, 200]];
+					if($scope.compare.active){
+						pad =  [[350, 0], [0, 0]];
+					}
+
 					map.fitBounds(bounds, {
-						paddingTopLeft: [350, 200],
-						paddingBottomRight: [0, 200],
+						paddingTopLeft: pad[0],
+						paddingBottomRight: pad[1],
 						maxZoom: 6
 					});
 				});
