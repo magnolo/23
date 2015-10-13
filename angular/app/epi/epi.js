@@ -1,7 +1,7 @@
 (function () {
 	"use strict";
 
-	angular.module('app.controllers').controller('EpiCtrl', function ($scope, $state, $timeout, smoothScroll, IndexService, EPI, DataService, leafletData, MapService) {
+	angular.module('app.controllers').controller('EpiCtrl', function ($scope,$rootScope, $state, $timeout, smoothScroll, IndexService, EPI, DataService, leafletData, MapService) {
 
 		$scope.current = "";
 		$scope.display = {
@@ -51,28 +51,9 @@
 			});
 		};
 		$scope.epi = EPI;
-
-		/*.getList().then(function(data){
-
-				if($state.current.name == "app.epi.selected"){
-					$scope.setState($state.params.item);
-				}
-		});*/
-
-
-
-		/*DataService.getAll('epi/year/2014').then(function (data) {
-			$scope.epi = data;
-
-			if($state.current.name == "app.epi.selected"){
-				console.log($state.params.item);
-				$scope.setState($state.params.item);
-			}
-		});*/
 		$scope.setState = function (item) {
 			$scope.setCurrent(getNationByIso(item));
 		};
-		//$scope.epi = Restangular.all('epi/year/2014').getList().$object;
 		$scope.toggleOpen = function () {
 			$scope.menueOpen = !$scope.menueOpen;
 			$scope.closeIcon = $scope.menueOpen == true ? 'chevron_left' : 'chevron_right';
@@ -94,7 +75,10 @@
 			$scope.compare.countries = [$scope.current];
 			$scope.compare.active = !$scope.compare.active;
 			if ($scope.compare.active) {
+				$rootScope.greyed = true;
 				$scope.mvtSource.options.mutexToggle = false;
+
+				$scope.mvtSource.setStyle(invertedStyle);
 				$timeout(function () {
 					var element = document.getElementById('index-comparison');
 					smoothScroll(element, {
@@ -103,6 +87,11 @@
 					});
 
 				})
+			}
+			else{
+				$rootScope.greyed = false;
+				$scope.mvtSource.options.mutexToggle = true;
+					$scope.mvtSource.setStyle(countriesStyle);
 			}
 		};
 		$scope.toggleCountrieList = function (country) {
@@ -144,10 +133,11 @@
 					angular.forEach($scope.compare.countries, function (item, key) {
 						isos.push(item.iso);
 					});
-					console.log(isos);
+
 					DataService.getOne('nations/bbox', isos).then(function (data) {
 						$scope.bbox = data;
 					});
+					//$scope.mvtSource.setStyle(invertedStyle);
 				} else {
 					$state.go('app.epi.selected', {
 						item: newItem.iso
@@ -230,7 +220,29 @@
 			$scope.palette = $scope.ctx.getImageData(0, 0, 256, 1).data;
 		};
 		createCanvas();
+		var invertedStyle = function(feature){
+				var style = {};
+				var iso = feature.properties.adm0_a3;
+				var nation = getNationByIso(iso);
+				var field = $scope.display.selectedCat.type || 'score';
 
+
+					var colorPos = parseInt(256 / 100 * nation[field]) * 4;
+					var color = 'rgba(' + $scope.palette[colorPos] + ', ' + $scope.palette[colorPos + 1] + ', ' + $scope.palette[colorPos + 2] + ',' + $scope.palette[colorPos + 3] + ')';
+					style.color = 'rgba(0,0,0,0)';
+					style.outline = {
+						color: 'rgba(0,0,0,0)',
+						size: 0
+					};
+					style.selected = {
+						color: color,
+						outline: {
+							color: 'rgba(0,0,0,0.3)',
+							size: 2
+						}
+					};
+				return style;
+		};
 		var countriesStyle = function (feature) {
 			var style = {};
 			var iso = feature.properties.adm0_a3;
@@ -238,22 +250,6 @@
 			var field = $scope.display.selectedCat.type || 'score';
 			var type = feature.type;
 			switch (type) {
-			case 1: //'Point'
-				style.color = 'rgba(49,79,79,0.01)';
-				style.radius = 5;
-				style.selected = {
-					color: 'rgba(255,255,0,0.5)',
-					radius: 0
-				};
-				break;
-			case 2: //'LineString'
-				style.color = 'rgba(255,0,0,1)';
-				style.size = 1;
-				style.selected = {
-					color: 'rgba(255,25,0,1)',
-					size: 2
-				};
-				break;
 			case 3: //'Polygon'
 				if (nation[field]) {
 					var colorPos = parseInt(256 / 100 * nation[field]) * 4;
@@ -279,25 +275,14 @@
 					};
 				}
 			}
-
-			//	if (feature.layer.name === 'gaul_2014_adm1_label') {
-			style.ajaxSource = function (mvtFeature) {
-				var id = mvtFeature.id;
-				//	console.log(id);
-				//return 'http://spatialserver.spatialdev.com/fsp/2014/fsp/aggregations-no-name/' + id + '.json';
-			};
-
-			style.staticLabel = function (mvtFeature, ajaxData) {
+			style.staticLabel = function () {
 				var style = {
-					html: feature.properties.name,
-					iconSize: [33, 33],
-					cssClass: 'label-icon-number',
-					cssSelectedClass: 'label-icon-number-selected'
+					html: nation.country,
+					iconSize: [125, 30],
+					cssClass: 'label-icon-text'
 				};
 				return style;
 			};
-			//	}
-
 			return style;
 		};
 
@@ -317,104 +302,51 @@
 					var southWest = L.latLng(n.coordinates[0][0][1], n.coordinates[0][0][0]),
 						northEast = L.latLng(n.coordinates[0][2][1], n.coordinates[0][2][0]),
 						bounds = L.latLngBounds(southWest, northEast);
-
-					//map.panInsideBounds(bounds,{zoom:true});
 					map.fitBounds(bounds, {
-						paddingTopLeft: [300, 0]
+						paddingTopLeft: [350, 200],
+						paddingBottomRight: [0, 200],
+						maxZoom: 6
 					});
 				});
 				var apiKey = 'pk.eyJ1IjoibWFnbm9sbyIsImEiOiJuSFdUYkg4In0.5HOykKk0pNP1N3isfPQGTQ';
-
-				//	L.tileLayer('http://localhost:3001/services/postgis/countries_big/geom/dynamicMap/{z}/{x}/{y}.png').addTo(map);
 				var debug = {};
 				var mb = 'https://a.tiles.mapbox.com/v4/mapbox.mapbox-terrain-v1,mapbox.mapbox-streets-v6-dev/{z}/{x}/{y}.vector.pbf?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6IlhHVkZmaW8ifQ.hAMX5hSW-QnTeRCMAy9A8Q';
 				var mapzen = 'http://vector.mapzen.com/osm/places/{z}/{x}/{y}.mvt?api_key=vector-tiles-Q3_Os5w'
 				var url = 'http://v22015052835825358.yourvserver.net:3001/services/postgis/countries_big/geom/vector-tiles/{z}/{x}/{y}.pbf?fields=id,admin,adm0_a3,wb_a3,su_a3,iso_a3,name,name_long'; //
 				var url2 = 'https://a.tiles.mapbox.com/v4/mapbox.mapbox-streets-v6-dev/{z}/{x}/{y}.vector.pbf?access_token=' + apiKey;
-			/*	$scope.labelSource = new L.TileLayer.MVTSource({
-					url: mapzen,
-					debug:false,
-					filter: function (feature, context) {
-						if (feature.properties.kind == 'country') {
-							return true;
-						}
-						return false;
-					},
-					getIDForLayerFeature: function (feature) {
-						return feature.properties.id;
-					},
-					style: function (feature) {
-						//console.log(feature.properties['name:de']);
-						var style = {};
-
-						if(typeof feature.properties['name:en'] != "undefined"){
-							style.staticLabel = function () {
-								var style = {
-									html: feature.properties['name:en'],
-									iconSize: [125, 30],
-									cssClass: 'label-icon-text'
-								};
-								return style;
-							};
-						}
-						return style;
-					}
-				})*/
 				$scope.mvtSource = new L.TileLayer.MVTSource({
-					url: url, //"http://spatialserver.spatialdev.com/services/vector-tiles/gaul_fsp_india/{z}/{x}/{y}.pbf",
+					url: url,
 					debug: false,
 					opacity: 0.6,
 					clickableLayers: ['countries_big_geom'],
 					mutexToggle: true,
 					onClick: function (evt, t) {
-						//map.fitBounds(evt.target.getBounds());
-
-						//var x = evt.feature.bbox()[0]/ (evt.feature.extent / evt.feature.tileSize);
-						//var y = evt.feature.bbox()[1]/(evt.feature.extent / evt.feature.tileSize)
-						//if ($scope.current.country != evt.feature.properties.admin) {
-						//map.panTo(evt.latlng);
-						//map.panBy(new L.Point(-200,0));
-						/*	map.fitBounds([
-								[evt.feature.bbox()[0] / (evt.feature.extent / evt.feature.tileSize), evt.feature.bbox()[1] / (evt.feature.extent / evt.feature.tileSize)],
-								[evt.feature.bbox()[2] / (evt.feature.extent / evt.feature.tileSize), evt.feature.bbox()[3] / (evt.feature.extent / evt.feature.tileSize)],
-							])*/
-						//}
-						//console.log(evt.feature);
-						console.log(evt.feature.properties);
 						$scope.current = getNationByIso(evt.feature.properties.adm0_a3);
+
 					},
 					getIDForLayerFeature: function (feature) {
-
+						if ($scope.current.iso == feature.properties.adm0_a3) {
+							feature.selected = true;
+						}
 						return feature.properties.id;
 					},
 					filter: function (feature, context) {
-
-						/*if (feature.layer.name === 'admin' || feature.layer.name === 'gaul_2014_adm1_label') {
-							//console.log(feature);
-							if (feature.properties.admin_level == 0 || feature.properties.admin_level == 1 || feature.properties.admin_level == 2) {
-								return true;
-							} else {
-								return false;
-							}
-
-						}*/
+						if ($scope.current.iso == feature.properties.adm0_a3) {
+							feature.selected = true;
+						}
 						return true;
 					},
-
-					style: countriesStyle,
-
-
-					layerLink: function (layerName) {
+					style: countriesStyle //,
+					/*layerLink: function (layerName) {
 						if (layerName.indexOf('_label') > -1) {
 							return layerName.replace('_label', '');
 						}
 						return layerName + '_label';
-					}
-
+					}*/
 				});
-				//debug.mvtSource = $scope.mvtSource;
 				map.addLayer($scope.mvtSource);
-				//map.addLayer($scope.labelSource);
+				mvtSource.setOpacity(0.5);
+
 			});
 		};
 		$scope.drawCountries();
