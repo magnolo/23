@@ -112,7 +112,7 @@
 
 .info-container {
   line-height: 1em;
-  top: 1em;
+  top: calc(64px + 1em);
   left: 1em;
   position: absolute;
   color: #afafaf;
@@ -180,6 +180,8 @@
 .info-container .info-box .header.center .title {
   margin-top: 0.5em;
   font-size: 1.8em;
+  text-align: center;
+  line-height: 1em;
 }
 .info-container .info-box .header.smaller .title {
   font-size: 1.3em;
@@ -476,11 +478,6 @@ body > canvas {
   right: 10px;
   bottom: 10px;
 }
-.Page {
-  margin-top: 64px;
-  width: 100%;
-  left: 0;
-}
 .Page-name {
   color: #006bb9;
 }
@@ -633,15 +630,14 @@ md-menu-bar {
 
 
 
-
 #Map_Container {
   height: calc(100% - 165px);
 }
 #map {
-  position: fixed;
+  position: absolute;
   width: 100%;
   top: 64px;
-  height: calc(100% - 64px);
+  height: calc(100% - 180px);
 }
 .angular-leaflet-map {
   width: 100%;
@@ -667,6 +663,7 @@ md-menu-bar {
   bottom: 20px;
   right: 00px;
 }
+
 
 
 .Sidebar {
@@ -730,8 +727,6 @@ md-menu-bar {
 
 
 
-
-
 .bubbles {
   overflow: hidden;
 }
@@ -789,6 +784,9 @@ md-menu-bar {
 .tooltip .close-it:hover {
   color: rgba(0, 0, 0, 0.87);
 }
+
+
+
 
 median {
   overflow: hidden;
