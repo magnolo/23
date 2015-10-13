@@ -94,6 +94,7 @@
 			$scope.compare.countries = [$scope.current];
 			$scope.compare.active = !$scope.compare.active;
 			if ($scope.compare.active) {
+					$scope.mvtSource.options.mutexToggle = false;
 				$timeout(function() {
 					var element = document.getElementById('index-comparison');
 					smoothScroll(element, {
@@ -139,10 +140,19 @@
 			if (newItem.iso) {
 				if ($scope.compare.active) {
 					$scope.toggleCountrieList(newItem);
+					var isos = [];
+					angular.forEach($scope.compare.countries, function(item, key){
+							isos.push(item.iso);
+					});
+					console.log(isos);
+					DataService.getOne('nations/bbox', isos).then(function(data) {
+						$scope.bbox = data;
+					});
 				} else {
 					$state.go('app.epi.selected', {
 						item: newItem.iso
 					})
+						$scope.mvtSource.options.mutexToggle = true;
 					DataService.getOne('nations/bbox', [$scope.current.iso]).then(function(data) {
 						$scope.bbox = data;
 					});
@@ -247,7 +257,7 @@
 						var color = 'rgba(' + $scope.palette[colorPos] + ', ' + $scope.palette[colorPos + 1] + ', ' + $scope.palette[colorPos + 2] + ',' + $scope.palette[colorPos + 3] + ')';
 						style.color = color;
 						style.outline = {
-							color: 'rgba(50,50,50,0.4)',
+							color: color,
 							size: 1
 						};
 						style.selected = {
@@ -338,6 +348,7 @@
 							])*/
 						//}
 						//console.log(evt.feature);
+						console.log(evt.feature.properties);
 						$scope.current = getNationByIso(evt.feature.properties.adm0_a3);
 					},
 					getIDForLayerFeature: function(feature) {
