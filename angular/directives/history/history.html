@@ -1,0 +1,17 @@
+<div>
+  <div class="header smaller" layout-align="space-between end" layout="row">
+          <span class="title" ng-class="{'active': tabContent == 'rank'}" ng-click="showTabContent('rank')">Rank History</span>
+          <span class="title" ng-class="{'active': tabContent == 'score'}" ng-click="showTabContent('score')">Score History</span>
+          <span class="switcher" ng-click="showTabContent('')">
+                  <ng-md-icon class="icon-space" icon="{{ toggleButton }}" style="fill:#afafaf"></ng-md-icon>
+          </span>
+  </div>
+  <div class="content slide-toggle" ng-if="tabContent != ''">
+          <div class="rank slide-toggle" ng-if="tabContent == 'rank'">
+                  <simplelinechart data="chartdata" selection="display.rank" invert="true" max="178"></simplelinechart>
+          </div>
+          <div class="score slide-toggle" ng-if="tabContent == 'score'">
+                  <simplelinechart data="chartdata" selection="display.score"></simplelinechart>
+          </div>
+  </div>
+</div>
