@@ -48,6 +48,7 @@
 				damper: 0.1,
 				circles: null,
 				borders: true,
+				labels: true,
 				fill_color: d3.scale.ordinal().domain(["eh", "ev"]).range(["#a31031", "#beccae"]),
 				max_amount: '',
 				radius_scale: '',
@@ -70,6 +71,7 @@
 				var options = angular.extend(defaults(), attrs);
 				var nodes = [],
 					links = [],
+					labels = [],
 					groups = [];
 
 				var max_amount = d3.max(scope.chartdata, function (d) {
@@ -97,6 +99,17 @@
 					//console.log(scope.indexer);
 					//console.log(scope.chartdata);
 					angular.forEach(scope.indexer, function (group) {
+						var d = {
+							type: group.column_name,
+							name: group.title,
+							group: group.column_name.substring(0,2),
+							color: group.color,
+							icon: group.icon,
+							unicode: group.unicode,
+							data: group,
+							children:group.children
+						};
+						labels.push(d);
 						angular.forEach(group.children, function (item) {
 							//console.log(scope.chartdata[item.column_name], scope.chartdata[item.column_name] / scope.sizefactor);
 							if (scope.chartdata[item.column_name]) {
@@ -118,6 +131,7 @@
 							}
 						});
 					});
+
 					create_groups();
 				};
 				var create_groups = function(){
@@ -136,12 +150,11 @@
 								groups[node.group] = {
 									x: options.width / 2,
 									y: options.height / 2 + (1 - count),
-									damper: 0.085
+									damper: 0.085,
 								};
-
 							}
 					});
-					console.log(groups);
+
 				};
 				var create_vis = function () {
 					angular.element(elem).html('');
@@ -163,11 +176,48 @@
 						options.arcTop = options.vis.append("path")
 							.attr("d", arcTop)
 							.attr("fill", "#be5f00")
+							.attr("id", "arcTop")
 							.attr("transform", "translate("+(options.width/2)+","+(options.height/2 - options.height/10)+")");
 						options.arcBottom = options.vis.append("path")
 							.attr("d", arcBottom)
+							.attr("id", "arcBottom")
 							.attr("fill", "#006bb6")
 							.attr("transform", "translate("+(options.width/2)+","+(options.height/2)+")");
+					}
+				if(options.labels == true){
+						var textLabels = options.vis.selectAll('text.labels').data(labels).enter().append("text")
+							.attr('class', 'labels')
+							.attr('fill', function(d){
+								return d.color;
+							})
+						/*	.attr('transform', function(d){
+								var index = labels.indexOf(d);
+								if(index > 0){
+									return 'rotate(90, 100, 100)';
+								}
+							})*/
+							.attr('x', 50)
+							.style('font-size', '1.2em')
+							.style('cursor', 'pointer')
+							.attr('dy', -6)
+							.on('click', function(d){
+								ngModel.$setViewValue(d);
+								ngModel.$render();
+							});
+							textLabels.append('textPath')
+							.attr("xlink:href", function(d){
+								var index = labels.indexOf(d);
+								if(index == 0){
+									return "#arcTop";
+								}
+								else{
+									return "#arcBottom";
+								}
+							})
+							.text(function(d){
+								return d.name;
+							})
+
 					}
 					options.containers = options.vis.selectAll('g.node').data(nodes).enter().append('g').attr('transform', 'translate(' + (options.width / 2) + ',' + (options.height / 2) + ')').attr('class', 'node');
 

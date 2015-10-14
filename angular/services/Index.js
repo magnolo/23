@@ -25,7 +25,7 @@
         				 title: 'Enviromental Health',
         				 range:[0, 100],
         				 icon:'',
-        				 color:'#cc3f16',
+        				 color:'#be5f00',
         				 children:[{
         					 column_name:'eh_hi',
         					 title:'Health Impact',
@@ -95,7 +95,7 @@
         				 title: 'Ecosystem Validity',
         				 range:[0, 100],
         				 icon:'',
-        				 color:'#036385',
+        				 color:'#006bb6',
         				 children:[{
         					 column_name:'ev_wr',
         					 title:'Water Resources',

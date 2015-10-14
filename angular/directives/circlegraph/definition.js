@@ -98,7 +98,6 @@
 						return ngModel.$modelValue;
 					},
 					function(newValue, oldValue) {
-						console.log(newValue)
 						if (!newValue){
 							newValue = {};
 							newValue[options.field] = options.size;
