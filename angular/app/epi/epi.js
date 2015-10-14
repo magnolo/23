@@ -43,15 +43,9 @@
 			}
 			$scope.toggleButton = $scope.tabContent ? 'arrow_drop_up' : 'arrow_drop_down';
 		};
-		$scope.setState = function (iso) {
-			angular.forEach($scope.epi, function (epi) {
-				if (epi.iso == iso) {
-					$scope.current = epi;
-				}
-			});
-		};
 		$scope.epi = EPI;
 		$scope.setState = function (item) {
+			console.log('item');
 			$scope.setCurrent(getNationByIso(item));
 		};
 		$scope.toggleOpen = function () {
@@ -60,6 +54,13 @@
 		}
 		$scope.setCurrent = function (nat) {
 			$scope.current = nat;
+		};
+		$scope.setSelectedFeature = function(iso){
+			if($scope.mvtSource){
+				$timeout(function(){
+						$scope.mvtSource.layers.countries_big_geom.features[$scope.current.iso].selected = true;
+				})
+			}
 		};
 		$scope.getRank = function (nat) {
 			return $scope.epi.indexOf(nat) + 1;
@@ -77,7 +78,6 @@
 			if ($scope.compare.active) {
 				$rootScope.greyed = true;
 				$scope.mvtSource.options.mutexToggle = false;
-
 				$scope.mvtSource.setStyle(invertedStyle);
 				$timeout(function () {
 					var element = document.getElementById('index-comparison');
@@ -90,14 +90,22 @@
 			}
 			else{
 				$rootScope.greyed = false;
+				angular.forEach($scope.mvtSource.layers.countries_big_geom.features, function(feature){
+					if(feature.id != $scope.current.iso){
+							feature.selected = false;
+					}
+				});
 				$scope.mvtSource.options.mutexToggle = true;
-					$scope.mvtSource.setStyle(countriesStyle);
+				$scope.mvtSource.setStyle(countriesStyle);
+				DataService.getOne('nations/bbox', [$scope.country.iso]).then(function (data) {
+					$scope.bbox = data;
+				});
 			}
 		};
 		$scope.toggleCountrieList = function (country) {
 			var found = false;
 			angular.forEach($scope.compare.countries, function (nat, key) {
-				if (country == nat) {
+				if (country == nat && nat != $scope.current) {
 					$scope.compare.countries.splice(key, 1);
 					found = true;
 				}
@@ -105,6 +113,13 @@
 			if (!found) {
 				$scope.compare.countries.push(country);
 			};
+			var isos = [];
+			angular.forEach($scope.compare.countries, function (item, key) {
+				isos.push(item.iso);
+			});
+			DataService.getOne('nations/bbox', isos).then(function (data) {
+				$scope.bbox = data;
+			});
 			return !found;
 		};
 		$scope.getOffset = function () {
@@ -125,29 +140,19 @@
 			if (newItem === oldItem) {
 				return;
 			}
-			//$scope.display.selectedCat = "";
 			if (newItem.iso) {
-				if ($scope.compare.active) {
-					$scope.toggleCountrieList(newItem);
-					var isos = [];
-					angular.forEach($scope.compare.countries, function (item, key) {
-						isos.push(item.iso);
-					});
-
-					DataService.getOne('nations/bbox', isos).then(function (data) {
-						$scope.bbox = data;
-					});
-					//$scope.mvtSource.setStyle(invertedStyle);
-				} else {
 					$state.go('app.epi.selected', {
 						item: newItem.iso
 					})
+					angular.forEach($scope.mvtSource.layers.countries_big_geom.features, function(feature){
+						if(feature.id != $scope.current.iso){
+								feature.selected = false;
+						}
+					});
 					$scope.mvtSource.options.mutexToggle = true;
 					DataService.getOne('nations/bbox', [$scope.current.iso]).then(function (data) {
 						$scope.bbox = data;
 					});
-				}
-
 			} else {
 				$state.go('app.epi');
 			}
@@ -326,14 +331,15 @@
 					clickableLayers: ['countries_big_geom'],
 					mutexToggle: true,
 					onClick: function (evt, t) {
-						$scope.current = getNationByIso(evt.feature.properties.adm0_a3);
-
+						if(!$scope.compare.active){
+							$scope.current = getNationByIso(evt.feature.properties.adm0_a3);
+						}
+						else{
+							$scope.toggleCountrieList(getNationByIso(evt.feature.properties.adm0_a3));
+						}
 					},
 					getIDForLayerFeature: function (feature) {
-						if ($scope.current.iso == feature.properties.adm0_a3) {
-							feature.selected = true;
-						}
-						return feature.properties.id;
+						return feature.properties.adm0_a3;
 					},
 					filter: function (feature, context) {
 						if ($scope.current.iso == feature.properties.adm0_a3) {
@@ -349,9 +355,9 @@
 						return layerName + '_label';
 					}*/
 				});
-				map.addLayer($scope.mvtSource); 
+				map.addLayer($scope.mvtSource);
 				$scope.mvtSource.setOpacity(0.5);
-
+				$scope.setSelectedFeature();
 			});
 		};
 		$scope.drawCountries();
