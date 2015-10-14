@@ -54,6 +54,7 @@
 		}
 		$scope.setCurrent = function (nat) {
 			$scope.current = nat;
+			$scope.setSelectedFeature();
 		};
 		$scope.setSelectedFeature = function (iso) {
 			if ($scope.mvtSource) {
