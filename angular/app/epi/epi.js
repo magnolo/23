@@ -1,7 +1,7 @@
 (function () {
 	"use strict";
 
-	angular.module('app.controllers').controller('EpiCtrl', function ($scope, $rootScope, $state, $timeout, smoothScroll, IndexService, EPI, DataService, leafletData, MapService) {
+	angular.module('app.controllers').controller('EpiCtrl', function ($scope, $rootScope, $state, $timeout, IndexService, EPI, DataService, leafletData, MapService) {
 
 		$scope.current = "";
 		$scope.display = {
@@ -28,13 +28,14 @@
 		$scope.indexData = IndexService.getEpi();
 		$scope.epi = [];
 		$scope.menueOpen = true;
-		$scope.details = false;
 		$scope.info = false;
 		$scope.closeIcon = 'close';
 		$scope.compare = {
 			active: false,
 			countries: []
 		};
+		$scope.epi = EPI;
+
 		$scope.showTabContent = function (content) {
 			if (content == '' && $scope.tabContent == '') {
 				$scope.tabContent = 'rank';
@@ -43,9 +44,8 @@
 			}
 			$scope.toggleButton = $scope.tabContent ? 'arrow_drop_up' : 'arrow_drop_down';
 		};
-		$scope.epi = EPI;
+
 		$scope.setState = function (item) {
-			console.log('item');
 			$scope.setCurrent(getNationByIso(item));
 		};
 		$scope.toggleOpen = function () {
@@ -77,19 +77,13 @@
 			$scope.compare.countries = [$scope.current];
 			$scope.compare.active = !$scope.compare.active;
 			if ($scope.compare.active) {
+				$state.go('app.epi.selected.compare');
 				$rootScope.greyed = true;
 				$scope.mvtSource.options.mutexToggle = false;
 				$scope.mvtSource.setStyle(invertedStyle);
-				$timeout(function () {
-					var element = document.getElementById('index-comparison');
-					smoothScroll(element, {
-						offset: 120,
-						duration: 200
-					});
-
-				})
 			} else {
 				$rootScope.greyed = false;
+				$state.go('app.epi.selected', {item:$scope.current.iso});
 				angular.forEach($scope.mvtSource.layers.countries_big_geom.features, function (feature) {
 					feature.selected = false;
 				});
@@ -116,9 +110,13 @@
 			angular.forEach($scope.compare.countries, function (item, key) {
 				isos.push(item.iso);
 			});
-			DataService.getOne('nations/bbox', isos).then(function (data) {
-				$scope.bbox = data;
-			});
+			console.log(isos.length);
+			if(isos.length > 1){
+				DataService.getOne('nations/bbox', isos).then(function (data) {
+					$scope.bbox = data;
+				});
+			}
+
 			return !found;
 		};
 		$scope.getOffset = function () {
@@ -166,18 +164,28 @@
 			$scope.mvtSource.setStyle(countriesStyle);
 		});
 		$scope.$on("$stateChangeSuccess", function (event, toState, toParams) {
-
+			console.log(toState.name);
 			if (toState.name == "app.epi.selected") {
 				$scope.setState(toParams.item);
+				$scope.activeTab = 0;
 				DataService.getOne('nations', toParams.item).then(function (data) {
 					$scope.country = data;
 					DataService.getOne('nations/bbox', [$scope.country.iso]).then(function (data) {
 						$scope.bbox = data;
 					});
 				});
-			} else {
+			} else if(toState.name == "app.epi.selected.compare"){
+				$scope.setState(toParams.item);
+				$scope.activeTab = 2;
+				DataService.getOne('nations', toParams.item).then(function (data) {
+					$scope.country = data;
+					DataService.getOne('nations/bbox', [$scope.country.iso]).then(function (data) {
+						$scope.bbox = data;
+					});
+				});
+			}
+			else{
 				$scope.country = $scope.current = "";
-				$scope.details = false;
 			}
 		});
 		var getNationByName = function (name) {
@@ -262,9 +270,9 @@
 						size: 1
 					};
 					style.selected = {
-						color: 'rgba(255,255,255,0.0)',
+						color: color,
 						outline: {
-							color: 'rgba(0,0,0,0.3)',
+							color: 'rgba(255,255,255,0.8)',
 							size: 2
 						}
 					};
@@ -361,6 +369,10 @@
 				map.addLayer($scope.mvtSource);
 				$scope.mvtSource.setOpacity(0.5);
 				$scope.setSelectedFeature();
+
+				var labelsLayer = L.tileLayer('https://{s}.tiles.mapbox.com/v4/magnolo.59c96cac/{z}/{x}/{y}.png?access_token='+apiKey);
+				map.addLayer(labelsLayer);
+				labelsLayer.bringToFront(); 
 			});
 		};
 		$scope.drawCountries();

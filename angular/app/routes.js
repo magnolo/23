@@ -42,6 +42,9 @@
 			.state('app.epi.selected',{
 				url: '/:item'
 			})
+			.state('app.epi.selected.compare',{
+				url: '/compare-with-countries'
+			})
 			.state('app.importcsv', {
 				url: '/importer',
 				data: {pageName: 'Import CSV'},
