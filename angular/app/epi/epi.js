@@ -264,15 +264,15 @@
 				if (nation[field]) {
 					var colorPos = parseInt(256 / 100 * nation[field]) * 4;
 					var color = 'rgba(' + $scope.palette[colorPos] + ', ' + $scope.palette[colorPos + 1] + ', ' + $scope.palette[colorPos + 2] + ',' + $scope.palette[colorPos + 3] + ')';
-					style.color = color;
+					style.color = 'rgba(' + $scope.palette[colorPos] + ', ' + $scope.palette[colorPos + 1] + ', ' + $scope.palette[colorPos + 2] + ',0.7)'; //color;
 					style.outline = {
 						color: color,
 						size: 1
 					};
 					style.selected = {
-						color: color,
+						color: 'rgba(' + $scope.palette[colorPos] + ', ' + $scope.palette[colorPos + 1] + ', ' + $scope.palette[colorPos + 2] + ',0.3)',
 						outline: {
-							color: 'rgba(255,255,255,0.8)',
+							color: 'rgba(250,250,250,0.8)',
 							size: 2
 						}
 					};
@@ -372,7 +372,7 @@
 
 				var labelsLayer = L.tileLayer('https://{s}.tiles.mapbox.com/v4/magnolo.59c96cac/{z}/{x}/{y}.png?access_token='+apiKey);
 				map.addLayer(labelsLayer);
-				labelsLayer.bringToFront(); 
+				labelsLayer.bringToFront();
 			});
 		};
 		$scope.drawCountries();

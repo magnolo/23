@@ -53,11 +53,11 @@
   </div>
   <div class="module" layout-align="center center" layout="column">
         <p>Score</p>
-        <median data="" handling="{{ false }}" color="{{selected.color}}" field="{{selected.type}}" ng-model="country.epi[5]"></median>
+        <median data="" options="medianOptions" ng-model="country.epi[5]"></median>
         <p>median</p>
   </div>
   <div class="module">
-    <bubbles borders="false" height="180" width="300" labels="false" ng-model="$parent.dispaly.selectedCat" indexer="indexer" chartdata="country.epi[0]" sizefactor="3" ></bubbles>
+    <bubbles borders="false" height="180" width="300" labels="false" ng-model="$parent.display.selectedCat" indexer="indexer" chartdata="country.epi[5]" sizefactor="3" ></bubbles>
   </div>
   <div class="module anim tabs" layout="column">
       <history field="selected.type" color="selected.color" chartdata="country.epi"></history>

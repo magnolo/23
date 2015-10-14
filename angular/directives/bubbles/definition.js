@@ -235,18 +235,21 @@
 					options.icons = options.containers.append("text")
 						.attr('font-family', 'EPI')
 						.attr('font-size', function (d) {
-							0
+
 						})
 						.attr("text-anchor", "middle")
-						.attr('fill', '#fff')
+						.attr('fill', function(d){
+							return d.unicode ? '#fff' : d.color;
+						})
 						.text(function (d) {
-							return d.unicode
+							return d.unicode || '1'
 						});
 					options.icons.on("mouseover", function (d, i) {
 						return show_details(d, i, this);
 					}).on("mouseout", function (d, i) {
 						return hide_details(d, i, this);
 					}).on("click", function (d, i) {
+						console.log(d);
 						ngModel.$setViewValue(d);
 						ngModel.$render();
 					});
