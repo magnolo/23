@@ -91,7 +91,7 @@
 			} else {
 				$rootScope.greyed = false;
 				angular.forEach($scope.mvtSource.layers.countries_big_geom.features, function (feature) {
-						feature.selected = false;
+					feature.selected = false;
 				});
 				$scope.mvtSource.layers.countries_big_geom.features[$scope.current.iso].selected = true;
 				$scope.mvtSource.options.mutexToggle = true;
@@ -153,6 +153,7 @@
 			}
 		});
 		$scope.$watch('display.selectedCat', function (n, o) {
+
 			if (n === o) {
 				return
 			}
@@ -161,6 +162,7 @@
 			else {
 				updateCanvas('rgba(128, 243, 198,1)');
 			};
+			console.log(n);
 			$scope.mvtSource.setStyle(countriesStyle);
 		});
 		$scope.$on("$stateChangeSuccess", function (event, toState, toParams) {
@@ -275,7 +277,16 @@
 					};
 				}
 			}
-
+			if (feature.layer.name === 'countries_big_geom_label') {
+				style.staticLabel = function () {
+					var style = {
+						html: feature.properties.name,
+						iconSize: [125, 30],
+						cssClass: 'label-icon-text'
+					};
+					return style;
+				};
+			}
 			return style;
 		};
 
@@ -335,7 +346,6 @@
 						return feature.properties.adm0_a3;
 					},
 					filter: function (feature, context) {
-
 						return true;
 					},
 					style: countriesStyle //,
@@ -347,6 +357,7 @@
 							return layerName + '_label';
 						}*/
 				});
+				debug.mvtSource = $scope.mvtSource;
 				map.addLayer($scope.mvtSource);
 				$scope.mvtSource.setOpacity(0.5);
 				$scope.setSelectedFeature();

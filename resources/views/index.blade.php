@@ -22,6 +22,7 @@
     <script src="https://cdn.rawgit.com/devTristan/pbf/master/dist/pbf.min.js"></script>
     <script src="/js/vendor.js"></script>
     <script src="js/Leaflet.MapboxVectorTile.js"></script>
+    <script src="js/StaticLabel.js"></script>
     <script src="/js/app.js"></script>
     {{--livereload--}} @if ( Config::get('app.debug') )
     <script type="text/javascript">
