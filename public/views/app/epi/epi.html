@@ -66,30 +66,26 @@
 								<div class="action module slide-toggle" layout-align="center center" layout="row" ng-if="!current">
 												<md-button flex="50" ng-disabled="true">click on a country</md-button>
 								</div>
-								<md-tabs md-dynamic-height ng-if="current">
+								<md-tabs md-dynamic-height md-swipe-content="true" ng-if="current" md-selected="activeTab">
 												<md-tab label="Details">
 																	<div class="module bubbles slide-toggle " layout="column">
 																				<bubbles chartdata="current" height="320" width="300" indexer="indexData.children" ng-model="display.selectedCat" sizefactor="3" ></bubbles>
 																	</div>
 												</md-tab>
 												<md-tab label="History">
-																<md-content class="module anim tabs" layout="column" ng-init="tabContent = 'rank'">
-																					<div class="header smaller" layout-align="space-between end" layout="row">
-																									<span class="title" ng-class="{'active': tabContent == 'rank'}" ng-click="showTabContent('rank')">Rank History</span>
-																									<span class="title" ng-class="{'active': tabContent == 'score'}" ng-click="showTabContent('score')">Score History</span>
-																					</div>
-																					<div class="content slide-toggle" ng-if="tabContent != ''">
-																									<div class="rank slide-toggle" ng-if="tabContent == 'rank'">
-																													<simplelinechart data="country.epi" invert="true" max="178" selection="display.rank"></simplelinechart>
-																									</div>
-																									<div class="score slide-toggle" ng-if="tabContent == 'score'">
-																													<simplelinechart data="country.epi" selection="display.score"></simplelinechart>
-																									</div>
-																					</div>
-																</md-content>
+																<div class="moduletabs" layout="column" >
+																			<md-tabs>
+																				<md-tab label="Rank History">
+																					<simplelinechart data="country.epi" invert="true" max="178" selection="display.rank"></simplelinechart>
+																				</md-tab>
+																				<md-tab label="Score History">
+																					<simplelinechart data="country.epi" selection="display.score"></simplelinechart>
+																				</md-tab>
+																			</md-tabs>
+																</div>
 												</md-tab>
 												<md-tab label="Compare" md-on-select="toggleComparison()" md-on-deselect="toggleComparison()">
-																<md-content class="module comparison" >
+																<div class="module comparison" >
 																	<div layout-wrap layout="row">
 																	<div class="country" flex="50" ng-repeat="country in compare.countries">
 																					<h4>
@@ -99,8 +95,8 @@
 																					<bubbles borders="false" labels="false" chartdata="country" height="150" indexer="indexData.children" ng-model="display.selectedCat" sizefactor="5" width="120"></bubbles>
 
 																	</div>
-																	</div
-																</md-content>
+																</div>
+																</div>
 												</md-tab>
 								</md-tabs>
 				</div>
