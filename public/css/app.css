@@ -141,7 +141,6 @@
 .info-container .info-box .header {
   padding: 0.5em;
   padding-bottom: 1em;
-  border-bottom: 1px solid #d7dddd;
 }
 .info-container .info-box .header .title {
   font-weight: normal;
@@ -168,7 +167,6 @@
 .info-container .info-box .header.info {
   border: 0;
   padding: 0.5em;
-  padding-top: 0px;
 }
 .info-container .info-box .header.info .title {
   line-height: 1.2em;
@@ -279,6 +277,20 @@
   font-style: italic;
   padding: 1em;
 }
+.info-container .info-box .module.comparison h4 {
+  color: #006bb9;
+  font-weight: normal;
+  font-size: 1.2em;
+  line-height: 1em;
+  margin-bottom: 1.5em;
+}
+.info-container .info-box .module.comparison h4 .number {
+  color: #00ccaa;
+  font-size: 0.9em;
+}
+.info-container .info-box .module.comparison .country {
+  text-align: center;
+}
 .info-container .info-box .country_list {
   position: absolute;
   left: 100%;
@@ -300,20 +312,6 @@
 .info-container .info-box .md-ripple-container {
   border-radius: 20px;
 }
-.info-container .info-box#index-comparison h4 {
-  color: #006bb9;
-  font-weight: normal;
-  font-size: 1.2em;
-  line-height: 1em;
-  margin-bottom: 1.5em;
-}
-.info-container .info-box#index-comparison h4 .number {
-  color: #00ccaa;
-  font-size: 0.9em;
-}
-.info-container .info-box#index-comparison .country {
-  text-align: center;
-}
 .info-container .info-box.sub-box {
   position: absolute;
   top: 0px;
@@ -333,6 +331,9 @@
 }
 .info-container .info-box.sub-box#sub-info {
   width: 700px;
+}
+.info-container .md-tab {
+  text-transform: none;
 }
 .nvd3 text {
   font-family: Georgia;
@@ -666,22 +667,6 @@ md-menu-bar {
 
 
 
-.Dashboard-Container li {
-  line-height: 26px;
-}
-
-[ui-view].ng-enter,
-[ui-view].ng-leave {
-  transition: opacity ease-in-out 200ms;
-}
-[ui-view].ng-enter,
-[ui-view].ng-leave.ng-leave-active {
-  opacity: 0;
-}
-[ui-view].ng-enter.ng-enter-active {
-  opacity: 1;
-}
-
 .Sidebar {
   position: fixed !important;
   top: 0;
@@ -723,6 +708,22 @@ md-menu-bar {
 }
 .Sidebar-version a {
   color: white;
+}
+
+.Dashboard-Container li {
+  line-height: 26px;
+}
+
+[ui-view].ng-enter,
+[ui-view].ng-leave {
+  transition: opacity ease-in-out 200ms;
+}
+[ui-view].ng-enter,
+[ui-view].ng-leave.ng-leave-active {
+  opacity: 0;
+}
+[ui-view].ng-enter.ng-enter-active {
+  opacity: 1;
 }
 
 
@@ -842,7 +843,6 @@ median .slider text {
   user-select: none;
   cursor: ew-resize;
 }
-
 
 
 .slide-toggle {
@@ -976,5 +976,6 @@ median .slider text {
 .calculating .field-name-field-calculating-text {
   padding-right: 220px;
 }
+
 
 /*# sourceMappingURL=app.css.map */

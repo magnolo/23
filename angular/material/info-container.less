@@ -63,13 +63,11 @@
                     }
                 }
             }
-            border-bottom: 1px solid @grey-light;
+
 
             &.info {
                 border: 0;
                 padding: 0.5em;
-                padding-top:0px;
-
                 .title {
                     line-height: 1.2em;
                 }
@@ -225,6 +223,23 @@
                 padding:1em;
               }
             }
+            &.comparison{
+              h4{
+                color:@base;
+                font-weight:normal;
+                font-size:1.2em;
+                line-height: 1em;
+                margin-bottom:1.5em;
+                .number{
+                  color:@green;
+                  font-size:0.9em;
+
+                }
+              }
+              .country{
+                text-align:center;
+              }
+            }
 
         }
 
@@ -252,25 +267,6 @@
         .md-ripple-container {
             border-radius: 20px;
         }
-        &#index-comparison{
-
-            h4{
-              color:@base;
-              font-weight:normal;
-              font-size:1.2em;
-              line-height: 1em;
-              margin-bottom:1.5em;
-              .number{
-                color:@green;
-                font-size:0.9em;
-
-              }
-            }
-            .country{
-              text-align:center;
-            }
-
-        }
         &.sub-box{
           position:absolute;
           top:0px;
@@ -293,6 +289,9 @@
           }
         }
     }
+   .md-tab{
+     text-transform: none;
+   }
 }
 .nvd3{
   text{
