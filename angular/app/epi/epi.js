@@ -74,7 +74,7 @@
 			return $scope.details = !$scope.details;
 		};
 		$scope.toggleComparison = function () {
-			$scope.compare.countries = [$scope.current];
+			$scope.compare.countries = [];
 			$scope.compare.active = !$scope.compare.active;
 			if ($scope.compare.active) {
 				$rootScope.greyed = true;
