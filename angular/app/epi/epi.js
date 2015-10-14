@@ -1,7 +1,7 @@
 (function () {
 	"use strict";
 
-	angular.module('app.controllers').controller('EpiCtrl', function ($scope,$rootScope, $state, $timeout, smoothScroll, IndexService, EPI, DataService, leafletData, MapService) {
+	angular.module('app.controllers').controller('EpiCtrl', function ($scope, $rootScope, $state, $timeout, smoothScroll, IndexService, EPI, DataService, leafletData, MapService) {
 
 		$scope.current = "";
 		$scope.display = {
@@ -55,10 +55,10 @@
 		$scope.setCurrent = function (nat) {
 			$scope.current = nat;
 		};
-		$scope.setSelectedFeature = function(iso){
-			if($scope.mvtSource){
-				$timeout(function(){
-						$scope.mvtSource.layers.countries_big_geom.features[$scope.current.iso].selected = true;
+		$scope.setSelectedFeature = function (iso) {
+			if ($scope.mvtSource) {
+				$timeout(function () {
+					$scope.mvtSource.layers.countries_big_geom.features[$scope.current.iso].selected = true;
 				})
 			}
 		};
@@ -87,14 +87,12 @@
 					});
 
 				})
-			}
-			else{
+			} else {
 				$rootScope.greyed = false;
-				angular.forEach($scope.mvtSource.layers.countries_big_geom.features, function(feature){
-					if(feature.id != $scope.current.iso){
-							feature.selected = false;
-					}
+				angular.forEach($scope.mvtSource.layers.countries_big_geom.features, function (feature) {
+						feature.selected = false;
 				});
+				$scope.mvtSource.layers.countries_big_geom.features[$scope.current.iso].selected = true;
 				$scope.mvtSource.options.mutexToggle = true;
 				$scope.mvtSource.setStyle(countriesStyle);
 				DataService.getOne('nations/bbox', [$scope.country.iso]).then(function (data) {
@@ -141,18 +139,14 @@
 				return;
 			}
 			if (newItem.iso) {
-					$state.go('app.epi.selected', {
-						item: newItem.iso
-					})
-					angular.forEach($scope.mvtSource.layers.countries_big_geom.features, function(feature){
-						if(feature.id != $scope.current.iso){
-								feature.selected = false;
-						}
-					});
-					$scope.mvtSource.options.mutexToggle = true;
-					DataService.getOne('nations/bbox', [$scope.current.iso]).then(function (data) {
-						$scope.bbox = data;
-					});
+				$state.go('app.epi.selected', {
+					item: newItem.iso
+				})
+				$scope.mvtSource.layers.countries_big_geom.features[oldItem.iso].selected = false;
+				$scope.mvtSource.options.mutexToggle = true;
+				DataService.getOne('nations/bbox', [$scope.current.iso]).then(function (data) {
+					$scope.bbox = data;
+				});
 			} else {
 				$state.go('app.epi');
 			}
@@ -225,28 +219,28 @@
 			$scope.palette = $scope.ctx.getImageData(0, 0, 256, 1).data;
 		};
 		createCanvas();
-		var invertedStyle = function(feature){
-				var style = {};
-				var iso = feature.properties.adm0_a3;
-				var nation = getNationByIso(iso);
-				var field = $scope.display.selectedCat.type || 'score';
+		var invertedStyle = function (feature) {
+			var style = {};
+			var iso = feature.properties.adm0_a3;
+			var nation = getNationByIso(iso);
+			var field = $scope.display.selectedCat.type || 'score';
 
 
-					var colorPos = parseInt(256 / 100 * nation[field]) * 4;
-					var color = 'rgba(' + $scope.palette[colorPos] + ', ' + $scope.palette[colorPos + 1] + ', ' + $scope.palette[colorPos + 2] + ',' + $scope.palette[colorPos + 3] + ')';
-					style.color = 'rgba(0,0,0,0)';
-					style.outline = {
-						color: 'rgba(0,0,0,0)',
-						size: 0
-					};
-					style.selected = {
-						color: color,
-						outline: {
-							color: 'rgba(0,0,0,0.3)',
-							size: 2
-						}
-					};
-				return style;
+			var colorPos = parseInt(256 / 100 * nation[field]) * 4;
+			var color = 'rgba(' + $scope.palette[colorPos] + ', ' + $scope.palette[colorPos + 1] + ', ' + $scope.palette[colorPos + 2] + ',' + $scope.palette[colorPos + 3] + ')';
+			style.color = 'rgba(0,0,0,0)';
+			style.outline = {
+				color: 'rgba(0,0,0,0)',
+				size: 0
+			};
+			style.selected = {
+				color: color,
+				outline: {
+					color: 'rgba(0,0,0,0.3)',
+					size: 2
+				}
+			};
+			return style;
 		};
 		var countriesStyle = function (feature) {
 			var style = {};
@@ -280,14 +274,7 @@
 					};
 				}
 			}
-			style.staticLabel = function () {
-				var style = {
-					html: nation.country,
-					iconSize: [125, 30],
-					cssClass: 'label-icon-text'
-				};
-				return style;
-			};
+
 			return style;
 		};
 
@@ -307,9 +294,15 @@
 					var southWest = L.latLng(n.coordinates[0][0][1], n.coordinates[0][0][0]),
 						northEast = L.latLng(n.coordinates[0][2][1], n.coordinates[0][2][0]),
 						bounds = L.latLngBounds(southWest, northEast);
-					var pad = [[350, 200], [0, 200]];
-					if($scope.compare.active){
-						pad =  [[350, 0], [0, 0]];
+					var pad = [
+						[350, 200],
+						[0, 200]
+					];
+					if ($scope.compare.active) {
+						pad = [
+							[350, 0],
+							[0, 0]
+						];
 					}
 
 					map.fitBounds(bounds, {
@@ -331,10 +324,9 @@
 					clickableLayers: ['countries_big_geom'],
 					mutexToggle: true,
 					onClick: function (evt, t) {
-						if(!$scope.compare.active){
+						if (!$scope.compare.active) {
 							$scope.current = getNationByIso(evt.feature.properties.adm0_a3);
-						}
-						else{
+						} else {
 							$scope.toggleCountrieList(getNationByIso(evt.feature.properties.adm0_a3));
 						}
 					},
@@ -342,18 +334,17 @@
 						return feature.properties.adm0_a3;
 					},
 					filter: function (feature, context) {
-						if ($scope.current.iso == feature.properties.adm0_a3) {
-							feature.selected = true;
-						}
+
 						return true;
 					},
 					style: countriesStyle //,
-					/*layerLink: function (layerName) {
-						if (layerName.indexOf('_label') > -1) {
-							return layerName.replace('_label', '');
-						}
-						return layerName + '_label';
-					}*/
+						/*layerLink: function (layerName) {
+							console.log(layerName);
+							if (layerName.indexOf('_label') > -1) {
+								return layerName.replace('_label', '');
+							}
+							return layerName + '_label';
+						}*/
 				});
 				map.addLayer($scope.mvtSource);
 				$scope.mvtSource.setOpacity(0.5);

@@ -111,7 +111,8 @@
 									color: item.color,
 									icon: item.icon,
 									unicode: item.unicode,
-									data: item
+									data: item,
+									children:item
 								};
 								nodes.push(node);
 							}
