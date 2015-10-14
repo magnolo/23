@@ -20,6 +20,7 @@
 		};
 
 		function subindexLinkFunction($scope, element, $attrs) {
+			console.log($scope.selected);
 			$scope.gotoBox = gotoBox;
 					$scope.gotoBox();
 			function gotoBox(){

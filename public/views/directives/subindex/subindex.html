@@ -4,8 +4,10 @@
   </div>
   <div class="header center" layout-align="center center" layout="column">
           <span class="icon"><i class="icon icon-bubble icon-{{selected.icon}} fisheries" ng-style="{'background-color':selected.color}"></i></span>
-          <span class="title">{{selected.name}}</span>
-          <span class="info-icon"></span>
+          <span class="title">{{selected.name}}<span class="info-icon">
+                  <ng-md-icon icon="info_outline" class="icon-space" ng-click="toggleInfo()"></ng-md-icon>
+          </span></span>
+
   </div>
   <div class="rank module" layout-align="space-between center" layout="row">
           <div class="chart" layout="row">
@@ -59,5 +61,31 @@
   </div>
   <div class="module anim tabs" layout="column">
       <history field="selected.type" color="selected.color" chartdata="country.epi"></history>
+  </div>
+  <div class="info-box md-whiteframe-z2 anim sub-box" id="sub-info" ng-if="info">
+          <div class="close-box">
+                  <ng-md-icon icon="{{closeIcon || 'close'}}" ng-click="toggleInfo()" ng-mouseleave="closeIcon = 'close'" ng-mouseover="closeIcon = 'chevron_left'" options='{"rotation": "none", "duration":375}' size="32"></ng-md-icon>
+          </div>
+          <div class="module description">
+                  <div layout="row">
+                          <div class="header" flex="50" layout-align="space-between end" layout="row" offset="25">
+                                  <div class="title">{{ selected.name}}</div>
+                                  <div class="sub-title">{{selected.full_name}}</div>
+                          </div>
+                  </div>
+                  <div layout="row">
+                          <div class="content" flex="50" offset="25">
+                                  <div class="text" ng-bind-html="selected.description"></div>
+                          </div>
+                  </div>
+                  <div layout-align="center" layout-margin layout="row">
+                          <div class="framework" layout-align="space-between center" layout="column">
+                                  <sunburst data="selected.data"></sunburst>
+                          </div>
+                  </div>
+                  <div layout="row">
+                          <div class="caption" flex="60" ng-bind-html="selected.caption" offset="20"></div>
+                  </div>
+          </div>
   </div>
 </div>

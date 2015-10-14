@@ -6,6 +6,7 @@
           getEpi: function(){
             return {
         			 name:'EPI',
+               title: 'EPI',
         			 full_name: 'Environment Performance Index',
         			 table: 'epi',
         			 allCountries: 'yes',

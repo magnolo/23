@@ -2,10 +2,12 @@
 	"use strict";
 
 	angular.module( 'app.controllers' ).controller( 'SubindexCtrl', function($scope, $filter, $timeout, smoothScroll){
+		$scope.info = false;
 		$scope.setChart = setChart;
 		$scope.calculateGraph = calculateGraph;
 		$scope.createIndexer = createIndexer;
 		$scope.calcSubRank = calcSubRank;
+		$scope.toggleInfo = toggleInfo;
 
 		activate();
 
@@ -29,6 +31,9 @@
 				$scope.calcSubRank();
 			})
 		}
+		function toggleInfo(){
+			$scope.info = !$scope.info;
+		};
 		function calcSubRank(){
 				var rank = 0;
 				angular.forEach($scope.data, function(item){
