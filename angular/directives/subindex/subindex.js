@@ -8,7 +8,11 @@
 		$scope.createIndexer = createIndexer;
 		$scope.calcSubRank = calcSubRank;
 		$scope.toggleInfo = toggleInfo;
-
+		$scope.medianOptions = {
+			color:$scope.$parent.display.selectedCat.color,
+			field:$scope.$parent.display.selectedCat.type,
+			handling: false
+		};
 		activate();
 
 		function activate(){
@@ -20,15 +24,22 @@
 				if (newItem === oldItem) {
 					return false;
 				}
+				$scope.createIndexer();
 				$scope.calculateGraph();
 				$scope.gotoBox();
-
 			});
 			$scope.$watch('country', function(n, o){
 				if(n === o){
 					return;
 				}
 				$scope.calcSubRank();
+			})
+
+			$scope.$watch('medianOptions', function(n, o){
+				if(n === o){
+					return;
+				}
+			console.log(n);
 			})
 		}
 		function toggleInfo(){
@@ -49,7 +60,7 @@
 				$scope.country.rank = rank;
 		}
 		function createIndexer(){
-		 	$scope.indexer = [$scope.selected.data];
+		 	$scope.indexer = [$scope.$parent.display.selectedCat.data];
 		}
 		function setChart() {
 			$scope.chart = {

@@ -157,11 +157,6 @@
 }
 .info-container .info-box .header .info-icon {
   cursor: pointer;
-}
-.info-container .info-box .header .info-icon * {
-  fill: #d7dddd;
-}
-.info-container .info-box .header .info-icon:hover * {
   fill: #006bb9;
 }
 .info-container .info-box .header.info {

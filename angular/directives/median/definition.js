@@ -7,7 +7,7 @@
 				id: 'gradient',
 				width: 300,
 				height: 40,
-				info: true, 
+				info: true,
 				field: 'score',
 				handling: true,
 				margin: {
@@ -34,13 +34,13 @@
 		return {
 			restrict: 'E',
 			scope: {
-				data: '='
+				data: '=',
+				options: '='
 			},
 			require: 'ngModel',
 			link: function ($scope, element, $attrs, ngModel) {
-
 				var options = angular.extend(defaults(), $attrs);
-				//console.log(options.color);
+				options = angular.extend(options, $scope.options);
 				if(options.color){
 					options.colors[1].color = options.color;
 				}
@@ -75,7 +75,7 @@
 						.attr('stop-color', color.color)
 						.attr('stop-opacity', color.opacity);
 				});
-				svg.append('svg:rect')
+				var rect = svg.append('svg:rect')
 					.attr('width', options.width)
 					.attr('height', options.height)
 					.style('fill', 'url(#' + options.field + ')');
@@ -171,13 +171,35 @@
 					ngModel.$setViewValue(final);
 					ngModel.$render();
 				}
-
+				$scope.$watch('options', function(n,o){
+					if(n === o){
+						return;
+					}
+					options.colors[1].color = n.color;
+					gradient = svg.append('svg:defs')
+						.append("svg:linearGradient")
+						.attr('id', options.field+"_"+n.color)
+						.attr('x1', '0%')
+						.attr('y1', '0%')
+						.attr('x2', '100%')
+						.attr('y2', '0%')
+						.attr('spreadMethod', 'pad')
+					angular.forEach(options.colors, function (color) {
+						gradient.append('svg:stop')
+							.attr('offset', color.position + '%')
+							.attr('stop-color', color.color)
+							.attr('stop-opacity', color.opacity);
+					});
+					rect.style('fill', 'url(#' + options.field + '_'+n.color+')');
+					handle.style('fill', n.color);
+					handleLabel.text(parseInt(ngModel.$modelValue[n.field]));
+					handleCont.transition().duration(500).ease('quad').attr("transform", 'translate(' + x(ngModel.$modelValue[n.field]) + ',' + options.height / 2 + ')');
+				});
 				$scope.$watch(
 					function () {
 						return ngModel.$modelValue;
 					},
 					function (newValue, oldValue) {
-						//console.log(newValue);
 						if (!newValue) {
 							handleLabel.text(parseInt(0));
 							handleCont.attr("transform", 'translate(' + x(0) + ',' + options.height / 2 + ')');

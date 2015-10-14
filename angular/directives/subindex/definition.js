@@ -19,15 +19,7 @@
 			link: subindexLinkFunction
 		};
 
-		function subindexLinkFunction($scope, element, $attrs) {
-			console.log($scope.selected);
-			$scope.gotoBox = gotoBox;
-					$scope.gotoBox();
-			function gotoBox(){
-				$timeout(function(){
-						smoothScroll(element[0], {offset:120, duration:250});
-				});
-			}
+		function subindexLinkFunction($scope, element, $attrs) {		
 		}
 	}
 })();

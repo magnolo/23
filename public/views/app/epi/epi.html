@@ -88,7 +88,7 @@
 																<div class="module comparison" >
 																	<div layout-wrap layout="row">
 																	<div class="country" flex="50" ng-repeat="country in compare.countries">
-																					<h4>
+																					<h4 ng-click="setCurrent(country)">
 																									<span class="number">N°{{getRank(country)}}</span>
 																									{{country.country}}</h4>
 																					<median data="epi" height="20" info="false" ng-model="country" width="120"></median>
