@@ -12,7 +12,7 @@
 												<span class="title">{{current.country}}</span>
 												<ng-md-icon icon="chevron_right" ></ng-md-icon>
 								</div>
-								<div class="rank module" layout-align="space-between center" layout="row">
+								<div class="rank module slide-toggle" ng-if="current  && !compare.active" layout-align="space-between center" layout="row">
 												<div class="chart" layout="row">
 																<div layout-align="" layout="column">
 																				<div class="title" layout-align="center center" layout="row">Rank</div>
@@ -57,7 +57,7 @@
 																</div>
 												</div>
 								</div>
-								<div class="module no-margin" layout-align="center center" layout="column">
+								<div class="module no-margin slide-toggle" ng-if="current  && !compare.active" layout-align="center center" layout="column">
 												<p>Score</p>
 												<median data="epi" ng-model="current"></median>
 												<p>median</p>
