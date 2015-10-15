@@ -1,7 +1,7 @@
 <div class="info-container" ng-class="{'out': country  && display.selectedCat }">
 				<div class="info-box  md-whiteframe-z3" layout="column">
 
-								<div class="header" layout-align="space-between end" layout="row">
+								<div class="header" layout-align="space-between center" layout="row">
 												<span class="title">{{indexData.name}}</span>
 												<span class="subtitle">{{indexData.full_name}}</span>
 												<span class="info-icon">
@@ -59,23 +59,23 @@
 								</div>
 								<div class="module no-margin slide-toggle" ng-if="current  && !compare.active" layout-align="center center" layout="column">
 												<p>Score</p>
-												<median data="epi" ng-model="current"></median>
+												<median data="epi" options="{handling:true}" ng-model="current"></median>
 												<p>median</p>
 								</div>
 
 								<div class="action module slide-toggle" layout-align="center center" layout="row" ng-if="!current">
 												<md-button flex="50" ng-disabled="true">click on a country</md-button>
 								</div>
-								<md-tabs md-dynamic-height md-swipe-content="true" ng-if="current" md-selected="activeTab">
+								<md-tabs md-dynamic-height md-swipe-content="true"  md-no-pagination="true" md-center-tabs="true" ng-if="current" md-selected="activeTab">
 												<md-tab label="Details">
 																	<div class="module bubbles slide-toggle " layout="column">
 																				<bubbles chartdata="current" height="320" width="300" indexer="indexData.children" ng-model="display.selectedCat" sizefactor="3" ></bubbles>
 																	</div>
 												</md-tab>
 												<md-tab label="History">
-																<div class="moduletabs" layout="column" >
-																			<md-tabs>
-																				<md-tab label="Rank History">
+																<div class="module tabs" layout="column" >
+																			<md-tabs md-no-pagination="true"  md-dynamic-height  md-no-ink-bar md-border-bottom >
+																				<md-tab label="Rank History" >
 																					<simplelinechart data="country.epi" invert="true" max="178" selection="display.rank"></simplelinechart>
 																				</md-tab>
 																				<md-tab label="Score History">

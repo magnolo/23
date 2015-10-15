@@ -45,7 +45,7 @@
 				sizefactor:3,
 				vis: null,
 				force: null,
-				damper: 0.1,
+				damper: 0.085,
 				circles: null,
 				borders: true,
 				labels: true,
@@ -162,27 +162,44 @@
 
 					if (!options.borders) {
 						var pi = Math.PI;
-						var arcTop = d3.svg.arc()
-							.innerRadius(109)
-							.outerRadius(110)
-							.startAngle(-90 * (pi / 180)) //converting from degs to radians
-							.endAngle(90 * (pi / 180)); //just radians
-						var arcBottom = d3.svg.arc()
-							.innerRadius(134)
-							.outerRadius(135)
-							.startAngle(90 * (pi / 180)) //converting from degs to radians
-							.endAngle(270 * (pi / 180)); //just radians
+						if(labels.length == 2){
+							var arcTop = d3.svg.arc()
+								.innerRadius(109)
+								.outerRadius(110)
+								.startAngle(-90 * (pi / 180)) //converting from degs to radians
+								.endAngle(90 * (pi / 180)); //just radians
+							var arcBottom = d3.svg.arc()
+								.innerRadius(134)
+								.outerRadius(135)
+								.startAngle(90 * (pi / 180)) //converting from degs to radians
+								.endAngle(270 * (pi / 180)); //just radians
 
-						options.arcTop = options.vis.append("path")
-							.attr("d", arcTop)
-							.attr("fill", "#be5f00")
-							.attr("id", "arcTop")
-							.attr("transform", "translate("+(options.width/2)+","+(options.height/2 - options.height/10)+")");
-						options.arcBottom = options.vis.append("path")
-							.attr("d", arcBottom)
-							.attr("id", "arcBottom")
-							.attr("fill", "#006bb6")
-							.attr("transform", "translate("+(options.width/2)+","+(options.height/2)+")");
+							options.arcTop = options.vis.append("path")
+								.attr("d", arcTop)
+								.attr("fill", "#be5f00")
+								.attr("id", "arcTop")
+								.attr("transform", "translate("+(options.width/2)+","+(options.height/2 - options.height/10)+")");
+							options.arcBottom = options.vis.append("path")
+								.attr("d", arcBottom)
+								.attr("id", "arcBottom")
+								.attr("fill", "#006bb6")
+								.attr("transform", "translate("+(options.width/2)+","+(options.height/2)+")");
+						}
+						else{
+							var arc = d3.svg.arc()
+								.innerRadius(options.width/3 - 1)
+								.outerRadius(options.width/3)
+								.startAngle(0 * (pi / 180)) //converting from degs to radians
+								.endAngle(360 * (pi / 180)); //just radians
+
+
+							options.arc = options.vis.append("path")
+								.attr("d", arc)
+								.attr("fill", labels[0].color)
+								.attr("id", "arcTop")
+								.attr("transform", "translate("+(options.width/2)+","+(options.height/2)+")");
+
+						}
 					}
 				if(options.labels == true){
 						var textLabels = options.vis.selectAll('text.labels').data(labels).enter().append("text")
@@ -287,12 +304,10 @@
 					return options.force = d3.layout.force().nodes(nodes).size([options.width, options.height]).links(links);
 				};
 				var display_group_all = function () {
-					options.force.gravity(options.layout_gravity).charge(charge).friction(0.9).on("tick", function (e) {
-						return options.circles.each(move_towards_center(e.alpha)).attr('cx', function (d) {
-							return d.x;
-						}).attr("cy", function (d) {
-							return d.y;
-						})
+					options.force.gravity(options.layout_gravity).charge(charge).friction(0.85).on("tick", function (e) {
+						options.containers.each(move_towards_center(e.alpha)).attr("transform", function (d) {
+							return 'translate(' + d.x + ',' + d.y + ')';
+						});
 					});
 					options.force.start();
 				};
@@ -307,8 +322,8 @@
 				var move_towards_center = function (alpha) {
 					return (function (_this) {
 						return function (d) {
-							d.x = d.x + (options.center.x - d.x) * (options.damper + 0.02) * alpha;
-							d.y = d.y + (options.center.y - d.y) * (options.damper + 0.02) * alpha;
+							d.x = d.x + (options.width/2 - d.x) * (options.damper + 0.02) * alpha;
+							d.y = d.y + (options.height/2 - d.y) * (options.damper + 0.02) * alpha;
 						}
 					})(this);
 				};
@@ -332,7 +347,7 @@
 				};
 				var show_details = function (data, i, element) {
 					var content;
-					content = "<span class=\"title\">" + data.name + ":</span><br/>";
+					content = "<span class=\"title\">" + data.name + "</span><br/>";
 					angular.forEach(data.data.children, function (info) {
 						content += "<span class=\"name\" style=\"color:" + (info.color || data.color) + "\"> " + (info.title) + "</span><br/>";
 					});
@@ -345,6 +360,7 @@
 
 				scope.$watch('chartdata', function (data, oldData) {
 					options.tooltip.hideTooltip();
+					console.log(data);
 					if (options.circles == null) {
 						create_nodes();
 						create_vis();
@@ -352,7 +368,13 @@
 					} else {
 						update_vis();
 					}
-					display_by_cat();
+					if(labels.length == 1){
+							display_group_all();
+					}
+					else{
+							display_by_cat();
+					}
+
 				});
 
 				scope.$watch('direction', function (oldD, newD) {

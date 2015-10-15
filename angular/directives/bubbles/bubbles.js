@@ -3,6 +3,7 @@
 
 	angular.module( 'app.controllers' ).controller( 'BubblesCtrl', function(){
 		//
+
   });
 
 })();
