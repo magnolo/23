@@ -1,5 +1,7 @@
 <?php
 
+
+
 /*
 |--------------------------------------------------------------------------
 | Create The Application
@@ -40,7 +42,15 @@ $app->singleton(
     'Illuminate\Contracts\Debug\ExceptionHandler',
     'App\Exceptions\Handler'
 );
-
+/*
+|--------------------------------------------------------------------------
+| Load Environment File on Startup
+|--------------------------------------------------------------------------
+|
+| This will determine, which environment will be loaded for our application.
+|
+*/
+require __DIR__.'/environment.php';
 /*
 |--------------------------------------------------------------------------
 | Return The Application
