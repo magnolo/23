@@ -3,6 +3,7 @@
 
 	angular.module( 'app.controllers' ).controller( 'SubindexCtrl', function($scope, $filter, $timeout, smoothScroll){
 		$scope.info = false;
+		$scope.activeTab = 0;
 		$scope.setChart = setChart;
 		$scope.calculateGraph = calculateGraph;
 		$scope.createIndexer = createIndexer;
@@ -14,6 +15,7 @@
 			handling: false
 		};
 		activate();
+
 
 		function activate(){
 			$scope.calcSubRank();
@@ -33,14 +35,15 @@
 					return;
 				}
 				$scope.calcSubRank();
-			})
-
+			});
 			$scope.$watch('medianOptions', function(n, o){
 				if(n === o){
 					return;
 				}
-			console.log(n);
-			})
+			});
+			if($scope.$parent.compare.active){
+				$scope.activeTab = 2;
+			}
 		}
 		function toggleInfo(){
 			$scope.info = !$scope.info;
