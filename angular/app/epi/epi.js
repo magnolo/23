@@ -77,13 +77,13 @@
 			$scope.compare.countries = [$scope.current];
 			$scope.compare.active = !$scope.compare.active;
 			if ($scope.compare.active) {
-				$state.go('app.epi.selected.compare');
+				//$state.go('app.epi.selected.compare');
 				$rootScope.greyed = true;
 				$scope.mvtSource.options.mutexToggle = false;
 				$scope.mvtSource.setStyle(invertedStyle);
 			} else {
 				$rootScope.greyed = false;
-				$state.go('app.epi.selected', {item:$scope.current.iso});
+				//$state.go('app.epi.selected', {item:$scope.current.iso});
 				angular.forEach($scope.mvtSource.layers.countries_big_geom.features, function (feature) {
 					feature.selected = false;
 				});
@@ -151,23 +151,24 @@
 			}
 		});
 		$scope.$watch('display.selectedCat', function (n, o) {
-
 			if (n === o) {
 				return
 			}
 			if (n)
 				updateCanvas(n.color);
 			else {
+				if($scope.compare.active){
+					$scope.toggleComparison();
+				}
 				updateCanvas('rgba(128, 243, 198,1)');
 			};
-			console.log(n);
 			$scope.mvtSource.setStyle(countriesStyle);
 		});
 		$scope.$on("$stateChangeSuccess", function (event, toState, toParams) {
 			console.log(toState.name);
 			if (toState.name == "app.epi.selected") {
 				$scope.setState(toParams.item);
-				$scope.activeTab = 0;
+				//$scope.activeTab = 0;
 				DataService.getOne('nations', toParams.item).then(function (data) {
 					$scope.country = data;
 					DataService.getOne('nations/bbox', [$scope.country.iso]).then(function (data) {
@@ -176,7 +177,7 @@
 				});
 			} else if(toState.name == "app.epi.selected.compare"){
 				$scope.setState(toParams.item);
-				$scope.activeTab = 2;
+				//$scope.activeTab = 2;
 				DataService.getOne('nations', toParams.item).then(function (data) {
 					$scope.country = data;
 					DataService.getOne('nations/bbox', [$scope.country.iso]).then(function (data) {
@@ -272,7 +273,7 @@
 					style.selected = {
 						color: 'rgba(' + $scope.palette[colorPos] + ', ' + $scope.palette[colorPos + 1] + ', ' + $scope.palette[colorPos + 2] + ',0.3)',
 						outline: {
-							color: 'rgba(250,250,250,0.8)',
+							color: 'rgba(66,66,66,0.9)',
 							size: 2
 						}
 					};

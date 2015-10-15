@@ -148,7 +148,7 @@
   padding: 0;
   margin: 0;
   line-height: 0.8em;
-  font-size: 1.8em;
+  font-size: 1.5em;
 }
 .info-container .info-box .header .subtitle {
   color: #006bb9;
@@ -258,6 +258,10 @@
 }
 .info-container .info-box .module.tabs .header * {
   cursor: pointer;
+}
+.info-container .info-box .module.tabs .md-tab {
+  font-size: 1.2em;
+  font-style: italic;
 }
 .info-container .info-box .module.description .header .sub-title {
   color: #006bb9;
@@ -526,7 +530,7 @@ body > canvas {
   background-color: #d7dddd;
   color: #fff;
   border-radius: 50%;
-  font-size: 4em;
+  font-size: 2em;
 }
 .icon-bubble.fisheries {
   background-color: #008c8c;
@@ -630,10 +634,10 @@ md-menu-bar {
   height: calc(100% - 165px);
 }
 #map {
-  position: absolute;
+  position: fixed;
   width: 100%;
   top: 64px;
-  height: calc(100% - 180px);
+  height: calc(100% - 64px);
 }
 .angular-leaflet-map {
   width: 100%;
