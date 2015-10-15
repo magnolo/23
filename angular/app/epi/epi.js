@@ -111,7 +111,7 @@
 				isos.push(item.iso);
 			});
 			console.log(isos.length);
-			if(isos.length > 1){
+			if (isos.length > 1) {
 				DataService.getOne('nations/bbox', isos).then(function (data) {
 					$scope.bbox = data;
 				});
@@ -157,15 +157,18 @@
 			if (n)
 				updateCanvas(n.color);
 			else {
-				if($scope.compare.active){
-					$scope.toggleComparison();
+				if ($scope.compare.active) {
+					//$scope.toggleComparison();
 				}
 				updateCanvas('rgba(128, 243, 198,1)');
 			};
-			$scope.mvtSource.setStyle(countriesStyle);
+			if ($scope.compare.active) {
+				$scope.mvtSource.setStyle(invertedStyle);
+			} else {
+				$scope.mvtSource.setStyle(countriesStyle);
+			}
 		});
 		$scope.$on("$stateChangeSuccess", function (event, toState, toParams) {
-			console.log(toState.name);
 			if (toState.name == "app.epi.selected") {
 				$scope.setState(toParams.item);
 				//$scope.activeTab = 0;
@@ -175,7 +178,7 @@
 						$scope.bbox = data;
 					});
 				});
-			} else if(toState.name == "app.epi.selected.compare"){
+			} else if (toState.name == "app.epi.selected.compare") {
 				$scope.setState(toParams.item);
 				//$scope.activeTab = 2;
 				DataService.getOne('nations', toParams.item).then(function (data) {
@@ -184,8 +187,7 @@
 						$scope.bbox = data;
 					});
 				});
-			}
-			else{
+			} else {
 				$scope.country = $scope.current = "";
 			}
 		});
@@ -371,7 +373,7 @@
 				$scope.mvtSource.setOpacity(0.5);
 				$scope.setSelectedFeature();
 
-				var labelsLayer = L.tileLayer('https://{s}.tiles.mapbox.com/v4/magnolo.59c96cac/{z}/{x}/{y}.png?access_token='+apiKey);
+				var labelsLayer = L.tileLayer('https://{s}.tiles.mapbox.com/v4/magnolo.59c96cac/{z}/{x}/{y}.png?access_token=' + apiKey);
 				map.addLayer(labelsLayer);
 				labelsLayer.bringToFront();
 			});
