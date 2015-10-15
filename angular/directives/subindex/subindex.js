@@ -1,7 +1,15 @@
 (function(){
 	"use strict";
 
-	angular.module( 'app.controllers' ).controller( 'SubindexCtrl', function($scope, $filter, $timeout, smoothScroll){
+	angular.module( 'app.controllers' ).controller( 'SubindexCtrl', function($scope, $filter, $timeout){
+		/*var subIndexTheme = $mdThemingProvider.extendPalette('teal', {
+	    '500': $scope.$parent.display.selectedCat.color,
+			'A200': $scope.$parent.display.selectedCat.color
+	  });
+		$mdThemingProvider.definePalette('neonTeal', subIndexTheme);
+		$mdThemingProvider.warnPalette('subIndexTheme');*/
+
+
 		$scope.info = false;
 		$scope.activeTab = 0;
 		$scope.setChart = setChart;
