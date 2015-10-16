@@ -140,7 +140,6 @@
 }
 .info-container .info-box .header {
   padding: 0.5em;
-  padding-bottom: 1em;
 }
 .info-container .info-box .header .title {
   font-weight: normal;
@@ -162,6 +161,7 @@
 .info-container .info-box .header.info {
   border: 0;
   padding: 0.5em;
+  margin-bottom: 1em;
 }
 .info-container .info-box .header.info .title {
   line-height: 1.2em;
@@ -194,10 +194,6 @@
 }
 .info-container .info-box .close-it:hover * {
   fill: #afafaf;
-}
-.info-container .info-box .module {
-  margin: 1em 0;
-  background: #fff;
 }
 .info-container .info-box .module.no-margin {
   margin: 0px;
@@ -729,19 +725,7 @@ md-menu-bar {
 
 .bubbles {
   overflow: hidden;
-}
-.bubbles h3 {
-  text-align: center;
-  text-decoration: underline;
-  font-weight: normal;
-  position: relative;
-  margin: 0;
-}
-.bubbles h3.eh {
-  color: #be5f00;
-}
-.bubbles h3.ev {
-  color: #006bb6;
+  margin: 1em 0;
 }
 .node {
   cursor: pointer;
