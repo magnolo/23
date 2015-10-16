@@ -5,7 +5,6 @@
           <span class="info-icon">
                   <ng-md-icon icon="info_outline" class="icon-space" ng-click="toggleInfo()"></ng-md-icon>
           </span>
-
   </div>
   <div class="header info" layout-align="space-between end" layout="row">
           <span class="title">{{country.country}}</span>
@@ -18,10 +17,9 @@
                   <div layout-align="" layout="column">
                           <div class="title" layout-align="center center" layout="row">Rank</div>
                           <div layout="row">
-                                <circlegraph ng-model="country" color="{{selected.color}}"></circlegraph>
+                                <circlegraph ng-model="country" options="{color:selected.color, field:'rank'}"></circlegraph>
                           </div>
                   </div>
-
           </div>
           <div class="mini-list">
                   <div class="title">
@@ -67,7 +65,7 @@
                     </div>
           </md-tab>
           <md-tab label="History">
-                <history field="selected.type" color="selected.color" chartdata="country.epi"></history>
+                <history options="{field:selected.type, color:selected.color}" chartdata="country.epi"></history>
           </md-tab>
           <md-tab label="Compare" md-on-select="$parent.toggleComparison()" md-on-deselect="$parent.toggleComparison()">
                   <div class="module comparison" >

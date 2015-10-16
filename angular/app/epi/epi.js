@@ -154,6 +154,7 @@
 			if (n === o) {
 				return
 			}
+			console.log(n);
 			if (n)
 				updateCanvas(n.color);
 			else {

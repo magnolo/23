@@ -1,37 +1,41 @@
-(function(){
+(function () {
 	"use strict";
 
-	angular.module( 'app.controllers' ).controller( 'HistoryCtrl', function($scope){
-		//
-		$scope.toggleButton = 'arrow_drop_down';
-		$scope.display = {
-			selectedCat: '',
-			rank: [{
-				fields: {
-					x: 'year',
-					y: 'rank'
-				},
-				title: 'Rank',
-				color: '#52b695'
-			}],
-			score: [{
-				fields: {
-					x: 'year',
-					y: $scope.field
-				},
-				title: 'Score',
-				color: $scope.color
-			}]
-		};
-		$scope.tabContent = "";
-		$scope.showTabContent = function (content) {
-			if (content == '' && $scope.tabContent == '') {
-				$scope.tabContent = 'rank';
-			} else {
-				$scope.tabContent = content;
-			}
-			$scope.toggleButton = $scope.tabContent ? 'arrow_drop_up' : 'arrow_drop_down';
-		};
-    });
+	angular.module('app.controllers').controller('HistoryCtrl', function ($scope) {
+		$scope.setData = setData;
+		activate();
+
+		function activate(){
+			$scope.setData();
+			$scope.$watch('options', function(n,o){
+				if(n === 0){
+					return;
+				}
+				$scope.setData();
+				console.log($scope.chartdata);
+			})
+		}
+		function setData(){
+			$scope.display = {
+				selectedCat: '',
+				rank: [{
+					fields: {
+						x: 'year',
+						y: 'rank'
+					},
+					title: 'Rank',
+					color: '#52b695'
+				}],
+				score: [{
+					fields: {
+						x: 'year',
+						y: $scope.options.field
+					},
+					title: 'Score',
+					color: $scope.options.color
+				}]
+			};
+		}
+	});
 
 })();
