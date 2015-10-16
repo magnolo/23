@@ -1,9 +1,21 @@
 <div>
+  <style type="text/css">
+    md-tabs .md-tab.md-active, md-tabs .md-tab.md-focused{
+      color: {{selected.color}}
+    }
+    md-tabs .md-tab .md-ripple-container {
+        color: {{selected.color}};
+    }
+    md-tabs md-ink-bar {
+    color: {{selected.color}};
+    background: {{selected.color}};
+}
+  </style>
   <div class="header" layout="row" layout-align="space-between center">
           <span class="icon" ng-if="selected.icon"><i class="icon icon-bubble icon-{{selected.icon}} fisheries" ng-style="{'background-color':selected.color}"></i></span>
-          <span class="title">{{selected.name}}</span>
+          <span class="title" style="font-size:1.2em">{{selected.name}}</span>
           <span class="info-icon">
-                  <ng-md-icon icon="info_outline" class="icon-space" ng-click="toggleInfo()"></ng-md-icon>
+                  <ng-md-icon icon="info_outline" ng-click="toggleInfo()"></ng-md-icon>
           </span>
   </div>
   <div class="header info" layout-align="space-between end" layout="row">
