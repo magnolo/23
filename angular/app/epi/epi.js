@@ -154,7 +154,6 @@
 			if (n === o) {
 				return
 			}
-			console.log(n);
 			if (n)
 				updateCanvas(n.color);
 			else {
@@ -216,9 +215,9 @@
 			$scope.canvas.height = 10;
 			$scope.ctx = $scope.canvas.getContext('2d');
 			var gradient = $scope.ctx.createLinearGradient(0, 0, 256, 10);
-			gradient.addColorStop(1, 'rgba(255,255,255,0)');
-			gradient.addColorStop(0, 'rgba(128, 243, 198,1)');
-			//gradient.addColorStop(1, 'rgba(102,102,102,1)');
+			gradient.addColorStop(0, 'rgba(255,255,255,0)');
+			gradient.addColorStop(0.53, 'rgba(128, 243, 198,1)');
+			gradient.addColorStop(1, 'rgba(102,102,102,1)');
 			$scope.ctx.fillStyle = gradient;
 			$scope.ctx.fillRect(0, 0, 256, 10);
 			$scope.palette = $scope.ctx.getImageData(0, 0, 256, 1).data;
@@ -226,9 +225,9 @@
 		}
 		var updateCanvas = function (color) {
 			var gradient = $scope.ctx.createLinearGradient(0, 0, 256, 10);
-			gradient.addColorStop(1, 'rgba(255,255,255,0)');
-			gradient.addColorStop(0, color);
-		//	gradient.addColorStop(1, 'rgba(102,102,102,1)');
+			gradient.addColorStop(, 'rgba(255,255,255,0)');
+			gradient.addColorStop(0.53, color);
+			gradient.addColorStop(1, 'rgba(102,102,102,1)');
 			$scope.ctx.fillStyle = gradient;
 			$scope.ctx.fillRect(0, 0, 256, 10);
 			$scope.palette = $scope.ctx.getImageData(0, 0, 256, 1).data;
@@ -268,9 +267,9 @@
 				if (nation[field]) {
 					var colorPos = parseInt(256 / 100 * nation[field]) * 4;
 					var color = 'rgba(' + $scope.palette[colorPos] + ', ' + $scope.palette[colorPos + 1] + ', ' + $scope.palette[colorPos + 2] + ',' + $scope.palette[colorPos + 3] + ')';
-					style.color = 'rgba(' + $scope.palette[colorPos] + ', ' + $scope.palette[colorPos + 1] + ', ' + $scope.palette[colorPos + 2] + ','+(parseFloat(1 - nation[field]/100))+')'; //color;
+					style.color = 'rgba(' + $scope.palette[colorPos] + ', ' + $scope.palette[colorPos + 1] + ', ' + $scope.palette[colorPos + 2] + ',0.7)'; //color;
 					style.outline = {
-						color: 'rgba(' + $scope.palette[0] + ', ' + $scope.palette[1] + ', ' + $scope.palette[ 2] + ',1)',
+						color: color,
 						size: 1
 					};
 					style.selected = {
