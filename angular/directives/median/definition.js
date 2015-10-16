@@ -16,18 +16,18 @@
 					top: 10,
 					bottom: 10
 				},
-				colors: [{
+				colors: [ {
 					position: 0,
-					color: 'rgba(255,255,255,1)',
-					opacity: 0
+					color: 'rgba(102,102,102,1)',
+					opacity: 1
 				}, {
 					position: 53,
 					color: 'rgba(128, 243, 198,1)',
 					opacity: 1
-				}, {
+				},{
 					position: 100,
-					color: 'rgba(102,102,102,1)',
-					opacity: 1
+					color: 'rgba(255,255,255,1)',
+					opacity: 0
 				}]
 			};
 		}

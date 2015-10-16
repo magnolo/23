@@ -794,19 +794,19 @@ median {
   display: inline-block;
   height: 40px;
 }
-median .startLabel {
+median .endLabel {
   fill: #fff;
   stroke-width: 0;
 }
-median .startLabel text {
+median .endLabel text {
   fill: #606060;
 }
-median .endLabel {
+median .startLabel {
   fill: none;
   stroke: #fff;
   stroke-width: 1px;
 }
-median .endLabel text {
+median .startLabel text {
   fill: #fff;
   stroke-width: 0;
 }
