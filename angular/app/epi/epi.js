@@ -73,6 +73,12 @@
 		$scope.toggleDetails = function () {
 			return $scope.details = !$scope.details;
 		};
+		$scope.checkComparison = function(want){
+			//console.log(want,$scope.compare.active);
+				//if(want && !$scope.compare.active || !want && $scope.compare.active){
+					$scope.toggleComparison();
+				//}
+		}
 		$scope.toggleComparison = function () {
 			$scope.compare.countries = [$scope.current];
 			$scope.compare.active = !$scope.compare.active;
@@ -154,11 +160,12 @@
 			if (n === o) {
 				return
 			}
+			console.log(n);
 			if (n)
 				updateCanvas(n.color);
 			else {
 				if ($scope.compare.active) {
-					//$scope.toggleComparison();
+					$scope.toggleComparison();
 				}
 				updateCanvas('rgba(128, 243, 198,1)');
 			};
