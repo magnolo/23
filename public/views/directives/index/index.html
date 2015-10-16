@@ -1,6 +1,5 @@
-<div class="info-container" ng-class="{'out': country  && display.selectedCat }">
+<div class="info-container">
 				<div class="info-box  md-whiteframe-z3" layout="column">
-
 								<div class="header" layout-align="space-between center" layout="row">
 												<span class="title">{{indexData.name}}</span>
 												<span class="subtitle">{{indexData.full_name}}</span>
@@ -102,12 +101,6 @@
 												</md-tab>
 								</md-tabs>
 				</div>
-				<div class="info-box md-whiteframe-z2 anim sub-box" id="sub-index" ng-if="country && display.selectedCat">
-								<div class="close-box">
-												<ng-md-icon icon="{{closeIcon || 'close'}}" ng-click="display.selectedCat = ''" ng-mouseleave="closeIcon = 'close'" ng-mouseover="closeIcon = 'chevron_left'" options='{"rotation": "none", "duration":375}' size="32"></ng-md-icon>
-								</div>
-								<subindex country="country" data="epi" selected="display.selectedCat"></subindex>
-				</div>
 				<div class="info-box md-whiteframe-z2 anim sub-box" id="sub-info" ng-if="info">
 								<div class="close-box">
 												<ng-md-icon icon="{{closeIcon || 'close'}}" ng-click="toggleInfo()" ng-mouseleave="closeIcon = 'close'" ng-mouseover="closeIcon = 'chevron_left'" options='{"rotation": "none", "duration":375}' size="32"></ng-md-icon>
@@ -133,6 +126,5 @@
 																<div class="caption" flex="60" ng-bind-html="indexData.caption" offset="20"></div>
 												</div>
 								</div>
-
 				</div>
 </div>

@@ -1,7 +1,7 @@
 <div class="module tabs" layout="column" >
       <md-tabs md-no-pagination="true"  md-dynamic-height  md-no-ink-bar md-border-bottom >
         <md-tab label="Rank History" >
-          <simplelinechart data="chartdata" invert="true" max="178" selection="display.rank"></simplelinechart>
+          <simplelinechart data="chartdata" options="{invert:true,max:178}" selection="display.rank"></simplelinechart>
         </md-tab>
         <md-tab label="Score History">
           <simplelinechart data="chartdata" selection="display.score"></simplelinechart>

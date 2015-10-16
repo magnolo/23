@@ -95,6 +95,7 @@
 						damper: 0.085
 					}
 				};
+
 				var create_nodes = function () {
 					//console.log(scope.indexer);
 					//console.log(scope.chartdata);
@@ -134,6 +135,11 @@
 
 					create_groups();
 				};
+				var clear_nodes = function(){
+					//d3.selectAll("svg > *").remove();
+					nodes = [];
+					labels = [];
+				}
 				var create_groups = function(){
 					groups = {};
 					var count = 0;
@@ -178,7 +184,7 @@
 								.attr("d", arcTop)
 								.attr("fill", "#be5f00")
 								.attr("id", "arcTop")
-								.attr("transform", "translate("+(options.width/2)+","+(options.height/2 - options.height/10)+")");
+								.attr("transform", "translate("+(options.width/2)+","+(options.height/2 - options.height/12)+")");
 							options.arcBottom = options.vis.append("path")
 								.attr("d", arcBottom)
 								.attr("id", "arcBottom")
@@ -213,22 +219,23 @@
 									return 'rotate(90, 100, 100)';
 								}
 							})*/
-							.attr('x', 50)
+							.attr('x', "50%")
 							.style('font-size', '1.2em')
 							.style('cursor', 'pointer')
-							.attr('dy', -6)
+
+							.attr('width', options.width)
+							.attr('text-anchor', 'middle')
 							.on('click', function(d){
 								ngModel.$setViewValue(d);
 								ngModel.$render();
-							});
-							textLabels.append('textPath')
-							.attr("xlink:href", function(d){
+							})
+							.attr("y", function(d){
 								var index = labels.indexOf(d);
 								if(index == 0){
-									return "#arcTop";
+									return 15;
 								}
 								else{
-									return "#arcBottom";
+									return options.height - 6;
 								}
 							})
 							.text(function(d){
@@ -266,7 +273,7 @@
 					}).on("mouseout", function (d, i) {
 						return hide_details(d, i, this);
 					}).on("click", function (d, i) {
-						console.log(d);
+
 						ngModel.$setViewValue(d);
 						ngModel.$render();
 					});
@@ -322,8 +329,8 @@
 				var move_towards_center = function (alpha) {
 					return (function (_this) {
 						return function (d) {
-							d.x = d.x + (options.width/2 - d.x) * (options.damper + 0.02) * alpha;
-							d.y = d.y + (options.height/2 - d.y) * (options.damper + 0.02) * alpha;
+							d.x = d.x + (options.width/2 - d.x) * (options.damper + 0.02) * alpha *1.25;
+							d.y = d.y + (options.height/2 - d.y) * (options.damper + 0.02) * alpha * 1.25;
 						}
 					})(this);
 				};
@@ -360,7 +367,7 @@
 
 				scope.$watch('chartdata', function (data, oldData) {
 					options.tooltip.hideTooltip();
-					console.log(data);
+
 					if (options.circles == null) {
 						create_nodes();
 						create_vis();
@@ -368,15 +375,36 @@
 					} else {
 						update_vis();
 					}
-					if(labels.length == 1){
+					if(labels.length == 1 || options.labels != true){
 							display_group_all();
+							console.log('all');
 					}
 					else{
 							display_by_cat();
 					}
 
 				});
+				scope.$watch('indexer', function (n, o) {
+					if(n === o){
+						return
+					}
 
+					if(typeof n[0].children != "undefined"){
+						options.tooltip.hideTooltip();
+						clear_nodes();
+						create_nodes();
+						create_vis();
+						start();
+
+						if(labels.length == 1 || options.labels != true){
+								display_group_all();
+								console.log('all');
+						}
+						else{
+								display_by_cat();
+						}
+					}
+				});
 				scope.$watch('direction', function (oldD, newD) {
 					if (oldD === newD) {
 						return;

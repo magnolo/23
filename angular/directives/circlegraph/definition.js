@@ -14,12 +14,14 @@
 		return {
 			restrict: 'E',
 			controller: 'CirclegraphCtrl',
-			scope: true,
+			scope: {
+				options: '='
+			},
 			require: 'ngModel',
 			link: function($scope, element, $attrs, ngModel) {
 				//Fetching Options
 
-				var options = angular.extend(defaults(), $attrs);
+				var options = angular.extend(defaults(), $scope.options);
 
 				//Creating the Scale
 				var rotate = d3.scale.linear()
@@ -91,7 +93,17 @@
 						};
 					});
 				}
-
+				$scope.$watch('options',function(n, o){
+						if(n === o){
+							return;
+						}
+						circleBack.style('stroke', n.color);
+						circleGraph.style('fill', n.color);
+						text.style('fill', n.color); 
+						$timeout(function(){
+							animateIt(ngModel.$modelValue[n.field])
+						});
+				});
 				//Watching if selection has changed from another UI element
 				$scope.$watch(
 					function() {
@@ -106,7 +118,6 @@
 						$timeout(function(){
 							animateIt(newValue[options.field])
 						});
-
 					});
 			}
 		};

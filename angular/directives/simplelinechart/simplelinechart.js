@@ -12,62 +12,61 @@
 			deepWatchData: false, // default: false
 			deepWatchConfig: true, // default: true
 			debounce: 10 // default: 10
-	},
-
-	$scope.chart = {
-		options:{
-			chart:{}
-		},
-		data:[]
-	};
+		};
+		$scope.chart = {
+			options: {
+				chart: {}
+			},
+			data: []
+		};
 		$scope.setChart = function () {
-			$scope.chart.options.chart =  {
-						type: 'lineChart',
-						legendPosition: 'left',
-						margin: {
-							top: 20,
-							right: 20,
-							bottom: 20,
-							left: 20
-						},
-						x: function (d) {
-							return d.x;
-						},
-						y: function (d) {
-							return d.y;
-						},
-						showLegend:false,
-						showValues: false,
-						showYAxis: false,
-						transitionDuration: 500,
-						useInteractiveGuideline: true,
-						//forceY: [100, 0],
-						//yDomain:yDomain,
-						xAxis: {
-							axisLabel: ''
-						},
-						yAxis: {
-							axisLabel: '',
-							axisLabelDistance: 30
-						},
-						legend: {
-							rightAlign: false
-						},
-						lines: {
-							interpolate: 'cardinal'
-						}
+			$scope.chart.options.chart = {
+				type: 'lineChart',
+				legendPosition: 'left',
+				margin: {
+					top: 20,
+					right: 20,
+					bottom: 20,
+					left: 20
+				},
+				x: function (d) {
+					return d.x;
+				},
+				y: function (d) {
+					return d.y;
+				},
+				showLegend: false,
+				showValues: false,
+				showYAxis: false,
+				transitionDuration: 500,
+				useInteractiveGuideline: true,
+				//forceY: [100, 0],
+				//yDomain:yDomain,
+				xAxis: {
+					axisLabel: ''
+				},
+				yAxis: {
+					axisLabel: '',
+					axisLabelDistance: 30
+				},
+				legend: {
+					rightAlign: false
+				},
+				lines: {
+					interpolate: 'cardinal'
+				}
 
 			};
-			if($scope.options.invert == "true"){
-				$scope.chart.options.chart.yDomain = [parseInt($scope.range.max),$scope.range.min];
+			if ($scope.options.invert == true) {
+				$scope.chart.options.chart.yDomain = [parseInt($scope.range.max), $scope.range.min];
 			}
 			return $scope.chart;
 		}
 		$scope.calculateGraph = function () {
 			var chartData = [];
 			$scope.range = {
-				max:0,
-				min:1000
+				max: 0,
+				min: 1000
 			};
 			angular.forEach($scope.selection, function (item, key) {
 				var graph = {
@@ -89,12 +88,18 @@
 			});
 
 			$scope.chart.data = chartData;
-			if($scope.options.invert == "true"){
-				$scope.chart.options.chart.yDomain = [parseInt($scope.range.max),$scope.range.min];
+			if ($scope.options.invert == "true") {
+				$scope.chart.options.chart.yDomain = [parseInt($scope.range.max), $scope.range.min];
 			}
 		};
 		$scope.$watch('data', function (n, o) {
 			if (!n) {
+				return;
+			}
+			$scope.calculateGraph();
+		});
+		$scope.$watch('selection', function (n, o) {
+			if (n === o) {
 				return;
 			}
 			$scope.calculateGraph();

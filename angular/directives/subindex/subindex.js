@@ -1,7 +1,14 @@
-(function(){
+(function () {
 	"use strict";
 
-	angular.module( 'app.controllers' ).controller( 'SubindexCtrl', function($scope, $filter, $timeout, smoothScroll){
+	angular.module('app.controllers').controller('SubindexCtrl', function ($scope, $filter, $timeout) {
+		/*var subIndexTheme = $mdThemingProvider.extendPalette('teal', {
+	    '500': $scope.$parent.display.selectedCat.color,
+			'A200': $scope.$parent.display.selectedCat.color
+	  });
+		$mdThemingProvider.definePalette('neonTeal', subIndexTheme);
+		$mdThemingProvider.warnPalette('subIndexTheme');*/
+
 		$scope.info = false;
 		$scope.activeTab = 0;
 		$scope.setChart = setChart;
@@ -9,62 +16,67 @@
 		$scope.createIndexer = createIndexer;
 		$scope.calcSubRank = calcSubRank;
 		$scope.toggleInfo = toggleInfo;
-		$scope.medianOptions = {
-			color:$scope.$parent.display.selectedCat.color,
-			field:$scope.$parent.display.selectedCat.type,
-			handling: false
-		};
+		$scope.createOptions = createOptions;
 		activate();
 
 
-		function activate(){
+		function activate() {
 			$scope.calcSubRank();
 			$scope.setChart();
 			$scope.calculateGraph();
 			$scope.createIndexer();
+			$scope.createOptions();
 			$scope.$watch('selected', function (newItem, oldItem) {
 				if (newItem === oldItem) {
 					return false;
 				}
 				$scope.createIndexer();
 				$scope.calculateGraph();
-				$scope.gotoBox();
+				$scope.createOptions();
+				$scope.calcSubRank();
 			});
-			$scope.$watch('country', function(n, o){
-				if(n === o){
+			$scope.$watch('country', function (n, o) {
+				if (n === o) {
 					return;
 				}
 				$scope.calcSubRank();
 			});
-			$scope.$watch('medianOptions', function(n, o){
-				if(n === o){
-					return;
-				}
-			});
-			if($scope.$parent.compare.active){
+			if ($scope.$parent.compare.active) {
 				$scope.activeTab = 2;
 			}
 		}
-		function toggleInfo(){
+
+		function toggleInfo() {
 			$scope.info = !$scope.info;
 		};
-		function calcSubRank(){
-				var rank = 0;
-				angular.forEach($scope.data, function(item){
-					item[$scope.selected.type] = parseFloat(item[$scope.selected.type]);
-					item['score'] = parseInt(item['score']);
-				})
-				var filter = $filter('orderBy')($scope.data, [$scope.selected.type,"score"] , true);
-				for(var i = 0;i < filter.length; i++){
-					if(filter[i].iso == $scope.country.iso){
-						rank = i+1;
-					}
+
+		function calcSubRank() {
+			var rank = 0;
+			angular.forEach($scope.data, function (item) {
+				item[$scope.selected.type] = parseFloat(item[$scope.selected.type]);
+				item['score'] = parseInt(item['score']);
+			})
+			var filter = $filter('orderBy')($scope.data, [$scope.selected.type, "score"], true);
+			for (var i = 0; i < filter.length; i++) {
+				if (filter[i].iso == $scope.country.iso) {
+					rank = i + 1;
 				}
-				$scope.country.rank = rank;
+			}
+			$scope.country.rank = rank;
 		}
-		function createIndexer(){
-		 	$scope.indexer = [$scope.$parent.display.selectedCat.data];
+
+		function createIndexer() {
+			$scope.indexer = [$scope.$parent.display.selectedCat.data];
 		}
+
+		function createOptions() {
+			$scope.medianOptions = {
+				color: $scope.$parent.display.selectedCat.color,
+				field: $scope.$parent.display.selectedCat.type,
+				handling: false
+			};
+		}
+
 		function setChart() {
 			$scope.chart = {
 				options: {
@@ -96,14 +108,14 @@
 							axisLabel: '',
 							axisLabelDistance: 30
 						},
-						legend:{
-							rightAlign:false,
-							margin:{
-								bottom:30
+						legend: {
+							rightAlign: false,
+							margin: {
+								bottom: 30
 							}
 						},
-						lines:{
-							interpolate:'cardinal'
+						lines: {
+							interpolate: 'cardinal'
 						}
 					}
 				},
@@ -113,9 +125,8 @@
 		}
 
 		function calculateGraph() {
-
 			var chartData = [];
-			angular.forEach($scope.selected.data.children, function (item, key) {
+			angular.forEach($scope.selected.children, function (item, key) {
 				var graph = {
 					key: item.title,
 					color: item.color,
@@ -131,6 +142,6 @@
 			});
 			$scope.chart.data = chartData;
 		}
-    });
+	});
 
 })();
