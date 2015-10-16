@@ -90,11 +90,6 @@
 						.style('font-size', options.height/2.5)
 						.attr('text-anchor', 'middle')
 						.attr('y', '.35em')
-				}
-
-
-
-				if (options.info === true) {
 					var legend2 = svg.append('g').attr('transform', 'translate(' + (options.width - (options.height / 2)) + ', ' + options.height / 2 + ')')
 						.attr('class', 'endLabel')
 					legend2.append('circle')
