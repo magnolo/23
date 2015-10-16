@@ -268,9 +268,9 @@
 				if (nation[field]) {
 					var colorPos = parseInt(256 / 100 * nation[field]) * 4;
 					var color = 'rgba(' + $scope.palette[colorPos] + ', ' + $scope.palette[colorPos + 1] + ', ' + $scope.palette[colorPos + 2] + ',' + $scope.palette[colorPos + 3] + ')';
-					style.color = 'rgba(' + $scope.palette[colorPos] + ', ' + $scope.palette[colorPos + 1] + ', ' + $scope.palette[colorPos + 2] + ',0.7)'; //color;
+					style.color = 'rgba(' + $scope.palette[colorPos] + ', ' + $scope.palette[colorPos + 1] + ', ' + $scope.palette[colorPos + 2] + ','+(parseFloat(1 - nation[field]/100))+')'; //color;
 					style.outline = {
-						color: color,
+						color: 'rgba(' + $scope.palette[0] + ', ' + $scope.palette[1] + ', ' + $scope.palette[ 2] + ',1)',
 						size: 1
 					};
 					style.selected = {
