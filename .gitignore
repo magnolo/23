@@ -1,7 +1,7 @@
 /vendor
 /node_modules
 .env
-/config/database.phps
+/config/database.php
 /bower_components
 npm-debug.log
 .idea/

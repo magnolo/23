@@ -1,7 +1,7 @@
-(function () {
+(function() {
 	"use strict";
 
-	angular.module('app.controllers').controller('SubindexCtrl', function ($scope, $filter, $timeout) {
+	angular.module('app.controllers').controller('SubindexCtrl', function($scope, $filter, $timeout) {
 		/*var subIndexTheme = $mdThemingProvider.extendPalette('teal', {
 	    '500': $scope.$parent.display.selectedCat.color,
 			'A200': $scope.$parent.display.selectedCat.color
@@ -26,7 +26,7 @@
 			$scope.calculateGraph();
 			$scope.createIndexer();
 			$scope.createOptions();
-			$scope.$watch('selected', function (newItem, oldItem) {
+			$scope.$watch('selected', function(newItem, oldItem) {
 				if (newItem === oldItem) {
 					return false;
 				}
@@ -35,7 +35,7 @@
 				$scope.createOptions();
 				$scope.calcSubRank();
 			});
-			$scope.$watch('country', function (n, o) {
+			$scope.$watch('country', function(n, o) {
 				if (n === o) {
 					return;
 				}
@@ -52,7 +52,7 @@
 
 		function calcSubRank() {
 			var rank = 0;
-			angular.forEach($scope.data, function (item) {
+			angular.forEach($scope.data, function(item) {
 				item[$scope.selected.type] = parseFloat(item[$scope.selected.type]);
 				item['score'] = parseInt(item['score']);
 			})
@@ -90,10 +90,10 @@
 							bottom: 20,
 							left: 20
 						},
-						x: function (d) {
+						x: function(d) {
 							return d.x;
 						},
-						y: function (d) {
+						y: function(d) {
 							return d.y;
 						},
 						showValues: false,
@@ -126,13 +126,13 @@
 
 		function calculateGraph() {
 			var chartData = [];
-			angular.forEach($scope.selected.children, function (item, key) {
+			angular.forEach($scope.selected.children, function(item, key) {
 				var graph = {
 					key: item.title,
 					color: item.color,
 					values: []
 				};
-				angular.forEach($scope.country.epi, function (data) {
+				angular.forEach($scope.country.epi, function(data) {
 					graph.values.push({
 						x: data.year,
 						y: data[item.column_name]
