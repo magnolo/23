@@ -79,7 +79,7 @@
           <md-tab label="History">
                 <history options="{field:selected.type, color:selected.color}" chartdata="country.epi"></history>
           </md-tab>
-          <md-tab label="Compare" md-on-select="$parent.toggleComparison()" md-on-deselect="$parent.toggleComparison()">
+          <md-tab label="Compare" md-on-select="$parent.checkComparison(true)" md-on-deselect="$parent.checkComparision(false)">
                   <div class="module comparison" >
                     <div layout-wrap layout="row">
                     <div class="country" flex="50" ng-repeat="country in $parent.compare.countries">
