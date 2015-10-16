@@ -216,9 +216,9 @@
 			$scope.canvas.height = 10;
 			$scope.ctx = $scope.canvas.getContext('2d');
 			var gradient = $scope.ctx.createLinearGradient(0, 0, 256, 10);
-			gradient.addColorStop(0, 'rgba(255,255,255,0)');
-			gradient.addColorStop(0.53, 'rgba(128, 243, 198,1)');
-			gradient.addColorStop(1, 'rgba(102,102,102,1)');
+			gradient.addColorStop(1, 'rgba(255,255,255,0)');
+			gradient.addColorStop(0, 'rgba(128, 243, 198,1)');
+			//gradient.addColorStop(1, 'rgba(102,102,102,1)');
 			$scope.ctx.fillStyle = gradient;
 			$scope.ctx.fillRect(0, 0, 256, 10);
 			$scope.palette = $scope.ctx.getImageData(0, 0, 256, 1).data;
@@ -226,9 +226,9 @@
 		}
 		var updateCanvas = function (color) {
 			var gradient = $scope.ctx.createLinearGradient(0, 0, 256, 10);
-			gradient.addColorStop(0, 'rgba(255,255,255,0)');
-			gradient.addColorStop(0.53, color);
-			gradient.addColorStop(1, 'rgba(102,102,102,1)');
+			gradient.addColorStop(1, 'rgba(255,255,255,0)');
+			gradient.addColorStop(0, color);
+		//	gradient.addColorStop(1, 'rgba(102,102,102,1)');
 			$scope.ctx.fillStyle = gradient;
 			$scope.ctx.fillRect(0, 0, 256, 10);
 			$scope.palette = $scope.ctx.getImageData(0, 0, 256, 1).data;
