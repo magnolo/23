@@ -67,7 +67,7 @@
 					rank = key;
 				}
 			});
-			return rank+1;
+			return rank+1; 
 		}
 		function createIndexer() {
 			$scope.indexer = [$scope.$parent.display.selectedCat.data];
