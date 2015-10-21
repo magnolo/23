@@ -2,12 +2,6 @@
 	"use strict";
 
 	angular.module('app.controllers').controller('SubindexCtrl', function($scope, $filter, $timeout) {
-		/*var subIndexTheme = $mdThemingProvider.extendPalette('teal', {
-	    '500': $scope.$parent.display.selectedCat.color,
-			'A200': $scope.$parent.display.selectedCat.color
-	  });
-		$mdThemingProvider.definePalette('neonTeal', subIndexTheme);
-		$mdThemingProvider.warnPalette('subIndexTheme');*/
 
 		$scope.info = false;
 		$scope.activeTab = 0;
@@ -17,6 +11,7 @@
 		$scope.calcSubRank = calcSubRank;
 		$scope.toggleInfo = toggleInfo;
 		$scope.createOptions = createOptions;
+		$scope.getSubRank = getSubRank;
 		activate();
 
 
@@ -64,7 +59,16 @@
 			}
 			$scope.country.rank = rank;
 		}
-
+		function getSubRank(country){
+			var filter = $filter('orderBy')($scope.$parent.epi, [$scope.selected.type, "score"], true);
+			var rank = 0;
+			angular.forEach(filter, function(item, key){
+				if(item.country == country.country){
+					rank = key;
+				}
+			});
+			return rank+1;
+		}
 		function createIndexer() {
 			$scope.indexer = [$scope.$parent.display.selectedCat.data];
 		}

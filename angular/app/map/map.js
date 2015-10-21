@@ -40,8 +40,8 @@
 		$scope.interactivity = "";
 		$scope.flag = "";
 		$scope.$on('leafletDirectiveMap.utfgridMouseover', function (event, leafletEvent) {
-			$scope.interactivity = leafletEvent.data.admin;
-			$scope.flag = "data:image/png;base64," + leafletEvent.data.flag_png;
+			//$scope.interactivity = leafletEvent.data.admin;
+			//$scope.flag = "data:image/png;base64," + leafletEvent.data.flag_png;
 
 		});
 		$scope.$on('leafletDirectiveMap.utfgridMouseout', function (event, leafletEvent) {
