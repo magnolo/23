@@ -1,6 +1,27 @@
-<div class="Header md-blueframe-z1" ng-controller="HeaderCtrl">
-
-	<md-toolbar class="md-accent white-bg">
+<div class="Header" ng-controller="HeaderCtrl">
+	<md-fab-toolbar md-open="demo.isOpen" count="demo.count"
+                  md-direction="left">
+    <md-fab-trigger>
+      <md-button aria-label="menu" class="md-fab md-accend">
+        <ng-md-icon icon="menu"></ng-md-icon>
+      </md-button>
+    </md-fab-trigger>
+    <md-toolbar>
+      <md-fab-actions class="md-toolbar-tools">
+				<md-button aria-label="label" class="md-icon-button">
+          23°
+        </md-button>
+        <a href="" ui-sref="app.epi()">Environment</a>
+				<a href="" ui-sref="app.epi()">Human</a>
+        <md-button aria-label="label" class="md-icon-button">
+          <ng-md-icon icon="menu"></ng-md-icon>
+        </md-button>
+        <md-button aria-label="photo" class="md-icon-button">
+          <ng-md-icon icon="menu"></ng-md-icon>
+        </md-button>
+      </md-fab-actions>
+    </md-toolbar>
+	<!--<md-toolbar class="md-accent white-bg">
 		<div class="md-toolbar-tools"  style="padding:0 2em;margin:0 16px;">
 
 			<h2 style="margin-left:0px">
@@ -8,20 +29,12 @@
 			</h2>
 			<ng-md-icon icon="menu"></ng-md-icon>
 			<ul class="inline-list menu-list">
-						<!--<li>
-								<a href="">Human</a>
-						</li>
-						<li>
-								<a href="">Animal</a>
-						</li>-->
 						<li ui-sref-active="active">
 								<a href="" ui-sref="app.epi()">Environment</a>
 						</li>
-						<!--<li ui-sref-active="active">
-							<a href="" ui-sref="app.importcsv">Importer</a>
-						</li>-->
+
 				</ul>
 
 		</div>
-	</md-toolbar>
+	</md-toolbar>-->
 </div>

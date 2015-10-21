@@ -2,12 +2,6 @@
 	"use strict";
 
 	angular.module('app.controllers').controller('SubindexCtrl', function($scope, $filter, $timeout) {
-		/*var subIndexTheme = $mdThemingProvider.extendPalette('teal', {
-	    '500': $scope.$parent.display.selectedCat.color,
-			'A200': $scope.$parent.display.selectedCat.color
-	  });
-		$mdThemingProvider.definePalette('neonTeal', subIndexTheme);
-		$mdThemingProvider.warnPalette('subIndexTheme');*/
 
 		$scope.info = false;
 		$scope.activeTab = 0;
@@ -26,10 +20,11 @@
 			$scope.calculateGraph();
 			$scope.createIndexer();
 			$scope.createOptions();
-			$scope.$watch('selected', function(newItem, oldItem) {
-				if (newItem === oldItem) {
+			$scope.$watch('selected', function(n, o) {
+				if (n === o) {
 					return false;
 				}
+
 				$scope.createIndexer();
 				$scope.calculateGraph();
 				$scope.createOptions();
@@ -66,6 +61,7 @@
 		}
 
 		function createIndexer() {
+			console.log('create_index');
 			$scope.indexer = [$scope.$parent.display.selectedCat.data];
 		}
 

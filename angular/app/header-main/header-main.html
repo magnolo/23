@@ -1,0 +1,46 @@
+<div class="main-header" ng-controller="HeaderMainCtrl as ctrl">
+				<md-toolbar class="md-accent white-bg">
+								<div class="md-toolbar-tools">
+
+												<h2 style="margin-left:0px">
+																<span class="logo">23°</span>
+												</h2>
+												<ng-md-icon icon="menu"></ng-md-icon>
+												<nav>
+																<ul class="inline-list menu-list">
+																				<li ui-sref-active="active">
+																								<a href="" ui-sref="app.indizes.show({index:'epi'})">Environment</a>
+																				</li>
+																				<li ui-sref-active="active">
+																								<a href="" ui-sref="indizes.show({index:'human'})">Human</a>
+																				</li>
+																				<li ui-sref-active="active">
+																								<a href="" ui-sref="indizes.show({index:'human'})">Animals</a>
+																				</li>
+																				<li ui-sref-active="active">
+																								<a href="" ui-sref="indizes.show({index:'human'})">You Atlas</a>
+																				</li>
+																</ul>
+												</nav>
+												<span flex></span>
+												<md-menu md-offset="0 0">
+																<md-button aria-label="Open phone interactions menu" class="md-icon-button" ng-click="ctrl.openMenu($mdOpenMenu, $event)">
+																				<ng-md-icon md-menu-origin icon="more_vert"></md-icon>
+																</md-button>
+																<md-menu-content width="4">
+																				<md-menu-item>
+																								<md-button>
+
+																												Sign up for free
+																								</md-button>
+																				</md-menu-item>
+																				<md-menu-item>
+																								<md-button layout="row" layout-align="space-between center">
+																									LogIn
+																								</md-button>
+																				</md-menu-item>
+																</md-menu-content>
+												</md-menu>
+								</div>
+				</md-toolbar>
+</div>

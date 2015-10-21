@@ -16,7 +16,7 @@
 }
 .anim-left.ng-enter, .anim-left.ng-leave.ng-leave-active {
   transform: translateX(-100%);
-z-index:-1;
+  z-index:-1;
   opacity: 1;
 }
 .anim-left.ng-enter.ng-enter-active {
@@ -26,9 +26,21 @@ z-index:-1;
 }
 
 
+.anim-top.ng-enter, .anim-top.ng-leave {
+  transition:all .3s ease;
+}
+.anim-top.ng-enter, .anim-top.ng-leave.ng-leave-active {
+  transform: translateY(-100%);
+  opacity: 1;
+}
+.anim-top.ng-enter.ng-enter-active {
+    transform: translateY(0%);
+    opacity: 1;
+}
+
 
 .anim-opacity.ng-enter, .anim-opacity.ng-leave {
-  transition:all .3s ease-in;
+  transition:all .5s ease-in;
 }
 .anim-opacity.ng-enter, .anim-opacity.ng-leave.ng-leave-active {
 opacity: 0;

@@ -76,7 +76,7 @@
 	<md-tabs md-dynamic-height md-swipe-content="true" md-no-pagination="true" md-center-tabs="true" md-selected="activeTab">
 		<md-tab label="Details">
 			<div class="module bubbles slide-toggle " layout="column">
-				<bubbles height="240" width="300" labels="false" ng-model="$parent.display.selectedCat" indexer="indexer" chartdata="country.epi[5]" sizefactor="3"></bubbles>
+				<bubbles height="240" width="300" labels="false" ng-model="selected" indexer="indexer" chartdata="country.epi[5]" sizefactor="3"></bubbles>
 			</div>
 		</md-tab>
 		<md-tab label="History">
@@ -90,7 +90,7 @@
 							<span class="number">N°{{getRank(country)}}</span>
 							{{country.country}}</h4>
 						<median data="$parent.epi" height="20" options="medianOptions" info="false" ng-model="country" width="120"></median>
-						<bubbles borders="false" labels="false" chartdata="country" height="150" indexer="indexer" ng-model="$parent.display.selectedCat" sizefactor="5" width="120"></bubbles>
+						<bubbles borders="false" labels="false" chartdata="country" height="150" indexer="indexer" ng-model="selected" sizefactor="5" width="120"></bubbles>
 					</div>
 				</div>
 			</div>

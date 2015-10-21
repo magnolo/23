@@ -7,24 +7,43 @@
 			return '/views/app/' + viewName + '/' + viewName + '.html';
 		};
 
-		$urlRouterProvider.otherwise('/epi');
+		$urlRouterProvider.otherwise('/');
 
 		$stateProvider
 			.state('app', {
-				abstract: true,
+				url: '/',
 				views: {
-				/*	sidebar: {
+					/*sidebar: {
 						templateUrl: getView('sidebar')
 					},*/
 					header: {
-						templateUrl: getView('header')
+						templateUrl: getView('header-main')
 					},
-					main: {}
+					subHeader:{
+						templateUrl: getView('header-home')
+					},
+					main: {
+						templateUrl: getView('main'),
+						controller: 'MainCtrl',
+						controllerAs: 'ctrl'
+					},
+					map:{
+						templateUrl: getView('map')
+					}
 				}
 			})
-			.state('app.epi', {
-				url: '/epi',
+			.state('app.indizes',{
+				url: 'indizes',
+				views:{
+
+				}
+			})
+			.state('app.indizes.show', {
+				url: '/:index',
 				views: {
+					'subHeader@':{
+						templateUrl:''
+					},
 					'main@': {
 						templateUrl: getView('epi'),
 						controller: 'EpiCtrl',
@@ -33,16 +52,13 @@
 								return DataService.getAll('/epi/year/2014')
 							}
 						}
-					},
-					'map@':{
-						templateUrl: getView('map')
 					}
 				}
 			})
-			.state('app.epi.selected',{
+			.state('app.indizes.show.selected',{
 				url: '/:item'
 			})
-			.state('app.epi.selected.compare',{
+			.state('app.indizes.show.selected.compare',{
 				url: '/compare-with-countries'
 			})
 			.state('app.importcsv', {

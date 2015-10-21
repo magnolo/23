@@ -1,0 +1,24 @@
+<div class="logo-container">
+        <div class="line" style="height:{{options.size*1.2}}px;top:-{{options.size/10}}px"></div>
+				<div easypiechart options="options1" percent="percent" style="left:{{options.size/10}}px;top:{{options.size/10}}px"></div>
+				<div easypiechart options="options2" percent="percent2" style="left:{{options.size/5}}px;top:{{options.size/5}}px"> </div>
+				<div easypiechart options="options3" percent="percent3" style="left:{{options.size/3.3}}px;top:{{options.size/3.3}}px"></div>
+				<svg ng-attr-height="{{options.size}}" ng-attr-width="{{options.size}}">
+								<defs>
+												<clipPath id="clipPath4">
+																<rect ng-attr-height="{{options.size}}" ng-attr-width="{{options.size/2}}" x="0" y="0"/>
+												</clipPath>
+												<clipPath id="clipPath1">
+																<rect ng-attr-height="{{options.size}}" ng-attr-width="{{options.size/2}}" ng-attr-x="{{options.size/2}}" y="0"/>
+												</clipPath>
+												<mask id="mask">
+																<circle ng-attr-cx="{{options.size/2}}" ng-attr-cy="{{options.size/2}}" ng-attr-r="{{options.size/2 - options.width}}" style="stroke: #fff;stroke-width: {{options.width}};"></circle>
+												</mask>
+								</defs>
+								<g class="earth-container" style="mask:url(#mask)">
+												<circle ng-attr-cx="{{options.size/2}}" ng-attr-cy="{{options.size/2}}" ng-attr-r="{{options.size/2}}" style="fill:{{color.global}}"></circle>
+												<circle ng-attr-cx="{{options.size/2}}" ng-attr-cy="{{options.size/2}}" ng-attr-r="{{options.size/2}}" style="fill:{{color.afternoon}};clip-path: url(#clipPath1);"></circle>
+												<circle ng-attr-cx="{{options.size/2}}" ng-attr-cy="{{options.size/2}}" ng-attr-r="{{options.size/2}}" ng-attr-transform="translate({{pos}},0) scale({{scale}},1)" style="fill:{{color.scale}};clip-path: url(#clipPath4);"></circle>
+								</g>
+				</svg>
+</div>

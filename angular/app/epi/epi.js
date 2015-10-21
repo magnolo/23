@@ -5,7 +5,7 @@
 
 		$scope.current = "";
 		$scope.display = {
-			selectedCat: '', 
+			selectedCat: '',
 			rank: [{
 				fields: {
 					x: 'year',
@@ -117,7 +117,6 @@
 			angular.forEach($scope.compare.countries, function(item, key) {
 				isos.push(item.iso);
 			});
-			console.log(isos.length);
 			if (isos.length > 1) {
 				DataService.getOne('nations/bbox', isos).then(function(data) {
 					$scope.bbox = data;
@@ -145,7 +144,7 @@
 				return;
 			}
 			if (newItem.iso) {
-				$state.go('app.epi.selected', {
+				$state.go('app.indizes.show.selected', {
 					item: newItem.iso
 				})
 				$scope.mvtSource.layers.countries_big_geom.features[oldItem.iso].selected = false;
@@ -154,29 +153,31 @@
 					$scope.bbox = data;
 				});
 			} else {
-				$state.go('app.epi');
+				$state.go('app.indizes.show');
 			}
 		});
 		$scope.$watch('display.selectedCat', function(n, o) {
 			if (n === o) {
 				return
 			}
+			console.log('cat_change');
 			if (n)
 				updateCanvas(n.color);
 			else {
-				//	if ($scope.compare.active) {
-				//	$scope.toggleComparison();
-				//}
 				updateCanvas('rgba(128, 243, 198,1)');
 			};
 			if ($scope.compare.active) {
 				$scope.mvtSource.setStyle(invertedStyle);
+				$timeout(function(){
+							$scope.mvtSource.redraw();
+				})
 			} else {
 				$scope.mvtSource.setStyle(countriesStyle);
+
 			}
 		});
 		$scope.$on("$stateChangeSuccess", function(event, toState, toParams) {
-			if (toState.name == "app.epi.selected") {
+			if (toState.name == "app.indizes.show.selected") {
 				$scope.setState(toParams.item);
 				//$scope.activeTab = 0;
 				DataService.getOne('nations', toParams.item).then(function(data) {
@@ -185,7 +186,7 @@
 						$scope.bbox = data;
 					});
 				});
-			} else if (toState.name == "app.epi.selected.compare") {
+			} else if (toState.name == "app.indizes.show.selected.compare") {
 				$scope.setState(toParams.item);
 				//$scope.activeTab = 2;
 				DataService.getOne('nations', toParams.item).then(function(data) {
@@ -271,8 +272,11 @@
 			var type = feature.type;
 			switch (type) {
 				case 3: //'Polygon'
+
 					if (nation[field]) {
-						var colorPos = parseInt(256 / 100 * nation[field]) * 4;
+
+						var colorPos = parseInt(256 / 100 * parseInt(nation[field])) * 4;
+
 						var color = 'rgba(' + $scope.palette[colorPos] + ', ' + $scope.palette[colorPos + 1] + ', ' + $scope.palette[colorPos + 2] + ',' + $scope.palette[colorPos + 3] + ')';
 						style.color = 'rgba(' + $scope.palette[colorPos] + ', ' + $scope.palette[colorPos + 1] + ', ' + $scope.palette[colorPos + 2] + ',0.7)'; //color;
 						style.outline = {
@@ -288,6 +292,7 @@
 						};
 						break;
 					} else {
+						console.log(nation);
 						style.color = 'rgba(255,255,255,0)';
 						style.outline = {
 							color: 'rgba(255,255,255,0)',
@@ -364,6 +369,7 @@
 						return feature.properties.adm0_a3;
 					},
 					filter: function(feature, context) {
+						console.log(feature.properties);
 						return true;
 					},
 					style: countriesStyle //,

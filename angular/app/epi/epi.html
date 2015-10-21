@@ -1,22 +1,38 @@
-<div class="info-container" ng-class="{'out': country  && display.selectedCat }">
-	<div class="info-box  md-whiteframe-z3" layout="column">
 
-		<div class="header" layout-align="space-between center" layout="row">
+<div class="info-container" ng-class="{'out': country  && display.selectedCat }">
+	<div class="info-box  md-whiteframe-10dp" layout="column">
+		<md-toolbar class="md-default">
+		<div class="md-toolbar-tools">
+			<h2>
+				<span>{{indexData.name}}</span>
+			</h2>
+				&nbsp;<small>{{indexData.full_name}}</small>
+			<span flex></span>
+			<md-button class="md-icon-button" aria-label="Favorite">
+				<ng-md-icon icon="info"></ng-md-icon>
+			</md-button>
+		</div>
+		</md-toolbar>
+		<!--<div class="header" layout-align="space-between center" layout="row">
+
 			<span class="title">{{indexData.name}}</span>
 			<span class="subtitle">{{indexData.full_name}}</span>
 			<span class="info-icon">
 				<ng-md-icon icon="info_outline" ng-click="toggleInfo()"></ng-md-icon>
 			</span>
-		</div>
-		<div class="header info slide-toggle" layout-align="space-between end" layout="row" ng-if="current">
+
+
+		</div>-->
+		<md-subheader class="md-primary">{{current.country}}</md-subheader>
+		<!--<div class="header info slide-toggle" layout-align="space-between end" layout="row" ng-if="current">
 			<span class="title">{{current.country}}</span>
 			<span class="info-icon">
 				<ng-md-icon icon="chevron_right"></ng-md-icon>
 			</span>
-		</div>
+		</div>-->
 		<div class="rank module slide-toggle" layout-align="space-between center" layout="row" ng-if="current  && !compare.active">
 			<div class="chart" layout="row">
-				<div layout-align="" layout="column">
+				<div layout-align="center" layout="column">
 					<div class="title" layout-align="center center" layout="row">Rank</div>
 					<div layout="row">
 						<circlegraph ng-model="current"></circlegraph>

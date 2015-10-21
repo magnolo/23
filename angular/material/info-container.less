@@ -2,13 +2,19 @@
 
 .info-container {
     line-height: 1em;
-    top:calc(~"64px + 1em");
+    top:calc(~"45px + 1em");
     left:1em;
     position:absolute;
     color: @grey;
     transition: all .3s ease;
     transform: translateX(0);
     padding-bottom:2em;
+    max-height:calc(~"100% + 2em");
+    .md-button{
+      border-radius:20px;
+      padding:0 30px;
+      text-transform: none;
+    }
     &.out {
         transform: translateX(-380px);
     }
@@ -17,7 +23,7 @@
         //margin-left: 1em;
         //margin-top: 1em;
         width:360px;
-        padding: 2em;
+        //padding: 2em;
         position: relative;
 
 
@@ -107,7 +113,7 @@
 
         .module {
 
-
+            padding:0em 2em;
             &.no-margin{
               margin:0px;
             }
@@ -253,12 +259,6 @@
             }
         }
 
-        .md-button {
-            border-radius: 20px;
-            padding: 0 30px;
-            text-transform: none;
-            border: 1px solid;
-        }
 
         .md-ripple-container {
             border-radius: 20px;

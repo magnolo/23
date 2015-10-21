@@ -268,12 +268,11 @@
 						.text(function (d) {
 							return d.unicode || '1'
 						});
-					options.icons.on("mouseover", function (d, i) {
+					options.containers.on("mouseover", function (d, i) {
 						return show_details(d, i, this);
 					}).on("mouseout", function (d, i) {
 						return hide_details(d, i, this);
 					}).on("click", function (d, i) {
-
 						ngModel.$setViewValue(d);
 						ngModel.$render();
 					});
@@ -367,7 +366,6 @@
 
 				scope.$watch('chartdata', function (data, oldData) {
 					options.tooltip.hideTooltip();
-
 					if (options.circles == null) {
 						create_nodes();
 						create_vis();
@@ -382,14 +380,13 @@
 					else{
 							display_by_cat();
 					}
-
 				});
 				scope.$watch('indexer', function (n, o) {
 					if(n === o){
 						return
 					}
-
-					if(typeof n[0].children != "undefined"){
+					//console.log('bubbled_Indx');
+					//if(typeof n[0].children != "undefined"){
 						options.tooltip.hideTooltip();
 						clear_nodes();
 						create_nodes();
@@ -398,12 +395,11 @@
 
 						if(labels.length == 1 || options.labels != true){
 								display_group_all();
-								console.log('all');
 						}
 						else{
 								display_by_cat();
 						}
-					}
+				//	}
 				});
 				scope.$watch('direction', function (oldD, newD) {
 					if (oldD === newD) {

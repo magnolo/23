@@ -1,0 +1,15 @@
+<div ng-controller="HeaderHomeCtrl" class="sub-header" layout="row" layout-wrap layout-align="space-between center" >
+
+      <div layout="column" layout-align="center center" flex="30" flex-offset="35">
+        <logo options="{size:100}"></logo>
+        <h1>23°</h1>
+        <div class="spacer"></div>
+        <h3>Ein Nachschlagewerk von Welt</h3>
+      </div>
+      <div layout="row" layout-align="space-between center" flex="60" flex-offset="20">
+          <md-button ui-sref="app.indizes.show({index:'epi'})">Umwelt</md-button>
+          <md-button>Artenschutz</md-button>
+          <md-button>Menschen</md-button>
+          <md-button>Dein Atlas</md-button>
+      </div>
+</div>

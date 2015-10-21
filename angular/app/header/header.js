@@ -8,7 +8,12 @@
 		}, function(newPage){
 			$scope.current_page = newPage || 'Page Name';
 		});
-
+		$scope.isOpen = false;
+		 $scope.demo = {
+			 isOpen: false,
+			 count: 0,
+			 selectedDirection: 'right'
+		 };
 
 	});
 

@@ -11,10 +11,11 @@
     <![endif]-->
 </head>
 <body ng-class="{'greyed': $root.greyed}">
-    <header ui-view="header"></header>
-    <div ui-view="map" class="Map_Container"></div>
+    <header ui-view="header" class="anim-top"></header>
+    <div ui-view="subHeader" class="anim-height"></div>
+    <div ui-view="map" class="anim-opacity"></div>
     <div ui-view="sidebar"></div>
-    <div ui-view="main" class="Page"></div>
+    <div ui-view="main" class="Page anim-left"></div>
     <div class="cssload-container" ng-if="stateIsLoading">
         <div class="cssload-whirlpool"></div>
     </div>

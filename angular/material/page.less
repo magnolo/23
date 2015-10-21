@@ -1,5 +1,5 @@
 @import (less) 'colors.less';
-
+@import url(https://fonts.googleapis.com/css?family=Playfair+Display:400,400italic,700);
 * {
     &:focus {
         border: 0;
@@ -15,14 +15,14 @@ body {
 
 body {
     padding-bottom: 0 !important;
-    font-family: 'Gorgia';
+    font-family: 'Playfair Display', serif;
     font-size: 16px;
     color: @main-color;
     > canvas{
       z-index: 1000;
-    position: fixed;
-    right: 10px;
-    bottom: 10px;
+      position: fixed;
+      right: 10px;
+      bottom: 10px;
     }
 }
 
