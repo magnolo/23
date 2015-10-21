@@ -452,6 +452,9 @@
 .md-ripple-container {
   border-radius: 20px;
 }
+md-toast {
+  position: fixed;
+}
 
 *:focus {
   border: 0;
@@ -566,9 +569,6 @@ md-toast[md-theme=warn] {
 }
 
 
-
-
-
 .Header {
   position: fixed;
   left: 0px;
@@ -624,8 +624,6 @@ md-menu-bar {
   padding: 24px;
 }
 
-
-
 #Map_Container {
   height: calc(100% - 165px);
 }
@@ -659,8 +657,6 @@ md-menu-bar {
   bottom: 20px;
   right: 00px;
 }
-
-
 
 .Sidebar {
   position: fixed !important;
@@ -703,22 +699,6 @@ md-menu-bar {
 }
 .Sidebar-version a {
   color: white;
-}
-
-.Dashboard-Container li {
-  line-height: 26px;
-}
-
-[ui-view].ng-enter,
-[ui-view].ng-leave {
-  transition: opacity ease-in-out 200ms;
-}
-[ui-view].ng-enter,
-[ui-view].ng-leave.ng-leave-active {
-  opacity: 0;
-}
-[ui-view].ng-enter.ng-enter-active {
-  opacity: 1;
 }
 
 
@@ -768,7 +748,6 @@ md-menu-bar {
 .tooltip .close-it:hover {
   color: rgba(0, 0, 0, 0.87);
 }
-
 
 
 

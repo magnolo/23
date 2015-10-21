@@ -1,7 +1,7 @@
 (function() {
 	"use strict";
 
-	angular.module('app.controllers').controller('EpiCtrl', function($scope, $rootScope, $state, $timeout, IndexService, EPI, DataService, leafletData, MapService) {
+	angular.module('app.controllers').controller('EpiCtrl', function($scope, $rootScope, $state, $timeout, $mdToast, IndexService, EPI, DataService, leafletData, MapService) {
 
 		$scope.current = "";
 		$scope.display = {
@@ -117,7 +117,6 @@
 			angular.forEach($scope.compare.countries, function(item, key) {
 				isos.push(item.iso);
 			});
-			console.log(isos.length);
 			if (isos.length > 1) {
 				DataService.getOne('nations/bbox', isos).then(function(data) {
 					$scope.bbox = data;
@@ -177,8 +176,10 @@
 		});
 		$scope.$on("$stateChangeSuccess", function(event, toState, toParams) {
 			if (toState.name == "app.epi.selected") {
+
 				$scope.setState(toParams.item);
 				//$scope.activeTab = 0;
+				console.log($scope.current);
 				DataService.getOne('nations', toParams.item).then(function(data) {
 					$scope.country = data;
 					DataService.getOne('nations/bbox', [$scope.country.iso]).then(function(data) {
@@ -355,9 +356,22 @@
 					mutexToggle: true,
 					onClick: function(evt, t) {
 						if (!$scope.compare.active) {
-							$scope.current = getNationByIso(evt.feature.properties.adm0_a3);
+							var c = getNationByIso(evt.feature.properties.adm0_a3);
+							if(typeof c.rank != "undefined"){
+								$scope.current = getNationByIso(evt.feature.properties.adm0_a3);
+							}
+							else{
+								$mdToast.show($mdToast.simple().content('No info about this location!').position('bottom right'));
+							}
 						} else {
-							$scope.toggleCountrieList(getNationByIso(evt.feature.properties.adm0_a3));
+
+							var c = getNationByIso(evt.feature.properties.adm0_a3);
+							if(typeof c.rank != "undefined"){
+								$scope.toggleCountrieList(c);
+							}
+							else{
+								$mdToast.show($mdToast.simple().content('No info about this location!').position('bottom right'));
+							}
 						}
 					},
 					getIDForLayerFeature: function(feature) {
@@ -378,7 +392,10 @@
 				debug.mvtSource = $scope.mvtSource;
 				map.addLayer($scope.mvtSource);
 				$scope.mvtSource.setOpacity(0.5);
-				$scope.setSelectedFeature();
+				$timeout(function(){
+						$scope.setSelectedFeature();
+				});
+
 
 				var labelsLayer = L.tileLayer('https://{s}.tiles.mapbox.com/v4/magnolo.59c96cac/{z}/{x}/{y}.png?access_token=' + apiKey);
 				map.addLayer(labelsLayer);
