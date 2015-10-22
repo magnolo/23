@@ -377,7 +377,6 @@
 					}
 					if(labels.length == 1 || options.labels != true){
 							display_group_all();
-							console.log('all');
 					}
 					else{
 							display_by_cat();

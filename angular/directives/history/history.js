@@ -12,7 +12,6 @@
 					return;
 				}
 				$scope.setData();
-				console.log($scope.chartdata);
 			})
 		}
 		function setData(){

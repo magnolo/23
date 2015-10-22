@@ -47,7 +47,7 @@
 				element.css('height', options.height + 'px').css('border-radius', options.height / 2 + 'px');
 				var x = d3.scale.linear()
 					.domain([0, 100])
-					.range([20, options.width - options.margin.left])
+					.range([options.margin.left, options.width - options.margin.left])
 					.clamp(true);
 
 				var brush = d3.svg.brush()
@@ -58,7 +58,7 @@
 
 				var svg = d3.select(element[0]).append("svg")
 					.attr("width", options.width)
-					.attr("height", options.height + options.margin.top + options.margin.bottom)
+					.attr("height", options.height)
 					.append("g");
 				//.attr("transform", "translate(0," + options.margin.top / 2 + ")");
 				var gradient = svg.append('svg:defs')
@@ -163,6 +163,7 @@
 						count++;
 						value = value > 50 ? value - 1 : value + 1;
 					} while (!found && count < 100);
+					console.log(final);
 					ngModel.$setViewValue(final);
 					ngModel.$render();
 				}

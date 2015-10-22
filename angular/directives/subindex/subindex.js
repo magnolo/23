@@ -2,9 +2,7 @@
 	"use strict";
 
 	angular.module('app.controllers').controller('SubindexCtrl', function($scope, $filter, $timeout) {
-
 		$scope.info = false;
-		$scope.activeTab = 0;
 		$scope.setChart = setChart;
 		$scope.calculateGraph = calculateGraph;
 		$scope.createIndexer = createIndexer;
@@ -14,14 +12,13 @@
 		$scope.getSubRank = getSubRank;
 		activate();
 
-
 		function activate() {
 			$scope.calcSubRank();
 			$scope.setChart();
 			$scope.calculateGraph();
 			$scope.createIndexer();
 			$scope.createOptions();
-			$scope.$watch('selected', function(newItem, oldItem) {
+			$scope.$watch('display.selectedCat', function(newItem, oldItem) {
 				if (newItem === oldItem) {
 					return false;
 				}
@@ -36,9 +33,6 @@
 				}
 				$scope.calcSubRank();
 			});
-			if ($scope.$parent.compare.active) {
-				$scope.activeTab = 2;
-			}
 		}
 
 		function toggleInfo() {
@@ -48,10 +42,10 @@
 		function calcSubRank() {
 			var rank = 0;
 			angular.forEach($scope.data, function(item) {
-				item[$scope.selected.type] = parseFloat(item[$scope.selected.type]);
+				item[$scope.display.selectedCat.type] = parseFloat(item[$scope.display.selectedCat.type]);
 				item['score'] = parseInt(item['score']);
 			})
-			var filter = $filter('orderBy')($scope.data, [$scope.selected.type, "score"], true);
+			var filter = $filter('orderBy')($scope.epi, [$scope.display.selectedCat.type, "score"], true);
 			for (var i = 0; i < filter.length; i++) {
 				if (filter[i].iso == $scope.country.iso) {
 					rank = i + 1;
@@ -60,14 +54,14 @@
 			$scope.country.rank = rank;
 		}
 		function getSubRank(country){
-			var filter = $filter('orderBy')($scope.$parent.epi, [$scope.selected.type, "score"], true);
+			var filter = $filter('orderBy')($scope.epi, [$scope.display.selectedCat.type, "score"], true);
 			var rank = 0;
 			angular.forEach(filter, function(item, key){
 				if(item.country == country.country){
 					rank = key;
 				}
 			});
-			return rank+1; 
+			return rank+1;
 		}
 		function createIndexer() {
 			$scope.indexer = [$scope.$parent.display.selectedCat.data];
@@ -77,7 +71,17 @@
 			$scope.medianOptions = {
 				color: $scope.$parent.display.selectedCat.color,
 				field: $scope.$parent.display.selectedCat.type,
-				handling: false
+				handling: false,
+				margin:{
+					left:10
+				}
+			};
+			$scope.medianOptionsBig = {
+				color: $scope.$parent.display.selectedCat.color,
+				field: $scope.$parent.display.selectedCat.type,
+				margin:{
+					left:20
+				}
 			};
 		}
 
@@ -130,7 +134,7 @@
 
 		function calculateGraph() {
 			var chartData = [];
-			angular.forEach($scope.selected.children, function(item, key) {
+			angular.forEach($scope.display.selectedCat.children, function(item, key) {
 				var graph = {
 					key: item.title,
 					color: item.color,
