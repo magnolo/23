@@ -35,7 +35,7 @@
 			countries: []
 		};
 		$scope.epi = EPI;
-
+		$scope.selectedTab = 0;
 		$scope.showTabContent = function(content) {
 			if (content == '' && $scope.tabContent == '') {
 				$scope.tabContent = 'rank';
@@ -67,12 +67,17 @@
 			return $scope.epi.indexOf(nat) + 1;
 		};
 		$scope.toggleInfo = function() {
-			$scope.display.selectedCat = '';
+			//$scope.display.selectedCat = '';
 			$scope.info = !$scope.info;
 		};
 		$scope.toggleDetails = function() {
 			return $scope.details = !$scope.details;
 		};
+		$scope.mapGotoCountry = function(iso){
+			DataService.getOne('nations/bbox', [$scope.country.iso]).then(function(data) {
+				$scope.bbox = data;
+			});
+		}
 		$scope.checkComparison = function(want) {
 			//console.log(want,$scope.compare.active);
 			if (want && !$scope.compare.active || !want && $scope.compare.active) {
@@ -84,13 +89,13 @@
 			$scope.compare.active = !$scope.compare.active;
 			if ($scope.compare.active) {
 				//$state.go('app.epi.selected.compare');
+				$scope.setTab(2);
 				$rootScope.greyed = true;
 				$scope.mvtSource.options.mutexToggle = false;
 				$scope.mvtSource.setStyle(invertedStyle);
 			} else {
 				$rootScope.greyed = false;
 				//$state.go('app.epi.selected', {item:$scope.current.iso});
-				//$scope.activTab = 0;
 				angular.forEach($scope.mvtSource.layers.countries_big_geom.features, function(feature) {
 					feature.selected = false;
 				});
@@ -156,6 +161,24 @@
 				$state.go('app.epi');
 			}
 		});
+		$scope.setTab = function(i){
+			$scope.activeTab = i;
+		}
+		$scope.nodeParent = {};
+		function getParent(data){
+				var items = [];
+				angular.forEach(data.children, function(item){
+					if(item.column_name == $scope.display.selectedCat.type){
+						$scope.nodeParent =data;
+					}
+					getParent(item);
+				});
+				return items;
+		}
+		$scope.calcTree = function(){
+			console.log($scope.display.selectedCat);
+				getParent($scope.indexData);
+		};
 		$scope.$watch('display.selectedCat', function(n, o) {
 			if (n === o) {
 				return
@@ -163,11 +186,9 @@
 			if (n)
 				updateCanvas(n.color);
 			else {
-				//	if ($scope.compare.active) {
-				//	$scope.toggleComparison();
-				//}
 				updateCanvas('rgba(128, 243, 198,1)');
 			};
+			$scope.calcTree();
 			if ($scope.compare.active) {
 				$scope.mvtSource.setStyle(invertedStyle);
 			} else {
@@ -176,10 +197,7 @@
 		});
 		$scope.$on("$stateChangeSuccess", function(event, toState, toParams) {
 			if (toState.name == "app.epi.selected") {
-
 				$scope.setState(toParams.item);
-				//$scope.activeTab = 0;
-				console.log($scope.current);
 				DataService.getOne('nations', toParams.item).then(function(data) {
 					$scope.country = data;
 					DataService.getOne('nations/bbox', [$scope.country.iso]).then(function(data) {

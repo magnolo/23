@@ -9,17 +9,12 @@
 		return {
 			restrict: 'E',
 			replace: true,
-			scope: {
-				country: '=',
-				selected: '=',
-				data: '='
-			},
 			controller: 'SubindexCtrl',
 			templateUrl: 'views/directives/subindex/subindex.html',
 			link: subindexLinkFunction
 		};
 
-		function subindexLinkFunction($scope, element, $attrs) {		
+		function subindexLinkFunction($scope, element, $attrs) {
 		}
 	}
 })();

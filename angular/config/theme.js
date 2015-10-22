@@ -7,11 +7,21 @@
     '500': '00ccaa',
 		'A200': '00ccaa'
   });
+	var whiteMap = $mdThemingProvider.extendPalette('teal', {
+    '500': '00ccaa',
+		'A200': '#fff'
+  });
+	var blueMap = $mdThemingProvider.extendPalette('blue', {
+    '500': '#006bb9',
+		'A200': '#006bb9'
+  });
 	$mdThemingProvider.definePalette('neonTeal', neonTealMap);
+	$mdThemingProvider.definePalette('whiteTeal', whiteMap);
+	$mdThemingProvider.definePalette('bluer', blueMap);
 		$mdThemingProvider.theme('default')
 		.primaryPalette('neonTeal')
 		.accentPalette('neonTeal')
-		.warnPalette('red');
+		.warnPalette('bluer');
 	});
 
 })();

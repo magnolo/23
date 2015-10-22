@@ -17,7 +17,6 @@
         //margin-left: 1em;
         //margin-top: 1em;
         width:360px;
-        padding: 2em;
         position: relative;
 
 
@@ -30,11 +29,41 @@
                 }
             }
         }
-
+        .header, md-toolbar{
+          .title{
+            font-size:1.5em;
+          }
+          .subtitle{
+            font-size:0.9em;
+          }
+          .md-button{
+            border: 0px;
+            padding: 0px;
+            min-width: 0;
+            line-height: 1em;
+            margin: 0;
+          }
+        }
+        md-content{
+          color:inherit;
+        }
+         md-tabs .md-tab:not(.md-active){
+            color:inherit;
+         }
         .header {
-            padding: 0.5em;
+            padding: 0.6em 1em;
             //margin-bottom:1em;
-
+            position:relative;
+            &::after{
+              content:'';
+              width:100%;
+              height: 1px;
+              border-bottom:1px solid @base;
+              position:absolute;
+              bottom:0px;
+              left:0px;
+              opacity: 0.2;
+            }
             .title {
                 font-weight: normal;
                 color: @base;
@@ -57,9 +86,11 @@
 
 
             &.info {
-                border: 0;
-                padding: 0.5em;
-                margin-bottom:1em;
+              border: 0;
+              //margin: 1em;
+              padding: 1em 2em;
+
+
                 .title {
                     line-height: 1.2em;
                 }
@@ -67,6 +98,9 @@
                 .md-button {
                     margin:0px;
                     margin-right: -0.5em;
+                }
+                &::after{
+                  border:0px;
                 }
             }
             &.center{
@@ -106,14 +140,20 @@
         }
 
         .module {
-
-
+            margin:0 2em;
+            //padding:2em;
             &.no-margin{
               margin:0px;
             }
+            &.mt{
+              margin-top:2em;
+            }
+            &.mb{
+              margin-bottom:2em;
+            }
             &.rank {
                 .chart {
-                    color: @dark-color;
+                    color: @grey;
 
                     .title {
                         margin-bottom: 0.5em;
@@ -179,7 +219,7 @@
                 }
             }
             &:last-child{
-              margin-bottom:0px;
+              //margin-bottom:0px;
 
             }
             &.tabs{
@@ -266,14 +306,11 @@
         &.sub-box{
           position:absolute;
           top:0px;
-          width:295px;
-          left:365px;
-          margin-left:1em;
+          //left:365px;
+
 
           .close-box{
             margin-bottom:0px;
-            margin-top:-1em;
-            margin-left:-1em;
             text-align:left;
             cursor:pointer;
             path{
@@ -282,6 +319,7 @@
           }
           &#sub-info{
             width:700px; //calc(~"100% - 420px - 5em");
+            left:380px;
           }
         }
     }
