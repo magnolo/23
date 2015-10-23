@@ -37,6 +37,32 @@
 			}
 		});
 
+
+/*mapboxgl.accessToken = 'pk.eyJ1IjoibWFnbm9sbyIsImEiOiJuSFdUYkg4In0.5HOykKk0pNP1N3isfPQGTQ';
+mapboxgl.util.getJSON('https://api.mapbox.com/styles/v1/mapbox/streets-v8?access_token=' + mapboxgl.accessToken, function (err, style) {
+    if (err) throw err;
+
+    style.layers.forEach(function (layer) {
+				if(layer['source-layer'] == "admin"){
+        layer.interactive = true;
+				console.log(layer);
+			}
+    });
+
+    var map = new mapboxgl.Map({
+        container: 'map',
+        style: style,
+        center: [-96, 37.8],
+        zoom: 3
+    });
+
+    map.on('mousemove', function (e) {
+        map.featuresAt(e.point, {radius: 5}, function (err, features) {
+            if (err) throw err;
+            console.log(JSON.stringify(features, null, 2));
+        });
+    });
+});*/
 		$scope.interactivity = "";
 		$scope.flag = "";
 		$scope.$on('leafletDirectiveMap.utfgridMouseover', function (event, leafletEvent) {

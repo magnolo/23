@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <link rel="stylesheet" href="/css/vendor.css">
     <link rel="stylesheet" href="/css/app.css">
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.11.1/mapbox-gl.css' rel='stylesheet' />
+    
     <title>23°</title>
     <!--[if lte IE 10]>
     <script type="text/javascript">document.location.href = '/unsupported-browser'</script>
