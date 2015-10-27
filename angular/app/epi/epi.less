@@ -1,0 +1,168 @@
+@color: #004288;
+.stats{
+  position: absolute;
+  top:8px;
+  left:50%;
+  margin-left:-40px;
+}
+.md-button {
+
+  &.tint{
+    border-style: solid;
+    background: #fff;
+    border-color:@color;
+    border-width: 2px !important;
+    color:@color;
+  }
+}
+.main-content{
+  md-divider{
+    &.space{
+      margin-top:10px;
+      margin-bottom:45px;
+    }
+
+  }
+  img{
+    max-width:100%;
+  }
+  h1{
+    color:@color;
+    font-weight:normal;
+    font-size:2.3em;
+  }
+  md-list{
+    padding:0px 0px 6px 0px;
+    .md-subheader .md-subheader-inner{
+      color:@color;
+      background-color: #f4f4f4;
+      text-transform: uppercase;
+      padding:13px 0px 13px 16px;
+    }
+    .md-2-line {
+      .md-avatar{
+        margin-top:18px;
+        width:auto;
+        color:@color;
+        margin-bottom:0px;
+        font-size:1.5em;
+      }
+      .md-list-item-text{
+        h3{
+          color:@color;
+        }
+      }
+    }
+  }
+  .md-button{
+    border:1px solid;
+    max-height:1em;
+    line-height:32px;
+  }
+  .head{
+
+  }
+  .box{
+    display: flex;
+    align-items: center;
+    position:relative;
+    margin-bottom:2em;
+    img{
+
+    }
+  }
+  .article{
+    margin-bottom:1em;
+    .info{
+      margin:0 0.5em;
+    }
+    .type{
+      text-transform: uppercase;
+      color:@color;
+      font-size:0.9em;
+      margin:1em 0;
+    }
+    .title{
+      font-size:1.5em;
+      margin-bottom:0.5em;
+      color:@color;
+    }
+    .intro{
+      margin-bottom:1em;
+      text-align: justify;
+      color:#303030;
+      line-height: 1.6em;
+    }
+    .caption{
+      font-size:0.8em;
+      .profile{
+        text-decoration: underline;
+        cursor:pointer;
+      }
+    }
+    .tags{
+      font-size:0.75em;
+      margin:1em 0;
+    }
+    .interactions{
+      color:#aeaeae;
+      *{
+        fill:#aeaeae;
+      }
+      ng-md-icon{
+        margin-right:3px;
+      }
+      span{
+        font-size:0.9em;
+        fonts-weight:bold;
+      }
+    }
+  }
+}
+.sub-epi{
+  position:absolute;
+  top:0px;
+  left:0px;
+  background:rgba(255,255,255,1);
+  width:100%;
+  z-index:100;
+  h2{
+    margin-bottom:0.5em;
+    font-style:italic;
+    font-weight: normal;
+    color:@color;
+  }
+  md-divider{
+    margin-bottom:35px;
+  }
+  .sub-boxer{
+    margin:0 auto;
+    md-list{
+      padding:0px 0px 6px 0px;
+      md-list-item{
+        margin-bottom:2em;
+        align-items: flex-start;
+      }
+      .md-subheader .md-subheader-inner{
+        color:@color;
+        background-color: #f4f4f4;
+        text-transform: uppercase;
+        padding:13px 0px 13px 16px;
+      }
+
+        .md-avatar{
+          margin-top:18px;
+          width:auto;
+          color:@color;
+          margin-bottom:0px;
+          font-size:1.5em;
+        }
+        .md-list-item-text{
+          h3{
+            color:@color;
+          }
+        }
+
+    }
+  }
+}

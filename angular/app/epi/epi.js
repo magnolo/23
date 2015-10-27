@@ -197,6 +197,7 @@
 		});
 		$scope.$on("$stateChangeSuccess", function(event, toState, toParams) {
 			if (toState.name == "app.epi.selected") {
+				$rootScope.move = true;
 				$scope.setState(toParams.item);
 				DataService.getOne('nations', toParams.item).then(function(data) {
 					$scope.country = data;
@@ -213,7 +214,9 @@
 						$scope.bbox = data;
 					});
 				});
+				$rootScope.move = false;
 			} else {
+				$rootScope.move = false;
 				$scope.country = $scope.current = "";
 			}
 		});
@@ -305,7 +308,7 @@
 								size: 2
 							}
 						};
-						break; 
+						break;
 					} else {
 						style.color = 'rgba(255,255,255,0)';
 						style.outline = {

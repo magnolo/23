@@ -130,7 +130,7 @@
 
 .info-container {
   line-height: 1em;
-  top: calc(64px + 1em);
+  top: 1em;
   left: 1em;
   position: absolute;
   color: #afafaf;
@@ -138,6 +138,8 @@
   -webkit-transform: translateX(0);
   transform: translateX(0);
   padding-bottom: 2em;
+  max-height: 460px;
+  z-index: 3;
 }
 .info-container.out {
   -webkit-transform: translateX(-380px);
@@ -531,6 +533,13 @@ body > canvas {
   right: 10px;
   bottom: 10px;
 }
+body.move .Page {
+  margin-left: 400px !important;
+}
+.Page {
+  max-width: 960px;
+  margin: 0 20px;
+}
 .Page-name {
   color: #006bb9;
 }
@@ -622,12 +631,163 @@ md-toast[md-theme=warn] {
   text-align: center;
 }
 
+.stats {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  margin-left: -40px;
+}
+.md-button.tint {
+  border-style: solid;
+  background: #fff;
+  border-color: #004288;
+  border-width: 2px !important;
+  color: #004288;
+}
+.main-content md-divider.space {
+  margin-top: 10px;
+  margin-bottom: 45px;
+}
+.main-content img {
+  max-width: 100%;
+}
+.main-content h1 {
+  color: #004288;
+  font-weight: normal;
+  font-size: 2.3em;
+}
+.main-content md-list {
+  padding: 0px 0px 6px 0px;
+}
+.main-content md-list .md-subheader .md-subheader-inner {
+  color: #004288;
+  background-color: #f4f4f4;
+  text-transform: uppercase;
+  padding: 13px 0px 13px 16px;
+}
+.main-content md-list .md-2-line .md-avatar {
+  margin-top: 18px;
+  width: auto;
+  color: #004288;
+  margin-bottom: 0px;
+  font-size: 1.5em;
+}
+.main-content md-list .md-2-line .md-list-item-text h3 {
+  color: #004288;
+}
+.main-content .md-button {
+  border: 1px solid;
+  max-height: 1em;
+  line-height: 32px;
+}
+.main-content .box {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  position: relative;
+  margin-bottom: 2em;
+}
+.main-content .article {
+  margin-bottom: 1em;
+}
+.main-content .article .info {
+  margin: 0 0.5em;
+}
+.main-content .article .type {
+  text-transform: uppercase;
+  color: #004288;
+  font-size: 0.9em;
+  margin: 1em 0;
+}
+.main-content .article .title {
+  font-size: 1.5em;
+  margin-bottom: 0.5em;
+  color: #004288;
+}
+.main-content .article .intro {
+  margin-bottom: 1em;
+  text-align: justify;
+  color: #303030;
+  line-height: 1.6em;
+}
+.main-content .article .caption {
+  font-size: 0.8em;
+}
+.main-content .article .caption .profile {
+  text-decoration: underline;
+  cursor: pointer;
+}
+.main-content .article .tags {
+  font-size: 0.75em;
+  margin: 1em 0;
+}
+.main-content .article .interactions {
+  color: #aeaeae;
+}
+.main-content .article .interactions * {
+  fill: #aeaeae;
+}
+.main-content .article .interactions ng-md-icon {
+  margin-right: 3px;
+}
+.main-content .article .interactions span {
+  font-size: 0.9em;
+  fonts-weight: bold;
+}
+.sub-epi {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  background: #ffffff;
+  width: 100%;
+  z-index: 100;
+}
+.sub-epi h2 {
+  margin-bottom: 0.5em;
+  font-style: italic;
+  font-weight: normal;
+  color: #004288;
+}
+.sub-epi md-divider {
+  margin-bottom: 35px;
+}
+.sub-epi .sub-boxer {
+  margin: 0 auto;
+}
+.sub-epi .sub-boxer md-list {
+  padding: 0px 0px 6px 0px;
+}
+.sub-epi .sub-boxer md-list md-list-item {
+  margin-bottom: 2em;
+  -webkit-align-items: flex-start;
+  -ms-flex-align: start;
+  align-items: flex-start;
+}
+.sub-epi .sub-boxer md-list .md-subheader .md-subheader-inner {
+  color: #004288;
+  background-color: #f4f4f4;
+  text-transform: uppercase;
+  padding: 13px 0px 13px 16px;
+}
+.sub-epi .sub-boxer md-list .md-avatar {
+  margin-top: 18px;
+  width: auto;
+  color: #004288;
+  margin-bottom: 0px;
+  font-size: 1.5em;
+}
+.sub-epi .sub-boxer md-list .md-list-item-text h3 {
+  color: #004288;
+}
 
 .Header {
   position: fixed;
   left: 0px;
   right: 0;
-  z-index: 3;
+  z-index: 4;
   top: 0px;
 }
 
@@ -678,14 +838,15 @@ md-menu-bar {
   padding: 24px;
 }
 
-#Map_Container {
-  height: calc(100% - 165px);
+.Map_Container {
+  height: 75%;
+  position: relative;
+  margin-top: 64px;
 }
 #map {
-  position: fixed;
+  position: relative;
   width: 100%;
-  top: 64px;
-  height: calc(100% - 64px);
+  height: 100%;
 }
 .angular-leaflet-map {
   width: 100%;
@@ -805,68 +966,13 @@ md-menu-bar {
 
 
 
-
-median {
-  overflow: hidden;
-  border-radius: 20px;
-  display: inline-block;
-  height: 40px;
-}
-median .endLabel {
-  fill: #fff;
-  stroke-width: 0;
-}
-median .endLabel text {
-  fill: #606060;
-}
-median .startLabel {
-  fill: none;
-  stroke: #fff;
-  stroke-width: 1px;
-}
-median .startLabel text {
-  fill: #fff;
-  stroke-width: 0;
-}
-median .axis {
-  font: 10px sans-serif;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-median .axis .domain {
-  fill: none;
-  stroke: #000;
-  stroke-opacity: 0.3;
-  stroke-width: 10px;
-  stroke-linecap: round;
-}
-median .axis .halo {
-  fill: none;
-  stroke: #ddd;
-  stroke-width: 40px;
-  stroke-linecap: round;
-}
-median .slider .handle {
-  fill: #0ca;
-  stroke-width: 0;
-  cursor: ew-resize;
-}
-median .slider text {
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  cursor: ew-resize;
-}
-
 .slide-toggle {
   transition: all .5s;
 }
 .slide-toggle.ng-animate {
   overflow: hidden;
 }
+
 
 .section {
   padding: 30px;
@@ -993,5 +1099,60 @@ median .slider text {
   padding-right: 220px;
 }
 
+
+median {
+  overflow: hidden;
+  border-radius: 20px;
+  display: inline-block;
+  height: 40px;
+}
+median .endLabel {
+  fill: #fff;
+  stroke-width: 0;
+}
+median .endLabel text {
+  fill: #606060;
+}
+median .startLabel {
+  fill: none;
+  stroke: #fff;
+  stroke-width: 1px;
+}
+median .startLabel text {
+  fill: #fff;
+  stroke-width: 0;
+}
+median .axis {
+  font: 10px sans-serif;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+median .axis .domain {
+  fill: none;
+  stroke: #000;
+  stroke-opacity: 0.3;
+  stroke-width: 10px;
+  stroke-linecap: round;
+}
+median .axis .halo {
+  fill: none;
+  stroke: #ddd;
+  stroke-width: 40px;
+  stroke-linecap: round;
+}
+median .slider .handle {
+  fill: #0ca;
+  stroke-width: 0;
+  cursor: ew-resize;
+}
+median .slider text {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  cursor: ew-resize;
+}
 
 /*# sourceMappingURL=app.css.map */

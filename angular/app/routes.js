@@ -39,6 +39,38 @@
 					}
 				}
 			})
+			.state('app.epi.upload',{
+				url: '/upload-tutorial',
+				views:{
+					'sub':{
+						templateUrl: '/views/app/epi/upload.html'
+					}
+				}
+			})
+			.state('app.epi.stats',{
+				url: '/advanced-statistics',
+				views:{
+					'sub':{
+						templateUrl: '/views/app/epi/stats.html'
+					}
+				}
+			})
+			.state('app.epi.sustain',{
+				url: '/sustainable-goals',
+				views:{
+					'sub':{
+						templateUrl: '/views/app/epi/sustain.html'
+					}
+				}
+			})
+			.state('app.epi.energy',{
+				url: '/state-of-the-energy',
+				views:{
+					'sub':{
+						templateUrl: '/views/app/epi/sustain.html'
+					}
+				}
+			})
 			.state('app.epi.selected',{
 				url: '/:item'
 			})

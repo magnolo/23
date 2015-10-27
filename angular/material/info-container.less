@@ -2,13 +2,15 @@
 
 .info-container {
     line-height: 1em;
-    top:calc(~"64px + 1em");
+    top: 1em;//calc(~"64px + 1em");
     left:1em;
     position:absolute;
     color: @grey;
     transition: all .3s ease;
     transform: translateX(0);
     padding-bottom:2em;
+    max-height: 460px;
+    z-index:3;
     &.out {
         transform: translateX(-380px);
     }
