@@ -805,6 +805,7 @@ md-menu-bar {
 
 
 
+
 median {
   overflow: hidden;
   border-radius: 20px;
@@ -860,14 +861,12 @@ median .slider text {
   cursor: ew-resize;
 }
 
-
 .slide-toggle {
   transition: all .5s;
 }
 .slide-toggle.ng-animate {
   overflow: hidden;
 }
-
 
 .section {
   padding: 30px;
@@ -993,5 +992,6 @@ median .slider text {
 .calculating .field-name-field-calculating-text {
   padding-right: 220px;
 }
+
 
 /*# sourceMappingURL=app.css.map */
