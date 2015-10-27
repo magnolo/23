@@ -463,7 +463,8 @@
 			container: 'map', // container id
 			style: 'mapbox://styles/mapbox/light-v8', //stylesheet location
 			center: [0, 10], // starting position
-			zoom: 2 // starting zoom
+			zoom: 2, // starting zoom
+			interactive: true
 		});
 
 		map.addControl(new mapboxgl.Navigation());
@@ -507,7 +508,7 @@
 				map.featuresAt(e.point, {
 					radius: 5
 				}, function (err, features) {
-
+					console.log(features);
 					if (err) throw err;
 
 					if (!$scope.compare.active) {
