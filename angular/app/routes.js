@@ -67,7 +67,7 @@
 				url: '/state-of-the-energy',
 				views:{
 					'sub':{
-						templateUrl: '/views/app/epi/sustain.html'
+						templateUrl: '/views/app/epi/energy.html'
 					}
 				}
 			})
