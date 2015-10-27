@@ -57,8 +57,8 @@ class EpiController extends Controller
     public function showByYear($year)
     {
         //
-        return EPI::where('year', $year)->orderBy('score', 'desc')->get();
-
+        $data = EPI::where('year', $year)->orderBy('score', 'desc')->get();
+        return \Response::json($data, 200, [], JSON_NUMERIC_CHECK);
     }
     /**
      * Show the form for editing the specified resource.

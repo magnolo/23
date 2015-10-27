@@ -226,7 +226,7 @@
 							.attr('width', options.width)
 							.attr('text-anchor', 'middle')
 							.on('click', function(d){
-								ngModel.$setViewValue(d);
+								ngModel.$setViewValue(d.data);
 								ngModel.$render();
 							})
 							.attr("y", function(d){

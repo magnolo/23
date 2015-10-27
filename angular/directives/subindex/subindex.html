@@ -26,16 +26,6 @@
 							</div>
 							<div layout-align="space-between center" layout="column">
 								<span class="icon slide-toggle" style="margin-bottom:1em">
-									<!--<md-fab-speed-dial class="md-scale md-fab-top-center" md-direction="left" style="margin-left:-32px">
-											<md-fab-trigger>
-												<i ng-if="display.selectedCat.icon" class="icon icon-bubble icon-{{display.selectedCat.icon}}" ng-style="{'background-color':display.selectedCat.color}"></i>
-												<div ng-if="!display.selectedCat.icon" class="icon-bubble" ng-style="{'background-color':display.selectedCat.color,'width': '1em'}">&nbsp;</div>
-											</md-fab-trigger>
-											<md-fab-actions ng-click="display.selectedCat = nodePra">
-												<i ng-if="nodeParent.icon" class="icon icon-bubble icon-{{nodeParent.icon}}" ng-style="{'background-color':nodeParent.color}"></i>
-												<div ng-if="!nodeParent.icon" class="icon-bubble" ng-style="{'background-color':nodeParent.color,'width': '1em'}">&nbsp;</div>
-											</md-fab-actions>
-										</md-fab-speed-dial>-->
 										<i ng-if="display.selectedCat.icon || nodeParent.icon" class="icon icon-bubble icon-{{display.selectedCat.icon || nodeParent.icon}}" ng-style="{'background-color':display.selectedCat.color}"></i>
 											<div ng-if="!display.selectedCat.icon && !nodeParent.icon" class="icon-bubble" ng-style="{'background-color':display.selectedCat.color,'width': '1em'}">&nbsp;</div>
 								</span>
@@ -59,7 +49,7 @@
 												<div layout-align="center center" layout="column">
 																<div class="title" layout-align="center center" layout="row">Rank</div>
 																<div layout="row">
-																				<circlegraph ng-model="country" options="{color:display.selectedCat.color, field:'rank'}"></circlegraph>
+																			<circlegraph ng-model="current" options="{color:display.selectedCat.color, field:display.selectedCat.type+'_rank'}"></circlegraph>
 																</div>
 												</div>
 								</div>
@@ -96,16 +86,13 @@
 								</div>
 				</section>
 				<section class="module slide-toggle" layout-align="center center" layout="column" ng-if="!$parent.compare.active">
-								<!--<p>Score</p>-->
-								<median data="" ng-model="country.epi[5]" options="medianOptionsBig" style="margin:2em 0"></median>
-
-								<!--<p>median</p>-->
+								<median data="epi" ng-model="current" options="medianOptionsBig" style="margin:2em 0"></median>
 				</section>
 				<section>
 								<md-tabs md-center-tabs="true" md-dynamic-height md-no-pagination="true" md-selected="activeTab" md-swipe-content="true">
 												<md-tab label="Details" md-on-select="setTab(0)">
 																<div class="module bubbles slide-toggle mt mb" layout="column">
-																				<bubbles chartdata="country.epi[5]" height="240" indexer="indexer" labels="false" ng-model="display.selectedCat" sizefactor="3" width="300"></bubbles>
+																				<bubbles chartdata="current" height="240" indexer="indexer" labels="false" ng-model="display.selectedCat" sizefactor="3" width="300"></bubbles>
 																</div>
 												</md-tab>
 												<md-tab label="History" md-active="activeTab == 1" md-on-select="setTab(1)">
