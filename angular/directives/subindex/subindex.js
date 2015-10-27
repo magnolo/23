@@ -27,7 +27,7 @@
 				$scope.createOptions();
 				$scope.calcSubRank();
 			});
-			$scope.$watch('country', function(n, o) {
+			$scope.$watch('current', function(n, o) {
 				if (n === o) {
 					return;
 				}
@@ -47,11 +47,11 @@
 			})
 			var filter = $filter('orderBy')($scope.epi, [$scope.display.selectedCat.type, "score"], true);
 			for (var i = 0; i < filter.length; i++) {
-				if (filter[i].iso == $scope.country.iso) {
+				if (filter[i].iso == $scope.current.iso) {
 					rank = i + 1;
 				}
 			}
-			$scope.country.rank = rank;
+			$scope.current[$scope.display.selectedCat.type+'_rank'] = rank;
 		}
 		function getSubRank(country){
 			var filter = $filter('orderBy')($scope.epi, [$scope.display.selectedCat.type, "score"], true);
@@ -79,6 +79,7 @@
 			$scope.medianOptionsBig = {
 				color: $scope.$parent.display.selectedCat.color,
 				field: $scope.$parent.display.selectedCat.type,
+				handling: false,
 				margin:{
 					left:20
 				}

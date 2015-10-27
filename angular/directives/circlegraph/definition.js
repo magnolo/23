@@ -21,40 +21,40 @@
 			link: function($scope, element, $attrs, ngModel) {
 				//Fetching Options
 
-				var options = angular.extend(defaults(), $scope.options);
-
+			 $scope.options = angular.extend(defaults(), $scope.options);
+			
 				//Creating the Scale
 				var rotate = d3.scale.linear()
-					.domain([1, options.size])
+					.domain([1, $scope.options.size])
 					.range([1, 0])
 					.clamp(true);
 
 				//Creating Elements
 				var svg = d3.select(element[0]).append('svg')
-					.attr('width', options.width)
-					.attr('height', options.height)
+					.attr('width', $scope.options.width)
+					.attr('height', $scope.options.height)
 					.append('g');
 				var container = svg.append('g')
-					.attr('transform', 'translate(' + options.width / 2 + ',' + options.height / 2 + ')');
+					.attr('transform', 'translate(' + $scope.options.width / 2 + ',' + $scope.options.height / 2 + ')');
 				var circleBack = container.append('circle')
-					.attr('r', options.width / 2 - 2)
+					.attr('r', $scope.options.width / 2 - 2)
 					.attr('stroke-width', 2)
-					.attr('stroke', options.color)
+					.attr('stroke', $scope.options.color)
 					.style('opacity', '0.6')
 					.attr('fill', 'none');
 				var arc = d3.svg.arc()
 					.startAngle(0)
 					.innerRadius(function(d) {
-						return options.width / 2 - 4;
+						return $scope.options.width / 2 - 4;
 					})
 					.outerRadius(function(d) {
-						return options.width / 2;
+						return $scope.options.width / 2;
 					});
 				var circleGraph = container.append('path')
 					.datum({
 						endAngle: 2 * Math.PI * 0
 					})
-					.style("fill", options.color)
+					.style("fill", $scope.options.color)
 					.attr('d', arc);
 				var text = container.selectAll('text')
 					.data([0])
@@ -63,7 +63,7 @@
 					.text(function(d) {
 						return 'N°' + d;
 					})
-						.style("fill", options.color)
+						.style("fill", $scope.options.color)
 					.style('font-weight', 'bold')
 					.attr('text-anchor', 'middle')
 					.attr('y', '0.35em');
@@ -97,9 +97,10 @@
 						if(n === o){
 							return;
 						}
+						console.log(n)
 						circleBack.style('stroke', n.color);
 						circleGraph.style('fill', n.color);
-						text.style('fill', n.color); 
+						text.style('fill', n.color);
 						$timeout(function(){
 							animateIt(ngModel.$modelValue[n.field])
 						});
@@ -110,13 +111,19 @@
 						return ngModel.$modelValue;
 					},
 					function(newValue, oldValue) {
+						$timeout(function(){
+							console.log(	newValue[$scope.options.field]);
+							console.log(	newValue,$scope.options.field);
+						})
+
+
 						if (!newValue){
 							newValue = {};
-							newValue[options.field] = options.size;
+							newValue[$scope.options.field] = $scope.options.size;
 						}
 
 						$timeout(function(){
-							animateIt(newValue[options.field])
+							animateIt(newValue[$scope.options.field])
 						});
 					});
 			}
