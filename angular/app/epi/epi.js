@@ -434,7 +434,7 @@
 				$timeout(function(){
 						$scope.setSelectedFeature();
 				});
-				var labelsLayer = L.tileLayer('https://{s}.tiles.mapbox.com/v4/magnolo.59c96cac/{z}/{x}/{y}.png?access_token=' + apiKey);
+				var labelsLayer = L.tileLayer('https://{s}.tiles.mapbox.com/v4/magnolo.06029a9c/{z}/{x}/{y}.png?access_token=' + apiKey);
 				map.addLayer(labelsLayer);
 				labelsLayer.bringToFront();
 			});
