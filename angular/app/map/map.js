@@ -25,29 +25,10 @@
 						url: 'https://{s}.tiles.mapbox.com/v4/valderrama.d86114b6/{z}/{x}/{y}.png?access_token=' + apiKey,
 						type: 'xyz',
 					}
-				},
-				overlays: {
-					demosutfgrid: {
-						name: 'UTFGrid Interactivity',
-						type: 'utfGrid',
-						url: 'http://{s}.tiles.mapbox.com/v3/mapbox.geography-class/{z}/{x}/{y}.grid.json?callback={cb}',
-						visible: true
-					},
 				}
 			}
 		});
 
-		$scope.interactivity = "";
-		$scope.flag = "";
-		$scope.$on('leafletDirectiveMap.utfgridMouseover', function (event, leafletEvent) {
-			//$scope.interactivity = leafletEvent.data.admin;
-			//$scope.flag = "data:image/png;base64," + leafletEvent.data.flag_png;
-
-		});
-		$scope.$on('leafletDirectiveMap.utfgridMouseout', function (event, leafletEvent) {
-			$scope.interactivity = "";
-			$scope.flag = "";
-		});
 		MapService.setLeafletData(leafletData.getMap('map'));
 
 	});

@@ -71,6 +71,14 @@
 					}
 				}
 			})
+			.state('app.epi.expert',{
+				url: '/expert',
+				views:{
+					'sub':{
+						templateUrl: '/views/app/epi/expert.html'
+					}
+				}
+			})
 			.state('app.epi.url',{
 				url: '/url/:url'
 			})

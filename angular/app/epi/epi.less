@@ -126,6 +126,45 @@ img[href]{
       }
     }
   }
+
+  .circle{
+    color:@color;
+    border:2px solid;
+    width:125px;
+    height:125px;
+    border-radius: 50%;
+    font-size: 1.3em;
+    margin:2em 0;
+  }
+  .person{
+    margin-bottom: 2em;
+    img{
+      width:118px;
+      margin-right:10px;
+    }
+    .icon{
+      border: 1px solid #adadad;
+      margin-bottom: 6px;
+      padding: 3px;
+      line-height: 1em;
+        *{
+          fill:#adadad;
+
+        }
+    }
+    .title{
+        color:@color;
+        font-size:1.4em;
+        font-style:italic;
+        margin-top:5px;
+    }
+    .subtitle{
+      color:@color;
+      font-size:0.9em;
+      font-style:italic;
+
+    }
+  }
 }
 .sub-epi{
   position:fixed;
@@ -136,6 +175,7 @@ img[href]{
   max-height:calc(~"100% - 64px");
   overflow: auto;
   z-index:100;
+  border-top:1px solid @color;
   h2{
     margin-bottom:0.5em;
     font-style:italic;

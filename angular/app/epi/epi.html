@@ -83,7 +83,7 @@
 																</div>
 												</section>
 												<section class="module slide-toggle" layout-align="center center" layout="column" ng-if="current  && !compare.active">
-																<median data="epi" style="margin:2em 0" ng-model="current" options="{handling:true}"></median>
+																<median data="epi" ng-model="current" options="{handling:true}" style="margin:2em 0"></median>
 												</section>
 												<section class="action module slide-toggle mb mt" layout-align="center center" layout="row" ng-if="!current">
 																<md-button flex="50" ng-disabled="true">click on a country</md-button>
@@ -136,13 +136,13 @@
 								</div>
 								<div class="module description">
 												<div layout="row">
-																<div class="header" flex="50" layout-align="space-between end" layout="row" flex-offset="25">
+																<div class="header" flex-offset="25" flex="50" layout-align="space-between end" layout="row">
 																				<div class="title">{{ indexData.name}}</div>
 																				<div class="sub-title">{{indexData.full_name}}</div>
 																</div>
 												</div>
 												<div layout="row">
-																<div class="content" flex="50" flex-offset="25">
+																<div class="content" flex-offset="25" flex="50">
 																				<div class="text" ng-bind-html="indexData.description"></div>
 																</div>
 												</div>
@@ -152,148 +152,232 @@
 																</div>
 												</div>
 												<div layout="row">
-																<div class="caption" flex="60" ng-bind-html="indexData.caption" flex-offset="20"></div>
+																<div class="caption" flex-offset="20" flex="60" ng-bind-html="indexData.caption"></div>
 												</div>
 								</div>
 
 				</div>
 </div>
 <div class="stats">
-<md-button ui-sref="app.epi.stats" class="tint" >Advanced statistics</md-button>
+				<md-button class="tint" ui-sref="app.epi.stats">Advanced statistics</md-button>
 </div>
-<md-container flex layout-padding class="main-content">
-	<section layout="row" layout-align="space-between center" class="head">
-			<div layout="row" layout-align="space-between center">
-				<h1>Environment</h1>
-				<md-button class="tint" >Explore Indizes</md-button>
-			</div>
-			<md-button class="tint" ui-sref="app.epi.upload">Upload data</md-button>
-	</section>
-	<section layout="row">
-			<md-button>Climate and Energy</md-button>
-			<md-button>Air Quality</md-button>
-			<md-button>Water Resources</md-button>
-			<md-button>Fisheries</md-button>
-			<md-button>Water Sanitation</md-button>
-			<md-button>Biodiversity</md-button>
-	</section>
-	<section layout="row" layout-align="start center" class="filter">
-			<md-input-container>
-					<label>Search</label>
-					<input type="text">
-			</md-input-container>
-			<md-button class="tint">Advanced search</md-button>
-			<md-input-container>
-			 <label>Filter</label>
-			 <md-select ng-model="ctrl.userState">
-				 <md-option  value="0">
-					  Choose
-				 </md-option>
-			 </md-select>
-		 </md-input-container>
-	</section>
-	<md-divider class="space"></md-divider>
-	<section layout="row">
-		<div flex="30">
-
-			<md-list>
-      <md-subheader class="md-no-sticky">most visited spots</md-subheader>
-      <md-list-item class="md-2-line">
-        <span class="md-avatar" >1</span>
-        <div class="md-list-item-text" layout="column">
-          <h3>Dubai</h3>
-          <p>4.205.648 visitors</p>
-        </div>
-      </md-list-item>
-			<md-list-item class="md-2-line">
-        <span class="md-avatar">2</span>
-        <div class="md-list-item-text" layout="column">
-          <h3>Abu Dhabi</h3>
-          <p>2.645.578 visitors</p>
-        </div>
-      </md-list-item>
-			<md-list-item class="md-2-line">
-        <span class="md-avatar">3</span>
-        <div class="md-list-item-text" layout="column">
-          <h3>Ajman</h3>
-          <p>1.345.837 visitors</p>
-        </div>
-      </md-list-item>
-		</md-list>
-		<md-list>
-				<md-subheader class="md-no-sticky">most read</md-subheader>
-		</md-list>
-		<md-list>
-				<md-subheader class="md-no-sticky">most comments</md-subheader>
-		</md-list>
-		<md-list>
-				<md-subheader class="md-no-sticky">favorite themes/tags</md-subheader>
-		</md-list>
-		</div>
-		<div flex="70">
-				<img ui-sref="app.epi.sustain" src="/images/kpi.jpg" />
-		</div>
-	</section>
-	<section layout="row" style="margin-top:2em">
-			<div layout="column" flex="75">
-					<div class="box">
-						<img ui-sref="app.epi.energy" src="/images/state.jpg" />
-					</div>
-					<div class="box">
-						<img ui-sref="app.epi.url({url:'www.adsolarchallenge.org'})" src="/images/solar.jpg" />
-					</div>
-					<div class="box">
-						<img ui-sref="app.epi.url({url: 'www.ted.com/talks/fahad_al_attiya_a_country_with_no_water?language=de'})" src="/images/ted.jpg" />
-					</div>
-					<div class="box">
-						<img ui-sref="app.epi.url({url:'expo2020dubai.ae/en/theme/sustainability'})" src="/images/expo.jpg" />
-					</div>
-			</div>
-			<div layout="column" flex="25">
-					<div class="article">
-							<img src="/images/water.jpg" />
-							<div class="info">
-							<div class="type">Story</div>
-							<div class="title">Improving access to safe water</div>
-							<div class="intro">WaterAid is an international non governmental organisation. Our mission is to transform lives by improving access to safe water, hygiene and sanitation in the world</div>
-							<div class="caption">
-								by <span class="profile">Patrick Hubertus Mayer</span>
-							</div>
-							<div class="tags">Schweiz, Water Sanitation, Grundwasser</div>
-							<div class="interactions">
-								<ng-md-icon icon="messenger" size="12"></ng-md-icon><span>28</span>
-								<ng-md-icon icon="star" size="10"></ng-md-icon><span>28</span>
-							</div>
-						</div>
-					</div>
-					<md-divider></md-divider>
-					<md-list>
-		      <md-list-item class="md-2-line">
-		        <span class="md-avatar" ></span>
-		        <div class="md-list-item-text" layout="column">
-		          <h3>EcoWaste</h3>
-		          <p>25 July 2015 - 12:25 PM</p>
-		        </div>
-		      </md-list-item>
-				</md-list>
-					<div class="article">
-							<img ui-sref="app.epi.url({url:'ecowaste.ae'})" src="/images/eco.jpg" />
-							<div class="info">
-							<div class="type">Event</div>
-							<div class="intro">EcoWASTE showcased the latest innovations and technologies, enabled the exchange of best practice and opened up new busi</div>
-							<div class="caption">
-								by <span class="profile">Patrick Hubertus Mayer</span>
-							</div>
-							<div class="tags">Schweiz, Water Sanitation, Grundwasser</div>
-							<div class="interactions">
-								<ng-md-icon icon="messenger" size="12"></ng-md-icon><span>28</span>
-								<ng-md-icon icon="star" size="10"></ng-md-icon><span>28</span>
-							</div>
-						</div>
-					</div>
-			</div>
-	</section>
+<md-container class="main-content" flex layout-padding>
+				<section class="head max" layout-align="space-between center" layout="row">
+								<div layout-align="space-between center" layout="row">
+												<h1>Environment</h1>
+												<md-button class="tint">Explore Indizes</md-button>
+								</div>
+								<md-button class="tint" ui-sref="app.epi.upload">Upload data</md-button>
+				</section>
+				<section class="max" layout="row">
+								<md-button>Climate and Energy</md-button>
+								<md-button>Air Quality</md-button>
+								<md-button>Water Resources</md-button>
+								<md-button>Fisheries</md-button>
+								<md-button>Water Sanitation</md-button>
+								<md-button>Biodiversity</md-button>
+				</section>
+				<section class="filter max" layout-align="start center" layout="row">
+								<md-input-container>
+												<label>Search</label>
+												<input type="text">
+								</md-input-container>
+								<md-button class="tint">Advanced search</md-button>
+								<md-input-container>
+												<label>Filter</label>
+												<md-select ng-model="ctrl.userState">
+																<md-option value="0">
+																				Choose
+																</md-option>
+												</md-select>
+								</md-input-container>
+				</section>
+				<md-divider class="space"></md-divider>
+				<div layout="row">
+								<section flex="60" layout="column">
+												<div layout="row">
+																<div flex="30">
+																				<md-list>
+																								<md-subheader class="md-no-sticky">most visited spots</md-subheader>
+																								<md-list-item class="md-2-line">
+																												<span class="md-avatar">1</span>
+																												<div class="md-list-item-text" layout="column">
+																																<h3>Dubai</h3>
+																																<p>4.205.648 visitors</p>
+																												</div>
+																								</md-list-item>
+																								<md-list-item class="md-2-line">
+																												<span class="md-avatar">2</span>
+																												<div class="md-list-item-text" layout="column">
+																																<h3>Abu Dhabi</h3>
+																																<p>2.645.578 visitors</p>
+																												</div>
+																								</md-list-item>
+																								<md-list-item class="md-2-line">
+																												<span class="md-avatar">3</span>
+																												<div class="md-list-item-text" layout="column">
+																																<h3>Ajman</h3>
+																																<p>1.345.837 visitors</p>
+																												</div>
+																								</md-list-item>
+																				</md-list>
+																				<md-list>
+																								<md-subheader class="md-no-sticky">most read</md-subheader>
+																				</md-list>
+																				<md-list>
+																								<md-subheader class="md-no-sticky">most comments</md-subheader>
+																				</md-list>
+																				<md-list>
+																								<md-subheader class="md-no-sticky">favorite themes/tags</md-subheader>
+																				</md-list>
+																</div>
+																<div flex="70">
+																				<img src="/images/smart.jpg" href="https://slack-files.com/files-pri-safe/T0C2E53H7-F0D9QSVR6/another.pdf?c=1445970740-d6628d55884d317ee076c6591c60ddc46e445d6c"/>
+																</div>
+												</div>
+												<div layout-align="space-bewteen start" layout="row" style="margin-top:2em">
+																<div layout="column">
+																				<div class="box">
+																								<img src="/images/state.jpg" ui-sref="app.epi.energy"/>
+																				</div>
+																				<div class="box">
+																								<img src="/images/solar.jpg" ui-sref="app.epi.url({url:'www.adsolarchallenge.org'})"/>
+																				</div>
+																				<div class="box">
+																								<img src="/images/ted.jpg" ui-sref="app.epi.url({url: 'www.ted.com/talks/fahad_al_attiya_a_country_with_no_water?language=de'})"/>
+																				</div>
+																				<div class="box">
+																								<img src="/images/expo.jpg" ui-sref="app.epi.url({url:'expo2020dubai.ae/en/theme/sustainability'})"/>
+																				</div>
+																</div>
+																<div flex="30" layout="column" style="padding-left:2em">
+																				<div class="article">
+																								<img ui-sref="app.epi.url({url:'www.organicfoodsandcafe.com'})" src="/images/organic.jpg"/>
+																								<div class="info">
+																												<div class="type">Story</div>
+																												<div class="title" ui-sref="app.epi.url({url:'www.organicfoodsandcafe.com'})">UAE goes organic</div>
+																												<div class="intro">More and more organic shops and cafés start-up all over the United Arabic Emirates. Organic foods and café recently expanded their business in Dubai</div>
+																												<div class="caption">
+																																by
+																																<span class="profile">Alice Richards</span>
+																												</div>
+																												<div class="tags">UAE, organic</div>
+																												<div class="interactions">
+																																<ng-md-icon icon="messenger" size="12"></ng-md-icon>
+																																<span>28</span>
+																																<ng-md-icon icon="star" size="10"></ng-md-icon>
+																																<span>28</span>
+																												</div>
+																								</div>
+																				</div>
+																				<md-divider></md-divider>
+																				<md-list>
+																								<md-list-item class="md-2-line">
+																												<span class="md-avatar"></span>
+																												<div class="md-list-item-text" layout="column">
+																																<h3>EcoWaste</h3>
+																																<p>25 July 2015 - 12:25 PM</p>
+																												</div>
+																								</md-list-item>
+																				</md-list>
+																				<div class="article">
+																								<img src="/images/eco.jpg" ui-sref="app.epi.url({url:'ecowaste.ae'})"/>
+																								<div class="info">
+																												<div class="type">Event</div>
+																												<div class="intro">EcoWASTE showcased the latest innovations and technologies, enabled the exchange of best practice and opened up new busi</div>
+																												<div class="caption">
+																																by
+																																<span class="profile">Patrick Hubertus Mayer</span>
+																												</div>
+																												<div class="tags">Schweiz, Water Sanitation, Grundwasser</div>
+																												<div class="interactions">
+																																<ng-md-icon icon="messenger" size="12"></ng-md-icon>
+																																<span>28</span>
+																																<ng-md-icon icon="star" size="10"></ng-md-icon>
+																																<span>28</span>
+																												</div>
+																								</div>
+																				</div>
+																</div>
+												</div>
+								</section>
+								<section flex="25" layout="column">
+												<div layout-align="center center" layout="row">
+																<div class="circle" layout-align="center center" layout="row">
+																				<span>Experts</span>
+																</div>
+												</div>
+												<div layout-align="start center" layout="column">
+																<div class="person" layout="column" ui-sref="app.epi.expert">
+																				<div layout="row">
+																								<div layout="column">
+																												<img src="/images/georg.jpg"/>
+																								</div>
+																								<div layout="column">
+																												<div class="icon" layout-align="center center" layout="row">
+																																<ng-md-icon icon="mail"></ng-md-icon>
+																												</div>
+																												<div class="icon">
+																																<ng-md-icon icon="add_circle"></ng-md-icon>
+																												</div>
+																												<div class="icon">
+																																<ng-md-icon icon="messenger"></ng-md-icon>
+																												</div>
+																								</div>
+																				</div>
+																				<div layout="column">
+																								<div class="title">Dr. Herbert Kunz</div>
+																								<div class="subtitle">CSR Consultant, Vienna</div>
+																				</div>
+																</div>
+																<div class="person" layout="column" ui-sref="app.epi.expert">
+																				<div layout="row">
+																								<div layout="column">
+																												<img src="/images/yo.jpg"/>
+																								</div>
+																								<div layout="column">
+																												<div class="icon" layout-align="center center" layout="row">
+																																<ng-md-icon icon="mail"></ng-md-icon>
+																												</div>
+																												<div class="icon">
+																																<ng-md-icon icon="add_circle"></ng-md-icon>
+																												</div>
+																												<div class="icon">
+																																<ng-md-icon icon="messenger"></ng-md-icon>
+																												</div>
+																								</div>
+																				</div>
+																				<div layout="column">
+																								<div class="title">Peter Hofer</div>
+																								<div class="subtitle">Geologist, Paris</div>
+																				</div>
+																</div>
+																<div class="person" layout="column" ui-sref="app.epi.expert">
+																				<div layout="row">
+																								<div layout="column">
+																												<img src="/images/andre.jpg"/>
+																								</div>
+																								<div layout="column">
+																												<div class="icon" layout-align="center center" layout="row">
+																																<ng-md-icon icon="mail"></ng-md-icon>
+																												</div>
+																												<div class="icon">
+																																<ng-md-icon icon="add_circle"></ng-md-icon>
+																												</div>
+																												<div class="icon">
+																																<ng-md-icon icon="messenger"></ng-md-icon>
+																												</div>
+																								</div>
+																				</div>
+																				<div layout="column">
+																								<div class="title">Mani Sonnen</div>
+																								<div class="subtitle">Sanitation Expert, London</div>
+																				</div>
+																</div>
+												</div>
+								</section>
+				</div>
 </md-container>
 
-<div ui-view="sub" class="anim sub-epi" layout="column" layout-align="start center"></div>
-<external class="anim" url="external.url" ng-if="external.url"></external>
+<div class="anim sub-epi" layout-align="start center" layout="column" ui-view="sub"></div>
+<external class="anim" ng-if="external.url" url="external.url"></external>

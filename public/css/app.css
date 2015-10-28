@@ -555,9 +555,11 @@ body.noScroll {
   overflow: hidden;
 }
 .Page {
-  max-width: 960px;
   margin: 0 20px;
   transition: all 0.3s ease-in;
+}
+.Page .max {
+  max-width: 960px;
 }
 .Page-name {
   color: #006bb9;
@@ -764,6 +766,42 @@ img[href]:hover {
   font-size: 0.9em;
   fonts-weight: bold;
 }
+.main-content .circle {
+  color: #006bb9;
+  border: 2px solid;
+  width: 125px;
+  height: 125px;
+  border-radius: 50%;
+  font-size: 1.3em;
+  margin: 2em 0;
+}
+.main-content .person {
+  margin-bottom: 2em;
+}
+.main-content .person img {
+  width: 118px;
+  margin-right: 10px;
+}
+.main-content .person .icon {
+  border: 1px solid #adadad;
+  margin-bottom: 6px;
+  padding: 3px;
+  line-height: 1em;
+}
+.main-content .person .icon * {
+  fill: #adadad;
+}
+.main-content .person .title {
+  color: #006bb9;
+  font-size: 1.4em;
+  font-style: italic;
+  margin-top: 5px;
+}
+.main-content .person .subtitle {
+  color: #006bb9;
+  font-size: 0.9em;
+  font-style: italic;
+}
 .sub-epi {
   position: fixed;
   top: 64px;
@@ -773,6 +811,7 @@ img[href]:hover {
   max-height: calc(100% - 64px);
   overflow: auto;
   z-index: 100;
+  border-top: 1px solid #006bb9;
 }
 .sub-epi h2 {
   margin-bottom: 0.5em;
@@ -1075,13 +1114,13 @@ median .slider text {
 }
 
 
-
 .slide-toggle {
   transition: all .5s;
 }
 .slide-toggle.ng-animate {
   overflow: hidden;
 }
+
 
 .section {
   padding: 30px;
