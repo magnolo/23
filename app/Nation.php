@@ -12,4 +12,7 @@ class Nation extends Model
     public function epi(){
       return $this->hasMany('App\EPI', 'country_id', 'id')->orderBy('year', 'ASC');
     }
+    public function index(){
+      return $this->hasMany('App\Index', 'country_id', 'id')->orderBy('year', 'ASC');
+    }
 }

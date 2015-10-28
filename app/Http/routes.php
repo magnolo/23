@@ -23,6 +23,9 @@ Route::group(['prefix' => 'api/1/'], function () {
      * */
     Route::controller('authenticate', 'AuthenticateController');
 
+    Route::get('index', 'IndexController@index');
+    Route::get('index/{id}', 'IndexController@show');
+
     Route::get('epi', 'EpiController@index');
     Route::get('epi/year/{year}', 'EpiController@showByYear');
     Route::get('nations', 'NationsController@index');
