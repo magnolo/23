@@ -22,7 +22,7 @@
 				baselayers: {
 					xyz: {
 						name: 'MapBox Pencil',
-						url: 'https://{s}.tiles.mapbox.com/v4/mapbox.outdoors/{z}/{x}/{y}.png?access_token=' + apiKey,
+						url: 'https://{s}.tiles.mapbox.com/v4/valderrama.d86114b6/{z}/{x}/{y}.png?access_token=' + apiKey,
 						type: 'xyz',
 					}
 				},
