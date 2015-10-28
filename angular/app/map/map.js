@@ -17,7 +17,7 @@
 				lat: 0,
 				lng: 0,
 				zoom: 3
-			},
+			}, 
 			layers: {
 				baselayers: {
 					xyz: {
@@ -26,18 +26,18 @@
 						type: 'xyz',
 					}
 				},
-				overlays: {
+				/*overlays: {
 					demosutfgrid: {
 						name: 'UTFGrid Interactivity',
 						type: 'utfGrid',
 						url: 'http://{s}.tiles.mapbox.com/v3/mapbox.geography-class/{z}/{x}/{y}.grid.json?callback={cb}',
 						visible: true
 					},
-				}
+				}*/
 			}
 		});
 
-		$scope.interactivity = "";
+		/*$scope.interactivity = "";
 		$scope.flag = "";
 		$scope.$on('leafletDirectiveMap.utfgridMouseover', function (event, leafletEvent) {
 			//$scope.interactivity = leafletEvent.data.admin;
@@ -47,7 +47,7 @@
 		$scope.$on('leafletDirectiveMap.utfgridMouseout', function (event, leafletEvent) {
 			$scope.interactivity = "";
 			$scope.flag = "";
-		});
+		});*/
 		MapService.setLeafletData(leafletData.getMap('map'));
 
 	});
