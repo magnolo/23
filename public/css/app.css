@@ -811,6 +811,9 @@ img[href]:hover {
 .sub-epi .sub-boxer md-list .md-list-item-text h3 {
   color: #006bb9;
 }
+.sub-epi .sub-boxer .back {
+  cursor: pointer;
+}
 
 .Header {
   position: fixed;
@@ -902,7 +905,6 @@ md-menu-bar {
   right: 00px;
 }
 
-
 .Sidebar {
   position: fixed !important;
   top: 0;
@@ -945,6 +947,7 @@ md-menu-bar {
 .Sidebar-version a {
   color: white;
 }
+
 
 
 .bubbles {
@@ -1072,13 +1075,13 @@ median .slider text {
 }
 
 
+
 .slide-toggle {
   transition: all .5s;
 }
 .slide-toggle.ng-animate {
   overflow: hidden;
 }
-
 
 .section {
   padding: 30px;
