@@ -1,3 +1,10 @@
 <div class="sub-boxer">
+  <h2 layout="row" layout-align="space-between center">
+        <span>Sustainable development goals</span>  
+        <div class="back" layout="column" ng-init="icon = 'close'" ng-mouseenter="icon ='expand_more'" ng-mouseleave="icon= 'close'" layout-align="center center" ui-sref="app.epi">
+        <ng-md-icon icon="{{icon}}"  size="32" style="fill:#004288"></ng-md-icon>
+    </div>
+  </h2>
+  <md-divider></md-divider>
   <img src="/images/sustain.jpg" style="max-width:100%"/>
 </div>

@@ -736,7 +736,7 @@ img[href]:hover {
 }
 .main-content .article .intro {
   margin-bottom: 1em;
-  text-align: justify;
+  text-align: left;
   color: #303030;
   line-height: 1.6em;
 }
@@ -902,6 +902,7 @@ md-menu-bar {
   right: 00px;
 }
 
+
 .Sidebar {
   position: fixed !important;
   top: 0;
@@ -946,7 +947,6 @@ md-menu-bar {
 }
 
 
-
 .bubbles {
   overflow: hidden;
   margin: 1em 0;
@@ -959,7 +959,7 @@ md-menu-bar {
   padding: 1em;
   background-color: rgba(255, 255, 255, 0.8);
   border: 1px solid;
-  z-index: 1;
+  z-index: 10;
 }
 .tooltip::after,
 .tooltip::before {
