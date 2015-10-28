@@ -36,6 +36,13 @@
 		};
 		$scope.epi = EPI;
 		$scope.selectedTab = 0;
+		$scope.external = {
+			url: ''
+		};
+		$scope.setExternal = function(page){
+			$scope.external.url = page;
+			$rootScope.noScroll = true;
+		};
 		$scope.showTabContent = function(content) {
 			if (content == '' && $scope.tabContent == '') {
 				$scope.tabContent = 'rank';
@@ -196,6 +203,9 @@
 			}
 		});
 		$scope.$on("$stateChangeSuccess", function(event, toState, toParams) {
+			$rootScope.noScroll = false;
+			$rootScope.move = false;
+				$scope.external.url = "";
 			if (toState.name == "app.epi.selected") {
 				$rootScope.move = true;
 				$scope.setState(toParams.item);
@@ -214,9 +224,17 @@
 						$scope.bbox = data;
 					});
 				});
-				$rootScope.move = false;
-			} else {
-				$rootScope.move = false;
+				$rootScope.move = true;
+			}
+			else if(toState.name == "app.epi.url"){
+				$scope.external.url = toParams.url;
+				$rootScope.noScroll = true;
+			}
+			 else if(toState.name == "app.epi.upload" || toState.name == "app.epi.stats" || toState.name == "app.epi.sustain" || toState.name == "app.epi.energy"){
+					$rootScope.noScroll = true;
+			}
+			else {
+
 				$scope.country = $scope.current = "";
 			}
 		});

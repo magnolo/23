@@ -240,13 +240,13 @@
 						<img ui-sref="app.epi.energy" src="/images/state.jpg" />
 					</div>
 					<div class="box">
-						<img src="/images/solar.jpg" />
+						<img ui-sref="app.epi.url({url:'www.adsolarchallenge.org'})" src="/images/solar.jpg" />
 					</div>
 					<div class="box">
-						<img src="/images/ted.jpg" />
+						<img ui-sref="app.epi.url({url: 'www.ted.com/talks/fahad_al_attiya_a_country_with_no_water?language=de'})" src="/images/ted.jpg" />
 					</div>
 					<div class="box">
-						<img src="/images/expo.jpg" />
+						<img ui-sref="app.epi.url({url:'expo2020dubai.ae/en/theme/sustainability'})" src="/images/expo.jpg" />
 					</div>
 			</div>
 			<div layout="column" flex="25">
@@ -277,7 +277,7 @@
 		      </md-list-item>
 				</md-list>
 					<div class="article">
-							<img src="/images/eco.jpg" />
+							<img ui-sref="app.epi.url({url:'ecowaste.ae'})" src="/images/eco.jpg" />
 							<div class="info">
 							<div class="type">Event</div>
 							<div class="intro">EcoWASTE showcased the latest innovations and technologies, enabled the exchange of best practice and opened up new busi</div>
@@ -296,3 +296,4 @@
 </md-container>
 
 <div ui-view="sub" class="anim sub-epi" layout="column" layout-align="start center"></div>
+<external class="anim" url="external.url" ng-if="external.url"></external>

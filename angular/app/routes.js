@@ -71,6 +71,9 @@
 					}
 				}
 			})
+			.state('app.epi.url',{
+				url: '/url/:url'
+			})
 			.state('app.epi.selected',{
 				url: '/:item'
 			})

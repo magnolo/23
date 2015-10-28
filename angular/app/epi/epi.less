@@ -1,4 +1,12 @@
-@color: #004288;
+@color: rgba(0,107,185,1);
+img[href]{
+  cursor:pointer;
+  outline: 1px solid #fff;
+  transition: all .2s ease-in-out;
+  &:hover{
+    outline-color: @color;
+  }
+}
 .stats{
   position: absolute;
   top:8px;
@@ -120,11 +128,13 @@
   }
 }
 .sub-epi{
-  position:absolute;
-  top:0px;
+  position:fixed;
+  top:64px;
   left:0px;
   background:rgba(255,255,255,1);
   width:100%;
+  max-height:calc(~"100% - 64px");
+  overflow: auto;
   z-index:100;
   h2{
     margin-bottom:0.5em;

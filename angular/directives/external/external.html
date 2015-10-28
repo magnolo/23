@@ -1,0 +1,6 @@
+<div class="external" layout="row">
+    <div class="back" layout="column" ng-init="icon = 'close'" ng-mouseenter="icon ='chevron_left'" ng-mouseleave="icon= 'close'" layout-align="center center" ui-sref="app.epi">
+        <ng-md-icon icon="{{icon}}"  size="32" style="fill:#004288"></ng-md-icon>
+    </div>
+    <iframe id="external-frame" sandbox="allow-scripts" ng-src="{{extUrl}}"></iframe>
+<div>

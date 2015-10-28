@@ -10,7 +10,7 @@
     <script type="text/javascript">document.location.href = '/unsupported-browser'</script>
     <![endif]-->
 </head>
-<body ng-class="{'greyed': $root.greyed, 'move': $root.move}">
+<body ng-class="{'greyed': $root.greyed, 'move': $root.move, 'noScroll' : $root.noScroll}">
     <header ui-view="header"></header>
     <div ui-view="map" class="Map_Container"></div>
     <div ui-view="sidebar"></div>
