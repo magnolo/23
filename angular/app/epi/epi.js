@@ -414,7 +414,7 @@
 						}
 					},
 					getIDForLayerFeature: function(feature) {
-						return feature.properties.adm0_a3;
+						return feature.properties.adm0_a3; 
 					},
 					filter: function(feature, context) {
 						return true;
