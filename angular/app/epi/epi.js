@@ -305,7 +305,7 @@
 								size: 2
 							}
 						};
-						break; 
+						break;
 					} else {
 						style.color = 'rgba(255,255,255,0)';
 						style.outline = {
@@ -409,11 +409,11 @@
 				});
 				debug.mvtSource = $scope.mvtSource;
 				map.addLayer($scope.mvtSource);
-				$scope.mvtSource.setOpacity(0.5);
+				$scope.mvtSource.setOpacity(0.5); 
 				$timeout(function(){
 						$scope.setSelectedFeature();
 				});
-				var labelsLayer = L.tileLayer('https://{s}.tiles.mapbox.com/v4/magnolo.59c96cac/{z}/{x}/{y}.png?access_token=' + apiKey);
+				var labelsLayer = L.tileLayer('https://{s}.tiles.mapbox.com/v4/magnolo.06029a9c/{z}/{x}/{y}.png?access_token=' + apiKey);
 				map.addLayer(labelsLayer);
 				labelsLayer.bringToFront();
 			});
