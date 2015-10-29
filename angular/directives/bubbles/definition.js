@@ -274,7 +274,7 @@
 						return hide_details(d, i, this);
 					}).on("click", function (d, i) {
 
-						ngModel.$setViewValue(d);
+						ngModel.$setViewValue(d.data);
 						ngModel.$render();
 					});
 					options.circles.transition().duration(options.duration).attr("r", function (d) {
@@ -387,7 +387,6 @@
 					if(n === o){
 						return
 					}
-
 					if(typeof n[0].children != "undefined"){
 						options.tooltip.hideTooltip();
 						clear_nodes();

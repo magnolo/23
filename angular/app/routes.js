@@ -19,23 +19,30 @@
 					header: {
 						templateUrl: getView('header')
 					},
-					main: {}
+					main: {},
+					'map@':{
+						templateUrl: getView('map'),
+						controller: 'MapCtrl',
+						controllerAs: 'vm'
+					}
 				}
 			})
 			.state('app.epi', {
-				url: '/epi',
+				url: '/:index',
 				views: {
 					'main@': {
-						templateUrl: getView('epi'),
-						controller: 'EpiCtrl',
+						templateUrl: getView('index'),
+						controller: 'IndexCtrl',
+						controllerAs: 'vm',
 						resolve:{
-							EPI: function(DataService){
-								return DataService.getAll('/epi/year/2014')
-							}
+							initialData: function(DataService, $stateParams){
+								return {
+										data:DataService.getAll('index/'+$stateParams.index+'/year/2014').$object,
+										indexer: DataService.getOne('index/'+$stateParams.index+'/structure').$object
+								}
+							},
+
 						}
-					},
-					'map@':{
-						templateUrl: getView('map')
 					}
 				}
 			})

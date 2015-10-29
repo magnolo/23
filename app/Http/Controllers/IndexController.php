@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Index;
+use App\IndexItem;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -46,10 +47,33 @@ class IndexController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function show($id)
+
+    public function show($id){
+       if(is_int($id)){
+           return Index::find($id);
+       }
+       elseif(is_string($id)){
+         return Index::where('name', $id)->first();
+       }
+       return false;
+    }
+    public function showWithChildren($id)
+    {
+        if(is_int($id)){
+            return Index::find($id)->load('children');
+        }
+        elseif(is_string($id)){
+          return Index::where('name', $id)->first()->load('children');
+        }
+        return false;
+    }
+
+    public function showByYear($id, $year)
     {
         //
-        return Index::find($id)->load('items');
+        $index = $this->show($id);
+        $data = \DB::table($index->table)->where('year', $year)->orderBy($index->score_field_name, 'desc')->get();
+        return \Response::json($data, 200, [], JSON_NUMERIC_CHECK);
     }
 
     /**

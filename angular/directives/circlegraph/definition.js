@@ -22,7 +22,7 @@
 				//Fetching Options
 
 			 $scope.options = angular.extend(defaults(), $scope.options);
-			
+
 				//Creating the Scale
 				var rotate = d3.scale.linear()
 					.domain([1, $scope.options.size])
@@ -97,7 +97,6 @@
 						if(n === o){
 							return;
 						}
-						console.log(n)
 						circleBack.style('stroke', n.color);
 						circleGraph.style('fill', n.color);
 						text.style('fill', n.color);
@@ -110,20 +109,14 @@
 					function() {
 						return ngModel.$modelValue;
 					},
-					function(newValue, oldValue) {
-						$timeout(function(){
-							console.log(	newValue[$scope.options.field]);
-							console.log(	newValue,$scope.options.field);
-						})
-
-
-						if (!newValue){
-							newValue = {};
-							newValue[$scope.options.field] = $scope.options.size;
+					function(n, o) {
+						console.log(n);
+						if (!n){
+							n = {};
+							n[$scope.options.field] = $scope.options.size;
 						}
-
 						$timeout(function(){
-							animateIt(newValue[$scope.options.field])
+							animateIt(n[$scope.options.field])
 						});
 					});
 			}

@@ -622,7 +622,6 @@ md-toast[md-theme=warn] {
   text-align: center;
 }
 
-
 .Header {
   position: fixed;
   left: 0px;
@@ -677,6 +676,7 @@ md-menu-bar {
   max-width: 680px;
   padding: 24px;
 }
+
 
 #Map_Container {
   height: calc(100% - 165px);
@@ -804,7 +804,6 @@ md-menu-bar {
 }
 
 
-
 median {
   overflow: hidden;
   border-radius: 20px;
@@ -861,13 +860,14 @@ median .slider text {
 }
 
 
+
+
 .slide-toggle {
   transition: all .5s;
 }
 .slide-toggle.ng-animate {
   overflow: hidden;
 }
-
 
 .section {
   padding: 30px;

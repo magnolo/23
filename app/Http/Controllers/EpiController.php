@@ -54,10 +54,10 @@ class EpiController extends Controller
         //
     }
 
-    public function showByYear($year)
+    public function showByYear($table, $year)
     {
         //
-        $data = EPI::where('year', $year)->orderBy('score', 'desc')->get();
+        $data = \DB::table($table)->where('year', $year)->orderBy('score', 'desc')->get();
         return \Response::json($data, 200, [], JSON_NUMERIC_CHECK);
     }
     /**

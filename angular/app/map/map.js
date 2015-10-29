@@ -1,54 +1,45 @@
 (function () {
 	"use strict";
 
-	angular.module('app.controllers').controller('MapCtrl', function ($scope, $rootScope, $timeout, MapService, leafletData, $http) {
+	angular.module('app.controllers').controller('MapCtrl', function (leafletData, VectorlayerService) {
 		//
+		var vm = this;
 		var apiKey = 'pk.eyJ1IjoibWFnbm9sbyIsImEiOiJuSFdUYkg4In0.5HOykKk0pNP1N3isfPQGTQ';
-		$scope.center = {
+		vm.defaults = {
+			scrollWheelZoom: false
+		};
+		vm.center = {
 			lat: 0,
 			lng: 0,
 			zoom: 3
 		};
-		$scope.defaults = {
-			scrollWheelZoom: false
-		};
-		angular.extend($rootScope, {
-			center: {
-				lat: 0,
-				lng: 0,
-				zoom: 3
-			},
-			layers: {
-				baselayers: {
-					xyz: {
-						name: 'MapBox Pencil',
-						url: 'https://{s}.tiles.mapbox.com/v4/valderrama.d86114b6/{z}/{x}/{y}.png?access_token=' + apiKey,
-						type: 'xyz',
-					}
-				},
-				overlays: {
-					demosutfgrid: {
-						name: 'UTFGrid Interactivity',
-						type: 'utfGrid',
-						url: 'http://{s}.tiles.mapbox.com/v3/mapbox.geography-class/{z}/{x}/{y}.grid.json?callback={cb}',
-						visible: true
-					},
+		vm.layers = {
+			baselayers: {
+				xyz: {
+					name: 'MapBox Outdoors Mod',
+					url: 'https://{s}.tiles.mapbox.com/v4/valderrama.d86114b6/{z}/{x}/{y}.png?access_token=' + apiKey,
+					type: 'xyz',
 				}
 			}
+		}
+		leafletData.getMap('map').then(function(map) {
+			var url = 'http://v22015052835825358.yourvserver.net:3001/services/postgis/countries_big/geom/vector-tiles/{z}/{x}/{y}.pbf?fields=id,admin,adm0_a3,wb_a3,su_a3,iso_a3,name,name_long'; //
+			var layer = new L.TileLayer.MVTSource({
+				url: url,
+				debug: false,
+				clickableLayers: ['countries_big_geom'],
+				mutexToggle: true,
+				getIDForLayerFeature: function(feature) {
+					return feature.properties.adm0_a3;
+				},
+				filter: function(feature, context) {
+					return true;
+				}
+			});
+			 map.addLayer(VectorlayerService.setLayer(layer));
+			 var labelsLayer = L.tileLayer('https://{s}.tiles.mapbox.com/v4/magnolo.06029a9c/{z}/{x}/{y}.png?access_token=' + apiKey);
+			 map.addLayer(labelsLayer);
+			 labelsLayer.bringToFront();
 		});
-
-		$scope.interactivity = "";
-		$scope.flag = "";
-		$scope.$on('leafletDirectiveMap.utfgridMouseover', function (event, leafletEvent) {
-			//$scope.interactivity = leafletEvent.data.admin;
-			//$scope.flag = "data:image/png;base64," + leafletEvent.data.flag_png;
-
-		});
-		$scope.$on('leafletDirectiveMap.utfgridMouseout', function (event, leafletEvent) {
-			$scope.interactivity = "";
-			$scope.flag = "";
-		});
-		MapService.setLeafletData(leafletData.getMap('map'));
-
 	});
 })();
