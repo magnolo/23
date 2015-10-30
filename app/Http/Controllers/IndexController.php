@@ -59,13 +59,16 @@ class IndexController extends Controller
     }
     public function showWithChildren($id)
     {
+        $index = array();
         if(is_int($id)){
-            return Index::find($id)->load('children');
+            $index = Index::find($id)->load('children');
         }
         elseif(is_string($id)){
-          return Index::where('name', $id)->first()->load('children');
+          $index =  Index::where('name', $id)->first()->load('children');
         }
-        return false;
+        $index->load('parent');
+
+        return $index;
     }
 
     public function showByYear($id, $year)

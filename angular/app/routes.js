@@ -7,15 +7,12 @@
 			return '/views/app/' + viewName + '/' + viewName + '.html';
 		};
 
-		$urlRouterProvider.otherwise('/epi');
+		$urlRouterProvider.otherwise('/index/epi');
 
 		$stateProvider
 			.state('app', {
 				abstract: true,
 				views: {
-				/*	sidebar: {
-						templateUrl: getView('sidebar')
-					},*/
 					header: {
 						templateUrl: getView('header')
 					},
@@ -27,29 +24,56 @@
 					}
 				}
 			})
-			.state('app.epi', {
-				url: '/:index',
+			.state('app.index', {
+				abstract:true,
+				url: '/index',
 				views: {
 					'main@': {
-						templateUrl: getView('index'),
+						templateUrl: getView('index')
+					}
+				}
+			})
+			.state('app.index.show', {
+				url: '/:index',
+				views: {
+					'info':{
+						templateUrl: '/views/app/index/info.html',
 						controller: 'IndexCtrl',
 						controllerAs: 'vm',
 						resolve:{
 							initialData: function(DataService, $stateParams){
+								var d = DataService.getAll('index/'+$stateParams.index+'/year/2014');
+								var i = DataService.getOne('index/'+$stateParams.index+'/structure');
 								return {
-										data:DataService.getAll('index/'+$stateParams.index+'/year/2014').$object,
-										indexer: DataService.getOne('index/'+$stateParams.index+'/structure').$object
+										dataObject: d.$object,
+										indexerObject: i.$object,
+										data:d,
+										indexer: i
 								}
-							},
-
+							}
 						}
+					},
+					'selected':{
+							templateUrl: '/views/app/index/selected.html',
 					}
 				}
 			})
-			.state('app.epi.selected',{
-				url: '/:item'
+			.state('app.index.show.selected',{
+				url: '/:item',
+				/*views:{
+					'selected':{
+						templateUrl: getView('selected'),
+						controller: 'SelectedCtrl',
+						controllerAs: 'vm',
+						resolve:{
+							getCountry: function(DataService, $stateParams){
+								return DataService.getOne('nations', $stateParams.item).$object;
+							}
+						}
+					}
+				}*/
 			})
-			.state('app.epi.selected.compare',{
+			.state('app.index.show.selected.compare',{
 				url: '/compare-with-countries'
 			})
 			.state('app.importcsv', {

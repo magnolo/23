@@ -365,17 +365,17 @@
 .info-container .info-box .md-ripple-container {
   border-radius: 20px;
 }
-.info-container .info-box.sub-box {
-  position: absolute;
-  top: 0px;
-}
-.info-container .info-box.sub-box .close-box {
+.info-container .info-box .close-box {
   margin-bottom: 0px;
   text-align: left;
   cursor: pointer;
 }
-.info-container .info-box.sub-box .close-box path {
+.info-container .info-box .close-box path {
   fill: #006bb9;
+}
+.info-container .info-box.sub-box {
+  position: absolute;
+  top: 0px;
 }
 .info-container .info-box.sub-box#sub-info {
   width: 700px;
@@ -630,6 +630,7 @@ md-toast[md-theme=warn] {
   top: 0px;
 }
 
+
 md-toolbar.md-menu-toolbar {
   background-color: #ffffff;
   color: rgba(0, 0, 0, 0.87);
@@ -677,7 +678,6 @@ md-menu-bar {
   padding: 24px;
 }
 
-
 #Map_Container {
   height: calc(100% - 165px);
 }
@@ -711,6 +711,7 @@ md-menu-bar {
   bottom: 20px;
   right: 00px;
 }
+
 
 .Sidebar {
   position: fixed !important;
@@ -804,6 +805,7 @@ md-menu-bar {
 }
 
 
+
 median {
   overflow: hidden;
   border-radius: 20px;
@@ -860,14 +862,13 @@ median .slider text {
 }
 
 
-
-
 .slide-toggle {
   transition: all .5s;
 }
 .slide-toggle.ng-animate {
   overflow: hidden;
 }
+
 
 .section {
   padding: 30px;
