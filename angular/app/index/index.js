@@ -1,10 +1,11 @@
 (function () {
 	"use strict";
 
-	angular.module('app.controllers').controller('IndexCtrl', function ($scope, $rootScope,$filter, $state, $timeout, ToastService, VectorlayerService, initialData, leafletData, DataService) {
+	angular.module('app.controllers').controller('IndexCtrl', function ($scope, $window, $rootScope,$filter, $state, $timeout, ToastService, VectorlayerService, initialData, leafletData, DataService) {
 		// Variable definitions
 		var vm = this;
 		vm.map = null;
+
 		vm.dataServer = initialData.data;
 		vm.structureServer = initialData.indexer;
 		vm.structure = "";
@@ -34,20 +35,22 @@
 		vm.getRank = getRank;
 		vm.getOffset = getOffset;
 		vm.getTendency = getTendency;
-		vm.mapGotoCountry = mapGotoCountry;
+
 		vm.checkComparison = checkComparison;
 		vm.toggleOpen = toggleOpen;
 		vm.toggleInfo = toggleInfo;
 		vm.toggleDetails = toggleDetails;
 		vm.toggleComparison = toggleComparison;
 		vm.toggleCountrieList = toggleCountrieList;
-
+		vm.mapGotoCountry = mapGotoCountry;
+		vm.goBack = goBack;
 
 		vm.calcTree = calcTree;
 
 		activate();
 
 		function activate() {
+
 			vm.structureServer.then(function(structure){
 				vm.dataServer.then(function(data){
 					vm.data = data;
@@ -58,11 +61,30 @@
 						vm.setState($state.params.item);
 						calcRank();
 					}
+					if($state.params.countries){
+						vm.setTab(2);
+
+						vm.compare.countries.push(vm.current);
+						vm.compare.active = true;
+						$rootScope.greyed = true;
+
+						var countries = $state.params.countries.split('-vs-');
+						angular.forEach(countries, function(iso){
+							vm.compare.countries.push(getNationByIso(iso));
+						});
+						countries.push(vm.current.iso);
+						DataService.getOne('nations/bbox', countries).then(function (data) {
+							vm.bbox = data;
+						});
+					}
 				})
 			});
 
 		}
 
+		function goBack(){
+			$window.history.back();
+		}
 		function showTabContent(content) {
 			if (content == '' && vm.tabContent == '') {
 				vm.tabContent = 'rank';
@@ -137,9 +159,12 @@
 			});
 		}
 		function mapGotoCountry(iso) {
-			DataService.getOne('nations/bbox', [iso]).then(function (data) {
-				vm.bbox = data;
-			});
+			if(!$state.params.countries){
+				DataService.getOne('nations/bbox', [iso]).then(function (data) {
+					vm.bbox = data;
+				});
+			}
+
 		}
 
 		function checkComparison(want) {
@@ -167,6 +192,10 @@
 				DataService.getOne('nations/bbox', [vm.current.iso]).then(function (data) {
 					vm.bbox = data;
 				});
+				$state.go('app.index.show.selected',{
+					index:$state.params.index,
+					item:$state.params.item
+				})
 			}
 		};
 
@@ -182,12 +211,21 @@
 				vm.compare.countries.push(country);
 			};
 			var isos = [];
+			var compare = [];
 			angular.forEach(vm.compare.countries, function (item, key) {
 				isos.push(item.iso);
+				if(item.iso != vm.current.iso){
+					compare.push(item.iso);
+				}
 			});
 			if (isos.length > 1) {
 				DataService.getOne('nations/bbox', isos).then(function (data) {
 					vm.bbox = data;
+				});
+				$state.go('app.index.show.selected.compare',{
+					index: $state.params.index,
+					item: $state.params.item,
+					countries:compare.join('-vs-')
 				});
 			}
 
@@ -353,10 +391,13 @@
 				}
 				calcRank();
 				fetchNationData(n.iso);
-				$state.go('app.index.show.selected', {
-					index: $state.params.index,
-					item: n.iso
-				});
+				vm.mvtSource.layers.countries_big_geom.features[n.iso].selected = true;
+				if($state.current.name == 'app.index.show.selected' || $state.current.name == 'app.index.show'){
+					$state.go('app.index.show.selected', {
+						index: $state.params.index,
+						item: n.iso
+					});
+				}
 			} else {
 				$state.go('app.index.show',{
 					index: $state.params.index
@@ -367,6 +408,7 @@
 			if (n === o) {
 				return
 			}
+			console.log(n);
 			if (n)
 				updateCanvas(n.color);
 			else {
@@ -380,13 +422,22 @@
 			} else {
 				$timeout(function () {
 					vm.mvtSource.setStyle(countriesStyle);
-				});
+				},200);
 			}
 			if (vm.current.iso) {
-				$state.go('app.index.show.selected', {
-					index: n.name,
-					item: vm.current.iso
-				})
+				if($state.params.countries){
+					$state.go('app.index.show.selected.compare', {
+						index: n.name,
+						item: vm.current.iso,
+						countries: $state.params.countries
+					})
+				}
+				else{
+					$state.go('app.index.show.selected', {
+						index: n.name,
+						item: vm.current.iso
+					})
+				}
 			} else {
 				$state.go('app.index.show', {
 					index: n.name
@@ -398,6 +449,7 @@
 			if (n === o) {
 				return;
 			}
+
 			var lat = [n.coordinates[0][0][1],
 					[n.coordinates[0][0][0]]
 				],
@@ -407,6 +459,7 @@
 			var southWest = L.latLng(n.coordinates[0][0][1], n.coordinates[0][0][0]),
 				northEast = L.latLng(n.coordinates[0][2][1], n.coordinates[0][2][0]),
 				bounds = L.latLngBounds(southWest, northEast);
+
 			var pad = [
 				[350, 200],
 				[0, 200]
@@ -462,9 +515,22 @@
 			leafletData.getMap('map').then(function (map) {
 				vm.map = map;
 				vm.mvtSource = VectorlayerService.getLayer();
-				console.log(vm.mvtSource);
 				$timeout(function () {
-					vm.mvtSource.setStyle(countriesStyle);
+					if($state.params.countries){
+						vm.mvtSource.options.mutexToggle = false;
+						vm.mvtSource.setStyle(invertedStyle);
+						vm.mvtSource.layers.countries_big_geom.features[vm.current.iso].selected = true;
+						var countries = $state.params.countries.split('-vs-');
+						angular.forEach(countries, function(iso){
+							vm.mvtSource.layers.countries_big_geom.features[iso].selected = true;
+						});
+					}
+					else{
+						vm.mvtSource.setStyle(countriesStyle);
+						if($state.params.item){
+								vm.mvtSource.layers.countries_big_geom.features[$state.params.item].selected = true;
+						}
+					}
 				});
 				vm.mvtSource.options.onClick = function (evt, t) {
 					if (!vm.compare.active) {

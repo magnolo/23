@@ -35,7 +35,7 @@
 			updatePosition: updatePosition
 		}
 	}
-	angular.module('app.directives').directive('bubbles', function ($compile) {
+	angular.module('app.directives').directive('bubbles', function ($compile, IconsService) {
 		var defaults;
 		defaults = function () {
 			return {
@@ -97,21 +97,56 @@
 				};
 
 				var create_nodes = function () {
-					//console.log(scope.indexer);
-					//console.log(scope.chartdata);
-					angular.forEach(scope.indexer, function (group) {
+					if(scope.indexer.children.length == 2 && scope.indexer.children[0].children.length > 0){
+						angular.forEach(scope.indexer.children, function (group) {
+							var d = {
+								type: group.column_name,
+								name: group.title,
+								group: group.column_name.substring(0,2),
+								color: group.color,
+								icon: group.icon,
+								unicode: IconsService.getUnicode(group.icon),
+								data: group,
+								children:group.children
+							};
+							labels.push(d);
+
+							angular.forEach(group.children, function (item) {
+								//console.log(scope.chartdata[item.column_name], scope.chartdata[item.column_name] / scope.sizefactor);
+								if (scope.chartdata[item.column_name]) {
+									var node = {
+										type: item.column_name,
+										radius: scope.chartdata[item.column_name] / scope.sizefactor,
+										value: scope.chartdata[item.column_name] / scope.sizefactor,
+										name: item.title,
+										group: item.column_name.substring(0,2),
+										x: options.center.x,
+										y: options.center.y,
+										color: item.color,
+										icon: item.icon,
+										unicode: IconsService.getUnicode(item.icon),
+										data: item,
+										children:item
+									};
+									nodes.push(node);
+								}
+							});
+						});
+						create_groups();
+					}
+					else{
 						var d = {
-							type: group.column_name,
-							name: group.title,
-							group: group.column_name.substring(0,2),
-							color: group.color,
-							icon: group.icon,
-							unicode: group.unicode,
-							data: group,
-							children:group.children
+							type: scope.indexer.column_name,
+							name: scope.indexer.title,
+							group: scope.indexer.column_name.substring(0,2),
+							color: scope.indexer.color,
+							icon: scope.indexer.icon,
+							unicode: scope.indexer.unicode,
+							data: scope.indexer.data,
+							children: scope.indexer.children
 						};
 						labels.push(d);
-						angular.forEach(group.children, function (item) {
+						angular.forEach(scope.indexer.children, function (item) {
 							//console.log(scope.chartdata[item.column_name], scope.chartdata[item.column_name] / scope.sizefactor);
 							if (scope.chartdata[item.column_name]) {
 								var node = {
@@ -119,21 +154,19 @@
 									radius: scope.chartdata[item.column_name] / scope.sizefactor,
 									value: scope.chartdata[item.column_name] / scope.sizefactor,
 									name: item.title,
-									group: group.column_name.substring(0,2),
+									group: item.column_name.substring(0,2),
 									x: options.center.x,
 									y: options.center.y,
 									color: item.color,
 									icon: item.icon,
-									unicode: item.unicode,
+									unicode: IconsService.getUnicode(item.icon),
 									data: item,
 									children:item
 								};
 								nodes.push(node);
 							}
 						});
-					});
-
-					create_groups();
+					}
 				};
 				var clear_nodes = function(){
 					//d3.selectAll("svg > *").remove();
@@ -207,7 +240,7 @@
 
 						}
 					}
-				if(options.labels == true){
+				if(options.labels == true && labels.length == 2){
 						var textLabels = options.vis.selectAll('text.labels').data(labels).enter().append("text")
 							.attr('class', 'labels')
 							.attr('fill', function(d){

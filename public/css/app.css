@@ -41,9 +41,11 @@
 .anim-opacity.ng-enter.ng-enter-active {
   opacity: 1;
 }
-.anim-fade.ng-enter,
+.anim-fade.ng-enter {
+  transition: all 0.4s ease-in-out;
+}
 .anim-fade.ng-leave {
-  transition: all 0.3s ease-in;
+  transition: all 0.5s ease-in;
 }
 .anim-fade.ng-enter,
 .anim-fade.ng-leave.ng-leave-active {
@@ -52,9 +54,9 @@
   transform: scale(0.8);
 }
 .anim-fade.ng-enter.ng-enter-active {
-  opacity: 1;
-  -webkit-transform: scale(1);
-  transform: scale(1);
+  opacity: 0;
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
 }
 .anim-height {
   transition: all 0.5s ease-in;
@@ -630,7 +632,6 @@ md-toast[md-theme=warn] {
   top: 0px;
 }
 
-
 md-toolbar.md-menu-toolbar {
   background-color: #ffffff;
   color: rgba(0, 0, 0, 0.87);
@@ -677,6 +678,7 @@ md-menu-bar {
   max-width: 680px;
   padding: 24px;
 }
+
 
 #Map_Container {
   height: calc(100% - 165px);

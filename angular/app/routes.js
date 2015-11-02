@@ -74,7 +74,7 @@
 				}*/
 			})
 			.state('app.index.show.selected.compare',{
-				url: '/compare-with-countries'
+				url: '/compare/:countries' 
 			})
 			.state('app.importcsv', {
 				url: '/importer',

@@ -18,17 +18,17 @@
 </style>
 
 				<div class="info-box anim-fade md-whiteframe-z3" flex layout-fill layout="column" ng-if="vm.structure && vm.data">
-								<section ng-if="vm.structure.parent_id == 0" class="header" layout-align="space-between center" layout="row" ng-style="{'color':vm.display.selectedCat.color}">
+								<section ng-if="!vm.structure.parent_id" class="header" layout-align="space-between center" layout="row" ng-style="{'color':vm.display.selectedCat.color}">
 												<span class="title">{{vm.structure.title}}</span>
 												<span class="subtitle">{{vm.structure.full_name}}</span>
 												<md-button>
 																<ng-md-icon icon="info_outline" ng-click="vm.toggleInfo()" style="fill:#006bb9"></ng-md-icon>
 												</md-button>
 								</section>
-								<section class="header" style="padding:1em" ng-if="vm.structure.parent_id != 0">
+								<section class="header" style="padding:1em" ng-if="vm.structure.parent_id">
 									<div layout="row" layout-align="space-between center">
 											<div layout="row" layout-align="center center">
-												<div class="close-box" ui-sref="app.index.show.selected({index:vm.structure.parent.name,item:vm.current.iso})">
+												<div class="close-box" ng-click="goBack()" ui-sref="app.index.show.selected({index:vm.structure.parent.name,item:vm.current.iso})">
 															<ng-md-icon icon="{{closeIcon || 'close'}}"  ng-mouseleave="closeIcon = 'close'" ng-mouseover="closeIcon = 'chevron_left'" options='{"rotation": "none", "duration":375}' size="32"></ng-md-icon>
 												</div>
 											</div>
@@ -109,26 +109,26 @@
 
 												</section>
 												<section>
-																<md-tabs md-center-tabs="true" md-dynamic-height md-no-pagination="true" md-swipe-content="true" ng-if="vm.current">
-																				<md-tab label="Details" md-active="activeTab == 2" md-on-select="vm.setTab(0)">
+																<md-tabs md-center-tabs="true" md-dynamic-height md-no-pagination="true" md-swipe-content="true" ng-if="vm.current" md-selected="vm.activeTab">
+																				<md-tab label="Details" md-active="vm.activeTab == 0" md-on-select="vm.setTab(0)">
 																								<div class="module bubbles slide-toggle mt mb" layout="column">
-																												<bubbles chartdata="vm.current" height="320" indexer="vm.structure.children" ng-model="vm.display.selectedCat" sizefactor="3" width="300"></bubbles>
+																												<bubbles chartdata="vm.current" height="320" indexer="vm.structure" ng-model="vm.display.selectedCat" sizefactor="3" width="300"></bubbles>
 																								</div>
 																				</md-tab>
-																				<md-tab label="History" md-active="activeTab == 1" md-on-select="vm.setTab(1)">
+																				<md-tab label="History" md-active="vm.activeTab == 1" md-on-select="vm.setTab(1)">
 																								<div class="module tabs mb no-margin" layout="column">
 																												<history chartdata="vm.current.data.epi" options="{field:vm.structure.score_field_name, color:vm.structure.color}"></history>
 																								</div>
 																				</md-tab>
-																				<md-tab label="Compare" md-active="activeTab == 2" md-on-deselect="vm.checkComparison(false)" md-on-select="vm.checkComparison(true)">
+																				<md-tab label="Compare" md-active="vm.activeTab == 2" md-on-deselect="vm.checkComparison(false)" md-on-select="vm.checkComparison(true)">
 																								<div class="module comparison">
 																												<div layout-wrap layout="row">
 																																<div class="country anim-opacity" flex="50" ng-repeat="country in vm.compare.countries">
 																																				<h4 ng-click="vm.setCurrent(country)">
 																																								<span class="number">N°{{vm.getRank(country)}}</span>
 																																								{{country.country}}</h4>
-																																				<median data="data" height="20" info="false" ng-model="country" width="120"></median>
-																																				<bubbles borders="false" chartdata="country" height="150" indexer="vm.structure.children" labels="false" ng-model="vm.display.selectedCat" sizefactor="5" width="120"></bubbles>
+																																				<median data="vm.data" height="20" info="false" ng-model="country" width="120"></median>
+																																				<bubbles borders="false" chartdata="country" height="150" indexer="vm.structure" labels="false" ng-model="vm.display.selectedCat" sizefactor="5" width="120"></bubbles>
 
 																																</div>
 																												</div>

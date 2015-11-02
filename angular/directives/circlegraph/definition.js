@@ -75,8 +75,7 @@
 						.call(arcTween, rotate(radius) * 2 * Math.PI);
 					text.transition().duration(750).tween('text', function(d) {
 						var data = this.textContent.split('N°');
-
-						var i = d3.interpolate(data[1], radius);
+						var i = d3.interpolate(parseInt(data[1]), radius);
 						return function(t) {
 							this.textContent =  'N°' + (Math.round(i(t) * 1) / 1);
 						};
@@ -85,6 +84,7 @@
 
 				//Tween animation for the Arc
 				function arcTween(transition, newAngle) {
+
 					transition.attrTween("d", function(d) {
 						var interpolate = d3.interpolate(d.endAngle, newAngle);
 						return function(t) {
@@ -110,7 +110,7 @@
 						return ngModel.$modelValue;
 					},
 					function(n, o) {
-						console.log(n);
+					
 						if (!n){
 							n = {};
 							n[$scope.options.field] = $scope.options.size;
