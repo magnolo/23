@@ -7,43 +7,74 @@
 			return '/views/app/' + viewName + '/' + viewName + '.html';
 		};
 
-		$urlRouterProvider.otherwise('/epi');
+		$urlRouterProvider.otherwise('/index/epi');
 
 		$stateProvider
 			.state('app', {
 				abstract: true,
 				views: {
-				/*	sidebar: {
-						templateUrl: getView('sidebar')
-					},*/
 					header: {
 						templateUrl: getView('header')
 					},
-					main: {}
-				}
-			})
-			.state('app.epi', {
-				url: '/epi',
-				views: {
-					'main@': {
-						templateUrl: getView('epi'),
-						controller: 'EpiCtrl',
-						resolve:{
-							EPI: function(DataService){
-								return DataService.getAll('/epi/year/2014')
-							}
-						}
-					},
+					main: {},
 					'map@':{
-						templateUrl: getView('map')
+						templateUrl: getView('map'),
+						controller: 'MapCtrl',
+						controllerAs: 'vm'
 					}
 				}
 			})
-			.state('app.epi.selected',{
-				url: '/:item'
+			.state('app.index', {
+				abstract:true,
+				url: '/index',
+				views: {
+					'main@': {
+						templateUrl: getView('index')
+					}
+				}
 			})
-			.state('app.epi.selected.compare',{
-				url: '/compare-with-countries'
+			.state('app.index.show', {
+				url: '/:index',
+				views: {
+					'info':{
+						templateUrl: '/views/app/index/info.html',
+						controller: 'IndexCtrl',
+						controllerAs: 'vm',
+						resolve:{
+							initialData: function(DataService, $stateParams){
+								var d = DataService.getAll('index/'+$stateParams.index+'/year/2014');
+								var i = DataService.getOne('index/'+$stateParams.index+'/structure');
+								return {
+										dataObject: d.$object,
+										indexerObject: i.$object,
+										data:d,
+										indexer: i
+								}
+							}
+						}
+					},
+					'selected':{
+							templateUrl: '/views/app/index/selected.html',
+					}
+				}
+			})
+			.state('app.index.show.selected',{
+				url: '/:item',
+				/*views:{
+					'selected':{
+						templateUrl: getView('selected'),
+						controller: 'SelectedCtrl',
+						controllerAs: 'vm',
+						resolve:{
+							getCountry: function(DataService, $stateParams){
+								return DataService.getOne('nations', $stateParams.item).$object;
+							}
+						}
+					}
+				}*/
+			})
+			.state('app.index.show.selected.compare',{
+				url: '/compare/:countries' 
 			})
 			.state('app.importcsv', {
 				url: '/importer',

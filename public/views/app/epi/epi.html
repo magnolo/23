@@ -1,5 +1,5 @@
 <div class="info-container">
-				<div class="info-box anim-fade md-whiteframe-z3" flex layout-fill layout="column" ng-if="!display.selectedCat">
+				<div class="info-box anim-fade md-whiteframe-z3" flex layout-fill layout="column" ng-if="!vm.display.selectedCat">
 								<!--<md-toolbar class="md-warn">
 												<div class="md-toolbar-tools" layout="column" layout-align="space-between center">
 																<span class="title">{{indexData.name}}</span>
@@ -10,54 +10,46 @@
 																</md-button>
 												</div>
 								</md-toolbar>-->
-								<section class="header" layout-align="space-between center" layout="row" ng-style="{'color':display.selectedCat.color}">
-												<span class="title">{{indexData.name}}</span>
-												<span class="subtitle">{{indexData.full_name}}</span>
+								<section class="header" layout-align="space-between center" layout="row" ng-style="{'color':vm.display.selectedCat.color}">
+												<span class="title">{{vm.structure.title}}</span>
+												<span class="subtitle">{{vm.structure.full_name}}</span>
 
 												<md-button>
-																<ng-md-icon icon="info_outline" ng-click="toggleInfo()" style="fill:#006bb9"></ng-md-icon>
+																<ng-md-icon icon="info_outline" ng-click="vm.toggleInfo()" style="fill:#006bb9"></ng-md-icon>
 												</md-button>
 								</section>
 
 								<md-content>
 
-												<section class="header info slide-toggle" layout-align="space-between center" layout="row" ng-if="current">
+												<section class="header info slide-toggle" layout-align="space-between center" layout="row" ng-if="vm.current">
 
-																<span class="title">{{current.country}}</span>
-																<span class="info-icon" ng-click="mapGotoCountry(current.iso)">
+																<span class="title">{{vm.current.country}}</span>
+																<span class="info-icon" ng-click="vm.mapGotoCountry(vm.current.iso)">
 																				<ng-md-icon icon="chevron_right"></ng-md-icon>
 																</span>
 
 												</section>
-
-												<!--<div class="header" layout-align="space-between center" layout="row">
-			<span class="title">{{indexData.name}}</span>
-			<span class="subtitle">{{indexData.full_name}}</span>
-			<span class="info-icon">
-				<ng-md-icon icon="info_outline" ng-click="toggleInfo()"></ng-md-icon>
-			</span>
-		</div>-->
-												<section class="rank module slide-toggle" layout-align="space-between center" layout="row" ng-if="current  && !compare.active">
+												<section class="rank module slide-toggle" layout-align="space-between center" layout="row" ng-if="vm.current  && !vm.compare.active">
 																<div class="chart" layout="row">
 																				<div layout-align="center center" layout="column">
 																								<div class="title" layout-align="center center" layout="row">Rank</div>
 																								<div layout="row">
-																												<circlegraph ng-model="current"></circlegraph>
+																												<circlegraph ng-model="vm.current"></circlegraph>
 																								</div>
 																				</div>
-																				<div class="tendency" layout-align="center center" layout="column" ng-class="{active:current}">
+																				<div class="tendency" layout-align="center center" layout="column" ng-class="{active:vm.current}">
 																								<div>&nbsp;</div>
-																								<ng-md-icon class="icon-space" icon="{{getTendency()}}" options='{"rotation": "none"}'></ng-md-icon>
+																								<ng-md-icon class="icon-space" icon="{{vm.getTendency()}}" options='{"rotation": "none"}'></ng-md-icon>
 																				</div>
 																</div>
 																<div class="mini-list">
 																				<div class="title">
-																								<span ng-if="!current.id">Top</span>
-																								<span ng-if="current.id">Actual</span>
+																								<span ng-if="!vm.current.id">Top</span>
+																								<span ng-if="vm.current.id">Actual</span>
 																				</div>
 																				<div class="list">
-																								<ul style="transform:translateY(-{{getOffset()}}px)">
-																												<li ng-class="{active: nat.id == current.id}" ng-click="setCurrent(nat)" ng-repeat="(key, nat) in epi | orderBy:'+rank'">
+																								<ul style="transform:translateY(-{{vm.getOffset()}}px)">
+																												<li ng-class="{active: nat.id == vm.current.id}" ng-click="vm.setCurrent(nat)" ng-repeat="(key, nat) in vm.data | orderBy:'+rank'">
 																																<span class="number">{{key+1}}.</span>
 																																<span class="value">{{nat.iso}}</span>
 																																<md-tooltip md-delay="700" md-direction="right">
@@ -71,8 +63,8 @@
 																				<div class="title">Bottom</div>
 																				<div class="list">
 																								<ul>
-																												<li ng-click="setCurrent(nat)" ng-repeat="(key, nat) in epi | orderBy:'-rank' | limitTo:3">
-																																<span class="number">{{getRank(nat)}}.</span>
+																												<li ng-click="vm.setCurrent(nat)" ng-repeat="(key, nat) in vm.data | orderBy:'-rank' | limitTo:3">
+																																<span class="number">{{vm.getRank(nat)}}.</span>
 																																<span class="value">{{nat.iso}}</span>
 																																<md-tooltip md-delay="700" md-direction="right">
 																																				{{nat.country}}
@@ -82,41 +74,41 @@
 																				</div>
 																</div>
 												</section>
-												<section class="module slide-toggle" layout-align="center center" layout="column" ng-if="current  && !compare.active">
-																<median data="epi" style="margin:2em 0" ng-model="current" options="{handling:true}"></median>
+												<section class="module slide-toggle" layout-align="center center" layout="column" ng-if="vm.current  && !vm.compare.active">
+																<median data="vm.data" style="margin:2em 0" ng-model="vm.current" options="{handling:true}"></median>
 												</section>
-												<section class="action module slide-toggle mb mt" layout-align="center center" layout="row" ng-if="!current">
+												<section class="action module slide-toggle mb mt" layout-align="center center" layout="row" ng-if="!vm.current">
 																<md-button flex="50" ng-disabled="true">click on a country</md-button>
 
 												</section>
 												<section>
-																<md-tabs md-center-tabs="true" md-dynamic-height md-no-pagination="true" md-swipe-content="true" ng-if="current">
-																				<md-tab label="Details" md-active="activeTab == 2" md-on-select="setTab(0)">
+																<md-tabs md-center-tabs="true" md-dynamic-height md-no-pagination="true" md-swipe-content="true" ng-if="vm.current">
+																				<md-tab label="Details" md-active="activeTab == 2" md-on-select="vm.setTab(0)">
 																								<div class="module bubbles slide-toggle mt mb" layout="column">
-																												<bubbles chartdata="current" height="320" indexer="indexData.children" ng-model="display.selectedCat" sizefactor="3" width="300"></bubbles>
+																												<bubbles chartdata="vm.current" height="320" indexer="vm.structure.children" ng-model="vm.display.selectedCat" sizefactor="3" width="300"></bubbles>
 																								</div>
 																				</md-tab>
-																				<md-tab label="History" md-active="activeTab == 1" md-on-select="setTab(1)">
+																				<md-tab label="History" md-active="activeTab == 1" md-on-select="vm.setTab(1)">
 																								<div class="module tabs mb no-margin" layout="column">
 																												<md-tabs md-border-bottom="false" md-center-tabs="true" md-dynamic-height md-no-ink-bar md-no-pagination="true">
 																																<md-tab label="Rank History">
-																																				<simplelinechart data="country.epi" invert="true" max="178" selection="display.rank"></simplelinechart>
+																																				<simplelinechart data="vm.country.data" invert="true" max="178" selection="vm.display.rank"></simplelinechart>
 																																</md-tab>
 																																<md-tab label="Score History">
-																																				<simplelinechart data="country.epi" selection="display.score"></simplelinechart>
+																																				<simplelinechart data="vm.country.data" selection="vm.display.score"></simplelinechart>
 																																</md-tab>
 																												</md-tabs>
 																								</div>
 																				</md-tab>
-																				<md-tab label="Compare" md-active="activeTab == 2" md-on-deselect="checkComparison(false)" md-on-select="checkComparison(true)">
+																				<md-tab label="Compare" md-active="activeTab == 2" md-on-deselect="vm.checkComparison(false)" md-on-select="vm.checkComparison(true)">
 																								<div class="module comparison">
 																												<div layout-wrap layout="row">
-																																<div class="country anim-opacity" flex="50" ng-repeat="country in compare.countries">
+																																<div class="country anim-opacity" flex="50" ng-repeat="country in vm.compare.countries">
 																																				<h4 ng-click="setCurrent(country)">
-																																								<span class="number">N°{{getRank(country)}}</span>
+																																								<span class="number">N°{{vm.getRank(country)}}</span>
 																																								{{country.country}}</h4>
-																																				<median data="epi" height="20" info="false" ng-model="country" width="120"></median>
-																																				<bubbles borders="false" chartdata="country" height="150" indexer="indexData.children" labels="false" ng-model="display.selectedCat" sizefactor="5" width="120"></bubbles>
+																																				<median data="data" height="20" info="false" ng-model="country" width="120"></median>
+																																				<bubbles borders="false" chartdata="vm.country" height="150" indexer="vm.structure.children" labels="false" ng-model="vm.display.selectedCat" sizefactor="5" width="120"></bubbles>
 
 																																</div>
 																												</div>
@@ -126,33 +118,33 @@
 												</section>
 								</md-content>
 				</div>
-				<div class="info-box md-whiteframe-z2 anim sub-box" id="sub-index" ng-if="country && display.selectedCat">
+				<div class="info-box md-whiteframe-z2 anim sub-box" id="sub-index" ng-if="vm.country && vm.display.selectedCat">
 
 								<subindex></subindex>
 				</div>
-				<div class="info-box md-whiteframe-z2 anim sub-box" id="sub-info" ng-if="info">
+				<div class="info-box md-whiteframe-z2 anim sub-box" id="sub-info" ng-if="vm.info">
 								<div class="close-box">
-												<ng-md-icon icon="{{closeIcon || 'close'}}" ng-click="toggleInfo()" ng-mouseleave="closeIcon = 'close'" ng-mouseover="closeIcon = 'chevron_left'" options='{"rotation": "none", "duration":375}' size="32"></ng-md-icon>
+												<ng-md-icon icon="{{vm.closeIcon || 'close'}}" ng-click="vm.toggleInfo()" ng-mouseleave="vm.closeIcon = 'close'" ng-mouseover="vm.closeIcon = 'chevron_left'" options='{"rotation": "none", "duration":375}' size="32"></ng-md-icon>
 								</div>
 								<div class="module description">
 												<div layout="row">
 																<div class="header" flex="50" layout-align="space-between end" layout="row" flex-offset="25">
-																				<div class="title">{{ indexData.name}}</div>
-																				<div class="sub-title">{{indexData.full_name}}</div>
+																				<div class="title">{{ vm.structure.name}}</div>
+																				<div class="sub-title">{{vm.structure.full_name}}</div>
 																</div>
 												</div>
 												<div layout="row">
 																<div class="content" flex="50" flex-offset="25">
-																				<div class="text" ng-bind-html="indexData.description"></div>
+																				<div class="text" ng-bind-html="vm.structure.description"></div>
 																</div>
 												</div>
 												<div layout-align="center" layout-margin layout="row">
 																<div class="framework" layout-align="space-between center" layout="column">
-																				<sunburst data="indexData"></sunburst>
+																				<sunburst data="vm.structure"></sunburst>
 																</div>
 												</div>
 												<div layout="row">
-																<div class="caption" flex="60" ng-bind-html="indexData.caption" flex-offset="20"></div>
+																<div class="caption" flex="60" ng-bind-html="vm.structure.caption" flex-offset="20"></div>
 												</div>
 								</div>
 

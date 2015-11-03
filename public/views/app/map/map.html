@@ -1,7 +1,3 @@
-<div ng-controller="MapCtrl" id="map">
-    <leaflet layers="layers" center="center" defaults="defaults"></leaflet>
-    <div class="country_info anim md-whiteframe-z2" ng-if="interactivity">
-      <!--<div class="country_name">{{ interactivity}}</div>-->
-      <div class="country_flag"><img ng-src="{{flag}}"></div>
-    </div>
+<div id="map">
+    <leaflet layers="vm.layers" center="vm.center" defaults="vm.defaults"></leaflet>
 </div>

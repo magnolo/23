@@ -168,17 +168,13 @@
                         }
                     }
 
-                    .tendency {
+                    /*.tendency {
                         path {
                             fill: @grey-light;
                         }
 
-                        &.active {
-                            path {
-                                fill: @green;
-                            }
-                        }
-                    }
+
+                    }*/
                 }
 
                 .mini-list {
@@ -303,20 +299,22 @@
         .md-ripple-container {
             border-radius: 20px;
         }
+        .close-box{
+          margin-bottom:0px;
+          text-align:left;
+          cursor:pointer;
+          path{
+            fill:@base;
+          }
+        }
         &.sub-box{
           position:absolute;
           top:0px;
           //left:365px;
 
 
-          .close-box{
-            margin-bottom:0px;
-            text-align:left;
-            cursor:pointer;
-            path{
-              fill:@base;
-            }
-          }
+
+
           &#sub-info{
             width:700px; //calc(~"100% - 420px - 5em");
             left:380px;

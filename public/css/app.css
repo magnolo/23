@@ -41,9 +41,11 @@
 .anim-opacity.ng-enter.ng-enter-active {
   opacity: 1;
 }
-.anim-fade.ng-enter,
+.anim-fade.ng-enter {
+  transition: all 0.4s ease-in-out;
+}
 .anim-fade.ng-leave {
-  transition: all 0.3s ease-in;
+  transition: all 0.5s ease-in;
 }
 .anim-fade.ng-enter,
 .anim-fade.ng-leave.ng-leave-active {
@@ -52,9 +54,9 @@
   transform: scale(0.8);
 }
 .anim-fade.ng-enter.ng-enter-active {
-  opacity: 1;
-  -webkit-transform: scale(1);
-  transform: scale(1);
+  opacity: 0;
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
 }
 .anim-height {
   transition: all 0.5s ease-in;
@@ -261,6 +263,13 @@
 }
 .info-container .info-box .module.rank .chart {
   color: #afafaf;
+  /*.tendency {
+                        path {
+                            fill: @grey-light;
+                        }
+
+
+                    }*/
 }
 .info-container .info-box .module.rank .chart .title {
   margin-bottom: 0.5em;
@@ -270,12 +279,6 @@
   border-radius: 50%;
   height: 80px;
   width: 80px;
-}
-.info-container .info-box .module.rank .chart .tendency path {
-  fill: #d7dddd;
-}
-.info-container .info-box .module.rank .chart .tendency.active path {
-  fill: #00ccaa;
 }
 .info-container .info-box .module.rank .mini-list {
   font-size: 0.9em;
@@ -365,17 +368,17 @@
 .info-container .info-box .md-ripple-container {
   border-radius: 20px;
 }
-.info-container .info-box.sub-box {
-  position: absolute;
-  top: 0px;
-}
-.info-container .info-box.sub-box .close-box {
+.info-container .info-box .close-box {
   margin-bottom: 0px;
   text-align: left;
   cursor: pointer;
 }
-.info-container .info-box.sub-box .close-box path {
+.info-container .info-box .close-box path {
   fill: #006bb9;
+}
+.info-container .info-box.sub-box {
+  position: absolute;
+  top: 0px;
 }
 .info-container .info-box.sub-box#sub-info {
   width: 700px;
@@ -622,7 +625,6 @@ md-toast[md-theme=warn] {
   text-align: center;
 }
 
-
 .Header {
   position: fixed;
   left: 0px;
@@ -678,6 +680,7 @@ md-menu-bar {
   padding: 24px;
 }
 
+
 #Map_Container {
   height: calc(100% - 165px);
 }
@@ -711,6 +714,7 @@ md-menu-bar {
   bottom: 20px;
   right: 00px;
 }
+
 
 .Sidebar {
   position: fixed !important;
