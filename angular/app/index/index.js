@@ -63,11 +63,9 @@
 					}
 					if($state.params.countries){
 						vm.setTab(2);
-
 						vm.compare.countries.push(vm.current);
 						vm.compare.active = true;
 						$rootScope.greyed = true;
-
 						var countries = $state.params.countries.split('-vs-');
 						angular.forEach(countries, function(iso){
 							vm.compare.countries.push(getNationByIso(iso));
@@ -121,29 +119,20 @@
 			var rank = 0;
 			angular.forEach(vm.data, function(item) {
 				item[vm.structure.score_field_name] = parseFloat(item[vm.structure.score_field_name]);
-				item['score'] = parseInt(item['score']);
+				item['score'] = parseFloat(item['score']);
 			})
 			var filter = $filter('orderBy')(vm.data, [vm.structure.score_field_name, "score"], true);
-			for (var i = 0; i < filter.length; i++) {
-				if (filter[i].iso == vm.current.iso) {
-					rank = i + 1;
-				}
-			}
+			rank = filter.indexOf(vm.current) + 1;
 			vm.current[vm.structure.score_field_name+'_rank'] = rank;
 			vm.circleOptions = {
 					color:vm.structure.color,
 					field:vm.structure.score_field_name+'_rank'
-			}
+			};
 		}
 		function getRank(country){
 			var filter = $filter('orderBy')(vm.data, [vm.structure.score_field_name, "score"], true);
-			var rank = 0;
-			angular.forEach(filter, function(item, key){
-				if(item.country == country.country){
-					rank = key;
-				}
-			});
-			return rank+1;
+			var rank = filter.indexOf(country) + 1;
+			return rank;
 		}
 		function toggleInfo() {
 			vm.info = !vm.info;
@@ -154,7 +143,7 @@
 		};
 		function fetchNationData(iso){
 			DataService.getOne('nations', iso).then(function (data) {
-				vm.country = data;
+				vm.current.data = data;
 				mapGotoCountry(iso);
 			});
 		}
@@ -342,6 +331,10 @@
 			var nation = getNationByIso(iso);
 			var field = vm.structure.score_field_name || 'score';
 			var type = feature.type;
+			if(iso != vm.current.iso){
+					feature.selected = false;
+			}
+
 			switch (type) {
 			case 3: //'Polygon'
 				if (nation[field]) {
@@ -408,7 +401,6 @@
 			if (n === o) {
 				return
 			}
-			console.log(n);
 			if (n)
 				updateCanvas(n.color);
 			else {
@@ -422,7 +414,7 @@
 			} else {
 				$timeout(function () {
 					vm.mvtSource.setStyle(countriesStyle);
-				},200);
+				});
 			}
 			if (vm.current.iso) {
 				if($state.params.countries){

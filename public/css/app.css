@@ -263,6 +263,13 @@
 }
 .info-container .info-box .module.rank .chart {
   color: #afafaf;
+  /*.tendency {
+                        path {
+                            fill: @grey-light;
+                        }
+
+
+                    }*/
 }
 .info-container .info-box .module.rank .chart .title {
   margin-bottom: 0.5em;
@@ -272,12 +279,6 @@
   border-radius: 50%;
   height: 80px;
   width: 80px;
-}
-.info-container .info-box .module.rank .chart .tendency path {
-  fill: #d7dddd;
-}
-.info-container .info-box .module.rank .chart .tendency.active path {
-  fill: #00ccaa;
 }
 .info-container .info-box .module.rank .mini-list {
   font-size: 0.9em;

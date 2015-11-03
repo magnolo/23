@@ -11,7 +11,8 @@
 			restrict: 'E',
 			scope:{
 				data:'=',
-				selection:'='
+				selection:'=',
+				options:'='
 			},
 			templateUrl: 'views/directives/simplelinechart/simplelinechart.html',
 			controller: 'SimplelinechartCtrl',
