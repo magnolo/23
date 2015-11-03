@@ -29,6 +29,8 @@
     "mapbox-gl-js": "~0.11.0",
     "ngSticky": "~1.7.11",
     "angular-sanitize": "~1.4.7",
-    "angular-nvd3": "~1.0.2"
+    "angular-nvd3": "~1.0.2",
+    "angular-papaparse": "~1.0.0",
+    "angular-material-data-table": "~0.8.14"
   }
 }

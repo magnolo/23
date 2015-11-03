@@ -1,0 +1,46 @@
+section{
+  &.module-top{
+    background-color: #fff;
+    width:360px;
+    margin-left:1em;
+    margin-top:1em;
+    &.out{
+      transform:translateX(-380px);
+    }
+  }
+  &.table{
+    background-color:rgba(255,255,255,0.2);
+    width:100%;
+    position:absolute;
+    top:0px;
+    left:0px;
+    height:calc(~"100%");
+
+    background:#fff;
+    md-data-table-toolbar{
+      position:relative;
+      background: #006bb9;
+      color:#fff;
+      *{
+        fill:#fff;
+      }
+    }
+    md-data-table-container{
+      margin-bottom:56px;
+
+      thead:not([md-table-progress])>tr>th {
+
+        color: #006bb9;
+      }
+      table[md-data-table]>tbody>tr{
+        height:2.5em;
+      }
+    }
+    md-data-table-pagination{
+      position: fixed;
+      bottom: 0px;
+      width: 100%;
+      background: #fff;
+    }
+  }
+}

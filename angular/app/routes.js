@@ -33,6 +33,19 @@
 					}
 				}
 			})
+			.state('app.index.create', {
+				url: '/create',
+				views: {
+					'info':{
+
+					},
+					'menu':{
+						templateUrl: getView('indexcreator'),
+						controller: 'IndexcreatorCtrl',
+						controllerAs: 'vm'
+					}
+				}
+			})
 			.state('app.index.show', {
 				url: '/:index',
 				views: {
@@ -74,7 +87,7 @@
 				}*/
 			})
 			.state('app.index.show.selected.compare',{
-				url: '/compare/:countries' 
+				url: '/compare/:countries'
 			})
 			.state('app.importcsv', {
 				url: '/importer',

@@ -1,0 +1,89 @@
+<section class="module-top md-whiteframe-z2" ng-class="{'out': vm.data.length}">
+				<md-subheader class="md-no-sticky">Choose data source</md-subheader>
+				<md-list>
+								<md-list-item>
+												<p>Browse data</p>
+												<ng-md-icon icon="add"></ng-md-icon>
+								</md-list-item>
+								<md-list-item ng-click="vm.showUploadContainer = true">
+												<p>Upload new data</p>
+												<ng-md-icon icon="add"></ng-md-icon>
+								</md-list-item>
+				</md-list>
+
+				<div class="anim upload-container" ng-if="vm.showUploadContainer">
+								Upload countries data
+								<parsecsv></parsecsv>
+				</div>
+</section>
+<section class="table anim md-whiteframe-z2" ng-if="vm.data.length && vm.step == 1">
+				<md-data-table-toolbar class="md-whiteframe-z1">
+								<div layout-align="space-between center" flex layout="row">
+												<h2 class="md-title">CSV Import 1/5</h2>
+												<h3>check your data</h3>
+												<div>
+															<md-button ng-click="vm.step = 2">
+                                    next
+																			<ng-md-icon icon="chevron_right"></ng-md-icon>
+															</md-button>
+												</div>
+								</div>
+				</md-data-table-toolbar>
+				<md-data-table-container>
+								<table md-data-table md-row-select="vm.selected">
+												<thead md-order="vm.query.order" md-trigger="vm.onOrderChange">
+																<tr>
+																				<th name="{{key}}" ng-repeat="(key, item) in vm.data[0]" order-by="{{key}}"></th>
+																</tr>
+												</thead>
+												<tbody>
+																<tr md-auto-select ng-repeat="item in vm.data | orderBy:vm.query.order | limitTo: vm.query.limit : (vm.query.page-1)*vm.query.limit">
+																				<td ng-repeat="column in item">{{column}}</td>
+																</tr>
+												</tbody>
+								</table>
+				</md-data-table-container>
+				<md-data-table-pagination md-limit="vm.query.limit" md-page="vm.query.page" md-total="{{vm.data.length}}" md-trigger="vm.onPaginationChange"><md-button class="md-icon-button md-warn anim-fade" ng-if="vm.selected.length">
+                <ng-md-icon icon="delete"></ng-md-icon>
+        </md-button></md-data-table-pagination>
+</section>
+<section class="table anim md-whiteframe-z2" ng-if="vm.data.length && vm.step == 2">
+  <md-data-table-toolbar class="md-whiteframe-z1">
+          <div layout-align="space-between center" flex layout="row">
+                  <h2 class="md-title">CSV Import 2/5</h2>
+                  <h3>insert meta data</h3>
+                  <div>
+                    <md-button ng-click="vm.step = 1">
+                          <ng-md-icon icon="chevron_left"></ng-md-icon>
+                          prev
+
+                    </md-button>
+                        <md-button ng-click="vm.step = 3">
+                              next
+                                <ng-md-icon icon="chevron_right"></ng-md-icon>
+                        </md-button>
+                  </div>
+          </div>
+  </md-data-table-toolbar>
+  <md-content layout="row" layout-padding layout-wrap layout-fill >
+      <md-whiteframe class="md-whiteframe-1dp" ng-repeat="(key, item) in vm.data[0]" flex="25">
+      <h4>{{key}}</h4>
+      <md-input-container >
+        <label>Title</label>
+        <input ng-model="vm.meta[key].title" type="text">
+      </md-input-container>
+      <md-input-container >
+        <label>Color</label>
+        <input ng-model="vm.meta[key].color" type="text">
+      </md-input-container>
+      <md-input-container >
+        <label>Icon</label>
+        <input ng-model="vm.meta[key].icon" type="text">
+      </md-input-container>
+      <md-input-container >
+        <label>Description</label>
+        <input ng-model="vm.meta[key].description" type="text">
+      </md-input-container>
+    </md-whiteframe>
+  </md-content>
+</section>

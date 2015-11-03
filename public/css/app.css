@@ -680,6 +680,56 @@ md-menu-bar {
   padding: 24px;
 }
 
+.multi-view {
+  top: calc(64px);
+  left: 0em;
+  position: absolute;
+  width: 100%;
+  height: calc(100% - 64px);
+}
+
+section.module-top {
+  background-color: #fff;
+  width: 360px;
+  margin-left: 1em;
+  margin-top: 1em;
+}
+section.module-top.out {
+  -webkit-transform: translateX(-380px);
+  transform: translateX(-380px);
+}
+section.table {
+  background-color: rgba(255, 255, 255, 0.2);
+  width: 100%;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  height: calc(100%);
+  background: #fff;
+}
+section.table md-data-table-toolbar {
+  position: relative;
+  background: #006bb9;
+  color: #fff;
+}
+section.table md-data-table-toolbar * {
+  fill: #fff;
+}
+section.table md-data-table-container {
+  margin-bottom: 56px;
+}
+section.table md-data-table-container thead:not([md-table-progress]) > tr > th {
+  color: #006bb9;
+}
+section.table md-data-table-container table[md-data-table] > tbody > tr {
+  height: 2.5em;
+}
+section.table md-data-table-pagination {
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+  background: #fff;
+}
 
 #Map_Container {
   height: calc(100% - 165px);
@@ -863,6 +913,7 @@ median .slider text {
   user-select: none;
   cursor: ew-resize;
 }
+
 
 
 .slide-toggle {
