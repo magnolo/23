@@ -1,7 +1,7 @@
 (function(){
 	"use strict";
 
-	angular.module('app.directives').directive( 'parsecsv', function($timeout, ToastService) {
+	angular.module('app.directives').directive( 'parsecsv', function($state, $timeout, ToastService) {
 
 		return {
 			restrict: 'EA',
@@ -9,6 +9,7 @@
 			controller: 'ParsecsvCtrl',
 			link: function( $scope, element, $attrs ){
 				//
+				var errors = 0;
 				var stepped = 0, rowCount = 0, errorCount = 0, firstError;
 				var start, end;
 				var firstRun = true;
@@ -27,8 +28,17 @@
 									header:true,
 									dynamicTyping: true,
 									step:function(row){
-										console.log(row.data[0]);
-										$scope.vm.data.push(row.data[0]);
+										angular.forEach(row.data[0], function(item){
+											if(item == "NA" || item < 0){
+												row.errors.push({
+													type:"1",
+													message:"Field in row is not valid for database use!",
+													column: item
+												})
+												errors++;
+											}
+										});
+										$scope.vm.data.push(row);
 									},
 									before: function(file, inputElem)
 									{
@@ -41,7 +51,8 @@
 									},
 									complete: function(results)
 									{
-										$scope.vm.step = 1;
+										$scope.vm.errors = errors;
+										$state.go('app.index.create.check');
 										ToastService.show($scope.vm.data.length+' Zeilen importiert!')
 									}
 								})

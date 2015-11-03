@@ -46,6 +46,12 @@
 					}
 				}
 			})
+			.state('app.index.create.check', {
+				 url: '/checking'
+			})
+			.state('app.index.create.meta', {
+				 url: '/adding-meta-data'
+			})
 			.state('app.index.show', {
 				url: '/:index',
 				views: {

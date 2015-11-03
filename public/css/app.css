@@ -716,6 +716,7 @@ section.table md-data-table-toolbar * {
   fill: #fff;
 }
 section.table md-data-table-container {
+  font-family: RobotoDraft, Roboto, 'Helvetica Neue', sans-serif;
   margin-bottom: 56px;
 }
 section.table md-data-table-container thead:not([md-table-progress]) > tr > th {
@@ -723,6 +724,9 @@ section.table md-data-table-container thead:not([md-table-progress]) > tr > th {
 }
 section.table md-data-table-container table[md-data-table] > tbody > tr {
   height: 2.5em;
+}
+section.table md-data-table-container table[md-data-table] > tbody > tr.md-warn {
+  background-color: rgba(244, 67, 54, 0.2);
 }
 section.table md-data-table-pagination {
   position: fixed;

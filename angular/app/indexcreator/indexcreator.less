@@ -9,6 +9,7 @@ section{
     }
   }
   &.table{
+
     background-color:rgba(255,255,255,0.2);
     width:100%;
     position:absolute;
@@ -26,15 +27,19 @@ section{
       }
     }
     md-data-table-container{
+        font-family: RobotoDraft,Roboto,'Helvetica Neue',sans-serif;
       margin-bottom:56px;
 
       thead:not([md-table-progress])>tr>th {
-
         color: #006bb9;
       }
       table[md-data-table]>tbody>tr{
         height:2.5em;
+        &.md-warn{
+            background-color:rgba(244,67,54,0.2);
+        }
       }
+
     }
     md-data-table-pagination{
       position: fixed;
