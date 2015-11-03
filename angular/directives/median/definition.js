@@ -39,8 +39,10 @@
 			},
 			require: 'ngModel',
 			link: function ($scope, element, $attrs, ngModel) {
+
 				var options = angular.extend(defaults(), $attrs);
 				options = angular.extend(options, $scope.options);
+				options.unique = new Date().getTime();
 				if(options.color){
 					options.colors[1].color = options.color;
 				}
@@ -63,7 +65,7 @@
 				//.attr("transform", "translate(0," + options.margin.top / 2 + ")");
 				var gradient = svg.append('svg:defs')
 					.append("svg:linearGradient")
-					.attr('id', options.field)
+					.attr('id', options.field+options.unique)
 					.attr('x1', '0%')
 					.attr('y1', '0%')
 					.attr('x2', '100%')
@@ -78,7 +80,7 @@
 				var rect = svg.append('svg:rect')
 					.attr('width', options.width)
 					.attr('height', options.height)
-					.style('fill', 'url(#' + options.field + ')');
+					.style('fill', 'url(#' + (options.field+options.unique)+ ')');
 				var legend = svg.append('g').attr('transform', 'translate(' + options.height / 2 + ', ' + options.height / 2 + ')')
 					.attr('class', 'startLabel')
 

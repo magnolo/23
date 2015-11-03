@@ -4,7 +4,7 @@
 	angular.module('app.controllers').controller('HistoryCtrl', function ($scope) {
 		$scope.setData = setData;
 		activate();
-
+	
 		function activate(){
 			$scope.setData();
 			$scope.$watch('options', function(n,o){

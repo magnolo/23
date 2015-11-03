@@ -1,0 +1,85 @@
+
+        <section class="header info slide-toggle" layout-align="space-between center" layout="row">
+
+                <span class="title">{{vm.current.country}}</span>
+                <span class="info-icon" ng-click="vm.mapGotoCountry(vm.current.iso)">
+                        <ng-md-icon icon="chevron_right"></ng-md-icon>
+                </span>
+
+        </section>
+        <section class="rank module slide-toggle" layout-align="space-between center" layout="row" ng-if="vm.current  && !vm.compare.active">
+                <div class="chart" layout="row">
+                        <div layout-align="center center" layout="column">
+                                <div class="title" layout-align="center center" layout="row">Rank</div>
+                                <div layout="row">
+                                        <circlegraph ng-model="vm.current" options="vm.circleOptions"></circlegraph>
+                                </div>
+                        </div>
+                        <div class="tendency" layout-align="center center" layout="column" ng-class="{active:vm.current}">
+                                <div>&nbsp;</div>
+                                <ng-md-icon class="icon-space" icon="{{vm.getTendency()}}" options='{"rotation": "none"}'></ng-md-icon>
+                        </div>
+                </div>
+                <div class="mini-list">
+                        <div class="title">
+                                <span ng-if="!vm.current.id">Top</span>
+                                <span ng-if="vm.current.id">Actual</span>
+                        </div>
+                        <div class="list">
+                                <ul style="transform:translateY(-{{vm.getOffset()}}px)">
+                                        <li ng-class="{active: nat.id == vm.current.id}" ng-click="vm.setCurrent(nat)" ng-repeat="(key, nat) in vm.data | orderBy:'-'+vm.structure.score_field_name">
+                                                <span class="number">{{key+1}}.</span>
+                                                <span class="value">{{nat.iso}}</span>
+                                                <md-tooltip md-delay="700" md-direction="right">
+                                                        {{nat.country}}
+                                                </md-tooltip>
+                                        </li>
+                                </ul>
+                        </div>
+                </div>
+                <div class="mini-list">
+                        <div class="title">Bottom</div>
+                        <div class="list">
+                                <ul>
+                                        <li ng-click="vm.setCurrent(nat)" ng-repeat="(key, nat) in vm.data | orderBy:vm.structure.score_field_name | limitTo:3">
+                                                <span class="number">{{vm.getRank(nat)}}.</span>
+                                                <span class="value">{{nat.iso}}</span>
+                                                <md-tooltip md-delay="700" md-direction="right">
+                                                        {{nat.country}}
+                                                </md-tooltip>
+                                        </li>
+                                </ul>
+                        </div>
+                </div>
+        </section>
+        <section class="module slide-toggle" layout-align="center center" layout="column" ng-if="vm.current  && !vm.compare.active">
+                <median data="vm.data" ng-model="vm.current" options="{color: vm.structure.color,handling: true}" style="margin:2em 0"></median>
+        </section>
+        <section>
+                <md-tabs md-center-tabs="true" md-dynamic-height md-no-pagination="true" md-swipe-content="true" ng-if="vm.current">
+                        <md-tab label="Details" md-active="activeTab == 2" md-on-select="vm.setTab(0)">
+                                <div class="module bubbles slide-toggle mt mb" layout="column">
+                                        <bubbles chartdata="vm.current" height="320" indexer="vm.structure.children" ng-model="vm.display.selectedCat" sizefactor="3" width="300"></bubbles>
+                                </div>
+                        </md-tab>
+                        <md-tab label="History" md-active="activeTab == 1" md-on-select="vm.setTab(1)">
+                                <div class="module tabs mb no-margin" layout="column">
+                                        <history chartdata="vm.current.data.epi" options="{field:vm.structure.score_field_name, color:vm.structure.color}"></history>
+                                </div>
+                        </md-tab>
+                        <md-tab label="Compare" md-active="activeTab == 2" md-on-deselect="vm.checkComparison(false)" md-on-select="vm.checkComparison(true)">
+                                <div class="module comparison">
+                                        <div layout-wrap layout="row">
+                                                <div class="country anim-opacity" flex="50" ng-repeat="country in vm.compare.countries">
+                                                        <h4 ng-click="vm.setCurrent(country)">
+                                                                <span class="number">N°{{vm.getRank(country)}}</span>
+                                                                {{country.country}}</h4>
+                                                        <median data="data" height="20" info="false" ng-model="country" width="120"></median>
+                                                        <bubbles borders="false" chartdata="country" height="150" indexer="vm.structure.children" labels="false" ng-model="vm.display.selectedCat" sizefactor="5" width="120"></bubbles>
+
+                                                </div>
+                                        </div>
+                                </div>
+                        </md-tab>
+                </md-tabs>
+        </section>

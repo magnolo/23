@@ -1,0 +1,45 @@
+<section class="rank module slide-toggle" layout-align="space-between center" layout="row" ng-if="vm.current  && !vm.compare.active">
+        <div class="chart" layout="row">
+                <div layout-align="center center" layout="column">
+                        <div class="title" layout-align="center center" layout="row">Rank</div>
+                        <div layout="row">
+                                <circlegraph ng-model="vm.current" options="circleOptions"></circlegraph>
+                        </div>
+                </div>
+                <div class="tendency" layout-align="center center" layout="column" ng-class="{active:vm.current}">
+                        <div>&nbsp;</div>
+                        <ng-md-icon class="icon-space" icon="{{getTendency()}}" options='{"rotation": "none"}'></ng-md-icon>
+                </div>
+        </div>
+        <div class="mini-list">
+                <div class="title">
+                        <span ng-if="!vm.current.id">Top</span>
+                        <span ng-if="vm.current.id">Actual</span>
+                </div>
+                <div class="list">
+                        <ul style="transform:translateY(-{{dvm.getOffset()}}px)">
+                                <li ng-class="{active: nat.id == vm.current.id}" ng-click="vm.setCurrent(nat)" ng-repeat="(key, nat) in vm.data | orderBy:'-'+vm.structure.score_field_name">
+                                        <span class="number">{{key+1}}.</span>
+                                        <span class="value">{{nat.iso}}</span>
+                                        <md-tooltip md-delay="700" md-direction="right">
+                                                {{nat.country}}
+                                        </md-tooltip>
+                                </li>
+                        </ul>
+                </div>
+        </div>
+        <div class="mini-list">
+                <div class="title">Bottom</div>
+                <div class="list">
+                        <ul>
+                                <li ng-click="vm.setCurrent(nat)" ng-repeat="(key, nat) in vm.data | orderBy:vm.structure.score_field_name | limitTo:3">
+                                        <span class="number">{{dvm.getRank(nat)}}.</span>
+                                        <span class="value">{{nat.iso}}</span>
+                                        <md-tooltip md-delay="700" md-direction="right">
+                                                {{nat.country}}
+                                        </md-tooltip>
+                                </li>
+                        </ul>
+                </div>
+        </div>
+</section>

@@ -22,7 +22,7 @@
 				//Fetching Options
 
 			 $scope.options = angular.extend(defaults(), $scope.options);
-			
+
 				//Creating the Scale
 				var rotate = d3.scale.linear()
 					.domain([1, $scope.options.size])
@@ -75,8 +75,7 @@
 						.call(arcTween, rotate(radius) * 2 * Math.PI);
 					text.transition().duration(750).tween('text', function(d) {
 						var data = this.textContent.split('N°');
-
-						var i = d3.interpolate(data[1], radius);
+						var i = d3.interpolate(parseInt(data[1]), radius);
 						return function(t) {
 							this.textContent =  'N°' + (Math.round(i(t) * 1) / 1);
 						};
@@ -85,6 +84,7 @@
 
 				//Tween animation for the Arc
 				function arcTween(transition, newAngle) {
+
 					transition.attrTween("d", function(d) {
 						var interpolate = d3.interpolate(d.endAngle, newAngle);
 						return function(t) {
@@ -97,7 +97,6 @@
 						if(n === o){
 							return;
 						}
-						console.log(n)
 						circleBack.style('stroke', n.color);
 						circleGraph.style('fill', n.color);
 						text.style('fill', n.color);
@@ -110,20 +109,14 @@
 					function() {
 						return ngModel.$modelValue;
 					},
-					function(newValue, oldValue) {
-						$timeout(function(){
-							console.log(	newValue[$scope.options.field]);
-							console.log(	newValue,$scope.options.field);
-						})
-
-
-						if (!newValue){
-							newValue = {};
-							newValue[$scope.options.field] = $scope.options.size;
+					function(n, o) {
+					
+						if (!n){
+							n = {};
+							n[$scope.options.field] = $scope.options.size;
 						}
-
 						$timeout(function(){
-							animateIt(newValue[$scope.options.field])
+							animateIt(n[$scope.options.field])
 						});
 					});
 			}

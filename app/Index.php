@@ -9,8 +9,14 @@ class Index extends Model
     //
     protected $table="data_indizes";
 
-    public function items(){
-      return $this->hasMany('App\IndexItem', 'data_indizes_id' , 'id')->where('parent_id', 0);
+    public function child(){
+      return $this->hasMany('App\Index', 'parent_id', 'id');
     }
-  
+    public function parent(){
+      return $this->hasOne('App\Index', 'id', 'parent_id');
+    }
+    public function children(){
+      return $this->child()->with('children');
+    }
+
 }

@@ -24,13 +24,15 @@ Route::group(['prefix' => 'api/1/'], function () {
     Route::controller('authenticate', 'AuthenticateController');
 
     Route::get('index', 'IndexController@index');
-    Route::get('index/{id}', 'IndexController@show');
+    Route::get('index/{id}', 'EpiController@index');
+    Route::get('index/{id}/year/{year}', 'IndexController@showByYear');
+    Route::get('index/{id}/structure', 'IndexController@showWithChildren');
 
-    Route::get('epi', 'EpiController@index');
-    Route::get('epi/year/{year}', 'EpiController@showByYear');
+
     Route::get('nations', 'NationsController@index');
     Route::get('nations/bbox/{countries}', 'NationsController@getBBox');
     Route::get('nations/{iso}', 'NationsController@show');
+    Route::get('nations/{iso}/index/{index}', 'NationsController@showIndex');
 
 
 });
