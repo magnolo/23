@@ -7,6 +7,7 @@
 			restrict: 'EA',
 			templateUrl: 'views/directives/parsecsv/parsecsv.html',
 			controller: 'ParsecsvCtrl',
+			replace:true,
 			link: function( $scope, element, $attrs ){
 				//
 				var errors = 0;
@@ -21,7 +22,6 @@
 							input[0].click();
 					});
 					input.bind('change',function(e){
-							console.log('hidd');
 							$timeout(function(){
 								Papa.parse(input[0].files[0],{
 									skipEmptyLines: true,
@@ -40,10 +40,21 @@
 										});
 										$scope.vm.data.push(row);
 									},
-									before: function(file, inputElem)
+									beforeFirstChunk: function(chunk)
 									{
 
-										console.log("Parsing file...", file);
+										//Check if there are points in the headers
+										var index = chunk.match( /\r\n|\r|\n/ ).index;
+								    var headings = chunk.substr(0, index).split( ',' );
+										for(var i = 0; i <= headings.length; i++){
+											console.log(headings[i]);
+											if(headings[i]){
+												if(headings[i].indexOf('.') > -1){
+													headings[i] = headings[i].substr(0, headings[i].indexOf('.'));
+												}
+											}
+										}
+								    return headings.join() + chunk.substr(index);
 									},
 									error: function(err, file)
 									{
@@ -52,6 +63,13 @@
 									complete: function(results)
 									{
 										$scope.vm.errors = errors;
+
+										//See if there is an field name "iso" in the headings;
+										angular.forEach($scope.vm.data[0].data[0], function(item, key){
+											if(key.indexOf('iso') != -1){
+												$scope.vm.meta.iso_field = key;
+											}
+										});
 										$state.go('app.index.create.check');
 										ToastService.show($scope.vm.data.length+' Zeilen importiert!')
 									}

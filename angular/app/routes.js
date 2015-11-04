@@ -29,7 +29,9 @@
 				url: '/index',
 				views: {
 					'main@': {
-						templateUrl: getView('index')
+						templateUrl: getView('index'),
+						controller: 'IndexbaseCtrl',
+						controllerAs: 'vm'
 					}
 				}
 			})

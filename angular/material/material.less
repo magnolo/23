@@ -1,3 +1,6 @@
+@import (less) 'colors.less';
+
+
 .md-toolbar-tools{
   font-size:16px;
 }
@@ -9,9 +12,31 @@
   padding:0 30px;
   text-transform: none;
 }
-.md-ripple-container{
-  border-radius: 20px;
+
+md-dialog{
+  padding:24px;
 }
 md-toast{
   position:fixed;
+}
+.md-button{
+  .md-ripple-container{
+    border-radius: 20px;
+  }
+  ng-md-icon{
+    position:relative;
+    top:0.5em;
+  }
+}
+md-list-item{
+  color:@dark-color;
+  path{
+    fill:@grey;
+  }
+}
+.md-border{
+  border:1px solid;
+  &.md-focused{
+    border:1px solid;
+  }
 }

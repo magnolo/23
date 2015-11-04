@@ -170,6 +170,7 @@
 				$rootScope.greyed = true;
 				vm.mvtSource.options.mutexToggle = false;
 				vm.mvtSource.setStyle(invertedStyle);
+
 			} else {
 				$rootScope.greyed = false;
 				angular.forEach(vm.mvtSource.layers.countries_big_geom.features, function (feature) {
@@ -186,6 +187,7 @@
 					item:$state.params.item
 				})
 			}
+			//vm.mvtSource.redraw();
 		};
 
 		function toggleCountrieList(country) {
@@ -277,7 +279,7 @@
 		function createCanvas(colors) {
 
 			vm.canvas = document.createElement('canvas');
-			vm.canvas.width = 256;
+			vm.canvas.width = 280;
 			vm.canvas.height = 10;
 			vm.ctx = vm.canvas.getContext('2d');
 			var gradient = vm.ctx.createLinearGradient(0, 0, 280, 10);
@@ -285,8 +287,8 @@
 			gradient.addColorStop(0.53, vm.structure.color || 'rgba(128, 243, 198,1)');
 			gradient.addColorStop(0, 'rgba(102,102,102,1)');
 			vm.ctx.fillStyle = gradient;
-			vm.ctx.fillRect(0, 0, 270, 10);
-			vm.palette = vm.ctx.getImageData(0, 0, 256, 1).data;
+			vm.ctx.fillRect(0, 0, 280, 10);
+			vm.palette = vm.ctx.getImageData(0, 0, 257, 1).data;
 			//document.getElementsByTagName('body')[0].appendChild(vm.canvas);
 		}
 
@@ -296,8 +298,9 @@
 			gradient.addColorStop(0.53, color);
 			gradient.addColorStop(0, 'rgba(102,102,102,1)');
 			vm.ctx.fillStyle = gradient;
-			vm.ctx.fillRect(0, 0, 270, 10);
-			vm.palette = vm.ctx.getImageData(0, 0, 256, 1).data;
+			vm.ctx.fillRect(0, 0, 280, 10);
+			vm.palette = vm.ctx.getImageData(0, 0, 257, 1).data;
+			//document.getElementsByTagName('body')[0].appendChild(vm.canvas);
 		};
 
 		function invertedStyle(feature) {
@@ -337,10 +340,11 @@
 
 			switch (type) {
 			case 3: //'Polygon'
-				if (nation[field]) {
-					var colorPos = parseInt(256 / 100 * nation[field]) * 4;
+				if (typeof nation[field] != "undefined") {
+
+					var colorPos = parseInt(256 / 100 * parseInt(nation[field])) * 4;
 					var color = 'rgba(' + vm.palette[colorPos] + ', ' + vm.palette[colorPos + 1] + ', ' + vm.palette[colorPos + 2] + ',' + vm.palette[colorPos + 3] + ')';
-					style.color = 'rgba(' + vm.palette[colorPos] + ', ' + vm.palette[colorPos + 1] + ', ' + vm.palette[colorPos + 2] + ',0.7)'; //color;
+					style.color = 'rgba(' + vm.palette[colorPos] + ', ' + vm.palette[colorPos + 1] + ', ' + vm.palette[colorPos + 2] + ',0.6)'; //color;
 					style.outline = {
 						color: color,
 						size: 1
@@ -354,6 +358,7 @@
 					};
 					break;
 				} else {
+
 					style.color = 'rgba(255,255,255,0)';
 					style.outline = {
 						color: 'rgba(255,255,255,0)',
@@ -406,16 +411,18 @@
 			else {
 				updateCanvas('rgba(128, 243, 198,1)');
 			};
-			vm.calcTree();
-			if (vm.compare.active) {
+			vm.calcTree(); 
+			/*if (vm.compare.active) {
 				$timeout(function () {
-					vm.mvtSource.setStyle(invertedStyle);
+					//vm.mvtSource.setStyle(invertedStyle);
+					//vm.mvtSource.redraw();
 				});
 			} else {
 				$timeout(function () {
-					vm.mvtSource.setStyle(countriesStyle);
+					//vm.mvtSource.setStyle(countriesStyle);
+					//vm.mvtSource.redraw();
 				});
-			}
+			}*/
 			if (vm.current.iso) {
 				if($state.params.countries){
 					$state.go('app.index.show.selected.compare', {
@@ -523,6 +530,7 @@
 								vm.mvtSource.layers.countries_big_geom.features[$state.params.item].selected = true;
 						}
 					}
+					//vm.mvtSource.redraw();
 				});
 				vm.mvtSource.options.onClick = function (evt, t) {
 					if (!vm.compare.active) {

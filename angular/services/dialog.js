@@ -4,14 +4,16 @@
 	angular.module("app.services").factory('DialogService', function($mdDialog){
 
 		return {
-			fromTemplate: function(template, $scope){
+			fromTemplate: function(template, $scope, fn){
 
 				var options = {
 					templateUrl: '/views/dialogs/' + template + '/' + template + '.html'
 				};
 
 				if ($scope){
+					$scope.doFunction = fn;
 					options.scope = $scope.$new();
+
 				}
 
 				return $mdDialog.show(options);

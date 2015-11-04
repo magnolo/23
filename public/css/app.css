@@ -506,11 +506,30 @@
   padding: 0 30px;
   text-transform: none;
 }
-.md-ripple-container {
-  border-radius: 20px;
+md-dialog {
+  padding: 24px;
 }
 md-toast {
   position: fixed;
+}
+.md-button .md-ripple-container {
+  border-radius: 20px;
+}
+.md-button ng-md-icon {
+  position: relative;
+  top: 0.5em;
+}
+md-list-item {
+  color: #333333;
+}
+md-list-item path {
+  fill: #afafaf;
+}
+.md-border {
+  border: 1px solid;
+}
+.md-border.md-focused {
+  border: 1px solid;
 }
 
 *:focus {
@@ -541,6 +560,12 @@ body > canvas {
   color: #0000ff;
   font-size: 1.5em;
 }
+.info {
+  color: #006bb9;
+}
+.info path {
+  fill: #006bb9;
+}
 .icon-space {
   position: relative;
   top: 4px;
@@ -567,6 +592,7 @@ body > canvas {
 }
 .inline-list.menu-list li a {
   position: relative;
+  color: #333333;
 }
 .inline-list.menu-list li a::after {
   content: '';
@@ -698,6 +724,24 @@ section.module-top.out {
   -webkit-transform: translateX(-380px);
   transform: translateX(-380px);
 }
+section.module-top .md-subheader {
+  font-size: 1.4em;
+}
+section.module-top md-list md-list-item {
+  border-bottom: 1px solid #d7dddd;
+}
+section.module-top md-list md-list-item:last-child {
+  border-bottom: 0px;
+}
+section.module-top md-list .md-button {
+  border-radius: 0;
+}
+section.module-top md-list .md-button .md-ripple-container {
+  border-radius: 0;
+}
+section.module-top .upload-container {
+  text-align: center;
+}
 section.table {
   background-color: rgba(255, 255, 255, 0.2);
   width: 100%;
@@ -715,12 +759,27 @@ section.table md-data-table-toolbar {
 section.table md-data-table-toolbar * {
   fill: #fff;
 }
+section.table md-data-table-toolbar md-input-container {
+  padding-bottom: .5em;
+}
 section.table md-data-table-container {
   font-family: RobotoDraft, Roboto, 'Helvetica Neue', sans-serif;
   margin-bottom: 56px;
 }
 section.table md-data-table-container thead:not([md-table-progress]) > tr > th {
   color: #006bb9;
+}
+section.table md-data-table-container thead:not([md-table-progress]) > tr > th.iconed {
+  position: relative;
+  padding-left: 3em;
+}
+section.table md-data-table-container thead:not([md-table-progress]) > tr > th.iconed span.icon {
+  position: absolute;
+  top: 1.3em;
+  left: 0em;
+}
+section.table md-data-table-container thead:not([md-table-progress]) > tr > th.iconed span.icon path {
+  fill: #006bb9;
 }
 section.table md-data-table-container table[md-data-table] > tbody > tr {
   height: 2.5em;

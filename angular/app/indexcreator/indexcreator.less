@@ -1,3 +1,6 @@
+@import (less) '../../material/colors.less';
+
+
 section{
   &.module-top{
     background-color: #fff;
@@ -6,6 +9,26 @@ section{
     margin-top:1em;
     &.out{
       transform:translateX(-380px);
+    }
+    .md-subheader{
+      font-size:1.4em;
+    }
+    md-list{
+      md-list-item{
+        border-bottom:1px solid @grey-light;
+        &:last-child{
+          border-bottom:0px;
+        }
+      }
+      .md-button{
+        border-radius: 0;
+        .md-ripple-container{
+          border-radius: 0;
+        }
+      }
+    }
+    .upload-container{
+      text-align: center;
     }
   }
   &.table{
@@ -25,6 +48,9 @@ section{
       *{
         fill:#fff;
       }
+      md-input-container{
+        padding-bottom:.5em;
+      }
     }
     md-data-table-container{
         font-family: RobotoDraft,Roboto,'Helvetica Neue',sans-serif;
@@ -32,6 +58,23 @@ section{
 
       thead:not([md-table-progress])>tr>th {
         color: #006bb9;
+        &.iconed{
+          position:relative;
+            //background:#006bb9;
+            padding-left:3em;
+          span{
+            &.icon{
+
+              position:absolute;
+              top:1.3em;
+              left:0em;
+              path{
+                fill:#006bb9;
+              }
+            }
+          }
+        }
+
       }
       table[md-data-table]>tbody>tr{
         height:2.5em;

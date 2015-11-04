@@ -1,0 +1,15 @@
+<md-dialog ng-controller="LoosedataCtrl">
+	<form ng-submit="save()">
+		<md-dialog-content>
+			<h2 class="md-title">Are you sure?</h2>
+			<p>
+				All of your data will be lost.
+			</p>
+		</md-dialog-content>
+
+		<div class="md-actions" layout="row">
+			<md-button type="button" ng-click="hide()">No</md-button>
+			<md-button class="md-primary md-raised" type="submit">Yes</md-button>
+		</div>
+	</form>
+</md-dialog>

@@ -20,8 +20,7 @@
 	$mdThemingProvider.definePalette('bluer', blueMap);
 		$mdThemingProvider.theme('default')
 		.primaryPalette('neonTeal')
-		.accentPalette('neonTeal')
-		.warnPalette('bluer');
+		.accentPalette('bluer');
 	});
 
 })();

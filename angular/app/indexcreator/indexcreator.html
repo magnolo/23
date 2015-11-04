@@ -5,15 +5,14 @@
 												<p>Browse data</p>
 												<ng-md-icon icon="add"></ng-md-icon>
 								</md-list-item>
-								<md-list-item ng-click="vm.showUploadContainer = true">
+								<md-list-item ng-click="vm.showUploadContainer = !vm.showUploadContainer">
 												<p>Upload new data</p>
-												<ng-md-icon icon="add"></ng-md-icon>
+												<ng-md-icon icon="{{vm.openClose(vm.showUploadContainer)}}"></ng-md-icon>
 								</md-list-item>
 				</md-list>
 
-				<div class="anim upload-container" ng-if="vm.showUploadContainer">
-								Upload countries data
-								<parsecsv></parsecsv>
+				<div class="slide-toggle upload-container" ng-if="vm.showUploadContainer">
+						<parsecsv></parsecsv>
 				</div>
 </section>
 <section class="table anim md-whiteframe-z2" ng-if="vm.data.length && vm.step == 1">
@@ -21,17 +20,29 @@
 								<div layout-align="space-between center" flex layout="row">
 												<h2 class="md-title">CSV Import 1/5</h2>
 												<h3>check your data</h3>
+												<md-input-container style="margin-right: 10px;">
+													 <label>ISO Field</label>
+													 <md-select ng-model="vm.meta.iso_field">
+														 <md-option ng-repeat="(key, item) in vm.data[0].data[0]" value="{{key}}">{{key}}</md-option>
+													 </md-select>
+												 </md-input-container>
+												<div layout="row" layout-align="space-between center">
 
-												<div>
-                          <md-button class="md-icon-button md-warn anim-fade" ng-if="vm.selected.length">
-                          <ng-md-icon icon="delete"></ng-md-icon>
+                          <md-button class="md-raised md-warn anim-fade" ng-if="vm.selected.length">
+                          	<ng-md-icon icon="delete"></ng-md-icon>
+														Delete
                           </md-button>
+
 													<md-button ui-sref="app.index.create.meta" ng-if="vm.errors == 0">
-                                next
+                                Next
 																	<ng-md-icon icon="chevron_right"></ng-md-icon>
 													</md-button>
                           <span ng-if="vm.errors">
                             {{vm.errors}} errors detected
+														<md-button ng-click="vm.clearErrors()">
+	                                Clear Errors
+																		<ng-md-icon icon="gesture"></ng-md-icon>
+														</md-button>
                           </span>
 												</div>
 								</div>
@@ -40,14 +51,14 @@
 								<table md-data-table md-row-select="vm.selected">
 												<thead md-order="vm.query.order" md-trigger="vm.onOrderChange">
 																<tr>
-                                        <th name="Errors" order-by="errors"></th>
-																				<th name="{{key}}" ng-repeat="(key, item) in vm.data[0].data[0]" order-by="{{key}}"></th>
+                                        <th name="Errors" order-by="errors" ng-if="vm.errors"></th>
+																				<th name="{{key}}" ng-repeat="(key, item) in vm.data[0].data[0]" order-by="{{key}}" ng-class="{iconed: key == vm.meta.iso_field}"><span class="icon" ng-if="key == vm.meta.iso_field"><ng-md-icon icon="track_changes"></ng-md-icon></span></th>
 																</tr>
 												</thead>
 												<tbody>
 
 																<tr md-auto-select ng-repeat="item in vm.data | orderBy:vm.query.order | limitTo: vm.query.limit : (vm.query.page-1)*vm.query.limit" class="{{ vm.checkForErrors(item) }}">
-                                      <td>{{item.errors.length}}</td>
+                                      <td ng-if="vm.errors">{{item.errors.length}}</td>
                                       <td ng-repeat="column in item.data[0]">{{column}}</td>
 																</tr>
 												</tbody>
@@ -61,21 +72,55 @@
           <div layout-align="space-between center" flex layout="row">
                   <h2 class="md-title">CSV Import 2/5</h2>
                   <h3>adding meta data</h3>
-                  <div>
-                    <md-button ng-click="vm.step = 1">
+                  <div layout="row" layout-align="space-between center">
+                    <md-button ui-sref="app.index.create.check">
                           <ng-md-icon icon="chevron_left"></ng-md-icon>
-                          prev
+                          Prev
 
                     </md-button>
                         <md-button ng-click="vm.step = 3">
-                              next
+                              Next
                                 <ng-md-icon icon="chevron_right"></ng-md-icon>
                         </md-button>
                   </div>
           </div>
   </md-data-table-toolbar>
-  <md-content layout="row" layout-padding layout-wrap layout-fill >
-      <md-whiteframe class="md-whiteframe-1dp" ng-repeat="(key, item) in vm.data[0]" flex="25">
+  <md-content>
+		<md-tabs md-selected="vm.selectedIndex" class="md-default" md-autoselect md-dynamic-height>
+		 <md-tab ng-repeat="(key, item) in vm.data[0].data[0]" ng-if="key != vm.meta.iso_field" label="{{key}}">
+      <h2 style="text-align:center">
+        <span>{{key}}</span>
+      </h2>
+			 <div class="tab{{$index%4}}" style="padding: 25px;" flex="50" flex-offset="25" flex-md="70" flex-offset-md="15" flex-sm="100" flex-offset-sm="0" flex-offset="25">
+				 <div>
+
+					 <md-input-container class="md-block">
+						 <label>Alternative name</label>
+						 <input ng-model="vm.meta.table[key].name">
+					 </md-input-container>
+					 <md-input-container class="md-block">
+						 <label>Title</label>
+						 <input required ng-model="vm.meta.table[key].title">
+					 </md-input-container>
+					 <md-input-container class="md-block">
+						 <label>Description</label>
+						 <input md-maxlength="30" name="description" ng-model="vm.meta.table[key].description">
+					 </md-input-container>
+				 </div>
+				 <div layout="row" layout-align="space-between center">
+					 <span flex ng-if="vm.selectedIndex == 0"></span>
+				 <md-button ng-if="vm.selectedIndex > 0" class="md-raised" ng-click="vm.selectedIndex = vm.selectedIndex -1" >
+					<ng-md-icon icon="chevron_left"></ng-md-icon> Prev
+				 </md-button>
+				 <md-button class="md-raised" ng-click="vm.selectedIndex = vm.selectedIndex +1" >
+					 Next <ng-md-icon icon="chevron_right"></ng-md-icon>
+				 </md-button>
+			 </div>
+			 </div>
+		 </md-tab>
+	 </md-tabs>
+
+    <!--  <md-whiteframe class="md-whiteframe-1dp" ng-repeat="(key, item) in vm.data[0].data[0]" flex="25">
       <h4>{{key}}</h4>
       <md-input-container >
         <label>Title</label>
@@ -93,6 +138,6 @@
         <label>Description</label>
         <input ng-model="vm.meta[key].description" type="text">
       </md-input-container>
-    </md-whiteframe>
+    </md-whiteframe>-->
   </md-content>
 </section>
