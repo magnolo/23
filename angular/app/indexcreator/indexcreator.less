@@ -61,7 +61,7 @@ section{
         &.iconed{
           position:relative;
             //background:#006bb9;
-            padding-left:3em;
+            padding-left:3em !important;
           span{
             &.icon{
 
@@ -80,6 +80,20 @@ section{
         height:2.5em;
         &.md-warn{
             background-color:rgba(244,67,54,0.2);
+        }
+        td{
+          &.md-warn{
+              //background-color:rgba(244,67,54,0.2);
+              &::after{
+                content: 'Data missing';
+
+                color: red;
+                //text-align: center;
+                width: 100%;
+                display: inline-block;
+                line-height: 3em;
+              }
+          }
         }
       }
 

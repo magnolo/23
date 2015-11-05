@@ -1,7 +1,7 @@
 (function(){
 	"use strict";
 
-	angular.module('app.directives').directive( 'parsecsv', function($state, $timeout, ToastService) {
+	angular.module('app.directives').directive( 'parsecsv', function($state, $timeout, toastr) {
 
 		return {
 			restrict: 'EA',
@@ -29,25 +29,26 @@
 									dynamicTyping: true,
 									step:function(row){
 										angular.forEach(row.data[0], function(item){
-											if(item == "NA" || item < 0){
-												row.errors.push({
-													type:"1",
-													message:"Field in row is not valid for database use!",
-													column: item
-												})
-												errors++;
+											if(isNaN(item) || item < 0 ){
+												if(item == "NA" || item < 0 || item.indexOf('#N/A') > -1){
+													row.errors.push({
+														type:"1",
+														message:"Field in row is not valid for database use!",
+														column: item
+													})
+													errors++;
+												}
 											}
+
 										});
 										$scope.vm.data.push(row);
 									},
 									beforeFirstChunk: function(chunk)
 									{
-
 										//Check if there are points in the headers
 										var index = chunk.match( /\r\n|\r|\n/ ).index;
 								    var headings = chunk.substr(0, index).split( ',' );
 										for(var i = 0; i <= headings.length; i++){
-											console.log(headings[i]);
 											if(headings[i]){
 												if(headings[i].indexOf('.') > -1){
 													headings[i] = headings[i].substr(0, headings[i].indexOf('.'));
@@ -66,12 +67,12 @@
 
 										//See if there is an field name "iso" in the headings;
 										angular.forEach($scope.vm.data[0].data[0], function(item, key){
-											if(key.indexOf('iso') != -1){
+											if(key.toLowerCase().indexOf('iso') != -1){
 												$scope.vm.meta.iso_field = key;
 											}
 										});
 										$state.go('app.index.create.check');
-										ToastService.show($scope.vm.data.length+' Zeilen importiert!')
+										toastr.info($scope.vm.data.length+' lines importet!', 'Information')
 									}
 								})
 							})

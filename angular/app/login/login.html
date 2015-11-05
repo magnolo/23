@@ -1,0 +1,25 @@
+<div class="" flex layout-fill layout="row" layout-align="center center">
+    <md-content style="padding:3em" flex="35"  class=" md-whiteframe-z3 autoScroll">
+        <h2>Login</h2>
+        <form name="loginForm" novalidate="" ng-submit="vm.doLogin()">
+          <md-input-container class="md-has-icon md-block">
+            <!-- Use floating label instead of placeholder -->
+
+            <ng-md-icon icon="person" placeholder="Email"></ng-md-icon>
+            <input ng-model="vm.user.email" name="email" required type="email" >
+            <div ng-messages="loginForm.email.$error" ng-if="loginForm.email.$error.length">
+              <div ng-message="required">This is required.</div>
+            </div>
+          </md-input-container>
+          <md-input-container  md-no-float class="md-has-icon md-block">
+
+            <ng-md-icon icon="lock"></ng-md-icon>
+            <input type="password" required name="password" placeholder="Password" ng-model="vm.user.password">
+            <div ng-messages="loginForm.password.$error">
+              <div ng-message="required">This is required.</div>
+            </div>
+          </md-input-container>
+           <md-button  type="sumbit" class="md-raised md-accent" >Login</md-button>
+        </form>
+      </md-content>
+</div>

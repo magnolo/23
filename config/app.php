@@ -148,6 +148,7 @@ return [
         'Barryvdh\Debugbar\ServiceProvider',
 
         'App\Providers\ResponseMacroServiceProvider',
+        'Zizaco\Entrust\EntrustServiceProvider',
 
         Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
 
@@ -200,7 +201,7 @@ return [
         'View'      => 'Illuminate\Support\Facades\View',
 
         'Debugbar' => 'Barryvdh\Debugbar\Facade',
-
+        'Entrust' => 'Zizaco\Entrust\EntrustFacade',
         'JWTAuth'   => Tymon\JWTAuth\Facades\JWTAuth::class,
         'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
 

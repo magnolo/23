@@ -132,7 +132,7 @@
 
 .info-container {
   line-height: 1em;
-  top: calc(64px + 1em);
+  top: calc(48px + 1em);
   left: 1em;
   position: absolute;
   color: #afafaf;
@@ -519,6 +519,10 @@ md-toast {
   position: relative;
   top: 0.5em;
 }
+a.md-button span {
+  margin: 0;
+  margin-left: 5px;
+}
 md-list-item {
   color: #333333;
 }
@@ -530,6 +534,23 @@ md-list-item path {
 }
 .md-border.md-focused {
   border: 1px solid;
+}
+md-input-container.md-has-icon {
+  padding-left: 36px;
+}
+md-input-container ng-md-icon {
+  position: absolute;
+  top: 5px;
+  left: 2px;
+}
+md-menu-content {
+  padding: 0px;
+}
+.md-open-menu-container md-menu-divider {
+  margin: 0;
+}
+ng-md-icon path {
+  fill: #006bb9;
 }
 
 *:focus {
@@ -557,7 +578,7 @@ body > canvas {
   color: #006bb9;
 }
 .logo {
-  color: #0000ff;
+  color: #006bb9;
   font-size: 1.5em;
 }
 .info {
@@ -657,6 +678,17 @@ md-toast[md-theme=warn] {
   right: 0;
   z-index: 3;
   top: 0px;
+}
+.Header .md-toolbar-tools,
+.Header md-toolbar {
+  height: 48px;
+  min-height: 48px;
+}
+.Header a.md-button span {
+  color: #006bb9;
+}
+.Header .md-menu {
+  padding: 0px;
 }
 
 md-toolbar.md-menu-toolbar {
@@ -771,7 +803,7 @@ section.table md-data-table-container thead:not([md-table-progress]) > tr > th {
 }
 section.table md-data-table-container thead:not([md-table-progress]) > tr > th.iconed {
   position: relative;
-  padding-left: 3em;
+  padding-left: 3em !important;
 }
 section.table md-data-table-container thead:not([md-table-progress]) > tr > th.iconed span.icon {
   position: absolute;
@@ -787,6 +819,13 @@ section.table md-data-table-container table[md-data-table] > tbody > tr {
 section.table md-data-table-container table[md-data-table] > tbody > tr.md-warn {
   background-color: rgba(244, 67, 54, 0.2);
 }
+section.table md-data-table-container table[md-data-table] > tbody > tr td.md-warn::after {
+  content: 'Data missing';
+  color: red;
+  width: 100%;
+  display: inline-block;
+  line-height: 3em;
+}
 section.table md-data-table-pagination {
   position: fixed;
   bottom: 0px;
@@ -794,14 +833,15 @@ section.table md-data-table-pagination {
   background: #fff;
 }
 
+
 #Map_Container {
   height: calc(100% - 165px);
 }
 #map {
   position: fixed;
   width: 100%;
-  top: 64px;
-  height: calc(100% - 64px);
+  top: 48px;
+  height: calc(100% - 48px);
 }
 .angular-leaflet-map {
   width: 100%;
@@ -871,6 +911,8 @@ section.table md-data-table-pagination {
 .Sidebar-version a {
   color: white;
 }
+
+
 
 
 

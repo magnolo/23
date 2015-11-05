@@ -1,9 +1,9 @@
-(function(){
+(function () {
 	"use strict";
 
-	angular.module('app.routes').config(function($stateProvider, $urlRouterProvider){
+	angular.module('app.routes').config(function ($stateProvider, $urlRouterProvider) {
 
-		var getView = function(viewName){
+		var getView = function (viewName) {
 			return '/views/app/' + viewName + '/' + viewName + '.html';
 		};
 
@@ -14,18 +14,53 @@
 				abstract: true,
 				views: {
 					header: {
-						templateUrl: getView('header')
+						templateUrl: getView('header'),
+						controller: 'HeaderCtrl',
+						controllerAs: 'vm'
 					},
 					main: {},
-					'map@':{
+					'map@': {
 						templateUrl: getView('map'),
 						controller: 'MapCtrl',
 						controllerAs: 'vm'
 					}
 				}
 			})
+			.state('app.user', {
+				url: '/user',
+				abstract: true
+
+			})
+			.state('app.user.login', {
+				url: '/login',
+				views: {
+					'main@': {
+						templateUrl: getView('login'),
+						controller: 'LoginCtrl',
+						controllerAs: 'vm'
+
+					}
+				}
+
+			})
+			.state('app.user.profile', {
+				url: '/my-profile',
+				views: {
+					'main@': {
+						templateUrl: getView('user'),
+						controller: 'UserCtrl',
+						controllerAs: 'vm',
+						resolve: {
+							profile: function (DataService, $auth) {
+								return DataService.getOne('me').$object;
+							}
+						}
+					}
+				}
+
+			})
 			.state('app.index', {
-				abstract:true,
+				abstract: true,
 				url: '/index',
 				views: {
 					'main@': {
@@ -38,10 +73,10 @@
 			.state('app.index.create', {
 				url: '/create',
 				views: {
-					'info':{
+					'info': {
 
 					},
-					'menu':{
+					'menu': {
 						templateUrl: getView('indexcreator'),
 						controller: 'IndexcreatorCtrl',
 						controllerAs: 'vm'
@@ -49,37 +84,37 @@
 				}
 			})
 			.state('app.index.create.check', {
-				 url: '/checking'
+				url: '/checking'
 			})
 			.state('app.index.create.meta', {
-				 url: '/adding-meta-data'
+				url: '/adding-meta-data'
 			})
 			.state('app.index.show', {
 				url: '/:index',
 				views: {
-					'info':{
+					'info': {
 						templateUrl: '/views/app/index/info.html',
 						controller: 'IndexCtrl',
 						controllerAs: 'vm',
-						resolve:{
-							initialData: function(DataService, $stateParams){
-								var d = DataService.getAll('index/'+$stateParams.index+'/year/2014');
-								var i = DataService.getOne('index/'+$stateParams.index+'/structure');
+						resolve: {
+							initialData: function (DataService, $stateParams) {
+								var d = DataService.getAll('index/' + $stateParams.index + '/year/2014');
+								var i = DataService.getOne('index/' + $stateParams.index + '/structure');
 								return {
-										dataObject: d.$object,
-										indexerObject: i.$object,
-										data:d,
-										indexer: i
+									dataObject: d.$object,
+									indexerObject: i.$object,
+									data: d,
+									indexer: i
 								}
 							}
 						}
 					},
-					'selected':{
-							templateUrl: '/views/app/index/selected.html',
+					'selected': {
+						templateUrl: '/views/app/index/selected.html',
 					}
 				}
 			})
-			.state('app.index.show.selected',{
+			.state('app.index.show.selected', {
 				url: '/:item',
 				/*views:{
 					'selected':{
@@ -94,17 +129,19 @@
 					}
 				}*/
 			})
-			.state('app.index.show.selected.compare',{
+			.state('app.index.show.selected.compare', {
 				url: '/compare/:countries'
 			})
 			.state('app.importcsv', {
 				url: '/importer',
-				data: {pageName: 'Import CSV'},
+				data: {
+					pageName: 'Import CSV'
+				},
 				views: {
 					'main@': {
 						templateUrl: getView('importcsv')
 					},
-					'map':{}
+					'map': {}
 				}
 			});
 

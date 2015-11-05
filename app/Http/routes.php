@@ -24,9 +24,13 @@ Route::group(['prefix' => 'api/1/'], function () {
     Route::controller('authenticate', 'AuthenticateController');
 
     Route::get('index', 'IndexController@index');
+    Route::get('index/alphabethical', 'IndexController@alphabethical');
     Route::get('index/{id}', 'EpiController@index');
     Route::get('index/{id}/year/{year}', 'IndexController@showByYear');
     Route::get('index/{id}/structure', 'IndexController@showWithChildren');
+
+    Route::get('data', 'UserdataController@index');
+    Route::get('data/{id}', 'UserdataController@show');
 
 
     Route::get('nations', 'NationsController@index');
@@ -34,5 +38,6 @@ Route::group(['prefix' => 'api/1/'], function () {
     Route::get('nations/{iso}', 'NationsController@show');
     Route::get('nations/{iso}/index/{index}', 'NationsController@showIndex');
 
+    Route::get('me', 'UserController@index');
 
 });

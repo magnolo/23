@@ -17,9 +17,11 @@ class IndexController extends Controller
      */
     public function index()
     {
-        //
+        return Index::where('parent_id', 0)->get()->load('children');
     }
-
+    public function alphabethical(){
+        return Index::orderBy('title', 'ASC')->get();
+    }
     /**
      * Show the form for creating a new resource.
      *

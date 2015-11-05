@@ -1,7 +1,7 @@
 (function(){
     "use strict";
 
-    angular.module('app.controllers').controller('IndexcreatorCtrl', function($scope,$rootScope,DialogService, $timeout,$state, $filter, leafletData, ToastService, VectorlayerService){
+    angular.module('app.controllers').controller('IndexcreatorCtrl', function($scope,$rootScope,DialogService, $timeout,$state, $filter, leafletData, toastr, VectorlayerService){
         //
         var vm = this;
         vm.map = null;
@@ -13,6 +13,7 @@
         vm.selectedIndex = 0;
         vm.search = search;
         vm.deleteData = deleteData;
+        vm.deleteSelected = deleteSelected;
         vm.onOrderChange = onOrderChange;
         vm.onPaginationChange = onPaginationChange;
         vm.checkForErrors = checkForErrors;
@@ -34,7 +35,7 @@
           clearMap();
         }
         function openClose(active){
-          return active ? 'remove' : 'add'; 
+          return active ? 'remove' : 'add';
         }
         function clearLayerStyle(feature){
       			var style = {
@@ -70,7 +71,8 @@
         function clearErrors(){
           angular.forEach(vm.data, function(row, key){
             angular.forEach(row.data[0], function(item, k){
-              if(item == "NA" || item < 0){
+              if(isNaN(item) || item < 0)
+              if(item == "NA" || item < 0 || item.indexOf('#N/A') > -1){
                 vm.data[key].data[0][k] = '';
                 vm.errors --;
                 row.errors.splice(0,1);
@@ -79,32 +81,45 @@
           });
 
         }
+        function deleteSelected(){
+          console.log(vm.selected);
+          angular.forEach(vm.selected, function(item, key){
+            vm.data.splice(vm.data.indexOf(item), 1);
+            vm.selected.splice(key, 1);
+          });
+          if(vm.data.length == 0){
+            vm.deleteData();
+            $state.got('app.index.create');
+          }
+        }
         function deleteData(){
           vm.data = [];
 
         }
         $scope.$on("$stateChangeStart", function (event, toState, toParams, fromState, fromParams) {
           switch (toState.name) {
-            case 'app.index.create':
-                if(vm.data.length){
-                  $scope.toState = toState;
-                  DialogService.fromTemplate('loosedata', $scope, vm.deleteData);
-                  event.preventDefault();
-                  $rootScope.stateIsLoading = false;
-                }
-              break;
+
             case 'app.index.create.check':
 
               break;
             case 'app.index.create.meta':
                 if(!vm.meta.iso_field){
 
-                  ToastService.error('No field for ISO Code selected!');
+                  toastr.error('No field for ISO Code selected!', 'Error');
                   event.preventDefault();
                    $rootScope.stateIsLoading = false;
                 }
                 break;
             default:
+
+                if(vm.data.length){ 
+                  $scope.toState = toState;
+                  DialogService.fromTemplate('loosedata', $scope, vm.deleteData);
+                  event.preventDefault();
+                  $rootScope.stateIsLoading = false;
+                }
+
+              break;
 
           }
         });

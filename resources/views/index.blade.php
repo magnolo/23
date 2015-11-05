@@ -14,7 +14,7 @@
     <header ui-view="header"></header>
     <div ui-view="map" class="Map_Container"></div>
     <div ui-view="sidebar"></div>
-    <div ui-view="main" class="Page"></div>
+    <div ui-view="main" class="Page anim" layout-fill></div>
     <div class="cssload-container" ng-if="stateIsLoading">
         <div class="cssload-whirlpool"></div>
     </div>

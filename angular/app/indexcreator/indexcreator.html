@@ -28,7 +28,7 @@
 												 </md-input-container>
 												<div layout="row" layout-align="space-between center">
 
-                          <md-button class="md-raised md-warn anim-fade" ng-if="vm.selected.length">
+                          <md-button ng-click="vm.deleteSelected()" class="md-raised md-warn anim-fade" ng-if="vm.selected.length">
                           	<ng-md-icon icon="delete"></ng-md-icon>
 														Delete
                           </md-button>
@@ -52,14 +52,14 @@
 												<thead md-order="vm.query.order" md-trigger="vm.onOrderChange">
 																<tr>
                                         <th name="Errors" order-by="errors" ng-if="vm.errors"></th>
-																				<th name="{{key}}" ng-repeat="(key, item) in vm.data[0].data[0]" order-by="{{key}}" ng-class="{iconed: key == vm.meta.iso_field}"><span class="icon" ng-if="key == vm.meta.iso_field"><ng-md-icon icon="track_changes"></ng-md-icon></span></th>
+																				<th name="{{key}}" ng-repeat="(key, item) in vm.data[0].data[0]" order-by="{{key}}" ng-class="{iconed: key == vm.meta.iso_field}"><span class="icon" ng-if="key == vm.meta.iso_field"><ng-md-icon icon="public"></ng-md-icon></span></th>
 																</tr>
 												</thead>
 												<tbody>
 
 																<tr md-auto-select ng-repeat="item in vm.data | orderBy:vm.query.order | limitTo: vm.query.limit : (vm.query.page-1)*vm.query.limit" class="{{ vm.checkForErrors(item) }}">
-                                      <td ng-if="vm.errors">{{item.errors.length}}</td>
-                                      <td ng-repeat="column in item.data[0]">{{column}}</td>
+                                      <td ng-if="vm.errors" >{{item.errors.length}}</td>
+                                      <td ng-class="{'md-warn': vm.meta.iso_field == k && !column}" ng-repeat="(k, column) in item.data[0]">{{column}}</td>
 																</tr>
 												</tbody>
 								</table>
@@ -76,7 +76,6 @@
                     <md-button ui-sref="app.index.create.check">
                           <ng-md-icon icon="chevron_left"></ng-md-icon>
                           Prev
-
                     </md-button>
                         <md-button ng-click="vm.step = 3">
                               Next
