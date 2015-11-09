@@ -39,7 +39,6 @@
 													errors++;
 												}
 											}
-
 										});
 										$scope.vm.data.push(row);
 									},

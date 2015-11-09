@@ -89,6 +89,9 @@
 			.state('app.index.create.meta', {
 				url: '/adding-meta-data'
 			})
+			.state('app.index.create.final', {
+				url: '/adding-meta-data'
+			})
 			.state('app.index.show', {
 				url: '/:index',
 				views: {

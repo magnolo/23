@@ -35,8 +35,9 @@ Route::group(['prefix' => 'api/1/'], function () {
 
     Route::get('nations', 'NationsController@index');
     Route::get('nations/bbox/{countries}', 'NationsController@getBBox');
-    Route::get('nations/{iso}', 'NationsController@show');
     Route::get('nations/{iso}/index/{index}', 'NationsController@showIndex');
+    Route::get('nations/byName/{name}', 'NationsController@getByName');
+
 
     Route::get('me', 'UserController@index');
 

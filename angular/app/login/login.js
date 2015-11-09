@@ -24,8 +24,8 @@
         }
         function doLogin(){
           $auth.login(vm.user).then(function(response){
-               toastr.success('You have successfully signed in');
-                $state.go('app.index.show',{index:'epi'})
+            toastr.success('You have successfully signed in');
+            $state.go('app.index.show',{index:'epi'})
           }).catch(function(response){
             toastr.error('Please check your email and password', 'Something went wrong');
           })

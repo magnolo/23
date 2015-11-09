@@ -3,7 +3,7 @@
     angular.module('app.services').factory('IndexService', DataService);
     DataService.$inject = ['Restangular'];
 
-    function DataService(Restangular){
+    function DataService(Restangular, Toastr){
         return {
           getAll: getAll,
           getOne: getOne
@@ -12,9 +12,9 @@
         function getAll(route){
           var data = Restangular.all(route).getList();
             data.then(function(){}, function(){
-              alert('error');
+              toastr.error('No connection to database!', 'Connection Error')
             });
-            return data;
+            return data; 
         }
         function getOne(route, id){
           return Restangular.one(route, id).get();

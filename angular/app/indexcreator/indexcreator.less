@@ -64,16 +64,55 @@ section{
             padding-left:3em !important;
           span{
             &.icon{
-
+              opacity:0;
+              transition:all .3s ease;
               position:absolute;
               top:1.3em;
               left:0em;
+              path{
+                fill:#ccc;
+              }
+              &:hover{
+                path{
+                  fill:#006bb9;
+                }
+
+              }
+            }
+          }
+          &.globe{
+            span{
+              opacity: 1;
               path{
                 fill:#006bb9;
               }
             }
           }
+          &:hover{
+            span{
+              &.icon{
+                opacity: 1;
+              }
+            }
+          }
         }
+        &.done, &.done.md-active{
+          color:green !important;
+          path{
+            //fill:green;
+          }
+
+
+            span{
+              &:hover{
+                path{
+                  fill:green !important;
+                }
+              }
+            }
+
+        }
+
 
       }
       table[md-data-table]>tbody>tr{

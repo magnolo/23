@@ -756,11 +756,11 @@ md-menu-bar {
 }
 
 .multi-view {
-  top: calc(64px);
+  top: calc(48px);
   left: 0em;
   position: absolute;
   width: 100%;
-  height: calc(100% - 64px);
+  height: calc(100% - 48px);
 }
 
 section.module-top {
@@ -823,12 +823,34 @@ section.table md-data-table-container thead:not([md-table-progress]) > tr > th.i
   padding-left: 3em !important;
 }
 section.table md-data-table-container thead:not([md-table-progress]) > tr > th.iconed span.icon {
+  opacity: 0;
+  transition: all .3s ease;
   position: absolute;
   top: 1.3em;
   left: 0em;
 }
 section.table md-data-table-container thead:not([md-table-progress]) > tr > th.iconed span.icon path {
+  fill: #ccc;
+}
+section.table md-data-table-container thead:not([md-table-progress]) > tr > th.iconed span.icon:hover path {
   fill: #006bb9;
+}
+section.table md-data-table-container thead:not([md-table-progress]) > tr > th.iconed.globe span {
+  opacity: 1;
+}
+section.table md-data-table-container thead:not([md-table-progress]) > tr > th.iconed.globe span path {
+  fill: #006bb9;
+}
+section.table md-data-table-container thead:not([md-table-progress]) > tr > th.iconed:hover span.icon {
+  opacity: 1;
+}
+section.table md-data-table-container thead:not([md-table-progress]) > tr > th.done,
+section.table md-data-table-container thead:not([md-table-progress]) > tr > th.done.md-active {
+  color: green !important;
+}
+section.table md-data-table-container thead:not([md-table-progress]) > tr > th.done span:hover path,
+section.table md-data-table-container thead:not([md-table-progress]) > tr > th.done.md-active span:hover path {
+  fill: green !important;
 }
 section.table md-data-table-container table[md-data-table] > tbody > tr {
   height: 2.5em;

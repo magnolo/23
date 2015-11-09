@@ -54,10 +54,21 @@ class NationsController extends Controller
         //
         return Nation::where('iso', strtoupper($iso))->first()->load('epi');
     }
-
+    public function getByName($name){
+      $nation =  \DB::table('countries_big')
+        ->select('iso_a3 as iso', 'name', 'name_long', 'admin')
+        ->where('admin', 'like', '%'.$name.'%')
+        ->orWhere('geounit', 'like', '%'.$name.'%')
+        ->orWhere('name', 'like', '%'.$name.'%')
+        ->orWhere('name_long', 'like', '%'.$name.'%')
+        ->orWhere('brk_name', 'like', '%'.$name.'%')
+        ->orWhere('formal_en', 'like', '%'.$name.'%')
+        ->get();
+        return \Response::json($nation, 200, []);
+    }
     public function getBBox($countries){
 
-        $box =  \DB::table('countries')->select(\DB::raw('st_asgeojson(St_envelope(ST_Union(geom))) as bbox'))->whereIn('iso_a3', explode(",",$countries))->first();
+        $box =  \DB::table('countries_big')->select(\DB::raw('st_asgeojson(St_envelope(ST_Union(geom))) as bbox'))->whereIn('iso_a3', explode(",",$countries))->first();
         return $box->bbox;
     }
     /**
