@@ -155,7 +155,8 @@
 
           angular.forEach(vm.data, function(item, key){
             if(!item.data[0][vm.meta.iso_field]){
-                DataService.getOne('/nations/byName/'+item.data[0]['country']).then(function(data){
+                DataService.getOne('/nations/byName/'+item.data[0]['country']).then(function(response){
+                  var data = response.data;
                   if(data.length == 1){
                     item.data[0][vm.meta.iso_field] = data[0].iso;
                     vm.iso_errors --;
