@@ -22,8 +22,8 @@
         function getOne(route, id){
           return Restangular.one(route, id).get();
         }
-        function post(route, type, object){
-          return Restangular.all(route).post(object);
+        function post(route, data){
+          return Restangular.all(route).post(data);
         }
     }
 
