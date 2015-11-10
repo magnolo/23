@@ -19,5 +19,13 @@ class UsersTableSeeder extends Seeder
            'created_at' => 'NOW()',
            'updated_at' => 'NOW()'
           ]);
+
+          DB::table('users')->insert([
+             'name' => 'Twenty Three',
+             'email' => 'office@23degree.org',
+             'password' => bcrypt('wftw2016'),
+             'created_at' => 'NOW()',
+             'updated_at' => 'NOW()'
+            ]);
     }
 }
