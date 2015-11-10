@@ -17,7 +17,7 @@ class IndexController extends Controller
      */
     public function index()
     {
-        return Index::where('parent_id', 0)->get()->load('children');
+        return response()->api(Index::where('parent_id', 0)->get()->load('children'));
     }
     public function alphabethical(){
         return Index::orderBy('title', 'ASC')->get();
@@ -52,10 +52,10 @@ class IndexController extends Controller
 
     public function show($id){
        if(is_int($id)){
-           return Index::find($id);
+           return response()->api(Index::find($id));
        }
        elseif(is_string($id)){
-         return Index::where('name', $id)->first();
+         return response()->api(Index::where('name', $id)->first());
        }
        return false;
     }
@@ -70,15 +70,23 @@ class IndexController extends Controller
         }
         $index->load('parent');
 
-        return $index;
+        return response()->api($index);
     }
 
     public function showByYear($id, $year)
     {
         //
-        $index = $this->show($id);
+        if(is_int($id)){
+          $index = Index::find($id);
+        }
+        elseif(is_string($id)){
+          $index = Index::where('name', $id)->first();
+        }
+
         $data = \DB::table($index->table)->where('year', $year)->orderBy($index->score_field_name, 'desc')->get();
+        //return $data;
         return \Response::json($data, 200, [], JSON_NUMERIC_CHECK);
+        //return response()->api($data);
     }
 
     /**

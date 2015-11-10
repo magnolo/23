@@ -185,6 +185,9 @@
         function saveData(){
           console.log(vm.meta);
           console.log(vm.data);
+          DataService.post('data/tables', 'table', vm.meta).then(function(data){
+            console.log(data);
+          })
         }
         $scope.$on("$stateChangeStart", function (event, toState, toParams, fromState, fromParams) {
           switch (toState.name) {

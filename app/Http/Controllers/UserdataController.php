@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\UserData;
+use Auth;
+use JWTAuth;
+use Tymon\JWTAuth\Exceptions\JWTException;
+use App\User;
 
 class UserdataController extends Controller
 {
@@ -15,10 +19,15 @@ class UserdataController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+     public function __construct(){
+        //$this->middleware('jwt.auth');
+
+     }
     public function index()
     {
         //
-        return UserData::all()->load('user');
+        return response()->api(UserData::all()->load('user'));
     }
 
     /**
@@ -51,7 +60,7 @@ class UserdataController extends Controller
     public function show($id)
     {
         //
-        return UserData::find($id)->load('indizes');
+        return reponse()->api(UserData::find($id)->load('indizes'));
     }
 
     /**
@@ -86,5 +95,10 @@ class UserdataController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+
+    public function createDataTable(Request $request){
+      return $request;
     }
 }

@@ -54,7 +54,7 @@
 			vm.structureServer.then(function(structure){
 				vm.dataServer.then(function(data){
 					vm.data = data;
-					vm.structure = structure;
+					vm.structure = structure.data;
 					createCanvas();
 					drawCountries();
 					if($state.params.item){
@@ -143,7 +143,7 @@
 		};
 		function fetchNationData(iso){
 			DataService.getOne('nations', iso).then(function (data) {
-				vm.current.data = data;
+				vm.current.data = data.data;
 				mapGotoCountry(iso);
 			});
 		}
@@ -411,7 +411,7 @@
 			else {
 				updateCanvas('rgba(128, 243, 198,1)');
 			};
-			vm.calcTree(); 
+			vm.calcTree();
 			/*if (vm.compare.active) {
 				$timeout(function () {
 					//vm.mvtSource.setStyle(invertedStyle);

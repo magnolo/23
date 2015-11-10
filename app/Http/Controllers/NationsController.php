@@ -19,7 +19,7 @@ class NationsController extends Controller
     public function index()
     {
         //
-        return Nation::all()->load('epi');
+        return response()->api(Nation::all()->load('epi'));
     }
 
     /**
@@ -52,7 +52,7 @@ class NationsController extends Controller
     public function show($iso)
     {
         //
-        return Nation::where('iso', strtoupper($iso))->first()->load('epi');
+        return response()->api(Nation::where('iso', strtoupper($iso))->first()->load('epi'));
     }
     public function getByName($name){
       $nation =  \DB::table('countries_big')
@@ -64,7 +64,7 @@ class NationsController extends Controller
         ->orWhere('brk_name', 'like', '%'.$name.'%')
         ->orWhere('formal_en', 'like', '%'.$name.'%')
         ->get();
-        return \Response::json($nation, 200, []);
+        return response()->api($nation);
     }
     public function getBBox($countries){
 

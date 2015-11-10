@@ -17,7 +17,7 @@ class Kernel extends HttpKernel
         'Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse',
         'Illuminate\Session\Middleware\StartSession',
         'Illuminate\View\Middleware\ShareErrorsFromSession',
-
+        'Barryvdh\Cors\HandleCors',
 //		'App\Http\Middleware\VerifyCsrfToken', //re-enable if you're disabling JWT
     ];
 
@@ -30,9 +30,6 @@ class Kernel extends HttpKernel
         'auth' => 'App\Http\Middleware\Authenticate',
         'auth.basic' => 'Illuminate\Auth\Middleware\AuthenticateWithBasicAuth',
         'guest' => 'App\Http\Middleware\RedirectIfAuthenticated',
-        'role' => 'Zizaco\Entrust\Middleware\EntrustRole',
-        'permission' => 'Zizaco\Entrust\Middleware\EntrustPermission',
-        'ability' => 'Zizaco\Entrust\Middleware\EntrustAbility',
         'jwt.auth' => \Tymon\JWTAuth\Middleware\GetUserFromToken::class,
         'jwt.refresh' => \Tymon\JWTAuth\Middleware\RefreshToken::class,
     ];
