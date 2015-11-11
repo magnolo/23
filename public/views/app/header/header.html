@@ -1,27 +1,60 @@
-<div class="Header md-blueframe-z1" ng-controller="HeaderCtrl">
+<div class="Header md-blueframe-z1">
 
-	<md-toolbar class="md-accent white-bg">
-		<div class="md-toolbar-tools"  style="padding:0 2em;margin:0 16px;">
+				<md-toolbar class="md-accent white-bg">
+								<div class="md-toolbar-tools" style="padding:0 2em;margin:0 16px;">
 
-			<h2 style="margin-left:0px">
-				<span class="logo">23°</span>
-			</h2>
-			<ng-md-icon icon="menu"></ng-md-icon>
-			<ul class="inline-list menu-list">
-						<!--<li>
-								<a href="">Human</a>
-						</li>
-						<li>
-								<a href="">Animal</a>
-						</li>-->
-						<li ui-sref-active="active">
-								<a href="" ui-sref="app.epi()">Environment</a>
-						</li>
-						<!--<li ui-sref-active="active">
-							<a href="" ui-sref="app.importcsv">Importer</a>
-						</li>-->
-				</ul>
+												<h2 style="margin-left:0px">
+																<span class="logo">23°</span>
+												</h2>
+												<ng-md-icon icon="menu"></ng-md-icon>
+												<ul class="inline-list menu-list">
+															<li>
+																	<a href="">Human</a>
+															</li>
+															<li>
+																	<a href="">Animal</a>
+															</li>
+																<li ui-sref-active="active">
+																				<a href="" ui-sref="app.index.show({index:'epi'})">Environment</a>
+																</li>
 
-		</div>
-	</md-toolbar>
+												</ul>
+												<span flex></span>
+												<md-button ng-if="!vm.isAuthenticated()" ui-sref="app.user.login">Login</md-button>
+												<md-menu ng-if="vm.isAuthenticated()">
+																<md-button aria-label="Open phone interactions menu" class="md-icon-button" ng-click="vm.openMenu($mdOpenMenu, $event)">
+																				<ng-md-icon icon="person"></ng-md-icon>
+																</md-button>
+																<md-menu-content width="4">
+																			<md-menu-item>
+																							<md-button ui-sref="app.user.profile">
+																											<ng-md-icon icon="person"></ng-md-icon>
+																											My Profile
+																							</md-button>
+																			</md-menu-item>
+																			<md-menu-divider></md-menu-divider>
+																				<md-menu-item>
+																								<md-button ui-sref="app.index.create">
+																												<ng-md-icon icon="public"></ng-md-icon>
+																												Create new index
+																								</md-button>
+																				</md-menu-item>
+																				<md-menu-item>
+																								<md-button ui-sref="app.index.create">
+																												<ng-md-icon icon="file_upload"></ng-md-icon>
+																												Upload new data
+																								</md-button>
+																				</md-menu-item>
+																				<md-menu-divider></md-menu-divider>
+																				<md-menu-item>
+																								<md-button ng-click="vm.doLogout()">
+																												<ng-md-icon icon="directions_walk"></ng-md-icon>
+																												Log out
+																								</md-button>
+																				</md-menu-item>
+																</md-menu-content>
+												</md-menu>
+
+								</div>
+				</md-toolbar>
 </div>
