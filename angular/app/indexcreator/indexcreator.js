@@ -186,8 +186,37 @@
         function saveData(){
           console.log(vm.meta);
           console.log(vm.data);
-          DataService.post('data/tables', 'table', vm.meta).then(function(data){
-            console.log(data);
+          var insertData = {data:[]};
+          var meta = [], fields = [];
+          angular.forEach(vm.data, function(item, key){
+            if(item.errors.length == 0){
+              item.data[0].year = vm.meta.year;
+              insertData.data.push(item.data[0]);
+            }
+          });
+          angular.forEach(vm.data[0].data[0], function(item, key){
+            fields.push(key);
+          });
+          angular.forEach(vm.data.table, function(item, key){
+            meta.push({
+              field:key,
+              data: item
+            })
+          })
+          vm.meta.fields = fields;
+          vm.meta.info = meta;
+          DataService.post('data/tables', vm.meta).then(function(response){
+              DataService.post('data/tables/'+response.data.table_name+'/insert', insertData).then(function(res){
+                if(res.data == true){
+                  toastr.success(insertData.data.length+' items importet to '+vm.meta.name,'Success');
+                  vm.data = [];
+                  vm.step = 0;
+                }
+              });
+          }, function(response){
+            if(response.message){
+              toastr.error(response.message, 'Ouch!');
+            }
           })
         }
         $scope.$on("$stateChangeStart", function (event, toState, toParams, fromState, fromParams) {

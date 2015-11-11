@@ -45,5 +45,6 @@ $api->version('v1', ['middleware' => 'api.auth'], function ($api) {
     $api->get('me', 'App\Http\Controllers\UserController@index');
 
     $api->post('data/tables', 'App\Http\Controllers\UserdataController@createDataTable');
+    $api->post('data/tables/{table}/insert', 'App\Http\Controllers\UserdataController@insertDataToTable');
 
 });
