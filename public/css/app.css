@@ -708,6 +708,14 @@ md-toast[md-theme=warn] {
   padding: 0px;
 }
 
+.multi-view {
+  top: calc(48px);
+  left: 0em;
+  position: absolute;
+  width: 100%;
+  height: calc(100% - 48px);
+}
+
 md-toolbar.md-menu-toolbar {
   background-color: #ffffff;
   color: rgba(0, 0, 0, 0.87);
@@ -753,14 +761,6 @@ md-menu-bar {
   margin: 0 auto;
   max-width: 680px;
   padding: 24px;
-}
-
-.multi-view {
-  top: calc(48px);
-  left: 0em;
-  position: absolute;
-  width: 100%;
-  height: calc(100% - 48px);
 }
 
 section.module-top {
@@ -873,7 +873,6 @@ section.table md-data-table-pagination {
 }
 
 
-
 #Map_Container {
   height: calc(100% - 165px);
 }
@@ -907,6 +906,7 @@ section.table md-data-table-pagination {
   bottom: 20px;
   right: 00px;
 }
+
 
 .Sidebar {
   position: fixed !important;
@@ -950,6 +950,7 @@ section.table md-data-table-pagination {
 .Sidebar-version a {
   color: white;
 }
+
 
 
 
@@ -1000,7 +1001,6 @@ section.table md-data-table-pagination {
 .tooltip .close-it:hover {
   color: rgba(0, 0, 0, 0.87);
 }
-
 
 
 median {
@@ -1060,13 +1060,13 @@ median .slider text {
 
 
 
-
 .slide-toggle {
   transition: all .5s;
 }
 .slide-toggle.ng-animate {
   overflow: hidden;
 }
+
 
 .section {
   padding: 30px;

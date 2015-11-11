@@ -70,7 +70,8 @@
 						angular.forEach(countries, function(iso){
 							vm.compare.countries.push(getNationByIso(iso));
 						});
-						countries.push(vm.current.iso);
+						console.log(vm.compare.countries);
+						countries.push(vm.current[vm.structure.iso]);
 						DataService.getOne('nations/bbox', countries).then(function (data) {
 							vm.bbox = data;
 						});
@@ -108,7 +109,7 @@
 		function setSelectedFeature(iso) {
 			if (vm.mvtSource) {
 				$timeout(function () {
-					vm.mvtSource.layers.countries_big_geom.features[vm.current.iso].selected = true;
+					vm.mvtSource.layers.countries_big_geom.features[vm.current[vm.structure.iso]].selected = true;
 				})
 			}
 		};
@@ -176,10 +177,10 @@
 				angular.forEach(vm.mvtSource.layers.countries_big_geom.features, function (feature) {
 					feature.selected = false;
 				});
-				vm.mvtSource.layers.countries_big_geom.features[vm.current.iso].selected = true;
+				vm.mvtSource.layers.countries_big_geom.features[vm.current[vm.structure.iso]].selected = true;
 				vm.mvtSource.options.mutexToggle = true;
 				vm.mvtSource.setStyle(countriesStyle);
-				DataService.getOne('nations/bbox', [vm.current.iso]).then(function (data) {
+				DataService.getOne('nations/bbox', [vm.current[vm.structure.iso]]).then(function (data) {
 					vm.bbox = data;
 				});
 				$state.go('app.index.show.selected',{
@@ -204,9 +205,9 @@
 			var isos = [];
 			var compare = [];
 			angular.forEach(vm.compare.countries, function (item, key) {
-				isos.push(item.iso);
-				if(item.iso != vm.current.iso){
-					compare.push(item.iso);
+				isos.push(item[vm.structure.iso]);
+				if(item[vm.structure.iso] != vm.current[vm.structure.iso]){
+					compare.push(item[vm.structure.iso]);
 				}
 			});
 			if (isos.length > 1) {
@@ -269,10 +270,11 @@
 		function getNationByIso(iso) {
 			var nation = {};
 			angular.forEach(vm.data, function (nat) {
-				if (nat.iso == iso) {
+				if (nat[vm.structure.iso] == iso) {
 					nation = nat;
 				}
 			});
+
 			return nation;
 		};
 
@@ -307,9 +309,9 @@
 			var style = {};
 			var iso = feature.properties.adm0_a3;
 			var nation = getNationByIso(iso);
-			var field = vm.display.selectedCat.type || 'score';
+			var field = vm.structure.score_field_name || 'score';
 
-
+			console.log(vm.structure.score_field_name);
 			var colorPos = parseInt(256 / 100 * nation[field]) * 4;
 			var color = 'rgba(' + vm.palette[colorPos] + ', ' + vm.palette[colorPos + 1] + ', ' + vm.palette[colorPos + 2] + ',' + vm.palette[colorPos + 3] + ')';
 			style.color = 'rgba(0,0,0,0)';
@@ -334,7 +336,7 @@
 			var nation = getNationByIso(iso);
 			var field = vm.structure.score_field_name || 'score';
 			var type = feature.type;
-			if(iso != vm.current.iso){
+			if(iso != vm.current[vm.structure.iso]){
 					feature.selected = false;
 			}
 
@@ -383,17 +385,17 @@
 			if (n === o) {
 				return;
 			}
-			if(n.iso) {
-				if(o.iso){
-					vm.mvtSource.layers.countries_big_geom.features[o.iso].selected = false;
+			if(n[vm.structure.iso]) {
+				if(o[vm.structure.iso]){
+					vm.mvtSource.layers.countries_big_geom.features[o[vm.structure.iso]].selected = false;
 				}
 				calcRank();
-				fetchNationData(n.iso);
-				vm.mvtSource.layers.countries_big_geom.features[n.iso].selected = true;
+				fetchNationData(n[vm.structure.iso]);
+				vm.mvtSource.layers.countries_big_geom.features[n[vm.structure.iso]].selected = true;
 				if($state.current.name == 'app.index.show.selected' || $state.current.name == 'app.index.show'){
 					$state.go('app.index.show.selected', {
 						index: $state.params.index,
-						item: n.iso
+						item: n[vm.structure.iso]
 					});
 				}
 			} else {
@@ -423,18 +425,19 @@
 					//vm.mvtSource.redraw();
 				});
 			}*/
-			if (vm.current.iso) {
+
+			if (vm.current[vm.structure.iso]) {
 				if($state.params.countries){
 					$state.go('app.index.show.selected.compare', {
 						index: n.name,
-						item: vm.current.iso,
+						item: vm.current[vm.structure.iso],
 						countries: $state.params.countries
 					})
 				}
 				else{
 					$state.go('app.index.show.selected', {
 						index: n.name,
-						item: vm.current.iso
+						item: vm.current[vm.structure.iso]
 					})
 				}
 			} else {
@@ -518,11 +521,12 @@
 					if($state.params.countries){
 						vm.mvtSource.options.mutexToggle = false;
 						vm.mvtSource.setStyle(invertedStyle);
-						vm.mvtSource.layers.countries_big_geom.features[vm.current.iso].selected = true;
+						vm.mvtSource.layers.countries_big_geom.features[vm.current[vm.structure.iso]].selected = true;
 						var countries = $state.params.countries.split('-vs-');
 						angular.forEach(countries, function(iso){
 							vm.mvtSource.layers.countries_big_geom.features[iso].selected = true;
 						});
+
 					}
 					else{
 						vm.mvtSource.setStyle(countriesStyle);
@@ -535,14 +539,14 @@
 				vm.mvtSource.options.onClick = function (evt, t) {
 					if (!vm.compare.active) {
 						var c = getNationByIso(evt.feature.properties.adm0_a3);
-						if (typeof c.rank != "undefined") {
+						if (typeof c[vm.structure.score_field_name] != "undefined") {
 							vm.current = getNationByIso(evt.feature.properties.adm0_a3);
 						} else {
 							ToastService.error('No info about this location!');
 						}
 					} else {
 						var c = getNationByIso(evt.feature.properties.adm0_a3);
-						if (typeof c.rank != "undefined") {
+						if (typeof c[vm.structure.score_field_name] != "undefined") {
 							vm.toggleCountrieList(c);
 						} else {
 							ToastService.error('No info about this location!');

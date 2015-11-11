@@ -3,8 +3,16 @@
 				<md-list>
 								<md-list-item>
 												<p>Browse data</p>
-												<ng-md-icon icon="add"></ng-md-icon>
+												<ng-md-icon icon="{{vm.openClose(vm.showResources)}}" ng-click="vm.listResources()"></ng-md-icon>
+
 								</md-list-item>
+
+									<md-list-item ng-if="vm.resources.length && vm.showResources" layout="column" layout-align="space-around start">
+											<div flex="100" ng-repeat="resource in vm.resources">
+											<p>{{resource.title}}</p>
+										</div>
+									</md-list-item>
+
 								<md-list-item ng-click="vm.showUploadContainer = !vm.showUploadContainer">
 												<p>Upload new data</p>
 												<ng-md-icon icon="{{vm.openClose(vm.showUploadContainer)}}"></ng-md-icon>
@@ -203,6 +211,10 @@
 								<md-input-container class="md-block">
 												<label>Description</label>
 												<textarea name="description" ng-model="vm.meta.description"></textarea>
+								</md-input-container>
+								<md-input-container class="md-block">
+												<label>Caption</label>
+												<textarea name="caption" ng-model="vm.meta.caption"></textarea>
 								</md-input-container>
 
 								<div layout-align="space-between center" layout="row">

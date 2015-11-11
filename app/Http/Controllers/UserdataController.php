@@ -22,14 +22,21 @@ class UserdataController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-     public function __construct(){
-        //$this->middleware('jwt.auth');
-
-     }
     public function index()
     {
-        //
-        return response()->api(UserData::all()->load('user'));
+        //v
+          $data = array();
+          $tables = UserData::all();
+          foreach($tables as $table){
+            $meta = json_decode($table->meta_data);
+            foreach($meta as $source){
+              $data[] = ['title' => $source->title, 'table_name' => $table->table_name, 'column' => $source->column];
+            }
+          }
+          $data = array_values(array_sort($data, function($value){
+            return $value['title'];
+          }));
+          return $data;
     }
 
     /**
@@ -37,6 +44,9 @@ class UserdataController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function indexWithUser(){
+        return response()->api(UserData::all()->load('user'));
+    }
     public function create()
     {
         //
@@ -115,7 +125,7 @@ class UserdataController extends Controller
       $name = preg_replace('/^[\-]+/','',$name); // Strip off the starting hyphens
       $name = preg_replace('/[\-]+$/','',$name); // // Strip off the ending hyphens
       $name = strtolower($name);
-      $request->input('name');
+      //dd(strtolower($name));
       $data['table_name'] = $name;
       $data['db'] = \Schema::create('user_table_'.$name, function(Blueprint $table) use ($request){
         $table->increments('id');
@@ -123,11 +133,26 @@ class UserdataController extends Controller
 
         foreach($request->input('fields') as $field){
           if($field != $request->input('iso_field') && $field != 'year'){
-            $table->string($field);
+            $table->string($field['column']);
           }
         }
         $table->integer('year');
       });
+      $user = Auth::user();
+      $data['user'] = $user;
+      $data['fields'] = $request->input('fields');
+      $data['data'] = UserData::insert([
+        'user_id' => $user->id,
+        'table_name' => 'user_table_'.$name,
+        'name' => $name,
+        'title' => $request->input('name'),
+        'description' => $request->input('description'),
+        'caption' => $request->input('caption'),
+        'meta_data' => json_encode($request->input('fields')),
+        'created_at' => 'NOW()',
+        'updated_at' => 'NOW()'
+        ]
+      );
       return response()->api($data);
     }
 }

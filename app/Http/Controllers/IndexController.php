@@ -83,7 +83,41 @@ class IndexController extends Controller
           $index = Index::where('name', $id)->first();
         }
 
-        $data = \DB::table($index->table)->where('year', $year)->orderBy($index->score_field_name, 'desc')->get();
+        $data = \DB::table($index->table)
+          ->where('year', $year)
+          ->leftJoin('countries_big', $index->table.".".$index->iso, '=', 'countries_big.adm0_a3')
+          ->select($index->table.".*", 'countries_big.admin as country')
+          ->orderBy($index->table.".".$index->score_field_name, 'desc')->get();
+
+        $sub = Index::where('parent_id', $index->id)->get();
+        foreach($sub as $subIndex){
+          if($subIndex->table != $index->table){
+              $subData = \DB::table($subIndex->table)->where('year', $year)->select($subIndex->score_field_name, $subIndex->iso)->get();
+              foreach($data as &$d){
+                foreach($subData as $sd){
+                  if($sd->{$subIndex->iso} == $d->{$index->iso}){
+                    $d->{$subIndex->score_field_name} = $sd->{$subIndex->score_field_name};
+                  }
+                }
+              }
+          }
+        }
+        /*foreach($data as &$d){
+            dd($d->{$index->iso});
+            if($subIndex->table != $index->table){
+              $subData = \DB::table($subIndex->table)
+                ->where($subIndex->iso, $d->{$index->iso})
+                ->where('year', $year)
+                ->select($subIndex->score_field_name)->first();
+                $data = $subData;
+              //$d->{$subIndex->score_field_name} = $subData->{$subIndex->score_field_name};
+            }
+          }*/
+
+
+
+
+        //$data->{'hello'} = 'hello';
         //return $data;
         return \Response::json($data, 200, [], JSON_NUMERIC_CHECK);
         //return response()->api($data);

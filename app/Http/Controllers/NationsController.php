@@ -66,8 +66,23 @@ class NationsController extends Controller
         ->get();
         return response()->api($nation);
     }
-    public function getBBox($countries){
+    public function getByIsos($isos){
+      foreach($names as $name){
+        $nation['name'] =  \DB::table('countries_big')
+          ->select('iso_a3 as iso', 'name', 'name_long', 'admin')
+          ->where('admin', 'like', '%'.$name.'%')
+          ->orWhere('geounit', 'like', '%'.$name.'%')
+          ->orWhere('name', 'like', '%'.$name.'%')
+          ->orWhere('name_long', 'like', '%'.$name.'%')
+          ->orWhere('brk_name', 'like', '%'.$name.'%')
+          ->orWhere('formal_en', 'like', '%'.$name.'%')
+          ->get();
+      }
 
+        return response()->api($nation);
+    }
+    public function getBBox($countries){
+ 
         $box =  \DB::table('countries_big')->select(\DB::raw('st_asgeojson(St_envelope(ST_Union(geom))) as bbox'))->whereIn('iso_a3', explode(",",$countries))->first();
         return $box->bbox;
     }

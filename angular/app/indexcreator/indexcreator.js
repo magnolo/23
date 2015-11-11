@@ -26,6 +26,7 @@
         vm.fetchIso = fetchIso;
         vm.editRow = editRow;
         vm.saveData = saveData;
+        vm.listResources = listResources;
         vm.meta = {
           iso_field: '',
           table:[]
@@ -195,7 +196,15 @@
             }
           });
           angular.forEach(vm.data[0].data[0], function(item, key){
-            fields.push(key);
+            console.log(vm.meta.table[key], key);
+            if(vm.meta.table[key]){
+              var field = {
+                'column': key,
+                'title':vm.meta.table[key].title,
+                'description':vm.meta.table[key].description
+              };
+              fields.push(field);
+            }
           });
           angular.forEach(vm.data.table, function(item, key){
             meta.push({
@@ -205,6 +214,7 @@
           })
           vm.meta.fields = fields;
           vm.meta.info = meta;
+          console.log(vm.meta);
           DataService.post('data/tables', vm.meta).then(function(response){
               DataService.post('data/tables/'+response.data.table_name+'/insert', insertData).then(function(res){
                 if(res.data == true){
@@ -217,6 +227,13 @@
             if(response.message){
               toastr.error(response.message, 'Ouch!');
             }
+          })
+        }
+
+        function listResources(){
+          DataService.getAll('data/tables').then(function(response){
+            vm.resources = response;
+            vm.showResources = true;
           })
         }
         $scope.$on("$stateChangeStart", function (event, toState, toParams, fromState, fromParams) {
