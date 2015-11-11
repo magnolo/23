@@ -29,6 +29,7 @@
         vm.listResources = listResources;
         vm.meta = {
           iso_field: '',
+          country_field:'',
           table:[]
         };
         vm.query = {
@@ -153,9 +154,14 @@
         function fetchIso(){
           vm.toSelect = [];
           vm.notFound = [];
-
+          var entries = [];
           angular.forEach(vm.data, function(item, key){
-            if(!item.data[0][vm.meta.iso_field]){
+            entries.push({
+              iso: item.data[0][vm.meta.iso_field],
+              name: item.data[0][vm.meta.country_field]
+            });
+
+          /*  if(!item.data[0][vm.meta.iso_field]){
                 DataService.getOne('/nations/byName/'+item.data[0]['country']).then(function(response){
                   var data = response.data;
                   if(data.length == 1){
@@ -175,10 +181,41 @@
                     vm.notFound.push(item);
                   }
                 })
-            }
+          //  }*/
           });
+          DataService.post('/nations/byIsoNames', {data:entries}).then(function(response){
+              angular.forEach(response.data, function(country, key){
+                angular.forEach(vm.data, function(item, k){
+                    if(country.name == item.data[0][vm.meta.country_field]){
+                      if(country.data.length > 1){
+                        var toSelect = {
+                          entry: item,
+                          options: country.data
+                        };
+                        vm.toSelect.push(toSelect);
+                      }
+                      else{
+                        vm.data[k].data[0][vm.meta.iso_field] = country.data[0].iso;
+                        vm.data[k].data[0][vm.meta.country_field] = country.data[0].admin;
+                        if(item.errors.length){
+                          angular.forEach(item.errors, function(error, e){
+                            if(error.type == 2){
+                              vm.iso_errors --;
+                              vm.errors --;
+                              item.errors.splice(e, 1);
+                            }
+                          })
+                        }
+                      }
+                    }
+                });
+              });
+              if(vm.toSelect.length){
+                DialogService.fromTemplate('selectisofetchers', $scope);
+              }
+          })
           //if(vm.toSelect.length){
-            DialogService.fromTemplate('selectisofetchers', $scope);
+            //DialogService.fromTemplate('selectisofetchers', $scope);
         //  }
 
         }

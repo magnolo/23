@@ -132,7 +132,7 @@ class UserdataController extends Controller
         $table->string($request->input('iso_field'));
 
         foreach($request->input('fields') as $field){
-          if($field != $request->input('iso_field') && $field != 'year'){
+          if($field != 'year'){
             $table->string($field['column']);
           }
         }

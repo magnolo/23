@@ -36,6 +36,7 @@ $api->version('v1', function ($api) {
     $api->get('nations/bbox/{countries}', 'App\Http\Controllers\NationsController@getBBox');
 
     $api->get('nations/byName/{name}', 'App\Http\Controllers\NationsController@getByName');
+    $api->post('nations/byIsoNames', 'App\Http\Controllers\NationsController@getByIsoNames');
 
     $api->get('data/tables', 'App\Http\Controllers\UserdataController@index');
 });

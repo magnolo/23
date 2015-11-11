@@ -34,6 +34,12 @@
 																				<md-option ng-repeat="(key, item) in vm.data[0].data[0]" value="{{key}}">{{key}}</md-option>
 																</md-select>
 												</md-input-container>
+												<md-input-container style="margin-right: 10px;">
+																<label>Country Field</label>
+																<md-select ng-model="vm.meta.country_field">
+																				<md-option ng-repeat="(key, item) in vm.data[0].data[0]" value="{{key}}">{{key}}</md-option>
+																</md-select>
+												</md-input-container>
 												<div layout-align="space-between center" layout="row">
 																<md-button class="md-raised md-accent anim-fade" ng-click="vm.editRow()" ng-if="vm.selected.length == 1">
 																				<ng-md-icon icon="mode_edit"></ng-md-icon>
@@ -69,11 +75,14 @@
 												<thead md-order="vm.query.order" md-trigger="vm.onOrderChange">
 																<tr >
 																				<th name="Errors" ng-if="vm.errors" order-by="errors"></th>
-																				<th class="iconed" name="{{key}}" ng-class="{'done': vm.checkColumnData(key), 'globe': key == vm.meta.iso_field}" ng-repeat="(key, item) in vm.data[0].data[0]" order-by="{{key}}">
+																				<th class="iconed" name="{{key}}" ng-class="{'done': vm.checkColumnData(key), 'globe': key == vm.meta.iso_field || key == vm.meta.country_field}" ng-repeat="(key, item) in vm.data[0].data[0]" order-by="{{key}}">
 																								<span class="icon" ng-if="key == vm.meta.iso_field">
 																												<ng-md-icon icon="public"></ng-md-icon>
 																								</span>
-																								<span class="icon" ng-click="vm.editColumnData($event, key)" ng-if="key != vm.meta.iso_field">
+																								<span class="icon" ng-if="key == vm.meta.country_field">
+																												<ng-md-icon icon="my_location"></ng-md-icon>
+																								</span>
+																								<span class="icon" ng-click="vm.editColumnData($event, key)" ng-if="key != vm.meta.iso_field && key != vm.meta.country_field">
 																												<ng-md-icon icon="mode_edit"></ng-md-icon>
 																								</span>
 																				</th>

@@ -49,6 +49,7 @@
 								    var headings = chunk.substr(0, index).split( ',' );
 										for(var i = 0; i <= headings.length; i++){
 											if(headings[i]){
+												headings[i] = headings[i].replace(/[^a-z0-9]/gi,'_').toLowerCase();
 												if(headings[i].indexOf('.') > -1){
 													headings[i] = headings[i].substr(0, headings[i].indexOf('.'));
 												}
@@ -69,6 +70,9 @@
 											if(key.toLowerCase().indexOf('iso') != -1){
 												$scope.vm.meta.iso_field = key;
 											}
+												if(key.toLowerCase().indexOf('country') != -1){
+													$scope.vm.meta.country_field = key;
+												}
 										});
 										$state.go('app.index.create.check');
 										toastr.info($scope.vm.data.length+' lines importet!', 'Information')
