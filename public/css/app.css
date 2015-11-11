@@ -13,6 +13,22 @@
   transform: translateY(0%);
   opacity: 1;
 }
+.anim-total.ng-enter,
+.anim.ng-leave {
+  transition: all 0.3s ease-in;
+}
+.anim-total.ng-enter,
+.anim-total.ng-leave.ng-leave-active {
+  -webkit-transform: translateX(100%);
+  transform: translateX(100%);
+  opacity: 0;
+  position: absolute;
+}
+.anim-total.ng-enter.ng-enter-active {
+  -webkit-transform: translateX(0%);
+  transform: translateX(0%);
+  opacity: 1;
+}
 .anim-left.ng-enter,
 .anim-left.ng-leave {
   transition: all .3s ease;
@@ -132,7 +148,7 @@
 
 .info-container {
   line-height: 1em;
-  top: calc(64px + 1em);
+  top: calc(48px + 1em);
   left: 1em;
   position: absolute;
   color: #afafaf;
@@ -506,11 +522,51 @@
   padding: 0 30px;
   text-transform: none;
 }
-.md-ripple-container {
-  border-radius: 20px;
+md-dialog {
+  padding: 24px;
 }
 md-toast {
   position: fixed;
+}
+.md-button .md-ripple-container {
+  border-radius: 20px;
+}
+.md-button ng-md-icon {
+  position: relative;
+  top: 0.5em;
+}
+a.md-button span {
+  margin: 0;
+  margin-left: 5px;
+}
+md-list-item {
+  color: #333333;
+}
+md-list-item path {
+  fill: #afafaf;
+}
+.md-border {
+  border: 1px solid;
+}
+.md-border.md-focused {
+  border: 1px solid;
+}
+md-input-container.md-has-icon {
+  padding-left: 36px;
+}
+md-input-container ng-md-icon {
+  position: absolute;
+  top: 5px;
+  left: 2px;
+}
+md-menu-content {
+  padding: 0px;
+}
+.md-open-menu-container md-menu-divider {
+  margin: 0;
+}
+ng-md-icon path {
+  fill: #006bb9;
 }
 
 *:focus {
@@ -527,6 +583,7 @@ body {
   font-family: 'Gorgia';
   font-size: 16px;
   color: #606060;
+  overflow-x: hidden;
 }
 body > canvas {
   z-index: 1000;
@@ -538,8 +595,14 @@ body > canvas {
   color: #006bb9;
 }
 .logo {
-  color: #0000ff;
+  color: #006bb9;
   font-size: 1.5em;
+}
+.info {
+  color: #006bb9;
+}
+.info path {
+  fill: #006bb9;
 }
 .icon-space {
   position: relative;
@@ -567,6 +630,7 @@ body > canvas {
 }
 .inline-list.menu-list li a {
   position: relative;
+  color: #333333;
 }
 .inline-list.menu-list li a::after {
   content: '';
@@ -632,6 +696,17 @@ md-toast[md-theme=warn] {
   z-index: 3;
   top: 0px;
 }
+.Header .md-toolbar-tools,
+.Header md-toolbar {
+  height: 48px;
+  min-height: 48px;
+}
+.Header a.md-button span {
+  color: #006bb9;
+}
+.Header .md-menu {
+  padding: 0px;
+}
 
 md-toolbar.md-menu-toolbar {
   background-color: #ffffff;
@@ -680,6 +755,123 @@ md-menu-bar {
   padding: 24px;
 }
 
+.multi-view {
+  top: calc(48px);
+  left: 0em;
+  position: absolute;
+  width: 100%;
+  height: calc(100% - 48px);
+}
+
+section.module-top {
+  background-color: #fff;
+  width: 360px;
+  margin-left: 1em;
+  margin-top: 1em;
+}
+section.module-top.out {
+  -webkit-transform: translateX(-380px);
+  transform: translateX(-380px);
+}
+section.module-top .md-subheader {
+  font-size: 1.4em;
+}
+section.module-top md-list md-list-item {
+  border-bottom: 1px solid #d7dddd;
+}
+section.module-top md-list md-list-item:last-child {
+  border-bottom: 0px;
+}
+section.module-top md-list .md-button {
+  border-radius: 0;
+}
+section.module-top md-list .md-button .md-ripple-container {
+  border-radius: 0;
+}
+section.module-top .upload-container {
+  text-align: center;
+}
+section.table {
+  background-color: rgba(255, 255, 255, 0.2);
+  width: 100%;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  height: calc(100%);
+  background: #fff;
+}
+section.table md-data-table-toolbar {
+  position: relative;
+  background: #006bb9;
+  color: #fff;
+}
+section.table md-data-table-toolbar * {
+  fill: #fff;
+}
+section.table md-data-table-toolbar md-input-container {
+  padding-bottom: .5em;
+}
+section.table md-data-table-container {
+  font-family: RobotoDraft, Roboto, 'Helvetica Neue', sans-serif;
+  margin-bottom: 56px;
+}
+section.table md-data-table-container thead:not([md-table-progress]) > tr > th {
+  color: #006bb9;
+}
+section.table md-data-table-container thead:not([md-table-progress]) > tr > th.iconed {
+  position: relative;
+  padding-left: 3em !important;
+}
+section.table md-data-table-container thead:not([md-table-progress]) > tr > th.iconed span.icon {
+  opacity: 0;
+  transition: all .3s ease;
+  position: absolute;
+  top: 1.3em;
+  left: 0em;
+}
+section.table md-data-table-container thead:not([md-table-progress]) > tr > th.iconed span.icon path {
+  fill: #ccc;
+}
+section.table md-data-table-container thead:not([md-table-progress]) > tr > th.iconed span.icon:hover path {
+  fill: #006bb9;
+}
+section.table md-data-table-container thead:not([md-table-progress]) > tr > th.iconed.globe span {
+  opacity: 1;
+}
+section.table md-data-table-container thead:not([md-table-progress]) > tr > th.iconed.globe span path {
+  fill: #006bb9;
+}
+section.table md-data-table-container thead:not([md-table-progress]) > tr > th.iconed:hover span.icon {
+  opacity: 1;
+}
+section.table md-data-table-container thead:not([md-table-progress]) > tr > th.done,
+section.table md-data-table-container thead:not([md-table-progress]) > tr > th.done.md-active {
+  color: green !important;
+}
+section.table md-data-table-container thead:not([md-table-progress]) > tr > th.done span:hover path,
+section.table md-data-table-container thead:not([md-table-progress]) > tr > th.done.md-active span:hover path {
+  fill: green !important;
+}
+section.table md-data-table-container table[md-data-table] > tbody > tr {
+  height: 2.5em;
+}
+section.table md-data-table-container table[md-data-table] > tbody > tr.md-warn {
+  background-color: rgba(244, 67, 54, 0.2);
+}
+section.table md-data-table-container table[md-data-table] > tbody > tr td.md-warn::after {
+  content: 'Data missing';
+  color: red;
+  width: 100%;
+  display: inline-block;
+  line-height: 3em;
+}
+section.table md-data-table-pagination {
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+  background: #fff;
+}
+
 
 #Map_Container {
   height: calc(100% - 165px);
@@ -687,8 +879,8 @@ md-menu-bar {
 #map {
   position: fixed;
   width: 100%;
-  top: 64px;
-  height: calc(100% - 64px);
+  top: 48px;
+  height: calc(100% - 48px);
 }
 .angular-leaflet-map {
   width: 100%;
@@ -758,6 +950,8 @@ md-menu-bar {
 .Sidebar-version a {
   color: white;
 }
+
+
 
 
 
@@ -863,6 +1057,7 @@ median .slider text {
   user-select: none;
   cursor: ew-resize;
 }
+
 
 
 .slide-toggle {

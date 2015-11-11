@@ -7,7 +7,7 @@
 			fromTemplate: function(template, $scope){
 
 				var options = {
-					templateUrl: '/views/dialogs/' + template + '/' + template + '.html'
+					templateUrl: './views/dialogs/' + template + '/' + template + '.html'
 				};
 
 				if ($scope){
@@ -27,6 +27,16 @@
 						.title(title)
 						.content(content)
 						.ok('Ok')
+				);
+			},
+
+			confirm: function(title, content) {
+				return $mdDialog.show(
+					$mdDialog.confirm()
+						.title(title)
+						.content(content)
+						.ok('Ok')
+						.cancel('Cancel')
 				);
 			}
 		};
