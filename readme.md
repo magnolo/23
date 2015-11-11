@@ -1,8 +1,7 @@
-<<<<<<< HEAD
 # 23degree 
 ###### we feel the world
 
-This is most of the code behind 23degree.org which provides a map driven interface and geolocated interactions for data and statistics showing whats going on on our beautiful planet. 
+This is most of the code behind 23degree.org which provides a map driven interface and geolocated interactions for data and statistics showing whats going on on our beautiful planet.
 
 There are a lot of different needs for visualizations. The amount of data is huge, so here is a lot of help from all the opensource community in it.
 
@@ -12,13 +11,13 @@ the app is based on [Laravel 5] with a [PostGis] database in the back and the fr
 ### more specific
 ##### the server
 is mostly a restful api which provides the requested data for the client. This is made of the following components (list not yet completed):
-* [Laravel 5] - The PHP Framework For Web Artisans 
+* [Laravel 5] - The PHP Framework For Web Artisans
   - [JWT-auth] - JSON Web Tokens
   - [Entrust] - Role-based Permissions
   - ...
 
 ##### the client
-is a javascript driven app built up from [AngularJS] without the use of jQuery. The map, on which all data is uses to project on is [Leaflet]. For the developin process [Node.js] and [Gulp] in combination with Laravels [Elixir] are providing tasks for automations. Watching file changes, refreshing the website, concating files, injecting resources, which are installed through [Bower], using dynamic stylesheet intergration, in this case [Less] and so on. 
+is a javascript driven app built up from [AngularJS] without the use of jQuery. The map, on which all data is uses to project on is [Leaflet]. For the developin process [Node.js] and [Gulp] in combination with Laravels [Elixir] are providing tasks for automations. Watching file changes, refreshing the website, concating files, injecting resources, which are installed through [Bower], using dynamic stylesheet intergration, in this case [Less] and so on.
 
 * [AngularJS]
 * [ngStorage]
@@ -70,7 +69,7 @@ You also need to run a Postgresql Database Server with PostGis extension to conn
 Now you can run:
 
 ```sh
-$ php artisan migration 
+$ php artisan migration
 ```
 and all the needed tables will be set up ind the database for you.
 
@@ -133,7 +132,7 @@ MIT
    [Node.js]: https://nodejs.org/en/
    [Gulp]: <http://gulpjs.com>
    [Bower]: http://bower.io/
-   
+
 
 
 =======
@@ -197,7 +196,7 @@ Open a new issue, I'd love to help.
 <a name="planned_features"></a>
 ## Planned features
 
-Moved to [github issues](https://github.com/jadjoubran/laravel5-angular-material-starter/issues/). 
+Moved to [github issues](https://github.com/jadjoubran/laravel5-angular-material-starter/issues/).
 
 <a name="DIY"></a>
 ## Do It Yourself
@@ -220,5 +219,5 @@ npm install -g jshint
 2. run `gulp --production` at the end if you changed any HTML, Less or JS. Do not send Pull Requests without running this command (unless you haven't touched the frontend)
 3. delete `.map` files `rm public/css/app.css.map public/css/vendor.css.map public/js/app.map public/js/vendor.js.map`
 4. If you are adding/modifying backend functionality, make sure to include the apprioriate `test`. Let me know if you need help writing the test
-    
+
 >>>>>>> importer
