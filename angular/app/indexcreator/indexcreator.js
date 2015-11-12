@@ -9,6 +9,8 @@
         vm.toSelect = [];
         vm.selected = [];
         vm.selectedRows = [];
+        vm.selectedResources =[];
+        vm.sortedResources = [];
         vm.iso_errors = 0;
         vm.selectedIndex = 0;
         vm.step = 0;
@@ -27,6 +29,9 @@
         vm.editRow = editRow;
         vm.saveData = saveData;
         vm.listResources = listResources;
+        vm.toggleListResources = toggleListResources;
+        vm.selectedResource = selectedResource;
+        vm.toggleResource = toggleResource;
         vm.meta = {
           iso_field: '',
           country_field:'',
@@ -38,7 +43,11 @@
           limit: 15,
           page: 1
         };
-
+        vm.treeOptions = {
+          dropped:function(event){
+            calcPercentage(vm.sortedResources);
+          }
+        };
         activate();
 
         function activate(){
@@ -160,28 +169,6 @@
               iso: item.data[0][vm.meta.iso_field],
               name: item.data[0][vm.meta.country_field]
             });
-
-          /*  if(!item.data[0][vm.meta.iso_field]){
-                DataService.getOne('/nations/byName/'+item.data[0]['country']).then(function(response){
-                  var data = response.data;
-                  if(data.length == 1){
-                    item.data[0][vm.meta.iso_field] = data[0].iso;
-                    vm.iso_errors --;
-                    vm.errors --;
-                    item.errors.splice(0,1);
-                  }
-                  else if(data.length > 1){
-                    var toSelect = {
-                      entry: item,
-                      options: data
-                    };
-                    vm.toSelect.push(toSelect);
-                  }
-                  else{
-                    vm.notFound.push(item);
-                  }
-                })
-          //  }*/
           });
           DataService.post('/nations/byIsoNames', {data:entries}).then(function(response){
               angular.forEach(response.data, function(country, key){
@@ -214,10 +201,6 @@
                 DialogService.fromTemplate('selectisofetchers', $scope);
               }
           })
-          //if(vm.toSelect.length){
-            //DialogService.fromTemplate('selectisofetchers', $scope);
-        //  }
-
         }
 
 
@@ -267,11 +250,40 @@
           })
         }
 
+        function toggleListResources(){
+          vm.showResources = !vm.showResources;
+          if(vm.showResources){
+            vm.listResources();
+          }
+        }
         function listResources(){
           DataService.getAll('data/tables').then(function(response){
             vm.resources = response;
-            vm.showResources = true;
           })
+        }
+        function selectedResource(resource){
+          return vm.selectedResources.indexOf(resource) > -1 ? true : false;
+        }
+        function toggleResource(resource){
+          if(vm.selectedResources.indexOf(resource) > -1){
+            vm.selectedResources.splice(vm.selectedResources.indexOf(resource), 1);
+          }
+          else{
+            vm.selectedResources.push(resource);
+          }
+
+           angular.copy(vm.selectedResources, vm.sortedResources);
+           angular.forEach(vm.sortedResources, function(res, key){
+             vm.sortedResources[key].weight = parseInt(100 / vm.sortedResources.length);
+             vm.sortedResources[key].nodes = [];
+           });
+        }
+        function calcPercentage(nodes){
+          angular.forEach(nodes, function(node, key){
+            nodes[key].weight = parseInt(100 / nodes.length);
+
+            calcPercentage(node.nodes);
+          });
         }
         $scope.$on("$stateChangeStart", function (event, toState, toParams, fromState, fromParams) {
           switch (toState.name) {

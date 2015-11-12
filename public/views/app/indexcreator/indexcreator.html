@@ -1,17 +1,20 @@
 <section class="module-top md-whiteframe-z2" ng-class="{'out': vm.data.length}">
 				<md-subheader class="md-no-sticky">Choose data source</md-subheader>
 				<md-list>
-								<md-list-item>
+								<md-list-item ng-click="vm.toggleListResources()">
 												<p>Browse data</p>
-												<ng-md-icon icon="{{vm.openClose(vm.showResources)}}" ng-click="vm.listResources()"></ng-md-icon>
+												<ng-md-icon icon="{{vm.openClose(vm.showResources)}}"></ng-md-icon>
 
 								</md-list-item>
 
-									<md-list-item ng-if="vm.resources.length && vm.showResources" layout="column" layout-align="space-around start">
-											<div flex="100" ng-repeat="resource in vm.resources">
-											<p>{{resource.title}}</p>
-										</div>
-									</md-list-item>
+								<md-list-item class="slide-toggle sub-list" ng-if="vm.resources.length && vm.showResources">
+												<md-list>
+																<md-list-item class="selector" ng-class="{'checked': vm.selectedResource(resource), 'unchecked': !vm.selectedResource()}" ng-click="vm.toggleResource(resource)" ng-repeat="resource in vm.resources">
+																				<p>{{resource.title}}</p>
+																				<ng-md-icon icon="check" layout-align="center center" layout="row" size="18"></ng-md-icon>
+																</md-list-item>
+												</md-list>
+								</md-list-item>
 
 								<md-list-item ng-click="vm.showUploadContainer = !vm.showUploadContainer">
 												<p>Upload new data</p>
@@ -21,6 +24,20 @@
 
 				<div class="slide-toggle upload-container" ng-if="vm.showUploadContainer">
 								<parsecsv></parsecsv>
+				</div>
+</section>
+<section class="module-top module-second md-whiteframe-z2 anim" ng-if="vm.resources.length && vm.selectedResources.length">
+				<div layout="row">
+					<md-button class="md-accent md-border md-lowspace">Preview</md-button>
+					<span flex></span>
+					<md-button class="md-accent md-border">Save</md-button>
+					<md-button class="md-accent md-border">Go to Map</md-button>
+				</div>
+				<md-subheader class="md-no-sticky">Your Index</md-subheader>
+				<div ui-tree="vm.treeOptions">
+								<ol id="tree-root" ng-model="vm.sortedResources" ui-tree-nodes="">
+											<li ng-include="'/views/app/indexcreator/nodes_renderer.html'" ng-repeat="node in vm.sortedResources" ui-tree-node></li>
+								</ol>
 				</div>
 </section>
 <section class="table anim md-whiteframe-z2" ng-if="vm.data.length && vm.step == 1">
@@ -192,46 +209,46 @@
 				</md-content>
 </section>
 <section class="table anim md-whiteframe-z2" layout="column" ng-if="vm.data.length && vm.step == 3">
-	<md-data-table-toolbar class="md-whiteframe-z1">
-					<div flex layout-align="space-between center" layout="row">
-									<h2 class="md-title">CSV Import 3/3</h2>
-									<h3>Main Information</h3>
-									<div layout-align="space-between center" layout="row">
-													<md-button ui-sref="app.index.create.meta">
-																	<ng-md-icon icon="chevron_left"></ng-md-icon>
-																	Prev
-													</md-button>
+				<md-data-table-toolbar class="md-whiteframe-z1">
+								<div flex layout-align="space-between center" layout="row">
+												<h2 class="md-title">CSV Import 3/3</h2>
+												<h3>Main Information</h3>
+												<div layout-align="space-between center" layout="row">
+																<md-button ui-sref="app.index.create.meta">
+																				<ng-md-icon icon="chevron_left"></ng-md-icon>
+																				Prev
+																</md-button>
 
-									</div>
-					</div>
-	</md-data-table-toolbar>
-	<div layout-padding layout-align="center center" layout="row">
-				<div flex="50">
-								<div layout layout-sm="column">
-												<md-input-container flex="80">
-																<label>Title</label>
-																<input ng-model="vm.meta.name" required type="text">
-												</md-input-container>
-												<md-input-container flex="20">
-																<label>Year</label>
-																<input ng-model="vm.meta.year" required>
-												</md-input-container>
+												</div>
 								</div>
-								<md-input-container class="md-block">
-												<label>Description</label>
-												<textarea name="description" ng-model="vm.meta.description"></textarea>
-								</md-input-container>
-								<md-input-container class="md-block">
-												<label>Caption</label>
-												<textarea name="caption" ng-model="vm.meta.caption"></textarea>
-								</md-input-container>
+				</md-data-table-toolbar>
+				<div layout-align="center center" layout-padding layout="row">
+								<div flex="50">
+												<div layout layout-sm="column">
+																<md-input-container flex="80">
+																				<label>Title</label>
+																				<input ng-model="vm.meta.name" required type="text">
+																</md-input-container>
+																<md-input-container flex="20">
+																				<label>Year</label>
+																				<input ng-model="vm.meta.year" required>
+																</md-input-container>
+												</div>
+												<md-input-container class="md-block">
+																<label>Description</label>
+																<textarea name="description" ng-model="vm.meta.description"></textarea>
+												</md-input-container>
+												<md-input-container class="md-block">
+																<label>Caption</label>
+																<textarea name="caption" ng-model="vm.meta.caption"></textarea>
+												</md-input-container>
 
-								<div layout-align="space-between center" layout="row">
+												<div layout-align="space-between center" layout="row">
 
-												<md-button ng-click="vm.saveData()" class="md-primary md-raised" flex>
-																Save
-												</md-button>
+																<md-button class="md-primary md-raised" flex ng-click="vm.saveData()">
+																				Save
+																</md-button>
+												</div>
 								</div>
 				</div>
-			</div>
 </section>

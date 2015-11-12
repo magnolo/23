@@ -27,7 +27,26 @@ md-toast{
     position:relative;
     top:0.5em;
   }
-
+  &.md-icon-button{
+    &.small{
+      min-width: 0px;
+      min-height: 0px;
+      width:24px;
+      height:24px;
+      line-height: 24px;
+      ng-md-icon{
+        top:5px;
+      }
+    }
+  }
+  &.md-border{
+    &.md-lowspace{
+      padding:0 10px;
+    }
+    &:focus{
+      border-width: 1px;
+    }
+  }
 }
 a{
   &.md-button{
@@ -70,6 +89,7 @@ md-menu-content{
     margin:0;
   }
 }
+
 ng-md-icon{
   path{
     fill:@base;

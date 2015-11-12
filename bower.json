@@ -26,7 +26,7 @@
     "angular-nvd3": "~1.0.2",
     "angular-papaparse": "~1.0.0",
     "angular-material-data-table": "~0.8.14",
-    "angular-toastr": "~1.5.0"
-
+    "angular-toastr": "~1.5.0",
+    "angular-ui-tree": "~2.10.0"
   }
 }

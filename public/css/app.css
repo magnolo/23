@@ -535,6 +535,22 @@ md-toast {
   position: relative;
   top: 0.5em;
 }
+.md-button.md-icon-button.small {
+  min-width: 0px;
+  min-height: 0px;
+  width: 24px;
+  height: 24px;
+  line-height: 24px;
+}
+.md-button.md-icon-button.small ng-md-icon {
+  top: 5px;
+}
+.md-button.md-border.md-lowspace {
+  padding: 0 10px;
+}
+.md-button.md-border:focus {
+  border-width: 1px;
+}
 a.md-button span {
   margin: 0;
   margin-left: 5px;
@@ -782,6 +798,38 @@ section.module-top md-list md-list-item {
 section.module-top md-list md-list-item:last-child {
   border-bottom: 0px;
 }
+section.module-top md-list md-list-item.sub-list {
+  padding: 0px;
+}
+section.module-top md-list md-list-item.sub-list md-list {
+  width: 100%;
+}
+section.module-top md-list md-list-item.sub-list .selector {
+  border-bottom: 0px;
+  font-size: 0.95em;
+  min-height: 1em;
+}
+section.module-top md-list md-list-item.sub-list .selector ng-md-icon {
+  top: 0px;
+  border-radius: 50%;
+  width: 22px;
+  height: 22px;
+}
+section.module-top md-list md-list-item.sub-list .selector .md-list-item-inner {
+  min-height: 1em;
+}
+section.module-top md-list md-list-item.sub-list .selector.unchecked ng-md-icon {
+  background-color: #ddd;
+}
+section.module-top md-list md-list-item.sub-list .selector.unchecked path {
+  fill: #fff;
+}
+section.module-top md-list md-list-item.sub-list .selector.checked ng-md-icon {
+  background-color: #333;
+}
+section.module-top md-list md-list-item.sub-list .selector.checked path {
+  fill: #fff;
+}
 section.module-top md-list .md-button {
   border-radius: 0;
 }
@@ -790,6 +838,14 @@ section.module-top md-list .md-button .md-ripple-container {
 }
 section.module-top .upload-container {
   text-align: center;
+}
+section.module-second {
+  position: fixed;
+  top: 48px;
+  left: calc(360px + 1em);
+  margin-left: 1em;
+  max-height: calc(100% - 48px - 2em);
+  overflow: hidden;
 }
 section.table {
   background-color: rgba(255, 255, 255, 0.2);
@@ -870,6 +926,20 @@ section.table md-data-table-pagination {
   bottom: 0px;
   width: 100%;
   background: #fff;
+}
+.angular-ui-tree-placeholder {
+  border-left: 3px solid #006bb9;
+  max-width: 100%;
+  width: 100%;
+}
+.angular-ui-tree-drag {
+  background-color: rgba(255, 255, 255, 0.8);
+  width: auto !important;
+  padding-right: 1em;
+  box-shadow: 0px 3px 1px -2px rgba(0, 0, 255, 0.14), 0px 2px 2px 0px rgba(0, 0, 255, 0.098), 0px 1px 5px 0px rgba(0, 0, 255, 0.084);
+}
+.angular-ui-tree-drag .actions {
+  display: none;
 }
 
 
@@ -1002,6 +1072,7 @@ section.table md-data-table-pagination {
 }
 
 
+
 median {
   overflow: hidden;
   border-radius: 20px;
@@ -1056,7 +1127,6 @@ median .slider text {
   user-select: none;
   cursor: ew-resize;
 }
-
 
 
 

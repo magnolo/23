@@ -1,0 +1,16 @@
+<div layout="row" layout-align="space-between center" style="line-height:2em" >
+  <div layout="row" layout-align="start center">
+    <ng-md-icon ui-tree-handle icon="more_vert" ></ng-md-icon>
+    <span>{{node.title}}</span>
+  </div>
+  <span flex></span>
+  <div ng-if="node.weight != 100" class="actions">
+    <md-button class="md-icon-button small"><ng-md-icon icon="arrow_drop_down" size="16"></ng-md-icon></md-button>
+    <span>{{node.weight}} %</span>
+    <md-button class="md-icon-button small"><ng-md-icon icon="arrow_drop_up" size="16"></ng-md-icon></md-button>
+  </div>
+</div>
+<ol ui-tree-nodes="" ng-model="node.nodes">
+  <li ng-repeat="node in node.nodes" ui-tree-node ng-include="'/views/app/indexcreator/nodes_renderer.html'">
+  </li>
+</ol>
