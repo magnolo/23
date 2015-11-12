@@ -18,6 +18,7 @@ body {
     font-family: 'Gorgia';
     font-size: 16px;
     color: @main-color;
+     overflow-x:hidden;  
     > canvas{
       z-index: 1000;
     position: fixed;
@@ -31,17 +32,24 @@ body {
     //  height:calc(~"100% - 64px");
     //left: 0;
     //padding-top:64px;
+    //  margin-top:48px;
 }
 
 .Page-name {
     color: @base;
+
 }
 
 .logo {
-    color: @blue;
+    color: @base;
     font-size: 1.5em;
 }
-
+.info{
+  color:@base;
+  path{
+    fill:@base;
+  }
+}
 .icon-space {
     position: relative;
     top: 4px;
@@ -79,7 +87,7 @@ body {
 
             a {
                 position: relative;
-
+                color:@dark-color;
                 &::after {
                     content: '';
                     position: absolute;

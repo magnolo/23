@@ -54,7 +54,7 @@
 			vm.structureServer.then(function(structure){
 				vm.dataServer.then(function(data){
 					vm.data = data;
-					vm.structure = structure;
+					vm.structure = structure.data;
 					createCanvas();
 					drawCountries();
 					if($state.params.item){
@@ -70,7 +70,8 @@
 						angular.forEach(countries, function(iso){
 							vm.compare.countries.push(getNationByIso(iso));
 						});
-						countries.push(vm.current.iso);
+						console.log(vm.compare.countries);
+						countries.push(vm.current[vm.structure.iso]);
 						DataService.getOne('nations/bbox', countries).then(function (data) {
 							vm.bbox = data;
 						});
@@ -108,7 +109,7 @@
 		function setSelectedFeature(iso) {
 			if (vm.mvtSource) {
 				$timeout(function () {
-					vm.mvtSource.layers.countries_big_geom.features[vm.current.iso].selected = true;
+					vm.mvtSource.layers.countries_big_geom.features[vm.current[vm.structure.iso]].selected = true;
 				})
 			}
 		};
@@ -143,7 +144,7 @@
 		};
 		function fetchNationData(iso){
 			DataService.getOne('nations', iso).then(function (data) {
-				vm.current.data = data;
+				vm.current.data = data.data;
 				mapGotoCountry(iso);
 			});
 		}
@@ -170,15 +171,16 @@
 				$rootScope.greyed = true;
 				vm.mvtSource.options.mutexToggle = false;
 				vm.mvtSource.setStyle(invertedStyle);
+
 			} else {
 				$rootScope.greyed = false;
 				angular.forEach(vm.mvtSource.layers.countries_big_geom.features, function (feature) {
 					feature.selected = false;
 				});
-				vm.mvtSource.layers.countries_big_geom.features[vm.current.iso].selected = true;
+				vm.mvtSource.layers.countries_big_geom.features[vm.current[vm.structure.iso]].selected = true;
 				vm.mvtSource.options.mutexToggle = true;
 				vm.mvtSource.setStyle(countriesStyle);
-				DataService.getOne('nations/bbox', [vm.current.iso]).then(function (data) {
+				DataService.getOne('nations/bbox', [vm.current[vm.structure.iso]]).then(function (data) {
 					vm.bbox = data;
 				});
 				$state.go('app.index.show.selected',{
@@ -186,6 +188,7 @@
 					item:$state.params.item
 				})
 			}
+			//vm.mvtSource.redraw();
 		};
 
 		function toggleCountrieList(country) {
@@ -202,9 +205,9 @@
 			var isos = [];
 			var compare = [];
 			angular.forEach(vm.compare.countries, function (item, key) {
-				isos.push(item.iso);
-				if(item.iso != vm.current.iso){
-					compare.push(item.iso);
+				isos.push(item[vm.structure.iso]);
+				if(item[vm.structure.iso] != vm.current[vm.structure.iso]){
+					compare.push(item[vm.structure.iso]);
 				}
 			});
 			if (isos.length > 1) {
@@ -267,17 +270,18 @@
 		function getNationByIso(iso) {
 			var nation = {};
 			angular.forEach(vm.data, function (nat) {
-				if (nat.iso == iso) {
+				if (nat[vm.structure.iso] == iso) {
 					nation = nat;
 				}
 			});
+
 			return nation;
 		};
 
 		function createCanvas(colors) {
 
 			vm.canvas = document.createElement('canvas');
-			vm.canvas.width = 256;
+			vm.canvas.width = 280;
 			vm.canvas.height = 10;
 			vm.ctx = vm.canvas.getContext('2d');
 			var gradient = vm.ctx.createLinearGradient(0, 0, 280, 10);
@@ -285,9 +289,9 @@
 			gradient.addColorStop(0.53, vm.structure.color || 'rgba(128, 243, 198,1)');
 			gradient.addColorStop(0, 'rgba(102,102,102,1)');
 			vm.ctx.fillStyle = gradient;
-			vm.ctx.fillRect(0, 0, 270, 10);
-			vm.palette = vm.ctx.getImageData(0, 0, 256, 1).data;
-			document.getElementsByTagName('body')[0].appendChild(vm.canvas);
+			vm.ctx.fillRect(0, 0, 280, 10);
+			vm.palette = vm.ctx.getImageData(0, 0, 257, 1).data;
+			//document.getElementsByTagName('body')[0].appendChild(vm.canvas);
 		}
 
 		function updateCanvas(color) {
@@ -296,17 +300,18 @@
 			gradient.addColorStop(0.53, color);
 			gradient.addColorStop(0, 'rgba(102,102,102,1)');
 			vm.ctx.fillStyle = gradient;
-			vm.ctx.fillRect(0, 0, 270, 10);
-			vm.palette = vm.ctx.getImageData(0, 0, 256, 1).data;
+			vm.ctx.fillRect(0, 0, 280, 10);
+			vm.palette = vm.ctx.getImageData(0, 0, 257, 1).data;
+			//document.getElementsByTagName('body')[0].appendChild(vm.canvas);
 		};
 
 		function invertedStyle(feature) {
 			var style = {};
 			var iso = feature.properties.adm0_a3;
 			var nation = getNationByIso(iso);
-			var field = vm.display.selectedCat.type || 'score';
+			var field = vm.structure.score_field_name || 'score';
 
-
+			console.log(vm.structure.score_field_name);
 			var colorPos = parseInt(256 / 100 * nation[field]) * 4;
 			var color = 'rgba(' + vm.palette[colorPos] + ', ' + vm.palette[colorPos + 1] + ', ' + vm.palette[colorPos + 2] + ',' + vm.palette[colorPos + 3] + ')';
 			style.color = 'rgba(0,0,0,0)';
@@ -331,16 +336,17 @@
 			var nation = getNationByIso(iso);
 			var field = vm.structure.score_field_name || 'score';
 			var type = feature.type;
-			if(iso != vm.current.iso){
+			if(iso != vm.current[vm.structure.iso]){
 					feature.selected = false;
 			}
 
 			switch (type) {
 			case 3: //'Polygon'
-				if (nation[field]) {
-					var colorPos = parseInt(256 / 100 * nation[field]) * 4;
+				if (typeof nation[field] != "undefined") {
+
+					var colorPos = parseInt(256 / 100 * parseInt(nation[field])) * 4;
 					var color = 'rgba(' + vm.palette[colorPos] + ', ' + vm.palette[colorPos + 1] + ', ' + vm.palette[colorPos + 2] + ',' + vm.palette[colorPos + 3] + ')';
-					style.color = 'rgba(' + vm.palette[colorPos] + ', ' + vm.palette[colorPos + 1] + ', ' + vm.palette[colorPos + 2] + ',0.7)'; //color;
+					style.color = 'rgba(' + vm.palette[colorPos] + ', ' + vm.palette[colorPos + 1] + ', ' + vm.palette[colorPos + 2] + ',0.6)'; //color;
 					style.outline = {
 						color: color,
 						size: 1
@@ -354,6 +360,7 @@
 					};
 					break;
 				} else {
+
 					style.color = 'rgba(255,255,255,0)';
 					style.outline = {
 						color: 'rgba(255,255,255,0)',
@@ -378,17 +385,17 @@
 			if (n === o) {
 				return;
 			}
-			if(n.iso) {
-				if(o.iso){
-					vm.mvtSource.layers.countries_big_geom.features[o.iso].selected = false;
+			if(n[vm.structure.iso]) {
+				if(o[vm.structure.iso]){
+					vm.mvtSource.layers.countries_big_geom.features[o[vm.structure.iso]].selected = false;
 				}
 				calcRank();
-				fetchNationData(n.iso);
-				vm.mvtSource.layers.countries_big_geom.features[n.iso].selected = true;
+				fetchNationData(n[vm.structure.iso]);
+				vm.mvtSource.layers.countries_big_geom.features[n[vm.structure.iso]].selected = true;
 				if($state.current.name == 'app.index.show.selected' || $state.current.name == 'app.index.show'){
 					$state.go('app.index.show.selected', {
 						index: $state.params.index,
-						item: n.iso
+						item: n[vm.structure.iso]
 					});
 				}
 			} else {
@@ -407,27 +414,30 @@
 				updateCanvas('rgba(128, 243, 198,1)');
 			};
 			vm.calcTree();
-			if (vm.compare.active) {
+			/*if (vm.compare.active) {
 				$timeout(function () {
-					vm.mvtSource.setStyle(invertedStyle);
+					//vm.mvtSource.setStyle(invertedStyle);
+					//vm.mvtSource.redraw();
 				});
 			} else {
 				$timeout(function () {
-					vm.mvtSource.setStyle(countriesStyle);
+					//vm.mvtSource.setStyle(countriesStyle);
+					//vm.mvtSource.redraw();
 				});
-			}
-			if (vm.current.iso) {
+			}*/
+
+			if (vm.current[vm.structure.iso]) {
 				if($state.params.countries){
 					$state.go('app.index.show.selected.compare', {
 						index: n.name,
-						item: vm.current.iso,
+						item: vm.current[vm.structure.iso],
 						countries: $state.params.countries
 					})
 				}
 				else{
 					$state.go('app.index.show.selected', {
 						index: n.name,
-						item: vm.current.iso
+						item: vm.current[vm.structure.iso]
 					})
 				}
 			} else {
@@ -511,11 +521,12 @@
 					if($state.params.countries){
 						vm.mvtSource.options.mutexToggle = false;
 						vm.mvtSource.setStyle(invertedStyle);
-						vm.mvtSource.layers.countries_big_geom.features[vm.current.iso].selected = true;
+						vm.mvtSource.layers.countries_big_geom.features[vm.current[vm.structure.iso]].selected = true;
 						var countries = $state.params.countries.split('-vs-');
 						angular.forEach(countries, function(iso){
 							vm.mvtSource.layers.countries_big_geom.features[iso].selected = true;
 						});
+
 					}
 					else{
 						vm.mvtSource.setStyle(countriesStyle);
@@ -523,18 +534,19 @@
 								vm.mvtSource.layers.countries_big_geom.features[$state.params.item].selected = true;
 						}
 					}
+					//vm.mvtSource.redraw();
 				});
 				vm.mvtSource.options.onClick = function (evt, t) {
 					if (!vm.compare.active) {
 						var c = getNationByIso(evt.feature.properties.adm0_a3);
-						if (typeof c.rank != "undefined") {
+						if (typeof c[vm.structure.score_field_name] != "undefined") {
 							vm.current = getNationByIso(evt.feature.properties.adm0_a3);
 						} else {
 							ToastService.error('No info about this location!');
 						}
 					} else {
 						var c = getNationByIso(evt.feature.properties.adm0_a3);
-						if (typeof c.rank != "undefined") {
+						if (typeof c[vm.structure.score_field_name] != "undefined") {
 							vm.toggleCountrieList(c);
 						} else {
 							ToastService.error('No info about this location!');

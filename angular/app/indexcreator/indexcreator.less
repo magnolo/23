@@ -1,0 +1,147 @@
+@import (less) '../../material/colors.less';
+
+
+section{
+  &.module-top{
+    background-color: #fff;
+    width:360px;
+    margin-left:1em;
+    margin-top:1em;
+    &.out{
+      transform:translateX(-380px);
+    }
+    .md-subheader{
+      font-size:1.4em;
+    }
+    md-list{
+      md-list-item{
+        border-bottom:1px solid @grey-light;
+        &:last-child{
+          border-bottom:0px;
+        }
+      }
+      .md-button{
+        border-radius: 0;
+        .md-ripple-container{
+          border-radius: 0;
+        }
+      }
+    }
+    .upload-container{
+      text-align: center;
+    }
+  }
+  &.table{
+
+    background-color:rgba(255,255,255,0.2);
+    width:100%;
+    position:absolute;
+    top:0px;
+    left:0px;
+    height:calc(~"100%");
+
+    background:#fff;
+    md-data-table-toolbar{
+      position:relative;
+      background: #006bb9;
+      color:#fff;
+      *{
+        fill:#fff;
+      }
+      md-input-container{
+        padding-bottom:.5em;
+      }
+    }
+    md-data-table-container{
+        font-family: RobotoDraft,Roboto,'Helvetica Neue',sans-serif;
+      margin-bottom:56px;
+
+      thead:not([md-table-progress])>tr>th {
+        color: #006bb9;
+        &.iconed{
+          position:relative;
+            //background:#006bb9;
+            padding-left:3em !important;
+          span{
+            &.icon{
+              opacity:0;
+              transition:all .3s ease;
+              position:absolute;
+              top:1.3em;
+              left:0em;
+              path{
+                fill:#ccc;
+              }
+              &:hover{
+                path{
+                  fill:#006bb9;
+                }
+
+              }
+            }
+          }
+          &.globe{
+            span{
+              opacity: 1;
+              path{
+                fill:#006bb9;
+              }
+            }
+          }
+          &:hover{
+            span{
+              &.icon{
+                opacity: 1;
+              }
+            }
+          }
+        }
+        &.done, &.done.md-active{
+          color:green !important;
+          path{
+            //fill:green;
+          }
+
+
+            span{
+              &:hover{
+                path{
+                  fill:green !important;
+                }
+              }
+            }
+
+        }
+
+
+      }
+      table[md-data-table]>tbody>tr{
+        height:2.5em;
+        &.md-warn{
+            background-color:rgba(244,67,54,0.2);
+        }
+        td{
+          &.md-warn{
+              //background-color:rgba(244,67,54,0.2);
+              &::after{
+                content: 'Data missing';
+
+                color: red;
+                //text-align: center;
+                width: 100%;
+                display: inline-block;
+                line-height: 3em;
+              }
+          }
+        }
+      }
+
+    }
+    md-data-table-pagination{
+      position: fixed;
+      bottom: 0px;
+      width: 100%;
+      background: #fff;
+    }
+  }
+}

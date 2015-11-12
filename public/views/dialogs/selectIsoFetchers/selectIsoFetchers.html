@@ -1,0 +1,23 @@
+<md-dialog ng-controller="SelectisofetchersCtrl">
+	<form ng-submit="save()">
+		<md-dialog-content>
+			<h2 class="md-title">Select from choices</h2>
+
+			<div layout="column" ng-repeat="item in list">
+				<md-input-container>
+			 <label>{{item.entry.data[0]['country']}}</label>
+			 <md-select ng-model="item.entry.data[0][iso]">
+				 <md-option ng-repeat="option in item.options" value="{{option.iso}}">
+					 {{option.name}}
+				 </md-option>
+			 </md-select>
+		 </md-input-container>
+			</div>
+
+		</md-dialog-content>
+
+		<div class="md-actions" layout="row">
+			<md-button class="md-primary" type="submit">Done</md-button>
+		</div>
+	</form>
+</md-dialog>
