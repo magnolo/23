@@ -19,6 +19,33 @@ section{
         &:last-child{
           border-bottom:0px;
         }
+        .selector{
+          width:100%;
+          padding:0.5em 0;
+          ng-md-icon{
+            border-radius: 50%;
+            width:28px;
+            height:28px;
+          }
+          &.unchecked{
+
+            ng-md-icon{
+              background-color: #ddd;
+            }
+            path{
+              fill:#fff;
+            }
+          }
+          &.checked{
+            ng-md-icon{
+              background-color: #333;
+            }
+            path{
+              fill:#fff;
+            }
+          }
+        }
+
       }
       .md-button{
         border-radius: 0;

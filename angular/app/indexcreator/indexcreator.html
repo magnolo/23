@@ -1,15 +1,16 @@
 <section class="module-top md-whiteframe-z2" ng-class="{'out': vm.data.length}">
 				<md-subheader class="md-no-sticky">Choose data source</md-subheader>
 				<md-list>
-								<md-list-item>
+								<md-list-item ng-click="vm.toggleListResources()">
 												<p>Browse data</p>
-												<ng-md-icon icon="{{vm.openClose(vm.showResources)}}" ng-click="vm.listResources()"></ng-md-icon>
+												<ng-md-icon icon="{{vm.openClose(vm.showResources)}}" ></ng-md-icon>
 
 								</md-list-item>
 
-									<md-list-item ng-if="vm.resources.length && vm.showResources" layout="column" layout-align="space-around start">
-											<div flex="100" ng-repeat="resource in vm.resources">
-											<p>{{resource.title}}</p>
+									<md-list-item class="slide-toggle" ng-if="vm.resources.length && vm.showResources" layout="column" layout-align="space-around start">
+											<div ng-click="vm.toggleResource(resource)" class="selector" ng-repeat="resource in vm.resources" layout="row" layout-align="space-between center" ng-class="{'checked': vm.selectedResource(resource), 'unchecked': !vm.selectedResource()}">
+											<span>{{resource.title}}</span>
+											<ng-md-icon icon="check" layout="row" layout-align="center center" ></ng-md-icon>
 										</div>
 									</md-list-item>
 

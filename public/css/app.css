@@ -708,14 +708,6 @@ md-toast[md-theme=warn] {
   padding: 0px;
 }
 
-.multi-view {
-  top: calc(48px);
-  left: 0em;
-  position: absolute;
-  width: 100%;
-  height: calc(100% - 48px);
-}
-
 md-toolbar.md-menu-toolbar {
   background-color: #ffffff;
   color: rgba(0, 0, 0, 0.87);
@@ -763,6 +755,14 @@ md-menu-bar {
   padding: 24px;
 }
 
+.multi-view {
+  top: calc(48px);
+  left: 0em;
+  position: absolute;
+  width: 100%;
+  height: calc(100% - 48px);
+}
+
 section.module-top {
   background-color: #fff;
   width: 360px;
@@ -781,6 +781,27 @@ section.module-top md-list md-list-item {
 }
 section.module-top md-list md-list-item:last-child {
   border-bottom: 0px;
+}
+section.module-top md-list md-list-item .selector {
+  width: 100%;
+  padding: 0.5em 0;
+}
+section.module-top md-list md-list-item .selector ng-md-icon {
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+}
+section.module-top md-list md-list-item .selector.unchecked ng-md-icon {
+  background-color: #ddd;
+}
+section.module-top md-list md-list-item .selector.unchecked path {
+  fill: #fff;
+}
+section.module-top md-list md-list-item .selector.checked ng-md-icon {
+  background-color: #333;
+}
+section.module-top md-list md-list-item .selector.checked path {
+  fill: #fff;
 }
 section.module-top md-list .md-button {
   border-radius: 0;
@@ -955,7 +976,6 @@ section.table md-data-table-pagination {
 
 
 
-
 .bubbles {
   overflow: hidden;
   margin: 1em 0;
@@ -1001,6 +1021,7 @@ section.table md-data-table-pagination {
 .tooltip .close-it:hover {
   color: rgba(0, 0, 0, 0.87);
 }
+
 
 
 median {

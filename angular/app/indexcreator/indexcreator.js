@@ -9,6 +9,7 @@
         vm.toSelect = [];
         vm.selected = [];
         vm.selectedRows = [];
+        vm.selectedResources =[];
         vm.iso_errors = 0;
         vm.selectedIndex = 0;
         vm.step = 0;
@@ -27,6 +28,9 @@
         vm.editRow = editRow;
         vm.saveData = saveData;
         vm.listResources = listResources;
+        vm.toggleListResources = toggleListResources;
+        vm.selectedResource = selectedResource;
+        vm.toggleResource = toggleResource;
         vm.meta = {
           iso_field: '',
           table:[]
@@ -229,12 +233,27 @@
             }
           })
         }
-
+        function toggleListResources(){
+          vm.showResources = !vm.showResources;
+          if(vm.showResources){
+            vm.listResources();
+          }
+        }
         function listResources(){
           DataService.getAll('data/tables').then(function(response){
             vm.resources = response;
-            vm.showResources = true;
           })
+        }
+        function selectedResource(resource){
+          return vm.selectedResources.indexOf(resource) > -1 ? true : false;
+        }
+        function toggleResource(resource){
+          if(vm.selectedResources.indexOf(resource) > -1){
+            vm.selectedResources.splice(vm.selectedResources.indexOf(resource), 1);
+          }
+          else{
+            vm.selectedResources.push(resource);
+          }
         }
         $scope.$on("$stateChangeStart", function (event, toState, toParams, fromState, fromParams) {
           switch (toState.name) {
