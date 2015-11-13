@@ -511,6 +511,13 @@
   display: none;
 }
 
+button,
+select,
+html,
+textarea,
+input {
+  font-family: 'Gorgia';
+}
 .md-toolbar-tools {
   font-size: 16px;
 }
@@ -784,6 +791,7 @@ section.module-top {
   width: 360px;
   margin-left: 1em;
   margin-top: 1em;
+  margin-bottom: 1em;
 }
 section.module-top.out {
   -webkit-transform: translateX(-380px);
@@ -846,6 +854,7 @@ section.module-second {
   margin-left: 1em;
   max-height: calc(100% - 48px - 2em);
   overflow: hidden;
+  overflow-y: auto;
 }
 section.table {
   background-color: rgba(255, 255, 255, 0.2);

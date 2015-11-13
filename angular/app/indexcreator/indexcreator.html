@@ -1,22 +1,37 @@
 <section class="module-top md-whiteframe-z2" ng-class="{'out': vm.data.length}">
 				<md-subheader class="md-no-sticky">Choose data source</md-subheader>
 				<md-list>
-								<md-list-item ng-click="vm.toggleListResources()">
+								<md-list-item ng-if="!vm.showUploadContainer" ng-click="vm.toggleListResources()">
 												<p>Browse data</p>
 												<ng-md-icon icon="{{vm.openClose(vm.showResources)}}"></ng-md-icon>
 
 								</md-list-item>
 
-								<md-list-item class="slide-toggle sub-list" ng-if="vm.resources.length && vm.showResources">
+								<md-list-item class="sub-list" ng-if="vm.resources.length && vm.showResources" >
+										<div layout="row" layout-align="start start" layout-wrap>
+											<div flex="100" layout="row" layout-align="space-between center" style="color:#ccc;padding:0 1em;border-bottom:1px solid #ddd">
+												<div>
+													<span>Sort:</span>
+													<span>a-z</span>
+												</div>
+												<span flex></span>
+												<md-input-container class="md-accent">
+													<label>Search</label>
+													<input type="text" ng-model="vm.resourceSearch" />
+												</md-input-container>
+											</div>
+											<div flex="100">
 												<md-list>
-																<md-list-item class="selector" ng-class="{'checked': vm.selectedResource(resource), 'unchecked': !vm.selectedResource()}" ng-click="vm.toggleResource(resource)" ng-repeat="resource in vm.resources">
+																<md-list-item class="selector" ng-class="{'checked': vm.selectedResource(resource), 'unchecked': !vm.selectedResource()}" ng-click="vm.toggleResource(resource)" ng-repeat="resource in vm.resources | filter:vm.resourceSearch">
 																				<p>{{resource.title}}</p>
 																				<ng-md-icon icon="check" layout-align="center center" layout="row" size="18"></ng-md-icon>
 																</md-list-item>
 												</md-list>
+										</div>
+											</div>
 								</md-list-item>
 
-								<md-list-item ng-click="vm.showUploadContainer = !vm.showUploadContainer">
+								<md-list-item ng-if="!vm.showResources" ng-click="vm.showUploadContainer = !vm.showUploadContainer">
 												<p>Upload new data</p>
 												<ng-md-icon icon="{{vm.openClose(vm.showUploadContainer)}}"></ng-md-icon>
 								</md-list-item>
@@ -26,12 +41,12 @@
 								<parsecsv></parsecsv>
 				</div>
 </section>
-<section class="module-top module-second md-whiteframe-z2 anim" ng-if="vm.resources.length && vm.selectedResources.length">
+<section class="module-top module-second md-whiteframe-z2 anim" ng-if="vm.showResources && vm.resources.length && vm.selectedResources.length">
 				<div layout="row">
 					<md-button class="md-accent md-border md-lowspace">Preview</md-button>
 					<span flex></span>
-					<md-button class="md-accent md-border">Save</md-button>
-					<md-button class="md-accent md-border">Go to Map</md-button>
+					<md-button class="md-accent md-border md-lowspace">Save</md-button>
+					<md-button class="md-accent md-border md-lowspace">Go to Map</md-button>
 				</div>
 				<md-subheader class="md-no-sticky">Your Index</md-subheader>
 				<div ui-tree="vm.treeOptions">
@@ -44,14 +59,14 @@
 				<md-data-table-toolbar class="md-whiteframe-z1">
 								<div flex layout-align="space-between center" layout="row">
 												<h2 class="md-title">CSV Import 1/3</h2>
-												<h3>check your data</h3>
-												<md-input-container style="margin-right: 10px;">
+												<span flex></span>
+												<md-input-container style="margin-right: 10px;margin-bottom:0px;min-width:100px">
 																<label>ISO Field</label>
 																<md-select ng-model="vm.meta.iso_field">
 																				<md-option ng-repeat="(key, item) in vm.data[0].data[0]" value="{{key}}">{{key}}</md-option>
 																</md-select>
 												</md-input-container>
-												<md-input-container style="margin-right: 10px;">
+												<md-input-container style="margin-right: 10px;margin-bottom:0px;min-width:100px">
 																<label>Country Field</label>
 																<md-select ng-model="vm.meta.country_field">
 																				<md-option ng-repeat="(key, item) in vm.data[0].data[0]" value="{{key}}">{{key}}</md-option>
@@ -67,19 +82,20 @@
 																				Delete
 																</md-button>
 
-																<md-button ng-if="vm.errors == 0" ui-sref="app.index.create.meta">
+																<md-button ng-if="vm.errors == 0 && vm.iso_checked" ui-sref="app.index.create.meta">
 																				Next
 																				<ng-md-icon icon="chevron_right"></ng-md-icon>
 																</md-button>
 
-																<span ng-if="vm.errors">
-																				{{vm.errors}}
+																<span ng-if="vm.errors || !vm.iso_checked ">
+																				<span ng-if="vm.errors">{{vm.errors}}
 																				errors detected
-																				<md-button ng-click="vm.fetchIso()" ng-if="vm.iso_errors">
+																				</span>
+																				<md-button class="md-raised md-accent" ng-click="vm.fetchIso()" ng-if="vm.iso_errors || !vm.iso_checked">
 																								Get Iso Values
 																								<ng-md-icon icon="public"></ng-md-icon>
 																				</md-button>
-																				<md-button ng-click="vm.clearErrors()" ng-if="vm.errors && vm.errors != vm.iso_errors">
+																				<md-button class="md-raised md-warn" ng-click="vm.clearErrors()" ng-if="vm.errors && vm.errors != vm.iso_errors">
 																								Clear Errors
 																								<ng-md-icon icon="gesture"></ng-md-icon>
 																				</md-button>
@@ -120,13 +136,14 @@
 				<md-data-table-toolbar class="md-whiteframe-z1">
 								<div flex layout-align="space-between center" layout="row">
 												<h2 class="md-title">CSV Import 2/3</h2>
-												<h3>adding meta data</h3>
+												<h3>Adding Meta Data</h3>
+												<span flex></span>
 												<div layout-align="space-between center" layout="row">
 																<md-button ui-sref="app.index.create.check">
 																				<ng-md-icon icon="chevron_left"></ng-md-icon>
 																				Prev
 																</md-button>
-																<md-button ui-sref="app.index.create.final">
+																<md-button ui-sref="app.index.create.final" >
 																				Next
 																				<ng-md-icon icon="chevron_right"></ng-md-icon>
 																</md-button>
@@ -136,16 +153,16 @@
 				<md-content>
 								<table md-data-table md-row-select="vm.selectedRows">
 												<tbody>
-																<tr md-auto-select ng-if="key != vm.meta.iso_field" ng-repeat="(key, item) in vm.data[0].data[0]">
+																<tr md-auto-select ng-if="key != vm.meta.iso_field && key != vm.meta.country_field && key != 'year'" ng-repeat="(key, item) in vm.data[0].data[0]">
 																				<td>{{key}}</td>
 																				<td>
-																								<md-input-container>
+																								<md-input-container style="width:100%">
 																												<label>Title</label>
 																												<input ng-model="vm.meta.table[key].title" type="text">
 																								</md-input-container>
 																				</td>
 																				<td>
-																								<md-input-container>
+																								<md-input-container style="width:100%">
 																												<label>Description</label>
 																												<input ng-model="vm.meta.table[key].description" type="text">
 																								</md-input-container>
@@ -153,59 +170,6 @@
 																</tr>
 												</tbody>
 								</table>
-								<!--<md-tabs md-selected="vm.selectedIndex" class="md-default" md-autoselect md-dynamic-height>
-		 <md-tab ng-repeat="(key, item) in vm.data[0].data[0]" ng-if="key != vm.meta.iso_field" label="{{key}}">
-      <h2 style="text-align:center">
-        <span>{{key}}</span>
-      </h2>
-			 <div class="tab{{$index%4}}" style="padding: 25px;" flex="50" flex-offset="25" flex-md="70" flex-offset-md="15" flex-sm="100" flex-offset-sm="0" flex-offset="25">
-				 <div>
-
-					 <md-input-container class="md-block">
-						 <label>Alternative name</label>
-						 <input ng-model="vm.meta.table[key].name">
-					 </md-input-container>
-					 <md-input-container class="md-block">
-						 <label>Title</label>
-						 <input required ng-model="vm.meta.table[key].title">
-					 </md-input-container>
-					 <md-input-container class="md-block">
-						 <label>Description</label>
-						 <input md-maxlength="30" name="description" ng-model="vm.meta.table[key].description">
-					 </md-input-container>
-				 </div>
-				 <div layout="row" layout-align="space-between center">
-					 <span flex ng-if="vm.selectedIndex == 0"></span>
-				 <md-button ng-if="vm.selectedIndex > 0" class="md-raised" ng-click="vm.selectedIndex = vm.selectedIndex -1" >
-					<ng-md-icon icon="chevron_left"></ng-md-icon> Prev
-				 </md-button>
-				 <md-button class="md-raised" ng-click="vm.selectedIndex = vm.selectedIndex +1" >
-					 Next <ng-md-icon icon="chevron_right"></ng-md-icon>
-				 </md-button>
-			 </div>
-			 </div>
-		 </md-tab>
-	 </md-tabs>
-
-    <!--  <md-whiteframe class="md-whiteframe-1dp" ng-repeat="(key, item) in vm.data[0].data[0]" flex="25">
-      <h4>{{key}}</h4>
-      <md-input-container >
-        <label>Title</label>
-        <input ng-model="vm.meta[key].title" type="text">
-      </md-input-container>
-      <md-input-container >
-        <label>Color</label>
-        <input ng-model="vm.meta[key].color" type="text">
-      </md-input-container>
-      <md-input-container >
-        <label>Icon</label>
-        <input ng-model="vm.meta[key].icon" type="text">
-      </md-input-container>
-      <md-input-container >
-        <label>Description</label>
-        <input ng-model="vm.meta[key].description" type="text">
-      </md-input-container>
-    </md-whiteframe>-->
 				</md-content>
 </section>
 <section class="table anim md-whiteframe-z2" layout="column" ng-if="vm.data.length && vm.step == 3">
@@ -213,6 +177,7 @@
 								<div flex layout-align="space-between center" layout="row">
 												<h2 class="md-title">CSV Import 3/3</h2>
 												<h3>Main Information</h3>
+												<span flex></span>
 												<div layout-align="space-between center" layout="row">
 																<md-button ui-sref="app.index.create.meta">
 																				<ng-md-icon icon="chevron_left"></ng-md-icon>

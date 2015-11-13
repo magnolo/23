@@ -130,7 +130,9 @@ class UserdataController extends Controller
       $data['db'] = \Schema::create('user_table_'.$name, function(Blueprint $table) use ($request){
         $table->increments('id');
         $table->string($request->input('iso_field'));
-
+        if($request->input('country_field') != ''){
+            $table->string($request->input('country_field'));
+        }
         foreach($request->input('fields') as $field){
           if($field != 'year'){
             $table->string($field['column']);

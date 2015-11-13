@@ -12,6 +12,7 @@
         vm.selectedResources =[];
         vm.sortedResources = [];
         vm.iso_errors = 0;
+        vm.iso_checked = false;
         vm.selectedIndex = 0;
         vm.step = 0;
         vm.search = search;
@@ -32,6 +33,9 @@
         vm.toggleListResources = toggleListResources;
         vm.selectedResource = selectedResource;
         vm.toggleResource = toggleResource;
+        vm.increasePercentage = increasePercentage;
+        vm.decreasePercentage = decreasePercentage;
+
         vm.meta = {
           iso_field: '',
           country_field:'',
@@ -48,6 +52,8 @@
             calcPercentage(vm.sortedResources);
           }
         };
+
+        //Run Startup-Funcitons
         activate();
 
         function activate(){
@@ -161,6 +167,19 @@
           vm.data = [];
         }
         function fetchIso(){
+          if(!vm.meta.iso_field){
+            toastr.error('Check your selection for the ISO field', 'Column not specified!');
+            return false;
+          }
+          if(!vm.meta.country_field){
+            toastr.error('Check your selection for the COUNTRY field', 'Column not specified!');
+            return false;
+          }
+          if(vm.meta.country_field == vm.meta.iso_field){
+            toastr.error('ISO field and COUNTRY field can not be the same', 'Selection error!');
+            return false;
+          }
+
           vm.toSelect = [];
           vm.notFound = [];
           var entries = [];
@@ -182,16 +201,21 @@
                         vm.toSelect.push(toSelect);
                       }
                       else{
-                        vm.data[k].data[0][vm.meta.iso_field] = country.data[0].iso;
-                        vm.data[k].data[0][vm.meta.country_field] = country.data[0].admin;
-                        if(item.errors.length){
-                          angular.forEach(item.errors, function(error, e){
-                            if(error.type == 2){
-                              vm.iso_errors --;
-                              vm.errors --;
-                              item.errors.splice(e, 1);
-                            }
-                          })
+                        if(typeof country.data[0] != "undefined"){
+                          vm.data[k].data[0][vm.meta.iso_field] = country.data[0].iso;
+                          vm.data[k].data[0][vm.meta.country_field] = country.data[0].admin;
+                          if(item.errors.length){
+                            angular.forEach(item.errors, function(error, e){
+                              if(error.type == 2){
+                                vm.iso_errors --;
+                                vm.errors --;
+                                item.errors.splice(e, 1);
+                              }
+                            })
+                          }
+                        }
+                        else{
+                          console.log(country);
                         }
                       }
                     }
@@ -200,13 +224,13 @@
               if(vm.toSelect.length){
                 DialogService.fromTemplate('selectisofetchers', $scope);
               }
+              vm.iso_checked = true;
+          }, function(response){
+            console.log(response);
+            toastr.error('Please check your field selections', response.data.message);
           })
         }
-
-
         function saveData(){
-          console.log(vm.meta);
-          console.log(vm.data);
           var insertData = {data:[]};
           var meta = [], fields = [];
           angular.forEach(vm.data, function(item, key){
@@ -249,7 +273,6 @@
             }
           })
         }
-
         function toggleListResources(){
           vm.showResources = !vm.showResources;
           if(vm.showResources){
@@ -257,9 +280,14 @@
           }
         }
         function listResources(){
-          DataService.getAll('data/tables').then(function(response){
-            vm.resources = response;
-          })
+
+          if(!vm.resources){
+            DataService.getAll('data/tables').then(function(response){
+              vm.resources = response;
+              vm.selectedResources = [], vm.sortedResources = [];
+            })
+          }
+
         }
         function selectedResource(resource){
           return vm.selectedResources.indexOf(resource) > -1 ? true : false;
@@ -271,48 +299,46 @@
           else{
             vm.selectedResources.push(resource);
           }
-
-           angular.copy(vm.selectedResources, vm.sortedResources);
-           angular.forEach(vm.sortedResources, function(res, key){
+          angular.copy(vm.selectedResources, vm.sortedResources);
+          angular.forEach(vm.sortedResources, function(res, key){
              vm.sortedResources[key].weight = parseInt(100 / vm.sortedResources.length);
              vm.sortedResources[key].nodes = [];
-           });
+          });
+          calcPercentage(vm.sortedResources);
         }
         function calcPercentage(nodes){
           angular.forEach(nodes, function(node, key){
             nodes[key].weight = parseInt(100 / nodes.length);
-
-            calcPercentage(node.nodes);
+            calcPercentage(nodes.node);
           });
+        }
+        function increasePercentage(item){
+          console.log(item);
+        }
+        function decreasePercentage(item){
+          console.log(item)
         }
         $scope.$on("$stateChangeStart", function (event, toState, toParams, fromState, fromParams) {
           switch (toState.name) {
-
             case 'app.index.create.check':
-
               break;
             case 'app.index.create.meta':
                 if(!vm.meta.iso_field){
-
                   toastr.error('No field for ISO Code selected!', 'Error');
                   event.preventDefault();
                    $rootScope.stateIsLoading = false;
                 }
                 break;
             case 'app.index.create.final':
-
               break;
             default:
-
                 if(vm.data.length){
                   $scope.toState = toState;
                   DialogService.fromTemplate('loosedata', $scope, vm.deleteData);
                   event.preventDefault();
                   $rootScope.stateIsLoading = false;
                 }
-
               break;
-
           }
         });
         $scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParams) {
@@ -335,7 +361,7 @@
                   vm.step = 3;
                   break;
               default:
-
+                break;
             }
           }
         });

@@ -67,7 +67,7 @@
 
 										//See if there is an field name "iso" in the headings;
 										angular.forEach($scope.vm.data[0].data[0], function(item, key){
-											if(key.toLowerCase().indexOf('iso') != -1){
+											if(key.toLowerCase().indexOf('iso') != -1 || key.toLowerCase().indexOf('code') != -1){
 												$scope.vm.meta.iso_field = key;
 											}
 												if(key.toLowerCase().indexOf('country') != -1){
