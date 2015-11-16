@@ -97,7 +97,7 @@
           angular.forEach(vm.data, function(row, key){
             angular.forEach(row.data[0], function(item, k){
               if(isNaN(item) || item < 0){
-                if(item == "NA" || item < 0 || item.indexOf('#N/A') > -1){
+                if(item.toString().toUpperCase() == "NA" || item < 0 || item.toString().toUpperCase().indexOf('N/A') > -1){
                   vm.data[key].data[0][k] = '';
                   vm.errors --;
                   row.errors.splice(0,1);
