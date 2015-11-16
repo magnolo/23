@@ -712,328 +712,6 @@ md-toast[md-theme=warn] {
   text-align: center;
 }
 
-.Header {
-  position: fixed;
-  left: 0px;
-  right: 0;
-  z-index: 3;
-  top: 0px;
-}
-.Header .md-toolbar-tools,
-.Header md-toolbar {
-  height: 48px;
-  min-height: 48px;
-}
-.Header a.md-button span {
-  color: #006bb9;
-}
-.Header .md-menu {
-  padding: 0px;
-}
-
-md-toolbar.md-menu-toolbar {
-  background-color: #ffffff;
-  color: rgba(0, 0, 0, 0.87);
-}
-md-toolbar.md-menu-toolbar md-button {
-  color: rgba(0, 0, 0, 0.87);
-}
-md-toolbar.md-menu-toolbar md-toolbar-filler {
-  background-color: #106cc8;
-  color: rgba(255, 255, 255, 0.87);
-}
-md-toolbar.md-menu-toolbar h2.md-toolbar-tools {
-  height: auto;
-  line-height: 1rem;
-  padding: 28px 28px 12px;
-}
-md-menu-bar md-menu.md-open > button,
-md-menu-bar md-menu > button:focus {
-  background: #eeeeee none repeat scroll 0 0;
-  outline: medium none;
-}
-md-menu-bar button {
-  background-color: transparent;
-  border: 0 none;
-  font-size: 14px;
-  height: 40px;
-  margin: 0;
-  padding: 0 10px;
-}
-md-menu-bar {
-  display: block;
-  padding: 0 20px;
-  position: relative;
-  z-index: 2;
-}
-.editContent .page-container {
-  background-color: #f1f1f1;
-  padding: 32px;
-}
-.editContent .page {
-  background-color: white;
-  box-shadow: 0 1px 2px 1px rgba(0, 0, 0, 0.25);
-  margin: 0 auto;
-  max-width: 680px;
-  padding: 24px;
-}
-
-.multi-view {
-  top: calc(48px);
-  left: 0em;
-  position: absolute;
-  width: 100%;
-  height: calc(100% - 48px);
-}
-
-section.module-top {
-  background-color: #fff;
-  width: 360px;
-  margin-left: 1em;
-  margin-top: 1em;
-  margin-bottom: 1em;
-}
-section.module-top.out {
-  -webkit-transform: translateX(-380px);
-  transform: translateX(-380px);
-}
-section.module-top .md-subheader {
-  font-size: 1.4em;
-}
-section.module-top md-list md-list-item {
-  border-bottom: 1px solid #d7dddd;
-}
-section.module-top md-list md-list-item:last-child {
-  border-bottom: 0px;
-}
-section.module-top md-list md-list-item.sub-list {
-  padding: 0px;
-}
-section.module-top md-list md-list-item.sub-list md-list {
-  width: 100%;
-}
-section.module-top md-list md-list-item.sub-list .selector {
-  border-bottom: 0px;
-  font-size: 0.95em;
-  min-height: 1em;
-}
-section.module-top md-list md-list-item.sub-list .selector ng-md-icon {
-  top: 0px;
-  border-radius: 50%;
-  width: 22px;
-  height: 22px;
-}
-section.module-top md-list md-list-item.sub-list .selector .md-list-item-inner {
-  min-height: 1em;
-}
-section.module-top md-list md-list-item.sub-list .selector.unchecked ng-md-icon {
-  background-color: #ddd;
-}
-section.module-top md-list md-list-item.sub-list .selector.unchecked path {
-  fill: #fff;
-}
-section.module-top md-list md-list-item.sub-list .selector.checked ng-md-icon {
-  background-color: #333;
-}
-section.module-top md-list md-list-item.sub-list .selector.checked path {
-  fill: #fff;
-}
-section.module-top md-list .md-button {
-  border-radius: 0;
-}
-section.module-top md-list .md-button .md-ripple-container {
-  border-radius: 0;
-}
-section.module-top .upload-container {
-  text-align: center;
-}
-section.module-second {
-  position: fixed;
-  top: 48px;
-  left: calc(360px + 1em);
-  margin-left: 1em;
-  max-height: calc(100% - 48px - 2em);
-  overflow: hidden;
-  overflow-y: auto;
-}
-section.table {
-  background-color: rgba(255, 255, 255, 0.2);
-  width: 100%;
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  height: calc(100%);
-  background: #fff;
-}
-section.table md-data-table-toolbar {
-  position: relative;
-  background: #006bb9;
-  color: #fff;
-}
-section.table md-data-table-toolbar * {
-  fill: #fff;
-}
-section.table md-data-table-toolbar md-input-container {
-  padding-bottom: .5em;
-}
-section.table md-data-table-container {
-  font-family: RobotoDraft, Roboto, 'Helvetica Neue', sans-serif;
-  margin-bottom: 56px;
-}
-section.table md-data-table-container thead:not([md-table-progress]) > tr > th {
-  color: #006bb9;
-}
-section.table md-data-table-container thead:not([md-table-progress]) > tr > th.iconed {
-  position: relative;
-  padding-left: 3em !important;
-}
-section.table md-data-table-container thead:not([md-table-progress]) > tr > th.iconed span.icon {
-  opacity: 0;
-  transition: all .3s ease;
-  position: absolute;
-  top: 1.3em;
-  left: 0em;
-}
-section.table md-data-table-container thead:not([md-table-progress]) > tr > th.iconed span.icon path {
-  fill: #ccc;
-}
-section.table md-data-table-container thead:not([md-table-progress]) > tr > th.iconed span.icon:hover path {
-  fill: #006bb9;
-}
-section.table md-data-table-container thead:not([md-table-progress]) > tr > th.iconed.globe span {
-  opacity: 1;
-}
-section.table md-data-table-container thead:not([md-table-progress]) > tr > th.iconed.globe span path {
-  fill: #006bb9;
-}
-section.table md-data-table-container thead:not([md-table-progress]) > tr > th.iconed:hover span.icon {
-  opacity: 1;
-}
-section.table md-data-table-container thead:not([md-table-progress]) > tr > th.done,
-section.table md-data-table-container thead:not([md-table-progress]) > tr > th.done.md-active {
-  color: green !important;
-}
-section.table md-data-table-container thead:not([md-table-progress]) > tr > th.done span:hover path,
-section.table md-data-table-container thead:not([md-table-progress]) > tr > th.done.md-active span:hover path {
-  fill: green !important;
-}
-section.table md-data-table-container table[md-data-table] > tbody > tr {
-  height: 2.5em;
-}
-section.table md-data-table-container table[md-data-table] > tbody > tr.md-warn {
-  background-color: rgba(244, 67, 54, 0.2);
-}
-section.table md-data-table-container table[md-data-table] > tbody > tr td.md-warn::after {
-  content: 'Data missing';
-  color: red;
-  width: 100%;
-  display: inline-block;
-  line-height: 3em;
-}
-section.table md-data-table-pagination {
-  position: fixed;
-  bottom: 0px;
-  width: 100%;
-  background: #fff;
-}
-.angular-ui-tree-placeholder {
-  border-left: 3px solid #006bb9;
-  max-width: 100%;
-  width: 100%;
-}
-.angular-ui-tree-drag {
-  background-color: rgba(255, 255, 255, 0.8);
-  width: auto !important;
-  padding-right: 1em;
-  box-shadow: 0px 3px 1px -2px rgba(0, 0, 255, 0.14), 0px 2px 2px 0px rgba(0, 0, 255, 0.098), 0px 1px 5px 0px rgba(0, 0, 255, 0.084);
-}
-.angular-ui-tree-drag .actions {
-  display: none;
-}
-
-
-#Map_Container {
-  height: calc(100% - 165px);
-}
-#map {
-  position: fixed;
-  width: 100%;
-  top: 48px;
-  height: calc(100% - 48px);
-}
-.angular-leaflet-map {
-  width: 100%;
-  height: 100%;
-  background-color: #ccdddd;
-}
-.greyed .angular-leaflet-map {
-  background-color: #d9d9d9;
-}
-.greyed img.leaflet-tile {
-  transition: -webkit-filter 0.5s ease-in-out, filter 0.5s ease-in-out;
-  filter: grayscale(1);
-  -webkit-filter: grayscale(1);
-  -moz-filter: grayscale(1);
-  -o-filter: grayscale(1);
-  -ms-filter: grayscale(1);
-}
-.country_info {
-  background-color: #fff;
-  padding: 00px;
-  padding-right: 00px;
-  position: fixed;
-  bottom: 20px;
-  right: 00px;
-}
-
-
-.Sidebar {
-  position: fixed !important;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  width: 250px !important;
-  min-width: 250px !important;
-  max-width: 250px !important;
-  background-color: #3f51b5;
-}
-.Sidebar-title {
-  font-size: 25px;
-  height: 100px;
-  max-height: 100px;
-  text-align: center;
-  font-weight: 500;
-}
-.Sidebar-pages {
-  background-color: #3f51b5;
-  color: white;
-}
-.Sidebar-pages md-list md-list-item button.md-button:not([disabled]):hover {
-  background-color: rgba(158, 158, 158, 0.2) !important;
-}
-.Sidebar-page {
-  cursor: pointer;
-}
-.Sidebar-page md-list-item {
-  /*IE centering fix*/
-  height: 48px;
-}
-.Sidebar-page.active {
-  background-color: rgba(158, 158, 158, 0.3) !important;
-}
-.Sidebar-version {
-  margin: 0 0 20px 0;
-  text-align: center;
-  font-weight: normal;
-}
-.Sidebar-version a {
-  color: white;
-}
-
-
-
-
-
 .bubbles {
   overflow: hidden;
   margin: 1em 0;
@@ -1271,5 +949,327 @@ median .slider text {
 .calculating .field-name-field-calculating-text {
   padding-right: 220px;
 }
+
+.Header {
+  position: fixed;
+  left: 0px;
+  right: 0;
+  z-index: 3;
+  top: 0px;
+}
+.Header .md-toolbar-tools,
+.Header md-toolbar {
+  height: 48px;
+  min-height: 48px;
+}
+.Header a.md-button span {
+  color: #006bb9;
+}
+.Header .md-menu {
+  padding: 0px;
+}
+
+md-toolbar.md-menu-toolbar {
+  background-color: #ffffff;
+  color: rgba(0, 0, 0, 0.87);
+}
+md-toolbar.md-menu-toolbar md-button {
+  color: rgba(0, 0, 0, 0.87);
+}
+md-toolbar.md-menu-toolbar md-toolbar-filler {
+  background-color: #106cc8;
+  color: rgba(255, 255, 255, 0.87);
+}
+md-toolbar.md-menu-toolbar h2.md-toolbar-tools {
+  height: auto;
+  line-height: 1rem;
+  padding: 28px 28px 12px;
+}
+md-menu-bar md-menu.md-open > button,
+md-menu-bar md-menu > button:focus {
+  background: #eeeeee none repeat scroll 0 0;
+  outline: medium none;
+}
+md-menu-bar button {
+  background-color: transparent;
+  border: 0 none;
+  font-size: 14px;
+  height: 40px;
+  margin: 0;
+  padding: 0 10px;
+}
+md-menu-bar {
+  display: block;
+  padding: 0 20px;
+  position: relative;
+  z-index: 2;
+}
+.editContent .page-container {
+  background-color: #f1f1f1;
+  padding: 32px;
+}
+.editContent .page {
+  background-color: white;
+  box-shadow: 0 1px 2px 1px rgba(0, 0, 0, 0.25);
+  margin: 0 auto;
+  max-width: 680px;
+  padding: 24px;
+}
+
+.multi-view {
+  top: calc(48px);
+  left: 0em;
+  position: absolute;
+  width: 100%;
+  height: calc(100% - 48px);
+}
+
+
+section.module-top {
+  background-color: #fff;
+  width: 360px;
+  margin-left: 1em;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+section.module-top.out {
+  -webkit-transform: translateX(-380px);
+  transform: translateX(-380px);
+}
+section.module-top .md-subheader {
+  font-size: 1.4em;
+}
+section.module-top md-list md-list-item {
+  border-bottom: 1px solid #d7dddd;
+}
+section.module-top md-list md-list-item:last-child {
+  border-bottom: 0px;
+}
+section.module-top md-list md-list-item.sub-list {
+  padding: 0px;
+}
+section.module-top md-list md-list-item.sub-list md-list {
+  width: 100%;
+}
+section.module-top md-list md-list-item.sub-list .selector {
+  border-bottom: 0px;
+  font-size: 0.95em;
+  min-height: 1em;
+}
+section.module-top md-list md-list-item.sub-list .selector ng-md-icon {
+  top: 0px;
+  border-radius: 50%;
+  width: 22px;
+  height: 22px;
+}
+section.module-top md-list md-list-item.sub-list .selector .md-list-item-inner {
+  min-height: 1em;
+}
+section.module-top md-list md-list-item.sub-list .selector.unchecked ng-md-icon {
+  background-color: #ddd;
+}
+section.module-top md-list md-list-item.sub-list .selector.unchecked path {
+  fill: #fff;
+}
+section.module-top md-list md-list-item.sub-list .selector.checked ng-md-icon {
+  background-color: #333;
+}
+section.module-top md-list md-list-item.sub-list .selector.checked path {
+  fill: #fff;
+}
+section.module-top md-list .md-button {
+  border-radius: 0;
+}
+section.module-top md-list .md-button .md-ripple-container {
+  border-radius: 0;
+}
+section.module-top .upload-container {
+  text-align: center;
+}
+section.module-second {
+  position: fixed;
+  top: 48px;
+  left: calc(360px + 1em);
+  margin-left: 1em;
+  max-height: calc(100% - 48px - 2em);
+  overflow: hidden;
+  overflow-y: auto;
+}
+section.table {
+  background-color: rgba(255, 255, 255, 0.2);
+  width: 100%;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  height: calc(100%);
+  background: #fff;
+}
+section.table md-data-table-toolbar {
+  position: relative;
+  background: #006bb9;
+  color: #fff;
+}
+section.table md-data-table-toolbar * {
+  fill: #fff;
+}
+section.table md-data-table-toolbar md-input-container {
+  padding-bottom: .5em;
+}
+section.table md-data-table-container {
+  font-family: RobotoDraft, Roboto, 'Helvetica Neue', sans-serif;
+  margin-bottom: 56px;
+}
+section.table md-data-table-container thead:not([md-table-progress]) > tr > th {
+  color: #006bb9;
+}
+section.table md-data-table-container thead:not([md-table-progress]) > tr > th.iconed {
+  position: relative;
+  padding-left: 3em !important;
+}
+section.table md-data-table-container thead:not([md-table-progress]) > tr > th.iconed span.icon {
+  opacity: 0;
+  transition: all .3s ease;
+  position: absolute;
+  top: 1.3em;
+  left: 0em;
+}
+section.table md-data-table-container thead:not([md-table-progress]) > tr > th.iconed span.icon path {
+  fill: #ccc;
+}
+section.table md-data-table-container thead:not([md-table-progress]) > tr > th.iconed span.icon:hover path {
+  fill: #006bb9;
+}
+section.table md-data-table-container thead:not([md-table-progress]) > tr > th.iconed.globe span {
+  opacity: 1;
+}
+section.table md-data-table-container thead:not([md-table-progress]) > tr > th.iconed.globe span path {
+  fill: #006bb9;
+}
+section.table md-data-table-container thead:not([md-table-progress]) > tr > th.iconed:hover span.icon {
+  opacity: 1;
+}
+section.table md-data-table-container thead:not([md-table-progress]) > tr > th.done,
+section.table md-data-table-container thead:not([md-table-progress]) > tr > th.done.md-active {
+  color: green !important;
+}
+section.table md-data-table-container thead:not([md-table-progress]) > tr > th.done span:hover path,
+section.table md-data-table-container thead:not([md-table-progress]) > tr > th.done.md-active span:hover path {
+  fill: green !important;
+}
+section.table md-data-table-container table[md-data-table] > tbody > tr {
+  height: 2.5em;
+}
+section.table md-data-table-container table[md-data-table] > tbody > tr.md-warn {
+  background-color: rgba(244, 67, 54, 0.2);
+}
+section.table md-data-table-container table[md-data-table] > tbody > tr td.md-warn::after {
+  content: 'Data missing';
+  color: red;
+  width: 100%;
+  display: inline-block;
+  line-height: 3em;
+}
+section.table md-data-table-pagination {
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+  background: #fff;
+}
+.angular-ui-tree-placeholder {
+  border-left: 3px solid #006bb9;
+  max-width: 100%;
+  width: 100%;
+}
+.angular-ui-tree-drag {
+  background-color: rgba(255, 255, 255, 0.8);
+  width: auto !important;
+  padding-right: 1em;
+  box-shadow: 0px 3px 1px -2px rgba(0, 0, 255, 0.14), 0px 2px 2px 0px rgba(0, 0, 255, 0.098), 0px 1px 5px 0px rgba(0, 0, 255, 0.084);
+}
+.angular-ui-tree-drag .actions {
+  display: none;
+}
+
+#Map_Container {
+  height: calc(100% - 165px);
+}
+#map {
+  position: fixed;
+  width: 100%;
+  top: 48px;
+  height: calc(100% - 48px);
+}
+.angular-leaflet-map {
+  width: 100%;
+  height: 100%;
+  background-color: #ccdddd;
+}
+.greyed .angular-leaflet-map {
+  background-color: #d9d9d9;
+}
+.greyed img.leaflet-tile {
+  transition: -webkit-filter 0.5s ease-in-out, filter 0.5s ease-in-out;
+  filter: grayscale(1);
+  -webkit-filter: grayscale(1);
+  -moz-filter: grayscale(1);
+  -o-filter: grayscale(1);
+  -ms-filter: grayscale(1);
+}
+.country_info {
+  background-color: #fff;
+  padding: 00px;
+  padding-right: 00px;
+  position: fixed;
+  bottom: 20px;
+  right: 00px;
+}
+
+
+.Sidebar {
+  position: fixed !important;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 250px !important;
+  min-width: 250px !important;
+  max-width: 250px !important;
+  background-color: #3f51b5;
+}
+.Sidebar-title {
+  font-size: 25px;
+  height: 100px;
+  max-height: 100px;
+  text-align: center;
+  font-weight: 500;
+}
+.Sidebar-pages {
+  background-color: #3f51b5;
+  color: white;
+}
+.Sidebar-pages md-list md-list-item button.md-button:not([disabled]):hover {
+  background-color: rgba(158, 158, 158, 0.2) !important;
+}
+.Sidebar-page {
+  cursor: pointer;
+}
+.Sidebar-page md-list-item {
+  /*IE centering fix*/
+  height: 48px;
+}
+.Sidebar-page.active {
+  background-color: rgba(158, 158, 158, 0.3) !important;
+}
+.Sidebar-version {
+  margin: 0 0 20px 0;
+  text-align: center;
+  font-weight: normal;
+}
+.Sidebar-version a {
+  color: white;
+}
+
+
+
+
 
 /*# sourceMappingURL=app.css.map */

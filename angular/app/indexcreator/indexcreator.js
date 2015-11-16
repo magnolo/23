@@ -184,10 +184,10 @@
           vm.notFound = [];
           var entries = [];
           angular.forEach(vm.data, function(item, key){
-            entries.push({
-              iso: item.data[0][vm.meta.iso_field],
-              name: item.data[0][vm.meta.country_field]
-            });
+              entries.push({
+                iso: item.data[0][vm.meta.iso_field],
+                name: item.data[0][vm.meta.country_field]
+              });
           });
           DataService.post('/nations/byIsoNames', {data:entries}).then(function(response){
               angular.forEach(response.data, function(country, key){

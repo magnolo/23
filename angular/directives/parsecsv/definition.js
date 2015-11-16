@@ -17,18 +17,28 @@
 				var maxUnparseLength = 10000;
 				var button = element.find('button');
 					var input = element.find('input');
+					var isVertical = false;
+					var raw = [];
+					var rawList = {};
 					input.css({ display:'none' });
 					button.bind('click', function() {
 							input[0].click();
 					});
 					input.bind('change',function(e){
+						isVertical = false;
+						raw = [];
+						rawList = {};
+						errors = 0;
+						stepped = 0, rowCount = 0, errorCount = 0, firstError;
+						start, end;
+						firstRun = true;
 							$timeout(function(){
 								Papa.parse(input[0].files[0],{
 									skipEmptyLines: true,
 									header:true,
 									dynamicTyping: true,
 									step:function(row){
-										angular.forEach(row.data[0], function(item){
+										angular.forEach(row.data[0], function(item, key){
 											if(isNaN(item) || item < 0 ){
 												if(item == "NA" || item < 0 || item.indexOf('#N/A') > -1){
 													row.errors.push({
@@ -39,21 +49,52 @@
 													errors++;
 												}
 											}
+
 										});
-										$scope.vm.data.push(row);
+										if(isVertical){
+											//	console.log(row.data[0]);
+											angular.forEach(row.data[0], function(item, key){
+												if(key.length == 3){
+													if(typeof	rawList[key].data == "undefined"){
+															rawList[key].data = [];
+													}
+													rawList[key].data.push(item);
+												}
+
+
+											});
+										}
+										else{
+											$scope.vm.data.push(row);
+										}
+
 									},
 									beforeFirstChunk: function(chunk)
 									{
 										//Check if there are points in the headers
 										var index = chunk.match( /\r\n|\r|\n/ ).index;
 								    var headings = chunk.substr(0, index).split( ',' );
+										var isIso = [];
 										for(var i = 0; i <= headings.length; i++){
 											if(headings[i]){
 												headings[i] = headings[i].replace(/[^a-z0-9]/gi,'_').toLowerCase();
 												if(headings[i].indexOf('.') > -1){
 													headings[i] = headings[i].substr(0, headings[i].indexOf('.'));
 												}
+												if(headings[i].length == 3){
+													isIso.push(true);
+												}
+												console.log(headings[i]);
 											}
+										}
+										if(headings.length == isIso.length){
+											isVertical = true;
+												for(var i = 0; i <= headings.length; i++){
+													if(typeof rawList[headings[i]] == "undefined"){
+														rawList[headings[i]] = {};
+													}
+													rawList[headings[i]].data = [];
+												}
 										}
 								    return headings.join() + chunk.substr(index);
 									},
@@ -66,14 +107,29 @@
 										$scope.vm.errors = errors;
 
 										//See if there is an field name "iso" in the headings;
-										angular.forEach($scope.vm.data[0].data[0], function(item, key){
-											if(key.toLowerCase().indexOf('iso') != -1 || key.toLowerCase().indexOf('code') != -1){
-												$scope.vm.meta.iso_field = key;
-											}
-												if(key.toLowerCase().indexOf('country') != -1){
-													$scope.vm.meta.country_field = key;
+										if(!isVertical){
+											angular.forEach($scope.vm.data[0].data[0], function(item, key){
+												if(key.toLowerCase().indexOf('iso') != -1 || key.toLowerCase().indexOf('code') != -1){
+													$scope.vm.meta.iso_field = key;
 												}
-										});
+													if(key.toLowerCase().indexOf('country') != -1){
+														$scope.vm.meta.country_field = key;
+													}
+											});
+										}
+										else{
+											angular.forEach(rawList, function(item,key){
+												if(key.toLowerCase() != "undefined" && typeof key != "undefined"){
+													var r = {iso:key.toUpperCase()};
+													angular.forEach(item.data, function(column, i){
+														r['column_'+i] = column
+													});
+														$scope.vm.data.push({data:[r], errors:[]});
+												}
+											});
+											$scope.vm.meta.iso_field = 'iso';
+										}
+
 										$state.go('app.index.create.check');
 										toastr.info($scope.vm.data.length+' lines importet!', 'Information')
 									}
