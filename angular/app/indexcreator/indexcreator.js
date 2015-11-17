@@ -231,6 +231,10 @@
           })
         }
         function saveData(){
+          console.log(vm.meta.table);
+          console.log(vm.meta.table, vm.data[0].data[0].length);
+          return false;
+
           var insertData = {data:[]};
           var meta = [], fields = [];
           angular.forEach(vm.data, function(item, key){
@@ -238,9 +242,12 @@
               item.data[0].year = vm.meta.year;
               insertData.data.push(item.data[0]);
             }
+            else{
+              toastr.error('There are some errors left!', 'Huch!');
+              return;
+            }
           });
           angular.forEach(vm.data[0].data[0], function(item, key){
-            console.log(vm.meta.table[key], key);
             if(vm.meta.table[key]){
               var field = {
                 'column': key,
@@ -258,7 +265,7 @@
           })
           vm.meta.fields = fields;
           vm.meta.info = meta;
-          console.log(vm.meta);
+
           DataService.post('data/tables', vm.meta).then(function(response){
               DataService.post('data/tables/'+response.data.table_name+'/insert', insertData).then(function(res){
                 if(res.data == true){

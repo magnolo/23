@@ -122,17 +122,18 @@
 				item[vm.structure.score_field_name] = parseFloat(item[vm.structure.score_field_name]);
 				item['score'] = parseFloat(item['score']);
 			})
-			var filter = $filter('orderBy')(vm.data, [vm.structure.score_field_name, "score"], true);
-			rank = filter.indexOf(vm.current) + 1;
+			vm.data = $filter('orderBy')(vm.data, [vm.structure.score_field_name, "score"], true);
+			rank = vm.data.indexOf(vm.current) + 1;
 			vm.current[vm.structure.score_field_name+'_rank'] = rank;
 			vm.circleOptions = {
 					color:vm.structure.color,
 					field:vm.structure.score_field_name+'_rank'
 			};
+			return rank;
 		}
 		function getRank(country){
-			var filter = $filter('orderBy')(vm.data, [vm.structure.score_field_name, "score"], true);
-			var rank = filter.indexOf(country) + 1;
+
+			var rank = vm.data.indexOf(country) + 1;
 			return rank;
 		}
 		function toggleInfo() {
@@ -228,6 +229,7 @@
 			if (!vm.current) {
 				return 0;
 			}
+			console.log(vm.getRank(vm.current));
 			return (vm.getRank(vm.current) - 2) * 16;
 		};
 
