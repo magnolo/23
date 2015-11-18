@@ -30,9 +30,14 @@ class UserdataController extends Controller
           foreach($tables as $table){
             $meta = json_decode($table->meta_data);
             foreach($meta as $source){
-              $data[] = ['title' => $source->title, 'table_name' => $table->table_name, 'column' => $source->column];
+              $d = ['title' => $source->title, 'table_name' => $table->table_name, 'column' => $source->column];
+              if(isset($source->description)){
+                $d['description'] = $source->description;
+              }
+              $data[] = $d;
             }
           }
+
           $data = array_values(array_sort($data, function($value){
             return $value['title'];
           }));

@@ -1,7 +1,7 @@
 (function(){
     "use strict";
 
-    angular.module('app.controllers').controller('IndexcreatorCtrl', function($scope,$rootScope,DialogService,DataService, $timeout,$state, $filter, leafletData, toastr, VectorlayerService){
+    angular.module('app.controllers').controller('IndexcreatorCtrl', function($scope,$rootScope,DialogService,DataService, $timeout,$state, $filter, leafletData, toastr, IconsService, VectorlayerService){
         //
         var vm = this;
         vm.map = null;
@@ -11,6 +11,8 @@
         vm.selectedRows = [];
         vm.selectedResources =[];
         vm.sortedResources = [];
+        vm.groups = [];
+        vm.selectedForGroup = [];
         vm.iso_errors = 0;
         vm.iso_checked = false;
         vm.selectedIndex = 0;
@@ -35,7 +37,12 @@
         vm.toggleResource = toggleResource;
         vm.increasePercentage = increasePercentage;
         vm.decreasePercentage = decreasePercentage;
-
+        vm.toggleGroupSelection = toggleGroupSelection;
+        vm.existsInGroupSelection = existsInGroupSelection;
+        vm.addGroup = addGroup;
+        vm.cloneSelection = cloneSelection;
+        vm.editEntry = editEntry;
+        vm.icons = IconsService.getList();
         vm.meta = {
           iso_field: '',
           country_field:'',
@@ -47,9 +54,21 @@
           limit: 15,
           page: 1
         };
+
         vm.treeOptions = {
+          beforeDrop:function(event){
+            console.log(event);
+            if(event.dest.nodesScope != event.source.nodesScope){
+              var idx = event.dest.nodesScope.$modelValue.indexOf(event.source.nodeScope.$modelValue);
+              if(idx > -1){
+                 event.source.nodeScope.$$apply = false;
+                 toastr.error('Only one element of a kind per group possible!', 'Not allowed!')
+              }
+            }
+
+          },
           dropped:function(event){
-            calcPercentage(vm.sortedResources);
+            calcPercentage(vm.groups);
           }
         };
 
@@ -299,19 +318,33 @@
         function selectedResource(resource){
           return vm.selectedResources.indexOf(resource) > -1 ? true : false;
         }
+        function deleteFromGroup(resource, list){
+          angular.forEach(list, function(item, key){
+              if(typeof item.isGroup == "undefined"){
+                if(item == resource){
+                  list.splice(key, 1);
+                }
+              }
+              deleteFromGroup(resource, item.nodes);
+          });
+        }
         function toggleResource(resource){
-          if(vm.selectedResources.indexOf(resource) > -1){
-            vm.selectedResources.splice(vm.selectedResources.indexOf(resource), 1);
+          var idx = vm.selectedResources.indexOf(resource);
+          if( idx > -1){
+            vm.selectedResources.splice(idx, 1);
+            deleteFromGroup(resource, vm.groups);
           }
           else{
             vm.selectedResources.push(resource);
+            if(vm.selectedForGroup.length == 1 && typeof vm.selectedForGroup[0].isGroup != "undefined"){
+              vm.selectedForGroup[0].nodes.push(resource);
+            }
+            else{
+                vm.groups.push(resource);
+            }
           }
-          angular.copy(vm.selectedResources, vm.sortedResources);
-          angular.forEach(vm.sortedResources, function(res, key){
-             vm.sortedResources[key].weight = parseInt(100 / vm.sortedResources.length);
-             vm.sortedResources[key].nodes = [];
-          });
-          calcPercentage(vm.sortedResources);
+
+          //calcPercentage(vm.sortedResources);
         }
         function calcPercentage(nodes){
           angular.forEach(nodes, function(node, key){
@@ -324,6 +357,56 @@
         }
         function decreasePercentage(item){
           console.log(item)
+        }
+        function toggleGroupSelection(item){
+          var idx = vm.selectedForGroup.indexOf(item);
+          if( idx > -1){
+            vm.selectedForGroup.splice(idx, 1);
+          }
+          else{
+            vm.selectedForGroup.push(item);
+          }
+        }
+        function existsInGroupSelection(item){
+          return vm.selectedForGroup.indexOf(item) > -1;
+        }
+        function addGroup(){
+          var newGroup = {
+            title:'Group',
+            isGroup:true,
+            nodes:[]
+          };
+
+          if(vm.selectedForGroup.length == 1 && typeof vm.selectedForGroup[0].isGroup != "undefined"){
+            vm.selectedForGroup[0].nodes.push(newGroup);
+          }
+          else if(vm.selectedForGroup.length > 0 ){
+              angular.forEach(vm.selectedForGroup, function(item, key){
+                  newGroup.nodes.push(item);
+                  deleteFromGroup(item, vm.selectedForGroup);
+              });
+              vm.groups.push(newGroup);
+              vm.selectedForGroup = [];
+          }
+          else{
+            vm.groups.push(newGroup);
+          }
+        }
+        function cloneSelection(){
+          var newGroup = {
+            title:'Cloned Elements',
+            isGroup:true,
+            nodes:[]
+          };
+
+          angular.forEach(vm.selectedForGroup, function(item, key){
+            newGroup.nodes.push(item);
+          });
+          vm.groups.push(newGroup);
+          vm.selectedForGroup = [];
+        }
+        function editEntry(item){
+          vm.editItem = item;
         }
         $scope.$on("$stateChangeStart", function (event, toState, toParams, fromState, fromParams) {
           switch (toState.name) {

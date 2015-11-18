@@ -532,6 +532,16 @@ input {
 md-dialog {
   padding: 24px;
 }
+md-dialog.md-color-picker-dialog {
+  padding: 0px;
+}
+md-dialog.md-color-picker-dialog .md-color-picker-colors md-tabs {
+  min-height: 298px !important;
+  padding: 0px;
+}
+md-dialog.md-color-picker-dialog .md-color-picker-sliders > div {
+  width: 100%;
+}
 md-toast {
   position: fixed;
 }
@@ -552,7 +562,7 @@ md-toast {
 .md-button.md-icon-button.small ng-md-icon {
   top: 5px;
 }
-.md-button.md-border.md-lowspace {
+.md-button.md-lowspace {
   padding: 0 10px;
 }
 .md-button.md-border:focus {
@@ -590,6 +600,21 @@ md-menu-content {
 }
 ng-md-icon path {
   fill: #006bb9;
+}
+md-checkbox.no-label .md-label {
+  margin-left: 0px;
+}
+md-checkbox.no-space {
+  margin: 0px;
+  padding: 0px;
+}
+md-toolbar.clean {
+  color: #afafaf !important;
+  background-color: #fff !important;
+  padding-top: 1em;
+}
+md-toolbar.clean .md-toolbar-tools {
+  font-size: 1.2em;
 }
 
 *:focus {
@@ -731,14 +756,6 @@ md-toast[md-theme=warn] {
   padding: 0px;
 }
 
-.multi-view {
-  top: calc(48px);
-  left: 0em;
-  position: absolute;
-  width: 100%;
-  height: calc(100% - 48px);
-}
-
 md-toolbar.md-menu-toolbar {
   background-color: #ffffff;
   color: rgba(0, 0, 0, 0.87);
@@ -784,6 +801,14 @@ md-menu-bar {
   margin: 0 auto;
   max-width: 680px;
   padding: 24px;
+}
+
+.multi-view {
+  top: calc(48px);
+  left: 0em;
+  position: absolute;
+  width: 100%;
+  height: calc(100% - 48px);
 }
 
 section.module-top {
@@ -847,14 +872,67 @@ section.module-top md-list .md-button .md-ripple-container {
 section.module-top .upload-container {
   text-align: center;
 }
+section.module-top .md-subhead {
+  color: #afafaf;
+}
 section.module-second {
   position: fixed;
   top: 48px;
   left: calc(360px + 1em);
   margin-left: 1em;
   max-height: calc(100% - 48px - 2em);
+  min-height: 0px;
+  height: 100%;
   overflow: hidden;
-  overflow-y: auto;
+}
+section.module-second .md-subheader-inner {
+  padding: 0px;
+}
+section.module-second md-content {
+  max-height: calc(100%);
+  height: 100%;
+}
+section.module-second .index-element {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  transition: all 0.25s ease-in-out;
+}
+section.module-second .index-element .sub-menue {
+  position: absolute;
+  right: 0;
+  height: 100%;
+  -webkit-transform: translateX(100%);
+  transform: translateX(100%);
+  transition: all 0.1s ease-in-out;
+}
+section.module-second .index-element .sub-menue .md-icon-button {
+  margin: 0 3px;
+}
+section.module-second .index-element .sub-menue .md-icon-button ng-md-icon {
+  top: 3px;
+}
+section.module-second .index-element:hover {
+  background-color: rgba(0, 0, 0, 0.03);
+}
+section.module-second .index-element:hover .sub-menue {
+  -webkit-transform: translateX(0%);
+  transform: translateX(0%);
+}
+section.module-second .index-element.editing {
+  background-color: #006bb9;
+  color: #fff;
+}
+section.module-second .index-element.editing * path {
+  fill: #fff;
+}
+section.module-third {
+  position: fixed;
+  top: 48px;
+  left: calc(720px + 2em);
+  margin-left: 1em;
+  max-height: calc(100% - 48px - 2em);
+  min-height: 0px;
 }
 section.table {
   background-color: rgba(255, 255, 255, 0.2);
@@ -947,10 +1025,28 @@ section.table md-data-table-pagination {
   padding-right: 1em;
   box-shadow: 0px 3px 1px -2px rgba(0, 0, 255, 0.14), 0px 2px 2px 0px rgba(0, 0, 255, 0.098), 0px 1px 5px 0px rgba(0, 0, 255, 0.084);
 }
-.angular-ui-tree-drag .actions {
+.angular-ui-tree-drag .actions,
+.angular-ui-tree-drag .sub-menue {
   display: none;
 }
-
+.angular-ui-tree-node .group {
+  color: #006bb9;
+  font-size: 1.1em;
+}
+.angular-ui-tree-node md-checkbox {
+  opacity: 0.25;
+}
+.angular-ui-tree-node md-checkbox.md-checked {
+  opacity: 1;
+}
+.select-list .md-icon-button {
+  min-width: 48px;
+}
+.select-list .icon {
+  font-size: 3em;
+  position: relative;
+  top: 3px;
+}
 
 
 #Map_Container {
@@ -986,6 +1082,7 @@ section.table md-data-table-pagination {
   bottom: 20px;
   right: 00px;
 }
+
 
 .Sidebar {
   position: fixed !important;

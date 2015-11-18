@@ -41,19 +41,87 @@
 								<parsecsv></parsecsv>
 				</div>
 </section>
-<section class="module-top module-second md-whiteframe-z2 anim" ng-if="vm.showResources && vm.resources.length && vm.selectedResources.length">
+<section class="module-top module-second md-whiteframe-z2 anim" ng-if="vm.showResources && vm.resources.length && vm.groups.length" flex layout-fill layout="column" >
 				<div layout="row">
 					<md-button class="md-accent md-border md-lowspace">Preview</md-button>
 					<span flex></span>
 					<md-button class="md-accent md-border md-lowspace">Save</md-button>
 					<md-button class="md-accent md-border md-lowspace">Go to Map</md-button>
 				</div>
-				<md-subheader class="md-no-sticky">Your Index</md-subheader>
-				<div ui-tree="vm.treeOptions">
-								<ol id="tree-root" ng-model="vm.sortedResources" ui-tree-nodes="">
-											<li ng-include="'/views/app/indexcreator/nodes_renderer.html'" ng-repeat="node in vm.sortedResources" ui-tree-node></li>
+				<md-toolbar md-scroll-shrink class="clean">
+				 <div class="md-toolbar-tools">
+					 <md-input-container class="md-accent">
+						 	<label>Title</label>
+							<input type="text" placeholder="Your Index..." ng-model="vm.newIndex.title" />
+					 </md-input-container>
+				 </div>
+			 </md-toolbar>
+			 <md-content >
+				 <section>
+				<md-subheader >
+					<div flex="100" layout="row" layout-align="space-between center">
+						<md-button class="md-lowspace" ng-click="vm.addGroup()">
+							<ng-md-icon icon="add_circle"></ng-md-icon>
+							<span>Add Group</span>
+						</md-button>
+						<span flex></span>
+						<md-button ng-if="vm.selectedForGroup.length" class="md-icon-button" ng-click="vm.cloneSelection()">
+							<md-tooltip >
+							 Clone Selected Items
+						 </md-tooltip>
+							<ng-md-icon icon="my_library_add"></ng-md-icon>
+					</md-button>
+					<md-button ng-if="vm.selectedForGroup.length" class="md-icon-button md-warn">
+					<md-tooltip >
+						 Remove Selected Items
+					 </md-tooltip>
+						<ng-md-icon icon="clear"></ng-md-icon>
+					</md-button>
+				</div>
+				</md-subheader>
+				<div layout="column" ui-tree="vm.treeOptions">
+								<ol id="tree-root" ng-model="vm.groups" ui-tree-nodes="">
+											<li ng-include="'/views/app/indexcreator/nodes_renderer.html'" ng-repeat="node in vm.groups" ui-tree-node></li>
 								</ol>
 				</div>
+			</section>
+</section>
+<section class="module-top module-third md-whiteframe-z2 anim" ng-if="vm.showResources && vm.resources.length && vm.groups.length && vm.editItem"  >
+	<div layout="row">
+		<span flex></span>
+		<md-button class="md-accent md-border md-lowspace" ng-click="vm.editItem = false">Close</md-button>
+	</div>
+	<md-toolbar md-scroll-shrink class="clean" ng-if="vm.editItem.isGroup">
+	 <div class="md-toolbar-tools">
+		 <md-input-container class="md-accent">
+				<label>Title</label>
+				<input type="text" placeholder="Your Index..." ng-model="vm.editItem.title" />
+		 </md-input-container>
+	 </div>
+ </md-toolbar>
+	<md-toolbar md-scroll-shrink class="clean" style="padding:0" ng-if="!vm.editItem.isGroup">
+		<div class="md-toolbar-tools">
+
+				{{vm.editItem.title}}
+
+	 </div>
+ </md-toolbar>
+ <md-content layout-padding>
+		<md-input-container class="md-accent" layout="row">
+			<label>Description</label>
+			<textarea ng-model="vm.editItem.description"></textarea>
+		</md-input-container>
+		<section >
+			<div md-color-picker label="Color" value="vm.editItem.color"></div>
+		</section>
+		<section class="select-list" >
+				<p class="md-subhead">Icon</p>
+				<md-button class="md-icon-button md-accent" ng-repeat="(key, item) in vm.icons" ng-class="{'md-raised':vm.editItem.icon == key}" ng-click="vm.editItem.icon = key">
+					<i class="icon icon-{{key}}"></i>
+				</md-button>
+
+		</section>
+ </md-content>
 </section>
 <section class="table anim md-whiteframe-z2" ng-if="vm.data.length && vm.step == 1">
 				<md-data-table-toolbar class="md-whiteframe-z1">

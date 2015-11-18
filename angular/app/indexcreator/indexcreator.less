@@ -11,6 +11,8 @@ section{
     &.out{
       transform:translateX(-380px);
     }
+
+
     .md-subheader{
       font-size:1.4em;
     }
@@ -69,6 +71,10 @@ section{
     .upload-container{
       text-align: center;
     }
+    .md-subhead{
+      color:@grey;
+
+    }
   }
   &.module-second{
     position:fixed;
@@ -76,9 +82,66 @@ section{
     left:calc(~"360px + 1em");
     margin-left:1em;
     max-height: calc(~"100% - 48px - 2em");
-    overflow: hidden;
-    overflow-y:auto;
+    min-height:0px;
+    height:100%;
+    overflow:hidden;
+    //padding-bottom:5em;
+
+
+    .md-subheader-inner{
+      padding:0px;
+    }
+
+    md-content{
+      max-height: calc(~"100%");
+      height:100%;
+    }
+    .index-element{
+      position:relative;
+      width:100%;
+      overflow: hidden;
+      transition:all .25s ease-in-out;
+      .sub-menue{
+        position:absolute;
+        right:0;
+        height:100%;
+        transform:translateX(100%);
+        transition:all .1s ease-in-out;
+        .md-icon-button{
+          margin:0 3px;
+          ng-md-icon{
+            top:3px;
+          }
+        }
+
+      }
+      &:hover{
+        background-color:rgba(0,0,0,0.03);
+        .sub-menue{
+          transform:translateX(0%);
+        }
+      }
+      &.editing{
+          background-color:@base;
+          color:#fff;
+          *{
+            path{
+              fill:#fff;
+            }
+          }
+      }
+    }
   }
+    &.module-third{
+
+      position:fixed;
+      top:48px;
+      left:calc(~"720px + 2em");
+      margin-left:1em;
+      max-height: calc(~"100% - 48px - 2em");
+      min-height:0px;
+
+    }
   &.table{
 
     background-color:rgba(255,255,255,0.2);
@@ -205,8 +268,30 @@ section{
   width:auto !important;
   padding-right:1em;
   box-shadow: 0px 3px 1px -2px rgba(0, 0, 255, 0.14), 0px 2px 2px 0px rgba(0, 0, 255, 0.098), 0px 1px 5px 0px rgba(0, 0, 255, 0.084);
-
-  .actions{
+  .actions, .sub-menue{
     display: none;
   }
+}
+.angular-ui-tree-node{
+  .group{
+    color:@base;
+    font-size:1.1em;
+  }
+  md-checkbox{
+    opacity: 0.25;
+    &.md-checked{
+      opacity: 1;
+    }
+  }
+}
+.select-list{
+  .md-icon-button{
+    min-width:48px;
+
+  }
+    .icon{
+      font-size: 3em;
+      position: relative;
+      top: 3px;
+    }
 }

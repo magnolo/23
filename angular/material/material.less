@@ -17,6 +17,28 @@ button, select, html, textarea, input{
 
 md-dialog{
   padding:24px;
+  &.md-color-picker-dialog{
+    padding:0px;
+    .md-color-picker-colors{
+      md-tabs{
+        min-height: 298px !important;
+        padding:0px;
+        .md-stretch-tabs{
+        //  display:none;
+        }
+      }
+
+      md-tab-data, md-tabs-canvas{
+        //display: none;
+      }
+    }
+    .md-color-picker-sliders{
+      > div{
+        width:100%;
+      }
+    }
+
+  }
 }
 md-toast{
   position:fixed;
@@ -41,10 +63,11 @@ md-toast{
       }
     }
   }
+  &.md-lowspace{
+    padding:0 10px;
+  }
   &.md-border{
-    &.md-lowspace{
-      padding:0 10px;
-    }
+
     &:focus{
       border-width: 1px;
     }
@@ -95,5 +118,26 @@ md-menu-content{
 ng-md-icon{
   path{
     fill:@base;
+  }
+}
+md-checkbox{
+  &.no-label{
+     .md-label{
+      margin-left: 0px;
+    }
+  }
+  &.no-space{
+    margin:0px;
+    padding:0px;
+  }
+}
+md-toolbar{
+  &.clean{
+    color:@grey !important;
+    background-color:#fff !important;
+    padding-top:1em;
+    .md-toolbar-tools{
+      font-size:1.2em;
+    }
   }
 }

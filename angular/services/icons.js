@@ -14,9 +14,13 @@
           'tree':"\ue607",
           'water':"\ue608"
         };
+
         return {
           getUnicode: function(icon){
             return unicodes[icon];
+          },
+          getList:function(){
+            return unicodes;
           }
         }
     });

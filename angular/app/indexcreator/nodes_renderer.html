@@ -1,13 +1,23 @@
-<div layout="row" layout-align="space-between center" style="line-height:2em" >
+<div layout="row" layout-align="space-between center" class="index-element" ng-class="{'group': node.isGroup, 'editing': node == vm.editItem}" >
   <div layout="row" layout-align="start center">
     <ng-md-icon ui-tree-handle icon="more_vert" ></ng-md-icon>
-    <span>{{node.title}}</span>
+    <md-checkbox ng-checked="vm.existsInGroupSelection(node)" ng-click="vm.toggleGroupSelection(node)" aria-label="Select {{node.title}}" class="no-label"></md-checkbox>
+    <ng-md-icon style="height:1.5em;margin-right:0.5em" icon="format_list_bulleted" ng-if="node.isGroup"></ng-md-icon>
+    <span contenteditable="{{ node.isGroup ? 'true' : 'false'}}">{{node.title}}</span>
   </div>
   <span flex></span>
-  <div ng-if="node.weight != 100" class="actions">
+  <!--<div ng-if="node.weight != 100" class="actions">
     <md-button class="md-icon-button small"><ng-md-icon icon="arrow_drop_down" size="16"></ng-md-icon></md-button>
     <span>{{node.weight}} %</span>
     <md-button class="md-icon-button small"><ng-md-icon icon="arrow_drop_up" size="16"></ng-md-icon></md-button>
+  </div>-->
+  <div class="sub-menue" layout="row" layout-align="end center">
+      <md-button class="md-icon-button small" ng-click="vm.editEntry(node)">
+      <ng-md-icon icon="mode_edit" size="18"></ng-md-icon>
+    </md-button>
+    <md-button class="md-icon-button small md-warn">
+    <ng-md-icon icon="clear"  size="18"></ng-md-icon>
+  </md-button>
   </div>
 </div>
 <ol ui-tree-nodes="" ng-model="node.nodes">
