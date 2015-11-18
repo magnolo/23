@@ -68,11 +68,31 @@ class IndexController extends Controller
         elseif(is_string($id)){
           $index =  Index::where('name', $id)->first()->load('children');
         }
+        if($index->is_group){
+          $index->score_field_name = 'score';
+        }
         $index->load('parent');
 
         return response()->api($index);
     }
+    public function calcValues($items, $year){
+      foreach($items as $key => $item){
+        if($item->is_group == false){
+          $data = \DB::table($index->table)
+            ->where('year', $year)
+            ->leftJoin('countries_big', $item->table.".".$item->iso, '=', 'countries_big.adm0_a3')
+            ->select($item->table.".*", 'countries_big.admin as country')
+            ->orderBy($item->table.".".$item->score_field_name, 'desc')->get();
+          $avg = $data = \DB::table($index->table)
+              ->where('year', $year)
+              ->avg($item->score_field_name);
 
+          foreach ($data as $key => $value) {
+            
+          }
+        }
+      }
+    }
     public function showByYear($id, $year)
     {
         //
@@ -82,26 +102,33 @@ class IndexController extends Controller
         elseif(is_string($id)){
           $index = Index::where('name', $id)->first();
         }
+        if($index->is_group){
+          $data = $index->load('children');
+          return $this->calcValues($data->children, $year);
+        }
+        else{
+          $data = \DB::table($index->table)
+            ->where('year', $year)
+            ->leftJoin('countries_big', $index->table.".".$index->iso, '=', 'countries_big.adm0_a3')
+            ->select($index->table.".*", 'countries_big.admin as country')
+            ->orderBy($index->table.".".$index->score_field_name, 'desc')->get();
 
-        $data = \DB::table($index->table)
-          ->where('year', $year)
-          ->leftJoin('countries_big', $index->table.".".$index->iso, '=', 'countries_big.adm0_a3')
-          ->select($index->table.".*", 'countries_big.admin as country')
-          ->orderBy($index->table.".".$index->score_field_name, 'desc')->get();
 
-        $sub = Index::where('parent_id', $index->id)->get();
-        foreach($sub as $subIndex){
-          if($subIndex->table != $index->table){
-              $subData = \DB::table($subIndex->table)->where('year', $year)->select($subIndex->score_field_name, $subIndex->iso)->get();
-              foreach($data as &$d){
-                foreach($subData as $sd){
-                  if($sd->{$subIndex->iso} == $d->{$index->iso}){
-                    $d->{$subIndex->score_field_name} = $sd->{$subIndex->score_field_name};
+          $sub = Index::where('parent_id', $index->id)->get();
+          foreach($sub as $subIndex){
+            if($subIndex->table != $index->table){
+                $subData = \DB::table($subIndex->table)->where('year', $year)->select($subIndex->score_field_name, $subIndex->iso)->get();
+                foreach($data as &$d){
+                  foreach($subData as $sd){
+                    if($sd->{$subIndex->iso} == $d->{$index->iso}){
+                      $d->{$subIndex->score_field_name} = $sd->{$subIndex->score_field_name};
+                    }
                   }
                 }
-              }
+            }
           }
         }
+
         /*foreach($data as &$d){
             dd($d->{$index->iso});
             if($subIndex->table != $index->table){
