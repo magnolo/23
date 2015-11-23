@@ -32,6 +32,7 @@ $api->version('v1', function ($api) {
     $api->get('index/{id}/structure', 'App\Http\Controllers\IndexController@showWithChildren');
 
     $api->get('nations', 'App\Http\Controllers\NationsController@index');
+    $api->get('countries', 'App\Http\Controllers\NationsController@getCountries');
     $api->get('nations/{iso}', 'App\Http\Controllers\NationsController@show');
     $api->get('nations/bbox/{countries}', 'App\Http\Controllers\NationsController@getBBox');
 

@@ -15,7 +15,7 @@
       <md-button class="md-icon-button small" ng-click="vm.editEntry(node)">
       <ng-md-icon icon="mode_edit" size="18"></ng-md-icon>
     </md-button>
-    <md-button class="md-icon-button small md-warn">
+    <md-button class="md-icon-button small md-warn" ng-click="vm.removeEntry(node, $parent.$modelValue)">
     <ng-md-icon icon="clear"  size="18"></ng-md-icon>
   </md-button>
   </div>

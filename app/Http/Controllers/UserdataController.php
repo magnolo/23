@@ -125,8 +125,8 @@ class UserdataController extends Controller
     public function createDataTable(Request $request){
 
       $data = array();
-      $name = preg_replace('/\s[\s]+/','-',$request->input('name'));    // Strip off multiple spaces
-      $name = preg_replace('/[\s\W]+/','-',$name);    // Strip off spaces and non-alpha-numeric
+      $name = preg_replace('/\s[\s]+/','_',$request->input('name'));    // Strip off multiple spaces
+      $name = preg_replace('/[\s\W]+/','_',$name);    // Strip off spaces and non-alpha-numeric
       $name = preg_replace('/^[\-]+/','',$name); // Strip off the starting hyphens
       $name = preg_replace('/[\-]+$/','',$name); // // Strip off the ending hyphens
       $name = strtolower($name);

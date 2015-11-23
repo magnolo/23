@@ -42,6 +42,7 @@
         vm.addGroup = addGroup;
         vm.cloneSelection = cloneSelection;
         vm.editEntry = editEntry;
+        vm.removeEntry = removeEntry;
         vm.icons = IconsService.getList();
         vm.meta = {
           iso_field: '',
@@ -57,7 +58,6 @@
 
         vm.treeOptions = {
           beforeDrop:function(event){
-            console.log(event);
             if(event.dest.nodesScope != event.source.nodesScope){
               var idx = event.dest.nodesScope.$modelValue.indexOf(event.source.nodeScope.$modelValue);
               if(idx > -1){
@@ -65,7 +65,6 @@
                  toastr.error('Only one element of a kind per group possible!', 'Not allowed!')
               }
             }
-
           },
           dropped:function(event){
             calcPercentage(vm.groups);
@@ -320,11 +319,13 @@
         }
         function deleteFromGroup(resource, list){
           angular.forEach(list, function(item, key){
-              if(typeof item.isGroup == "undefined"){
+              //if(typeof item.isGroup == "undefined"){
                 if(item == resource){
                   list.splice(key, 1);
+                  vm.selectedForGroup.splice(vm.selectedForGroup.indexOf(item), 1);
+                  vm.selectedResources.splice(vm.selectedResources.indexOf(item),1);
                 }
-              }
+              //}
               deleteFromGroup(resource, item.nodes);
           });
         }
@@ -407,6 +408,9 @@
         }
         function editEntry(item){
           vm.editItem = item;
+        }
+        function removeEntry(item, list){
+            deleteFromGroup(item, list);
         }
         $scope.$on("$stateChangeStart", function (event, toState, toParams, fromState, fromParams) {
           switch (toState.name) {

@@ -22,6 +22,9 @@ class NationsController extends Controller
         return response()->api(Nation::all()->load('epi'));
     }
 
+    public function getCountries(){
+        return Nation::countries();
+    }
     /**
      * Show the form for creating a new resource.
      *

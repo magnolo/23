@@ -75,7 +75,7 @@
 					groups = [];
 
 				var max_amount = d3.max(scope.chartdata, function (d) {
-					return parseInt(d.value);
+					return parseFloat(d.value);
 				});
 				//options.height = options.width * 1.1;
 				options.radius_scale = d3.scale.pow().exponent(0.5).domain([0, max_amount]).range([2, 85]);
