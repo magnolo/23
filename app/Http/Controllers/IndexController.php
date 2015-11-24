@@ -245,19 +245,20 @@ class IndexController extends Controller
                 $sum[$data->iso][$child['score_field_name']]['value'] = 0;
                 $sum[$data->iso][$child['score_field_name']]['year'] = $data->year;
                 $sum[$data->iso][$child['score_field_name']]['calc'] = true;
+                //$sum[$data->iso]['country'] = $data->country;
             }
             $sum[$data->iso][$child['score_field_name']]['value'] += $data->score;
           }
         }
         else{
           $sub = $this->averageData($child);
-          $su = $this->calcAverage($sub, $this->fieldCount($sub), $child['name']);
+          $su = $this->calcAverage($sub, $this->fieldCount($sub), $child['score_field_name']);
           foreach($su as $key => &$s){
             foreach($s as $k => &$dat){
               $sum[$key][$k]['value'] = $dat['value'];
               $sum[$key][$k]['year'] = $dat['year'];
               $sum[$key][$k]['calc'] = false;
-              if($k == $child['name']){
+              if($k == $child['score_field_name']){
                 $sum[$key][$k]['calc'] = true;
               }
             }

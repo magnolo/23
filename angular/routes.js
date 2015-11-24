@@ -113,11 +113,13 @@
 							initialData: function (DataService, $stateParams) {
 								var d = DataService.getAll('index/' + $stateParams.index + '/year/2014');
 								var i = DataService.getOne('index/' + $stateParams.index + '/structure');
+								var countries = DataService.getOne('countries');
 								return {
 									dataObject: d.$object,
 									indexerObject: i.$object,
 									data: d,
-									indexer: i
+									indexer: i,
+									countries: countries.$object
 								}
 							}
 						}

@@ -23,7 +23,12 @@ class NationsController extends Controller
     }
 
     public function getCountries(){
-        return Nation::countries();
+        $countries =  \DB::table('countries_big')->select('adm0_a3 as iso', 'admin as country')->get();
+        $data = array();
+        foreach ($countries as $key => $country) {
+          $data[$country->iso] = $country->country;
+        }
+        return $data;
     }
     /**
      * Show the form for creating a new resource.

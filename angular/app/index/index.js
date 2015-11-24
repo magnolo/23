@@ -7,6 +7,7 @@
 		vm.map = null;
 
 		vm.dataServer = initialData.data;
+		vm.countryList = initialData.countries;
 		vm.structureServer = initialData.indexer;
 		vm.structure = "";
 		vm.mvtScource = VectorlayerService.getLayer();
@@ -50,7 +51,7 @@
 		activate();
 
 		function activate() {
-
+			console.log(vm.countryList);
 			vm.structureServer.then(function(structure){
 				vm.dataServer.then(function(data){
 					vm.data = data;
@@ -70,7 +71,7 @@
 						angular.forEach(countries, function(iso){
 							vm.compare.countries.push(getNationByIso(iso));
 						});
-						console.log(vm.compare.countries);
+						//onsole.log(vm.compare.countries);
 						countries.push(vm.current[vm.structure.iso]);
 						DataService.getOne('nations/bbox', countries).then(function (data) {
 							vm.bbox = data;
@@ -544,6 +545,8 @@
 						var c = getNationByIso(evt.feature.properties.adm0_a3);
 						if (typeof c[vm.structure.score_field_name] != "undefined") {
 							vm.current = getNationByIso(evt.feature.properties.adm0_a3);
+							console.log(evt.feature.properties);
+							vm.current.country = event.feature.properties.admin;
 						} else {
 							ToastService.error('No info about this location!');
 						}
