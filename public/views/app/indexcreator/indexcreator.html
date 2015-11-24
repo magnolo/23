@@ -42,20 +42,23 @@
 				</div>
 </section>
 <section class="module-top module-second md-whiteframe-z2 anim" ng-if="vm.showResources && vm.resources.length && vm.groups.length" flex layout-fill layout="column" >
+		<form novalidate name="saveIndexForm">
 				<div layout="row">
 					<md-button class="md-accent md-border md-lowspace">Preview</md-button>
 					<span flex></span>
-					<md-button class="md-accent md-border md-lowspace">Save</md-button>
+					<md-button class="md-accent md-border md-lowspace" ng-disabled="vm.saveDisabled || savIndexForm.$invalid" ng-click="vm.saveIndex()">Save</md-button>
 					<md-button class="md-accent md-border md-lowspace">Go to Map</md-button>
 				</div>
 				<md-toolbar md-scroll-shrink class="clean">
 				 <div class="md-toolbar-tools">
+
 					 <md-input-container class="md-accent">
 						 	<label>Title</label>
-							<input type="text" placeholder="Your Index..." ng-model="vm.newIndex.title" />
+							<input type="text" name="title" required placeholder="Your Index..." ng-model="vm.newIndex.title" />
 					 </md-input-container>
 				 </div>
 			 </md-toolbar>
+		 </form>
 			 <md-content >
 				 <section>
 				<md-subheader >

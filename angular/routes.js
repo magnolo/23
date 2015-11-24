@@ -7,7 +7,7 @@
 			return '/views/app/' + viewName + '/' + viewName + '.html';
 		};
 
-		$urlRouterProvider.otherwise('/index/epi');
+		$urlRouterProvider.otherwise('/');
 
 		$stateProvider
 			.state('app', {
@@ -22,6 +22,16 @@
 					'map@': {
 						templateUrl: getView('map'),
 						controller: 'MapCtrl',
+						controllerAs: 'vm'
+					}
+				}
+			})
+			.state('app.home',{
+				url:'/',
+				views:{
+					main:{
+						templateUrl: getView('home'),
+						controller: 'HomeCtrl',
 						controllerAs: 'vm'
 					}
 				}

@@ -31,9 +31,82 @@ class IndexController extends Controller
      *
      * @return Response
      */
-    public function create()
+
+    protected function saveSubIndex($data, $parent){
+      foreach($data as $entry){
+        $name = preg_replace('/\s[\s]+/','_',$parent->name.'-'.$entry['title']);    // Strip off multiple spaces
+        $name = preg_replace('/[\s\W]+/','_',$name);    // Strip off spaces and non-alpha-numeric
+        $name = preg_replace('/^[\-]+/','',$name); // Strip off the starting hyphens
+        $name = preg_replace('/[\-]+$/','',$name); // // Strip off the ending hyphens
+        $name = strtolower($name);
+        $isGroup = false;
+        $table_name = '';
+        $iso = 'iso';
+        $color = '#006bb9';
+        $icon = '';
+        if(isset($entry['isGroup'])){
+          $isGroup = true;
+          $column = 'score';
+        }
+        else{
+          $table_name = $entry['table_name'];
+          $column = $entry['column'];
+          $iso = $entry['iso'];
+        }
+        if(!isset($entry['color'])){
+          $color = '#'.substr(md5(rand()), 0, 6);
+        }
+        else{
+          $color = $entry['color'];
+        }
+        if(isset($entry['icon'])){
+          $icon = $entry['icon'];
+        }
+        $index = new Index();
+
+        $index->title = $entry['title'];
+        $index->full_name = $entry['title'];
+        $index->table = $table_name;
+        $index->is_group = $isGroup;
+        $index->name = $name;
+        $index->iso = $iso;
+        $index->parent_id = $parent->id;
+        $index->column_name = $column;
+        $index->score_field_name = $column;
+        $index->color = $color;
+        $index->icon = $icon;
+        $index->save();
+        if($index->id && isset($entry['nodes'])){
+          $this->saveSubIndex($entry['nodes'], $index);
+        }
+      }
+    }
+    public function create(Request $request)
     {
         //
+        $name = preg_replace('/\s[\s]+/','_',$request->input('title'));    // Strip off multiple spaces
+        $name = preg_replace('/[\s\W]+/','_',$name);    // Strip off spaces and non-alpha-numeric
+        $name = preg_replace('/^[\-]+/','',$name); // Strip off the starting hyphens
+        $name = preg_replace('/[\-]+$/','',$name); // // Strip off the ending hyphens
+        $name = strtolower($name);
+
+        $index = new Index();
+        $index->title = $request->input('title');
+        $index->full_name = $request->input('title');
+        $index->table = '';
+        $index->is_group = true;
+        $index->name = $name;
+        $index->iso = 'iso';
+        $index->parent_id = 0;
+        $index->column_name = 'score';
+        $index->score_field_name = 'score';
+        $index->color = '#'.substr(md5(rand()), 0, 6);
+        $index->save();
+
+        if($index->id){
+          $this->saveSubIndex($request->input('data'), $index);
+        }
+        return response()->api($index);
     }
 
     /**

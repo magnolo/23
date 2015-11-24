@@ -30,7 +30,7 @@ class UserdataController extends Controller
           foreach($tables as $table){
             $meta = json_decode($table->meta_data);
             foreach($meta as $source){
-              $d = ['title' => $source->title, 'table_name' => $table->table_name, 'column' => $source->column];
+              $d = ['title' => $source->title, 'table_name' => $table->table_name, 'column' => $source->column, 'iso' => $table->iso];
               if(isset($source->description)){
                 $d['description'] = $source->description;
               }
@@ -157,7 +157,8 @@ class UserdataController extends Controller
         'caption' => $request->input('caption'),
         'meta_data' => json_encode($request->input('fields')),
         'created_at' => 'NOW()',
-        'updated_at' => 'NOW()'
+        'updated_at' => 'NOW()',
+        'iso' => $request->input('iso_field')
         ]
       );
       return response()->api($data);

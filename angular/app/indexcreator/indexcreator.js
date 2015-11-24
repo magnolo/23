@@ -15,6 +15,7 @@
         vm.selectedForGroup = [];
         vm.iso_errors = 0;
         vm.iso_checked = false;
+        vm.saveDisabled = false;
         vm.selectedIndex = 0;
         vm.step = 0;
         vm.search = search;
@@ -43,6 +44,7 @@
         vm.cloneSelection = cloneSelection;
         vm.editEntry = editEntry;
         vm.removeEntry = removeEntry;
+        vm.saveIndex = saveIndex;
         vm.icons = IconsService.getList();
         vm.meta = {
           iso_field: '',
@@ -244,14 +246,14 @@
               }
               vm.iso_checked = true;
           }, function(response){
-            console.log(response);
+          //  console.log(response);
             toastr.error('Please check your field selections', response.data.message);
           })
         }
         function saveData(){
-          console.log(vm.meta.table);
-          console.log(vm.meta.table, vm.data[0].data[0].length);
-          return false;
+        //  console.log(vm.meta.table);
+          //console.log(vm.meta.table, vm.data[0].data[0].length);
+          //return false;
 
           var insertData = {data:[]};
           var meta = [], fields = [];
@@ -435,6 +437,31 @@
               break;
           }
         });
+        function saveIndex(){
+          if(vm.saveDisabled){
+            return;
+          }
+          vm.saveDisabled = true;
+          if(typeof vm.newIndex == 'undefined'){
+            toastr.error('You need to enter a title!','Info missing');
+            vm.saveDisabled = false;
+            return;
+          }
+          if(!vm.newIndex.title){
+            toastr.error('You need to enter a title!','Info missing');
+            vm.saveDisabled = false;
+            return;
+          }
+          vm.newIndex.data = vm.groups;
+          DataService.post('index', vm.newIndex).then(function(response){
+            vm.saveDisabled = false;
+            toastr.success('Your Index has been created', 'Success'),
+            $state.go('app.index.show', {index:response.data.name});
+          },function(response){
+            vm.saveDisabled = false;
+            toastr.error(response.message,'Upps!!');
+          });
+        }
         $scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParams) {
           if(!vm.data.length){
             $state.go('app.index.create');

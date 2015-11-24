@@ -756,6 +756,7 @@ md-toast[md-theme=warn] {
   padding: 0px;
 }
 
+
 md-toolbar.md-menu-toolbar {
   background-color: #ffffff;
   color: rgba(0, 0, 0, 0.87);
@@ -810,7 +811,6 @@ md-menu-bar {
   width: 100%;
   height: calc(100% - 48px);
 }
-
 
 section.module-top {
   background-color: #fff;
@@ -1049,6 +1049,7 @@ section.table md-data-table-pagination {
   top: 3px;
 }
 
+
 #Map_Container {
   height: calc(100% - 165px);
 }
@@ -1128,9 +1129,6 @@ section.table md-data-table-pagination {
 }
 
 
-
-
-
 .bubbles {
   overflow: hidden;
   margin: 1em 0;
@@ -1176,6 +1174,7 @@ section.table md-data-table-pagination {
 .tooltip .close-it:hover {
   color: rgba(0, 0, 0, 0.87);
 }
+
 
 
 median {
@@ -1232,7 +1231,6 @@ median .slider text {
   user-select: none;
   cursor: ew-resize;
 }
-
 
 
 
@@ -1368,5 +1366,8 @@ median .slider text {
 .calculating .field-name-field-calculating-text {
   padding-right: 220px;
 }
+
+
+
 
 /*# sourceMappingURL=app.css.map */
