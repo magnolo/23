@@ -13,6 +13,7 @@ use App\Nation;
 class IndexController extends Controller
 {
     protected $countries;
+    protected $calced = array();
     /**
      * Display a listing of the resource.
      *
@@ -78,61 +79,177 @@ class IndexController extends Controller
 
         return response()->api($index);
     }
-    public function calcValues($items, $year){
-      foreach($items as $key => &$item){
-        if($item->is_group == false){
-          $data = \DB::table($item->table)
-            ->where('year', $year)
-            ->leftJoin('countries_big', $item->table.".".$item->iso, '=', 'countries_big.adm0_a3')
-            ->select($item->table.".".$item->score_field_name.' as score', 'countries_big.adm0_a3 as iso','countries_big.admin as country')
-            ->orderBy($item->table.".".$item->score_field_name, 'desc')->get();
-          $item->data = $data;
-
-        /*  $avg = \DB::table($item->table)
-              ->select(\DB::raw('avg('.$item->score_field_name.'::numeric) as avg'))
-              ->where('year', $year)->first();
-          $item->max_normalized = 0;
-          $item->min_normalized = 999;
-          $item->max = 0;
-          $item->min = 999999;
-          $item->avg = floatval($avg->avg);
-
-          foreach($data as &$d){
-            $item->max_normalized = max($item->max_normalized, $d->score / $item->avg);
-            $item->max = max($item->max, $d->score);
-            $item->min_normalized = min($item->min_normalized, $d->score / $item->avg);
-            $item->min = min($item->min, $d->score);
-            $d->score = $d->score / $item->avg;
-          }*/
-          $item->children = $this->calcValues($item->children, $year);
+    public function fetchData($index, $year){
+      if(isset($index->children)){
+        if(count($index->children)){
+          foreach($index->children as $key => &$item){
+            if($item->is_group == false){
+              $data = \DB::table($item->table)
+                ->where('year', $year)
+                ->leftJoin('countries_big', $item->table.".".$item->iso, '=', 'countries_big.adm0_a3')
+                ->select($item->table.".".$item->score_field_name.' as score', $item->table.".year",'countries_big.adm0_a3 as iso','countries_big.admin as country')
+                ->orderBy($item->table.".".$item->score_field_name, 'desc')->get();
+              $item->data = $data;
+            }
+            if(count($item->children)){
+                $item = $this->fetchData($item, $year);
+            }
+          }
         }
       }
-      return $items;
+      return $index;
     }
-    public function doData($items, $name){
-      $depth = 0;
-      if(empty($this->countries)){
-          $this->countries = \DB::table('countries_big')->select('adm0_a3 as iso', 'admin as country')->get();
+    public function fetchDataForCountry($index, $iso){
+      if(isset($index->children)){
+        if(count($index->children)){
+          foreach($index->children as $key => &$item){
+            if($item->is_group == false){
+              $data = \DB::table($item->table)
+                ->where($item->iso, $iso)
+                ->select($item->score_field_name.' as score', $item->table.".year")
+                ->orderBy('year', 'desc')->get();
+              $item->data = $data;
+            }
+            if(count($item->children)){
+                $item = $this->fetchDataForCountry($item, $iso);
+            }
+          }
+        }
       }
-      foreach($items as &$item){
-        if(count($item->children)){
-           $depth = $this->doData($item->children,$item->name);
+      return $index;
+    }
+    public function calcAverage($item, $length, $name){
+      foreach ($item as $key => &$country) {
+        $country[$name]['value'] = 0;
+        foreach ($country as $k => $index) {
+          if(isset($index['calc'])){
+              if($index['calc']){
+                $country[$name]['value'] += floatval($index['value']);
+              }
+          }
+          $country[$name]['year'] = $index['year'];
+        }
+        $country[$name]['value'] = $country[$name]['value']/$length;
+      }
+      return $item;
+    }
+    public function averageDataForCountry($item){
+      $sum = array();
+      foreach($item['children'] as $child){
+        if(!$child['is_group']){
+            foreach($child['data'] as $data){
+              if(!isset($sum[$data->year][$child['name']])){
+                $sum[$data->year][$child['name']]['value'] = 0;
+                $sum[$data->year][$child['name']]['year'] = $data->year;
+                $sum[$data->year][$child['name']]['calc'] = true;
+              }
+              $sum[$data->year][$child['name']]['value'] += $data->score;
+            }
         }
         else{
-          foreach($this->countries as &$country){
-            foreach($item->data as $data){
-              if($country->iso == $data->iso){
-                if(empty($country->score[$name])){
-                  $country->score[] = array();
+            $sub = $this->averageDataForCountry($child);
+            $su = $this->calcAverage($sub, $this->fieldCount($sub), $child['name']);
+            foreach($su as $key => &$s){
+              foreach($s as $k => &$dat){
+                $sum[$key][$k]['value'] = $dat['value'];
+                $sum[$key][$k]['year'] = $dat['year'];
+                $sum[$key][$k]['calc'] = false;
+                if($k == $child['name']){
+                  $sum[$key][$k]['calc'] = true;
                 }
-                $country->score[$name][] = ['score' => $data->score, 'name' => $item->name, 'weight' => $item->weight];
-                //$country->score = $data->score;
+              }
+            }
+        }
+      }
+      return $sum;
+    }
+    public function averageData($item){
+      $sum = array();
+      foreach($item['children'] as $child){
+        if(!$child['is_group']){
+          foreach($child['data'] as $data){
+            if(!isset($sum[$data->iso][$child['score_field_name']])){
+                $sum[$data->iso][$child['score_field_name']]['value'] = 0;
+                $sum[$data->iso][$child['score_field_name']]['year'] = $data->year;
+                $sum[$data->iso][$child['score_field_name']]['calc'] = true;
+            }
+            $sum[$data->iso][$child['score_field_name']]['value'] += $data->score;
+          }
+        }
+        else{
+          $sub = $this->averageData($child);
+          $su = $this->calcAverage($sub, $this->fieldCount($sub), $child['name']);
+          foreach($su as $key => &$s){
+            foreach($s as $k => &$dat){
+              $sum[$key][$k]['value'] = $dat['value'];
+              $sum[$key][$k]['year'] = $dat['year'];
+              $sum[$key][$k]['calc'] = false;
+              if($k == $child['name']){
+                $sum[$key][$k]['calc'] = true;
               }
             }
           }
         }
       }
-      return $depth;
+      return $sum;
+    }
+    public function fieldCount($items){
+      $fields = array();
+      foreach($items as $key => $item) {
+        foreach($item as $k => $i){
+          if($i['calc'] && !isset($fields[$k])){
+            $fields[$k] = true;
+          }
+        }
+      }
+      return count($fields);
+    }
+    public function calcValuesForStatistic($index){
+      $scores = $this->averageDataForCountry($index);
+      $data = array();
+      $scores = $this->calcAverage($scores, $this->fieldCount($scores), 'score');
+      foreach ($scores as $key => $value) {
+
+        foreach($value as $k => $column){
+          $entry[$k] = $column['value'];
+        }
+        $entry['year']  = $key;
+        $data[] = $entry;
+      }
+      return $data;
+    }
+    public function calcValues($index){
+      if($index['is_group']){
+        $score = $this->averageData($index);
+      }
+      $data = array();
+      $score = $this->calcAverage($score, $this->fieldCount($score), 'score');
+      foreach ($score as $key => $value) {
+        $entry = [
+          'iso' => $key
+        ];
+        foreach($value as $k => $column){
+          $entry[$k] = $column['value'];
+        }
+        $data[] = $entry;
+      }
+      return $data;
+    }
+    public function showByIso($id, $iso){
+      if(is_int($id)){
+        $index = Index::find($id);
+      }
+      elseif(is_string($id)){
+        $index = Index::where('name', $id)->first();
+      }
+      if($index->is_group){
+        $data = $index->load('children');
+        $response = [
+           'iso' => $iso,
+           'data' => $this->calcValuesForStatistic($this->fetchDataForCountry($data, $iso)->toArray())
+        ];
+        return response()->api($response);
+      }
     }
     public function showByYear($id, $year)
     {
@@ -145,9 +262,7 @@ class IndexController extends Controller
         }
         if($index->is_group){
           $data = $index->load('children');
-          $this->doData($this->calcValues($data->children, $year), $index->name);
-        //  return $this->calcValues($data->children, $year);
-          return $this->countries;
+          return $this->calcValues($this->fetchData($data, $year)->toArray());
         }
         else{
           $data = \DB::table($index->table)
@@ -155,7 +270,6 @@ class IndexController extends Controller
             ->leftJoin('countries_big', $index->table.".".$index->iso, '=', 'countries_big.adm0_a3')
             ->select($index->table.".*", 'countries_big.admin as country')
             ->orderBy($index->table.".".$index->score_field_name, 'desc')->get();
-
 
           $sub = Index::where('parent_id', $index->id)->get();
           foreach($sub as $subIndex){

@@ -30,6 +30,7 @@ $api->version('v1', function ($api) {
     $api->get('index/{id}', 'App\Http\Controllers\EpiController@index');
     $api->get('index/{id}/year/{year}', 'App\Http\Controllers\IndexController@showByYear');
     $api->get('index/{id}/structure', 'App\Http\Controllers\IndexController@showWithChildren');
+    $api->get('index/{id}/{iso}', 'App\Http\Controllers\IndexController@showByIso');
 
     $api->get('nations', 'App\Http\Controllers\NationsController@index');
     $api->get('countries', 'App\Http\Controllers\NationsController@getCountries');

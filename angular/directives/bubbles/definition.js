@@ -131,6 +131,8 @@
 									nodes.push(node);
 								}
 							});
+							console.log(group.children);
+							console.log(scope.chartdata);
 						});
 						create_groups();
 					}
@@ -379,6 +381,7 @@
 					return (function (_this) {
 						return function (d) {
 							var target;
+							console.log(d);
 							target = options.cat_centers[d.group];
 							d.x = d.x + (target.x - d.x) * (target.damper + 0.02) * alpha * 1;
 							return d.y = d.y + (target.y - d.y) * (target.damper + 0.02) * alpha * 1;
@@ -432,7 +435,9 @@
 								console.log('all');
 						}
 						else{
-								display_by_cat();
+								//display_by_cat();
+								display_group_all();
+								console.log('all');
 						}
 					}
 				});

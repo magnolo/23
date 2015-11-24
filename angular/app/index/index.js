@@ -144,7 +144,7 @@
 			return vm.details = !vm.details;
 		};
 		function fetchNationData(iso){
-			DataService.getOne('nations', iso).then(function (data) {
+			DataService.getOne('index/'+$state.params.index, iso).then(function (data) {
 				vm.current.data = data.data;
 				mapGotoCountry(iso);
 			});
@@ -229,7 +229,7 @@
 			if (!vm.current) {
 				return 0;
 			}
-			console.log(vm.getRank(vm.current));
+			//console.log(vm.getRank(vm.current));
 			return (vm.getRank(vm.current) - 2) * 16;
 		};
 
@@ -387,6 +387,7 @@
 			if (n === o) {
 				return;
 			}
+			console.log(n);
 			if(n[vm.structure.iso]) {
 				if(o[vm.structure.iso]){
 					vm.mvtSource.layers.countries_big_geom.features[o[vm.structure.iso]].selected = false;
