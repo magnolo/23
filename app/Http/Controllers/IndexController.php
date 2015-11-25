@@ -324,6 +324,9 @@ class IndexController extends Controller
         ];
         return response()->api($response);
       }
+      else{
+        return response()->api(Nation::all()->load('epi'));
+      }
     }
     public function showByYear($id, $year)
     {

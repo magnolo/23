@@ -51,7 +51,7 @@
 		activate();
 
 		function activate() {
-			console.log(vm.countryList);
+		
 			vm.structureServer.then(function(structure){
 				vm.dataServer.then(function(data){
 					vm.data = data;
@@ -388,7 +388,7 @@
 			if (n === o) {
 				return;
 			}
-			console.log(n);
+
 			if(n[vm.structure.iso]) {
 				if(o[vm.structure.iso]){
 					vm.mvtSource.layers.countries_big_geom.features[o[vm.structure.iso]].selected = false;
@@ -545,8 +545,6 @@
 						var c = getNationByIso(evt.feature.properties.adm0_a3);
 						if (typeof c[vm.structure.score_field_name] != "undefined") {
 							vm.current = getNationByIso(evt.feature.properties.adm0_a3);
-							console.log(evt.feature.properties);
-							vm.current.country = event.feature.properties.admin;
 						} else {
 							ToastService.error('No info about this location!');
 						}
