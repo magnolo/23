@@ -9,6 +9,9 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Nation;
+use Auth;
+use JWTAuth;
+use Tymon\JWTAuth\Exceptions\JWTException;
 
 class IndexController extends Controller
 {
@@ -46,7 +49,7 @@ class IndexController extends Controller
         $icon = '';
         if(isset($entry['isGroup'])){
           $isGroup = true;
-          $column = 'score';
+          $column = $name;
         }
         else{
           $table_name = $entry['table_name'];
@@ -75,6 +78,7 @@ class IndexController extends Controller
         $index->score_field_name = $column;
         $index->color = $color;
         $index->icon = $icon;
+        $index->user_id = Auth::user()->id;
         $index->save();
         if($index->id && isset($entry['nodes'])){
           $this->saveSubIndex($entry['nodes'], $index);
@@ -98,9 +102,10 @@ class IndexController extends Controller
         $index->name = $name;
         $index->iso = 'iso';
         $index->parent_id = 0;
-        $index->column_name = 'score';
-        $index->score_field_name = 'score';
+        $index->column_name = $name.'_score';
+        $index->score_field_name = $name.'_score';
         $index->color = '#'.substr(md5(rand()), 0, 6);
+        $index->user_id = Auth::user()->id;
         $index->save();
 
         if($index->id){
@@ -211,23 +216,23 @@ class IndexController extends Controller
       foreach($item['children'] as $child){
         if(!$child['is_group']){
             foreach($child['data'] as $data){
-              if(!isset($sum[$data->year][$child['name']])){
-                $sum[$data->year][$child['name']]['value'] = 0;
-                $sum[$data->year][$child['name']]['year'] = $data->year;
-                $sum[$data->year][$child['name']]['calc'] = true;
+              if(!isset($sum[$data->year][$child['score_field_name']])){
+                $sum[$data->year][$child['score_field_name']]['value'] = 0;
+                $sum[$data->year][$child['score_field_name']]['year'] = $data->year;
+                $sum[$data->year][$child['score_field_name']]['calc'] = true;
               }
-              $sum[$data->year][$child['name']]['value'] += $data->score;
+              $sum[$data->year][$child['score_field_name']]['value'] += $data->score;
             }
         }
         else{
             $sub = $this->averageDataForCountry($child);
-            $su = $this->calcAverage($sub, $this->fieldCount($sub), $child['name']);
+            $su = $this->calcAverage($sub, $this->fieldCount($sub), $child['score_field_name']);
             foreach($su as $key => &$s){
               foreach($s as $k => &$dat){
                 $sum[$key][$k]['value'] = $dat['value'];
                 $sum[$key][$k]['year'] = $dat['year'];
                 $sum[$key][$k]['calc'] = false;
-                if($k == $child['name']){
+                if($k == $child['score_field_name']){
                   $sum[$key][$k]['calc'] = true;
                 }
               }
@@ -297,6 +302,7 @@ class IndexController extends Controller
         $score = $this->averageData($index);
       }
       $data = array();
+      //return $score;
       $score = $this->calcAverage($score, $this->fieldCount($score), 'score');
       foreach ($score as $key => $value) {
         $entry = [

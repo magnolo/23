@@ -1,8 +1,8 @@
-(function() {
+(function () {
 	"use strict";
 
-	angular.module('app.directives').directive('circlegraph', function($timeout) {
-		var defaults = function() {
+	angular.module('app.directives').directive('circlegraph', function ($timeout) {
+		var defaults = function () {
 			return {
 				width: 80,
 				height: 80,
@@ -18,10 +18,10 @@
 				options: '='
 			},
 			require: 'ngModel',
-			link: function($scope, element, $attrs, ngModel) {
+			link: function ($scope, element, $attrs, ngModel) {
 				//Fetching Options
 
-			 $scope.options = angular.extend(defaults(), $scope.options);
+				$scope.options = angular.extend(defaults(), $scope.options);
 
 				//Creating the Scale
 				var rotate = d3.scale.linear()
@@ -44,10 +44,10 @@
 					.attr('fill', 'none');
 				var arc = d3.svg.arc()
 					.startAngle(0)
-					.innerRadius(function(d) {
+					.innerRadius(function (d) {
 						return $scope.options.width / 2 - 4;
 					})
-					.outerRadius(function(d) {
+					.outerRadius(function (d) {
 						return $scope.options.width / 2;
 					});
 				var circleGraph = container.append('path')
@@ -60,63 +60,64 @@
 					.data([0])
 					.enter()
 					.append('text')
-					.text(function(d) {
+					.text(function (d) {
 						return 'N°' + d;
 					})
-						.style("fill", $scope.options.color)
+					.style("fill", $scope.options.color)
 					.style('font-weight', 'bold')
 					.attr('text-anchor', 'middle')
 					.attr('y', '0.35em');
 
 				//Transition if selection has changed
 				function animateIt(radius) {
+
 					circleGraph.transition()
 						.duration(750)
 						.call(arcTween, rotate(radius) * 2 * Math.PI);
-					text.transition().duration(750).tween('text', function(d) {
+					text.transition().duration(750).tween('text', function (d) {
 						var data = this.textContent.split('N°');
 						var i = d3.interpolate(parseInt(data[1]), radius);
-						return function(t) {
-							this.textContent =  'N°' + (Math.round(i(t) * 1) / 1);
+						return function (t) {
+							this.textContent = 'N°' + (Math.round(i(t) * 1) / 1);
 						};
 					})
 				}
 
 				//Tween animation for the Arc
 				function arcTween(transition, newAngle) {
-
-					transition.attrTween("d", function(d) {
+						console.log('radius', newAngle);
+					transition.attrTween("d", function (d) {
 						var interpolate = d3.interpolate(d.endAngle, newAngle);
-						return function(t) {
+						return function (t) {
 							d.endAngle = interpolate(t);
 							return arc(d);
 						};
 					});
 				}
-				$scope.$watch('options',function(n, o){
-						if(n === o){
-							return;
-						}
-						circleBack.style('stroke', n.color);
-						circleGraph.style('fill', n.color);
-						text.style('fill', n.color);
-						$timeout(function(){
-							animateIt(ngModel.$modelValue[n.field])
-						});
+				$scope.$watch('options', function (n, o) {
+					if (n === o) {
+						return;
+					}
+					circleBack.style('stroke', n.color);
+					circleGraph.style('fill', n.color);
+					text.style('fill', n.color);
+					$timeout(function () {
+						animateIt(ngModel.$modelValue[n.field])
+					});
 				});
 				//Watching if selection has changed from another UI element
 				$scope.$watch(
-					function() {
+					function () {
 						return ngModel.$modelValue;
 					},
-					function(n, o) {
-					
-						if (!n){
+					function (n, o) {
+						console.log(	n[$scope.options.field]);
+						if (!n) {
 							n = {};
 							n[$scope.options.field] = $scope.options.size;
 						}
-						$timeout(function(){
-							animateIt(n[$scope.options.field])
+						$timeout(function () {
+							animateIt(n[$scope.options.field]);
 						});
 					});
 			}

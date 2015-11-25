@@ -84,25 +84,25 @@
 					y: options.height / 2
 				};
 				options.cat_centers = {
-					"eh": {
+					'ev':{
 						x: options.width / 2,
-						y: options.height  * 0.45,
+						y: options.height * 0.50,
 						damper: 0.085
 					},
-					"ev": {
+					'eh':{
 						x: options.width / 2,
-						y: options.height  * 0.55,
+						y: options.height * 0.40,
 						damper: 0.085
 					}
 				};
 
 				var create_nodes = function () {
 					if(scope.indexer.children.length == 2 && scope.indexer.children[0].children.length > 0){
-						angular.forEach(scope.indexer.children, function (group) {
+						angular.forEach(scope.indexer.children, function (group, index) {
 							var d = {
-								type: group.column_name,
+								type: group.score_field_name,
 								name: group.title,
-								group: group.column_name.substring(0,2),
+								group: group.score_field_name,
 								color: group.color,
 								icon: group.icon,
 								unicode: IconsService.getUnicode(group.icon),
@@ -110,16 +110,15 @@
 								children:group.children
 							};
 							labels.push(d);
-
 							angular.forEach(group.children, function (item) {
 								//console.log(scope.chartdata[item.column_name], scope.chartdata[item.column_name] / scope.sizefactor);
-								if (scope.chartdata[item.column_name]) {
+								if (scope.chartdata[item.score_field_name]) {
 									var node = {
-										type: item.column_name,
-										radius: scope.chartdata[item.column_name] / scope.sizefactor,
-										value: scope.chartdata[item.column_name] / scope.sizefactor,
+										type: item.score_field_name,
+										radius: scope.chartdata[item.score_field_name] / scope.sizefactor,
+										value: scope.chartdata[item.score_field_name],
 										name: item.title,
-										group: item.column_name.substring(0,2),
+										group: group.score_field_name,
 										x: options.center.x,
 										y: options.center.y,
 										color: item.color,
@@ -133,12 +132,13 @@
 							});
 						});
 						create_groups();
+
 					}
 					else{
 						var d = {
-							type: scope.indexer.column_name,
+							type: scope.indexer.score_field_name,
 							name: scope.indexer.title,
-							group: scope.indexer.column_name.substring(0,2),
+							group: scope.indexer.score_field_name,
 							color: scope.indexer.color,
 							icon: scope.indexer.icon,
 							unicode: scope.indexer.unicode,
@@ -148,13 +148,13 @@
 						labels.push(d);
 						angular.forEach(scope.indexer.children, function (item) {
 							//console.log(scope.chartdata[item.column_name], scope.chartdata[item.column_name] / scope.sizefactor);
-							if (scope.chartdata[item.column_name]) {
+							if (scope.chartdata[item.score_field_name]) {
 								var node = {
-									type: item.column_name,
-									radius: scope.chartdata[item.column_name] / scope.sizefactor,
-									value: scope.chartdata[item.column_name] / scope.sizefactor,
+									type: item.score_field_name,
+									radius: scope.chartdata[item.score_field_name] / scope.sizefactor,
+									value: scope.chartdata[item.score_field_name] / scope.sizefactor,
 									name: item.title,
-									group: item.column_name.substring(0,2),
+									group: scope.indexer.score_field_name,
 									x: options.center.x,
 									y: options.center.y,
 									color: item.color,
@@ -167,6 +167,7 @@
 							}
 						});
 					}
+					console.log(nodes);
 				};
 				var clear_nodes = function(){
 					//d3.selectAll("svg > *").remove();
@@ -186,13 +187,14 @@
 							});
 							if(!exists){
 								count++;
-								groups[node.group] = {
+								options.cat_centers[node.group] = {
 									x: options.width / 2,
 									y: options.height / 2 + (1 - count),
 									damper: 0.085,
 								};
 							}
 					});
+					console.log(options.cat_centers);
 
 				};
 				var create_vis = function () {
@@ -215,13 +217,17 @@
 
 							options.arcTop = options.vis.append("path")
 								.attr("d", arcTop)
-								.attr("fill", "#be5f00")
+								.attr("fill", function(d){
+									return labels[0].color || "#be5f00";
+								})
 								.attr("id", "arcTop")
 								.attr("transform", "translate("+(options.width/2)+","+(options.height/2 - options.height/12)+")");
 							options.arcBottom = options.vis.append("path")
 								.attr("d", arcBottom)
 								.attr("id", "arcBottom")
-								.attr("fill", "#006bb6")
+								.attr("fill", function(d){
+									return labels[1].color || "#006bb6";
+								} )
 								.attr("transform", "translate("+(options.width/2)+","+(options.height/2)+")");
 						}
 						else{
@@ -325,7 +331,6 @@
 						options.circles.transition().duration(options.duration).delay(i * options.duration)
 							.attr("r", function (d) {
 								d.radius = d.value = scope.chartdata[d.type] / scope.sizefactor;
-
 								return scope.chartdata[d.type] / scope.sizefactor;
 							});
 						options.icons.transition().duration(options.duration).delay(i * options.duration)
@@ -378,8 +383,8 @@
 				var move_towards_cat = function (alpha) {
 					return (function (_this) {
 						return function (d) {
+
 							var target;
-							//console.log(d);
 							target = options.cat_centers[d.group];
 							d.x = d.x + (target.x - d.x) * (target.damper + 0.02) * alpha * 1;
 							return d.y = d.y + (target.y - d.y) * (target.damper + 0.02) * alpha * 1;
@@ -430,12 +435,12 @@
 
 						if(labels.length == 1 || options.labels != true){
 								display_group_all();
-								console.log('all');
+								//console.log('all');
 						}
 						else{
 								//display_by_cat();
 								display_group_all();
-								console.log('all');
+								//console.log('all');
 						}
 					}
 				});
