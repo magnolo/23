@@ -130,7 +130,6 @@
 					color:vm.structure.color,
 					field:vm.structure.score_field_name+'_rank'
 			};
-			console.log(vm.current);
 			return rank;
 		}
 		function getRank(country){
