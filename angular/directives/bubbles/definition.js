@@ -83,18 +83,7 @@
 					x: options.width / 2,
 					y: options.height / 2
 				};
-				options.cat_centers = {
-					'ev':{
-						x: options.width / 2,
-						y: options.height * 0.50,
-						damper: 0.085
-					},
-					'eh':{
-						x: options.width / 2,
-						y: options.height * 0.40,
-						damper: 0.085
-					}
-				};
+				options.cat_centers = {};
 
 				var create_nodes = function () {
 					if(scope.indexer.children.length == 2 && scope.indexer.children[0].children.length > 0){
@@ -111,7 +100,6 @@
 							};
 							labels.push(d);
 							angular.forEach(group.children, function (item) {
-								//console.log(scope.chartdata[item.column_name], scope.chartdata[item.column_name] / scope.sizefactor);
 								if (scope.chartdata[item.score_field_name]) {
 									var node = {
 										type: item.score_field_name,
@@ -147,7 +135,6 @@
 						};
 						labels.push(d);
 						angular.forEach(scope.indexer.children, function (item) {
-							//console.log(scope.chartdata[item.column_name], scope.chartdata[item.column_name] / scope.sizefactor);
 							if (scope.chartdata[item.score_field_name]) {
 								var node = {
 									type: item.score_field_name,
@@ -167,35 +154,19 @@
 							}
 						});
 					}
-					console.log(nodes);
 				};
 				var clear_nodes = function(){
-					//d3.selectAll("svg > *").remove();
 					nodes = [];
 					labels = [];
 				}
 				var create_groups = function(){
-					groups = {};
-					var count = 0;
-					angular.forEach(nodes, function(node){
-							var exists = false;
-							var group = {};
-							angular.forEach(groups, function(group, index){
-								if(node.group == index){
-									exists = true;
-								}
-							});
-							if(!exists){
-								count++;
-								options.cat_centers[node.group] = {
-									x: options.width / 2,
-									y: options.height / 2 + (1 - count),
-									damper: 0.085,
-								};
-							}
+					angular.forEach(nodes, function(node, key){
+							options.cat_centers[node.group] = {
+								x: options.width / 2,
+								y: options.height / 2 + (1 - key),
+								damper: 0.085,
+							};
 					});
-					console.log(options.cat_centers);
-
 				};
 				var create_vis = function () {
 					angular.element(elem).html('');

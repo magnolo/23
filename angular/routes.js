@@ -29,7 +29,7 @@
 			.state('app.home',{
 				url:'/',
 				views:{
-					main:{
+					'main@':{
 						templateUrl: getView('home'),
 						controller: 'HomeCtrl',
 						controllerAs: 'vm'

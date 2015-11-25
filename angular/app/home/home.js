@@ -3,10 +3,10 @@
 
     angular.module('app.controllers').controller('HomeCtrl', function(DataService){
         var vm = this;
-        DataService.getAll('index').then(function(response){
+        DataService.getOne('index').then(function(response){
           vm.indizes = response.data;
         });
-        console.log('home');
+
     });
 
 })();

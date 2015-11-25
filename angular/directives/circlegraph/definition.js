@@ -70,7 +70,6 @@
 
 				//Transition if selection has changed
 				function animateIt(radius) {
-
 					circleGraph.transition()
 						.duration(750)
 						.call(arcTween, rotate(radius) * 2 * Math.PI);
@@ -85,7 +84,6 @@
 
 				//Tween animation for the Arc
 				function arcTween(transition, newAngle) {
-						console.log('radius', newAngle);
 					transition.attrTween("d", function (d) {
 						var interpolate = d3.interpolate(d.endAngle, newAngle);
 						return function (t) {
@@ -94,6 +92,7 @@
 						};
 					});
 				}
+
 				$scope.$watch('options', function (n, o) {
 					if (n === o) {
 						return;
@@ -105,13 +104,13 @@
 						animateIt(ngModel.$modelValue[n.field])
 					});
 				});
+
 				//Watching if selection has changed from another UI element
 				$scope.$watch(
 					function () {
 						return ngModel.$modelValue;
 					},
 					function (n, o) {
-						console.log(	n[$scope.options.field]);
 						if (!n) {
 							n = {};
 							n[$scope.options.field] = $scope.options.size;

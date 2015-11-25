@@ -1,3 +1,10 @@
-<md-content class="Page-Container" >
-
-</md-content>
+<div class="multi-view anim-fade">
+  <section class="module-top md-whiteframe-z2 menu">
+				<md-subheader class="md-no-sticky">Choose the index you wanna see</md-subheader>
+				<md-list >
+								<md-list-item ng-repeat="index in vm.indizes" ui-sref="app.index.show({index:index.name})">
+                  <p>{{index.full_name}}</p>
+                <ng-md-icon icon="chevron_right"></ng-md-icon>
+        </md-list>
+</section>
+</div>

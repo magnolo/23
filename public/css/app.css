@@ -756,6 +756,9 @@ md-toast[md-theme=warn] {
   padding: 0px;
 }
 
+section.module-top.menu md-list-item a {
+  margin: 0px;
+}
 
 md-toolbar.md-menu-toolbar {
   background-color: #ffffff;
@@ -1084,6 +1087,7 @@ section.table md-data-table-pagination {
   right: 00px;
 }
 
+
 .Sidebar {
   position: fixed !important;
   top: 0;
@@ -1126,7 +1130,6 @@ section.table md-data-table-pagination {
 .Sidebar-version a {
   color: white;
 }
-
 
 
 
