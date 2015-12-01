@@ -164,8 +164,8 @@ class IndexController extends Controller
             if($item->is_group == false){
               $data = \DB::table($item->table)
                 ->where('year', $year)
-                ->leftJoin('countries_big', $item->table.".".$item->iso, '=', 'countries_big.adm0_a3')
-                ->select($item->table.".".$item->score_field_name.' as score', $item->table.".year",'countries_big.adm0_a3 as iso','countries_big.admin as country')
+                ->leftJoin('23_countries', $item->table.".".$item->iso, '=', '23_countries.adm0_a3')
+                ->select($item->table.".".$item->score_field_name.' as score', $item->table.".year",'23_countries.adm0_a3 as iso','23_countries.admin as country')
                 ->orderBy($item->table.".".$item->score_field_name, 'desc')->get();
               $item->data = $data;
             }
@@ -341,51 +341,35 @@ class IndexController extends Controller
           $index = Index::find($id);
         }
         elseif(is_string($id)){
-          $index = Index::where('name', $id)->first();
+          $index = Index::where('name', $id)->firstOrFail();
         }
-        if($index->is_group){
-          $data = $index->load('children');
-          return $this->calcValues($this->fetchData($data, $year)->toArray());
-        }
-        else{
-          $data = \DB::table($index->table)
-            ->where('year', $year)
-            ->leftJoin('countries_big', $index->table.".".$index->iso, '=', 'countries_big.adm0_a3')
-            ->select($index->table.".*", 'countries_big.admin as country')
-            ->orderBy($index->table.".".$index->score_field_name, 'desc')->get();
 
-          $sub = Index::where('parent_id', $index->id)->get();
-          foreach($sub as $subIndex){
-            if($subIndex->table != $index->table){
-                $subData = \DB::table($subIndex->table)->where('year', $year)->select($subIndex->score_field_name, $subIndex->iso)->get();
-                foreach($data as &$d){
-                  foreach($subData as $sd){
-                    if($sd->{$subIndex->iso} == $d->{$index->iso}){
-                      $d->{$subIndex->score_field_name} = $sd->{$subIndex->score_field_name};
+          if($index->is_group){
+            $data = $index->load('children');
+            return $this->calcValues($this->fetchData($data, $year)->toArray());
+          }
+          else{
+            $data = \DB::table($index->table)
+              ->where('year', $year)
+              ->leftJoin('23_countries', $index->table.".".$index->iso, '=', '23_countries.adm0_a3')
+              ->select($index->table.".*", '23_countries.admin as country')
+              ->orderBy($index->table.".".$index->score_field_name, 'desc')->get();
+
+            $sub = Index::where('parent_id', $index->id)->get();
+            foreach($sub as $subIndex){
+              if($subIndex->table != $index->table){
+                  $subData = \DB::table($subIndex->table)->where('year', $year)->select($subIndex->score_field_name, $subIndex->iso)->get();
+                  foreach($data as &$d){
+                    foreach($subData as $sd){
+                      if($sd->{$subIndex->iso} == $d->{$index->iso}){
+                        $d->{$subIndex->score_field_name} = $sd->{$subIndex->score_field_name};
+                      }
                     }
                   }
-                }
+              }
             }
           }
-        }
 
-        /*foreach($data as &$d){
-            dd($d->{$index->iso});
-            if($subIndex->table != $index->table){
-              $subData = \DB::table($subIndex->table)
-                ->where($subIndex->iso, $d->{$index->iso})
-                ->where('year', $year)
-                ->select($subIndex->score_field_name)->first();
-                $data = $subData;
-              //$d->{$subIndex->score_field_name} = $subData->{$subIndex->score_field_name};
-            }
-          }*/
-
-
-
-
-        //$data->{'hello'} = 'hello';
-        //return $data;
         return \Response::json($data, 200, [], JSON_NUMERIC_CHECK);
         //return response()->api($data);
     }

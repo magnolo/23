@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class UserData extends Model
 {
     //
-    protected $table='user_data';
+    protected $table='23_userdata';
 
     public function user(){
       return $this->belongsTo('App\User', 'user_id', 'id');
@@ -15,5 +15,8 @@ class UserData extends Model
     public function indizes(){
       return $this->hasMany('App\Index', 'table', 'table_name')->where('parent_id', 0);
       //return DB::($this->attributes['table_name'])->all();
+    }
+    public function indices(){
+      return $this->hasMany('App\Index', 'table', 'table_name')->where('parent_id', 0);
     }
 }

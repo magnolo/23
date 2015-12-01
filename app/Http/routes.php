@@ -24,18 +24,18 @@ $api->version('v1', function ($api) {
      */
     $api->controller('authenticate', 'App\Http\Controllers\AuthenticateController');
 
-
     $api->get('index', 'App\Http\Controllers\IndexController@index');
     $api->get('index/alphabethical', 'App\Http\Controllers\IndexController@alphabethical');
-    $api->get('index/{id}', 'App\Http\Controllers\EpiController@index');
+    $api->get('index/{id}', 'App\Http\Controllers\IndexController@index');
     $api->get('index/{id}/year/{year}', 'App\Http\Controllers\IndexController@showByYear');
     $api->get('index/{id}/structure', 'App\Http\Controllers\IndexController@showWithChildren');
     $api->get('index/{id}/{iso}', 'App\Http\Controllers\IndexController@showByIso');
 
-    $api->get('nations', 'App\Http\Controllers\NationsController@index');
-    $api->get('countries', 'App\Http\Controllers\NationsController@getCountries');
-    $api->get('nations/{iso}', 'App\Http\Controllers\NationsController@show');
-    $api->get('nations/bbox/{countries}', 'App\Http\Controllers\NationsController@getBBox');
+    //$api->get('nations', 'App\Http\Controllers\NationsController@index');
+    $api->get('countries', 'App\Http\Controllers\CountriesController@index');
+    $api->get('countries/isos', 'App\Http\Controllers\CountriesController@isoList');
+    $api->get('countries/{iso}', 'App\Http\Controllers\CountriesController@show');
+    $api->get('countries/bbox/{countries}', 'App\Http\Controllers\CountriesController@getBBox');
 
     $api->get('nations/byName/{name}', 'App\Http\Controllers\NationsController@getByName');
     $api->post('nations/byIsoNames', 'App\Http\Controllers\NationsController@getByIsoNames');

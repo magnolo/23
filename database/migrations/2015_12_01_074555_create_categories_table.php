@@ -1,0 +1,37 @@
+<?php
+
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreateCategoriesTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('23_categories', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('parent_id')->default(0);
+            $table->string('title');
+            $table->string('name');
+            $table->text('description')->nullable();
+            $table->boolean('is_public')->default('false');
+            $table->integer('style_id')->nullable();
+            $table->softDeletes();
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::drop('23_categories');
+    }
+}
