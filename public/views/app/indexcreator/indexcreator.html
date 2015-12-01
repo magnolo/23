@@ -35,6 +35,10 @@
 												<p>Upload new data</p>
 												<ng-md-icon icon="{{vm.openClose(vm.showUploadContainer)}}"></ng-md-icon>
 								</md-list-item>
+								<md-list-item ng-if="!vm.showResources" ui-sref="app.index.editor">
+												<p>Edit existing data</p>
+												<ng-md-icon icon="{{vm.openClose(vm.showUploadContainer)}}"></ng-md-icon>
+								</md-list-item>
 				</md-list>
 
 				<div class="slide-toggle upload-container" ng-if="vm.showUploadContainer">

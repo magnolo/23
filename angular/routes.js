@@ -80,6 +80,19 @@
 					}
 				}
 			})
+			.state('app.index.editor',{
+				url: '/editor',
+				views:{
+					'info':{
+
+					},
+					'menu':{
+						templateUrl:getView('indexeditor'),
+						controller: 'IndexeditorCtrl',
+						controllerAs: 'vm'
+					}
+				}
+			})
 			.state('app.index.create', {
 				url: '/create',
 				views: {
