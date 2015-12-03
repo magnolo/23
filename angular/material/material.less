@@ -13,8 +13,17 @@ button, select, html, textarea, input{
   border-radius:20px;
   padding:0 30px;
   text-transform: none;
-}
 
+}
+md-input-container{
+  &.big{
+    font-size: 1.5em;
+    margin-bottom:0px;
+  }
+}
+md-autocomplete[md-floating-label]{
+  padding:0 !important;
+}
 md-dialog{
   padding:24px;
   &.md-color-picker-dialog{

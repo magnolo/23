@@ -1,13 +1,13 @@
 <section class="module-top md-whiteframe-z2">
   <md-content>
-    <md-tabs md-dynamic-height>
+    <md-tabs md-dynamic-height md-no-pagination md-stretch-tabs="always">
       <md-tab ng-class="{'md-warn': !vm.indicator.base}">
         <md-tab-label>
           <ng-md-icon icon="info_outline"></ng-md-icon>
         </md-tab-label>
-        <md-tab-body>
+        <md-tab-body >
           <form name="baseForm" novalidate>
-          <md-content layout-padding class="md-accent">
+          <md-content layout-padding class="md-accent" >
             <div layout="row" layout-align="space-between center">
               <md-button class="md-accent md-border md-lowspace" ng-disabled="baseForm.$invalid" ng-click="vm.saveIndex()">Save</md-button>
               <span flex></span>
@@ -17,8 +17,8 @@
                 <div ng-if="baseForm.$invalid">&nbsp;Uncompleted</div>
               <span>
             </div>
-
-            <md-input-container class="md-block">
+            <div style="padding:0 1em">
+            <md-input-container class="md-block big">
                 <label>Title*</label>
                 <input maxlength="56" minlength="3" name="title" type="text" ng-model="vm.indicator.title" required />
                 <div ng-messages="baseForm.title.$error" ng-show="baseForm.title.$error">
@@ -27,7 +27,7 @@
                  <div ng-message="maxlength">The name has to be less than 56 characters long.</div>
                </div>
             </md-input-container>
-            <md-content layout-padding>
+            <md-content layout-padding style="padding-top:0px">
             <md-input-container class="md-block">
                 <label>Type of data*</label>
                 <md-select ng-model="vm.indicator.type_id" required>
@@ -42,20 +42,25 @@
                   <md-option value="2">Percentage</md-option>
                 </md-select>
             </md-input-container>
+            <div class="upload-uploader" layout="column" layout-align="space-between center">
+              <ng-md-icon ng-if="!vm.indicator.dataprovider.image.url" size="98" style="fill:#ccc" icon="landscape"></ng-md-icon>
+              <img ng-if="vm.indicator.dataprovider.image.url" ng-src="vm.indicator.dataprovider.image.url" />
+              <span>Upload a logo</span>
+            </div>
             <md-autocomplete flex required
-            md-input-name="autocompleteField"
+            md-input-name="providerField"
             md-input-minlength="3"
             md-input-maxlength="56"
-            md-no-cache="ctrl.noCache"
-            md-selected-item="ctrl.selectedItem"
-            md-search-text="ctrl.searchText"
-            md-items="item in ctrl.querySearch(ctrl.searchText)"
-            md-item-text="item.display"
+            md-no-cache="vm.noCache"
+            md-selected-item="vm.indicator.dataprovider"
+            md-search-text="vm.searchText"
+            md-items="item in vm.querySearch(vm.searchText)"
+            md-item-text="item.title"
             md-floating-label="Data Provider*" class="md-block">
           <md-item-template>
-            <span md-highlight-text="ctrl.searchText">{{item.display}}</span>
+            <span md-highlight-text="vm.searchText">{{item.title}}</span>
           </md-item-template>
-          <div ng-messages="baseForm.autocompleteField.$error" ng-if="baseForm.autocompleteField.$touched">
+          <div ng-messages="baseForm.providerField.$error" ng-if="baseForm.providerField.$touched">
             <div ng-message="required">You <b>must</b> enter a data provider.</div>
             <div ng-message="md-minlength">Your entry is not long enough. At least 3 characters!</div>
             <div ng-message="md-maxlength">Your entry is too long.</div>
@@ -64,14 +69,21 @@
         </md-autocomplete>
         <md-input-container class="md-block">
             <label>Url</label>
-            <input pattern="^(http|https|ftp)?(:\/\/)?(www|ftp)?.?[a-z0-9-]+(.|:)([a-z0-9-]+)+([\/?].*)?$" maxlength="56" minlength="5" name="url" type="url" ng-model="vm.indicator.dataprovider.url" />
+            <input maxlength="56" minlength="5" name="url" type="url" ng-model="vm.indicator.dataprovider.url" />
             <div ng-messages="baseForm.url.$error">
              <div ng-message="minlength">The url is not long enough. At least 5 characters!</div>
              <div ng-message="pattern">This is not a valid url!</div>
              <div ng-message="maxlength">The name has to be less than 30 characters long.</div>
            </div>
         </md-input-container>
+
             </md-content>
+            <md-input-container class="md-block">
+                <label>Description</label>
+              <textarea ng-model="vm.indicator.description" ></textarea>
+
+            </md-input-container>
+          </div>
           </md-content>
         </form>
         </md-tab-body>

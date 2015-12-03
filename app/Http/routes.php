@@ -41,6 +41,12 @@ $api->version('v1', function ($api) {
     $api->post('nations/byIsoNames', 'App\Http\Controllers\NationsController@getByIsoNames');
 
     $api->get('data/tables', 'App\Http\Controllers\UserdataController@index');
+
+    $api->get('categories', 'App\Http\Controllers\CategoriesController@index');
+    $api->get('categories/{name}', 'App\Http\Controllers\CategoriesController@show');
+    $api->get('categories/{name}/indicators', 'App\Http\Controllers\CategoriesController@showWithIndicators');
+
+    $api->get('dataproviders', 'App\Http\Controllers\DataprovidersController@index');
 });
 
 //protected with JWT

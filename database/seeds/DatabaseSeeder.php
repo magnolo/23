@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
         $this->call('ItemTypesSeeder');
         $this->call('MeasureTypesSeeder');
         $this->call('CategoriesSeeder');
+        $this->call('DataProvidersSeeder');
         Model::reguard();
     }
 }
