@@ -17,7 +17,10 @@ class Index extends Model
       return $this->hasOne('App\Index', 'id', 'parent_id');
     }
     public function children(){
-      return $this->child()->with('children');
+      return $this->child()->with('children')->with('indicator');
+    }
+    public function indicator(){
+      return $this->hasOne('App\Indicator', 'id','indicator_id');
     }
 
 }

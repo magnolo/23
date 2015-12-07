@@ -28,7 +28,7 @@ class UserdataController extends Controller
     public function index()
     {
         //v
-        return response()->api(Indicator::all());
+        return response()->api(Indicator::all()->load('userdata'));
         /*  $data = array();
           $tables = UserData::all();
           foreach($tables as $table){

@@ -16,8 +16,6 @@ class CreateItemsTable extends Migration
           $table->increments('id');
           $table->integer('parent_id')->default(0);
           $table->integer('indicator_id')->nullable();
-          $table->integer('measure_type_id')->nullable();
-          $table->integer('user_data_id')->nullable();
           $table->integer('user_id');
           $table->string('name');
           $table->string('title');

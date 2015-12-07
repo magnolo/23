@@ -47,6 +47,8 @@ $api->version('v1', function ($api) {
     $api->get('categories/{name}/indicators', 'App\Http\Controllers\CategoriesController@showWithIndicators');
 
     $api->get('dataproviders', 'App\Http\Controllers\DataprovidersController@index');
+
+    $api->get('measure_types', 'App\Http\Controllers\MeasureTypesController@index');
 });
 
 //protected with JWT

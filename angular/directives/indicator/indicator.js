@@ -26,13 +26,15 @@
 			function loadAll() {
 	      vm.dataproviders = DataService.getAll('dataproviders').$object;
 				vm.categories = DataService.getAll('categories').$object;
+				vm.measureTypes = DataService.getAll('measure_types').$object;
 			}
 
 			$scope.$watchCollection('vm.item', function(n, o){
 					if(n === o){
 						return;
 					}
-					if(n.title && n.measure_type_id && n.type_id && n.dataprovider){
+					console.log(n);
+					if(n.title && n.measure_type_id && n.type && n.dataprovider){
 						n.base = true;
 					}
 					else{

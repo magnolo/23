@@ -42,19 +42,21 @@ class IndexController extends Controller
         $name = preg_replace('/^[\-]+/','',$name); // Strip off the starting hyphens
         $name = preg_replace('/[\-]+$/','',$name); // // Strip off the ending hyphens
         $name = strtolower($name);
-        $isGroup = false;
+        //$isGroup = false;
         $table_name = '';
-        $iso = 'iso';
-        $color = '#006bb9';
-        $icon = '';
+        //$iso = 'iso';
+        //$color = '#006bb9';
+        //$icon = '';
         if(isset($entry['isGroup'])){
           $isGroup = true;
+          $type_id = 2;
           $column = $name;
         }
         else{
+          $type_id = 0;
           $table_name = $entry['table_name'];
-          $column = $entry['column'];
-          $iso = $entry['iso'];
+          $column = $entry['column_name'];
+          //$iso = $entry['iso'];
         }
         if(!isset($entry['color'])){
           $color = '#'.substr(md5(rand()), 0, 6);
@@ -68,16 +70,17 @@ class IndexController extends Controller
         $index = new Index();
 
         $index->title = $entry['title'];
-        $index->full_name = $entry['title'];
-        $index->table = $table_name;
-        $index->is_group = $isGroup;
+        $index->name = $entry['title'];
+        $index->indicator_id = isset($entry['id']) ? $entry['id'] : null;
+        //$index->table = $table_name;
+        $index->item_type_id = $type_id;
         $index->name = $name;
-        $index->iso = $iso;
+        //$index->iso = $iso;
         $index->parent_id = $parent->id;
-        $index->column_name = $column;
-        $index->score_field_name = $column;
-        $index->color = $color;
-        $index->icon = $icon;
+        //$index->column_name = $column;
+        //$index->score_field_name = $column;
+        //$index->color = $color;
+        //$index->icon = $icon;
         $index->user_id = Auth::user()->id;
         $index->save();
         if($index->id && isset($entry['nodes'])){
@@ -150,9 +153,7 @@ class IndexController extends Controller
         elseif(is_string($id)){
           $index =  Index::where('name', $id)->first()->load('children');
         }
-        if($index->is_group){
-          $index->score_field_name = 'score';
-        }
+
         $index->load('parent');
 
         return response()->api($index);
@@ -161,12 +162,12 @@ class IndexController extends Controller
       if(isset($index->children)){
         if(count($index->children)){
           foreach($index->children as $key => &$item){
-            if($item->is_group == false){
-              $data = \DB::table($item->table)
+            if($item->item_type_id != 2){
+              $data = \DB::table($item->indicator->table_name)
                 ->where('year', $year)
-                ->leftJoin('23_countries', $item->table.".".$item->iso, '=', '23_countries.adm0_a3')
-                ->select($item->table.".".$item->score_field_name.' as score', $item->table.".year",'23_countries.adm0_a3 as iso','23_countries.admin as country')
-                ->orderBy($item->table.".".$item->score_field_name, 'desc')->get();
+                ->leftJoin('23_countries', $item->indicator->table_name.".".$item->indicator->iso_name, '=', '23_countries.adm0_a3')
+                ->select($item->indicator->table_name.".".$item->indicator->column_name.' as score', $item->indicator->table_name.".year",'23_countries.adm0_a3 as iso','23_countries.admin as country')
+                ->orderBy($item->indicator->table_name.".".$item->indicator->column_name, 'desc')->get();
               $item->data = $data;
             }
             if(count($item->children)){
@@ -244,26 +245,28 @@ class IndexController extends Controller
     public function averageData($item){
       $sum = array();
       foreach($item['children'] as $child){
-        if(!$child['is_group']){
-          foreach($child['data'] as $data){
-            if(!isset($sum[$data->iso][$child['score_field_name']])){
-                $sum[$data->iso][$child['score_field_name']]['value'] = 0;
-                $sum[$data->iso][$child['score_field_name']]['year'] = $data->year;
-                $sum[$data->iso][$child['score_field_name']]['calc'] = true;
+        $child->load('indicator');
+        if(!$child->item_type_id != 2){
+
+          foreach($child->data as $data){
+            if(!isset($sum[$data->iso][$child->name])){
+                $sum[$data->iso][$child->name]['value'] = 0;
+                $sum[$data->iso][$child->name]['year'] = $data->year;
+                $sum[$data->iso][$child->name]['calc'] = true;
                 //$sum[$data->iso]['country'] = $data->country;
             }
-            $sum[$data->iso][$child['score_field_name']]['value'] += $data->score;
+            $sum[$data->iso][$child->name]['value'] += $data->score;
           }
         }
         else{
           $sub = $this->averageData($child);
-          $su = $this->calcAverage($sub, $this->fieldCount($sub), $child['score_field_name']);
+          $su = $this->calcAverage($sub, $this->fieldCount($sub),$child->name);
           foreach($su as $key => &$s){
             foreach($s as $k => &$dat){
               $sum[$key][$k]['value'] = $dat['value'];
               $sum[$key][$k]['year'] = $dat['year'];
               $sum[$key][$k]['calc'] = false;
-              if($k == $child['score_field_name']){
+              if($k == $child['column_name']){
                 $sum[$key][$k]['calc'] = true;
               }
             }
@@ -286,7 +289,7 @@ class IndexController extends Controller
     public function calcValuesForStatistic($index){
       $scores = $this->averageDataForCountry($index);
       $data = array();
-      $scores = $this->calcAverage($scores, $this->fieldCount($scores), 'score');
+      $scores = $this->calcAverage($scores, $this->fieldCount($scores), $index->name);
       foreach ($scores as $key => $value) {
 
         foreach($value as $k => $column){
@@ -298,12 +301,13 @@ class IndexController extends Controller
       return $data;
     }
     public function calcValues($index){
-      if($index['is_group']){
+      //return $index;
+      if($index->item_type_id == 2){
         $score = $this->averageData($index);
       }
       $data = array();
       //return $score;
-      $score = $this->calcAverage($score, $this->fieldCount($score), 'score');
+      $score = $this->calcAverage($score, $this->fieldCount($score), $index->name);
       foreach ($score as $key => $value) {
         $entry = [
           'iso' => $key
@@ -344,9 +348,10 @@ class IndexController extends Controller
           $index = Index::where('name', $id)->firstOrFail();
         }
 
-          if($index->is_group){
+          if($index->item_type_id == 2){
             $data = $index->load('children');
-            return $this->calcValues($this->fetchData($data, $year)->toArray());
+            //return response()->api($this->fetchData($data, $year)->toArray());
+            return $this->calcValues($this->fetchData($data, $year));
           }
           else{
             $data = \DB::table($index->table)

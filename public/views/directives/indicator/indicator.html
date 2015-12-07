@@ -39,8 +39,7 @@
 																																<md-input-container class="md-block" ng-if="vm.item.type != 'per'">
 																																				<label>Unit of measure*</label>
 																																				<md-select ng-model="vm.item.measure_type_id" required>
-																																								<md-option value="1">Absolut</md-option>
-																																								<md-option value="2">Percentage</md-option>
+																																								<md-option ng-repeat="type in vm.measureTypes" value="{{type.id}}">{{type.title}}</md-option>
 																																				</md-select>
 																																</md-input-container>
 																																<div class="upload-uploader" layout-align="space-between center" layout="column">

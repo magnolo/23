@@ -784,6 +784,10 @@ md-toast[md-theme=warn] {
   padding: 0px;
 }
 
+section.module-top.menu md-list-item a {
+  margin: 0px;
+}
+
 md-toolbar.md-menu-toolbar {
   background-color: #ffffff;
   color: rgba(0, 0, 0, 0.87);
@@ -829,10 +833,6 @@ md-menu-bar {
   margin: 0 auto;
   max-width: 680px;
   padding: 24px;
-}
-
-section.module-top.menu md-list-item a {
-  margin: 0px;
 }
 
 .multi-view {
@@ -1086,7 +1086,6 @@ section.table md-data-table-pagination {
 }
 
 
-
 #Map_Container {
   height: calc(100% - 165px);
 }
@@ -1169,6 +1168,7 @@ section.table md-data-table-pagination {
 
 
 
+
 .bubbles {
   overflow: hidden;
   margin: 1em 0;
@@ -1216,6 +1216,12 @@ section.table md-data-table-pagination {
 }
 
 
+
+.indicator-tabs .indicator-fields {
+  padding: 0 1em;
+  max-width: 500px;
+  margin: 0 auto;
+}
 
 median {
   overflow: hidden;
@@ -1270,12 +1276,6 @@ median .slider text {
   -ms-user-select: none;
   user-select: none;
   cursor: ew-resize;
-}
-
-.indicator-tabs .indicator-fields {
-  padding: 0 1em;
-  max-width: 500px;
-  margin: 0 auto;
 }
 
 

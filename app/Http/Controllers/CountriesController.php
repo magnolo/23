@@ -33,7 +33,7 @@ class CountriesController extends Controller
     public function getBBox($countries){
 
         $box =  Countrie::select(\DB::raw('st_asgeojson(St_envelope(ST_Union(geom))) as bbox'))->whereIn('adm0_a3', explode(",",$countries))->first();
-        return $box->bbox;
+        return response()->api(json_decode($box->bbox));
     }
 
     public function getByIsoNames(Request $request){

@@ -268,7 +268,7 @@
         function saveData(){
         //  console.log(vm.meta.table);
           //console.log(vm.meta.table, vm.data[0].data[0].length);
-          console.log(vm.indicators);
+          //console.log(vm.indicators);
           //return false;
 
           var insertData = {data:[]};
@@ -291,7 +291,7 @@
                 'description':vm.indicators[key].description,
                 'measure_type_id':vm.indicators[key].measure_type_id || 0,
                 'type': vm.indicators[key].type,
-                'is_public': vm.indicators[key].is_public,
+                'is_public': vm.indicators[key].is_public || 0,
                 'dataprovider_id': vm.indicators[key].dataprovider.id || 0
               };
               var categories = [];
@@ -457,7 +457,7 @@
           DataService.post('index', vm.newIndex).then(function(response){
             vm.saveDisabled = false;
             toastr.success('Your Index has been created', 'Success'),
-            $state.go('app.index.show', {index:response.data.name});
+            $state.go('app.index.show', {index:response.name});
           },function(response){
             vm.saveDisabled = false;
             toastr.error(response.message,'Upps!!');
@@ -487,6 +487,7 @@
                   event.preventDefault();
                    $rootScope.stateIsLoading = false;
                 }
+
                 break;
             case 'app.index.create.final':
               break;
