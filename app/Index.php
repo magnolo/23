@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Index extends Model
 {
     //
-    protected $table="23_indices";
+    protected $table="23_items";
     //protected $calced= array();
 
     public function child(){

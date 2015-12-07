@@ -96,15 +96,15 @@ class IndexController extends Controller
 
         $index = new Index();
         $index->title = $request->input('title');
-        $index->full_name = $request->input('title');
+        //$index->full_name = $request->input('title');
         $index->table = '';
         $index->is_group = true;
         $index->name = $name;
         $index->iso = 'iso';
         $index->parent_id = 0;
-        $index->column_name = $name.'_score';
-        $index->score_field_name = $name.'_score';
-        $index->color = '#'.substr(md5(rand()), 0, 6);
+        //$index->column_name = $name.'_score';
+        //$index->score_field_name = $name.'_score';
+        //$index->color = '#'.substr(md5(rand()), 0, 6);
         $index->user_id = Auth::user()->id;
         $index->save();
 
