@@ -2,18 +2,8 @@
 	<form ng-submit="save()">
 		<md-dialog-content layout="column">
 			<h2 class="md-title">{{name}}</h2>
-
-			<md-input-container flex="100">
-        <label>Title</label>
-				<input type="text" ng-model="title">
-      </md-input-container>
-			<md-input-container flex="100">
-        <label>Description</label>
-				<textarea ng-model="description"></textarea>
-      </md-input-container>
-
+			<indicator ng-model="vm.indicator"></indicator>
 		</md-dialog-content>
-
 		<div class="md-actions" layout="row">
 			<md-button type="button" ng-click="hide()">Cancel</md-button>
 			<md-button class="md-primary" type="submit">Save</md-button>

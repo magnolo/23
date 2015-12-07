@@ -106,6 +106,9 @@
 					}
 				}
 			})
+			.state('app.index.create.basic', {
+				url: '/basic'
+			})
 			.state('app.index.create.check', {
 				url: '/checking'
 			})

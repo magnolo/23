@@ -37,4 +37,8 @@ class User extends Model implements
      * @var array
      */
     protected $hidden = ['password', 'remember_token'];
+
+    public function myData(){
+      return $this->hasMany('App\UserData', 'user_id', 'id');
+    }
 }

@@ -57,8 +57,11 @@ md-toast{
     border-radius: 20px;
   }
   ng-md-icon{
-    position:relative;
-    top:0.5em;
+    &.middle{
+      position:relative;
+      top:0.5em;
+    }
+
   }
   &.md-icon-button{
     &.small{
@@ -96,6 +99,12 @@ md-list-item{
   color:@dark-color;
   path{
     fill:@grey;
+  }
+  .md-button{
+    border-radius: 0;
+    .md-ripple-container{
+      border-radius: 0;
+    }
   }
 }
 .md-border{
@@ -164,4 +173,11 @@ md-toolbar{
     }
   }
 
+}
+.md-warn{
+  ng-md-icon{
+    path{
+      fill:rgb(244,67,54);
+    }
+  }
 }

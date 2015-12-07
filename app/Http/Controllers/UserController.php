@@ -96,4 +96,8 @@ class UserController extends Controller
     {
         //
     }
+
+    public function myData(){
+      return response()->api(Auth::user()->myData);
+    }
 }

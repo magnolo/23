@@ -35,6 +35,49 @@ class CountriesController extends Controller
         $box =  Countrie::select(\DB::raw('st_asgeojson(St_envelope(ST_Union(geom))) as bbox'))->whereIn('adm0_a3', explode(",",$countries))->first();
         return $box->bbox;
     }
+
+    public function getByIsoNames(Request $request){
+      $data = array();
+      foreach($request->input('data') as $entry){
+        if($entry['iso'] == ''){
+          $country = Countrie::select('iso_a3 as iso3','adm0_a3 as iso', 'name', 'name_long', 'admin','formal_en','brk_name','geounit')
+            ->where('admin', 'like', '%'.$entry['name'].'%')
+            ->orWhere('geounit', 'like', '%'.$entry['name'].'%')
+            ->orWhere('name', 'like', '%'.$entry['name'].'%')
+            ->orWhere('name_long', 'like', '%'.$entry['name'].'%')
+            ->orWhere('brk_name', 'like', '%'.$entry['name'].'%')
+            ->orWhere('formal_en', 'like', '%'.$entry['name'].'%')
+            ->get();
+            //  $data[$country[0]->iso] = $country;
+        }
+        else{
+          $country = Countrie::select('iso_a3 as iso3','adm0_a3 as iso', 'name', 'name_long', 'admin','formal_en','brk_name','geounit')
+            ->where('adm0_a3', 'like', '%'.$entry['iso'].'%')
+            ->get();
+        }
+
+        if(count($country) < 1){
+          if($entry['iso'] != ''){
+            $country = Countrie::select('iso_a3 as iso3', 'adm0_a3 as iso', 'name', 'name_long', 'admin','formal_en','brk_name','geounit')
+              ->where('admin', 'like', '%'.$entry['name'].'%')
+              ->orWhere('geounit', 'like', '%'.$entry['name'].'%')
+              ->orWhere('name', 'like', '%'.$entry['name'].'%')
+              ->orWhere('name_long', 'like', '%'.$entry['name'].'%')
+              ->orWhere('brk_name', 'like', '%'.$entry['name'].'%')
+              ->orWhere('formal_en', 'like', '%'.$entry['name'].'%')
+              ->get();
+          }
+        }
+        $d = [
+          'name' => $entry['name'],
+          'iso' => $entry['iso'],
+          'data' => $country
+
+        ];
+        $data[] = $d;
+      }
+      return response()->api($data);
+    }
     /**
      * Show the form for creating a new resource.
      *

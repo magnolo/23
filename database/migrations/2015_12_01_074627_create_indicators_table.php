@@ -17,6 +17,7 @@ class CreateIndicatorsTable extends Migration
             $table->integer('userdata_id')->unsigned();
             //$table->foreign('userdata_id')->references('id')->on('23_userdata');
             $table->integer('measure_type_id')->unsigned();
+            $table->enum('type',['abs', 'per']);
             //$table->foreign('measure_type_id')->references('id')->on('23_measure_types');
             $table->integer('style_id')->default(0);
             //$table->foreign('style_id')->references('id')->on('23_styles');

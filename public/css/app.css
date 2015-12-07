@@ -555,7 +555,7 @@ md-toast {
 .md-button .md-ripple-container {
   border-radius: 20px;
 }
-.md-button ng-md-icon {
+.md-button ng-md-icon.middle {
   position: relative;
   top: 0.5em;
 }
@@ -584,6 +584,12 @@ md-list-item {
 }
 md-list-item path {
   fill: #afafaf;
+}
+md-list-item .md-button {
+  border-radius: 0;
+}
+md-list-item .md-button .md-ripple-container {
+  border-radius: 0;
 }
 .md-border {
   border: 1px solid;
@@ -633,6 +639,9 @@ md-toolbar.clean .md-toolbar-tools {
   color: #f44336;
 }
 .info.warning path {
+  fill: #f44336;
+}
+.md-warn ng-md-icon path {
   fill: #f44336;
 }
 
@@ -775,10 +784,6 @@ md-toast[md-theme=warn] {
   padding: 0px;
 }
 
-section.module-top.menu md-list-item a {
-  margin: 0px;
-}
-
 md-toolbar.md-menu-toolbar {
   background-color: #ffffff;
   color: rgba(0, 0, 0, 0.87);
@@ -824,6 +829,10 @@ md-menu-bar {
   margin: 0 auto;
   max-width: 680px;
   padding: 24px;
+}
+
+section.module-top.menu md-list-item a {
+  margin: 0px;
 }
 
 .multi-view {
@@ -979,7 +988,8 @@ section.table md-data-table-toolbar md-input-container {
 }
 section.table md-data-table-container {
   font-family: RobotoDraft, Roboto, 'Helvetica Neue', sans-serif;
-  margin-bottom: 56px;
+  max-height: calc(100% - 120px);
+  overflow: auto;
 }
 section.table md-data-table-container thead:not([md-table-progress]) > tr > th {
   color: #006bb9;
@@ -1069,6 +1079,10 @@ section.table md-data-table-pagination {
   font-size: 3em;
   position: relative;
   top: 3px;
+}
+.fill-noheader {
+  height: calc(100% - 64px);
+  min-height: calc(100% - 64px);
 }
 
 
@@ -1256,6 +1270,12 @@ median .slider text {
   -ms-user-select: none;
   user-select: none;
   cursor: ew-resize;
+}
+
+.indicator-tabs .indicator-fields {
+  padding: 0 1em;
+  max-width: 500px;
+  margin: 0 auto;
 }
 
 

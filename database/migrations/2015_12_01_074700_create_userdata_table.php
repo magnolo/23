@@ -16,12 +16,15 @@ class CreateUserdataTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             //$table->foreign('user_id')->references('id')->on('users');
-            $table->integer('dataprovider_id')->unsigned()->default(0);
+            $table->integer('dataprovider_id')->nullable()->unsigned()->default(0);
             //$table->foreign('dataprovider_id')->references('id')->on('23_dataproviders');
             $table->string('table_name');
             $table->string('iso_name');
             $table->json('meta_data');
+            $table->string('name');
+            $table->string('title');
             $table->text('description')->nullable();
+            $table->text('caption')->nullable();
             $table->boolean('is_public')->default(false);
             $table->boolean('is_api')->default(false);
             $table->softDeletes();

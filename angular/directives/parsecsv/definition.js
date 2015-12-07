@@ -81,7 +81,6 @@
 												if(headings[i].length == 3){
 													isIso.push(true);
 												}
-												console.log(headings[i]);
 											}
 										}
 										if(headings.length == isIso.length){
@@ -138,7 +137,7 @@
 											$scope.vm.meta.iso_field = 'iso';
 										}
 
-										$state.go('app.index.create.check');
+										$state.go('app.index.create.basic');
 										toastr.info($scope.vm.data.length+' lines importet!', 'Information')
 									}
 								})

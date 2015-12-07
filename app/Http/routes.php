@@ -36,9 +36,9 @@ $api->version('v1', function ($api) {
     $api->get('countries/isos', 'App\Http\Controllers\CountriesController@isoList');
     $api->get('countries/{iso}', 'App\Http\Controllers\CountriesController@show');
     $api->get('countries/bbox/{countries}', 'App\Http\Controllers\CountriesController@getBBox');
+    $api->post('countries/byIsoNames', 'App\Http\Controllers\CountriesController@getByIsoNames');
+    $api->get('countries/byName/{name}', 'App\Http\Controllers\CountriesController@getByName');
 
-    $api->get('nations/byName/{name}', 'App\Http\Controllers\NationsController@getByName');
-    $api->post('nations/byIsoNames', 'App\Http\Controllers\NationsController@getByIsoNames');
 
     $api->get('data/tables', 'App\Http\Controllers\UserdataController@index');
 
@@ -54,6 +54,7 @@ $api->version('v1', ['middleware' => 'api.auth'], function ($api) {
 
 
     $api->get('me', 'App\Http\Controllers\UserController@index');
+    $api->get('me/data', 'App\Http\Controllers\UserController@myData');
 
     $api->post('data/tables', 'App\Http\Controllers\UserdataController@createDataTable');
     $api->post('data/tables/{table}/insert', 'App\Http\Controllers\UserdataController@insertDataToTable');

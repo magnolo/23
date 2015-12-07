@@ -165,7 +165,8 @@ section{
     }
     md-data-table-container{
         font-family: RobotoDraft,Roboto,'Helvetica Neue',sans-serif;
-      margin-bottom:56px;
+        max-height: calc(~"100% - 120px");
+      overflow: auto;
 
       thead:not([md-table-progress])>tr>th {
         color: #006bb9;
@@ -294,4 +295,8 @@ section{
       position: relative;
       top: 3px;
     }
+}
+.fill-noheader{
+  height: calc(~'100% - 64px');
+    min-height: calc(~'100% - 64px');
 }

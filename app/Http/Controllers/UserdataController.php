@@ -11,8 +11,11 @@ use Auth;
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use App\User;
+use App\Indicator;
 
 use Illuminate\Database\Schema\Blueprint;
+
+
 
 class UserdataController extends Controller
 {
@@ -25,12 +28,13 @@ class UserdataController extends Controller
     public function index()
     {
         //v
-          $data = array();
+        return response()->api(Indicator::all());
+        /*  $data = array();
           $tables = UserData::all();
           foreach($tables as $table){
             $meta = json_decode($table->meta_data);
             foreach($meta as $source){
-              $d = ['title' => $source->title, 'table_name' => $table->table_name, 'column' => $source->column, 'iso' => $table->iso];
+              $d = ['title' => $source->title, 'table_name' => $table->table_name, 'column' => $source->column, 'iso' => $table->iso_name];
               if(isset($source->description)){
                 $d['description'] = $source->description;
               }
@@ -41,7 +45,7 @@ class UserdataController extends Controller
           $data = array_values(array_sort($data, function($value){
             return $value['title'];
           }));
-          return $data;
+          return $data;*/
     }
 
     /**
@@ -123,7 +127,6 @@ class UserdataController extends Controller
       return response()->api($data);
     }
     public function createDataTable(Request $request){
-
       $data = array();
       $name = preg_replace('/\s[\s]+/','_',$request->input('name'));    // Strip off multiple spaces
       $name = preg_replace('/[\s\W]+/','_',$name);    // Strip off spaces and non-alpha-numeric
@@ -132,6 +135,8 @@ class UserdataController extends Controller
       $name = strtolower($name);
       //dd(strtolower($name));
       $data['table_name'] = $name;
+
+      \DB::transaction(function () use ($request, $name, &$data) {
       $data['db'] = \Schema::create('user_table_'.$name, function(Blueprint $table) use ($request){
         $table->increments('id');
         $table->string($request->input('iso_field'));
@@ -140,27 +145,45 @@ class UserdataController extends Controller
         }
         foreach($request->input('fields') as $field){
           if($field != 'year'){
-            $table->string($field['column']);
+            $table->string($field['column'])->nullable();
           }
         }
         $table->integer('year');
       });
+
       $user = Auth::user();
-      $data['user'] = $user;
-      $data['fields'] = $request->input('fields');
-      $data['data'] = UserData::insert([
+      $data['userdata_id'] = UserData::insertGetId([
         'user_id' => $user->id,
+        'dataprovider_id' => $request->input('dataprovider_id'),
         'table_name' => 'user_table_'.$name,
         'name' => $name,
         'title' => $request->input('name'),
         'description' => $request->input('description'),
         'caption' => $request->input('caption'),
         'meta_data' => json_encode($request->input('fields')),
+        'is_public' => 0,
+        'is_api' => 0,
         'created_at' => 'NOW()',
         'updated_at' => 'NOW()',
-        'iso' => $request->input('iso_field')
+        'iso_name' => $request->input('iso_field')
         ]
       );
+
+      foreach($request->input('fields') as $field){
+        $indicator = new Indicator;
+        $indicator->column_name = $field['column'];
+        $indicator->userdata_id = $data['userdata_id'];
+        $indicator->title = $field['title'];
+        $indicator->name = $field['title'];
+        $indicator->type = $field['type'];
+        $indicator->measure_type_id = $field['measure_type_id'];
+        $indicator->table_name = 'user_table_'.$name;
+        $indicator->iso_name = $request->input('iso_field');
+        $indicator->is_public = $field['is_public'];
+        $indicator->is_official = false;
+        $data['indicators'][] = $indicator->save();
+      }
+    });
       return response()->api($data);
     }
 }

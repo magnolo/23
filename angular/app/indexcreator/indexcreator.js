@@ -11,7 +11,10 @@
         vm.selectedRows = [];
         vm.selectedResources =[];
         vm.sortedResources = [];
+        vm.indicators = [];
         vm.groups = [];
+        vm.myData = [];
+        vm.addDataTo = {};
         vm.selectedForGroup = [];
         vm.iso_errors = 0;
         vm.iso_checked = false;
@@ -46,6 +49,8 @@
         vm.removeEntry = removeEntry;
         vm.saveIndex = saveIndex;
         vm.icons = IconsService.getList();
+        vm.selectForEditing = selectForEditing;
+        vm.checkFields = checkFields;
         vm.meta = {
           iso_field: '',
           country_field:'',
@@ -163,6 +168,16 @@
           vm.toEdit = key;
           DialogService.fromTemplate('editcolumn', $scope);
         }
+        function selectForEditing(key){
+          if(typeof vm.indicators[key] == "undefined"){
+            vm.indicators[key] = {
+              column_name:key,
+              title:key
+            };
+          }
+          vm.editingItem = key;
+          vm.indicator = vm.indicators[key];
+        }
         function deleteSelected(){
           angular.forEach(vm.selected, function(item, key){
             angular.forEach(item.errors, function(error, k){
@@ -209,8 +224,8 @@
                 name: item.data[0][vm.meta.country_field]
               });
           });
-          DataService.post('/nations/byIsoNames', {data:entries}).then(function(response){
-              angular.forEach(response.data, function(country, key){
+          DataService.post('countries/byIsoNames', {data:entries}).then(function(response){
+              angular.forEach(response, function(country, key){
                 angular.forEach(vm.data, function(item, k){
                     if(country.name == item.data[0][vm.meta.country_field]){
                       if(country.data.length > 1){
@@ -253,6 +268,7 @@
         function saveData(){
         //  console.log(vm.meta.table);
           //console.log(vm.meta.table, vm.data[0].data[0].length);
+          console.log(vm.indicators);
           //return false;
 
           var insertData = {data:[]};
@@ -268,12 +284,21 @@
             }
           });
           angular.forEach(vm.data[0].data[0], function(item, key){
-            if(vm.meta.table[key]){
+            if(vm.indicators[key]){
               var field = {
                 'column': key,
-                'title':vm.meta.table[key].title,
-                'description':vm.meta.table[key].description
+                'title':vm.indicators[key].title,
+                'description':vm.indicators[key].description,
+                'measure_type_id':vm.indicators[key].measure_type_id || 0,
+                'type': vm.indicators[key].type,
+                'is_public': vm.indicators[key].is_public,
+                'dataprovider_id': vm.indicators[key].dataprovider.id || 0
               };
+              var categories = [];
+              angular.forEach(vm.indicators[key].categories, function(cat){
+                categories.push(cat.id);
+              });
+              field.categories = categories;
               fields.push(field);
             }
           });
@@ -285,10 +310,10 @@
           })
           vm.meta.fields = fields;
           vm.meta.info = meta;
-
+          console.log(vm.meta);
           DataService.post('data/tables', vm.meta).then(function(response){
-              DataService.post('data/tables/'+response.data.table_name+'/insert', insertData).then(function(res){
-                if(res.data == true){
+              DataService.post('data/tables/'+response.table_name+'/insert', insertData).then(function(res){
+                if(res == true){
                   toastr.success(insertData.data.length+' items importet to '+vm.meta.name,'Success');
                   vm.data = [];
                   vm.step = 0;
@@ -307,7 +332,6 @@
           }
         }
         function listResources(){
-
           if(!vm.resources){
             DataService.getAll('data/tables').then(function(response){
               vm.resources = response;
@@ -414,29 +438,6 @@
         function removeEntry(item, list){
             deleteFromGroup(item, list);
         }
-        $scope.$on("$stateChangeStart", function (event, toState, toParams, fromState, fromParams) {
-          switch (toState.name) {
-            case 'app.index.create.check':
-              break;
-            case 'app.index.create.meta':
-                if(!vm.meta.iso_field){
-                  toastr.error('No field for ISO Code selected!', 'Error');
-                  event.preventDefault();
-                   $rootScope.stateIsLoading = false;
-                }
-                break;
-            case 'app.index.create.final':
-              break;
-            default:
-                if(vm.data.length){
-                  $scope.toState = toState;
-                  DialogService.fromTemplate('loosedata', $scope, vm.deleteData);
-                  event.preventDefault();
-                  $rootScope.stateIsLoading = false;
-                }
-              break;
-          }
-        });
         function saveIndex(){
           if(vm.saveDisabled){
             return;
@@ -462,6 +463,44 @@
             toastr.error(response.message,'Upps!!');
           });
         }
+
+        function checkFields(data){
+          console.log(vm.data);
+          angular.forEach(vm.data[0].meta.fields, function(field){
+
+          })
+          console.log(data);
+        }
+        $scope.$on("$stateChangeStart", function (event, toState, toParams, fromState, fromParams) {
+
+          switch (toState.name) {
+            case 'app.index.create.basic':
+              if(!vm.myData.length){
+                vm.myData = DataService.getAll('me/data').$object;
+              }
+              break;
+            case 'app.index.create.check':
+              break;
+            case 'app.index.create.meta':
+                if(!vm.meta.iso_field){
+                  toastr.error('No field for ISO Code selected!', 'Error');
+                  event.preventDefault();
+                   $rootScope.stateIsLoading = false;
+                }
+                break;
+            case 'app.index.create.final':
+              break;
+            default:
+                if(vm.data.length){
+                  $scope.toState = toState;
+                  DialogService.fromTemplate('loosedata', $scope, vm.deleteData);
+                  event.preventDefault();
+                  $rootScope.stateIsLoading = false;
+                }
+              break;
+          }
+        });
+
         $scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParams) {
           if(!vm.data.length){
             $state.go('app.index.create');
@@ -471,15 +510,21 @@
               case 'app.index.create':
                   vm.step = 0;
                 break;
+              case 'app.index.create.basic':
+                    vm.step = 1;
+                    vm.showUploadContainer = false;
+                  break;
               case 'app.index.create.check':
-                  vm.step = 1;
+                  vm.step = 2;
                   vm.showUploadContainer = false;
                 break;
               case 'app.index.create.meta':
-                  vm.step = 2;
+                  vm.step = 3;
+                    vm.showUploadContainer = false;
                   break;
               case 'app.index.create.final':
-                  vm.step = 3;
+                  vm.step = 4;
+                    vm.showUploadContainer = false;
                   break;
               default:
                 break;
