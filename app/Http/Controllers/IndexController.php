@@ -370,18 +370,12 @@ class IndexController extends Controller
       elseif(is_string($id)){
         $index = Index::where('name', $id)->firstOrFail()->load('type');
       }
-      //if($index->type->name == 'group'){
         $data = $index->load('children');
         $response = [
            'iso' => $iso,
            'data' => $this->calcValuesForStatistic($this->fetchDataForCountry($data, $iso))
         ];
-        //return response()->api($this->fetchDataForCountry($data, $iso));
         return response()->api($response);
-      /*}
-      else{
-        return response()->api(Nation::all()->load('epi'));
-      }*/
     }
     public function showByYear($id, $year)
     {
