@@ -33,8 +33,7 @@
 					if(n === o){
 						return;
 					}
-					console.log(n);
-					if(n.title && n.measure_type_id && n.type && n.dataprovider){
+					if(n.title && n.measure_type_id && n.dataprovider){
 						n.base = true;
 					}
 					else{

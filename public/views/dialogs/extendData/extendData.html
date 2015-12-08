@@ -1,0 +1,33 @@
+<md-dialog ng-controller="ExtendDataCtrl">
+	<form name="extendForm" novalidate="" ng-submit="save()">
+		<md-dialog-content>
+			<h2 class="md-title">Extend your data?</h2>
+			<p>
+				There are data imports, which are compatible to your current selected file.
+			</p>
+			<p>
+				If you would like to extend, select the table and enter the year.
+			</p>
+			<div layout="row">
+			<md-input-container flex="70" >
+        <label>Data to extend</label>
+        <md-select ng-model="vm.addDataTo" required>
+          <md-option ng-repeat="entry in vm.extendingChoices" ng-value="entry">
+            {{entry.title}}
+          </md-option>
+        </md-select>
+      </md-input-container>
+			<md-input-container flex="30">
+        <label>Year</label>
+				<input type="number" required ng-model="vm.meta.year">
+      		</md-input-container>
+				</div>
+		</md-dialog-content>
+
+		<div class="md-actions" layout="row">
+			<md-button type="button" ng-click="hide()">Cancel</md-button>
+
+			<md-button ng-if="vm.addDataTo"  ng-disabled="extendForm.$invalid" class="md-primary md-raised" type="submit">Import to {{vm.addDataTo.title}}</md-button>
+		</div>
+	</form>
+</md-dialog>

@@ -28,7 +28,7 @@ class CountriesController extends Controller
       foreach ($countries as $key => $country) {
         $data[$country->iso] = $country->country;
       }
-      return $data;
+      return response()->api($data);
     }
     public function getBBox($countries){
 

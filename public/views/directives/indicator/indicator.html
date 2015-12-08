@@ -29,13 +29,13 @@
 																																</div>
 																												</md-input-container>
 																												<md-content layout-padding style="padding-top:0px 0.5em   ;">
-																																<md-input-container class="md-block">
+																																<!--<md-input-container class="md-block">
 																																				<label>Type of data*</label>
-																																				<md-select ng-model="vm.item.type" required>
+																																				<md-select ng-model="vm.item.type" >
 																																								<md-option value="abs">Absolut</md-option>
 																																								<md-option value="per">Percentage</md-option>
 																																				</md-select>
-																																</md-input-container>
+																																</md-input-container>-->
 																																<md-input-container class="md-block" ng-if="vm.item.type != 'per'">
 																																				<label>Unit of measure*</label>
 																																				<md-select ng-model="vm.item.measure_type_id" required>

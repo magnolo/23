@@ -48,6 +48,7 @@
         vm.editEntry = editEntry;
         vm.removeEntry = removeEntry;
         vm.saveIndex = saveIndex;
+        vm.extendData = extendData;
         vm.icons = IconsService.getList();
         vm.selectForEditing = selectForEditing;
         vm.checkFields = checkFields;
@@ -265,6 +266,29 @@
             toastr.error('Please check your field selections', response.data.message);
           })
         }
+        function extendData(){
+          console.log(vm.meta);
+          var insertData = {data:[]};
+          var meta = [], fields = [];
+          angular.forEach(vm.data, function(item, key){
+            if(item.errors.length == 0){
+              item.data[0].year = vm.meta.year;
+              insertData.data.push(item.data[0]);
+            }
+            else{
+              toastr.error('There are some errors left!', 'Huch!');
+              return;
+            }
+          });
+
+          DataService.post('data/tables/'+vm.addDataTo.table_name+'/insert', insertData).then(function(res){
+            if(res == true){
+              toastr.success(insertData.data.length+' items importet to '+vm.meta.name,'Success');
+              vm.data = [];
+              vm.step = 0;
+            }
+          });
+        }
         function saveData(){
         //  console.log(vm.meta.table);
           //console.log(vm.meta.table, vm.data[0].data[0].length);
@@ -290,7 +314,6 @@
                 'title':vm.indicators[key].title,
                 'description':vm.indicators[key].description,
                 'measure_type_id':vm.indicators[key].measure_type_id || 0,
-                'type': vm.indicators[key].type,
                 'is_public': vm.indicators[key].is_public || 0,
                 'dataprovider_id': vm.indicators[key].dataprovider.id || 0
               };
@@ -310,7 +333,7 @@
           })
           vm.meta.fields = fields;
           vm.meta.info = meta;
-          console.log(vm.meta);
+          console.log(insertData);
           DataService.post('data/tables', vm.meta).then(function(response){
               DataService.post('data/tables/'+response.table_name+'/insert', insertData).then(function(res){
                 if(res == true){
@@ -465,18 +488,48 @@
         }
 
         function checkFields(data){
-          console.log(vm.data);
+          //console.log(vm.data);
           angular.forEach(vm.data[0].meta.fields, function(field){
 
           })
-          console.log(data);
+          //console.log(data);
+        }
+        function checkMyData(){
+          vm.extendingChoices = [];
+          vm.myData.then(function(imports){
+
+            angular.forEach(imports, function(entry){
+              var found = 0;
+              angular.forEach(vm.data[0].meta.fields, function(field){
+                  var columns = JSON.parse(entry.meta_data);
+                  angular.forEach(columns, function(column){
+                    if(column.column == field ){
+                      found++;
+                      console.log(column.column, field);
+                    }
+                  })
+
+              });
+
+              console.log(found,vm.data[0].meta.fields.length);
+              if(found >= vm.data[0].meta.fields.length - 2){
+                vm.extendingChoices.push(entry);
+              }
+            })
+            if(vm.extendingChoices.length){
+              DialogService.fromTemplate('extendData', $scope);
+            }
+            else{
+              $state.go('app.index.create.check');
+            }
+          });
         }
         $scope.$on("$stateChangeStart", function (event, toState, toParams, fromState, fromParams) {
-
+          vm.iso_checked = false;
           switch (toState.name) {
             case 'app.index.create.basic':
               if(!vm.myData.length){
-                vm.myData = DataService.getAll('me/data').$object;
+                vm.myData = DataService.getAll('me/data');
               }
               break;
             case 'app.index.create.check':
@@ -513,7 +566,7 @@
                 break;
               case 'app.index.create.basic':
                     vm.step = 1;
-                    vm.showUploadContainer = false;
+                    checkMyData();
                   break;
               case 'app.index.create.check':
                   vm.step = 2;

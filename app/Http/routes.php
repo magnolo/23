@@ -27,6 +27,7 @@ $api->version('v1', function ($api) {
     $api->get('index', 'App\Http\Controllers\IndexController@index');
     $api->get('index/alphabethical', 'App\Http\Controllers\IndexController@alphabethical');
     $api->get('index/{id}', 'App\Http\Controllers\IndexController@index');
+    $api->get('index/{id}/year/latest', 'App\Http\Controllers\IndexController@showLatestYear');
     $api->get('index/{id}/year/{year}', 'App\Http\Controllers\IndexController@showByYear');
     $api->get('index/{id}/structure', 'App\Http\Controllers\IndexController@showWithChildren');
     $api->get('index/{id}/{iso}', 'App\Http\Controllers\IndexController@showByIso');

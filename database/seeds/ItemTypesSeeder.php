@@ -28,8 +28,8 @@ class ItemTypesSeeder extends Seeder
           'title' => 'Composit'
         ]);
         ItemType::create([
-          'name' => 'indicator',
-          'title' => 'Indicator'
+          'name' => 'index',
+          'title' => 'Index'
         ]);
 
     }

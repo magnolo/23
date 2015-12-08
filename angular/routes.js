@@ -127,9 +127,9 @@
 						controllerAs: 'vm',
 						resolve: {
 							initialData: function (DataService, $stateParams) {
-								var d = DataService.getAll('index/' + $stateParams.index + '/year/2014');
+								var d = DataService.getAll('index/' + $stateParams.index + '/year/latest');
 								var i = DataService.getOne('index/' + $stateParams.index + '/structure');
-								var countries = DataService.getAll('countries');
+								var countries = DataService.getOne('countries/isos');
 								return {
 									dataObject: d.$object,
 									indexerObject: i.$object,

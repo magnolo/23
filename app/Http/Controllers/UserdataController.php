@@ -122,7 +122,7 @@ class UserdataController extends Controller
       $dataChunks = array_chunk($request->input('data'), 100);
       $data = array();
       foreach($dataChunks as $chunk) {
-          $data = \DB::table('user_table_'.$table)->insert($chunk);
+          $data = \DB::table($table)->insert($chunk);
       }
       return response()->api($data);
     }
@@ -134,7 +134,7 @@ class UserdataController extends Controller
       $name = preg_replace('/[\-]+$/','',$name); // // Strip off the ending hyphens
       $name = strtolower($name);
       //dd(strtolower($name));
-      $data['table_name'] = $name;
+      $data['table_name'] = 'user_table_'.$name;
 
       \DB::transaction(function () use ($request, $name, &$data) {
       $data['db'] = \Schema::create('user_table_'.$name, function(Blueprint $table) use ($request){
@@ -154,7 +154,6 @@ class UserdataController extends Controller
       $user = Auth::user();
       $data['userdata_id'] = UserData::insertGetId([
         'user_id' => $user->id,
-        'dataprovider_id' => $request->input('dataprovider_id'),
         'table_name' => 'user_table_'.$name,
         'name' => $name,
         'title' => $request->input('name'),
@@ -165,7 +164,8 @@ class UserdataController extends Controller
         'is_api' => 0,
         'created_at' => 'NOW()',
         'updated_at' => 'NOW()',
-        'iso_name' => $request->input('iso_field')
+        'iso_name' => $request->input('iso_field'),
+        'country_name' => $request->input('country_field')
         ]
       );
 
@@ -173,9 +173,9 @@ class UserdataController extends Controller
         $indicator = new Indicator;
         $indicator->column_name = $field['column'];
         $indicator->userdata_id = $data['userdata_id'];
+        $indicator->dataprovider_id = $field['dataprovider_id'];
         $indicator->title = $field['title'];
         $indicator->name = $field['title'];
-        $indicator->type = $field['type'];
         $indicator->measure_type_id = $field['measure_type_id'];
         $indicator->table_name = 'user_table_'.$name;
         $indicator->iso_name = $request->input('iso_field');

@@ -7,7 +7,6 @@
 		vm.map = null;
 
 		vm.dataServer = initialData.data;
-		vm.data = initialData.dataObject;
 		vm.countryList = initialData.countries;
 		vm.structureServer = initialData.indexer;
 		vm.structure = "";
@@ -55,8 +54,7 @@
 
 			vm.structureServer.then(function(structure){
 				vm.dataServer.then(function(data){
-
-					console.log(vm.data);
+					vm.data = data;
 					vm.structure = structure;
 					createCanvas();
 					drawCountries();
@@ -123,13 +121,13 @@
 			var rank = 0;
 			angular.forEach(vm.data, function(item) {
 				item[vm.structure.name] = parseFloat(item[vm.structure.name]);
-				item['score'] = parseFloat(item['score']);
-			})
-			vm.data = $filter('orderBy')(vm.data, [vm.structure.name, "score"], true);
+				item['score'] = parseFloat(item[vm.structure.name]);
+			});
+			vm.data = $filter('orderBy')(vm.data, [vm.structure.name], 'iso', true);
 			rank = vm.data.indexOf(vm.current) + 1;
 			vm.current[vm.structure.name+'_rank'] = rank;
 			vm.circleOptions = {
-					color:vm.structure.color,
+					color:vm.structure.color || '#00ccaa',
 					field:vm.structure.name+'_rank'
 			};
 			return rank;
@@ -209,11 +207,12 @@
 			var isos = [];
 			var compare = [];
 			angular.forEach(vm.compare.countries, function (item, key) {
-				isos.push(item[vm.structure.iso]);
+				isos.push(item.iso);
 				if(item[vm.structure.iso] != vm.current.iso){
 					compare.push(item.iso);
 				}
 			});
+			console.log(isos);
 			if (isos.length > 1) {
 				DataService.getOne('countries/bbox', isos).then(function (data) {
 					vm.bbox = data;
@@ -283,7 +282,7 @@
 			return nation;
 		};
 
-		function createCanvas(colors) {
+		function createCanvas(color) {
 
 			vm.canvas = document.createElement('canvas');
 			vm.canvas.width = 280;
@@ -291,7 +290,7 @@
 			vm.ctx = vm.canvas.getContext('2d');
 			var gradient = vm.ctx.createLinearGradient(0, 0, 280, 10);
 			gradient.addColorStop(1, 'rgba(255,255,255,0)');
-			gradient.addColorStop(0.53, 'rgba(128, 243, 198,1)');
+			gradient.addColorStop(0.53, color ||  'rgba(128, 243, 198,1)');
 			gradient.addColorStop(0, 'rgba(102,102,102,1)');
 			vm.ctx.fillStyle = gradient;
 			vm.ctx.fillRect(0, 0, 280, 10);
@@ -302,7 +301,7 @@
 		function updateCanvas(color) {
 			var gradient = vm.ctx.createLinearGradient(0, 0, 280, 10);
 			gradient.addColorStop(1, 'rgba(255,255,255,0)');
-			gradient.addColorStop(0.53, color);
+			gradient.addColorStop(0.53, color || 'rgba(128, 243, 198,1)' );
 			gradient.addColorStop(0, 'rgba(102,102,102,1)');
 			vm.ctx.fillStyle = gradient;
 			vm.ctx.fillRect(0, 0, 280, 10);
@@ -316,7 +315,6 @@
 			var nation = getNationByIso(iso);
 			var field = vm.structure.name || 'score';
 
-			console.log(vm.structure.name);
 			var colorPos = parseInt(256 / 100 * nation[field]) * 4;
 			var color = 'rgba(' + vm.palette[colorPos] + ', ' + vm.palette[colorPos + 1] + ', ' + vm.palette[colorPos + 2] + ',' + vm.palette[colorPos + 3] + ')';
 			style.color = 'rgba(0,0,0,0)';
@@ -339,7 +337,7 @@
 			var style = {};
 			var iso = feature.properties.adm0_a3;
 			var nation = getNationByIso(iso);
-			var field = vm.structure.column_name || 'score';
+			var field = vm.structure.name || 'score';
 			var type = feature.type;
 			if(iso != vm.current.iso){
 					feature.selected = false;
@@ -390,7 +388,7 @@
 			if (n === o) {
 				return;
 			}
-			console.log(n);
+
 			if(n.iso) {
 				if(o.iso){
 					vm.mvtSource.layers.countries_big_geom.features[o.iso].selected = false;
@@ -414,7 +412,7 @@
 			if (n === o) {
 				return
 			}
-			if (n)
+			if (n.color)
 				updateCanvas(n.color);
 			else {
 				updateCanvas('rgba(128, 243, 198,1)');
@@ -457,7 +455,6 @@
 			if (n === o) {
 				return;
 			}
-			console.log(n);
 			var lat = [n.coordinates[0][0][1],
 					[n.coordinates[0][0][0]]
 				],
@@ -536,6 +533,7 @@
 					}
 					else{
 						vm.mvtSource.setStyle(countriesStyle);
+
 						if($state.params.item){
 								vm.mvtSource.layers.countries_big_geom.features[$state.params.item].selected = true;
 						}
@@ -545,7 +543,6 @@
 				vm.mvtSource.options.onClick = function (evt, t) {
 					if (!vm.compare.active) {
 						var c = getNationByIso(evt.feature.properties.adm0_a3);
-						console.log(evt.feature.properties.adm0_a3, c, vm.current);
 						if (typeof c[vm.structure.name] != "undefined") {
 							vm.current = getNationByIso(evt.feature.properties.adm0_a3);
 						} else {

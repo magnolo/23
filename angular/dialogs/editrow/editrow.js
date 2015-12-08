@@ -5,7 +5,7 @@
         $scope.data = $scope.$parent.vm.selected[0];
         $scope.save = function(){
             //
-            console.log($scope.data);
+            DialogService.hide();
         };
 
         $scope.hide = function(){

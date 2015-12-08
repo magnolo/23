@@ -1,3 +1,4 @@
+<div class="multi-view">
 <section class="module-top md-whiteframe-z2" ng-class="{'out': vm.data.length}">
 				<md-subheader class="md-no-sticky">Choose data source</md-subheader>
 				<md-list>
@@ -35,10 +36,10 @@
 												<p>Upload new data</p>
 												<ng-md-icon icon="{{vm.openClose(vm.showUploadContainer)}}"></ng-md-icon>
 								</md-list-item>
-								<md-list-item ng-if="!vm.showResources" ui-sref="app.index.editor">
+								<!--<md-list-item ng-if="!vm.showResources" ui-sref="app.index.editor">
 												<p>Edit existing data</p>
 												<ng-md-icon icon="{{vm.openClose(vm.showUploadContainer)}}"></ng-md-icon>
-								</md-list-item>
+								</md-list-item>-->
 				</md-list>
 
 				<div class="slide-toggle upload-container" ng-if="vm.showUploadContainer">
@@ -130,8 +131,8 @@
 												</section>
 								</md-content>
 				</section>
-				<section class="table anim md-whiteframe-z2" ng-if="vm.data.length && vm.step == 1">
-								<md-data-table-toolbar class="md-whiteframe-z1">
+				<section class="anim md-whiteframe-z2" ng-if="vm.data.length && vm.step == 1">
+								<!--<md-data-table-toolbar class="md-whiteframe-z1">
 												<div flex layout-align="space-between center" layout="row">
 																<h2 class="md-title">CSV Import 1/4</h2>
 																<span flex></span>
@@ -207,21 +208,21 @@
 																				</section>
 
 												</md-tab>
-								</md-tabs>
+								</md-tabs>-->
 
 				</section>
 				<section class="table anim md-whiteframe-z2" ng-if="vm.data.length && vm.step == 2">
 								<md-data-table-toolbar class="md-whiteframe-z1">
 												<div flex layout-align="space-between center" layout="row">
-																<h2 class="md-title">CSV Import 2/4</h2>
+																<h2 class="md-title">CSV Import 1/3</h2>
 																<span flex></span>
-																<md-input-container style="margin-right: 10px;margin-bottom:0px;min-width:100px">
+																<md-input-container ng-if="!vm.doExtend" style="margin-right: 10px;margin-bottom:0px;min-width:100px">
 																				<label>ISO Field</label>
 																				<md-select ng-model="vm.meta.iso_field">
 																								<md-option ng-repeat="(key, item) in vm.data[0].data[0]" value="{{key}}">{{key}}</md-option>
 																				</md-select>
 																</md-input-container>
-																<md-input-container style="margin-right: 10px;margin-bottom:0px;min-width:100px">
+																<md-input-container ng-if="!vm.doExtend" style="margin-right: 10px;margin-bottom:0px;min-width:100px">
 																				<label>Country Field</label>
 																				<md-select ng-model="vm.meta.country_field">
 																								<md-option ng-repeat="(key, item) in vm.data[0].data[0]" value="{{key}}">{{key}}</md-option>
@@ -249,17 +250,14 @@
 																												<ng-md-icon class="middle" icon="gesture"></ng-md-icon>
 																								</md-button>
 																				</span>
-																				<md-button ui-sref="app.index.create.basic">
-																								<ng-md-icon class="middle" icon="chevron_left"></ng-md-icon>
-																								Prev
-																				</md-button>
-																				<md-button layout-align="center center" layout="row" ng-if="vm.errors == 0 && vm.iso_checked" ui-sref="app.index.create.meta">
+																				<md-button layout-align="center center" layout="row" ng-if="vm.errors == 0 && vm.iso_checked && !vm.addDataTo.id && !vm.doExtend" ui-sref="app.index.create.meta">
 																								<span>Next</span>
 																								<ng-md-icon class="middle" icon="chevron_right"></ng-md-icon>
+																				</md-button>
+																				<md-button class="md-raised md-accent" layout-align="center center" layout="row" ng-if="vm.errors == 0 && vm.iso_checked && vm.addDataTo.id && vm.doExtend" ng-click="vm.extendData()">
+																								<span>Save</span>
 
 																				</md-button>
-
-
 																</div>
 												</div>
 								</md-data-table-toolbar>
@@ -295,7 +293,7 @@
 				<section class="table anim md-whiteframe-z2" ng-if="vm.data.length && vm.step == 3">
 								<md-data-table-toolbar class="md-whiteframe-z1">
 												<div flex layout-align="space-between center" layout="row">
-																<h2 class="md-title">CSV Import 3/4</h2>
+																<h2 class="md-title">CSV Import 2/3</h2>
 																<h3>Adding Meta Data</h3>
 																<span flex></span>
 																<div layout-align="space-between center" layout="row">
@@ -313,7 +311,7 @@
 								<md-content class="fill-noheader" layout-fill>
 												<section flex layout-fill layout="row">
 																<md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
-																				<md-toolbar md-scroll-shrink>
+																				<md-toolbar>
 																								<h1 class="md-toolbar-tools">Columns</h1>
 																				</md-toolbar>
 																				<md-content>
@@ -342,7 +340,7 @@
 				<section class="table anim md-whiteframe-z2" layout="column" ng-if="vm.data.length && vm.step == 4">
 								<md-data-table-toolbar class="md-whiteframe-z1">
 												<div flex layout-align="space-between center" layout="row">
-																<h2 class="md-title">CSV Import 4/4</h2>
+																<h2 class="md-title">CSV Import 3/3</h2>
 																<h3>Main Information</h3>
 																<span flex></span>
 																<div layout-align="space-between center" layout="row">
@@ -384,3 +382,4 @@
 												</div>
 								</div>
 				</section>
+</div>

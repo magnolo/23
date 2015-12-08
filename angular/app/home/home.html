@@ -3,7 +3,7 @@
 				<md-subheader class="md-no-sticky">Choose the index you wanna see</md-subheader>
 				<md-list >
 								<md-list-item ng-repeat="index in vm.indizes" ui-sref="app.index.show({index:index.name})">
-                  <p>{{index.full_name}}</p>
+                  <p>{{index.title}}</p>
                 <ng-md-icon icon="chevron_right"></ng-md-icon>
         </md-list>
 </section>

@@ -1,19 +1,19 @@
 <style type="text/css">
 	md-tabs .md-tab.md-active,
 	md-tabs .md-tab.md-focused {
-		color: {{vm.structure.color}}
+		color: {{vm.structure.color || 'rgba(128, 243, 198,1)' }}
 	}
 
 	md-tabs .md-tab .md-ripple-container {
-		color: {{vm.structure.color}};
+		color: {{vm.structure.color || 'rgba(128, 243, 198,1)'}};
 	}
 
 	md-tabs md-ink-bar {
-			color: {{vm.structrue.color}};
-		background:{{vm.structure.color}};
+			color: {{vm.structrue.color || 'rgba(128, 243, 198,1)'}};
+		background:{{vm.structure.color || 'rgba(128, 243, 198,1)'}};
 	}
 	.info-container .info-box .module.rank .mini-list .list ul li.active {
-				color: {{vm.structure.color}};
+				color: {{vm.structure.color || 'rgba(128, 243, 198,1)'}};
 	}
 </style>
 
@@ -78,7 +78,7 @@
 												                                        <span class="number">{{key+1}}.</span>
 												                                        <span class="value">{{nat.iso}}</span>
 												                                        <md-tooltip md-delay="700" md-direction="right">
-												                                                {{nat.country}}
+												                                                {{vm.countryList[nat.iso]}}
 												                                        </md-tooltip>
 												                                </li>
 												                        </ul>
@@ -92,7 +92,7 @@
 												                                        <span class="number">{{vm.getRank(nat)}}.</span>
 												                                        <span class="value">{{nat.iso}}</span>
 												                                        <md-tooltip md-delay="700" md-direction="right">
-												                                                {{nat.country}}
+												                                                {{vm.countryList[nat.iso]}}
 												                                        </md-tooltip>
 												                                </li>
 												                        </ul>
@@ -115,7 +115,7 @@
 																				</md-tab>
 																				<md-tab label="History" md-active="vm.activeTab == 1" md-on-select="vm.setTab(1)">
 																								<div class="module tabs no-margin" layout="column">
-																												<history chartdata="vm.current.data.epi" options="{field:vm.structure.name, color:vm.structure.color}"></history>
+																												<history chartdata="vm.current.data.data" options="{field:vm.structure.name, color:vm.structure.color}"></history>
 																								</div>
 																				</md-tab>
 																				<md-tab label="Compare" md-active="vm.activeTab == 2" md-on-deselect="vm.checkComparison(false)" md-on-select="vm.checkComparison(true)">

@@ -52,16 +52,21 @@ md-dialog{
 md-toast{
   position:fixed;
 }
+md-list-item{
+  .md-button{
+    ng-md-icon{
+      position:static;
+      top:0;
+    }
+  }
+}
 .md-button{
   .md-ripple-container{
     border-radius: 20px;
   }
   ng-md-icon{
-    &.middle{
       position:relative;
       top:0.5em;
-    }
-
   }
   &.md-icon-button{
     &.small{

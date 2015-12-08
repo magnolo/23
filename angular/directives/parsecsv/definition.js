@@ -78,6 +78,19 @@
 												if(headings[i].indexOf('.') > -1){
 													headings[i] = headings[i].substr(0, headings[i].indexOf('.'));
 												}
+												var head = headings[i].split('_');
+												if(head.length > 1){
+													headings[i] = '';
+													for(var j = 0; j < head.length; j++){
+														if(isNaN(head[j])){
+															if(j > 0){
+																headings[i] += '_';
+															}
+															headings[i] += head[j];
+														}
+													}
+												}
+
 												if(headings[i].length == 3){
 													isIso.push(true);
 												}

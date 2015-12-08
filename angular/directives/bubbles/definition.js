@@ -89,9 +89,9 @@
 					if(scope.indexer.children.length == 2 && scope.indexer.children[0].children.length > 0){
 						angular.forEach(scope.indexer.children, function (group, index) {
 							var d = {
-								type: group.score_field_name,
+								type: group.name,
 								name: group.title,
-								group: group.score_field_name,
+								group: group.name,
 								color: group.color,
 								icon: group.icon,
 								unicode: IconsService.getUnicode(group.icon),
@@ -100,13 +100,13 @@
 							};
 							labels.push(d);
 							angular.forEach(group.children, function (item) {
-								if (scope.chartdata[item.score_field_name]) {
+								if (scope.chartdata[item.name]) {
 									var node = {
-										type: item.score_field_name,
-										radius: scope.chartdata[item.score_field_name] / scope.sizefactor,
-										value: scope.chartdata[item.score_field_name],
+										type: item.name,
+										radius: scope.chartdata[item.name] / scope.sizefactor,
+										value: scope.chartdata[item.name],
 										name: item.title,
-										group: group.score_field_name,
+										group: group.name,
 										x: options.center.x,
 										y: options.center.y,
 										color: item.color,
@@ -124,9 +124,9 @@
 					}
 					else{
 						var d = {
-							type: scope.indexer.score_field_name,
+							type: scope.indexer.name,
 							name: scope.indexer.title,
-							group: scope.indexer.score_field_name,
+							group: scope.indexer.name,
 							color: scope.indexer.color,
 							icon: scope.indexer.icon,
 							unicode: scope.indexer.unicode,
@@ -135,13 +135,13 @@
 						};
 						labels.push(d);
 						angular.forEach(scope.indexer.children, function (item) {
-							if (scope.chartdata[item.score_field_name]) {
+							if (scope.chartdata[item.name]) {
 								var node = {
-									type: item.score_field_name,
-									radius: scope.chartdata[item.score_field_name] / scope.sizefactor,
-									value: scope.chartdata[item.score_field_name] / scope.sizefactor,
+									type: item.name,
+									radius: scope.chartdata[item.name] / scope.sizefactor,
+									value: scope.chartdata[item.name] / scope.sizefactor,
 									name: item.title,
-									group: scope.indexer.score_field_name,
+									group: scope.indexer.name,
 									x: options.center.x,
 									y: options.center.y,
 									color: item.color,
@@ -264,7 +264,8 @@
 					})).attr("stroke-width", 0).attr("stroke", function (d) {
 						return d3.rgb(options.fill_color(d.group)).darker();
 					}).attr("id", function (d) {
-						return "bubble_" + d.id;
+	
+						return "bubble_" + d.type;
 					});
 					options.icons = options.containers.append("text")
 						.attr('font-family', 'EPI')
@@ -274,6 +275,14 @@
 						.attr("text-anchor", "middle")
 						.attr('fill', function(d){
 							return d.unicode ? '#fff' : d.color;
+						})
+						.style('opacity', function(d){
+							if(d.unicode){
+								return 1;
+							}
+							else{
+								return 0;
+							}
 						})
 						.text(function (d) {
 							return d.unicode || '1'
