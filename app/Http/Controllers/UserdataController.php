@@ -145,7 +145,7 @@ class UserdataController extends Controller
         }
         foreach($request->input('fields') as $field){
           if($field != 'year'){
-            $table->string($field['column'])->nullable();
+            $table->float($field['column'])->nullable();
           }
         }
         $table->integer('year');

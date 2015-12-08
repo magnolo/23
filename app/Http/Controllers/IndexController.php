@@ -175,7 +175,7 @@ class IndexController extends Controller
           }
         }
         else{
-          
+
           $data = \DB::table($index->indicator->table_name)
             ->where('year', $year)
             ->leftJoin('23_countries', $index->indicator->table_name.".".$index->indicator->iso_name, '=', '23_countries.adm0_a3')
