@@ -8,7 +8,7 @@
 																<form name="baseForm" novalidate>
 																				<md-content class="md-accent" layout-padding>
 																								<div layout-align="space-between center" layout="row">
-																												<md-button class="md-accent md-border md-lowspace" ng-click="vm.saveIndex()" ng-disabled="baseForm.$invalid">Save</md-button>
+																												<md-button ng-if="vm.options.save" class="md-accent md-border md-lowspace" ng-click="vm.saveIndex()" ng-disabled="baseForm.$invalid">Save</md-button>
 																												<span flex></span>
 																												<span class="info" layout-align="space-between center" layout="row" ng-class="{'warning':baseForm.$invalid, 'success': baseFrom.$valid}">
 																																<ng-md-icon icon="{{baseForm.$valid ? 'check_circle': 'error'}}"></ng-md-icon>
@@ -97,10 +97,10 @@
 												</md-tab-label>
 												<md-tab-body>
 																<md-content layout-padding>
-																				<div layout="row">
+																				<!--<div layout="row">
 																								<md-button class="md-accent md-border md-lowspace" ng-click="vm.saveIndex()">Save</md-button>
 																				</div>
-																				<h2>Data Editor</h2>
+																				<h2></h2>-->
 																</md-toolbar>
 												</md-content>
 								</md-tab-body>
@@ -110,7 +110,7 @@
 												<ng-md-icon icon="brush"></ng-md-icon>
 								</md-tab-label>
 								<md-tab-body>
-												sfsdfsdf
+
 								</md-tab-body>
 				</md-tab>
 				<md-tab>
@@ -120,7 +120,7 @@
 								<md-tab-body>
 												<md-content class="md-accent anim-left" layout-padding ng-if="!vm.item.categories.length && !vm.chooseCategories && !vm.createCategory">
 																<div layout-align="space-between center" layout="row">
-																				<h2>Data Editor</h2>
+																				<h2 class="md-headline">Choose Categories</h2>
 																				<span flex></span>
 																				<md-button class="md-accent md-border md-lowspace" ng-click="vm.saveIndex()" ng-disabled="baseForm.$invalid">Done</md-button>
 																</div>

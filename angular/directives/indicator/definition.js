@@ -9,7 +9,8 @@
 			controller: 'IndicatorCtrl',
 			controllerAs: 'vm',
 			scope:{
-				item: '='
+				item: '=',
+				options: '='
 			},
 			bindToController: true,
 			replace:true,

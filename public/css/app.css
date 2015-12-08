@@ -648,6 +648,18 @@ md-toolbar.clean .md-toolbar-tools {
 .md-warn ng-md-icon path {
   fill: #f44336;
 }
+md-tabs > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item {
+  background: #efefef;
+}
+md-tabs > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item.md-active {
+  background: #fff;
+}
+.md-tab.md-disabled {
+  opacity: 1;
+}
+.md-tab.md-disabled ng-md-icon {
+  opacity: 0.3;
+}
 
 *:focus {
   border: 0;
@@ -788,10 +800,6 @@ md-toast[md-theme=warn] {
   padding: 0px;
 }
 
-section.module-top.menu md-list-item a {
-  margin: 0px;
-}
-
 md-toolbar.md-menu-toolbar {
   background-color: #ffffff;
   color: rgba(0, 0, 0, 0.87);
@@ -837,6 +845,10 @@ md-menu-bar {
   margin: 0 auto;
   max-width: 680px;
   padding: 24px;
+}
+
+section.module-top.menu md-list-item a {
+  margin: 0px;
 }
 
 .multi-view {
@@ -1087,6 +1099,9 @@ section.table md-data-table-pagination {
 .fill-noheader {
   height: calc(100% - 64px);
   min-height: calc(100% - 64px);
+}
+md-list-item.active {
+  background: #d7dddd;
 }
 
 
