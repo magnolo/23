@@ -565,6 +565,7 @@
                   vm.step = 0;
                 break;
               case 'app.index.create.basic':
+                  console.log(vm.data);
                     vm.step = 1;
                     checkMyData();
                   break;

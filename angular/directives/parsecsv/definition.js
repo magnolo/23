@@ -33,7 +33,7 @@
 						start, end;
 						firstRun = true;
 							$timeout(function(){
-								Papa.parse(input[0].files[0],{
+								var csv = Papa.parse(input[0].files[0],{
 									skipEmptyLines: true,
 									header:true,
 									dynamicTyping: true,
@@ -64,14 +64,23 @@
 										else{
 											$scope.vm.data.push(row);
 										}
+										//console.log(row);
 
 									},
 									beforeFirstChunk: function(chunk)
 									{
+
 										//Check if there are points in the headers
 										var index = chunk.match( /\r\n|\r|\n/ ).index;
+											var delimiter = ',';
 								    var headings = chunk.substr(0, index).split( ',' );
+
+										if(headings.length < 2){
+ 											headings = chunk.substr(0, index).split( "\t" );
+											delimiter = '\t';
+										}
 										var isIso = [];
+
 										for(var i = 0; i <= headings.length; i++){
 											if(headings[i]){
 												headings[i] = headings[i].replace(/[^a-z0-9]/gi,'_').toLowerCase();
@@ -105,7 +114,8 @@
 													rawList[headings[i]].data = [];
 												}
 										}
-								    return headings.join() + chunk.substr(index);
+
+								    return headings.join(delimiter) + chunk.substr(index);
 									},
 									error: function(err, file)
 									{
@@ -153,8 +163,9 @@
 										$state.go('app.index.create.basic');
 										toastr.info($scope.vm.data.length+' lines importet!', 'Information')
 									}
-								})
-							})
+								});
+
+							});
 
 					});
 			}
