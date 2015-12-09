@@ -40,7 +40,7 @@
 									step:function(row){
 										angular.forEach(row.data[0], function(item, key){
 											if(isNaN(item) || item < 0 ){
-												if(item.toString().toUpperCase() == "NA" || item < 0 || item.toString().toUpperCase().indexOf('N/A') > -1){
+												if(/*item.toString().toUpperCase() == "NA" || */item < 0 || item.toString().toUpperCase().indexOf('N/A') > -1){
 													row.errors.push({
 														type:"1",
 														message:"Field in row is not valid for database use!",

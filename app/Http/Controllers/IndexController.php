@@ -162,10 +162,12 @@ class IndexController extends Controller
         if(count($index->children)){
           foreach($index->children as $key => &$item){
             if($item->type->name != "group"){
+              $item->indicator->load('userdata');
+              $iso_field = $item->indicator->userdata->iso_type == 'iso-3166-1' ? 'adm0_a3': 'iso_a2';
               $data = \DB::table($item->indicator->table_name)
                 ->where('year', $year)
-                ->leftJoin('23_countries', $item->indicator->table_name.".".$item->indicator->iso_name, '=', '23_countries.adm0_a3')
-                ->select($item->indicator->table_name.".".$item->indicator->column_name.' as score', $item->indicator->table_name.".year",'23_countries.adm0_a3 as iso','23_countries.admin as country')
+                ->leftJoin('23_countries', $item->indicator->table_name.".".$item->indicator->iso_name, '=', '23_countries.'.$iso_field)
+                ->select($item->indicator->table_name.".".$item->indicator->column_name.' as score', $item->indicator->table_name.".year",'23_countries.'.$iso_field.' as iso','23_countries.admin as country')
                 ->orderBy($item->indicator->table_name.".".$item->indicator->column_name, 'desc')->get();
               $item->data = $data;
             }
@@ -175,11 +177,12 @@ class IndexController extends Controller
           }
         }
         else{
-
+          $index->indicator->load('userdata');
+          $iso_field = $index->indicator->userdata->iso_type == 'iso-3166-1' ? 'adm0_a3': 'iso_a2';
           $data = \DB::table($index->indicator->table_name)
             ->where('year', $year)
-            ->leftJoin('23_countries', $index->indicator->table_name.".".$index->indicator->iso_name, '=', '23_countries.adm0_a3')
-            ->select($index->indicator->table_name.".".$index->indicator->column_name.' as score', $index->indicator->table_name.".year",'23_countries.adm0_a3 as iso','23_countries.admin as country')
+            ->leftJoin('23_countries', $index->indicator->table_name.".".$index->indicator->iso_name, '=', '23_countries.'.$iso_field)
+            ->select($index->indicator->table_name.".".$index->indicator->column_name.' as score', $index->indicator->table_name.".year",'23_countries.'.$iso_field.' as iso','23_countries.admin as country')
             ->orderBy($index->indicator->table_name.".".$index->indicator->column_name, 'desc')->get();
           $index->data = $data;
         }

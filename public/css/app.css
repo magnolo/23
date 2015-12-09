@@ -803,10 +803,6 @@ md-toast[md-theme=warn] {
   padding: 0px;
 }
 
-section.module-top.menu md-list-item a {
-  margin: 0px;
-}
-
 md-toolbar.md-menu-toolbar {
   background-color: #ffffff;
   color: rgba(0, 0, 0, 0.87);
@@ -852,6 +848,10 @@ md-menu-bar {
   margin: 0 auto;
   max-width: 680px;
   padding: 24px;
+}
+
+section.module-top.menu md-list-item a {
+  margin: 0px;
 }
 
 .multi-view {
@@ -1109,7 +1109,6 @@ md-list-item.active {
 
 
 
-
 #Map_Container {
   height: calc(100% - 165px);
 }
@@ -1143,6 +1142,7 @@ md-list-item.active {
   bottom: 20px;
   right: 00px;
 }
+
 
 .Sidebar {
   position: fixed !important;

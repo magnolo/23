@@ -110,7 +110,7 @@
 		function setSelectedFeature(iso) {
 			if (vm.mvtSource) {
 				$timeout(function () {
-					vm.mvtSource.layers.countries_big_geom.features[vm.current.iso].selected = true;
+					vm.mvtSource.layers[VectorlayerService.getName()+"_geom"].features[vm.current.iso].selected = true;
 				})
 			}
 		};
@@ -176,10 +176,10 @@
 
 			} else {
 				$rootScope.greyed = false;
-				angular.forEach(vm.mvtSource.layers.countries_big_geom.features, function (feature) {
+				angular.forEach(vm.mvtSource.layers[VectorlayerService.getName()+"_geom"].features, function (feature) {
 					feature.selected = false;
 				});
-				vm.mvtSource.layers.countries_big_geom.features[vm.current.iso].selected = true;
+				vm.mvtSource.layers[VectorlayerService.getName()+"_geom"].features[vm.current.iso].selected = true;
 				vm.mvtSource.options.mutexToggle = true;
 				vm.mvtSource.setStyle(countriesStyle);
 				DataService.getOne('countries/bbox', [vm.current.iso]).then(function (data) {
@@ -311,7 +311,7 @@
 
 		function invertedStyle(feature) {
 			var style = {};
-			var iso = feature.properties.adm0_a3;
+			var iso = feature.properties.iso_a2;
 			var nation = getNationByIso(iso);
 			var field = vm.structure.name || 'score';
 
@@ -335,7 +335,7 @@
 		function countriesStyle(feature) {
 
 			var style = {};
-			var iso = feature.properties.adm0_a3;
+			var iso = feature.properties.iso_a2;
 			var nation = getNationByIso(iso);
 			var field = vm.structure.name || 'score';
 			var type = feature.type;
@@ -371,7 +371,7 @@
 					};
 				}
 			}
-			if (feature.layer.name === 'countries_big_geom_label') {
+			if (feature.layer.name === VectorlayerService.getName()+'_geom_label') {
 				style.staticLabel = function () {
 					var style = {
 						html: feature.properties.name,
@@ -391,11 +391,11 @@
 
 			if(n.iso) {
 				if(o.iso){
-					vm.mvtSource.layers.countries_big_geom.features[o.iso].selected = false;
+					vm.mvtSource.layers[VectorlayerService.getName()+"_geom"].features[o.iso].selected = false;
 				}
 				calcRank();
 				fetchNationData(n.iso);
-				vm.mvtSource.layers.countries_big_geom.features[n.iso].selected = true;
+				vm.mvtSource.layers[VectorlayerService.getName()+"_geom"].features[n.iso].selected = true;
 				if($state.current.name == 'app.index.show.selected' || $state.current.name == 'app.index.show'){
 					$state.go('app.index.show.selected', {
 						index: $state.params.index,
@@ -524,32 +524,32 @@
 					if($state.params.countries){
 						vm.mvtSource.options.mutexToggle = false;
 						vm.mvtSource.setStyle(invertedStyle);
-						vm.mvtSource.layers.countries_big_geom.features[vm.current.iso].selected = true;
+						vm.mvtSource.layers[VectorlayerService.getName()+"_geom"].features[vm.current.iso].selected = true;
 						var countries = $state.params.countries.split('-vs-');
 						angular.forEach(countries, function(iso){
-							vm.mvtSource.layers.countries_big_geom.features[iso].selected = true;
+							vm.mvtSource.layers[VectorlayerService.getName()+"_geom"].features[iso].selected = true;
 						});
 
 					}
 					else{
 						vm.mvtSource.setStyle(countriesStyle);
-
 						if($state.params.item){
-								vm.mvtSource.layers.countries_big_geom.features[$state.params.item].selected = true;
+								vm.mvtSource.layers[VectorlayerService.getName()+"_geom"].features[$state.params.item].selected = true;
 						}
 					}
 					//vm.mvtSource.redraw();
 				});
 				vm.mvtSource.options.onClick = function (evt, t) {
 					if (!vm.compare.active) {
-						var c = getNationByIso(evt.feature.properties.adm0_a3);
+						var c = getNationByIso(evt.feature.properties.iso_a2);
 						if (typeof c[vm.structure.name] != "undefined") {
-							vm.current = getNationByIso(evt.feature.properties.adm0_a3);
+							vm.current = getNationByIso(evt.feature.properties.iso_a2);
 						} else {
 							ToastService.error('No info about this location!');
 						}
 					} else {
-						var c = getNationByIso(evt.feature.properties.adm0_a3);
+						console.log(evt);
+						var c = getNationByIso(evt.feature.properties.iso_a2);
 						if (typeof c[vm.structure.name] != "undefined") {
 							vm.toggleCountrieList(c);
 						} else {

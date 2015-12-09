@@ -19,11 +19,11 @@ class CountriesController extends Controller
     public function index()
     {
         //
-        $countries = Countrie::select('adm0_a3 as iso', 'admin as country')->get();
+        $countries = Countrie::select('iso_a2 as iso', 'admin as country')->get();
         return response()->api($countries);
     }
     public function isoList(){
-      $countries =  Countrie::select('adm0_a3 as iso', 'admin as country')->get();
+      $countries =  Countrie::select('iso_a2 as iso', 'admin as country')->get();
       $data = array();
       foreach ($countries as $key => $country) {
         $data[$country->iso] = $country->country;
@@ -32,15 +32,16 @@ class CountriesController extends Controller
     }
     public function getBBox($countries){
 
-        $box =  Countrie::select(\DB::raw('st_asgeojson(St_envelope(ST_Union(geom))) as bbox'))->whereIn('adm0_a3', explode(",",$countries))->first();
+        $box =  Countrie::select(\DB::raw('st_asgeojson(St_envelope(ST_Union(geom))) as bbox'))->whereIn('iso_a2', explode(",",$countries))->first();
         return response()->api(json_decode($box->bbox));
     }
 
     public function getByIsoNames(Request $request){
       $data = array();
+      $iso_field = $request->input('iso') == "iso-3166-2" ? 'iso_a2' : "adm0_a3";
       foreach($request->input('data') as $entry){
-        if($entry['iso'] == ''){
-          $country = Countrie::select('iso_a3 as iso3','adm0_a3 as iso', 'name', 'name_long', 'admin','formal_en','brk_name','geounit')
+        if($entry['iso'] == '' || $entry['iso'] == null){
+          $country = Countrie::select('iso_a3 as iso3',  'iso_a2 as iso', 'name', 'name_long', 'admin','formal_en','brk_name','geounit')
             ->where('admin', 'like', '%'.$entry['name'].'%')
             ->orWhere('geounit', 'like', '%'.$entry['name'].'%')
             ->orWhere('name', 'like', '%'.$entry['name'].'%')
@@ -51,14 +52,14 @@ class CountriesController extends Controller
             //  $data[$country[0]->iso] = $country;
         }
         else{
-          $country = Countrie::select('iso_a3 as iso3','adm0_a3 as iso', 'name', 'name_long', 'admin','formal_en','brk_name','geounit')
-            ->where('adm0_a3', 'like', '%'.$entry['iso'].'%')
-            ->get();
+            $country = Countrie::select('iso_a3 as iso3','iso_a2 as iso', 'name', 'name_long', 'admin','formal_en','brk_name','geounit')
+              ->where($iso_field, 'like', '%'.$entry['iso'].'%')
+              ->get();
         }
 
         if(count($country) < 1){
           if($entry['iso'] != ''){
-            $country = Countrie::select('iso_a3 as iso3', 'adm0_a3 as iso', 'name', 'name_long', 'admin','formal_en','brk_name','geounit')
+            $country = Countrie::select('iso_a3 as iso3', 'iso_a2 as iso', 'name', 'name_long', 'admin','formal_en','brk_name','geounit')
               ->where('admin', 'like', '%'.$entry['name'].'%')
               ->orWhere('geounit', 'like', '%'.$entry['name'].'%')
               ->orWhere('name', 'like', '%'.$entry['name'].'%')
@@ -75,7 +76,9 @@ class CountriesController extends Controller
 
         ];
         $data[] = $d;
+
       }
+
       return response()->api($data);
     }
     /**

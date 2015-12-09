@@ -240,7 +240,7 @@
 																								<span ng-if="vm.errors">{{vm.errors}}
 																												errors detected
 																								</span>
-																								<md-button class="md-raised md-accent" ng-click="vm.fetchIso()" ng-if="(vm.iso_errors || !vm.iso_checked) && !vm.errors">
+																								<md-button class="md-raised md-accent" ng-click="vm.fetchIso()" ng-if="vm.iso_errors || !vm.iso_checked || vm.errors == vm.iso_errors">
 																												Get Iso Values
 																												<ng-md-icon class="middle" icon="public"></ng-md-icon>
 																								</md-button>

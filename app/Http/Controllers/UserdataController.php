@@ -176,6 +176,7 @@ class UserdataController extends Controller
         'created_at' => 'NOW()',
         'updated_at' => 'NOW()',
         'iso_name' => $request->input('iso_field'),
+        'iso_type' =>  $request->input('iso_type'),
         'country_name' => $request->input('country_field')
         ]
       );

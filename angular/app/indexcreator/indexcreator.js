@@ -123,27 +123,11 @@
           angular.forEach(vm.data, function(row, key){
             angular.forEach(row.data[0], function(item, k){
               if(isNaN(item) || item < 0){
-                if(item.toString().toUpperCase() == "NA" || item < 0 || item.toString().toUpperCase().indexOf('N/A') > -1){
+                if(/*item.toString().toUpperCase() == "NA" ||*/ item < 0 || item.toString().toUpperCase().indexOf('N/A') > -1){
                   vm.data[key].data[0][k] = null;
                   vm.errors --;
                   row.errors.splice(0,1);
                 }
-              }
-              switch (item) {
-                case 'Cabo Verde':
-                      vm.data[key].data[0][k]   = 'Cape Verde';
-                  break;
-                case "Democratic Peoples Republic of Korea":
-                        vm.data[key].data[0][k]   = "Democratic People's Republic of Korea";
-                    break;
-                case "Cote d'Ivoire":
-                        vm.data[key].data[0][k]   = "Ivory Coast";
-                    break;
-                case "Lao Peoples Democratic Republic":
-                        vm.data[key].data[0][k]   = "Lao People's Democratic Republic";
-                    break;
-                default:
-                  break;
               }
             });
             if(!row.data[0][vm.meta.iso_field]){
@@ -219,13 +203,35 @@
           vm.toSelect = [];
           vm.notFound = [];
           var entries = [];
+          var isoCheck = 0;
+          var isoType = 'iso-3166-2';
           angular.forEach(vm.data, function(item, key){
+              if(item.data[0][vm.meta.iso_field]){
+                isoCheck += item.data[0][vm.meta.iso_field].length == 3 ? 1 : 0;
+              }
+              switch (item.data[0][vm.meta.country_field]) {
+                case 'Cabo Verde':
+                      item.data[0][vm.meta.country_field] = 'Cape Verde';
+                  break;
+                case "Democratic Peoples Republic of Korea":
+                        item.data[0][vm.meta.country_field]   = "Democratic People's Republic of Korea";
+                    break;
+                case "Cote d'Ivoire":
+                        item.data[0][vm.meta.country_field]   = "Ivory Coast";
+                    break;
+                case "Lao Peoples Democratic Republic":
+                      item.data[0][vm.meta.country_field]  = "Lao People's Democratic Republic";
+                    break;
+                default:
+                  break;
+              }
               entries.push({
                 iso: item.data[0][vm.meta.iso_field],
                 name: item.data[0][vm.meta.country_field]
               });
           });
-          DataService.post('countries/byIsoNames', {data:entries}).then(function(response){
+          var isoType = isoCheck >= (entries.length / 2) ? 'iso-3166-1' : 'iso-3166-2';
+          DataService.post('countries/byIsoNames', {data:entries, iso: isoType}).then(function(response){
               angular.forEach(response, function(country, key){
                 angular.forEach(vm.data, function(item, k){
                     if(country.name == item.data[0][vm.meta.country_field]){
@@ -251,15 +257,21 @@
                           }
                         }
                         else{
-                          console.log(country);
+
+                            vm.iso_errors++;
+                            vm.errors++
+                            item.errors.push({
+                              type:"3",
+                              message:"Could not locate a valid iso name!",
+                              column: vm.meta.country_field
+                            });
+
+
                         }
                       }
                     }
                 });
               });
-              if(vm.toSelect.length){
-                DialogService.fromTemplate('selectisofetchers', $scope);
-              }
               vm.iso_checked = true;
           }, function(response){
           //  console.log(response);
@@ -300,6 +312,7 @@
           angular.forEach(vm.data, function(item, key){
             if(item.errors.length == 0){
               item.data[0].year = vm.meta.year;
+              vm.meta.iso_type = item.data[0][vm.meta.iso_field].length == 3 ? 'iso-3166-1' : 'iso-3166-2';
               insertData.data.push(item.data[0]);
             }
             else{
@@ -331,9 +344,10 @@
               data: item
             })
           })
+          //vm.meta.iso_type = 'iso-3166-1';
           vm.meta.fields = fields;
           vm.meta.info = meta;
-          console.log(insertData);
+
           DataService.post('data/tables', vm.meta).then(function(response){
               DataService.post('data/tables/'+response.table_name+'/insert', insertData).then(function(res){
                 if(res == true){

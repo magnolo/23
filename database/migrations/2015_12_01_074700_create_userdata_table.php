@@ -17,6 +17,7 @@ class CreateUserdataTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->string('table_name');
             $table->string('iso_name');
+            $table->string('iso_type');
             $table->string('country_name');
             $table->json('meta_data');
             $table->string('name');

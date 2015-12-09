@@ -23,16 +23,18 @@
 			}
 		}
 		leafletData.getMap('map').then(function(map) {
-			var url = 'http://v22015052835825358.yourvserver.net:3001/services/postgis/countries_big/geom/vector-tiles/{z}/{x}/{y}.pbf?fields=id,admin,adm0_a3,wb_a3,su_a3,iso_a3,name,name_long'; //
+			var url = 'http://v22015052835825358.yourvserver.net:3001/services/postgis/'+VectorlayerService.getName()+'/geom/vector-tiles/{z}/{x}/{y}.pbf?fields=id,admin,adm0_a3,wb_a3,su_a3,iso_a3,iso_a2,name,name_long'; //
 			var layer = new L.TileLayer.MVTSource({
 				url: url,
 				debug: false,
-				clickableLayers: ['countries_big_geom'],
+				clickableLayers: [VectorlayerService.getName()+'_geom'],
 				mutexToggle: true,
 				getIDForLayerFeature: function(feature) {
-					return feature.properties.adm0_a3;
+
+					return feature.properties.iso_a2;
 				},
 				filter: function(feature, context) {
+
 					return true;
 				}
 			});
