@@ -36,9 +36,8 @@
 												<p>Upload new data</p>
 												<ng-md-icon icon="{{vm.openClose(vm.showUploadContainer)}}"></ng-md-icon>
 								</md-list-item>
-								<!--<md-list-item ng-if="!vm.showResources" ui-sref="app.index.editor">
-												<p>Edit existing data</p>
-												<ng-md-icon icon="{{vm.openClose(vm.showUploadContainer)}}"></ng-md-icon>
+								<!--<md-list-item ng-if="!vm.showIndicators" ui-sref="app.index.editor">
+												<md-button ui-sref="app.index.editor()">Edit existing data</md-button>
 								</md-list-item>-->
 				</md-list>
 
@@ -241,7 +240,7 @@
 																								<span ng-if="vm.errors">{{vm.errors}}
 																												errors detected
 																								</span>
-																								<md-button class="md-raised md-accent" ng-click="vm.fetchIso()" ng-if="vm.iso_errors || !vm.iso_checked">
+																								<md-button class="md-raised md-accent" ng-click="vm.fetchIso()" ng-if="(vm.iso_errors || !vm.iso_checked) && !vm.errors">
 																												Get Iso Values
 																												<ng-md-icon class="middle" icon="public"></ng-md-icon>
 																								</md-button>
@@ -316,14 +315,14 @@
 																				</md-toolbar>
 																				<md-content>
 																								<md-list class="selector">
-																												<md-list-item class="md-2-line" ng-class="{'active': key == vm.editingItem, 'md-warn': !vm.indicators[key].base}" ng-click="vm.selectForEditing(key)" ng-if="key != vm.meta.iso_field && key != vm.meta.country_field && key != 'year'" ng-repeat="(key, item) in vm.data[0].data[0]">
+																												<md-list-item class="md-2-line" ng-class="{'active': key == vm.editingItem, 'md-warn': !vm.indicators[key].full}" ng-click="vm.selectForEditing(key)" ng-if="key != vm.meta.iso_field && key != vm.meta.country_field && key != 'year'" ng-repeat="(key, item) in vm.data[0].data[0]">
 																																<div class="md-list-item-text">
 																																				<h3>{{vm.indicators[key].title || key}}</h3>
 																																				<p>
 																																								{{ key }}
 																																				</p>
 																																</div>
-																																<ng-md-icon icon="{{vm.indicators[key].base ? 'check_circle': 'error'}}" layout-align="center center" layout="row" size="18"></ng-md-icon>
+																																<ng-md-icon icon="{{vm.indicators[key].full ? 'check_circle': 'error'}}" layout-align="center center" layout="row" size="18"></ng-md-icon>
 																												</md-list-item>
 																								</md-list>
 																				</md-content>

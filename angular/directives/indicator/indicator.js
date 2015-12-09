@@ -1,45 +1,88 @@
-(function(){
+(function () {
 	"use strict";
 
-	angular.module( 'app.controllers' ).controller( 'IndicatorCtrl', function($scope, DataService, $filter){
+	angular.module('app.controllers').controller('IndicatorCtrl', function ($scope, DataService, DialogService, $filter) {
 		//
-			var vm = this;
+		var vm = this;
 
-			vm.categories = [];
-			vm.dataproviders = [];
-			vm.selectedItem = null;
-			vm.searchText = null;
-			vm.querySearch = querySearch;
-			vm.querySearchCategory = querySearchCategory;
+		vm.categories = [];
+		vm.dataproviders = [];
+		vm.selectedItem = null;
+		vm.searchText = null;
+		vm.querySearch = querySearch;
+		vm.querySearchCategory = querySearchCategory;
 
-	    activate();
+		vm.toggleCategorie = toggleCategorie;
+		vm.selectedCategorie = selectedCategorie;
 
-	    function activate(){
-	      loadAll();
-	    }
-			function querySearch(query) {
-				return $filter('findbyname')(vm.dataproviders, query, 'title');
+		activate();
+
+		function activate() {
+			loadAll();
+		}
+
+		function querySearch(query) {
+			return $filter('findbyname')(vm.dataproviders, query, 'title');
+		}
+
+		function querySearchCategory(query) {
+			return $filter('findbyname')(vm.categories, query, 'title');
+		}
+
+		function loadAll() {
+			vm.dataproviders = DataService.getAll('dataproviders').$object;
+			vm.categories = DataService.getAll('categories').$object;
+			vm.measureTypes = DataService.getAll('measure_types').$object;
+		}
+
+		function toggleCategorie(categorie) {
+			var index = vm.item.categories.indexOf(categorie);
+			if (index === -1) {
+				vm.item.categories.push(categorie);
+			} else {
+				vm.item.categories.splice(index, 1);
 			}
-			function querySearchCategory(query) {
-				return $filter('findbyname')(vm.categories, query, 'title');
-			}
-			function loadAll() {
-	      vm.dataproviders = DataService.getAll('dataproviders').$object;
-				vm.categories = DataService.getAll('categories').$object;
-				vm.measureTypes = DataService.getAll('measure_types').$object;
-			}
+		}
 
-			$scope.$watchCollection('vm.item', function(n, o){
-					if(n === o){
-						return;
-					}
-					if(n.title && n.measure_type_id && n.dataprovider){
-						n.base = true;
-					}
-					else{
-						n.base = false;
-					};
-			});
-    });
+		function selectedCategorie(item, categorie) {
+			if (typeof item.categories == "undefined") {
+				item.categories = [];
+				return false;
+			}
+			var index = item.categories.indexOf(categorie);
+			return index !== -1 ? true : false;
+		}
+		$scope.$watch('vm.item', function (n, o) {
+			if (n === o) {
+				return;
+			}
+			if(!vm.askedToReplicate) {
+				vm.preProvider = o.dataprovider;
+				vm.preMeasure = o.measure_type_id;
+				vm.preCategories = o.categories;
+				vm.prePublic = o.is_public;
+				DialogService.fromTemplate('copyprovider', $scope);
+			} else {
+				n.dataprovider = vm.doProviders ? vm.preProvider : [];
+				n.measure_type_id = vm.doMeasures ? vm.preMeasure : 0;
+				n.categories = vm.doCategories ? vm.preCategories: [];
+				n.is_public = vm.doPublic ? vm.prePublic: false;
+			}
+		});
+		$scope.$watch('vm.item', function (n, o) {
+			if (n === o) {
+				return;
+			}
+			if (typeof n.categories == "undefined") {
+				n.categories = [];
+			}
+			if (n.title && n.measure_type_id && n.dataprovider && n.title.length >= 3) {
+				n.base = true;
+				n.full = n.categories.length ? true : false;
+			} else {
+				n.base = n.full = false;
+			};
+		}, true);
+	});
 
 })();

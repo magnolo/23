@@ -10,7 +10,7 @@ class Indicator extends Model
     protected $table = "23_indicators";
 
     public function categories(){
-      return $this->belongsToMany('App\Categories', 'indicator_categories', 'indicator_id', 'categorie_id');
+      return $this->belongsToMany('App\Categorie', '23_indicator_categories', 'indicator_id', 'categorie_id');
     }
     public function userdata(){
       return $this->belongsTo('App\UserData');

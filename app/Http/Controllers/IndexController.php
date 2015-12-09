@@ -190,7 +190,7 @@ class IndexController extends Controller
       if(isset($index->children)){
         if(count($index->children)){
           foreach($index->children as $key => &$item){
-            if($item->is_group == false){
+            if($item->type->name != "group"){
               $item->load('indicator');
               $data = \DB::table($item->indicator->table_name)
                 ->where($item->indicator->iso_name, $iso)
@@ -279,7 +279,7 @@ class IndexController extends Controller
       if(count($item['children'])){
         foreach($item['children'] as $child){
           $child->load('indicator');
-          if(!$child->type->name != "group"){
+          if(!$child->type->name != "group" && isset($child->data)){
             foreach($child->data as $data){
               if(!isset($sum[$data->iso][$child->name])){
                   $sum[$data->iso][$child->name]['value'] = 0;
@@ -409,7 +409,7 @@ class IndexController extends Controller
         else{
           $year = $this->getLatestYear($index);
         }
-
+        //return response()->api($this->fetchData($data, $year));
         $data =  $this->calcValues($this->fetchData($data, $year));
         return response()->api($data);
     }

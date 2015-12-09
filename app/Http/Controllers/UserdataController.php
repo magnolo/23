@@ -12,6 +12,7 @@ use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use App\User;
 use App\Indicator;
+use App\Categorie;
 
 use Illuminate\Database\Schema\Blueprint;
 
@@ -122,6 +123,16 @@ class UserdataController extends Controller
       $dataChunks = array_chunk($request->input('data'), 100);
       $data = array();
       foreach($dataChunks as $chunk) {
+          foreach($chunk as &$item){
+            foreach($item as $key => &$field){
+              if(is_null($field) || $field == ''){
+                $field = null;
+              }
+              if(is_numeric(str_replace(',', '.',$field))){
+                $field = floatval(str_replace(',', '.',$field));
+              }
+            }
+          }
           $data = \DB::table($table)->insert($chunk);
       }
       return response()->api($data);
@@ -182,6 +193,12 @@ class UserdataController extends Controller
         $indicator->is_public = $field['is_public'];
         $indicator->is_official = false;
         $data['indicators'][] = $indicator->save();
+
+        if(isset($field['categories'])){
+          foreach($field['categories'] as $cat){
+            $indicator->categories()->attach($cat,['created_at' => 'NOW()', 'updated_at' => 'NOW()']);
+          }
+        }
       }
     });
       return response()->api($data);

@@ -1,14 +1,14 @@
 <md-content class="indicator-tabs" layout-fill>
-				<md-tabs md-dynamic-height md-no-pagination md-stretch-tabs="always">
-								<md-tab class="hululll" ng-class="{'md-warn': !vm.indicator.base}">
-												<md-tab-label ng-class="{'valid': baseForm.$valid)}">
-																<ng-md-icon icon="info_outline"></ng-md-icon>
+				<md-tabs md-no-ink-bar md-dynamic-height md-no-pagination md-stretch-tabs="always">
+								<md-tab ng-class="{'md-warn': !vm.item.base}">
+												<md-tab-label>
+																<ng-md-icon  ng-class="{'valid': vm.item.base}" icon="info_outline"></ng-md-icon>
 												</md-tab-label>
 												<md-tab-body >
 																<form name="baseForm" novalidate>
 																				<md-content class="md-accent" layout-padding>
 																								<div layout-align="space-between center" layout="row">
-																												<md-button ng-if="vm.options.save" class="md-accent md-border md-lowspace" ng-click="vm.saveIndex()" ng-disabled="baseForm.$invalid">Save</md-button>
+																												<md-button ng-if="vm.options.withSave" class="md-accent md-border md-lowspace" ng-click="vm.saveIndex()" ng-disabled="baseForm.$invalid">Save</md-button>
 																												<span flex></span>
 																												<span class="info" layout-align="space-between center" layout="row" ng-class="{'warning':baseForm.$invalid, 'success': baseFrom.$valid}">
 																																<ng-md-icon icon="{{baseForm.$valid ? 'check_circle': 'error'}}"></ng-md-icon>
@@ -47,7 +47,7 @@
 																																				<img ng-if="vm.item.dataprovider.image.url" ng-src="vm.item.dataprovider.image.url"/>
 																																				<span>Upload a logo</span>
 																																</div>
-																																<md-autocomplete class="md-block" flex md-floating-label="Data Provider*" md-input-maxlength="56" md-input-minlength="3" md-input-name="providerField" md-item-text="item.title" md-items="item in vm.querySearch(vm.searchText)" md-no-cache="vm.noCache" md-search-text="vm.searchText" md-selected-item="vm.item.dataprovider" required>
+																																<md-autocomplete class="md-block" flex md-floating-label="Data Provider*" md-input-maxlength="56"  md-input-name="providerField" md-item-text="item.title" md-items="item in vm.querySearch(vm.searchText)" md-no-cache="vm.noCache" md-search-text="vm.searchText" md-selected-item="vm.item.dataprovider" required>
 																																				<md-item-template>
 																																								<span md-highlight-text="vm.searchText">{{item.title}}</span>
 																																				</md-item-template>
@@ -85,13 +85,13 @@
 																</form>
 												</md-tab-body>
 								</md-tab>
-								<md-tab ng-disabled="!vm.item.base">
+								<md-tab ng-disabled="!vm.item.full">
 												<md-tab-label>
 																<ng-md-icon icon="insert_chart"></ng-md-icon>
 												</md-tab-label>
 												<md-tab-body></md-tab-body>
 								</md-tab>
-								<md-tab >
+								<md-tab ng-disabled="!vm.item.full">
 												<md-tab-label>
 																<ng-md-icon icon="format_list_bulleted"></ng-md-icon>
 												</md-tab-label>
@@ -105,7 +105,7 @@
 												</md-content>
 								</md-tab-body>
 				</md-tab>
-				<md-tab ng-disabled="!vm.item.base">
+				<md-tab ng-disabled="!vm.item.full">
 								<md-tab-label>
 												<ng-md-icon icon="brush"></ng-md-icon>
 								</md-tab-label>
@@ -115,7 +115,7 @@
 				</md-tab>
 				<md-tab>
 								<md-tab-label>
-												<ng-md-icon icon="settings_input_component"></ng-md-icon>
+												<ng-md-icon  ng-class="{'valid': vm.item.categories.length}" icon="settings_input_component"></ng-md-icon>
 								</md-tab-label>
 								<md-tab-body>
 												<md-content class="md-accent anim-left" layout-padding ng-if="!vm.item.categories.length && !vm.chooseCategories && !vm.createCategory">
@@ -176,16 +176,16 @@
 												</md-content>
 												<md-content class="md-accent anim-left" layout-padding ng-if="(vm.item.categories.length || vm.chooseCategories) && !vm.createCategory">
 																<div layout-align="space-between center" layout="row">
-																				<md-button class="md-accent md-border md-lowspace" ng-click="vm.saveCategory()" ng-disabled="categoryForm.$invalid">Save</md-button>
+																				<md-button ng-if="vm.options.withSave" class="md-accent md-border md-lowspace" ng-click="vm.saveCategory()" ng-disabled="categoryForm.$invalid">Save</md-button>
 																				<span flex></span>
 																				<md-button class="md-accent md-border md-lowspace" ng-click="vm.createCategory = true">Create new Categories</md-button>
 																</div>
 																<div layout-align="center center" layout="row">
 																				<h2 class="md-headline">Choose Categories</h2>
 																</div>
-																<div flex="100">
+																<div class="indicator-fields">
 																				<md-list>
-																								<md-list-item class="selector" ng-class="{'checked': vm.selectedCategorie(vm.item, categorie), 'unchecked': !vm.selectedCategorie(vm.item, categorie)}"  ng-repeat="categorie in vm.categories | filter:vm.resourceSearch">
+																								<md-list-item ng-click="vm.toggleCategorie(categorie)" class="selector" ng-class="{'checked': vm.selectedCategorie(vm.item, categorie), 'unchecked': !vm.selectedCategorie(vm.item, categorie)}"  ng-repeat="categorie in vm.categories | filter:vm.resourceSearch">
 																												<p>{{categorie.title}}</p>
 																												<ng-md-icon icon="check" layout-align="center center" layout="row" size="18"></ng-md-icon>
 																								</md-list-item>
