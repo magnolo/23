@@ -11,6 +11,8 @@
 		vm.structureServer = initialData.indexer;
 		vm.structure = "";
 		vm.mvtScource = VectorlayerService.getLayer();
+		vm.mvtCountryLayer = VectorlayerService.getName();
+		vm.mvtCountryLayerGeom = vm.mvtCountryLayer+"_geom";
 		vm.nodeParent = {};
 		vm.selectedTab = 0;
 		vm.current = "";
@@ -110,7 +112,7 @@
 		function setSelectedFeature(iso) {
 			if (vm.mvtSource) {
 				$timeout(function () {
-					vm.mvtSource.layers[VectorlayerService.getName()+"_geom"].features[vm.current.iso].selected = true;
+					vm.mvtSource.layers[vm.mvtCountryLayerGeom].features[vm.current.iso].selected = true;
 				})
 			}
 		};
@@ -176,10 +178,10 @@
 
 			} else {
 				$rootScope.greyed = false;
-				angular.forEach(vm.mvtSource.layers[VectorlayerService.getName()+"_geom"].features, function (feature) {
+				angular.forEach(vm.mvtSource.layers[vm.mvtCountryLayerGeom].features, function (feature) {
 					feature.selected = false;
 				});
-				vm.mvtSource.layers[VectorlayerService.getName()+"_geom"].features[vm.current.iso].selected = true;
+				vm.mvtSource.layers[vm.mvtCountryLayerGeom].features[vm.current.iso].selected = true;
 				vm.mvtSource.options.mutexToggle = true;
 				vm.mvtSource.setStyle(countriesStyle);
 				DataService.getOne('countries/bbox', [vm.current.iso]).then(function (data) {
@@ -391,11 +393,11 @@
 
 			if(n.iso) {
 				if(o.iso){
-					vm.mvtSource.layers[VectorlayerService.getName()+"_geom"].features[o.iso].selected = false;
+					vm.mvtSource.layers[vm.mvtCountryLayerGeom].features[o.iso].selected = false;
 				}
 				calcRank();
 				fetchNationData(n.iso);
-				vm.mvtSource.layers[VectorlayerService.getName()+"_geom"].features[n.iso].selected = true;
+				vm.mvtSource.layers[vm.mvtCountryLayerGeom].features[n.iso].selected = true;
 				if($state.current.name == 'app.index.show.selected' || $state.current.name == 'app.index.show'){
 					$state.go('app.index.show.selected', {
 						index: $state.params.index,
@@ -524,17 +526,17 @@
 					if($state.params.countries){
 						vm.mvtSource.options.mutexToggle = false;
 						vm.mvtSource.setStyle(invertedStyle);
-						vm.mvtSource.layers[VectorlayerService.getName()+"_geom"].features[vm.current.iso].selected = true;
+						vm.mvtSource.layers[vm.mvtCountryLayerGeom].features[vm.current.iso].selected = true;
 						var countries = $state.params.countries.split('-vs-');
 						angular.forEach(countries, function(iso){
-							vm.mvtSource.layers[VectorlayerService.getName()+"_geom"].features[iso].selected = true;
+							vm.mvtSource.layers[vm.mvtCountryLayerGeom].features[iso].selected = true;
 						});
 
 					}
 					else{
 						vm.mvtSource.setStyle(countriesStyle);
 						if($state.params.item){
-								vm.mvtSource.layers[VectorlayerService.getName()+"_geom"].features[$state.params.item].selected = true;
+								vm.mvtSource.layers[vm.mvtCountryLayerGeom].features[$state.params.item].selected = true;
 						}
 					}
 					//vm.mvtSource.redraw();

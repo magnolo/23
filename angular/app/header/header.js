@@ -25,6 +25,7 @@
       originatorEv = ev;
       $mdOpenMenu(ev);
     };
+		$rootScope.sidebarOpen = true;
 		$scope.$watch(function(){
 			return $rootScope.current_page;
 		}, function(newPage){

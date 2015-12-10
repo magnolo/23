@@ -1,5 +1,4 @@
-<div class="multi-view">
-<section class="module-top md-whiteframe-z2" ng-class="{'out': vm.data.length}">
+
 				<md-subheader class="md-no-sticky">Choose data source</md-subheader>
 				<md-list>
 								<md-list-item ng-click="vm.toggleListResources()" ng-if="!vm.showUploadContainer">
@@ -44,7 +43,7 @@
 				<div class="slide-toggle upload-container" ng-if="vm.showUploadContainer">
 								<parsecsv></parsecsv>
 				</div>
-</section>
+
 <section class="module-top module-second md-whiteframe-z2 anim" flex layout-fill layout="column" ng-if="vm.showResources && vm.resources.length && vm.groups.length">
 				<form name="saveIndexForm" novalidate>
 								<div layout="row">

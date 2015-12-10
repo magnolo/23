@@ -13,7 +13,7 @@
   "dependencies": {
     "angular": "~1.4",
     "angular-ui-router": "~0.2.15",
-    "ngstorage": "~0.3.3",
+    "ngstorage": "~0.3.6",
     "angular-material": "~1.0.0-rc6",
     "restangular": "~1.5.1",
     "svg-morpheus": "~0.1.8",
@@ -28,6 +28,7 @@
     "angular-material-data-table": "~0.8.14",
     "angular-toastr": "~1.5.0",
     "angular-ui-tree": "~2.10.0",
-    "md-color-picker": "*"
+    "md-color-picker": "*",
+    "angular-cache": "~4.4.2"
   }
 }

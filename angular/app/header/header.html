@@ -1,4 +1,53 @@
-<div class="Header md-blueframe-z1">
+<div class="md-toolbar-tools">
+	<h2 style="margin-left:0px;cursor:pointer" ui-sref="app.home">
+			<span class="logo">23°</span>
+	</h2>
+	<md-button
+			ng-click="$root.sidebarOpen = !$root.sidebarOpen"
+			class="md-icon-button"
+			aria-label="Show Menu">
+		<ng-md-icon icon="menu"></ng-md-icon>
+	</md-button>
+	<h2>
+		<span>{{current_page}}</span>
+	</h2>
+	<span flex></span>
+	<md-button ng-if="!vm.isAuthenticated()" ui-sref="app.user.login">Login</md-button>
+	<md-menu ng-if="vm.isAuthenticated()">
+					<md-button aria-label="Open phone interactions menu" class="md-icon-button" ng-click="vm.openMenu($mdOpenMenu, $event)">
+									<ng-md-icon icon="person"></ng-md-icon>
+					</md-button>
+					<md-menu-content width="4">
+								<md-menu-item>
+												<md-button ui-sref="app.user.profile">
+																<ng-md-icon icon="person"></ng-md-icon>
+																My Profile
+												</md-button>
+								</md-menu-item>
+								<md-menu-divider></md-menu-divider>
+									<md-menu-item>
+													<md-button ui-sref="app.index.create">
+																	<ng-md-icon icon="public"></ng-md-icon>
+																	Create new index
+													</md-button>
+									</md-menu-item>
+									<md-menu-item>
+													<md-button ui-sref="app.index.create">
+																	<ng-md-icon icon="file_upload"></ng-md-icon>
+																	Upload new data
+													</md-button>
+									</md-menu-item>
+									<md-menu-divider></md-menu-divider>
+									<md-menu-item>
+													<md-button ng-click="vm.doLogout()">
+																	<ng-md-icon icon="directions_walk"></ng-md-icon>
+																	Log out
+													</md-button>
+									</md-menu-item>
+					</md-menu-content>
+	</md-menu>
+</div>
+<!--<div class="Header md-blueframe-z1">
 
 				<md-toolbar class="md-accent white-bg">
 								<div class="md-toolbar-tools" style="padding:0 2em;margin:0 16px;">
@@ -57,4 +106,4 @@
 
 								</div>
 				</md-toolbar>
-</div>
+</div>-->

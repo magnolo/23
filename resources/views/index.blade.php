@@ -13,11 +13,33 @@
     <script type="text/javascript">document.location.href = '/unsupported-browser'</script>
     <![endif]-->
 </head>
-<body ng-class="{'greyed': $root.greyed}">
+<body ng-class="{'greyed': $root.greyed}" layout="column">
+<md-toolbar class="Header md-accent" layout="column" tabindex="-⁄1">
     <header ui-view="header"></header>
+</md-toolbar>
+<div flex role="main" layout="row" >
+  <md-sidenav
+        class="Sidebar md-sidenav-left md-whiteframe-z1"
+        md-component-id="left"
+        md-is-locked-open="$mdMedia('gt-md') && $root.sidebarOpen"
+        tabindex="-1">
+
+    <!-- Sidebar header/branding -->
+    <!--<md-toolbar class="Sidebar-header">
+        <h1 class="md-toolbar-tools Sidebar-title">Laravel 5 angular<br>material starter</h1>
+    </md-toolbar>-->
+
+    <!-- Sidebar menu items -->
+    <md-content
+            class="Sidebar-pages md-default-theme anim"
+            ui-view="sidebar">
+    </md-content>
+</md-sidenav>
+  <md-content layout="column" flex md-scroll-y>
     <div ui-view="map" class="Map_Container"></div>
-    <div ui-view="sidebar"></div>
     <div ui-view="main" class="Page anim-total" layout-fill></div>
+    </md-content>
+  </div>
     <div class="cssload-container" ng-if="stateIsLoading">
         <div class="cssload-whirlpool"></div>
     </div>

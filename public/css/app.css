@@ -784,23 +784,31 @@ md-toast[md-theme=warn] {
   text-align: center;
 }
 
-.Header {
-  position: fixed;
-  left: 0px;
-  right: 0;
-  z-index: 3;
-  top: 0px;
-}
-.Header .md-toolbar-tools,
-.Header md-toolbar {
-  height: 48px;
-  min-height: 48px;
-}
-.Header a.md-button span {
-  color: #006bb9;
-}
-.Header .md-menu {
-  padding: 0px;
+
+/*.Header{
+	position: fixed;
+	left: 0px;
+	right: 0;
+	z-index:3;
+	top:0px;
+	.md-toolbar-tools, md-toolbar{
+		height:48px;
+		min-height:48px;
+	}
+	a{
+		&.md-button{
+			span{
+				color:@base;
+			}
+		}
+	}
+	.md-menu{
+		padding:0px;
+	}
+}*/
+
+section.module-top.menu md-list-item a {
+  margin: 0px;
 }
 
 md-toolbar.md-menu-toolbar {
@@ -850,10 +858,6 @@ md-menu-bar {
   padding: 24px;
 }
 
-section.module-top.menu md-list-item a {
-  margin: 0px;
-}
-
 .multi-view {
   top: calc(48px);
   left: 0em;
@@ -861,6 +865,7 @@ section.module-top.menu md-list-item a {
   width: 100%;
   height: calc(100% - 48px);
 }
+
 
 section.module-top {
   background-color: #fff;
@@ -1144,16 +1149,16 @@ md-list-item.active {
 }
 
 
-.Sidebar {
-  position: fixed !important;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  width: 250px !important;
-  min-width: 250px !important;
-  max-width: 250px !important;
-  background-color: #3f51b5;
-}
+/*.Sidebar {
+	position: fixed !important;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	width: 250px !important;
+	min-width: 250px !important;
+	max-width: 250px !important;
+	background-color: rgb(63, 81, 181);
+}*/
 .Sidebar-title {
   font-size: 25px;
   height: 100px;

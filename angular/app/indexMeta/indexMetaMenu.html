@@ -1,0 +1,11 @@
+<md-list class="selector">
+        <md-list-item class="md-2-line" ng-class="{'active': key == vm.editingItem, 'md-warn': !vm.indicators[key].full}" ng-click="vm.selectForEditing(key)" ng-if="key != vm.meta.iso_field && key != vm.meta.country_field && key != 'year'" ng-repeat="(key, item) in vm.data[0].data[0]">
+                <div class="md-list-item-text">
+                        <h3>{{vm.indicators[key].title || key}}</h3>
+                        <p>
+                                {{ key }}
+                        </p>
+                </div>
+                <ng-md-icon icon="{{vm.indicators[key].full ? 'check_circle': 'error'}}" layout-align="center center" layout="row" size="18"></ng-md-icon>
+        </md-list-item>
+</md-list>

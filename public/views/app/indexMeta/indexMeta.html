@@ -1,0 +1,29 @@
+<section class="table anim md-whiteframe-z2" >
+        <md-data-table-toolbar class="md-whiteframe-z1">
+                <div flex layout-align="space-between center" layout="row">
+                        <h2 class="md-title">CSV Import 2/3</h2>
+                        <h3>Adding Meta Data</h3>
+                        <span flex></span>
+                        <div layout-align="space-between center" layout="row">
+                                <md-button ui-sref="app.index.check">
+                                        <ng-md-icon class="middle" icon="chevron_left"></ng-md-icon>
+                                        Prev
+                                </md-button>
+                                <md-button ui-sref="app.index.final">
+                                        Next
+                                        <ng-md-icon class="middle" icon="chevron_right"></ng-md-icon>
+                                </md-button>
+                        </div>
+                </div>
+        </md-data-table-toolbar>
+        <md-content class="fill-noheader" layout-fill>
+                <section flex layout-fill layout="row">
+                        <md-content flex>
+                                <div layout-align="top center" layout-fill layout="column" ng-if="vm.indicator">
+                                        <indicator item="vm.indicator"></indicator>
+                                </div>
+                                <div flex></div>
+                        </md-content>
+                </section>
+        </md-content>
+</section>

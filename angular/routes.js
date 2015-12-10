@@ -29,7 +29,7 @@
 			.state('app.home',{
 				url:'/',
 				views:{
-					'main@':{
+					'sidebar@':{
 						templateUrl: getView('home'),
 						controller: 'HomeCtrl',
 						controllerAs: 'vm'
@@ -71,14 +71,8 @@
 			})
 			.state('app.index', {
 				abstract: true,
-				url: '/index',
-				views: {
-					'main@': {
-						templateUrl: getView('index'),
-						controller: 'IndexbaseCtrl',
-						controllerAs: 'vm'
-					}
-				}
+				url: '/index'
+
 			})
 			.state('app.index.editor',{
 				url: '/editor',
@@ -96,10 +90,7 @@
 			.state('app.index.create', {
 				url: '/create',
 				views: {
-					'info': {
-
-					},
-					'menu': {
+					'sidebar@': {
 						templateUrl: getView('indexcreator'),
 						controller: 'IndexcreatorCtrl',
 						controllerAs: 'vm'
@@ -109,11 +100,28 @@
 			.state('app.index.create.basic', {
 				url: '/basic'
 			})
-			.state('app.index.create.check', {
-				url: '/checking'
+			.state('app.index.check', {
+				url: '/checking',
+				views:{
+					'main@':{
+						templateUrl:getView('IndexCheck'),
+						controller: 'IndexCheckCtrl',
+						controllerAs: 'vm'
+					}
+				}
 			})
-			.state('app.index.create.meta', {
-				url: '/adding-meta-data'
+			.state('app.index.meta', {
+				url: '/adding-meta-data',
+				views:{
+					'main@':{
+						templateUrl:getView('indexMeta'),
+						controller: 'IndexMetaCtrl',
+						controllerAs: 'vm'
+					},
+					'sidebar@':{
+						templateUrl: '/views/app/indexMeta/indexMetaMenu.html',
+					}
+				}
 			})
 			.state('app.index.create.final', {
 				url: '/adding-meta-data'
