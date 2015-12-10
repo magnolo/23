@@ -12,20 +12,25 @@
               year_field:'',
               table:[]
             }
-        }, storage, importCache;
+        }, storage, importCache, indicator, indicators = [];
+
         if (!CacheFactory.get('importData')) {
           importCache = CacheFactory('importData', {
             cacheFlushInterval: 60 * 60 * 1000, // This cache will clear itself every hour.
             deleteOnExpire: 'aggressive', // Items will be deleted from this cache right when they expire.
             storageMode: 'localStorage' // This cache will use `localStorage`.
           });
+          serviceData = importCache.get('dataToImport');
         }
         else{
           importCache = CacheFactory.get('importData');
-          storage = importCache.get('importData');
+          storage = importCache.get('dataToImport');
         }
         return {
           clear:function(){
+            if(CacheFactory.get('importData')){
+                importCache.remove('dataToImport');
+            }
             return serviceData= {
                 data: [],
                 errors: [],
@@ -38,6 +43,9 @@
           },
           addData:function(item){
             return serviceData.data.push(item);
+          },
+          addIndicator: function(item){
+            return indicators.push(item);
           },
           setData: function(data){
             return serviceData.data = data;
@@ -54,8 +62,13 @@
           setToLocalStorage: function(){
             importCache.put('dataToImport',serviceData);
           },
+          setIndicator: function(key, item){
+            return indicators[key] = item;
+          },
+          setActiveIndicatorData: function(item){
+            return indicator = indicators[indicators.indexOf(indicator)] = item;
+          },
           getFromLocalStorage: function(){
-            console.log( importCache.info('dataToImport'));
             return serviceData = importCache.get('dataToImport');
           },
           getData: function(){
@@ -78,6 +91,12 @@
           },
           getDataSize: function(){
             return serviceData.data.length;
+          },
+          getIndicator: function(key){
+            return indicator = indicators[key];
+          },
+          activeIndicator: function(){
+            return indicator;
           }
         }
     });

@@ -22,7 +22,7 @@
         class="Sidebar md-sidenav-left md-whiteframe-z1"
         md-component-id="left"
         md-is-locked-open="$mdMedia('gt-md') && $root.sidebarOpen"
-        tabindex="-1">
+        tabindex="-1" >
 
     <!-- Sidebar header/branding -->
     <!--<md-toolbar class="Sidebar-header">
@@ -36,7 +36,7 @@
     </md-content>
 </md-sidenav>
   <md-content layout="column" flex md-scroll-y>
-    <div ui-view="map" class="Map_Container"></div>
+    <div ui-view="map" class="Map_Container" flex></div>
     <div ui-view="main" class="Page anim-total" layout-fill></div>
     </md-content>
   </div>

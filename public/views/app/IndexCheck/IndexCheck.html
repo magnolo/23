@@ -53,7 +53,7 @@
                         <thead md-order="vm.query.order" md-trigger="vm.onOrderChange">
                                 <tr >
                                         <th name="Errors" ng-if="vm.errors" order-by="errors"></th>
-                                        <th class="iconed" name="{{key}}" ng-class="{'done': vm.checkColumnData(key), 'globe': key == vm.meta.iso_field || key == vm.meta.country_field}" ng-repeat="(key, item) in vm.data[0].data[0]" order-by="{{key}}">
+                                        <th class="iconed" name="{{key}}" ng-class="{'globe': key == vm.meta.iso_field || key == vm.meta.country_field}" ng-repeat="(key, item) in vm.data[0].data[0]" order-by="{{key}}">
                                                 <span class="icon" ng-if="key == vm.meta.iso_field">
                                                         <ng-md-icon icon="public"></ng-md-icon>
                                                 </span>

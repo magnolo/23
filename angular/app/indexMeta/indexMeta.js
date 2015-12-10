@@ -1,16 +1,18 @@
 (function(){
     "use strict";
 
-    angular.module('app.controllers').controller('IndexMetaCtrl', function(DataService,IndexService){
+    angular.module('app.controllers').controller('IndexMetaCtrl', function($scope, DataService,IndexService,toastr){
         //
 
         var vm = this;
-        vm.extendData = extendData;
-        vm.saveData = saveData;
+
         vm.indicators = [];
         vm.data = IndexService.getData();
         vm.meta = IndexService.getMeta();
         vm.errors = IndexService.getErrors();
+        vm.indicator = IndexService.activeIndicator();
+        vm.extendData = extendData;
+        vm.saveData = saveData;
 
         function extendData(){
           var insertData = {data:[]};
@@ -35,11 +37,6 @@
           });
         }
         function saveData(){
-        //  console.log(vm.meta.table);
-          //console.log(vm.meta.table, vm.data[0].data[0].length);
-          //console.log(vm.indicators);
-          //return false;
-
           var insertData = {data:[]};
           var meta = [], fields = [];
           angular.forEach(vm.data, function(item, key){
@@ -77,10 +74,8 @@
               data: item
             })
           })
-          //vm.meta.iso_type = 'iso-3166-1';
           vm.meta.fields = fields;
           vm.meta.info = meta;
-
           DataService.post('data/tables', vm.meta).then(function(response){
               DataService.post('data/tables/'+response.table_name+'/insert', insertData).then(function(res){
                 if(res == true){
@@ -95,6 +90,15 @@
             }
           })
         }
+
+        $scope.$watch(function(){ return IndexService.activeIndicator()}, function(n,o){
+          if(n === o)return;
+          vm.indicator = n;
+        });
+        $scope.$watch('vm.indicator', function(n,o){
+          if(n === o) return;
+          IndexService.setActiveIndicatorData(n);
+        },true);
     });
 
 })();

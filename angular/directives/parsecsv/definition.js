@@ -33,6 +33,7 @@
 						start, end;
 						firstRun = true;
 							$timeout(function(){
+								IndexService.clear();
 								var csv = Papa.parse(input[0].files[0],{
 									skipEmptyLines: true,
 									header:true,

@@ -26,7 +26,10 @@ class CountriesController extends Controller
       $countries =  Countrie::select('iso_a2 as iso', 'admin as country')->get();
       $data = array();
       foreach ($countries as $key => $country) {
-        $data[$country->iso] = $country->country;
+        if($country->iso != -99){
+          $data[$country->iso] = $country->country;
+        }
+
       }
       return response()->api($data);
     }

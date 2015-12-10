@@ -29,6 +29,7 @@
     "angular-toastr": "~1.5.0",
     "angular-ui-tree": "~2.10.0",
     "md-color-picker": "*",
-    "angular-cache": "~4.4.2"
+    "angular-cache": "~4.4.2",
+    "ng-scrollbar": "~0.0.8"
   }
 }

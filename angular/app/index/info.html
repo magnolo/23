@@ -16,8 +16,7 @@
 				color: {{vm.structure.color || 'rgba(128, 243, 198,1)'}};
 	}
 </style>
-
-				<div class="info-box anim-fade md-whiteframe-z3" flex layout-fill layout="column" ng-if="vm.structure && vm.data">
+<div class="info-box">
 								<section ng-if="!vm.structure.parent_id" class="header" layout-align="space-between center" layout="row" ng-style="{'color':vm.display.selectedCat.color}">
 												<span class="title">{{vm.structure.title}}</span>
 												<span class="subtitle">{{vm.structure.full_name}}</span>

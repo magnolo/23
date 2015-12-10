@@ -120,6 +120,8 @@
 					},
 					'sidebar@':{
 						templateUrl: '/views/app/indexMeta/indexMetaMenu.html',
+						controller: 'IndexMetaMenuCtrl',
+						controllerAs: 'vm'
 					}
 				}
 			})
@@ -129,7 +131,7 @@
 			.state('app.index.show', {
 				url: '/:index',
 				views: {
-					'info': {
+					'sidebar@': {
 						templateUrl: '/views/app/index/info.html',
 						controller: 'IndexCtrl',
 						controllerAs: 'vm',

@@ -208,3 +208,21 @@ md-tabs > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper{
     }
   }
 }
+md-sidenav {
+    box-sizing: border-box;
+    position: absolute;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    z-index: 60;
+    width: 350px;
+    min-width: 350px;
+    max-width: 350px;
+    bottom: 0;
+    overflow: auto;
+  &.md-locked-open {
+    width: 350px;
+    min-width: 350px;
+    max-width: 350px;
+}
+}

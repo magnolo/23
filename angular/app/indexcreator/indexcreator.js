@@ -39,8 +39,8 @@
         vm.saveIndex = saveIndex;
 
         vm.icons = IconsService.getList();
-        //vm.selectForEditing = selectForEditing;
-  
+
+
         vm.meta = {
           iso_field: '',
           country_field:'',

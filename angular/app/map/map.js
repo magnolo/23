@@ -4,7 +4,7 @@
 	angular.module('app.controllers').controller('MapCtrl', function (leafletData, VectorlayerService) {
 		//
 		var vm = this;
-		var apiKey = 'pk.eyJ1IjoibWFnbm9sbyIsImEiOiJuSFdUYkg4In0.5HOykKk0pNP1N3isfPQGTQ';
+		var apiKey = VectorlayerService.keys.mapbox;
 		vm.defaults = {
 			scrollWheelZoom: false
 		};
@@ -23,7 +23,7 @@
 			}
 		}
 		leafletData.getMap('map').then(function(map) {
-			var url = 'http://v22015052835825358.yourvserver.net:3001/services/postgis/'+VectorlayerService.getName()+'/geom/vector-tiles/{z}/{x}/{y}.pbf?fields=id,admin,adm0_a3,wb_a3,su_a3,iso_a3,iso_a2,name,name_long'; //
+			var url = 'http://v22015052835825358.yourvserver.net:3001/services/postgis/'+VectorlayerService.getName()+'/geom/vector-tiles/{z}/{x}/{y}.pbf?fields='+VectorlayerService.fields(); //
 			var layer = new L.TileLayer.MVTSource({
 				url: url,
 				debug: false,

@@ -14,7 +14,6 @@
         vm.checkForErrors = checkForErrors;
         vm.clearErrors = clearErrors;
         vm.showUploadContainer = false;
-        vm.checkColumnData = checkColumnData;
         vm.editColumnData = editColumnData;
         vm.fetchIso = fetchIso;
         vm.editRow = editRow;
@@ -28,19 +27,14 @@
           page: 1
         };
         vm.myData = DataService.getAll('me/data');
-
-
         activate();
+
         function activate(){
           checkMyData();
         }
+
         function checkMyData(){
           vm.extendingChoices = [];
-          console.log(vm.data);
-          if(!vm.data.length){
-            vm.data = IndexService.getFromLocalStorage();
-          }
-            console.log(vm.data);
           if(vm.data.length){
             vm.myData.then(function(imports){
               angular.forEach(imports, function(entry){
@@ -100,27 +94,9 @@
             }
           });
         }
-        function checkColumnData(key){
-          if(typeof vm.meta.table[key] != "undefined"){
-            if(vm.meta.table[key].title){
-              return true;
-            }
-          }
-          return false;
-        }
         function editColumnData(e, key){
           vm.toEdit = key;
           DialogService.fromTemplate('editcolumn', $scope);
-        }
-        function selectForEditing(key){
-          if(typeof vm.indicators[key] == "undefined"){
-            vm.indicators[key] = {
-              column_name:key,
-              title:key
-            };
-          }
-          vm.editingItem = key;
-          vm.indicator = vm.indicators[key];
         }
         function deleteSelected(){
           angular.forEach(vm.selected, function(item, key){
