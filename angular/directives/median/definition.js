@@ -102,6 +102,7 @@
 						.attr('r', options.height / 2)
 					legend2.append('text')
 						.text(function(){
+							//TDODO: CHckick if no comma there 
 							if(max > 1000){
 								var v = (parseInt(max) / 1000).toString();
 								return v.substr(0, v.indexOf('.') ) + "k" ;
