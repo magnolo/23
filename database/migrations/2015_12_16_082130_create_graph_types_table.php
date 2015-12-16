@@ -12,7 +12,7 @@ class CreateGraphTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('23_graph_measuretypes', function (Blueprint $table) {
+        Schema::create('23_graphs_measuretypes', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('graph_id');
             $table->integer('measure_type_id');
@@ -27,6 +27,6 @@ class CreateGraphTypesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('23_graph_measuretypes');
+        Schema::drop('23_graphs_measuretypes');
     }
 }

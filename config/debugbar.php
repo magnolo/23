@@ -59,7 +59,7 @@ return [
      |
      */
 
-    'capture_ajax' => true,
+    'capture_ajax' => false,
 
     /*
      |--------------------------------------------------------------------------
@@ -103,7 +103,7 @@ return [
 
     'options' => [
         'auth' => [
-            'show_name' => false,   // Also show the users name/email in the debugbar
+            'show_name' => true,   // Also show the users name/email in the debugbar
         ],
         'db' => [
             'with_params'       => true,   // Render SQL with the parameters substituted

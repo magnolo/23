@@ -12,8 +12,9 @@
 */
 
 Route::get('/', 'AngularController@serveApp');
-
 Route::get('/unsupported-browser', 'AngularController@unsupported');
+//Route::any('{path?}','AngularController@serveApp')->where("path", ".+");
+
 
 $api = app('Dingo\Api\Routing\Router');
 

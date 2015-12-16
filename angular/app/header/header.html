@@ -8,13 +8,25 @@
 			aria-label="Show Menu">
 		<ng-md-icon icon="menu"></ng-md-icon>
 	</md-button>
-	<h2>
+	<!--<h2>
 		<span>{{current_page}}</span>
-	</h2>
+	</h2>-->
+	<ul class="inline-list menu-list">
+				<li>
+						<a href="">Human</a>
+				</li>
+				<li>
+						<a href="">Animal</a>
+				</li>
+					<li ui-sref-active="active">
+									<a href="" ui-sref="app.index.show({index:'epi'})">Environment</a>
+					</li>
+
+	</ul>
 	<span flex></span>
 	<md-button ng-if="!vm.isAuthenticated()" ui-sref="app.user.login">Login</md-button>
-	<md-menu ng-if="vm.isAuthenticated()">
-					<md-button aria-label="Open phone interactions menu" class="md-icon-button" ng-click="vm.openMenu($mdOpenMenu, $event)">
+	<md-menu ng-if="vm.isAuthenticated()" md-position-mode="target-right target">
+					<md-button aria-label="Open user menu" class="md-icon-button" ng-click="vm.openMenu($mdOpenMenu, $event)">
 									<ng-md-icon icon="person"></ng-md-icon>
 					</md-button>
 					<md-menu-content width="4">

@@ -5,6 +5,7 @@
 		//
 		var vm = this;
 		var apiKey = VectorlayerService.keys.mapbox;
+
 		vm.defaults = {
 			scrollWheelZoom: false
 		};
@@ -21,27 +22,36 @@
 					type: 'xyz',
 				}
 			}
-		}
-		leafletData.getMap('map').then(function(map) {
-			var url = 'http://v22015052835825358.yourvserver.net:3001/services/postgis/'+VectorlayerService.getName()+'/geom/vector-tiles/{z}/{x}/{y}.pbf?fields='+VectorlayerService.fields(); //
+		};
+		vm.maxbounds = {
+			southWest: {
+				lat: 90,
+				lng: 180
+			},
+			northEast: {
+				lat: -90,
+				lng: -180
+			}
+		};
+		leafletData.getMap('map').then(function (map) {
+			var url = 'http://v22015052835825358.yourvserver.net:3001/services/postgis/' + VectorlayerService.getName() + '/geom/vector-tiles/{z}/{x}/{y}.pbf?fields=' + VectorlayerService.fields(); //
 			var layer = new L.TileLayer.MVTSource({
 				url: url,
 				debug: false,
-				clickableLayers: [VectorlayerService.getName()+'_geom'],
+				clickableLayers: [VectorlayerService.getName() + '_geom'],
 				mutexToggle: true,
-				getIDForLayerFeature: function(feature) {
-
+				getIDForLayerFeature: function (feature) {
 					return feature.properties.iso_a2;
 				},
-				filter: function(feature, context) {
+				filter: function (feature, context) {
 
 					return true;
 				}
 			});
-			 map.addLayer(VectorlayerService.setLayer(layer));
-			 var labelsLayer = L.tileLayer('https://{s}.tiles.mapbox.com/v4/magnolo.06029a9c/{z}/{x}/{y}.png?access_token=' + apiKey);
-			 map.addLayer(labelsLayer);
-			 labelsLayer.bringToFront();
+			map.addLayer(VectorlayerService.setLayer(layer));
+			var labelsLayer = L.tileLayer('https://{s}.tiles.mapbox.com/v4/magnolo.06029a9c/{z}/{x}/{y}.png?access_token=' + apiKey);
+			map.addLayer(labelsLayer);
+			labelsLayer.bringToFront();
 		});
 	});
 })();

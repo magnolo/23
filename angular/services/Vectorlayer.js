@@ -13,6 +13,7 @@
             name:'23_countries',
             iso3:'adm0_a3',
             iso2:'iso_a2',
+            iso:'iso_a2',
             fields: "id,admin,adm0_a3,wb_a3,su_a3,iso_a3,iso_a2,name,name_long"
           },
           setLayer: function(l){
@@ -26,6 +27,9 @@
           },
           fields: function() {
             return this.data.fields;
+          },
+          iso:function(){
+            return this.data.iso;
           },
           iso3: function() {
             return this.data.iso3;

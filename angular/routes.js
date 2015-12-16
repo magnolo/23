@@ -1,8 +1,8 @@
 (function () {
 	"use strict";
 
-	angular.module('app.routes').config(function ($stateProvider, $urlRouterProvider) {
-
+	angular.module('app.routes').config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
+	//	$locationProvider.html5Mode(true);
 		var getView = function (viewName) {
 			return '/views/app/' + viewName + '/' + viewName + '.html';
 		};

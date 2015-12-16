@@ -15,7 +15,7 @@ class Indicator extends Model
     public function userdata(){
       return $this->belongsTo('App\UserData');
     }
-    public function type(){
+    public function measureType(){
       return $this->belongsTo('App\MeasureType', 'measure_type_id');
     }
     public function style(){
