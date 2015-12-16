@@ -12,7 +12,9 @@
 		"dingo/api": "1.0.x@dev",
 		"barryvdh/laravel-cors": "0.7.x",
 		"doctrine/dbal": "~2.5.2",
-		"zizaco/entrust": "dev-laravel-5"
+		"zizaco/entrust": "dev-laravel-5",
+		"flynsarmy/csv-seeder": "1.*",
+		"phaza/laravel-postgis": "^2.15"
 	},
 	"require-dev": {
         "fzaninotto/faker": "~1.4",
