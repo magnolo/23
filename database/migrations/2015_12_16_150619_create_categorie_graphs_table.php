@@ -12,7 +12,7 @@ class CreateCategorieGraphsTable extends Migration
      */
     public function up()
     {
-        Schema::create('23_categorie_graphs', function (Blueprint $table) {
+        Schema::create('23_categories_graphs', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('categorie_id');
             $table->integer('graph_id');
@@ -27,6 +27,6 @@ class CreateCategorieGraphsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('23_categorie_graphs');
+        Schema::drop('23_categories_graphs');
     }
 }
