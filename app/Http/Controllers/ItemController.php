@@ -13,7 +13,7 @@ use Auth;
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 
-class IndexController extends Controller
+class ItemController extends Controller
 {
     protected $countries;
     protected $calced = array();

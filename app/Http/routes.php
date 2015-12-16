@@ -25,13 +25,13 @@ $api->version('v1', function ($api) {
      */
     $api->controller('authenticate', 'App\Http\Controllers\AuthenticateController');
 
-    $api->get('index', 'App\Http\Controllers\IndexController@index');
-    $api->get('index/alphabethical', 'App\Http\Controllers\IndexController@alphabethical');
-    $api->get('index/{id}', 'App\Http\Controllers\IndexController@index');
-    $api->get('index/{id}/year/latest', 'App\Http\Controllers\IndexController@showLatestYear');
-    $api->get('index/{id}/year/{year}', 'App\Http\Controllers\IndexController@showByYear');
-    $api->get('index/{id}/structure', 'App\Http\Controllers\IndexController@showWithChildren');
-    $api->get('index/{id}/{iso}', 'App\Http\Controllers\IndexController@showByIso');
+    $api->get('index', 'App\Http\Controllers\ItemController@index');
+    $api->get('index/alphabethical', 'App\Http\Controllers\ItemController@alphabethical');
+    $api->get('index/{id}', 'App\Http\Controllers\ItemController@index');
+    $api->get('index/{id}/year/latest', 'App\Http\Controllers\ItemController@showLatestYear');
+    $api->get('index/{id}/year/{year}', 'App\Http\Controllers\ItemController@showByYear');
+    $api->get('index/{id}/structure', 'App\Http\Controllers\ItemController@showWithChildren');
+    $api->get('index/{id}/{iso}', 'App\Http\Controllers\ItemController@showByIso');
 
     //$api->get('nations', 'App\Http\Controllers\NationsController@index');
     $api->get('countries', 'App\Http\Controllers\CountriesController@index');
