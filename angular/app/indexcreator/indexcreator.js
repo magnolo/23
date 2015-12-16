@@ -1,7 +1,7 @@
 (function(){
     "use strict";
 
-    angular.module('app.controllers').controller('IndexcreatorCtrl', function($scope,$rootScope,DialogService,DataService, $timeout,$state, $filter, leafletData, toastr, IconsService, VectorlayerService){
+    angular.module('app.controllers').controller('IndexcreatorCtrl', function($scope,DialogService,DataService, $timeout,$state, $filter, leafletData, toastr, IconsService, VectorlayerService){
         //
         var vm = this;
         vm.map = null;
@@ -197,7 +197,6 @@
             isGroup:true,
             nodes:[]
           };
-
           angular.forEach(vm.selectedForGroup, function(item, key){
             newGroup.nodes.push(item);
           });
@@ -235,40 +234,6 @@
             toastr.error(response.message,'Upps!!');
           });
         }
-
-
-
-        $scope.$on("$stateChangeStart", function (event, toState, toParams, fromState, fromParams) {
-        /*  vm.iso_checked = false;
-          switch (toState.name) {
-            case 'app.index.create.basic':
-              if(!vm.myData.length){
-                vm.myData = DataService.getAll('me/data');
-              }
-              break;
-            case 'app.index.create.check':
-              break;
-            case 'app.index.create.meta':
-                if(!vm.meta.iso_field){
-                  toastr.error('No field for ISO Code selected!', 'Error');
-                  event.preventDefault();
-                   $rootScope.stateIsLoading = false;
-                }
-
-                break;
-            case 'app.index.create.final':
-              break;
-            default:
-                if(vm.data.length){
-                  $scope.toState = toState;
-                  DialogService.fromTemplate('loosedata', $scope, vm.deleteData);
-                  event.preventDefault();
-                  $rootScope.stateIsLoading = false;
-                }
-              break;
-          }*/
-        });
-
         $scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParams) {
           if(!vm.data.length){
             $state.go('app.index.create');

@@ -37,11 +37,7 @@
 
 		function toggleCategorie(categorie) {
 			var index = vm.item.categories.indexOf(categorie);
-			if (index === -1) {
-				vm.item.categories.push(categorie);
-			} else {
-				vm.item.categories.splice(index, 1);
-			}
+			index === -1 ? vm.item.categories.push(categorie) : vm.item.categories.splice(index, 1);
 		}
 
 		function selectedCategorie(item, categorie) {
@@ -53,9 +49,7 @@
 			return index !== -1 ? true : false;
 		}
 		$scope.$watch('vm.item', function (n, o) {
-			if (n === o) {
-				return;
-			}
+			if (n === o) return;
 			if(!vm.askedToReplicate) {
 				vm.preProvider = o.dataprovider;
 				vm.preMeasure = o.measure_type_id;
@@ -70,12 +64,8 @@
 			}
 		});
 		$scope.$watch('vm.item', function (n, o) {
-			if (n === o) {
-				return;
-			}
-			if (typeof n.categories == "undefined") {
-				n.categories = [];
-			}
+			if (n === o) return;
+			if (typeof n.categories == "undefined") n.categories = [];
 			if (n.title && n.measure_type_id && n.dataprovider && n.title.length >= 3) {
 				n.base = true;
 				n.full = n.categories.length ? true : false;
