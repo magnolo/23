@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
         $this->call('CategoriesSeeder');
         $this->call('DataProvidersSeeder');
         $this->call('EpiSeeder');
+        $this->call('EpiDataSeeder');
 
         Model::reguard();
     }

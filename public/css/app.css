@@ -529,6 +529,10 @@ md-toast[md-theme=warn] {
 }
 
 
+section.module-top.menu md-list-item a {
+  margin: 0px;
+}
+
 /*.Header{
 	position: fixed;
 	left: 0px;
@@ -550,10 +554,6 @@ md-toast[md-theme=warn] {
 		padding:0px;
 	}
 }*/
-
-section.module-top.menu md-list-item a {
-  margin: 0px;
-}
 
 md-toolbar.md-menu-toolbar {
   background-color: #ffffff;

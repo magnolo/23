@@ -318,7 +318,9 @@
 			var nation = getNationByIso(iso);
 			var field = vm.structure.name || 'score';
 
-			var colorPos = parseInt(256 / 84853 * nation[field]) * 4;
+			//TODO: MAX VALUE INSTEAD OF 100
+			var colorPos = parseInt(256 / 100 * nation[field]) * 4;
+
 			var color = 'rgba(' + vm.palette[colorPos] + ', ' + vm.palette[colorPos + 1] + ', ' + vm.palette[colorPos + 2] + ',' + vm.palette[colorPos + 3] + ')';
 			style.color = 'rgba(0,0,0,0)';
 			style.outline = {
@@ -339,7 +341,9 @@
 
 			var style = {};
 			var iso = feature.properties[vm.iso_field];
+
 			var nation = getNationByIso(iso);
+			console.log(nation);
 			var field = vm.structure.name || 'score';
 			var type = feature.type;
 			if(iso != vm.current.iso){
@@ -350,7 +354,9 @@
 			case 3: //'Polygon'
 				if (typeof nation[field] != "undefined") {
 
-					var colorPos = parseInt(256 / 84853 * parseInt(nation[field])) * 4;
+					//TODO: MAX VALUE INSTEAD OF 100
+					var colorPos = parseInt(256 / 100 * parseInt(nation[field])) * 4;
+
 					var color = 'rgba(' + vm.palette[colorPos] + ', ' + vm.palette[colorPos + 1] + ', ' + vm.palette[colorPos + 2] + ',' + vm.palette[colorPos + 3] + ')';
 					style.color = 'rgba(' + vm.palette[colorPos] + ', ' + vm.palette[colorPos + 1] + ', ' + vm.palette[colorPos + 2] + ',0.6)'; //color;
 					style.outline = {

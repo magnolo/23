@@ -41,7 +41,7 @@
 
     <script src="{!! asset('js/vendor.js') !!}"></script>
     <script src="{!! asset('js/app.js') !!}"></script>
-    <script src="https://cdn.rawgit.com/devTristan/pbf/master/dist/pbf.min.js"></script>
+    <script src="js/pbf.min.js"></script>
     <script src="js/Leaflet.MapboxVectorTile.js"></script>
 
     {{--livereload--}} @if ( Config::get('app.debug') )

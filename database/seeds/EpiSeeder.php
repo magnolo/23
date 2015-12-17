@@ -187,7 +187,7 @@ class EpiSeeder extends Seeder
         $ud->user_id = 2;
         $ud->table_name = "user_table_epi";
         $ud->iso_name = "iso";
-        $ud->iso_type = "iso-3166-1";
+        $ud->iso_type = "iso-3166-2";
         $ud->country_name = "country";
         $ud->name = "epi";
         $ud->title = "Environmental Performance Index";

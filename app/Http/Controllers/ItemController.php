@@ -1,14 +1,11 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use App\Item;
+use App\IndexItem;
 use App\Style;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
-
 use Auth;
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
@@ -17,6 +14,7 @@ class ItemController extends Controller
 {
     protected $countries;
     protected $calced = array();
+    protected $sum = array();
     /**
      * Display a listing of the resource.
      *
@@ -34,7 +32,6 @@ class ItemController extends Controller
      *
      * @return Response
      */
-
     protected function saveSubIndex($data, $parent){
       foreach($data as $entry){
         $name = preg_replace('/\s[\s]+/','_',$parent->name.'-'.$entry['title']);    // Strip off multiple spaces
@@ -67,18 +64,17 @@ class ItemController extends Controller
         if(isset($entry['icon'])){
           $icon = $entry['icon'];
         }
-
-        $item = new Item();
-        $item->title = $entry['title'];
-        $item->name = $entry['title'];
-        $item->indicator_id = isset($entry['id']) ? $entry['id'] : null;
-        $item->item_type_id = $type_id;
-        $item->name = $name;
-        $item->parent_id = $parent->id;
-        $item->user_id = Auth::user()->id;
-        $item->save();
-        if($item->id && isset($entry['nodes'])){
-          $this->saveSubIndex($entry['nodes'], $item);
+        $index = new Index();
+        $index->title = $entry['title'];
+        $index->name = $entry['title'];
+        $index->indicator_id = isset($entry['id']) ? $entry['id'] : null;
+        $index->item_type_id = $type_id;
+        $index->name = $name;
+        $index->parent_id = $parent->id;
+        $index->user_id = Auth::user()->id;
+        $index->save();
+        if($index->id && isset($entry['nodes'])){
+          $this->saveSubIndex($entry['nodes'], $index);
         }
       }
     }
@@ -90,21 +86,25 @@ class ItemController extends Controller
         $name = preg_replace('/^[\-]+/','',$name); // Strip off the starting hyphens
         $name = preg_replace('/[\-]+$/','',$name); // // Strip off the ending hyphens
         $name = strtolower($name);
-
-        $item = new Item();
-        $item->title = $request->input('title');
-        $item->name = $name;
-        $item->item_type_id = 1;
-        $item->parent_id = 0;
-        $item->user_id = Auth::user()->id;
-        $item->save();
-
-        if($item->id){
-          $this->saveSubIndex($request->input('data'), $item);
+        $index = new Index();
+        $index->title = $request->input('title');
+        //$index->full_name = $request->input('title');
+        //$index->table = '';
+        //$index->is_group = true;
+        $index->name = $name;
+        $index->item_type_id = 1;
+        //$index->iso = 'iso';
+        $index->parent_id = 0;
+        //$index->column_name = $name.'_score';
+        //$index->score_field_name = $name.'_score';
+        //$index->color = '#'.substr(md5(rand()), 0, 6);
+        $index->user_id = Auth::user()->id;
+        $index->save();
+        if($index->id){
+          $this->saveSubIndex($request->input('data'), $index);
         }
-        return response()->api($item);
+        return response()->api($index);
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -115,14 +115,12 @@ class ItemController extends Controller
     {
         //
     }
-
     /**
      * Display the specified resource.
      *
      * @param  int  $id
      * @return Response
      */
-
     public function show($id){
        if(is_int($id)){
            return response()->api(Item::find($id));
@@ -134,57 +132,40 @@ class ItemController extends Controller
     }
     public function showWithChildren($id)
     {
-        $item = array();
+        $index = array();
         if(is_int($id)){
-            $item = Item::find($id)->load('children');
+            $index = Item::find($id)->load('children');
         }
         elseif(is_string($id)){
-          $item =  Item::where('name', $id)->first()->load('children');
+          $index =  Item::where('name', $id)->first()->load('children');
         }
-        $item->load('parent');
-
-        return response()->api($item);
+        $index->load('parent');
+        return response()->api($index);
     }
-    public function getLatestYear($item){
-      return \DB::table($item->indicator->table_name)->max('year');
+    public function getLatestYear($index){
+      return \DB::table($index->indicator->table_name)->max('year');
     }
-    public function fetchData($item, $year){
-
-      if(isset($item->children)){
-        if(count($item->children)){
-          foreach($item->children as $key => &$item){
-            if($item->type->name != "group"){
-              $item->indicator->load('userdata');
-              $iso_field = $item->indicator->userdata->iso_type == 'iso-3166-1' ? 'adm0_a3': 'iso_a2';
-              $data = \DB::table($item->indicator->table_name)
-                ->where('year', $year)
-                ->leftJoin('23_countries', $item->indicator->table_name.".".$item->indicator->iso_name, '=', '23_countries.'.$iso_field)
-                ->select($item->indicator->table_name.".".$item->indicator->column_name.' as score', $item->indicator->table_name.".year",'23_countries.'.$iso_field.' as iso','23_countries.admin as country')
-                ->orderBy($item->indicator->table_name.".".$item->indicator->column_name, 'desc')->get();
-              $item->data = $data;
-            }
-            if(count($item->children)){
-                $item = $this->fetchData($item, $year);
-            }
+    public function fetchData($index, $year){
+        if(count($index->children) > 0){
+          foreach($index->children as $key => &$item){
+            $item = $this->fetchData($item, $year);
           }
         }
-        else{
-          $item->indicator->load('userdata');
-          $iso_field = $item->indicator->userdata->iso_type == 'iso-3166-1' ? 'adm0_a3': 'iso_a2';
-          $data = \DB::table($item->indicator->table_name)
-            ->where('year', $year)
-            ->leftJoin('23_countries', $item->indicator->table_name.".".$item->indicator->iso_name, '=', '23_countries.'.$iso_field)
-            ->select($item->indicator->table_name.".".$item->indicator->column_name.' as score', $item->indicator->table_name.".year",'23_countries.'.$iso_field.' as iso','23_countries.admin as country')
-            ->orderBy($item->indicator->table_name.".".$item->indicator->column_name, 'desc')->get();
-          $item->data = $data;
-        }
-      }
-      return $item;
+
+        $index->indicator->load('userdata');
+        $iso_field = $index->indicator->userdata->iso_type == 'iso-3166-1' ? 'adm0_a3': 'iso_a2';
+        $data = \DB::table($index->indicator->table_name)
+          ->where('year', $year)
+          ->leftJoin('23_countries', $index->indicator->table_name.".".$index->indicator->iso_name, '=', '23_countries.'.$iso_field)
+          ->select($index->indicator->table_name.".".$index->indicator->column_name.' as score', $index->indicator->table_name.".year",'23_countries.'.$iso_field.' as iso','23_countries.admin as country')
+          ->orderBy($index->indicator->table_name.".".$index->indicator->column_name, 'desc')->get();
+        $index->data = $data;
+        return $index;
     }
-    public function fetchDataForCountry($item, $iso){
-      if(isset($item->children)){
-        if(count($item->children)){
-          foreach($item->children as $key => &$item){
+    public function fetchDataForCountry($index, $iso){
+      if(isset($index->children)){
+        if(count($index->children)){
+          foreach($index->children as $key => &$item){
             if($item->type->name != "group"){
               $item->load('indicator');
               $data = \DB::table($item->indicator->table_name)
@@ -199,32 +180,28 @@ class ItemController extends Controller
           }
         }
         else{
-          $data = \DB::table($item->indicator->table_name)
-            ->where($item->indicator->iso_name, $iso)
-            ->select($item->indicator->column_name.' as score', $item->indicator->table_name.".year")
+          $data = \DB::table($index->indicator->table_name)
+            ->where($index->indicator->iso_name, $iso)
+            ->select($index->indicator->column_name.' as score', $index->indicator->table_name.".year")
             ->orderBy('year', 'desc')->get();
-          $item->data = $data;
+          $index->data = $data;
         }
       }
-
-
-      return $item;
+      return $index;
     }
     public function calcAverage($item, $length, $name){
-
       foreach ($item as $key => &$country) {
         $calc[$name]['value'] = 0;
-        foreach ($country as $k => $item) {
-          if(isset($item['calc'])){
-              if($item['calc']){
-                $calc[$name]['value'] += floatval($item['value']);
+        foreach ($country as $k => $index) {
+          if(isset($index['calc'])){
+              if($index['calc']){
+                $calc[$name]['value'] += floatval($index['value']);
               }
           }
-          $country[$name]['year'] = $item['year'];
+          $country[$name]['year'] = $index['year'];
         }
         $country[$name]['value'] = $calc[$name]['value']/$length;
       }
-
       return $item;
     }
     public function averageDataForCountry($item){
@@ -269,9 +246,21 @@ class ItemController extends Controller
       }
       return $sum;
     }
+
+    public function rawData($item){
+      foreach($item->data as $data){
+        $this->sum[$data->iso][$item->name]['value'] = $data->score;
+        $this->sum[$data->iso][$item->name]['year'] = $data->year;
+        $this->sum[$data->iso][$item->name]['calc'] = false;
+      }
+      foreach($item->children as $child){
+          $this->rawData($child);
+      }
+
+    }
     public function averageData($item){
       $sum = array();
-      if(count($item['children'])){
+      if(count($item['children']) > 0){
         foreach($item['children'] as $child){
           $child->load('indicator');
           if(!$child->type->name != "group" && isset($child->data)){
@@ -279,7 +268,13 @@ class ItemController extends Controller
               if(!isset($sum[$data->iso][$child->name])){
                   $sum[$data->iso][$child->name]['value'] = 0;
                   $sum[$data->iso][$child->name]['year'] = $data->year;
-                  $sum[$data->iso][$child->name]['calc'] = true;
+                  if($child->type->name == "index"){
+                    $sum[$data->iso][$child->name]['calc'] = false;
+                  }
+                  else{
+                    $sum[$data->iso][$child->name]['calc'] = true;
+                  }
+
                   //$sum[$data->iso]['country'] = $data->country;
               }
               $sum[$data->iso][$child->name]['value'] += $data->score;
@@ -325,10 +320,10 @@ class ItemController extends Controller
       }
       return count($fields);
     }
-    public function calcValuesForStatistic($item){
-      $scores = $this->averageDataForCountry($item);
+    public function calcValuesForStatistic($index){
+      $scores = $this->averageDataForCountry($index);
       $data = array();
-      $scores = $this->calcAverage($scores, $this->fieldCount($scores), $item->name);
+      $scores = $this->calcAverage($scores, $this->fieldCount($scores), $index->name);
       foreach ($scores as $key => $value) {
         foreach($value as $k => $column){
           $entry[$k] = $column['value'];
@@ -338,15 +333,20 @@ class ItemController extends Controller
       }
       return $data;
     }
-    public function calcValues($item){
+    public function calcValues($index){
       $data = array();
-      if($item->type->name == "group"){
-        $score = $this->averageData($item);
-        $score = $this->calcAverage($score, $this->fieldCount($score), $item->name);
+      if($index->type->name == "group"){
+        $score = $this->averageData($index);
+        $score = $this->calcAverage($score, $this->fieldCount($score), $index->name);
+      }
+      else if($index->type->name == "index"){
+        $this->rawData($index);
+        $score = $this->sum;
       }
       else{
-        $score = $this->averageData($item);
+        $score = $this->averageData($index);
       }
+
       foreach ($score as $key => $value) {
         $entry = [
           'iso' => $key
@@ -360,12 +360,12 @@ class ItemController extends Controller
     }
     public function showByIso($id, $iso){
       if(is_int($id)){
-        $item = Item::findOrFail($id)->load('type');
+        $index = Item::findOrFail($id)->load('type');
       }
       elseif(is_string($id)){
-        $item = Item::where('name', $id)->firstOrFail()->load('type');
+        $index = Item::where('name', $id)->firstOrFail()->load('type');
       }
-        $data = $item->load('children');
+        $data = $index->load('children');
         $response = [
            'iso' => $iso,
            'data' => $this->calcValuesForStatistic($this->fetchDataForCountry($data, $iso))
@@ -375,26 +375,26 @@ class ItemController extends Controller
     public function showByYear($id, $year)
     {
         if(is_int($id)){
-          $item = Item::find($id)->with('type');
+          $index = Item::find($id)->with('type');
         }
         elseif(is_string($id)){
-          $item = Item::where('name', $id)->firstOrFail()->load('type');
+          $index = Item::where('name', $id)->firstOrFail()->load('type');
         }
-        $data = $item->load('children');
+        $data = $index->load('children');
         $data =  $this->calcValues($this->fetchData($data, $year));
         return response()->api($data);
     }
     public function showLatestYear($id)
     {
         if(is_int($id)){
-          $item = Item::find($id)->with('type');
+          $index = Item::find($id)->with('type');
         }
         elseif(is_string($id)){
-          $item = Item::where('name', $id)->firstOrFail()->load('type');
+          $index = Item::where('name', $id)->firstOrFail()->load('type');
         }
-        $data = $item->load('children');
+        $data = $index->load('children');
         $year = '';
-        if($item->type->name == 'group'){
+        if($index->type->name == 'group'){
           foreach($data->children as $child){
             if($child->type->name != 'group'){
               $year = $this->getLatestYear($child);
@@ -402,13 +402,12 @@ class ItemController extends Controller
           }
         }
         else{
-          $year = $this->getLatestYear($item);
+          $year = $this->getLatestYear($index);
         }
         //return response()->api($this->fetchData($data, $year));
         $data =  $this->calcValues($this->fetchData($data, $year));
         return response()->api($data);
     }
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -419,7 +418,6 @@ class ItemController extends Controller
     {
         //
     }
-
     /**
      * Update the specified resource in storage.
      *
@@ -431,7 +429,6 @@ class ItemController extends Controller
     {
         //
     }
-
     /**
      * Remove the specified resource from storage.
      *
