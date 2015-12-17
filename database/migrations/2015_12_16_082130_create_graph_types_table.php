@@ -16,7 +16,6 @@ class CreateGraphTypesTable extends Migration
             $table->increments('id');
             $table->integer('graph_id');
             $table->integer('measure_type_id');
-            $table->timestamps();
         });
     }
 

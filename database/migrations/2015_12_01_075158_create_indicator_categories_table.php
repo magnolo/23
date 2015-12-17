@@ -16,7 +16,6 @@ class CreateIndicatorCategoriesTable extends Migration
             $table->increments('id');
             $table->integer('indicator_id')->unsigned();
             $table->integer('categorie_id')->unsigned();
-            $table->timestamps();
         });
     }
 

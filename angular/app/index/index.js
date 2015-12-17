@@ -343,7 +343,6 @@
 			var iso = feature.properties[vm.iso_field];
 
 			var nation = getNationByIso(iso);
-			console.log(nation);
 			var field = vm.structure.name || 'score';
 			var type = feature.type;
 			if(iso != vm.current.iso){

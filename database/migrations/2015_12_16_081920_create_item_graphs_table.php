@@ -16,7 +16,6 @@ class CreateItemGraphsTable extends Migration
             $table->increments('id');
             $table->integer('item_id');
             $table->integer('graph_id');
-            $table->timestamps();
         });
     }
 

@@ -16,7 +16,6 @@ class CreateCategorieGraphsTable extends Migration
             $table->increments('id');
             $table->integer('categorie_id');
             $table->integer('graph_id');
-            $table->timestamps();
         });
     }
 

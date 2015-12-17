@@ -16,7 +16,6 @@ class CreateIndicatorGraphsTable extends Migration
             $table->increments('id');
             $table->integer('indicator_id');
             $table->integer('graph_id');
-            $table->timestamps();
         });
     }
 

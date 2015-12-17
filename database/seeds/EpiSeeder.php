@@ -206,6 +206,7 @@ class EpiSeeder extends Seeder
             $ind->name = $indicator['column'];
             $ind->title = $indicator['title'];
             $ind->save();
+            $ind->categories()->attach(1);
 
             $this->int = $ind->id;
             if($this->range(1)) $parent = 0;
@@ -229,16 +230,19 @@ class EpiSeeder extends Seeder
             else if($this->range(27,29))  $parent = 26;
             else if($this->range(30,31))  $parent = 9;
 
+            $iName = $ind->name;
+            if($ind->name == "score") $iName = "epi";
 
             $item = new Item([
               'parent_id' => $parent,
               'user_id' => 2,
               'indicator_id' => $ind->id,
               'item_type_id' => 4,
-              'name' => $ind->name,
+              'name' => $iName,
               'title' => $ind->title
             ]);
             $item->save();
+
           }
 
 
