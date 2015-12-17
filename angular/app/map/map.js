@@ -20,6 +20,11 @@
 					name: 'MapBox Outdoors Mod',
 					url: 'https://{s}.tiles.mapbox.com/v4/valderrama.d86114b6/{z}/{x}/{y}.png?access_token=' + apiKey,
 					type: 'xyz',
+					layerOptions:{
+							noWrap: true,
+							continuousWorld: false
+					}
+
 				}
 			}
 		};
@@ -49,7 +54,12 @@
 				}
 			});
 			map.addLayer(VectorlayerService.setLayer(layer));
-			var labelsLayer = L.tileLayer('https://{s}.tiles.mapbox.com/v4/magnolo.06029a9c/{z}/{x}/{y}.png?access_token=' + apiKey);
+			var labelsLayer = L.tileLayer('https://{s}.tiles.mapbox.com/v4/magnolo.06029a9c/{z}/{x}/{y}.png?access_token=' + apiKey,{
+
+						noWrap: true,
+						continuousWorld: false
+				
+			});
 			map.addLayer(labelsLayer);
 			labelsLayer.bringToFront();
 		});

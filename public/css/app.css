@@ -377,18 +377,6 @@ md-toolbar.clean .md-toolbar-tools {
 .md-warn ng-md-icon path {
   fill: #f44336;
 }
-md-tabs > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item {
-  background: #efefef;
-}
-md-tabs > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item.md-active {
-  background: #fff;
-}
-.md-tab.md-disabled {
-  opacity: 1;
-}
-.md-tab.md-disabled ng-md-icon {
-  opacity: 0.3;
-}
 md-sidenav {
   box-sizing: border-box;
   position: absolute;
@@ -727,13 +715,6 @@ md-menu-bar {
 }
 .info-box .module.rank .chart {
   color: #afafaf;
-  /*.tendency {
-                        path {
-                            fill: @grey-light;
-                        }
-
-
-                    }*/
 }
 .info-box .module.rank .chart .title {
   margin-bottom: 0.5em;
@@ -744,8 +725,12 @@ md-menu-bar {
   height: 80px;
   width: 80px;
 }
+.info-box .module.rank .chart .tendency path {
+  fill: #d7dddd;
+}
 .info-box .module.rank .mini-list {
   font-size: 0.9em;
+  color: #afafaf;
 }
 .info-box .module.rank .mini-list .title {
   margin-bottom: 0.5em;
@@ -1259,6 +1244,18 @@ div[ui-view='map'] {
 }
 .indicator-tabs md-tab-item ng-md-icon:not(.valid) path {
   fill: #f44336;
+}
+.indicator-tabs md-tabs > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item {
+  background: #efefef;
+}
+.indicator-tabs md-tabs > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item.md-active {
+  background: #fff;
+}
+.indicator-tabs .md-tab.md-disabled {
+  opacity: 1;
+}
+.indicator-tabs .md-tab.md-disabled ng-md-icon {
+  opacity: 0.3;
 }
 
 median {

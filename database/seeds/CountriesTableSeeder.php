@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Database\Seeder;
 use Flynsarmy\CsvSeeder\CsvSeeder;
 
 class CountriesTableSeeder extends CsvSeeder
@@ -22,7 +21,7 @@ class CountriesTableSeeder extends CsvSeeder
     public function run()
     {
         //
-        //DB::disableQueryLog();
+        DB::disableQueryLog();
         DB::table($this->table)->truncate();
         parent::run();
     }

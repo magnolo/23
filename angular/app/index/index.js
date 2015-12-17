@@ -29,7 +29,6 @@
 		vm.display = {
 			selectedCat: ''
 		};
-		console.log(vm.iso_field);
 
 		//Function definitons
 		vm.showTabContent = showTabContent;
@@ -235,7 +234,7 @@
 				return 0;
 			}
 			//console.log(vm.getRank(vm.current));
-			return (vm.getRank(vm.current) - 2) * 16;
+			return (vm.getRank(vm.current) - 2) * 17;
 		};
 
 		function getTendency() {

@@ -106,7 +106,7 @@
 																<md-button flex="50" ng-disabled="true">click on a country</md-button>
 												</section>
 												<section>
-																<md-tabs md-center-tabs="true" md-dynamic-height md-no-pagination="true" md-swipe-content="true" ng-if="vm.current" md-selected="vm.activeTab">
+																<md-tabs md-stretch-tabs="true" md-center-tabs="true" md-dynamic-height md-no-pagination="true" md-swipe-content="true" ng-if="vm.current" md-selected="vm.activeTab">
 																				<md-tab label="Details" md-active="vm.activeTab == 0" md-on-select="vm.setTab(0)">
 																								<div class="module bubbles slide-toggle mt mb" layout="column">
 																												<bubbles chartdata="vm.current" height="320" indexer="vm.structure" ng-model="vm.display.selectedCat" sizefactor="3" width="300"></bubbles>

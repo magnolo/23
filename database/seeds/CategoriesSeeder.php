@@ -18,17 +18,20 @@ class CategoriesSeeder extends Seeder
         Categorie::create([
           'name' => 'environment',
           'title' => 'Environment',
-          'user_id' => 0
+          'user_id' => 2,
+          'style_id' => 1,
         ]);
         Categorie::create([
           'name' => 'human',
           'title' => 'Human',
-          'user_id' => 0
+          'user_id' => 2,
+          'style_id' => 2
         ]);
         Categorie::create([
           'name' => 'animals',
           'title' => 'Animals',
-          'user_id' => 0
+          'user_id' => 2,
+          'style_id' => 3
         ]);
     }
 }
