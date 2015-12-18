@@ -28,4 +28,13 @@ class Item extends Model
     public function style(){
       return $this->hasOne('App\Style', 'id', 'style_id');
     }
+    public function getStyle() {
+      if ($this->style) {
+        return $this->style;
+      }
+      if ($this->indicator and $this->indicator->style) {
+        return $this->indicator->style;
+      }
+      return $this->indicator->categorie->style;
+    }
 }

@@ -26,4 +26,9 @@ class LaravelRoutesTest extends TestCase
              ->see('update your browser')
              ->see('Internet Explorer');
     }
+    public function testStyleResponse(){
+      $this->get('/api/index/epi/structure')
+        ->seeJsonContains(['style_id' => 0])
+        ->seeJsonContains(['style' => null]);
+    }
 }
