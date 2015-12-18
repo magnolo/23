@@ -2,7 +2,6 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Item;
-use App\IndexItem;
 use App\Style;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -22,7 +21,8 @@ class ItemController extends Controller
      */
     public function index()
     {
-        return response()->api(Item::where('parent_id', 0)->get()->load('children'));
+        $item = Item::where('parent_id', 0)->with('children')->get();
+        return response()->api($item);
     }
     public function alphabethical(){
         return Item::orderBy('title', 'ASC')->get();
@@ -34,42 +34,12 @@ class ItemController extends Controller
      */
     protected function saveSubIndex($data, $parent){
       foreach($data as $entry){
-        $name = preg_replace('/\s[\s]+/','_',$parent->name.'-'.$entry['title']);    // Strip off multiple spaces
-        $name = preg_replace('/[\s\W]+/','_',$name);    // Strip off spaces and non-alpha-numeric
-        $name = preg_replace('/^[\-]+/','',$name); // Strip off the starting hyphens
-        $name = preg_replace('/[\-]+$/','',$name); // // Strip off the ending hyphens
-        $name = strtolower($name);
-        //$isGroup = false;
-        $table_name = '';
-        //$iso = 'iso';
-        //$color = '#006bb9';
-        $icon = '';
-        if(isset($entry['isGroup'])){
-          $isGroup = true;
-          $type_id = 1;
-          $column = $name;
-        }
-        else{
-          $type_id = 2;
-          $table_name = $entry['table_name'];
-          $column = $entry['column_name'];
-          //$iso = $entry['iso'];
-        }
-        if(!isset($entry['color'])){
-          $color = '#'.substr(md5(rand()), 0, 6);
-        }
-        else{
-          $color = $entry['color'];
-        }
-        if(isset($entry['icon'])){
-          $icon = $entry['icon'];
-        }
-        $index = new Index();
+        $index = new Item();
         $index->title = $entry['title'];
-        $index->name = $entry['title'];
-        $index->indicator_id = isset($entry['id']) ? $entry['id'] : null;
-        $index->item_type_id = $type_id;
-        $index->name = $name;
+        $index->name = str_slug($entry['title'], '-');
+        $index->indicator_id = isset($entry['incator_id']) ? $entry['incator_id'] : null;
+        $index->item_type_id = $entry['type_id'];
+        $index->style_id = $entry['style_id'];
         $index->parent_id = $parent->id;
         $index->user_id = Auth::user()->id;
         $index->save();
@@ -81,23 +51,13 @@ class ItemController extends Controller
     public function create(Request $request)
     {
         //
-        $name = preg_replace('/\s[\s]+/','_',$request->input('title'));    // Strip off multiple spaces
-        $name = preg_replace('/[\s\W]+/','_',$name);    // Strip off spaces and non-alpha-numeric
-        $name = preg_replace('/^[\-]+/','',$name); // Strip off the starting hyphens
-        $name = preg_replace('/[\-]+$/','',$name); // // Strip off the ending hyphens
-        $name = strtolower($name);
-        $index = new Index();
+        $index = new Item();
         $index->title = $request->input('title');
-        //$index->full_name = $request->input('title');
-        //$index->table = '';
-        //$index->is_group = true;
-        $index->name = $name;
-        $index->item_type_id = 1;
-        //$index->iso = 'iso';
+        $index->name = str_slug($request->input('title'), "_");
+        $index->indicator_id = $request->has('incator_id') ? $request->input('incator_id') : null;
+        $index->item_type_id = $request->input('type_id');
         $index->parent_id = 0;
-        //$index->column_name = $name.'_score';
-        //$index->score_field_name = $name.'_score';
-        //$index->color = '#'.substr(md5(rand()), 0, 6);
+        $index->style_id = $request->input('type_id');
         $index->user_id = Auth::user()->id;
         $index->save();
         if($index->id){
@@ -134,12 +94,12 @@ class ItemController extends Controller
     {
         $index = array();
         if(is_int($id)){
-            $index = Item::find($id)->load('children');
+            $index = Item::find($id)->with('children', 'style', 'indicator', 'type', 'parent');
         }
         elseif(is_string($id)){
-          $index =  Item::where('name', $id)->first()->load('children');
+          $index =  Item::where('name', $id)->first()->load('children', 'style', 'indicator', 'type', 'parent');
         }
-        $index->load('parent');
+        $index->style = $index->getStyle();
         return response()->api($index);
     }
     public function getLatestYear($index){

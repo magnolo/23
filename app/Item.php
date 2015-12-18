@@ -10,23 +10,20 @@ class Item extends Model
     //
     protected $table="23_items";
 
-    public function child(){
-      return $this->hasMany('App\Item', 'parent_id', 'id');
-    }
     public function parent(){
-      return $this->hasOne('App\Item', 'id', 'parent_id');
+      return $this->belongsTo('App\Item', 'parent_id');
     }
     public function children(){
-      return $this->child()->with('children','type','style');
+      return $this->hasMany('App\Item', 'parent_id')->with('children','indicator','type','style');
     }
     public function indicator(){
-      return $this->hasOne('App\Indicator', 'id','indicator_id');
+      return $this->belongsTo('App\Indicator', 'indicator_id');
     }
     public function type(){
-      return $this->hasOne('App\ItemType', 'id', 'item_type_id');
+      return $this->belongsTo('App\ItemType', 'item_type_id');
     }
     public function style(){
-      return $this->hasOne('App\Style', 'id', 'style_id');
+      return $this->belongsTo('App\Style', 'style_id');
     }
     public function getStyle() {
       if ($this->style) {
@@ -35,6 +32,9 @@ class Item extends Model
       if ($this->indicator and $this->indicator->style) {
         return $this->indicator->style;
       }
-      return $this->indicator->categorie->style;
+      if ($this->indicator and $this->indicator->categories) {
+        return $this->indicator->categories[0]->style;
+      }
+      return null;
     }
 }
