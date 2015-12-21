@@ -16,22 +16,20 @@
     <![endif]-->
 </head>
 
-<body ng-class="{'greyed': $root.greyed}" layout="column">
+<body ng-class="{'greyed': $root.greyed, 'loose': $root.looseLayout}" layout="column">
     <md-toolbar class="Header md-accent" tabindex="-1">
         <header ui-view="header"></header>
     </md-toolbar>
     <md-content layout="row" flex>
         <md-sidenav class="Sidebar md-sidenav-left md-whiteframe-z1" md-component-id="left" md-is-locked-open="$mdMedia('gt-md') && $root.sidebarOpen" tabindex="-1">
-
             <!-- Sidebar header/branding -->
             <!--<md-toolbar class="Sidebar-header">
               <h1 class="md-toolbar-tools Sidebar-title">Laravel 5 angular<br>material starter</h1>
             </md-toolbar>-->
-            <md-content class="Sidebar-pages md-default-theme" flex ui-view="sidebar" md-scroll-y>
-            </md-content>
+            <md-content class="Sidebar-pages md-default-theme" flex ui-view="sidebar" md-scroll-y></md-content>
         </md-sidenav>
         <md-content layout="column" flex role="main" tabindex="-1">
-            <div ui-view="map" class="Map_Container" flex ></div>
+            <div ui-view="map" class="Map_Container" flex></div>
             <div ui-view="main" class="Page" flex md-scroll-y></div>
         </md-content>
     </md-content>
@@ -51,4 +49,5 @@
     </script>
     @endif
 </body>
+
 </html>

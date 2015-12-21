@@ -21,10 +21,16 @@
 		$mdThemingProvider.theme('default')
 		.primaryPalette('light-blue')
 		.accentPalette('bluer');*/
+		var blueMap = $mdThemingProvider.extendPalette('indigo', {
+			'500': '#006bb9',
+			'A200': '#006bb9'
+		});
+			$mdThemingProvider.definePalette('bluer', blueMap);
+
 		$mdThemingProvider.theme('default')
-	.primaryPalette('indigo')
-	.accentPalette('grey')
-	.warnPalette('red');
+		.primaryPalette('bluer')
+		.accentPalette('grey')
+		.warnPalette('red');
 	});
 
 })();

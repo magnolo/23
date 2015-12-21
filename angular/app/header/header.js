@@ -5,11 +5,20 @@
 
 		var vm = this;
 		vm.isAuthenticated = isAuthenticated;
+		vm.doLogin = doLogin;
 		vm.doLogout = doLogout;
 		vm.openMenu = openMenu;
 
 		function isAuthenticated(){
 			 return $auth.isAuthenticated();
+		}
+		function doLogin(){
+			$auth.login(vm.user).then(function(response){
+				toastr.success('You have successfully signed in');
+				//$state.go($rootScope.previousPage.state.name || 'app.home', $rootScope.previousPage.params);
+			}).catch(function(response){
+				toastr.error('Please check your email and password', 'Something went wrong');
+			})
 		}
 		function doLogout(){
 			if($auth.isAuthenticated()){

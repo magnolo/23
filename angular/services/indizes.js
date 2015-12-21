@@ -15,7 +15,6 @@
 				}
 			},
 			fetchData: function(index) {
-
 				this.index.promises.data = DataService.getAll('index/' + index + '/year/latest');
 				this.index.promises.structure = DataService.getOne('index/' + index + '/structure');
 				this.index.data.data = this.index.promises.data.$object;

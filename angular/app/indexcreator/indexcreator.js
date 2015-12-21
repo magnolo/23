@@ -2,8 +2,9 @@
     "use strict";
 
     angular.module('app.controllers').controller('IndexcreatorCtrl', function($scope, DialogService,DataService, $timeout,$state, $filter, leafletData, toastr, IconsService,IndexService, VectorlayerService){
-        //
-        console.log($state);
+
+        //TODO: Check if there is data in storage to finish
+      /*  console.log($state);
         if($state.current.name == 'app.index.create'){
           if(IndexService.getData().length){
             if(confirm('Existing Data. Go On?')){
@@ -13,7 +14,7 @@
               IndexService.clear();
             }
           }
-        }
+        }*/
 
         var vm = this;
         vm.map = null;
