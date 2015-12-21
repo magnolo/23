@@ -1,3 +1,46 @@
-<section class="module-top md-whiteframe-z2">
-  <indicator ng-model="vm.indicator"></indicator>
-</section>
+<md-subheader>
+				<div layout="row" layout-align="space-between center">
+          <span>Data Editor</span>
+
+								<md-button>Done</md-button>
+				</div>
+</md-subheader>
+
+<div layout="row">
+				<span flex></span>
+				<md-button>Upload New Data</md-button>
+</div>
+<div layout-align="space-between center" layout-padding layout="row">
+				<span>Indizes</span>
+				<span>Categories</span>
+				<span>Composits</span>
+				<span>Aggregats</span>
+</div>
+
+<div layout="row">
+				<div>
+								<span>a-z</span>
+								<span>Dataprovider</span>
+				</div>
+				<span flex></span>
+				<md-button>Unpublishd</md-button>
+				<md-button>Published</md-button>
+</div>
+<div layout="row" layout-padding>
+				<h2>Filter</h2>
+				<span flex></span>
+				<md-input-container>
+								<label>Search</label>
+								<input name="search" ng-model="vm.search" type="text"/>
+				</md-input-container>
+</div>
+<md-divider></md-divider>
+<div layout="row">
+				<md-list flex>
+								<md-list-item ng-repeat="indicator in vm.indicators | filter:vm.search">
+												<p>{{indicator.title}}</p>
+												<ng-md-icon icon="check" layout-align="center center" layout="row" size="18"></ng-md-icon>
+												<indicator-menu item="indicator"></indicator-menu>
+								</md-list-item>
+				</md-list>
+</div>

@@ -1,7 +1,7 @@
 (function(){
     "use strict";
 
-    angular.module('app.services').factory('IndexService', function(CacheFactory){
+    angular.module('app.services').factory('IndexService', function(CacheFactory,$state){
         //
         var serviceData = {
             data: [],
@@ -28,6 +28,7 @@
         }
         return {
           clear:function(){
+            $state.go('app.index.create');
             if(CacheFactory.get('importData')){
                 importCache.remove('dataToImport');
             }

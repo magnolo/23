@@ -33,6 +33,8 @@ $api->version('v1', function ($api) {
     $api->get('index/{id}/structure', 'App\Http\Controllers\ItemController@showWithChildren');
     $api->get('index/{id}/{iso}', 'App\Http\Controllers\ItemController@showByIso');
 
+    $api->get('indicators', 'App\Http\Controllers\IndicatorController@index');
+
     //$api->get('nations', 'App\Http\Controllers\NationsController@index');
     $api->get('countries', 'App\Http\Controllers\CountriesController@index');
     $api->get('countries/isos', 'App\Http\Controllers\CountriesController@isoList');

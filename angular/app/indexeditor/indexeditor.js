@@ -5,26 +5,16 @@
 		//
 		var vm = this;
 
-		vm.dataproviders = [];
-		vm.selectedItem = null;
-		vm.searchText = null;
-		vm.querySearch = querySearch;
+		vm.indicators = [];
 
-    activate();
+		activate();
 
-    function activate(){
-      loadAll();
-    }
-		function querySearch(query) {
-      console.log($filter('findbyname')(vm.dataproviders, query, 'title'));
-			var results = query ? $filter('findbyname')(vm.dataproviders, query, 'title') : [];
-      console.log(results);
-			return results;
+		function activate(){
+			loadAll();
 		}
-		function loadAll() {
-      DataService.getAll('dataproviders').then(function(data){
-        vm.dataproviders = data;
-      });
+
+		function loadAll(){
+			vm.indicators = DataService.getAll('indicators').$object
 		}
 	});
 

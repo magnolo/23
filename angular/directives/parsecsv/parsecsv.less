@@ -1,0 +1,28 @@
+.dropzone {
+    border: 2px dashed #ddd;
+    padding: 2em;
+}
+.or {
+    position: relative;
+    margin: 1em 0;
+    &::after {
+        content: '';
+        width: 200%;
+        position: absolute;
+        left: 50%;
+        margin-left: -2.5em;
+        border-bottom: 1px solid;
+        height: 1px;
+        top: 0.5em;
+    }
+    &::before {
+        content: '';
+        width: 200%;
+        position: absolute;
+        right: 50%;
+        margin-right: -2.5em;
+        border-bottom: 1px solid;
+        height: 1px;
+        top: 0.5em;
+    }
+}

@@ -1,8 +1,20 @@
 (function(){
     "use strict";
 
-    angular.module('app.controllers').controller('IndexcreatorCtrl', function($scope,DialogService,DataService, $timeout,$state, $filter, leafletData, toastr, IconsService, VectorlayerService){
+    angular.module('app.controllers').controller('IndexcreatorCtrl', function($scope, DialogService,DataService, $timeout,$state, $filter, leafletData, toastr, IconsService,IndexService, VectorlayerService){
         //
+        console.log($state);
+        if($state.current.name == 'app.index.create'){
+          if(IndexService.getData().length){
+            if(confirm('Existing Data. Go On?')){
+              $state.go('app.index.check');
+            }
+            else{
+              IndexService.clear();
+            }
+          }
+        }
+
         var vm = this;
         vm.map = null;
         vm.data = [];
@@ -234,7 +246,7 @@
             toastr.error(response.message,'Upps!!');
           });
         }
-        $scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParams) {
+        /*$scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParams) {
           if(!vm.data.length){
             $state.go('app.index.create');
           }
@@ -264,7 +276,7 @@
                 break;
             }
           }
-        });
+        });*/
     });
 
 })();

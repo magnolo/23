@@ -76,7 +76,14 @@
 			})
 			.state('app.index.editor',{
 				url: '/editor',
-				views:{
+				views: {
+					'sidebar@': {
+						templateUrl: getView('indexeditor'),
+						controller: 'IndexeditorCtrl',
+						controllerAs: 'vm'
+					}
+				}
+				/*views:{
 					'info':{
 
 					},
@@ -85,7 +92,7 @@
 						controller: 'IndexeditorCtrl',
 						controllerAs: 'vm'
 					}
-				}
+				}*/
 			})
 			.state('app.index.create', {
 				url: '/create',
@@ -106,6 +113,11 @@
 					'main@':{
 						templateUrl:getView('IndexCheck'),
 						controller: 'IndexCheckCtrl',
+						controllerAs: 'vm'
+					},
+					'sidebar@': {
+						templateUrl: getView('indexcreator'),
+						controller: 'IndexcreatorCtrl',
 						controllerAs: 'vm'
 					}
 				}

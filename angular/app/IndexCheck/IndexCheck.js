@@ -3,10 +3,11 @@
 
     angular.module('app.controllers').controller('IndexCheckCtrl', function($rootScope, toastr, DialogService, DataService, IndexService){
         //
-        $rootScope.sidebarOpen = false;
+        //$rootScope.sidebarOpen = false;
 
         var vm = this;
         vm.data = [];
+        vm.selected = [];
         vm.deleteData = deleteData;
         vm.deleteSelected = deleteSelected;
         vm.onOrderChange = onOrderChange;

@@ -1,6 +1,7 @@
 
-				<md-subheader class="md-no-sticky">Choose data source</md-subheader>
-				<md-list>
+				<md-subheader class="md-no-sticky">Upload new data</md-subheader>
+					<parsecsv></parsecsv>
+			<!--	<md-list>
 								<md-list-item ng-click="vm.toggleListResources()" ng-if="!vm.showUploadContainer">
 												<p>Browse data</p>
 												<ng-md-icon icon="{{vm.openClose(vm.showResources)}}"></ng-md-icon>
@@ -35,9 +36,6 @@
 												<p>Upload new data</p>
 												<ng-md-icon icon="{{vm.openClose(vm.showUploadContainer)}}"></ng-md-icon>
 								</md-list-item>
-								<!--<md-list-item ng-if="!vm.showIndicators" ui-sref="app.index.editor">
-												<md-button ui-sref="app.index.editor()">Edit existing data</md-button>
-								</md-list-item>-->
 				</md-list>
 
 				<div class="slide-toggle upload-container" ng-if="vm.showUploadContainer">
@@ -130,83 +128,6 @@
 								</md-content>
 				</section>
 				<section class="anim md-whiteframe-z2" ng-if="vm.data.length && vm.step == 1">
-								<!--<md-data-table-toolbar class="md-whiteframe-z1">
-												<div flex layout-align="space-between center" layout="row">
-																<h2 class="md-title">CSV Import 1/4</h2>
-																<span flex></span>
-																<div layout-align="space-between center" layout="row">
-																				<md-button ui-sref="app.index.create.check">
-																								Next
-																								<ng-md-icon class="middle" icon="chevron_right"></ng-md-icon>
-																				</md-button>
-																</div>
-												</div>
-								</md-data-table-toolbar>
-
-								<md-tabs class="md-accent" flex layout="column" layout-fill>
-												<md-tab label="New">
-																<md-content>
-																				<div layout-align="center center" layout-padding layout="row">
-																								<div flex="50">
-																												<div layout layout-sm="column">
-																																<md-input-container flex="80">
-																																				<label>Title</label>
-																																				<input ng-model="vm.meta.name" required type="text">
-																																</md-input-container>
-																																<md-input-container flex="20">
-																																				<label>Year</label>
-																																				<input ng-model="vm.meta.year" required>
-																																</md-input-container>
-																												</div>
-																												<md-input-container class="md-block">
-																																<label>Description</label>
-																																<textarea name="description" ng-model="vm.meta.description"></textarea>
-																												</md-input-container>
-																												<md-input-container class="md-block">
-																																<label>Caption</label>
-																																<textarea name="caption" ng-model="vm.meta.caption"></textarea>
-																												</md-input-container>
-
-																								</div>
-																				</div>
-																</md-content>
-												</md-tab>
-												<md-tab label="Add to Existing">
-
-																				<section flex layout="row" layout-fill>
-																								<md-content flex >
-																												<md-list>
-																																<md-list-item class="md-3-line" ng-click="vm.addDataTo = data" ng-repeat="data in vm.myData">
-																																				<div class="md-list-item-text" layout="column">
-																																								<h3>{{ data.title }}</h3>
-																																								<h4>{{ data.name }}</h4>
-																																								<p>{{ vm.checkFields(data) }}</p>
-																																				</div>
-																																				<ng-md-icon icon="check" ng-if="vm.addDataTo == data"></ng-md-icon>
-																																</md-list-item>
-																												</md-list>
-
-																								</md-content>
-																								<md-sidenav class="md-sidenav-right md-whiteframe-z2" md-component-id="right" md-is-locked-open="vm.addDataTo.id">
-																												<md-toolbar class="md-theme-light">
-																																<h1 class="md-toolbar-tools">Additional Info</h1>
-																												</md-toolbar>
-																												<md-content layout-padding>
-																																<form>
-																																				<md-input-container>
-																																								<label for="testInput">Year</label>
-																																								<input id="testInput" md-autofocus ng-model="vm.meta.year" type="number">
-																																				</md-input-container>
-																																</form>
-																																<md-button class="md-primary" ng-click="close()">
-																																				Close Sidenav Right
-																																</md-button>
-																												</md-content>
-																								</md-sidenav>
-																				</section>
-
-												</md-tab>
-								</md-tabs>-->
 
 				</section>
 				<section class="table anim md-whiteframe-z2" ng-if="vm.data.length && vm.step == 2">
@@ -380,4 +301,4 @@
 												</div>
 								</div>
 				</section>
-</div>
+</div>-->
