@@ -1315,13 +1315,13 @@ median .slider text {
 
 
 
-
 .slide-toggle {
   transition: all .5s;
 }
 .slide-toggle.ng-animate {
   overflow: hidden;
 }
+
 
 .section {
   padding: 30px;

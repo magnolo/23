@@ -4,7 +4,7 @@ use Illuminate\Database\Seeder;
 
 use App\UserData;
 use App\Indicator;
-use App\Item;
+  use App\Item;
 
 class EpiSeeder extends Seeder
 {
@@ -244,9 +244,6 @@ class EpiSeeder extends Seeder
             $item->save();
 
           }
-
-
-
         }
     }
 }
