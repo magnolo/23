@@ -517,6 +517,10 @@ md-toast[md-theme=warn] {
 }
 
 
+md-list-item a.md-no-style {
+  margin: 0px;
+}
+
 /*.Header{
 	position: fixed;
 	left: 0px;
@@ -584,10 +588,6 @@ md-menu-bar {
   margin: 0 auto;
   max-width: 680px;
   padding: 24px;
-}
-
-md-list-item a.md-no-style {
-  margin: 0px;
 }
 
 /*.info-container {
@@ -1098,6 +1098,7 @@ md-list .md-button .md-ripple-container {
 md-list-item.active {
   background: #d7dddd;
 }
+
 
 
 

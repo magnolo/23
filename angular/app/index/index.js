@@ -1,14 +1,15 @@
 (function () {
 	"use strict";
 
-	angular.module('app.controllers').controller('IndexCtrl', function ($scope, $window, $rootScope,$filter, $state, $timeout, ToastService, VectorlayerService, initialData, leafletData, DataService) {
+	angular.module('app.controllers').controller('IndexCtrl', function ($scope, $window, $rootScope,$filter, $state, $timeout, ToastService, VectorlayerService, data, countries, leafletData, DataService) {
 		// Variable definitions
 		var vm = this;
 		vm.map = null;
 
-		vm.dataServer = initialData.data;
-		vm.countryList = initialData.countries;
-		vm.structureServer = initialData.indexer;
+		vm.dataServer = data.promises.data;
+		vm.structureServer = data.promises.structure;
+		vm.countryList = countries;
+
 		vm.structure = "";
 		vm.mvtScource = VectorlayerService.getLayer();
 		vm.mvtCountryLayer = VectorlayerService.getName();
@@ -54,7 +55,7 @@
 		activate();
 
 		function activate() {
-
+	
 			vm.structureServer.then(function(structure){
 				vm.dataServer.then(function(data){
 					vm.data = data;

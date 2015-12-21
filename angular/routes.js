@@ -148,17 +148,11 @@
 						controller: 'IndexCtrl',
 						controllerAs: 'vm',
 						resolve: {
-							initialData: function (DataService, $stateParams) {
-								var d = DataService.getAll('index/' + $stateParams.index + '/year/latest');
-								var i = DataService.getOne('index/' + $stateParams.index + '/structure');
-								var countries = DataService.getOne('countries/isos');
-								return {
-									dataObject: d.$object,
-									indexerObject: i.$object,
-									data: d,
-									indexer: i,
-									countries: countries.$object
-								}
+							data: function (IndizesService, $stateParams) {
+								return IndizesService.fetchData($stateParams.index);
+							},
+							countries: function(CountriesService){
+								return CountriesService.getData();
 							}
 						}
 					},
@@ -166,6 +160,16 @@
 						templateUrl: '/views/app/index/selected.html',
 					}
 				}
+			})
+			.state('app.index.show.info', {
+				 url:'/info',
+				 views:{
+					 'main@':{
+						 controller:'IndexinfoCtrl',
+						 controllerAs: 'vm',
+						 	templateUrl:getView('indexinfo')
+					 }
+				 }
 			})
 			.state('app.index.show.selected', {
 				url: '/:item',

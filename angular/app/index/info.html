@@ -20,8 +20,8 @@
 								<section ng-if="!vm.structure.parent_id" class="header" layout-align="space-between center" layout="row" ng-style="{'color':vm.display.selectedCat.color}">
 												<span class="title">{{vm.structure.title}}</span>
 												<span class="subtitle">{{vm.structure.full_name}}</span>
-												<md-button>
-																<ng-md-icon icon="info_outline" ng-click="vm.toggleInfo()" style="fill:#006bb9"></ng-md-icon>
+												<md-button class="md-icon-button" ui-sref="app.index.show.info({index:vm.structure.name})">
+																<ng-md-icon icon="info_outline" style="fill:#006bb9"></ng-md-icon>
 												</md-button>
 								</section>
 								<section class="header" style="padding:1em" ng-if="vm.structure.parent_id">
@@ -39,8 +39,8 @@
 												<span class="title" style="font-size:1.2em;text-align:center;line-height:1em">{{vm.structure.title}}</span>
 											</div>
 											<div>
-												<span class="info-icon">
-																<ng-md-icon icon="info_outline" ng-click="vm.toggleInfo()"></ng-md-icon>
+												<span class="info-icon" ui-sref="app.index.show.info({index:vm.structure.name})">
+																<ng-md-icon icon="info_outline"></ng-md-icon>
 												</span>
 											</div>
 										</div>
@@ -135,30 +135,10 @@
 												</section>
 								</md-content>
 				</div>
-				<div class="info-box md-whiteframe-z2 anim sub-box" id="sub-info" ng-if="vm.info">
+				<!--<div class="info-box md-whiteframe-z2 anim sub-box" id="sub-info" ng-if="vm.info">
 								<div class="close-box">
 												<ng-md-icon icon="{{vm.closeIcon || 'close'}}" ng-click="vm.toggleInfo()" ng-mouseleave="vm.closeIcon = 'close'" ng-mouseover="vm.closeIcon = 'chevron_left'" options='{"rotation": "none", "duration":375}' size="32"></ng-md-icon>
 								</div>
-								<div class="module description">
-												<div layout="row">
-																<div class="header" flex="50" layout-align="space-between end" layout="row" flex-offset="25">
-																				<div class="title">{{ vm.structure.title}}</div>
-																				<div class="sub-title">{{vm.structure.full_name}}</div>
-																</div>
-												</div>
-												<div layout="row">
-																<div class="content" flex="50" flex-offset="25">
-																				<div class="text" ng-bind-html="vm.structure.description"></div>
-																</div>
-												</div>
-												<div layout-align="center" layout-margin layout="row">
-																<div class="framework" layout-align="space-between center" layout="column">
-																				<sunburst data="vm.structure"></sunburst>
-																</div>
-												</div>
-												<div layout="row">
-																<div class="caption" flex="60" ng-bind-html="vm.structure.caption" flex-offset="20"></div>
-												</div>
-								</div>
 
-				</div>
+
+				</div>-->
