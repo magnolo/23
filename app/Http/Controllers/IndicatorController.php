@@ -52,6 +52,7 @@ class IndicatorController extends Controller
     public function show($id)
     {
         //
+        return response()->api(Indicator::where('id',$id)->with('type', 'categories', 'dataprovider', 'style', 'userdata')->first());
     }
 
     /**

@@ -252,7 +252,7 @@ input {
 }
 .md-button {
   border-radius: 20px;
-  padding: 0 30px;
+  padding: 0 10px;
   text-transform: none;
 }
 md-input-container.big {

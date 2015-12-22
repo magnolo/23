@@ -94,6 +94,26 @@
 					}
 				}*/
 			})
+			.state('app.index.editor.indicator',{
+				url: '/:id',
+				views: {
+					'main@': {
+						templateUrl:'/views/app/indexeditor/indexeditorindicator.html',
+						controller: 'IndexeditorindicatorCtrl',
+						controllerAs: 'vm'
+					}
+				}
+				/*views:{
+					'info':{
+
+					},
+					'menu':{
+						templateUrl:getView('indexeditor'),
+						controller: 'IndexeditorCtrl',
+						controllerAs: 'vm'
+					}
+				}*/
+			})
 			.state('app.index.create', {
 				url: '/create',
 				views: {

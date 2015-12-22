@@ -34,6 +34,7 @@ $api->version('v1', function ($api) {
     $api->get('index/{id}/{iso}', 'App\Http\Controllers\ItemController@showByIso');
 
     $api->get('indicators', 'App\Http\Controllers\IndicatorController@index');
+    $api->get('indicators/{id}', 'App\Http\Controllers\IndicatorController@show');
 
     //$api->get('nations', 'App\Http\Controllers\NationsController@index');
     $api->get('countries', 'App\Http\Controllers\CountriesController@index');
