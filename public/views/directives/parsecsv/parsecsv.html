@@ -1,9 +1,21 @@
-<div style="margin:1em 0">
-<span>Upload countries data<span><br />
-<small class="info md-accent">(Use ISO 3166-1/2 country codes to link data)</small><br /><br />
-<div layout="column" layout-align="space-between center">
-<input id="fileInput" name="file" type="file" class="ng-hide">
-<ng-md-icon icon="file_upload" class="info"></ng-md-icon>
-<md-button id="uploadButton" class="md-accent md-border" flex="70"> Upload Data </md-button>
-</div>
+<div layout-align="space-between center" layout="column" style="margin:1em 0">
+				<span>Upload countries data</span>
+				<small class="info md-accent">(Use ISO 3166-1/2 country codes to link data)</small>
+				<div layout-align="space-between center" layout="column">
+								<input class="ng-hide" id="fileInput" name="file" type="file">
+								<ng-md-icon class="info" icon="file_upload"></ng-md-icon>
+								<md-button class="md-primary md-border md-min-width" id="uploadButton">
+												Upload Data
+								</md-button>
+								<span class="info md-accent or">or</span>
+								<div class="dropzone" layout="column" layout-align="space-between center" data-max-file-size="3" file-dropzone="[text/csv]" file-name="imageFileName" file="file">
+												<img ng-src="/images/dropzone.png" />
+												<span class="info md-accent" style="margin-top:0.5em">Drop File Here</span>
+								</div>
+                <span class="info md-accent or">or</span>
+
+				</div>
+				<md-button class="md-primary md-border md-min-width" layout="row" >
+								Add an API
+				</md-button>
 </div>

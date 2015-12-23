@@ -14,7 +14,7 @@
 			},
 			bindToController: true,
 			replace:true,
-			require: 'item',
+			//require: 'item',
 			link: function( scope, element, attrs, itemModel ){
 				//
 				/*scope.$watch(

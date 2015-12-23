@@ -1,0 +1,23 @@
+<md-content class="Page-Container" layout-fill>
+  <div class="module description">
+          <div layout="row">
+                  <div class="header" flex="50" layout-align="space-between end" layout="row" flex-offset="25">
+                          <div class="title">{{ vm.structure.title}}</div>
+                          <div class="sub-title">{{vm.structure.full_name}}</div>
+                  </div>
+          </div>
+          <div layout="row">
+                  <div class="content" flex="50" flex-offset="25">
+                          <div class="text" ng-bind-html="vm.structure.description"></div>
+                  </div>
+          </div>
+          <div layout-align="center" layout-margin layout="row">
+                  <div class="framework" layout-align="space-between center" layout="column">
+                          <sunburst data="vm.structure"></sunburst>
+                  </div>
+          </div>
+          <div layout="row">
+                  <div class="caption" flex="60" ng-bind-html="vm.structure.caption" flex-offset="20"></div>
+          </div>
+  </div>
+</md-content>

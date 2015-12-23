@@ -1,7 +1,7 @@
 (function(){
 	"use strict";
 
-	angular.module('app.directives').directive( 'parsecsv', function($state, $timeout, toastr) {
+	angular.module('app.directives').directive( 'parsecsv', function($state, $timeout, toastr, IndexService) {
 
 		return {
 			restrict: 'EA',
@@ -28,11 +28,13 @@
 						isVertical = false;
 						raw = [];
 						rawList = {};
-						errors = 0;
+
+						errors = [];
 						stepped = 0, rowCount = 0, errorCount = 0, firstError;
 						start, end;
 						firstRun = true;
 							$timeout(function(){
+								IndexService.clear();
 								var csv = Papa.parse(input[0].files[0],{
 									skipEmptyLines: true,
 									header:true,
@@ -41,12 +43,14 @@
 										angular.forEach(row.data[0], function(item, key){
 											if(isNaN(item) || item < 0 ){
 												if(/*item.toString().toUpperCase() == "NA" || */item < 0 || item.toString().toUpperCase().indexOf('N/A') > -1){
-													row.errors.push({
+													var error = {
 														type:"1",
 														message:"Field in row is not valid for database use!",
-														column: item
-													})
-													errors++;
+														column: key,
+														value: item
+													};
+													row.errors.push(error)
+													errors.push(error);
 												}
 											}
 										});
@@ -62,7 +66,7 @@
 											//rawList[key].errors = row.errors;
 										}
 										else{
-											$scope.vm.data.push(row);
+											IndexService.addData(row);
 										}
 										//console.log(row);
 
@@ -123,16 +127,16 @@
 									},
 									complete: function(results)
 									{
-										$scope.vm.errors = errors;
+										IndexService.setErrors(errors);
 
 										//See if there is an field name "iso" in the headings;
 										if(!isVertical){
-											angular.forEach($scope.vm.data[0].data[0], function(item, key){
+											angular.forEach(IndexService.getFirstEntry().data[0], function(item, key){
 												if(key.toLowerCase().indexOf('iso') != -1 || key.toLowerCase().indexOf('code') != -1){
-													$scope.vm.meta.iso_field = key;
+													IndexService.setIsoField(key);
 												}
 													if(key.toLowerCase().indexOf('country') != -1){
-														$scope.vm.meta.country_field = key;
+														IndexService.setCountryField(key);
 													}
 											});
 										}
@@ -154,14 +158,16 @@
 															}
 														}
 													});
-													$scope.vm.data.push({data:[r], errors:item.errors});
+													IndexService.addData({data:[r], errors:item.errors});
 												}
 											});
-											$scope.vm.meta.iso_field = 'iso';
+											IndexService.setIsoField('iso');
 										}
 
-										$state.go('app.index.create.basic');
-										toastr.info($scope.vm.data.length+' lines importet!', 'Information')
+
+										IndexService.setToLocalStorage();
+										toastr.info(IndexService.getDataSize()+' lines importet!', 'Information');
+										$state.go('app.index.check');
 									}
 								});
 

@@ -1,28 +1,30 @@
 <style type="text/css">
 	md-tabs .md-tab.md-active,
 	md-tabs .md-tab.md-focused {
-		color: {{vm.structure.color || 'rgba(128, 243, 198,1)' }}
+		color: {{vm.structure.style.base_color || 'rgba(128, 243, 198,1)' }}
 	}
 
 	md-tabs .md-tab .md-ripple-container {
-		color: {{vm.structure.color || 'rgba(128, 243, 198,1)'}};
+		color: {{vm.structure.style.base_color || 'rgba(128, 243, 198,1)'}};
 	}
 
 	md-tabs md-ink-bar {
-			color: {{vm.structrue.color || 'rgba(128, 243, 198,1)'}};
-		background:{{vm.structure.color || 'rgba(128, 243, 198,1)'}};
+			color: {{vm.structrue.style.base_color || 'rgba(128, 243, 198,1)'}};
+		background:{{vm.structure.style.base_color || 'rgba(128, 243, 198,1)'}};
 	}
 	.info-container .info-box .module.rank .mini-list .list ul li.active {
-				color: {{vm.structure.color || 'rgba(128, 243, 198,1)'}};
+				color: {{vm.structure.style.base_color || 'rgba(128, 243, 198,1)'}};
+	}
+	.info-box .module.rank .mini-list .list ul li.active, .info-box .module.comparison h4 .number{
+		color: {{vm.structure.style.base_color || 'rgba(128, 243, 198,1)'}};
 	}
 </style>
-
-				<div class="info-box anim-fade md-whiteframe-z3" flex layout-fill layout="column" ng-if="vm.structure && vm.data">
+<div class="info-box">
 								<section ng-if="!vm.structure.parent_id" class="header" layout-align="space-between center" layout="row" ng-style="{'color':vm.display.selectedCat.color}">
 												<span class="title">{{vm.structure.title}}</span>
 												<span class="subtitle">{{vm.structure.full_name}}</span>
-												<md-button>
-																<ng-md-icon icon="info_outline" ng-click="vm.toggleInfo()" style="fill:#006bb9"></ng-md-icon>
+												<md-button class="md-icon-button" ui-sref="app.index.show.info({index:vm.structure.name})">
+																<ng-md-icon icon="info_outline" style="fill:#006bb9"></ng-md-icon>
 												</md-button>
 								</section>
 								<section class="header" style="padding:1em" ng-if="vm.structure.parent_id">
@@ -40,8 +42,8 @@
 												<span class="title" style="font-size:1.2em;text-align:center;line-height:1em">{{vm.structure.title}}</span>
 											</div>
 											<div>
-												<span class="info-icon">
-																<ng-md-icon icon="info_outline" ng-click="vm.toggleInfo()"></ng-md-icon>
+												<span class="info-icon" ui-sref="app.index.show.info({index:vm.structure.name})">
+																<ng-md-icon icon="info_outline"></ng-md-icon>
 												</span>
 											</div>
 										</div>
@@ -101,13 +103,13 @@
 												</section>
 
 												<section class="module slide-toggle" layout-align="center center" layout="column" ng-if="vm.current  && !vm.compare.active">
-																<median data="vm.data" ng-model="vm.current" options="{color: vm.structure.color,handling: true, field: vm.structure.name}" style="margin:2em 0"></median>
+																<median data="vm.data" ng-model="vm.current" options="{color: vm.structure.style.base_color,handling: true, field: vm.structure.name}" style="margin:2em 0"></median>
 												</section>
 												<section class="action module slide-toggle mb mt" layout-align="center center" layout="row" ng-if="!vm.current">
 																<md-button flex="50" ng-disabled="true">click on a country</md-button>
 												</section>
 												<section>
-																<md-tabs md-center-tabs="true" md-dynamic-height md-no-pagination="true" md-swipe-content="true" ng-if="vm.current" md-selected="vm.activeTab">
+																<md-tabs md-stretch-tabs="true" md-center-tabs="true" md-dynamic-height md-no-pagination="true" md-swipe-content="true" ng-if="vm.current" md-selected="vm.activeTab">
 																				<md-tab label="Details" md-active="vm.activeTab == 0" md-on-select="vm.setTab(0)">
 																								<div class="module bubbles slide-toggle mt mb" layout="column">
 																												<bubbles chartdata="vm.current" height="320" indexer="vm.structure" ng-model="vm.display.selectedCat" sizefactor="3" width="300"></bubbles>
@@ -125,7 +127,7 @@
 																																				<h4 ng-click="vm.setCurrent(country)">
 																																								<span class="number">N°{{vm.getRank(country)}}</span>
 																																								{{vm.countryList[country.iso]}}</h4>
-																																				<median data="vm.data" height="20" info="false" options="{'color': vm.structure.color, field: vm.structure.name}" ng-model="country" width="120"></median>
+																																				<median data="vm.data" height="20" info="false" options="{'color': vm.structure.style.base_color, field: vm.structure.name}" ng-model="country" width="120"></median>
 																																				<bubbles borders="false" chartdata="country" height="150" indexer="vm.structure" labels="false" ng-model="vm.display.selectedCat" sizefactor="5" width="120"></bubbles>
 
 																																</div>
@@ -136,30 +138,10 @@
 												</section>
 								</md-content>
 				</div>
-				<div class="info-box md-whiteframe-z2 anim sub-box" id="sub-info" ng-if="vm.info">
+				<!--<div class="info-box md-whiteframe-z2 anim sub-box" id="sub-info" ng-if="vm.info">
 								<div class="close-box">
 												<ng-md-icon icon="{{vm.closeIcon || 'close'}}" ng-click="vm.toggleInfo()" ng-mouseleave="vm.closeIcon = 'close'" ng-mouseover="vm.closeIcon = 'chevron_left'" options='{"rotation": "none", "duration":375}' size="32"></ng-md-icon>
 								</div>
-								<div class="module description">
-												<div layout="row">
-																<div class="header" flex="50" layout-align="space-between end" layout="row" flex-offset="25">
-																				<div class="title">{{ vm.structure.title}}</div>
-																				<div class="sub-title">{{vm.structure.full_name}}</div>
-																</div>
-												</div>
-												<div layout="row">
-																<div class="content" flex="50" flex-offset="25">
-																				<div class="text" ng-bind-html="vm.structure.description"></div>
-																</div>
-												</div>
-												<div layout-align="center" layout-margin layout="row">
-																<div class="framework" layout-align="space-between center" layout="column">
-																				<sunburst data="vm.structure"></sunburst>
-																</div>
-												</div>
-												<div layout="row">
-																<div class="caption" flex="60" ng-bind-html="vm.structure.caption" flex-offset="20"></div>
-												</div>
-								</div>
 
-				</div>
+
+				</div>-->

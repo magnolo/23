@@ -110,7 +110,23 @@
 												<ng-md-icon icon="brush"></ng-md-icon>
 								</md-tab-label>
 								<md-tab-body>
-
+									<md-content class="md-accent anim-left" layout-padding >
+										<div layout-align="space-between center" layout="row">
+														<span flex></span>
+														<md-button class="md-primary md-border md-lowspace">Create new Style</md-button>
+										</div>
+										<div layout-align="center center" layout="row">
+														<h2 class="md-headline">Choose Style</h2>
+										</div>
+										<div class="indicator-fields">
+														<md-list>
+																		<md-list-item ng-click="vm.toggleStyle(style)" class="selector" ng-class="{'checked': vm.selectedStyle(vm.item, style), 'unchecked': !vm.selectedStyle(vm.item, style)}"  ng-repeat="style in vm.styles | filter:vm.resourceSearch">
+																						<p>{{style.title}}</p>
+																						<ng-md-icon icon="check" layout-align="center center" layout="row" size="18"></ng-md-icon>
+																		</md-list-item>
+														</md-list>
+										</div>
+									</md-content>
 								</md-tab-body>
 				</md-tab>
 				<md-tab>
@@ -122,14 +138,14 @@
 																<div layout-align="space-between center" layout="row">
 																				<h2 class="md-headline">Choose Categories</h2>
 																				<span flex></span>
-																				<md-button class="md-accent md-border md-lowspace" ng-click="vm.saveIndex()" ng-disabled="baseForm.$invalid">Done</md-button>
+																				<md-button class="md-primary md-border md-lowspace " ng-click="vm.saveIndex()" ng-disabled="baseForm.$invalid">Done</md-button>
 																</div>
 																<div class="indicator-fields" >
 																				<div layout-align="center center" layout="row">
-																								<md-button class="md-accent md-border" ng-click="vm.chooseCategories = true">Add to Category</md-button>
+																								<md-button class="md-primary md-border md-min-width" ng-click="vm.chooseCategories = true">Add to Category</md-button>
 																				</div>
 																				<div layout-align="center center" layout="row">
-																								<md-button class="md-accent md-border" ng-click="vm.createCategory = true">Create new Category</md-button>
+																								<md-button class="md-primary md-border md-min-width" ng-click="vm.createCategory = true">Create new Category</md-button>
 																				</div>
 																</div>
 												</md-content>
@@ -178,7 +194,7 @@
 																<div layout-align="space-between center" layout="row">
 																				<md-button ng-if="vm.options.withSave" class="md-accent md-border md-lowspace" ng-click="vm.saveCategory()" ng-disabled="categoryForm.$invalid">Save</md-button>
 																				<span flex></span>
-																				<md-button class="md-accent md-border md-lowspace" ng-click="vm.createCategory = true">Create new Categories</md-button>
+																				<md-button class="md-primary md-border md-lowspace" ng-click="vm.createCategory = true">Create new Categories</md-button>
 																</div>
 																<div layout-align="center center" layout="row">
 																				<h2 class="md-headline">Choose Categories</h2>

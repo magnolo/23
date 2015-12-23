@@ -23,8 +23,7 @@
 					radius = (width) / 2,
 					x = d3.scale.linear().range([0, 2 * Math.PI]),
 					y = d3.scale.pow().exponent(1.3).domain([0, 1]).range([0, radius]),
-					//~ y = d3.scale.pow().exponent(1.3).domain([0, 0.25, 1]).range([0, 30, radius]),
-					//~ y = d3.scale.linear().domain([0, 0.25, 0.5, 0.75, 1]).range([0, 30, 115, 200, radius]),
+
 					padding = 0,
 					duration = 1000,
 					circPadding = 10;
@@ -123,35 +122,6 @@
 					})
 					.on("click", click);
 
-				// Add labels. Very ugly code to split sentences into lines. Can only make
-				// code better if find a way to use d outside calls such as .text(function(d))
-
-				// This block replaces the two blocks arround it. It is 'useful' because it
-				// uses foreignObject, so that text will wrap around like in regular HTML. I tried
-				// to get it to work, but it only introduced more bugs. Unfortunately, the
-				// ugly solution (hard coded line splicing) won.
-				//~ var textEnter = text.enter().append("foreignObject")
-				//~ .attr("x",0)
-				//~ .attr("y",-20)
-				//~ .attr("height", 100)
-				//~ .attr("width", function(d){ return (y(d.dy) +50); })
-				//~ .attr("transform", function(d) {
-				//~ var angleAlign = (d.x > 0.5 ? 2 : -2),
-				//~ angle = x(d.x + d.dx / 2) * 180 / Math.PI - 90,
-				//~ transl = (y(d.y) + circPadding);
-				//~ d.rot = angle;
-				//~ if (!d.depth) transl = -50;
-				//~ if (angle > 90) transl += 120;
-				//~ if (d.depth)
-				//~ return "rotate(" + angle + ")translate(" + transl + ")rotate(" + (angle > 90 ? -180 : 0) + ")";
-				//~ else
-				//~ return "translate(" + transl + ")";
-				//~ })
-				//~ .append("xhtml:body")
-				//~ .style("background", "none")
-				//~ .style("text-align", function(d){ return (d.rot > 90 ? "left" : "right")})
-				//~ .html(function(d){ return '<div class=' +"depth" + d.depth +' style=\"width: ' +(y(d.dy) +50) +'px;' +"text-align: " + (d.rot > 90 ? "right" : "left") +'">' +d.name +'</div>';})
-
 				textEnter.append("tspan")
 					.attr("x", 0)
 					.text(function (d) {
@@ -243,17 +213,19 @@
 				}
 
 				function setColor(d) {
-					return d.color;
+
+					//return ;
 					if (d.color)
 						return d.color;
 					else {
-						var tintDecay = 0.20;
+						return '#ccc';
+						/*var tintDecay = 0.20;
 						// Find child number
 						var x = 0;
 						while (d.parent.children[x] != d)
 							x++;
 						var tintChange = (tintDecay * (x + 1)).toString();
-						return pusher.color(d.parent.color).tint(tintChange).html('hex6');
+						return pusher.color(d.parent.color).tint(tintChange).html('hex6');*/
 					}
 				}
 

@@ -18,7 +18,7 @@ body {
     font-family: 'Gorgia';
     font-size: 16px;
     color: @main-color;
-     overflow-x:hidden;  
+     overflow-x:hidden;
     > canvas{
       z-index: 1000;
     position: fixed;
@@ -33,6 +33,7 @@ body {
     //left: 0;
     //padding-top:64px;
     //  margin-top:48px;
+  //  z-index:1;
 }
 
 .Page-name {
@@ -140,5 +141,31 @@ body {
   }
   &.climate{
     background-color: @climate;
+  }
+}
+p{
+  &.small-info{
+    color:#aaa;
+    font-size:0.9em;
+    &:hover{
+      color:@base;
+    }
+  }
+}
+&.loose{
+  .Header{
+    background:#fff !important;
+  }
+  .Page{
+    margin-left: calc(~'370px + 2em');
+    margin-top:1em;
+    margin-right:1em;
+  }
+  .Sidebar{
+    position:absolute !important;
+    top:1em;
+    left:1em;
+    bottom:auto;
+    max-height: calc(~'100% - 2em');
   }
 }

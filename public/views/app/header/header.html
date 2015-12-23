@@ -1,4 +1,90 @@
-<div class="Header md-blueframe-z1">
+<div class="md-toolbar-tools">
+	<h2 style="margin-left:0px;cursor:pointer" ui-sref="app.home">
+			<span class="logo">23°</span>
+	</h2>
+	<md-button
+			ng-click="$root.sidebarOpen = !$root.sidebarOpen"
+			class="md-icon-button"
+			aria-label="Show Menu">
+		<ng-md-icon icon="menu"></ng-md-icon>
+	</md-button>
+	<!--<h2>
+		<span>{{current_page}}</span>
+	</h2>-->
+	<ul class="inline-list menu-list">
+				<li>
+						<a href="">Human</a>
+				</li>
+				<li>
+						<a href="">Animal</a>
+				</li>
+					<li ui-sref-active="active">
+									<a href="" ui-sref="app.index.show({index:'epi'})">Environment</a>
+					</li>
+
+	</ul>
+	<span flex></span>
+		<md-menu ng-if="!$root.isAuthenticated()" md-position-mode="target-right target">
+	<md-button aria-label="Open user menu" class="md-primary md-border" ng-click="vm.openMenu($mdOpenMenu, $event)">Login</md-button>
+		<md-menu-content width="4">
+			<md-content layout-padding>
+			<form name="loginForm" novalidate="" ng-submit="vm.doLogin()">
+				<md-input-container class="md-has-icon md-block">
+					<!-- Use floating label instead of placeholder -->
+					<ng-md-icon icon="person" placeholder="Email"></ng-md-icon>
+					<input ng-model="vm.user.email" name="email" required type="email" >
+				</md-input-container>
+				<md-input-container  md-no-float class="md-has-icon md-block">
+					<ng-md-icon icon="lock"></ng-md-icon>
+					<input type="password" required name="password" placeholder="Password" ng-model="vm.user.password">
+				</md-input-container>
+				 <md-button layout-fill type="sumbit" class="md-border md-primary" >Login</md-button>
+			</form>
+		</md-content>
+		</md-menu-content>
+</md-menu>
+	<md-menu ng-if="$root.isAuthenticated()" md-position-mode="target-right target">
+					<md-button aria-label="Open user menu" class="md-icon-button" ng-click="vm.openMenu($mdOpenMenu, $event)">
+									<ng-md-icon icon="person"></ng-md-icon>
+					</md-button>
+					<md-menu-content width="4">
+								<md-menu-item>
+												<md-button ui-sref="app.user.profile">
+																<ng-md-icon icon="person"></ng-md-icon>
+																My Profile
+												</md-button>
+								</md-menu-item>
+									<md-menu-divider></md-menu-divider>
+								<md-menu-item>
+												<md-button ng-click="$root.looseLayout = !$root.looseLayout">
+																<ng-md-icon icon="view_carousel"></ng-md-icon>
+																Toggle Layout
+												</md-button>
+								</md-menu-item>
+								<md-menu-divider></md-menu-divider>
+									<md-menu-item>
+													<md-button ui-sref="app.index.me">
+																	<ng-md-icon icon="public"></ng-md-icon>
+																	My data
+													</md-button>
+									</md-menu-item>
+									<md-menu-item>
+													<md-button ui-sref="app.index.create">
+																	<ng-md-icon icon="file_upload"></ng-md-icon>
+																	Upload new data
+													</md-button>
+									</md-menu-item>
+									<md-menu-divider></md-menu-divider>
+									<md-menu-item>
+													<md-button ng-click="vm.doLogout()">
+																	<ng-md-icon icon="directions_walk"></ng-md-icon>
+																	Log out
+													</md-button>
+									</md-menu-item>
+					</md-menu-content>
+	</md-menu>
+</div>
+<!--<div class="Header md-blueframe-z1">
 
 				<md-toolbar class="md-accent white-bg">
 								<div class="md-toolbar-tools" style="padding:0 2em;margin:0 16px;">
@@ -57,4 +143,4 @@
 
 								</div>
 				</md-toolbar>
-</div>
+</div>-->

@@ -19,7 +19,7 @@ class CategoriesController extends Controller
     public function index()
     {
         //
-        return response()->api(Categorie::all());
+        return response()->api(Categorie::all()->load('style'));
     }
 
     /**
@@ -55,7 +55,7 @@ class CategoriesController extends Controller
         return response()->api(Categorie::where('name', $id)->firstOrFail());
     }
     public function showWithIndicators($id){
-      
+
     }
     /**
      * Show the form for editing the specified resource.

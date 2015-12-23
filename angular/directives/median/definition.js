@@ -47,8 +47,12 @@
 					options.colors[1].color = options.color;
 				}
 				element.css('height', options.height + 'px').css('border-radius', options.height / 2 + 'px');
+				var max = 0;
+				angular.forEach($scope.data, function (nat, key) {
+					max = d3.max([max, parseInt(nat[options.field])]);
+				});
 				var x = d3.scale.linear()
-					.domain([0, 100])
+					.domain([0, max])
 					.range([options.margin.left, options.width - options.margin.left])
 					.clamp(true);
 
@@ -97,7 +101,14 @@
 					legend2.append('circle')
 						.attr('r', options.height / 2)
 					legend2.append('text')
-						.text(100)
+						.text(function(){
+							//TDODO: CHckick if no comma there 
+							if(max > 1000){
+								var v = (parseInt(max) / 1000).toString();
+								return v.substr(0, v.indexOf('.') ) + "k" ;
+							}
+							return max
+						})
 						.style('font-size', options.height/2.5)
 						.attr('text-anchor', 'middle')
 						.attr('y', '.35em')
@@ -141,20 +152,28 @@
 				function brush() {
 					var value = brush.extent()[0];
 
-					if (d3.event.sourceEvent) { // not a programmatic event
+					if (d3.event.sourceEvent) {
 						value = x.invert(d3.mouse(this)[0]);
 						brush.extent([value, value]);
 					}
-					handleLabel.text(parseInt(value));
+					if(parseInt(value) > 1000){
+						var v = (parseInt(value) / 1000).toString();
+						handleLabel.text(v.substr(0, v.indexOf('.') ) + "k" );
+					}
+					else{
+						handleLabel.text(parseInt(value));
+					}
+
 					handleCont.attr("transform", 'translate(' + x(value) + ',' + options.height / 2 + ')');
 				}
 
 				function brushed() {
+
 					var value = brush.extent()[0],
 						count = 0,
 						found = false;
 					var final = "";
-					do {
+					/*do {
 
 						angular.forEach($scope.data, function (nat, key) {
 							if (parseInt(nat[options.field]) == parseInt(value)) {
@@ -164,10 +183,10 @@
 						});
 						count++;
 						value = value > 50 ? value - 1 : value + 1;
-					} while (!found && count < 100);
-					console.log(final);
+					} while (!found && count < max);
+
 					ngModel.$setViewValue(final);
-					ngModel.$render();
+					ngModel.$render();*/
 				}
 				$scope.$watch('options', function(n,o){
 					if(n === o){

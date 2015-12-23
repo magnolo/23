@@ -1,7 +1,9 @@
 <!doctype html>
 <html ng-app="app">
+
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <base href="/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <link rel="stylesheet" href="{!! asset('css/vendor.css') !!}">
     <link rel="stylesheet" href="{!! asset('css/app.css') !!}">
     <link href='//fonts.googleapis.com/css?family=Roboto:500,400' rel='stylesheet' type='text/css'>
@@ -13,26 +15,39 @@
     <script type="text/javascript">document.location.href = '/unsupported-browser'</script>
     <![endif]-->
 </head>
-<body ng-class="{'greyed': $root.greyed}">
-    <header ui-view="header"></header>
-    <div ui-view="map" class="Map_Container"></div>
-    <div ui-view="sidebar"></div>
-    <div ui-view="main" class="Page anim-total" layout-fill></div>
+
+<body ng-class="{'greyed': $root.greyed, 'loose': $root.looseLayout}" layout="column">
+    <md-toolbar class="Header md-accent" tabindex="-1">
+        <header ui-view="header"></header>
+    </md-toolbar>
+    <md-content layout="row" flex>
+        <md-sidenav class="Sidebar md-sidenav-left md-whiteframe-z1" md-component-id="left" md-is-locked-open="$mdMedia('gt-md') && $root.sidebarOpen" tabindex="-1">
+            <!-- Sidebar header/branding -->
+            <!--<md-toolbar class="Sidebar-header">
+              <h1 class="md-toolbar-tools Sidebar-title">Laravel 5 angular<br>material starter</h1>
+            </md-toolbar>-->
+            <md-content class="Sidebar-pages md-default-theme" flex ui-view="sidebar" md-scroll-y></md-content>
+        </md-sidenav>
+        <md-content layout="column" flex role="main" tabindex="-1">
+            <div ui-view="map" class="Map_Container" flex></div>
+            <div ui-view="main" class="Page" flex md-scroll-y></div>
+        </md-content>
+    </md-content>
     <div class="cssload-container" ng-if="stateIsLoading">
         <div class="cssload-whirlpool"></div>
     </div>
 
 
-<script src="{!! asset('js/vendor.js') !!}"></script>
-<script src="{!! asset('js/app.js') !!}"></script>
-<script src="https://cdn.rawgit.com/devTristan/pbf/master/dist/pbf.min.js"></script>
-<script src="js/Leaflet.MapboxVectorTile.js"></script>
+    <script src="{!! asset('js/vendor.js') !!}"></script>
+    <script src="{!! asset('js/app.js') !!}"></script>
+    <script src="js/pbf.min.js"></script>
+    <script src="js/Leaflet.MapboxVectorTile.js"></script>
 
-{{--livereload--}}
-@if ( Config::get('app.debug') )
+    {{--livereload--}} @if ( Config::get('app.debug') )
     <script type="text/javascript">
-        document.write('<script src="'+ location.protocol + '//' + ('localhost') +':35729/livereload.js?snipver=1" type="text/javascript"><\/script>')
+        document.write('<script src="' + location.protocol + '//' + ('localhost') + ':35729/livereload.js?snipver=1" type="text/javascript"><\/script>')
     </script>
-@endif
+    @endif
 </body>
+
 </html>

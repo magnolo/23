@@ -12,7 +12,7 @@ class Categorie extends Model
     public function indicators(){
       return $this->belongsToMany('App\Indicator', '23_indicator_categories', 'categorie_id', 'indicator_id');
     }
-    public function indices(){
-      return $this->belongsToMany('App\Index', '23_indicator_categories', 'categorie_id', 'indicator_id');
+    public function style(){
+      return $this->belongsTo('App\Style', 'style_id');
     }
 }

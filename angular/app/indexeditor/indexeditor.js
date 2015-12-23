@@ -5,27 +5,31 @@
 		//
 		var vm = this;
 
-		vm.dataproviders = [];
-		vm.selectedItem = null;
-		vm.searchText = null;
-		vm.querySearch = querySearch;
+		vm.indicators = [];
+		vm.filter = {
+			list: 0,
+			types:{
+				title: true,
+				style: true,
+				categories: true,
+				infographic: false,
+				description: true
+			}
+		}
+		vm.openMenu = openMenu;
 
-    activate();
+		activate();
 
-    function activate(){
-      loadAll();
+		function activate(){
+			loadAll();
+		}
+
+		function loadAll(){
+			vm.indicators = DataService.getAll('indicators').$object
+		}
+		function openMenu($mdOpenMenu, ev) {
+      $mdOpenMenu(ev);
     }
-		function querySearch(query) {
-      console.log($filter('findbyname')(vm.dataproviders, query, 'title'));
-			var results = query ? $filter('findbyname')(vm.dataproviders, query, 'title') : [];
-      console.log(results);
-			return results;
-		}
-		function loadAll() {
-      DataService.getAll('dataproviders').then(function(data){
-        vm.dataproviders = data;
-      });
-		}
 	});
 
 })();

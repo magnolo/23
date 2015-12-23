@@ -1,4 +1,4 @@
-.Sidebar {
+/*.Sidebar {
 	position: fixed !important;
 	top: 0;
 	bottom: 0;
@@ -7,7 +7,7 @@
 	min-width: 250px !important;
 	max-width: 250px !important;
 	background-color: rgb(63, 81, 181);
-}
+}*/
 
 .Sidebar-title {
 	font-size: 25px;
@@ -20,6 +20,12 @@
 .Sidebar-pages {
 	background-color: rgb(63, 81, 181);
 	color: white;
+	& > div {
+		min-width:350px;
+	}
+	&:empty{
+		display:none;
+	}
 }
 
 .Sidebar-pages md-list md-list-item button.md-button:not([disabled]):hover {

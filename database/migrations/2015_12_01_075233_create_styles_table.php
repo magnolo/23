@@ -17,8 +17,8 @@ class CreateStylesTable extends Migration
             $table->string('name');
             $table->string('title');
             $table->string('base_color');
-            $table->json('color_range');
-            $table->string('icon_name');
+            $table->json('color_range')->nullable();
+            $table->string('icon_name')->nullable();
             $table->timestamps();
         });
     }

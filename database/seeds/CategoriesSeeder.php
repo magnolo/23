@@ -17,15 +17,21 @@ class CategoriesSeeder extends Seeder
         DB::table('23_categories')->delete();
         Categorie::create([
           'name' => 'environment',
-          'title' => 'Environment'
+          'title' => 'Environment',
+          'user_id' => 2,
+          'style_id' => 1,
         ]);
         Categorie::create([
           'name' => 'human',
-          'title' => 'Human'
+          'title' => 'Human',
+          'user_id' => 2,
+          'style_id' => 2
         ]);
         Categorie::create([
           'name' => 'animals',
-          'title' => 'Animals'
+          'title' => 'Animals',
+          'user_id' => 2,
+          'style_id' => 3
         ]);
     }
 }

@@ -1,8 +1,8 @@
 (function () {
 	"use strict";
 
-	angular.module('app.routes').config(function ($stateProvider, $urlRouterProvider) {
-
+	angular.module('app.routes').config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
+	//	$locationProvider.html5Mode(true);
 		var getView = function (viewName) {
 			return '/views/app/' + viewName + '/' + viewName + '.html';
 		};
@@ -29,7 +29,7 @@
 			.state('app.home',{
 				url:'/',
 				views:{
-					'main@':{
+					'sidebar@':{
 						templateUrl: getView('home'),
 						controller: 'HomeCtrl',
 						controllerAs: 'vm'
@@ -55,6 +55,7 @@
 			})
 			.state('app.user.profile', {
 				url: '/my-profile',
+				auth:true,
 				views: {
 					'main@': {
 						templateUrl: getView('user'),
@@ -71,18 +72,20 @@
 			})
 			.state('app.index', {
 				abstract: true,
-				url: '/index',
-				views: {
-					'main@': {
-						templateUrl: getView('index'),
-						controller: 'IndexbaseCtrl',
-						controllerAs: 'vm'
-					}
-				}
+				url: '/index'
+
 			})
 			.state('app.index.editor',{
 				url: '/editor',
-				views:{
+				auth:true,
+				views: {
+					'sidebar@': {
+						templateUrl: getView('indexeditor'),
+						controller: 'IndexeditorCtrl',
+						controllerAs: 'vm'
+					}
+				}
+				/*views:{
 					'info':{
 
 					},
@@ -91,15 +94,34 @@
 						controller: 'IndexeditorCtrl',
 						controllerAs: 'vm'
 					}
+				}*/
+			})
+			.state('app.index.editor.indicator',{
+				url: '/:id',
+				auth:true,
+				views: {
+					'main@': {
+						templateUrl:'/views/app/indexeditor/indexeditorindicator.html',
+						controller: 'IndexeditorindicatorCtrl',
+						controllerAs: 'vm'
+					}
 				}
+				/*views:{
+					'info':{
+
+					},
+					'menu':{
+						templateUrl:getView('indexeditor'),
+						controller: 'IndexeditorCtrl',
+						controllerAs: 'vm'
+					}
+				}*/
 			})
 			.state('app.index.create', {
 				url: '/create',
+				auth:true,
 				views: {
-					'info': {
-
-					},
-					'menu': {
+					'sidebar@': {
 						templateUrl: getView('indexcreator'),
 						controller: 'IndexcreatorCtrl',
 						controllerAs: 'vm'
@@ -107,36 +129,58 @@
 				}
 			})
 			.state('app.index.create.basic', {
-				url: '/basic'
+				url: '/basic',
+				auth:true
 			})
-			.state('app.index.create.check', {
-				url: '/checking'
+			.state('app.index.check', {
+				url: '/checking',
+				auth:true,
+				views:{
+					'main@':{
+						templateUrl:getView('IndexCheck'),
+						controller: 'IndexCheckCtrl',
+						controllerAs: 'vm'
+					},
+					'sidebar@': {
+						templateUrl: '/views/app/indexCheck/indexCheckSidebar.html',
+						controller: 'IndexCheckSidebarCtrl',
+						controllerAs: 'vm'
+					}
+				}
 			})
-			.state('app.index.create.meta', {
-				url: '/adding-meta-data'
+			.state('app.index.meta', {
+				url: '/adding-meta-data',
+				auth:true,
+				views:{
+					'main@':{
+						templateUrl:getView('indexMeta'),
+						controller: 'IndexMetaCtrl',
+						controllerAs: 'vm'
+					},
+					'sidebar@':{
+						templateUrl: '/views/app/indexMeta/indexMetaMenu.html',
+						controller: 'IndexMetaMenuCtrl',
+						controllerAs: 'vm'
+					}
+				}
 			})
 			.state('app.index.create.final', {
-				url: '/adding-meta-data'
+				url: '/adding-meta-data',
+				auth:true
 			})
 			.state('app.index.show', {
 				url: '/:index',
 				views: {
-					'info': {
+					'sidebar@': {
 						templateUrl: '/views/app/index/info.html',
 						controller: 'IndexCtrl',
 						controllerAs: 'vm',
 						resolve: {
-							initialData: function (DataService, $stateParams) {
-								var d = DataService.getAll('index/' + $stateParams.index + '/year/latest');
-								var i = DataService.getOne('index/' + $stateParams.index + '/structure');
-								var countries = DataService.getOne('countries/isos');
-								return {
-									dataObject: d.$object,
-									indexerObject: i.$object,
-									data: d,
-									indexer: i,
-									countries: countries.$object
-								}
+							data: function (IndizesService, $stateParams) {
+								return IndizesService.fetchData($stateParams.index);
+							},
+							countries: function(CountriesService){
+								return CountriesService.getData();
 							}
 						}
 					},
@@ -144,6 +188,16 @@
 						templateUrl: '/views/app/index/selected.html',
 					}
 				}
+			})
+			.state('app.index.show.info', {
+				 url:'/info',
+				 views:{
+					 'main@':{
+						 controller:'IndexinfoCtrl',
+						 controllerAs: 'vm',
+						 	templateUrl:getView('indexinfo')
+					 }
+				 }
 			})
 			.state('app.index.show.selected', {
 				url: '/:item',

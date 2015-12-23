@@ -12,4 +12,7 @@ class MeasureType extends Model
     public function indicators(){
       return $this->hasMany('App\Indicator');
     }
+    public function graphs(){
+      return $this->belongsToMany('App\Graph', '23_graph_measuretypes', 'measure_type_id', 'graph_id');
+    }
 }

@@ -1,0 +1,57 @@
+
+
+<md-toolbar md-scroll-shrink>
+  <div class="md-toolbar-tools">
+    Select basic data
+  </div>
+</md-toolbar>
+<md-toolbar ng-if="vm.errors.length" md-scroll-shrink class="md-warn slide-toggle">
+    <div class="md-toolbar-tools">
+      <span>{{vm.errors.length}} errors detected</span>
+      <span flex></span>
+      <md-button class="md-raised md-primary" ng-click="vm.clearErrors()" ng-if="vm.errors.length && vm.errors.length != vm.iso_errors.length">
+              <ng-md-icon class="middle" icon="gesture"></ng-md-icon>Clear Errors
+
+      </md-button>
+    </div>
+</md-toolbar>
+<md-toolbar ng-if="vm.iso_errors.length" md-scroll-shrink class="md-warn slide-toggle">
+    <div class="md-toolbar-tools">
+      <span>{{vm.iso_errors.length}} ISO errors detected</span>
+    </div>
+</md-toolbar>
+<md-content layout-padding>
+<md-input-container class="md-block" >
+        <label>ISO Field</label>
+        <md-select ng-model="vm.meta.iso_field" required>
+                <md-option ng-repeat="(key, item) in vm.data[0].data[0]" value="{{key}}">{{key}}</md-option>
+        </md-select>
+</md-input-container>
+<md-input-container class="md-block">
+        <label>Country Field</label>
+        <md-select ng-model="vm.meta.country_field" required>
+                <md-option ng-repeat="(key, item) in vm.data[0].data[0]" value="{{key}}">{{key}}</md-option>
+        </md-select>
+</md-input-container>
+
+        <div ng-if="vm.iso_errors.length || !vm.iso_checked" layout="row" layout-align="center center" >
+
+                <md-button class="md-raised md-primary md-min-width" ng-click="vm.fetchIso()" >
+                        <ng-md-icon class="middle" icon="public"></ng-md-icon>  Get Iso Values
+
+                </md-button>
+
+        </div>
+        <div layout-align="center center" layout="row" ng-if="vm.errors.length == 0  && vm.iso_errors.length == 0 && vm.iso_checked && !vm.addDataTo.id && !vm.doExtend">
+        <md-button class="md-primary md-raised md-min-width" ui-sref="app.index.meta">
+                <span>Next Step</span>
+                <ng-md-icon class="middle" icon="chevron_right"></ng-md-icon>
+        </md-button>
+      </div>
+      <div layout-align="center center" layout="row" ng-if="vm.errors == 0 && vm.iso_checked && vm.addDataTo.id && vm.doExtend">
+        <md-button class="md-primary md-raised "  ng-click="vm.extendData()">
+                <span>Save</span>
+        </md-button>
+      </div>
+</div>
+</md-content>
