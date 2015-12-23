@@ -2,6 +2,7 @@
 	"use strict";
 
 	angular.module('app.routes').run(function($rootScope, $mdSidenav, $auth, $state, toastr){
+		$rootScope.sidebarOpen = true;
 		$rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState,fromParams){
 			if (toState.auth && !$auth.isAuthenticated()){
 				toastr.error('Your not allowed to go there buddy!', 'Access denied');
@@ -21,5 +22,4 @@
 			$rootScope.stateIsLoading = false;
 		});
 	});
-
 })();
