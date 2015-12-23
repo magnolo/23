@@ -1,7 +1,7 @@
 (function(){
     "use strict";
 
-    angular.module('app.controllers').controller('IndexCheckCtrl', function($rootScope, toastr, DialogService, DataService, IndexService){
+    angular.module('app.controllers').controller('IndexCheckCtrl', function($rootScope, $scope, toastr, DialogService, DataService, IndexService){
         //
         //$rootScope.sidebarOpen = false;
 
@@ -10,7 +10,7 @@
         vm.meta = IndexService.getMeta();
         vm.errors = IndexService.getErrors();
         vm.selected = [];
-        
+
         vm.deleteData = deleteData;
         vm.deleteSelected = deleteSelected;
         vm.onOrderChange = onOrderChange;

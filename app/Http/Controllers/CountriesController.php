@@ -34,8 +34,9 @@ class CountriesController extends Controller
       return response()->api($data);
     }
     public function getBBox($countries){
-
+  
         $box =  Countrie::select(\DB::raw('st_asgeojson(St_envelope(ST_Union(geom))) as bbox'))->whereIn('iso_a2', explode(",",$countries))->first();
+
         return response()->api(json_decode($box->bbox));
     }
 

@@ -101,7 +101,7 @@
 									vm.data[k].data[0][vm.meta.country_field] = country.data[0].admin;
 									if (item.errors.length) {
 										angular.forEach(item.errors, function (error, e) {
-											if (error.type == 2) {
+											if (error.type == 2 || error.type == 3) {
 												vm.iso_errors.splice(0,1);
 												item.errors.splice(e, 1);
 											}
@@ -121,7 +121,7 @@
                     column: vm.meta.country_field
                   };
 									IndexService.addIsoError(error);
-									intervaltem.errors.push();
+									item.errors.push(error);
 								}
 							}
 						}

@@ -3,7 +3,6 @@
 
 	angular.module('app.routes').run(function($rootScope, $mdSidenav, $auth, $state, toastr){
 		$rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState,fromParams){
-				console.log(toState);
 			if (toState.auth && !$auth.isAuthenticated()){
 				toastr.error('Your not allowed to go there buddy!', 'Access denied');
 		    event.preventDefault();

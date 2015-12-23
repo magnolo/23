@@ -42,7 +42,7 @@
                 </md-button>
 
         </div>
-        <div layout-align="center center" layout="row" ng-if="vm.errors == 0 && vm.iso_checked && !vm.addDataTo.id && !vm.doExtend">
+        <div layout-align="center center" layout="row" ng-if="vm.errors.length == 0  && vm.iso_errors.length == 0 && vm.iso_checked && !vm.addDataTo.id && !vm.doExtend">
         <md-button class="md-primary md-raised md-min-width" ui-sref="app.index.meta">
                 <span>Next Step</span>
                 <ng-md-icon class="middle" icon="chevron_right"></ng-md-icon>

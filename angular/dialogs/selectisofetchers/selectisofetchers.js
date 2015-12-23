@@ -18,20 +18,19 @@
             return;
           }
           angular.forEach(n, function(item, key){
-            if(item.entry.data[0][vm.iso] && !o[key].entry.data[0][vm.iso]){
-              angular.forEach(item.errors, function (error, e) {
-                if (error.type == 2) {
+            if(item.entry.data[0][vm.iso] != !o[key].entry.data[0][vm.iso]){
+              angular.forEach(item.entry.errors, function (error, e) {
+                if (error.type == 2 || error.type == 3) {
                   IndexService.reduceIsoError();
-                  item.errors.splice(e, 1);
+                  item.entry.errors.splice(e, 1);
                 }
                 else if(error.type == 1){
                   if(error.column == vm.iso){
                     IndexService.reduceError();
-                    item.errors.splice(e, 1);
+                    item.entry.errors.splice(e, 1);
                   }
                 }
               });
-
               vm.list.splice(key, 1);
             }
           });
