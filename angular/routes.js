@@ -55,6 +55,7 @@
 			})
 			.state('app.user.profile', {
 				url: '/my-profile',
+				auth:true,
 				views: {
 					'main@': {
 						templateUrl: getView('user'),
@@ -76,6 +77,7 @@
 			})
 			.state('app.index.editor',{
 				url: '/editor',
+				auth:true,
 				views: {
 					'sidebar@': {
 						templateUrl: getView('indexeditor'),
@@ -96,6 +98,7 @@
 			})
 			.state('app.index.editor.indicator',{
 				url: '/:id',
+				auth:true,
 				views: {
 					'main@': {
 						templateUrl:'/views/app/indexeditor/indexeditorindicator.html',
@@ -116,6 +119,7 @@
 			})
 			.state('app.index.create', {
 				url: '/create',
+				auth:true,
 				views: {
 					'sidebar@': {
 						templateUrl: getView('indexcreator'),
@@ -125,10 +129,12 @@
 				}
 			})
 			.state('app.index.create.basic', {
-				url: '/basic'
+				url: '/basic',
+				auth:true
 			})
 			.state('app.index.check', {
 				url: '/checking',
+				auth:true,
 				views:{
 					'main@':{
 						templateUrl:getView('IndexCheck'),
@@ -144,6 +150,7 @@
 			})
 			.state('app.index.meta', {
 				url: '/adding-meta-data',
+				auth:true,
 				views:{
 					'main@':{
 						templateUrl:getView('indexMeta'),
@@ -158,7 +165,8 @@
 				}
 			})
 			.state('app.index.create.final', {
-				url: '/adding-meta-data'
+				url: '/adding-meta-data',
+				auth:true
 			})
 			.state('app.index.show', {
 				url: '/:index',

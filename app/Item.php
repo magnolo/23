@@ -14,7 +14,7 @@ class Item extends Model
       return $this->belongsTo('App\Item', 'parent_id');
     }
     public function children(){
-      return $this->hasMany('App\Item', 'parent_id')->with('children','type');
+      return $this->hasMany('App\Item', 'parent_id')->with('children','type','style');
     }
     public function indicator(){
       return $this->belongsTo('App\Indicator', 'indicator_id');

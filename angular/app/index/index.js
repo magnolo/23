@@ -55,12 +55,19 @@
 		activate();
 
 		function activate() {
-	
+
 			vm.structureServer.then(function(structure){
 				vm.dataServer.then(function(data){
 					vm.data = data;
 					vm.structure = structure;
-					createCanvas();
+					if(!vm.structure.style){
+						vm.structure.style = {
+							'name':'default',
+							'title':'Default',
+							'base_color':'rgba(128, 243, 198,1)'
+						};
+					}
+					createCanvas(vm.structure.style.base_color);
 					drawCountries();
 					if($state.params.item){
 						vm.setState($state.params.item);
@@ -131,7 +138,7 @@
 			rank = vm.data.indexOf(vm.current) + 1;
 			vm.current[vm.structure.name+'_rank'] = rank;
 			vm.circleOptions = {
-					color:vm.structure.color || '#00ccaa',
+					color:vm.structure.style.base_color || '#00ccaa',
 					field:vm.structure.name+'_rank'
 			};
 			return rank;
@@ -420,6 +427,7 @@
 			if (n === o) {
 				return
 			}
+			console.log(n);
 			if (n.color)
 				updateCanvas(n.color);
 			else {

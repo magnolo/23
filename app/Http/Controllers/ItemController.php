@@ -21,7 +21,7 @@ class ItemController extends Controller
      */
     public function index()
     {
-        $item = Item::where('parent_id', 0)->with('children')->get();
+        $item = Item::where('parent_id', 0)->with('children', 'type', 'style')->get();
         return response()->api($item);
     }
     public function alphabethical(){

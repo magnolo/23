@@ -15,6 +15,9 @@
 		vm.toggleCategorie = toggleCategorie;
 		vm.selectedCategorie = selectedCategorie;
 
+		vm.toggleStyle = toggleStyle;
+		vm.selectedStyle = selectedStyle;
+
 		activate();
 
 		function activate() {
@@ -33,6 +36,7 @@
 			vm.dataproviders = DataService.getAll('dataproviders').$object;
 			vm.categories = DataService.getAll('categories').$object;
 			vm.measureTypes = DataService.getAll('measure_types').$object;
+			vm.styles = DataService.getAll('styles').$object;
 		}
 
 		function toggleCategorie(categorie) {
@@ -48,6 +52,18 @@
 			var index = item.categories.indexOf(categorie);
 			return index !== -1 ? true : false;
 		}
+		function toggleStyle(style) {
+			if(vm.item.style_id == style.id){
+				vm.item.style_id = 0;
+			}
+			else{
+				vm.item.style_id = style.id
+			}
+		}
+		function selectedStyle(item, style) {
+			return vm.item.style_id == style.id ? true : false;
+		}
+
 		$scope.$watch('vm.item', function (n, o) {
 			if (n === o) return;
 			if(!vm.askedToReplicate) {

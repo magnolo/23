@@ -1,10 +1,10 @@
 (function(){
 	"use strict";
 
-	angular.module('app.controllers').controller('HeaderCtrl', function($scope, $rootScope, $auth, toastr){
+	angular.module('app.controllers').controller('HeaderCtrl', function($scope, $state, $rootScope, $auth, toastr){
 
 		var vm = this;
-		vm.isAuthenticated = isAuthenticated;
+		$rootScope.isAuthenticated = isAuthenticated;
 		vm.doLogin = doLogin;
 		vm.doLogout = doLogout;
 		vm.openMenu = openMenu;
@@ -23,6 +23,9 @@
 		function doLogout(){
 			if($auth.isAuthenticated()){
 				$auth.logout().then(function(data){
+					if($state.current.auth){
+						$state.go('app.home');
+					}
 					toastr.success('You have successfully logged out');
 				}).catch(function(response){
 

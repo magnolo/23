@@ -1,8 +1,14 @@
 (function(){
 	"use strict";
 
-	angular.module('app.routes').run(function($rootScope, $mdSidenav){
+	angular.module('app.routes').run(function($rootScope, $mdSidenav, $auth, $state, toastr){
 		$rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState,fromParams){
+				console.log(toState);
+			if (toState.auth && !$auth.isAuthenticated()){
+				toastr.error('Your not allowed to go there buddy!', 'Access denied');
+		    event.preventDefault();
+		    return $state.go('app.home');
+		  }
 			if (toState.data && toState.data.pageName){
 				$rootScope.current_page = toState.data.pageName;
 			}

@@ -255,6 +255,9 @@ input {
   padding: 0 10px;
   text-transform: none;
 }
+.md-button.md-min-width {
+  min-width: 180px;
+}
 md-input-container.big {
   font-size: 1.5em;
   margin-bottom: 0px;

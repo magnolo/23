@@ -27,7 +27,7 @@ $api->version('v1', function ($api) {
 
     $api->get('index', 'App\Http\Controllers\ItemController@index');
     $api->get('index/alphabethical', 'App\Http\Controllers\ItemController@alphabethical');
-    $api->get('index/{id}', 'App\Http\Controllers\ItemController@index');
+    $api->get('index/{id}', 'App\Http\Controllers\ItemController@showWithChildren');
     $api->get('index/{id}/year/latest', 'App\Http\Controllers\ItemController@showLatestYear');
     $api->get('index/{id}/year/{year}', 'App\Http\Controllers\ItemController@showByYear');
     $api->get('index/{id}/structure', 'App\Http\Controllers\ItemController@showWithChildren');
@@ -54,6 +54,10 @@ $api->version('v1', function ($api) {
     $api->get('dataproviders', 'App\Http\Controllers\DataprovidersController@index');
 
     $api->get('measure_types', 'App\Http\Controllers\MeasureTypesController@index');
+
+    $api->get('styles', 'App\Http\Controllers\StyleController@index');
+
+
 });
 
 //protected with JWT

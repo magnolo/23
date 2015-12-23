@@ -24,7 +24,7 @@
 
 	</ul>
 	<span flex></span>
-		<md-menu ng-if="!vm.isAuthenticated()" md-position-mode="target-right target">
+		<md-menu ng-if="!$root.isAuthenticated()" md-position-mode="target-right target">
 	<md-button aria-label="Open user menu" class="md-primary md-border" ng-click="vm.openMenu($mdOpenMenu, $event)">Login</md-button>
 		<md-menu-content width="4">
 			<md-content layout-padding>
@@ -43,7 +43,7 @@
 		</md-content>
 		</md-menu-content>
 </md-menu>
-	<md-menu ng-if="vm.isAuthenticated()" md-position-mode="target-right target">
+	<md-menu ng-if="$root.isAuthenticated()" md-position-mode="target-right target">
 					<md-button aria-label="Open user menu" class="md-icon-button" ng-click="vm.openMenu($mdOpenMenu, $event)">
 									<ng-md-icon icon="person"></ng-md-icon>
 					</md-button>

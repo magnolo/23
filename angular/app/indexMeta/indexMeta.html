@@ -24,7 +24,10 @@
                                 <div layout-align="top center" layout-fill layout="column" ng-if="vm.indicator">
                                         <indicator item="vm.indicator"></indicator>
                                 </div>
-                                <div flex></div>
+                                <div layout-fill ng-if="!vm.indicator" layout="column" layout-align="center center">
+
+                                    <h1 class="md-display-2" layout="row" layout-align="center center"><ng-md-icon size="64" icon="keyboard_arrow_left"></ng-md-icon> Choose entry from list</h1>
+                                </div>
                         </md-content>
                 </section>
         </md-content>
