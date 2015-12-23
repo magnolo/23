@@ -142,8 +142,8 @@
 						controllerAs: 'vm'
 					},
 					'sidebar@': {
-						templateUrl: getView('indexcreator'),
-						controller: 'IndexcreatorCtrl',
+						templateUrl: '/views/app/indexCheck/indexCheckSidebar.html',
+						controller: 'IndexCheckSidebarCtrl',
 						controllerAs: 'vm'
 					}
 				}

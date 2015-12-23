@@ -516,6 +516,13 @@ body > canvas {
 .icon-bubble.climate {
   background-color: #1cb85d;
 }
+p.small-info {
+  color: #aaa;
+  font-size: 0.9em;
+}
+p.small-info:hover {
+  color: #006bb9;
+}
 .loose .Header {
   background: #fff !important;
 }
@@ -542,6 +549,10 @@ md-toast[md-theme=warn] {
 }
 
 
+md-list-item a.md-no-style {
+  margin: 0px;
+}
+
 /*.Header{
 	position: fixed;
 	left: 0px;
@@ -565,10 +576,6 @@ md-toast[md-theme=warn] {
 }*/
 md-toolbar.Header .md-button.md-border {
   color: #006bb9;
-}
-
-md-list-item a.md-no-style {
-  margin: 0px;
 }
 
 md-toolbar.md-menu-toolbar {
@@ -1037,7 +1044,7 @@ section.table md-data-table-container table[md-data-table] > tbody > tr td.md-wa
   line-height: 3em;
 }
 section.table md-data-table-pagination {
-  position: fixed;
+  position: absolute;
   bottom: 0;
   width: 100%;
   background: #fff;
@@ -1167,7 +1174,6 @@ div[ui-view='map'] {
   right: 00px;
 }
 
-
 /*.Sidebar {
 	position: fixed !important;
 	top: 0;
@@ -1216,6 +1222,7 @@ div[ui-view='map'] {
 .Sidebar-version a {
   color: white;
 }
+
 
 
 

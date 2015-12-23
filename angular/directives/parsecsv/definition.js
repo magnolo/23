@@ -28,7 +28,8 @@
 						isVertical = false;
 						raw = [];
 						rawList = {};
-						errors = 0;
+
+						errors = [];
 						stepped = 0, rowCount = 0, errorCount = 0, firstError;
 						start, end;
 						firstRun = true;
@@ -42,12 +43,14 @@
 										angular.forEach(row.data[0], function(item, key){
 											if(isNaN(item) || item < 0 ){
 												if(/*item.toString().toUpperCase() == "NA" || */item < 0 || item.toString().toUpperCase().indexOf('N/A') > -1){
-													row.errors.push({
+													var error = {
 														type:"1",
 														message:"Field in row is not valid for database use!",
-														column: item
-													})
-													errors++;
+														column: key,
+														value: item
+													};
+													row.errors.push(error)
+													errors.push(error);
 												}
 											}
 										});

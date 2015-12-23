@@ -6,12 +6,14 @@
         var serviceData = {
             data: [],
             errors: [],
+            iso_errors:[],
             meta:{
               iso_field: '',
               country_field:'',
               year_field:'',
               table:[]
-            }
+            },
+            toSelect:[]
         }, storage, importCache, indicator, indicators = [];
 
         if (!CacheFactory.get('importData')) {
@@ -35,11 +37,13 @@
             return serviceData= {
                 data: [],
                 errors: [],
+                iso_errors:[],
                 meta:{
                   iso_field: '',
                   country_field:'',
                   year_field:''
-                }
+                },
+                toSelect:[]
             };
           },
           addData:function(item){
@@ -47,6 +51,16 @@
           },
           addIndicator: function(item){
             return indicators.push(item);
+          },
+          addToSelect: function(item){
+            return serviceData.toSelect.push(item);
+          },
+          addIsoError: function(error){
+            return serviceData.iso_errors.push(error);
+          },
+          removeToSelect: function(item){
+            var index = serviceData.toSelect.indexOf(item);
+            return index > -1 ? serviceData.toSelect.splice(index, 1) : false;
           },
           setData: function(data){
             return serviceData.data = data;
@@ -78,6 +92,9 @@
           getMeta: function(){
             return serviceData.meta;
           },
+          getToSelect: function(){
+            return serviceData.toSelect;
+          },
           getIsoField: function(){
             return serviceData.meta.iso_field;
           },
@@ -86,6 +103,9 @@
           },
           getErrors: function(){
             return serviceData.errors;
+          },
+          getIsoErrors: function(){
+            return serviceData.iso_errors;
           },
           getFirstEntry: function(){
             return serviceData.data[0];
@@ -98,6 +118,15 @@
           },
           activeIndicator: function(){
             return indicator;
+          },
+          reduceIsoError:function(){
+            return serviceData.iso_errors.splice(0,1);
+          },
+          reduceError:function(){
+            return serviceData.errors.splice(0,1);
+          },
+          resetToSelect: function(){
+            return serviceData.toSelect = [];
           }
         }
     });

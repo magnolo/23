@@ -3,18 +3,6 @@
                 <div flex layout-align="space-between center" layout="row">
                         <h2 class="md-title">CSV Import 1/3</h2>
                         <span flex></span>
-                        <md-input-container ng-if="!vm.doExtend" style="margin-right: 10px;margin-bottom:0px;min-width:100px">
-                                <label>ISO Field</label>
-                                <md-select ng-model="vm.meta.iso_field">
-                                        <md-option ng-repeat="(key, item) in vm.data[0].data[0]" value="{{key}}">{{key}}</md-option>
-                                </md-select>
-                        </md-input-container>
-                        <md-input-container ng-if="!vm.doExtend" style="margin-right: 10px;margin-bottom:0px;min-width:100px">
-                                <label>Country Field</label>
-                                <md-select ng-model="vm.meta.country_field">
-                                        <md-option ng-repeat="(key, item) in vm.data[0].data[0]" value="{{key}}">{{key}}</md-option>
-                                </md-select>
-                        </md-input-container>
                         <div layout-align="space-between center" layout="row">
                                 <md-button class="md-raised md-accent anim-fade" layout-align="center center" layout="row" ng-click="vm.editRow()" ng-if="vm.selected.length == 1">
                                         <ng-md-icon class="middle" icon="mode_edit"></ng-md-icon>
@@ -24,19 +12,6 @@
                                         <ng-md-icon class="middle" icon="delete"></ng-md-icon>
                                         Delete
                                 </md-button>
-                                <span ng-if="vm.errors || !vm.iso_checked ">
-                                        <span ng-if="vm.errors">{{vm.errors}}
-                                                errors detected
-                                        </span>
-                                        <md-button class="md-raised md-accent" ng-click="vm.fetchIso()" ng-if="vm.iso_errors || !vm.iso_checked || vm.errors == vm.iso_errors">
-                                                Get Iso Values
-                                                <ng-md-icon class="middle" icon="public"></ng-md-icon>
-                                        </md-button>
-                                        <md-button class="md-raised md-warn" ng-click="vm.clearErrors()" ng-if="vm.errors && vm.errors != vm.iso_errors">
-                                                Clear Errors
-                                                <ng-md-icon class="middle" icon="gesture"></ng-md-icon>
-                                        </md-button>
-                                </span>
                                 <md-button layout-align="center center" layout="row" ng-if="vm.errors == 0 && vm.iso_checked && !vm.addDataTo.id && !vm.doExtend" ui-sref="app.index.meta">
                                         <span>Next</span>
                                         <ng-md-icon class="middle" icon="chevron_right"></ng-md-icon>
@@ -52,7 +27,7 @@
                 <table md-data-table md-row-select="vm.selected">
                         <thead md-order="vm.query.order" md-trigger="vm.onOrderChange">
                                 <tr >
-                                        <th name="Errors" ng-if="vm.errors" order-by="errors"></th>
+                                        <th name="Errors" ng-if="vm.errors > 0" order-by="errors"></th>
                                         <th class="iconed" name="{{key}}" ng-class="{'globe': key == vm.meta.iso_field || key == vm.meta.country_field}" ng-repeat="(key, item) in vm.data[0].data[0]" order-by="{{key}}">
                                                 <span class="icon" ng-if="key == vm.meta.iso_field">
                                                         <ng-md-icon icon="public"></ng-md-icon>
@@ -69,7 +44,7 @@
                         <tbody>
 
                                 <tr class="{{ vm.checkForErrors(item) }}" md-auto-select ng-repeat="item in vm.data | orderBy:vm.query.order | limitTo: vm.query.limit : (vm.query.page-1)*vm.query.limit">
-                                        <td ng-if="vm.errors">{{item.errors.length}}</td>
+                                        <td ng-if="vm.errors > 0">{{item.errors.length}}</td>
                                         <td ng-class="{'md-warn': vm.meta.iso_field == k && !column}" ng-repeat="(k, column) in item.data[0]">{{column}}</td>
                                 </tr>
                         </tbody>

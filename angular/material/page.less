@@ -143,7 +143,15 @@ body {
     background-color: @climate;
   }
 }
-
+p{
+  &.small-info{
+    color:#aaa;
+    font-size:0.9em;
+    &:hover{
+      color:@base;
+    }
+  }
+}
 &.loose{
   .Header{
     background:#fff !important;
@@ -160,5 +168,4 @@ body {
     bottom:auto;
     max-height: calc(~'100% - 2em');
   }
-
 }
