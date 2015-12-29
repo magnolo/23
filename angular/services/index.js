@@ -13,8 +13,9 @@
               year_field:'',
               table:[]
             },
+            indicators:{},
             toSelect:[]
-        }, storage, importCache, indicator, indicators = [];
+        }, storage, importCache, indicator;
 
         if (!CacheFactory.get('importData')) {
           importCache = CacheFactory('importData', {
@@ -43,14 +44,15 @@
                   country_field:'',
                   year_field:''
                 },
-                toSelect:[]
+                toSelect:[],
+                indicators:{}
             };
           },
           addData:function(item){
             return serviceData.data.push(item);
           },
           addIndicator: function(item){
-            return indicators.push(item);
+            return serviceData.indicators.push(item);
           },
           addToSelect: function(item){
             return serviceData.toSelect.push(item);
@@ -75,16 +77,20 @@
             return serviceData.errors = errors;
           },
           setToLocalStorage: function(){
+            console.log(serviceData);
             importCache.put('dataToImport',serviceData);
           },
           setIndicator: function(key, item){
-            return indicators[key] = item;
+            return serviceData.indicators[key] = item;
           },
           setActiveIndicatorData: function(item){
-            return indicator = indicators[indicators.indexOf(indicator)] = item;
+            return indicator = serviceData.indicators[item.column_name] = item;
           },
           getFromLocalStorage: function(){
             return serviceData = importCache.get('dataToImport');
+          },
+          getFullData: function(){
+            return serviceData;
           },
           getData: function(){
             return serviceData.data;
@@ -114,7 +120,10 @@
             return serviceData.data.length;
           },
           getIndicator: function(key){
-            return indicator = indicators[key];
+            return indicator = serviceData.indicators[key];
+          },
+          getIndicators: function(){
+            return serviceData.indicators;
           },
           activeIndicator: function(){
             return indicator;

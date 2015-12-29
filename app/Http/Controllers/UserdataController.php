@@ -197,7 +197,7 @@ class UserdataController extends Controller
 
         if(isset($field['categories'])){
           foreach($field['categories'] as $cat){
-            $indicator->categories()->attach($cat,['created_at' => 'NOW()', 'updated_at' => 'NOW()']);
+            $indicator->categories()->attach($cat);
           }
         }
       }

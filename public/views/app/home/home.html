@@ -5,11 +5,11 @@
                   <p>{{index.title}}</p>
                 <ng-md-icon icon="chevron_right"></ng-md-icon>
 							</md-list-item>
-							<md-list-item ng-repeat="index in vm.indizes" ng-click="vm.showFullList()">
+							<md-list-item ng-repeat="index in vm.indizes" ui-sref="app.index.fulllist">
 								<p>Browse Full List</p>
 							<ng-md-icon icon="chevron_right"></ng-md-icon>
 						</md-list-item>
-						<md-list-item ng-if="$root.isAuthenticated()" ng-repeat="index in vm.indizes" ng-click="vm.showFullList()">
+						<md-list-item ng-if="$root.isAuthenticated()" ng-repeat="index in vm.indizes" ui-sref="app.index.mydata">
 							<p>Your Data</p>
 						<ng-md-icon icon="chevron_right"></ng-md-icon>
 					</md-list-item>

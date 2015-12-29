@@ -1,13 +1,14 @@
 (function(){
 	"use strict";
 
-	angular.module('app.controllers').controller('HeaderCtrl', function($scope, $state, $rootScope, $auth, toastr){
+	angular.module('app.controllers').controller('HeaderCtrl', function($scope, $state,$localStorage, $rootScope, $auth, toastr){
 
 		var vm = this;
 		$rootScope.isAuthenticated = isAuthenticated;
 		vm.doLogin = doLogin;
 		vm.doLogout = doLogout;
 		vm.openMenu = openMenu;
+		vm.toggleView = toggleView;
 
 		function isAuthenticated(){
 			 return $auth.isAuthenticated();
@@ -32,11 +33,15 @@
 				});
 			}
 		}
-		var originatorEv;
+
     function openMenu($mdOpenMenu, ev) {
-      originatorEv = ev;
       $mdOpenMenu(ev);
     };
+		function toggleView(){
+			$rootScope.looseLayout = !$rootScope.looseLayout;
+			$localStorage.fullView = $rootScope.looseLayout;
+		}
+
 		$rootScope.sidebarOpen = true;
 		$scope.$watch(function(){
 			return $rootScope.current_page;

@@ -530,6 +530,7 @@ p.small-info:hover {
   margin-left: calc(370px + 2em);
   margin-top: 1em;
   margin-right: 1em;
+  position: relative;
 }
 .loose .Sidebar {
   position: absolute !important;
@@ -548,10 +549,6 @@ md-toast[md-theme=warn] {
   text-align: center;
 }
 
-
-md-list-item a.md-no-style {
-  margin: 0px;
-}
 
 /*.Header{
 	position: fixed;
@@ -576,6 +573,10 @@ md-list-item a.md-no-style {
 }*/
 md-toolbar.Header .md-button.md-border {
   color: #006bb9;
+}
+
+md-list-item a.md-no-style {
+  margin: 0px;
 }
 
 md-toolbar.md-menu-toolbar {
@@ -889,6 +890,8 @@ md-menu-bar {
 }
 
 
+
+
 section.module-top {
   background-color: #fff;
   width: 360px;
@@ -1174,6 +1177,7 @@ div[ui-view='map'] {
   right: 00px;
 }
 
+
 /*.Sidebar {
 	position: fixed !important;
 	top: 0;
@@ -1222,7 +1226,6 @@ div[ui-view='map'] {
 .Sidebar-version a {
   color: white;
 }
-
 
 
 

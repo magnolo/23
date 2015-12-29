@@ -75,6 +75,38 @@
 				url: '/index'
 
 			})
+			.state('app.index.mydata', {
+				url:'/my-data',
+				auth:true,
+				views:{
+					'sidebar@':{
+						templateUrl:'/views/app/indexMyData/indexMyDataMenu.html',
+						controller: 'IndexMyDataMenuCtrl',
+						controllerAs: 'vm'
+					},
+					'main@':{
+						templateUrl:getView('indexMyData'),
+						controller: 'IndexMyDataCtrl',
+						controllerAs: 'vm'
+					}
+				}
+			})
+			.state('app.index.mydata.entry', {
+				url:'/:name',
+				auth:true,
+				views:{
+					'sidebar@':{
+						templateUrl:'/views/app/indexMyData/indexMyDataMenu.html',
+						controller: 'IndexMyDataMenuCtrl',
+						controllerAs: 'vm'
+					},
+					'main@':{
+							templateUrl:'/views/app/indexMyData/indexMyDataEntry.html',
+						controller: 'IndexMyDataEntryCtrl',
+						controllerAs: 'vm'
+					}
+				}
+			})
 			.state('app.index.editor',{
 				url: '/editor',
 				auth:true,
@@ -164,9 +196,21 @@
 					}
 				}
 			})
-			.state('app.index.create.final', {
-				url: '/adding-meta-data',
-				auth:true
+			.state('app.index.final', {
+				url: '/final',
+				auth:true,
+				views:{
+					'main@':{
+						templateUrl:getView('indexFinal'),
+						controller: 'IndexFinalCtrl',
+						controllerAs: 'vm'
+					},
+					'sidebar@':{
+						templateUrl: '/views/app/indexFinal/indexFinalMenu.html',
+						controller: 'IndexFinalMenuCtrl',
+						controllerAs: 'vm'
+					}
+				}
 			})
 			.state('app.index.show', {
 				url: '/:index',
