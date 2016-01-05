@@ -27,7 +27,7 @@
                 <table md-data-table md-row-select="vm.selected">
                         <thead md-order="vm.query.order" md-trigger="vm.onOrderChange">
                                 <tr >
-                                        <th name="Errors" ng-if="vm.errors > 0" order-by="errors"></th>
+                                        <th name="Errors" ng-if="vm.errors > 0 || vm.iso_errors" order-by="errors"></th>
                                         <th class="iconed" name="{{key}}" ng-class="{'globe': key == vm.meta.iso_field || key == vm.meta.country_field}" ng-repeat="(key, item) in vm.data[0].data[0]" order-by="{{key}}">
                                                 <span class="icon" ng-if="key == vm.meta.iso_field">
                                                         <ng-md-icon icon="public"></ng-md-icon>
@@ -44,7 +44,7 @@
                         <tbody>
 
                                 <tr class="{{ vm.checkForErrors(item) }}" md-auto-select ng-repeat="item in vm.data | orderBy:vm.query.order | limitTo: vm.query.limit : (vm.query.page-1)*vm.query.limit">
-                                        <td ng-if="vm.errors > 0">{{item.errors.length}}</td>
+                                        <td ng-if="vm.errors > 0 || vm.iso_errors">{{item.errors.length}}</td>
                                         <td ng-class="{'md-warn': vm.meta.iso_field == k && !column}" ng-repeat="(k, column) in item.data[0]">{{column}}</td>
                                 </tr>
                         </tbody>

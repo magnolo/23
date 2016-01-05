@@ -1,7 +1,7 @@
 (function(){
 	"use strict";
 
-	angular.module('app.controllers').controller('HeaderCtrl', function($scope, $state,$localStorage, $rootScope, $auth, toastr){
+	angular.module('app.controllers').controller('HeaderCtrl', function($scope, leafletData, $state,$localStorage, $rootScope, $auth, toastr, $timeout){
 
 		var vm = this;
 		$rootScope.isAuthenticated = isAuthenticated;
@@ -40,15 +40,25 @@
 		function toggleView(){
 			$rootScope.looseLayout = !$rootScope.looseLayout;
 			$localStorage.fullView = $rootScope.looseLayout;
+			resetMapSize();
 		}
-
+		function resetMapSize(){
+			$timeout(function(){
+				leafletData.getMap('map').then(function (map) {
+					map.invalidateSize();
+				})
+			}, 300);
+		}
 		$rootScope.sidebarOpen = true;
 		$scope.$watch(function(){
 			return $rootScope.current_page;
 		}, function(newPage){
 			$scope.current_page = newPage || 'Page Name';
 		});
-
+		$scope.$watch('$root.sidebarOpen', function(n,o){
+			if(n == o) return false;
+			resetMapSize();
+		})
 	});
 
 })();

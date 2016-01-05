@@ -93,9 +93,11 @@
             return serviceData;
           },
           getData: function(){
+            if(typeof serviceData == "undefined") return false;
             return serviceData.data;
           },
           getMeta: function(){
+            if(typeof serviceData == "undefined") return false;
             return serviceData.meta;
           },
           getToSelect: function(){
@@ -108,9 +110,11 @@
             return serviceData.meta.country_field;
           },
           getErrors: function(){
+            if(typeof serviceData == "undefined") return false;
             return serviceData.errors;
           },
           getIsoErrors: function(){
+            if(typeof serviceData == "undefined") return false;
             return serviceData.iso_errors;
           },
           getFirstEntry: function(){
@@ -123,6 +127,7 @@
             return indicator = serviceData.indicators[key];
           },
           getIndicators: function(){
+            if(typeof serviceData == "undefined") return false;
             return serviceData.indicators;
           },
           activeIndicator: function(){

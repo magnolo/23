@@ -1,3 +1,22 @@
+.doAnim{
+  &.ng-enter {
+    -webkit-animation: slideInRight .5s;
+    -moz-animation: slideInRight .5s;
+    -ms-animation: slideInRight .5s;
+    animation: slideInRight .5s;
+  }
+  &.ng-leave {
+    -webkit-animation: slideOutRight .3s;
+    -moz-animation: slideOutRight .3s;
+    -ms-animation: slideOutRight .3s;
+    animation: slideOutRight .3s;
+    position:absolute;
+    top:0;
+    width:100%
+  }
+}
+
+
 .anim.ng-enter, .anim.ng-leave {
   transition:all .3s ease-in;
 }

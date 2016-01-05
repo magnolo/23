@@ -42,11 +42,11 @@
 																																								<md-option ng-repeat="type in vm.measureTypes" value="{{type.id}}">{{type.title}}</md-option>
 																																				</md-select>
 																																</md-input-container>
-																																<div class="upload-uploader" layout-align="space-between center" layout="column">
+																																<!--<div class="upload-uploader" layout-align="space-between center" layout="column">
 																																				<ng-md-icon icon="landscape" ng-if="!vm.item.dataprovider.image.url" size="98" class="no-color"></ng-md-icon>
 																																				<img ng-if="vm.item.dataprovider.image.url" ng-src="vm.item.dataprovider.image.url"/>
 																																				<span>Upload a logo</span>
-																																</div>
+																																</div>-->
 																																<md-autocomplete class="md-block" flex md-floating-label="Data Provider*" md-input-maxlength="56"  md-input-name="providerField" md-item-text="item.title" md-items="item in vm.querySearch(vm.searchText)" md-no-cache="vm.noCache" md-search-text="vm.searchText" md-selected-item="vm.item.dataprovider" required>
 																																				<md-item-template>
 																																								<span md-highlight-text="vm.searchText">{{item.title}}</span>

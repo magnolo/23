@@ -18,7 +18,7 @@ body {
     font-family: 'Gorgia';
     font-size: 16px;
     color: @main-color;
-     overflow-x:hidden;
+    overflow-x:hidden;
     > canvas{
       z-index: 1000;
     position: fixed;
@@ -153,6 +153,7 @@ p{
   }
 }
 &.loose{
+
   .Header{
     background:#fff !important;
   }
@@ -160,7 +161,13 @@ p{
     margin-left: calc(~'370px + 2em');
     margin-top:1em;
     margin-right:1em;
-    position: relative;
+    transition: margin-left .25s ease-in-out;
+    transition-delay: 0s;
+    section{
+      &.table{
+        height: calc(~'100% - 1em');
+      }
+    }
   }
   .Sidebar{
     position:absolute !important;
@@ -168,5 +175,11 @@ p{
     left:1em;
     bottom:auto;
     max-height: calc(~'100% - 2em');
+  }
+  &.sidebar-closed{
+    .Page{
+      margin-left:1em;
+      transition-delay: .1s;
+    }
   }
 }

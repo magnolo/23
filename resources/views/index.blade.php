@@ -16,7 +16,7 @@
     <![endif]-->
 </head>
 
-<body ng-class="{'greyed': $root.greyed, 'loose': $root.looseLayout}" layout="column">
+<body ng-class="{'greyed': $root.greyed, 'loose': $root.looseLayout, 'sidebar-closed': !$root.sidebarOpen}" layout="column">
     <md-toolbar class="Header md-accent" tabindex="-1">
         <header ui-view="header"></header>
     </md-toolbar>
@@ -28,9 +28,9 @@
             </md-toolbar>-->
             <md-content class="Sidebar-pages md-default-theme" flex ui-view="sidebar" md-scroll-y></md-content>
         </md-sidenav>
-        <md-content layout="column" flex role="main" tabindex="-1">
+        <md-content layout="column" flex role="main" tabindex="-1" md-scroll-y>
             <div ui-view="map" class="Map_Container" flex></div>
-            <div ui-view="main" class="Page" flex md-scroll-y></div>
+            <div ui-view="main" class="Page doAnim" flex md-scroll-y></div>
         </md-content>
     </md-content>
     <div class="cssload-container" ng-if="stateIsLoading">

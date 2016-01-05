@@ -1,7 +1,7 @@
 (function () {
 	"use strict";
 
-	angular.module('app.controllers').controller('IndexCheckSidebarCtrl', function (IndexService, DataService,DialogService, toastr) {
+	angular.module('app.controllers').controller('IndexCheckSidebarCtrl', function ($scope,$state, IndexService, DataService,DialogService, toastr) {
 		var vm = this;
 		vm.data = IndexService.getData();
 		vm.meta = IndexService.getMeta();
@@ -10,8 +10,37 @@
 		vm.clearErrors = clearErrors;
 		vm.fetchIso = fetchIso;
 
+		activate();
 
+		function activate(){
+			vm.myData = DataService.getAll('me/data');
+			checkMyData();
+		}
 
+		function checkMyData(){
+			vm.extendingChoices = [];
+			if(vm.data.length){
+				vm.myData.then(function(imports){
+					angular.forEach(imports, function(entry){
+						var found = 0;
+						angular.forEach(vm.data[0].meta.fields, function(field){
+								var columns = JSON.parse(entry.meta_data);
+								angular.forEach(columns, function(column){
+									if(column.column == field ){
+										found++;
+									}
+								})
+						});
+						if(found >= vm.data[0].meta.fields.length - 2){
+							vm.extendingChoices.push(entry);
+						}
+					})
+					if(vm.extendingChoices.length){
+						DialogService.fromTemplate('extendData', $scope);
+					}
+				});
+			}
+		}
 		function clearErrors() {
 			angular.forEach(vm.data, function (row, key) {
 				angular.forEach(row.data[0], function (item, k) {
@@ -30,9 +59,18 @@
 						value: row.data[0][vm.meta.iso_field],
             column:vm.meta.iso_field,
             row:key
+					};
+					var errorFound = false;
+					angular.forEach(row.errors, function(error, key){
+						console.log(error);
+						if(error.type == 2){
+							errorFound = true;
+						}
+					})
+					if(!errorFound){
+						row.errors.push(error);
+	          vm.iso_errors.push(error);
 					}
-					row.errors.push(error);
-          vm.iso_errors.push(error);
 				}
 			});
 		}
@@ -115,13 +153,23 @@
 
 									}
 								} else {
+									console.log(vm.data[k]);
                   var error = {
                     type: "3",
                     message: "Could not locate a valid iso name!",
                     column: vm.meta.country_field
                   };
-									IndexService.addIsoError(error);
-									item.errors.push(error);
+									var errorFound = false;
+									angular.forEach(vm.data[k].errors, function(error, i){
+										console.log(error);
+										if(error.type == 3){
+											errorFound = true;
+										}
+									})
+									if(!errorFound){
+										IndexService.addIsoError(error);
+										item.errors.push(error);
+									}
 								}
 							}
 						}
@@ -132,9 +180,33 @@
             DialogService.fromTemplate('selectisofetchers');
         }
 			}, function (response) {
-				//  console.log(response);
 				toastr.error('Please check your field selections', response.data.message);
-			})
+			});
+
+		}
+		vm.extendData = extendData;
+
+		function extendData(){
+			var insertData = {data:[]};
+			var meta = [], fields = [];
+			angular.forEach(vm.data, function(item, key){
+				if(item.errors.length == 0){
+					item.data[0].year = vm.meta.year;
+					insertData.data.push(item.data[0]);
+				}
+				else{
+					toastr.error('There are some errors left!', 'Huch!');
+					return;
+				}
+			});
+			console.log(insertData);
+			DataService.post('data/tables/'+vm.addDataTo.table_name+'/insert', insertData).then(function(res){
+				if(res == true){
+					toastr.success(insertData.data.length+' items importet to '+vm.meta.name,'Success');
+					vm.data = IndexService.clear();
+					$state.go('app.index.mydata');
+				}
+			});
 		}
 
 	});

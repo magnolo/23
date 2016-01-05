@@ -1,7 +1,7 @@
 (function(){
     "use strict";
 
-    angular.module('app.controllers').controller('IndexFinalCtrl', function(IndexService, DataService, toastr){
+    angular.module('app.controllers').controller('IndexFinalCtrl', function($state, IndexService, DataService, toastr){
         //
         var vm = this;
         vm.data = IndexService.getData();
@@ -9,6 +9,18 @@
         vm.errors = IndexService.getErrors();
         vm.indicators = IndexService.getIndicators();
         vm.saveData = saveData;
+
+        activate();
+
+        function activate(){
+          checkData();
+        }
+
+        function checkData(){
+          if(!vm.data){
+            $state.go('app.index.create');
+          }
+        }
 
         function saveData(){
           var insertData = {data:[]};
@@ -41,12 +53,6 @@
               field.categories = categories;
               fields.push(field);
           });
-          /*angular.forEach(vm.data.table, function(item, key){
-            insertMeta.push({
-              field:key,
-              data: item
-            })
-          })*/
           vm.meta.fields = fields;
           console.log(vm.meta);
           DataService.post('data/tables', vm.meta).then(function(response){

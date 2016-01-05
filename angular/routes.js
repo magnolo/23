@@ -102,8 +102,8 @@
 					},
 					'main@':{
 							templateUrl:'/views/app/indexMyData/indexMyDataEntry.html',
-						controller: 'IndexMyDataEntryCtrl',
-						controllerAs: 'vm'
+							controller: 'IndexMyDataEntryCtrl',
+							controllerAs: 'vm'
 					}
 				}
 			})

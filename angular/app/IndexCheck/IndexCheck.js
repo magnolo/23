@@ -1,7 +1,7 @@
 (function(){
     "use strict";
 
-    angular.module('app.controllers').controller('IndexCheckCtrl', function($rootScope, $scope, toastr, DialogService, DataService, IndexService){
+    angular.module('app.controllers').controller('IndexCheckCtrl', function($rootScope, $scope, $filter, toastr, DialogService, IndexService){
         //
         //$rootScope.sidebarOpen = false;
 
@@ -18,7 +18,7 @@
         vm.checkForErrors = checkForErrors;
 
         vm.showUploadContainer = false;
-        vm.editColumnData = editColumnData;
+        //vm.editColumnData = editColumnData;
         vm.editRow = editRow;
 
         vm.query = {
@@ -27,37 +27,8 @@
           limit: 15,
           page: 1
         };
-        vm.myData = DataService.getAll('me/data');
-        activate();
 
-        function activate(){
-          checkMyData();
-        }
 
-        function checkMyData(){
-          vm.extendingChoices = [];
-          if(vm.data.length){
-            vm.myData.then(function(imports){
-              angular.forEach(imports, function(entry){
-                var found = 0;
-                angular.forEach(vm.data[0].meta.fields, function(field){
-                    var columns = JSON.parse(entry.meta_data);
-                    angular.forEach(columns, function(column){
-                      if(column.column == field ){
-                        found++;
-                      }
-                    })
-                });
-                if(found >= vm.data[0].meta.fields.length - 2){
-                  vm.extendingChoices.push(entry);
-                }
-              })
-              if(vm.extendingChoices.length){
-                DialogService.fromTemplate('extendData', $scope);
-              }
-            });
-          }
-        }
         function search(predicate) {
           vm.filter = predicate;
         };
@@ -72,24 +43,26 @@
           return item.errors.length > 0 ? 'md-warn': '';
         }
 
-        function editColumnData(e, key){
+        /*function editColumnData(e, key){
           vm.toEdit = key;
           DialogService.fromTemplate('editcolumn', $scope);
-        }
+        }*/
         function deleteSelected(){
           angular.forEach(vm.selected, function(item, key){
             angular.forEach(item.errors, function(error, k){
-              if(error.type == 2){
+              if(error.type == 2 || error.type == 3){
                 vm.iso_errors --;
+                IndexService.reduceIsoError();
               }
               vm.errors --;
+              IndexService.reduceError();
             })
             vm.data.splice(vm.data.indexOf(item), 1);
-            vm.selected.splice(key, 1);
           });
+          vm.selected = [];
           if(vm.data.length == 0){
             vm.deleteData();
-            $state.got('app.index.create');
+            $state.go('app.index.create');
           }
         }
         function editRow(){
