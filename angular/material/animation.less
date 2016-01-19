@@ -15,6 +15,24 @@
     width:100%
   }
 }
+.doAnim-left{
+  &.ng-enter {
+    -webkit-animation: slideInLeft .5s;
+    -moz-animation: slideInLeft .5s;
+    -ms-animation: slideInLeft .5s;
+    animation: slideInLeft .5s;
+  }
+  &.ng-leave {
+    -webkit-animation: slideOutLeft .3s;
+    -moz-animation: slideOutLeft .3s;
+    -ms-animation: slideOutLeft .3s;
+    animation: slideOutLeft .3s;
+    position:absolute;
+    top:0;
+    width:100%
+  }
+}
+
 
 
 .anim.ng-enter, .anim.ng-leave {

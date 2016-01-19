@@ -72,7 +72,7 @@
 		$scope.calculateGraph = function () {
 			var chartData = {
 				"name": $scope.data.title,
-				"color": $scope.data.style.base_color,
+				"color": $scope.data.style.base_color || '#000',
 				"children": buildTree($scope.data.children),
 				"size": 1
 			};

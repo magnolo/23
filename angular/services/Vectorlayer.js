@@ -10,7 +10,7 @@
           },
           data:{
             layer: '',
-            name:'23_countries',
+            name:'countries_big',
             iso3:'adm0_a3',
             iso2:'iso_a2',
             iso:'iso_a2',

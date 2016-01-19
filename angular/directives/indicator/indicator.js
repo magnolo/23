@@ -49,8 +49,13 @@
 				item.categories = [];
 				return false;
 			}
-			var index = item.categories.indexOf(categorie);
-			return index !== -1 ? true : false;
+		 	var found = false;
+			angular.forEach(item.categories, function(item, key){
+				if(item.id == categorie.id){
+					found = true;
+				}
+			});
+			return found;
 		}
 		function toggleStyle(style) {
 			if(vm.item.style_id == style.id){
@@ -80,8 +85,9 @@
 			}
 		});
 		$scope.$watch('vm.item', function (n, o) {
-			if (n === o) return;
+			//if (n === o) return;
 			if (typeof n.categories == "undefined") n.categories = [];
+			console.log(n);
 			if (n.title && n.measure_type_id && n.dataprovider && n.title.length >= 3) {
 				n.base = true;
 				n.full = n.categories.length ? true : false;

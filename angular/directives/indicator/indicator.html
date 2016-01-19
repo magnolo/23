@@ -107,7 +107,7 @@
 				</md-tab>
 				<md-tab ng-disabled="!vm.item.full">
 								<md-tab-label>
-												<ng-md-icon icon="brush"></ng-md-icon>
+												<ng-md-icon  ng-class="{'valid': vm.item.style_id}" icon="brush"></ng-md-icon>
 								</md-tab-label>
 								<md-tab-body>
 									<md-content class="md-accent anim-left" layout-padding >

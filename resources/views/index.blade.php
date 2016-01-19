@@ -26,7 +26,7 @@
             <!--<md-toolbar class="Sidebar-header">
               <h1 class="md-toolbar-tools Sidebar-title">Laravel 5 angular<br>material starter</h1>
             </md-toolbar>-->
-            <md-content class="Sidebar-pages md-default-theme" flex ui-view="sidebar" md-scroll-y></md-content>
+            <md-content class="Sidebar-pages md-default-theme doAnim-left" flex ui-view="sidebar" md-scroll-y></md-content>
         </md-sidenav>
         <md-content layout="column" flex role="main" tabindex="-1" md-scroll-y>
             <div ui-view="map" class="Map_Container" flex></div>
