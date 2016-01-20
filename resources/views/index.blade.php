@@ -16,7 +16,7 @@
     <![endif]-->
 </head>
 
-<body ng-class="{'greyed': $root.greyed, 'loose': $root.looseLayout, 'sidebar-closed': !$root.sidebarOpen}" layout="column">
+<body ng-class="{'greyed': $root.greyed, 'loose': $root.looseLayout, 'sidebar-closed': !$root.sidebarOpen, 'rowed': $root.rowed}" layout="column">
     <md-toolbar class="Header md-accent" tabindex="-1">
         <header ui-view="header"></header>
     </md-toolbar>
@@ -29,8 +29,8 @@
             <md-content class="Sidebar-pages md-default-theme doAnim-left" flex ui-view="sidebar" md-scroll-y></md-content>
         </md-sidenav>
         <md-content layout="column" flex role="main" tabindex="-1" md-scroll-y>
-            <div ui-view="map" class="Map_Container" flex></div>
-            <div ui-view="main" class="Page doAnim" flex md-scroll-y></div>
+            <div ui-view="map" class="Map_Container" id="map" flex></div>
+            <div ui-view="main" class="Page doAnim-left" flex md-scroll-y style="overflow-y:auto"></div>
         </md-content>
     </md-content>
     <div class="cssload-container" ng-if="stateIsLoading">
@@ -41,7 +41,7 @@
     <script src="{!! asset('js/vendor.js') !!}"></script>
     <script src="{!! asset('js/app.js') !!}"></script>
     <script src="js/pbf.min.js"></script>
-    <script src="js/Leaflet.MapboxVectorTile.js"></script>
+    <script src="js/MapBoxVectorTile/dist/Leaflet.MapboxVectorTile.js"></script>
 
     {{--livereload--}} @if ( Config::get('app.debug') )
     <script type="text/javascript">

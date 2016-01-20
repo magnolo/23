@@ -13,6 +13,7 @@
 
         vm.deleteData = deleteData;
         vm.deleteSelected = deleteSelected;
+        vm.deleteColumn = deleteColumn;
         vm.onOrderChange = onOrderChange;
         vm.onPaginationChange = onPaginationChange;
         vm.checkForErrors = checkForErrors;
@@ -47,6 +48,16 @@
           vm.toEdit = key;
           DialogService.fromTemplate('editcolumn', $scope);
         }*/
+        function deleteColumn(e, key){
+          angular.forEach(vm.data, function(item, k){
+            angular.forEach(item.data[0], function(field, l){
+              if(l == key){
+                delete vm.data[k].data[0][key];
+              }
+            })
+          });
+          return false;
+        }
         function deleteSelected(){
           angular.forEach(vm.selected, function(item, key){
             angular.forEach(item.errors, function(error, k){

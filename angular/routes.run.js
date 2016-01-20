@@ -14,6 +14,12 @@
 			if (toState.data && toState.data.pageName){
 				$rootScope.current_page = toState.data.pageName;
 			}
+			if(toState.layout == "row"){
+				$rootScope.rowed = true;
+			}
+			else{
+				$rootScope.rowed = false;
+			}
 			$rootScope.previousPage = {state:fromState, params:fromParams};
 			$rootScope.stateIsLoading = true;
 		});

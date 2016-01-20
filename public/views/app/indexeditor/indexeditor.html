@@ -1,8 +1,6 @@
 <md-subheader class="md-no-sticky">
 				<div layout-align="space-between center" layout="row">
 								<span>Data Editor</span>
-
-								<md-button class="md-primary md-border">Done</md-button>
 				</div>
 </md-subheader>
 <div layout="row">
@@ -11,7 +9,7 @@
 </div>
  <md-tabs md-selected="selectedIndex" md-autoselect md-stretch-tabs md-dynamic-height >
 	 <md-tab label="Indizes">
-			 <md-content layou-padding>
+			 <md-content md-scroll-y>
 				 <div layout="column" style="font-size:0.8em">
 				 <div layout="row" layout-padding>
 								 <div>
@@ -34,8 +32,8 @@
 																				 </md-checkbox>
 																 </md-menu-item>
 																 <md-menu-item>
-																				 <md-checkbox class="md-primary"  aria-label="Filter Title" ng-model="vm.filter.types.tags">
-																								 Tags
+																				 <md-checkbox class="md-primary"  aria-label="Filter Title" ng-model="vm.filter.types.categories">
+																								 Categories
 																				 </md-checkbox>
 																 </md-menu-item>
 																 <md-menu-item>
@@ -65,7 +63,7 @@
 				 <div layout="row">
 								 <md-list flex>
 												 <md-list-item ng-repeat="indicator in vm.indicators | filter:vm.search">
-																 <p ui-sref="app.index.editor.indicator({id:indicator.id})">{{indicator.title}}</p>
+																 <p ng-class="{'warning':!indicator.title}" ui-sref="app.index.editor.indicator({id:indicator.id})">{{indicator.title || '['+indicator.name+']'}}</p>
 																 <ng-md-icon icon="check" layout-align="center center" layout="row" size="18"></ng-md-icon>
 																 <indicator-menu item="indicator"></indicator-menu>
 												 </md-list-item>

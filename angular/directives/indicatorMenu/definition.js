@@ -23,6 +23,7 @@
 				}).on('mouseleave', function(e){
 					element.removeClass(cl);
 				});
+				
 			}
 		};
 

@@ -2,13 +2,13 @@
 				<md-tabs md-no-ink-bar md-dynamic-height md-no-pagination md-stretch-tabs="always">
 								<md-tab ng-class="{'md-warn': !vm.item.base}">
 												<md-tab-label>
-																<ng-md-icon  ng-class="{'valid': vm.item.base}" icon="info_outline"></ng-md-icon>
+																<ng-md-icon  ng-class="{'valid': vm.checkBase()}" icon="info_outline"></ng-md-icon>
 												</md-tab-label>
 												<md-tab-body >
 																<form name="baseForm" novalidate>
 																				<md-content class="md-accent" layout-padding>
 																								<div layout-align="space-between center" layout="row">
-																												<md-button ng-if="vm.options.withSave" class="md-accent md-border md-lowspace" ng-click="vm.saveIndex()" ng-disabled="baseForm.$invalid">Save</md-button>
+																												<md-button ng-if="vm.options.withSave" class="md-primary md-border md-lowspace" ng-click="vm.saveIndex()" ng-disabled="baseForm.$invalid || !vm.checkBase()">Save</md-button>
 																												<span flex></span>
 																												<span class="info" layout-align="space-between center" layout="row" ng-class="{'warning':baseForm.$invalid, 'success': baseFrom.$valid}">
 																																<ng-md-icon icon="{{baseForm.$valid ? 'check_circle': 'error'}}"></ng-md-icon>
@@ -85,13 +85,13 @@
 																</form>
 												</md-tab-body>
 								</md-tab>
-								<md-tab ng-disabled="!vm.item.full">
+								<md-tab ng-disabled="!vm.checkFull()">
 												<md-tab-label>
 																<ng-md-icon icon="insert_chart"></ng-md-icon>
 												</md-tab-label>
 												<md-tab-body></md-tab-body>
 								</md-tab>
-								<md-tab ng-disabled="!vm.item.full">
+								<md-tab ng-disabled="!vm.checkFull()">
 												<md-tab-label>
 																<ng-md-icon icon="format_list_bulleted"></ng-md-icon>
 												</md-tab-label>
@@ -105,7 +105,7 @@
 												</md-content>
 								</md-tab-body>
 				</md-tab>
-				<md-tab ng-disabled="!vm.item.full">
+				<md-tab ng-disabled="!vm.checkFull()">
 								<md-tab-label>
 												<ng-md-icon  ng-class="{'valid': vm.item.style_id}" icon="brush"></ng-md-icon>
 								</md-tab-label>
@@ -134,7 +134,7 @@
 												<ng-md-icon  ng-class="{'valid': vm.item.categories.length}" icon="settings_input_component"></ng-md-icon>
 								</md-tab-label>
 								<md-tab-body>
-												<md-content class="md-accent anim-left" layout-padding ng-if="!vm.item.categories.length && !vm.chooseCategories && !vm.createCategory">
+												<md-content class="md-accent doAnim" layout-padding ng-if="!vm.item.categories.length && !vm.chooseCategories && !vm.createCategory">
 																<div layout-align="space-between center" layout="row">
 																				<h2 class="md-headline">Choose Categories</h2>
 																				<span flex></span>
@@ -149,7 +149,7 @@
 																				</div>
 																</div>
 												</md-content>
-												<md-content class="md-accent anim-left" layout-padding ng-if="vm.createCategory">
+												<md-content class="md-accent doAnim-left" layout-padding ng-if="vm.createCategory">
 																<form name="categoryForm" novalidate>
 																				<div layout-align="space-between center" layout="row">
 																								<md-button class="md-accent md-border md-lowspace" ng-click="vm.saveCategory()" ng-disabled="categoryForm.$invalid">Save</md-button>

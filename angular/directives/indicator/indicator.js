@@ -5,6 +5,9 @@
 		//
 		var vm = this;
 
+		vm.checkBase = checkBase;
+		vm.checkFull = checkFull;
+
 		vm.categories = [];
 		vm.dataproviders = [];
 		vm.selectedItem = null;
@@ -39,6 +42,16 @@
 			vm.styles = DataService.getAll('styles').$object;
 		}
 
+		function checkBase(){
+			if (vm.item.title && vm.item.measure_type_id && vm.item.dataprovider && vm.item.title.length >= 3) {
+				return true;
+			}
+			return false;
+		}
+		function checkFull(){
+			return checkBase() && vm.item.categories.length ? true : false;
+		}
+
 		function toggleCategorie(categorie) {
 			var index = vm.item.categories.indexOf(categorie);
 			index === -1 ? vm.item.categories.push(categorie) : vm.item.categories.splice(index, 1);
@@ -63,6 +76,7 @@
 			}
 			else{
 				vm.item.style_id = style.id
+				vm.item.style = style;
 			}
 		}
 		function selectedStyle(item, style) {
@@ -84,17 +98,6 @@
 				n.is_public = vm.doPublic ? vm.prePublic: false;
 			}
 		});
-		$scope.$watch('vm.item', function (n, o) {
-			//if (n === o) return;
-			if (typeof n.categories == "undefined") n.categories = [];
-			console.log(n);
-			if (n.title && n.measure_type_id && n.dataprovider && n.title.length >= 3) {
-				n.base = true;
-				n.full = n.categories.length ? true : false;
-			} else {
-				n.base = n.full = false;
-			};
-		}, true);
 	});
 
 })();

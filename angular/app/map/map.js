@@ -7,7 +7,8 @@
 		var apiKey = VectorlayerService.keys.mapbox;
 
 		vm.defaults = {
-			scrollWheelZoom: false
+			scrollWheelZoom: false,
+			minZoom:2
 		};
 		vm.center = {
 			lat: 0,
@@ -55,10 +56,8 @@
 			});
 			map.addLayer(VectorlayerService.setLayer(layer));
 			var labelsLayer = L.tileLayer('https://{s}.tiles.mapbox.com/v4/magnolo.06029a9c/{z}/{x}/{y}.png?access_token=' + apiKey,{
-
 						noWrap: true,
 						continuousWorld: false
-				
 			});
 			map.addLayer(labelsLayer);
 			labelsLayer.bringToFront();

@@ -1,10 +1,11 @@
 (function () {
 	"use strict";
 
-	angular.module('app.controllers').controller('IndexeditorindicatorCtrl', function ($state,DataService) {
+	angular.module('app.controllers').controller('IndexeditorindicatorCtrl', function ($state,ContentService) {
 		//
 		var vm = this;
-    vm.indicator = DataService.getOne('indicators/'+$state.params.id).$object;
+    vm.indicator = ContentService.getIndicator($state.params.id);
+
 	});
 
 })();

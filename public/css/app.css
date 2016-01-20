@@ -12,11 +12,13 @@
 .doAnim-left.ng-enter {
   -webkit-animation: slideInLeft .5s;
   animation: slideInLeft .5s;
+  z-index: 2;
 }
 .doAnim-left.ng-leave {
-  -webkit-animation: slideOutLeft .3s;
-  animation: slideOutLeft .3s;
+  -webkit-animation: fadeOut .8s;
+  animation: fadeOut .8s;
   position: absolute;
+  z-index: 1;
   top: 0;
   width: 100%;
 }
@@ -390,16 +392,20 @@ md-toolbar.clean {
 md-toolbar.clean .md-toolbar-tools {
   font-size: 1.2em;
 }
-.info.success {
+.info.success,
+p.success {
   color: #00ccaa;
 }
-.info.success path {
+.info.success path,
+p.success path {
   fill: #00ccaa;
 }
-.info.warning {
+.info.warning,
+p.warning {
   color: #f44336;
 }
-.info.warning path {
+.info.warning path,
+p.warning path {
   fill: #f44336;
 }
 .md-warn ng-md-icon path {
@@ -545,6 +551,13 @@ p.small-info {
 p.small-info:hover {
   color: #006bb9;
 }
+.rowed #map {
+  left: 400px;
+  width: calc(100% - 400px);
+}
+.rowed .Page {
+  width: 400px;
+}
 .loose .Header {
   background: #fff !important;
 }
@@ -554,9 +567,12 @@ p.small-info:hover {
   margin-right: 1em;
   transition: margin-left 0.25s ease-in-out;
   transition-delay: 0s;
+  width: auto;
+  position: absolute;
+  max-height: calc(98%);
 }
 .loose .Page section.table {
-  height: calc(100% - 1em);
+  height: calc(100% - 2em);
 }
 .loose .Sidebar {
   position: absolute !important;
@@ -568,6 +584,13 @@ p.small-info:hover {
 .loose.sidebar-closed .Page {
   margin-left: 1em;
   transition-delay: .1s;
+}
+.loose #map {
+  left: 0px;
+  width: 100%;
+}
+.loose.rowed .Page {
+  width: 400px;
 }
 
 md-toast[md-theme=warn] {
@@ -921,6 +944,16 @@ md-menu-bar {
 
 
 
+md-list-item.md-2-line {
+  min-height: 62px;
+}
+md-list-item.md-2-line a {
+  padding-top: .5em;
+}
+md-list-item.md-2-line > .md-no-style {
+  min-height: 62px;
+}
+
 section.module-top {
   background-color: #fff;
   width: 360px;
@@ -1167,16 +1200,6 @@ md-list-item.active {
   background: #d7dddd;
 }
 
-md-list-item.md-2-line {
-  min-height: 62px;
-}
-md-list-item.md-2-line a {
-  padding-top: .5em;
-}
-md-list-item.md-2-line > .md-no-style {
-  min-height: 62px;
-}
-
 
 
 
@@ -1190,7 +1213,9 @@ div[ui-view='map'] {
   position: absolute;
   width: 100%;
   top: 0px;
+  left: 0px;
   height: 100%;
+  transition: all .6s ease;
 }
 .angular-leaflet-map {
   width: 100%;
@@ -1215,6 +1240,49 @@ div[ui-view='map'] {
   position: fixed;
   bottom: 20px;
   right: 00px;
+}
+.label-icon-number {
+  background-color: #6eafff;
+  display: inline-block;
+  cursor: pointer;
+  color: #ffffff;
+  font-size: 14px;
+  border-radius: 50%;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 33px;
+  box-shadow: 0px 0px 0px 5px rgba(255, 255, 255, 0.3);
+}
+.label-icon-number-lg {
+  background-color: #6eafff;
+  display: inline-block;
+  cursor: pointer;
+  color: #ffffff;
+  font-size: 14px;
+  border-radius: 50%;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 41px;
+  box-shadow: 0px 0px 0px 5px rgba(255, 255, 255, 0.3);
+}
+.label-icon-text {
+  display: inline-block;
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 1;
+  text-align: center;
+  vertical-align: middle;
+  text-shadow: 0px 1px 1px #232323;
+  color: #ebf9f5;
+}
+/*.label-icon-text:hover {*/
+/*color: #EDB229;*/
+/*}*/
+.label-icon-text-selected {
+  color: #d9534f;
+}
+.label-icon-number-selected {
+  box-shadow: 0px 0px 0px 7px rgba(255, 140, 0, 0.6);
 }
 
 

@@ -77,7 +77,7 @@
             return serviceData.errors = errors;
           },
           setToLocalStorage: function(){
-            console.log(serviceData);
+            //console.log(serviceData);
             importCache.put('dataToImport',serviceData);
           },
           setIndicator: function(key, item){

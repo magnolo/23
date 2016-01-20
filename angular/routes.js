@@ -114,7 +114,12 @@
 					'sidebar@': {
 						templateUrl: getView('indexeditor'),
 						controller: 'IndexeditorCtrl',
-						controllerAs: 'vm'
+						controllerAs: 'vm',
+						resolve:{
+							indicators:function(ContentService){
+								return ContentService.fetchIndicators();
+							}
+						}
 					}
 				}
 				/*views:{
@@ -131,6 +136,7 @@
 			.state('app.index.editor.indicator',{
 				url: '/:id',
 				auth:true,
+				layout: 'row',
 				views: {
 					'main@': {
 						templateUrl:'/views/app/indexeditor/indexeditorindicator.html',
@@ -183,6 +189,7 @@
 			.state('app.index.meta', {
 				url: '/adding-meta-data',
 				auth:true,
+				layout:'row',
 				views:{
 					'main@':{
 						templateUrl:getView('indexMeta'),

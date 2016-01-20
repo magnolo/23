@@ -1,8 +1,8 @@
 <div class="indicator-menu">
-<ng-md-icon ng-class="{'valid': vm.item.base}" icon="info_outline"></ng-md-icon>
+<ng-md-icon ng-class="{'valid': vm.checkBase(vm.item)}" icon="info_outline"></ng-md-icon>
 <ng-md-icon icon="insert_chart"></ng-md-icon>
 <ng-md-icon icon="format_list_bulleted"></ng-md-icon>
 <ng-md-icon ng-class="{'valid': vm.item.style_id}" icon="brush"></ng-md-icon>
 <ng-md-icon ng-class="{'valid': vm.item.categories.length}" icon="settings_input_component"></ng-md-icon>
-<ng-md-icon class="greyed" ng-class="{'valid': vm.item.is_official}" icon="lock"></ng-md-icon>
+<ng-md-icon ng-click="vm.changeOfficial(vm.item)" class="" ng-class="{'valid': vm.item.is_official}" icon="{{ vm.locked()}}"></ng-md-icon>
 </div>

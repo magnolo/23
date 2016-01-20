@@ -152,8 +152,16 @@ p{
     }
   }
 }
+&.rowed{
+  #map{
+    left: 400px;
+    width: calc(~'100% - 400px');
+  }
+  .Page{
+    width:400px;
+  }
+}
 &.loose{
-
   .Header{
     background:#fff !important;
   }
@@ -163,9 +171,12 @@ p{
     margin-right:1em;
     transition: margin-left .25s ease-in-out;
     transition-delay: 0s;
+    width:auto;
+    position:absolute;
+    max-height: calc(100% - 2em);
     section{
       &.table{
-        height: calc(~'100% - 1em');
+        height: calc(~'100% - 2em');
       }
     }
   }
@@ -180,6 +191,16 @@ p{
     .Page{
       margin-left:1em;
       transition-delay: .1s;
+    }
+  }
+  #map{
+    left: 0px;
+    width: 100%;
+  }
+  &.rowed{
+    .Page{
+      width:400px;
+
     }
   }
 }

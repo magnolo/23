@@ -9,6 +9,9 @@ class Indicator extends Model
     //
     protected $table = "23_indicators";
 
+    protected $fillable = ['is_official', 'is_public', 'title', 'description'];
+    protected $hidden = ['userdata_id', 'iso_name', 'column_name', 'table_name'];
+
     public function categories(){
       return $this->belongsToMany('App\Categorie', '23_indicator_categories', 'indicator_id', 'categorie_id');
     }

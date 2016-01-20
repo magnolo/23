@@ -76,6 +76,10 @@ class IndicatorController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $indicator = Indicator::find($id);
+        $indicator->is_official = $request->input('is_official');
+        $indicator->is_public = $request->input('is_public');
+        return response()->api($indicator->save());
     }
 
     /**

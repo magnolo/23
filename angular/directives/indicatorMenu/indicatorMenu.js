@@ -4,19 +4,22 @@
 	angular.module( 'app.controllers' ).controller( 'IndicatorMenuCtrl', function(){
 		//
 		var vm = this;
+		vm.checkBase = checkBase;
+		vm.locked = locked;
+		vm.changeOfficial = changeOfficial;
 
-		activate();
-
-		function activate() {
-			check();
+		function locked(){
+			return vm.item.is_official ? 'lock_open' : 'lock';
 		}
-		function check(){
-			if (vm.item.title && vm.item.measure_type_id && vm.item.dataprovider && vm.item.title.length >= 3) {
-				vm.item.base = true;
-				vm.item.full = vm.item.categories.length ? true : false;
-			} else {
-				vm.item.base = vm.item.full = false;
-			};
+		function changeOfficial(){
+			vm.item.is_official = !vm.item.is_official;
+			vm.item.save();
+		}
+		function checkBase(item){
+			if (item.title && item.measure_type_id && item.dataprovider && item.title.length >= 3) {
+				return true;
+			}
+			return false;
 		}
   });
 

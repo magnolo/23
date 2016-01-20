@@ -35,8 +35,11 @@
                                                 <span class="icon" ng-if="key == vm.meta.country_field">
                                                         <ng-md-icon icon="my_location"></ng-md-icon>
                                                 </span>
-                                                <span class="icon" ng-click="vm.editColumnData($event, key)" ng-if="key != vm.meta.iso_field && key != vm.meta.country_field">
+                                                <!--<span class="icon" ng-click="vm.editColumnData($event, key)" ng-if="key != vm.meta.iso_field && key != vm.meta.country_field">
                                                         <ng-md-icon icon="mode_edit"></ng-md-icon>
+                                                </span>-->
+                                                <span class="icon" ng-click="vm.deleteColumn($event, key)" ng-if="key != vm.meta.iso_field && key != vm.meta.country_field">
+                                                        <ng-md-icon icon="delete"></ng-md-icon>
                                                 </span>
                                         </th>
                                 </tr>
