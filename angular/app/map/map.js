@@ -7,7 +7,7 @@
 		var apiKey = VectorlayerService.keys.mapbox;
 
 		vm.defaults = {
-			scrollWheelZoom: false,
+			//scrollWheelZoom: false,
 			minZoom:2
 		};
 		vm.center = {

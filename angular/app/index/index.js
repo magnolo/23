@@ -386,7 +386,7 @@
 					};
 				}
 			}
-			console.log(feature.properties.name)
+			//console.log(feature.properties.name)
 			if (feature.layer.name === VectorlayerService.getName()+'_geom') {
 				style.staticLabel = function () {
 					var style = {
@@ -574,6 +574,6 @@
 					}
 				}
 			});
-		};
+		}
 	});
 })();

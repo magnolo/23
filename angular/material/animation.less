@@ -15,6 +15,26 @@
     width:100%
   }
 }
+.doAnim-right{
+
+  &.ng-enter {
+    -webkit-animation: slideInLeft .5s;
+    -moz-animation: slideInLeft .5s;
+    -ms-animation: slideInLeft .5s;
+    animation: slideInLeft .5s;
+    z-index:2;
+  }
+  &.ng-leave {
+    -webkit-animation: fadeOutRight .8s;
+    -moz-animation: fadeOutRight .8s;
+    -ms-animation: fadeOutRight .8s;
+    animation: fadeOutRight .8s;
+    position:absolute;
+    z-index:1;
+    top:0;
+    //width:100%
+  }
+}
 .doAnim-left{
 
   &.ng-enter {
@@ -25,14 +45,14 @@
     z-index:2;
   }
   &.ng-leave {
-    -webkit-animation: fadeOut .8s;
-    -moz-animation: fadeOut .8s;
-    -ms-animation: fadeOut .8s;
-    animation: fadeOut .8s;
+    -webkit-animation: slideOutLeft .3s;
+    -moz-animation: slideOutLeft .3s;
+    -ms-animation: slideOutLeft .3s;
+    animation: slideOutLeft .3s;
     position:absolute;
     z-index:1;
     top:0;
-    width:100%
+    //width:100%
   }
 }
 

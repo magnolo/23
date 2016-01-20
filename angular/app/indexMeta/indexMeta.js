@@ -67,7 +67,7 @@
     			vm.ctx.fillStyle = gradient;
     			vm.ctx.fillRect(0, 0, 280, 10);
     			vm.palette = vm.ctx.getImageData(0, 0, 257, 1).data;
-    			//document.getElementsByTagName('body')[0].appendChild(vm.canvas);
+    			document.getElementsByTagName('body')[0].appendChild(vm.canvas);
     		}
 
     		function updateCanvas(color) {

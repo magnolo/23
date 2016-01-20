@@ -1,7 +1,7 @@
 (function(){
 	"use strict";
 
-	angular.module('app.routes').run(function($rootScope, $mdSidenav, $auth, $state,$localStorage, toastr){
+	angular.module('app.routes').run(function($rootScope, $mdSidenav, $timeout, $auth, $state,$localStorage,leafletData, toastr){
 		$rootScope.sidebarOpen = true;
 		$rootScope.looseLayout = $localStorage.fullView || false;
 
@@ -26,8 +26,18 @@
 		$rootScope.$on("$viewContentLoaded", function(event, toState){
 
 		});
+
 		$rootScope.$on("$stateChangeSuccess", function(event, toState){
 			$rootScope.stateIsLoading = false;
+			resetMapSize();
 		});
+
+		function resetMapSize(){
+			$timeout(function(){
+				leafletData.getMap('map').then(function (map) {
+					map.invalidateSize();
+				})
+			}, 1000);
+		}
 	});
 })();

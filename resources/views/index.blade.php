@@ -26,11 +26,11 @@
             <!--<md-toolbar class="Sidebar-header">
               <h1 class="md-toolbar-tools Sidebar-title">Laravel 5 angular<br>material starter</h1>
             </md-toolbar>-->
-            <md-content class="Sidebar-pages md-default-theme doAnim-left" flex ui-view="sidebar" md-scroll-y></md-content>
+            <md-content class="Sidebar-pages md-default-theme doAnim-right" flex ui-view="sidebar" md-scroll-y></md-content>
         </md-sidenav>
         <md-content layout="column" flex role="main" tabindex="-1" md-scroll-y>
             <div ui-view="map" class="Map_Container" id="map" flex></div>
-            <div ui-view="main" class="Page doAnim-left" flex md-scroll-y style="overflow-y:auto"></div>
+            <div ui-view="main" class="Page doAnim-right" flex md-scroll-y style="overflow-y:auto"></div>
         </md-content>
     </md-content>
     <div class="cssload-container" ng-if="stateIsLoading">
