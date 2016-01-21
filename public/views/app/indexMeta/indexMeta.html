@@ -1,23 +1,4 @@
-<section class="table anim" >
-        <md-data-table-toolbar class="md-whiteframe-z1">
-                <div flex layout-align="space-between center" layout="row">
-                        <div layout="column" layout-align="center start">
-                        <h2 style="margin:0" class="md-title">{{vm.indicator.title || vm.indicator.column_name || 'Select Item on the left'}}</h2>
-                        <h3 style="margin:0" class="md-subhead">CSV Import 2/3</h3>
-                      </div>
-                        <span flex></span>
-                        <div layout-align="space-between center" layout="row">
-                                <md-button ui-sref="app.index.check">
-                                        <ng-md-icon class="middle" icon="chevron_left"></ng-md-icon>
-                                        Prev
-                                </md-button>
-                                <md-button ui-sref="app.index.final">
-                                        Next
-                                        <ng-md-icon class="middle" icon="chevron_right"></ng-md-icon>
-                                </md-button>
-                        </div>
-                </div>
-        </md-data-table-toolbar>
+<section class="table anim" layout-fill >
         <md-content class="fill-noheader" layout-fill>
                 <section flex layout-fill layout="row">
                         <md-content flex>
@@ -26,9 +7,28 @@
                                 </div>
                                 <div layout-fill ng-if="!vm.indicator" layout="column" layout-align="center center">
 
-                                    <h1 class="md-display-2" layout="row" layout-align="center center"><ng-md-icon size="64" icon="keyboard_arrow_left"></ng-md-icon> Choose entry from list</h1>
+                                    <h1 class="md-display-1" layout="row" layout-align="center center" style="padding: 2em 0;opacity: 0.3;"><ng-md-icon size="48" icon="keyboard_arrow_left" style="height:48px"></ng-md-icon> Choose entry from list</h1>
                                 </div>
                         </md-content>
                 </section>
         </md-content>
+        <!--<md-fab-speed-dial md-open="false" md-direction="up" class="md-fling md-fab-bottom-right">
+                <md-fab-trigger>
+                  <md-button aria-label="menu" class="md-fab md-warn">
+                      <ng-md-icon icon="add" ></plus>
+                  </md-button>
+
+                </md-fab-trigger>
+                <md-fab-actions>
+                  <md-button aria-label="Twitter" class="md-fab md-raised md-mini">
+                          <ng-md-icon icon="add" ></plus>
+                  </md-button>
+                  <md-button aria-label="Facebook" class="md-fab md-raised md-mini">
+                            <ng-md-icon icon="add" ></plus>
+                  </md-button>
+                  <md-button aria-label="Google Hangout" class="md-fab md-raised md-mini">
+                            <ng-md-icon icon="add" ></plus>
+                  </md-button>
+                </md-fab-actions>
+              </md-fab-speed-dial>-->
 </section>

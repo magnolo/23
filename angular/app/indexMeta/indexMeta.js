@@ -31,16 +31,25 @@
           if(n === o) return;
           if(typeof n.style_id != "undefined" ){
             if(n.style_id != o.style_id){
-
               if(n.style){
                 VectorlayerService.updateCanvas(n.style.base_color);
               }
               else{
-                VectorlayerService.updateCanvas('#ff0000');
+                  VectorlayerService.updateCanvas('#ff0000');
               }
-
               drawCountries();
             }
+          }
+          else{
+            if(typeof n.categories != "undefined"){
+              if(n.categories.length){
+                VectorlayerService.updateCanvas(n.categories[0].style.base_color);
+              }
+              else{
+                VectorlayerService.updateCanvas('#ff0000');
+              }
+            }
+              drawCountries();
           }
           //IndexService.setActiveIndicatorData(n);
           IndexService.setToLocalStorage();
@@ -71,7 +80,7 @@
     			var value = getValueByIso(iso) || vm.min;
     			var field = vm.indicator.column_name;
     			var type = feature.type;
-          console.log(field,value);
+
     			switch (type) {
     			case 3: //'Polygon'
 

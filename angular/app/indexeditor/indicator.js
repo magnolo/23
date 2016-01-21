@@ -1,27 +1,55 @@
 (function () {
 	"use strict";
 
-	angular.module('app.controllers').controller('IndexeditorindicatorCtrl', function ($state,$timeout, VectorlayerService, leafletData, ContentService) {
+	angular.module('app.controllers').controller('IndexeditorindicatorCtrl', function ($scope, $state,$timeout, VectorlayerService, leafletData, ContentService) {
 		//
 		var vm = this;
     vm.indicator = ContentService.getIndicator($state.params.id);
-		vm.data = ContentService.getIndicatorData($state.params.id);
-		VectorlayerService.createCanvas('#ff0000');
-		drawCountries();
+		vm.scale = "";
+		vm.min = 10000000;
+		vm.max = 0;
+		vm.selected = 0;
+		setActive();
+
+		ContentService.getIndicatorData($state.params.id).then(function(data){
+			VectorlayerService.createCanvas('#ff0000');
+			vm.data = data;
+			minMax();
+			drawCountries();
+		});
+		function setActive(){
+			if($state.current.name == 'app.index.editor.indicator.details'){
+				if($state.params.entry == "infographic"){
+					vm.selected = 1;
+				}
+				else if($state.params.entry == "indizes"){
+					vm.selected = 2;
+				}
+				else if($state.params.entry == "style"){
+					vm.selected = 3;
+				}
+				else if($state.params.entry == "categories"){
+					vm.selected = 4;
+				}
+				else{
+					vm.selected = 0;
+				}
+			}
+		}
 		function minMax(){
 			vm.min = 10000000;
 			vm.max = 0;
 			angular.forEach(vm.data, function(item, key){
-					vm.min = Math.min(item.data[0][vm.indicator.column_name], vm.min);
-					vm.max = Math.max(item.data[0][vm.indicator.column_name], vm.max);
+					vm.min = Math.min(item.score, vm.min);
+					vm.max = Math.max(item.score, vm.max);
 			});
 			vm.scale = d3.scale.linear().domain([vm.min,vm.max]).range([0,100]);
 		}
 		function getValueByIso(iso){
 			var value = 0;
 			angular.forEach(vm.data, function(item, key){
-				 if(item.data[0][vm.meta.iso_field] == iso){
-					 value = item.data[0][vm.indicator.column_name];
+				 if(item.iso == iso){
+					 value = item.score;
 				 }
 			});
 			return value;
@@ -30,12 +58,10 @@
 			var style = {};
 			var iso = feature.properties.iso_a2;
 			var value = getValueByIso(iso) || vm.min;
-			var field = vm.indicator.column_name;
 			var type = feature.type;
-			console.log(field,value);
-			switch (type) {
-			case 3: //'Polygon'
 
+			switch (type) {
+				case 3: //'Polygon'
 					var colorPos = parseInt(256 / 100 * parseInt(vm.scale(value))) * 4;
 					var color = 'rgba(' + VectorlayerService.getColor(colorPos) + ', ' + VectorlayerService.getColor(colorPos + 1) + ', ' + VectorlayerService.getColor(colorPos + 2) + ',' + VectorlayerService.getColor(colorPos + 3) + ')';
 					style.color = 'rgba(' + VectorlayerService.getColor(colorPos)  + ', ' + VectorlayerService.getColor(colorPos + 1) + ', ' + VectorlayerService.getColor(colorPos + 2) + ',0.6)'; //color;
@@ -53,17 +79,6 @@
 					break;
 
 			}
-
-			if (feature.layer.name === VectorlayerService.getName()+'_geom') {
-				style.staticLabel = function () {
-					var style = {
-						html: feature.properties.name,
-						iconSize: [125, 30],
-						cssClass: 'label-icon-text'
-					};
-					return style;
-				};
-			}
 			return style;
 		}
 		function drawCountries() {
@@ -78,6 +93,9 @@
 			});
 		}
 
+		$scope.$on('$stateChangeSuccess', function(){
+			setActive();
+		});
 
 	});
 

@@ -20,7 +20,6 @@ button, select, html, textarea, input{
 md-input-container{
   &.big{
     font-size: 1.5em;
-    margin-bottom:0px;
   }
 
 }
@@ -55,14 +54,18 @@ md-dialog{
 md-toast{
   position:fixed;
 }
-md-list-item{
-  .md-button{
-    ng-md-icon{
-      position:static;
-      top:0;
+md-list{
+  padding:0px;
+  md-list-item{
+    .md-button{
+      ng-md-icon{
+        position:static;
+        top:0;
+      }
     }
   }
 }
+
 a{
   &.md-button{
     ng-md-icon{

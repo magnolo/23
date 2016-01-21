@@ -29,7 +29,7 @@
   			return false;
   		}
   		function checkFull(item){
-        if(typeof item == "undefined") return false;
+        if(typeof item == "undefined" || typeof item.categories == "undefined") return false;
   			return checkBase(item) && item.categories.length ? true : false;
   		}
       $scope.$watch(function(){ return IndexService.activeIndicator()}, function(n,o){

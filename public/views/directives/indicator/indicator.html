@@ -10,10 +10,10 @@
 																								<div layout-align="space-between center" layout="row">
 																												<md-button ng-if="vm.options.withSave" class="md-primary md-border md-lowspace" ng-click="vm.saveIndex()" ng-disabled="baseForm.$invalid || !vm.checkBase()">Save</md-button>
 																												<span flex></span>
-																												<span class="info" layout-align="space-between center" layout="row" ng-class="{'warning':baseForm.$invalid, 'success': baseFrom.$valid}">
-																																<ng-md-icon icon="{{baseForm.$valid ? 'check_circle': 'error'}}"></ng-md-icon>
-																																<div ng-if="baseForm.$valid">&nbsp;Completed</div>
-																																<div ng-if="baseForm.$invalid">&nbsp;Uncompleted</div>
+																												<span class="info" layout-align="space-between center" layout="row" ng-class="{'warning':!vm.checkBase(), 'info': vm.checkBase()}">
+																																<ng-md-icon icon="{{vm.checkBase() ? 'check_circle': 'error'}}"></ng-md-icon>
+																																<div ng-if="vm.checkBase()">&nbsp;Completed</div>
+																																<div ng-if="!vm.checkBase()">&nbsp;Uncompleted</div>
 																												</span>
 																								</div>
 																								<div class="indicator-fields" >
@@ -28,7 +28,7 @@
 																																				<div ng-message="maxlength">The name has to be less than 56 characters long.</div>
 																																</div>
 																												</md-input-container>
-																												<md-content layout-padding style="padding-top:0px 0.5em   ;">
+																												<md-content style="margin:0 2em;padding-top:0px 0.5em;">
 																																<!--<md-input-container class="md-block">
 																																				<label>Type of data*</label>
 																																				<md-select ng-model="vm.item.type" >
@@ -76,7 +76,7 @@
 																																<textarea ng-model="vm.item.description"></textarea>
 																												</md-input-container>
 																												<div layout-align="center center" layout="row">
-																																<md-switch aria-label="Public" ng-model="vm.item.is_public">
+																																<md-switch aria-label="Public" class="md-primary" ng-model="vm.item.is_public">
 																																				Public
 																																</md-switch>
 																												</div>
@@ -137,8 +137,8 @@
 												<md-content class="md-accent doAnim" layout-padding ng-if="!vm.item.categories.length && !vm.chooseCategories && !vm.createCategory">
 																<div layout-align="space-between center" layout="row">
 																				<h2 class="md-headline">Choose Categories</h2>
-																				<span flex></span>
-																				<md-button class="md-primary md-border md-lowspace " ng-click="vm.saveIndex()" ng-disabled="baseForm.$invalid">Done</md-button>
+																				<!--span flex></span>
+																				<md-button class="md-primary md-border md-lowspace " ng-click="vm.saveIndex()" ng-disabled="baseForm.$invalid">Done</md-button>-->
 																</div>
 																<div class="indicator-fields" >
 																				<div layout-align="center center" layout="row">

@@ -32,7 +32,7 @@
 
           },
           getIndicatorData: function(id){
-            return this.content.data = DataService.getAll('indicators/'+id+'/data').$object;
+            return this.content.data = DataService.getAll('indicators/'+id+'/data');
           }
 
         }

@@ -49,6 +49,7 @@
 			return false;
 		}
 		function checkFull(){
+			if(typeof vm.item.categories == "undefined") return false;
 			return checkBase() && vm.item.categories.length ? true : false;
 		}
 

@@ -10,7 +10,8 @@
 			controllerAs: 'vm',
 			scope:{
 				item: '=',
-				options: '='
+				options: '=',
+				selected: '='
 			},
 			bindToController: true,
 			replace:true,

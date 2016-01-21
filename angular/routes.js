@@ -141,7 +141,7 @@
 					'main@': {
 						templateUrl:'/views/app/indexeditor/indexeditorindicator.html',
 						controller: 'IndexeditorindicatorCtrl',
-						controllerAs: 'vm'
+						controllerAs: 'vm',
 					}
 				}
 				/*views:{
@@ -154,6 +154,11 @@
 						controllerAs: 'vm'
 					}
 				}*/
+			})
+			.state('app.index.editor.indicator.details',{
+				url: '/:entry',
+				auth:true,
+				layout:'row'
 			})
 			.state('app.index.create', {
 				url: '/create',
