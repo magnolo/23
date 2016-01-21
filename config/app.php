@@ -1,6 +1,9 @@
 <?php
 
 return [
+    'token_secret' => 'SomeRandomString',
+    'facebook_secret' => 'ff499448a28e34bda046459b9c69fefa',
+    'google_secret' => 'G4kMszdBlTmcSJMFzB9LvhlL',
 
     /*
     |--------------------------------------------------------------------------

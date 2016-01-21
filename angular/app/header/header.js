@@ -9,7 +9,9 @@
 		vm.doLogout = doLogout;
 		vm.openMenu = openMenu;
 		vm.toggleView = toggleView;
-
+		vm.authenticate = function(provider){
+			$auth.authenticate(provider);
+		};
 		function isAuthenticated(){
 			 return $auth.isAuthenticated();
 		}

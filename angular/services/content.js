@@ -7,6 +7,7 @@
           content: {
             indicators:[],
             indicator:{},
+            data: [],
             categories:[],
             styles:[],
             infographics:[]
@@ -29,6 +30,9 @@
               return this.content.indicator = DataService.getOne('indicators/'+id).$object;
             }
 
+          },
+          getIndicatorData: function(id){
+            return this.content.data = DataService.getAll('indicators/'+id+'/data').$object;
           }
 
         }

@@ -6,6 +6,7 @@
         vm.prevState = null;
         vm.doLogin = doLogin;
         vm.checkLoggedIn = checkLoggedIn;
+      
         vm.user = {
           email:'',
           password:''

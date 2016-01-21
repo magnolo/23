@@ -93,7 +93,7 @@ class ItemController extends Controller
     public function showWithChildren($id)
     {
         $index = array();
-        if(is_int($id)){
+        if(is_numeric($id)){
             $index = Item::find($id)->with('children', 'style', 'indicator', 'type', 'parent');
         }
         elseif(is_string($id)){

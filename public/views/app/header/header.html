@@ -28,6 +28,7 @@
 	<md-button aria-label="Open user menu" class="md-primary md-border" ng-click="vm.openMenu($mdOpenMenu, $event)">Login</md-button>
 		<md-menu-content width="4">
 			<md-content layout-padding>
+
 			<form name="loginForm" novalidate="" ng-submit="vm.doLogin()">
 				<md-input-container class="md-has-icon md-block">
 					<!-- Use floating label instead of placeholder -->
@@ -40,6 +41,8 @@
 				</md-input-container>
 				 <md-button layout-fill type="sumbit" class="md-border md-primary" >Login</md-button>
 			</form>
+			<md-button class="icon-space" ng-click="vm.authenticate('facebook')"><ng-md-icon icon="facebook"></ng-md-icon></md-button>
+			<md-button class="icon-space" ng-click="vm.authenticate('google')"><ng-md-icon icon="google-plus"></ng-md-icon></md-button>
 		</md-content>
 		</md-menu-content>
 </md-menu>

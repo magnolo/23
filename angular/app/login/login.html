@@ -1,6 +1,7 @@
 
     <md-content layout-fill >
         <h2>Login</h2>
+
         <form name="loginForm" novalidate="" ng-submit="vm.doLogin()">
           <md-input-container class="md-has-icon md-block">
             <!-- Use floating label instead of placeholder -->
@@ -21,4 +22,5 @@
           </md-input-container>
            <md-button  type="sumbit" class="md-raised md-accent" >Login</md-button>
         </form>
+        <button ng-click="vm.authenticate('facebook')">Sign in with Facebook</button>
       </md-content>

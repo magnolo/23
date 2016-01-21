@@ -1,10 +1,83 @@
 (function () {
 	"use strict";
 
-	angular.module('app.controllers').controller('IndexeditorindicatorCtrl', function ($state,ContentService) {
+	angular.module('app.controllers').controller('IndexeditorindicatorCtrl', function ($state,$timeout, VectorlayerService, leafletData, ContentService) {
 		//
 		var vm = this;
     vm.indicator = ContentService.getIndicator($state.params.id);
+		vm.data = ContentService.getIndicatorData($state.params.id);
+		VectorlayerService.createCanvas('#ff0000');
+		drawCountries();
+		function minMax(){
+			vm.min = 10000000;
+			vm.max = 0;
+			angular.forEach(vm.data, function(item, key){
+					vm.min = Math.min(item.data[0][vm.indicator.column_name], vm.min);
+					vm.max = Math.max(item.data[0][vm.indicator.column_name], vm.max);
+			});
+			vm.scale = d3.scale.linear().domain([vm.min,vm.max]).range([0,100]);
+		}
+		function getValueByIso(iso){
+			var value = 0;
+			angular.forEach(vm.data, function(item, key){
+				 if(item.data[0][vm.meta.iso_field] == iso){
+					 value = item.data[0][vm.indicator.column_name];
+				 }
+			});
+			return value;
+		}
+		function countriesStyle(feature) {
+			var style = {};
+			var iso = feature.properties.iso_a2;
+			var value = getValueByIso(iso) || vm.min;
+			var field = vm.indicator.column_name;
+			var type = feature.type;
+			console.log(field,value);
+			switch (type) {
+			case 3: //'Polygon'
+
+					var colorPos = parseInt(256 / 100 * parseInt(vm.scale(value))) * 4;
+					var color = 'rgba(' + VectorlayerService.getColor(colorPos) + ', ' + VectorlayerService.getColor(colorPos + 1) + ', ' + VectorlayerService.getColor(colorPos + 2) + ',' + VectorlayerService.getColor(colorPos + 3) + ')';
+					style.color = 'rgba(' + VectorlayerService.getColor(colorPos)  + ', ' + VectorlayerService.getColor(colorPos + 1) + ', ' + VectorlayerService.getColor(colorPos + 2) + ',0.6)'; //color;
+					style.outline = {
+						color: color,
+						size: 1
+					};
+					style.selected = {
+						color: 'rgba(' + VectorlayerService.getColor(colorPos) + ', ' + VectorlayerService.getColor(colorPos + 1) + ', ' + VectorlayerService.getColor(colorPos + 2) + ',0.3)',
+						outline: {
+							color: 'rgba(66,66,66,0.9)',
+							size: 2
+						}
+					};
+					break;
+
+			}
+
+			if (feature.layer.name === VectorlayerService.getName()+'_geom') {
+				style.staticLabel = function () {
+					var style = {
+						html: feature.properties.name,
+						iconSize: [125, 30],
+						cssClass: 'label-icon-text'
+					};
+					return style;
+				};
+			}
+			return style;
+		}
+		function drawCountries() {
+			minMax();
+			leafletData.getMap('map').then(function (map) {
+				vm.map = map;
+				vm.mvtSource = VectorlayerService.getLayer();
+				$timeout(function () {
+						vm.mvtSource.setStyle(countriesStyle);
+					//vm.mvtSource.redraw();
+				});
+			});
+		}
+
 
 	});
 
