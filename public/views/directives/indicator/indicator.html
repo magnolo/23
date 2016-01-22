@@ -7,7 +7,7 @@
 												<md-tab-body >
 																<form name="baseForm" novalidate>
 																				<md-content class="md-accent" layout-padding>
-																								<div layout-align="space-between center" layout="row">
+																								<div layout-align="space-between center" layout="row" class="mb25">
 																												<md-button ng-if="vm.options.withSave" class="md-primary md-border md-lowspace" ng-click="vm.saveIndex()" ng-disabled="baseForm.$invalid || !vm.checkBase()">Save</md-button>
 																												<span flex></span>
 																												<span class="info" layout-align="space-between center" layout="row" ng-class="{'warning':!vm.checkBase(), 'info': vm.checkBase()}">
@@ -137,8 +137,8 @@
 												<md-content class="md-accent doAnim" layout-padding ng-if="!vm.item.categories.length && !vm.chooseCategories && !vm.createCategory">
 																<div layout-align="space-between center" layout="row">
 																				<h2 class="md-headline">Choose Categories</h2>
-																				<!--span flex></span>
-																				<md-button class="md-primary md-border md-lowspace " ng-click="vm.saveIndex()" ng-disabled="baseForm.$invalid">Done</md-button>-->
+																				<span flex></span>
+																				<md-button class="md-primary md-border md-lowspace " ng-click="vm.saveIndex()" ng-disabled="baseForm.$invalid">Done</md-button>
 																</div>
 																<div class="indicator-fields" >
 																				<div layout-align="center center" layout="row">
@@ -151,10 +151,10 @@
 												</md-content>
 												<md-content class="md-accent doAnim-left" layout-padding ng-if="vm.createCategory">
 																<form name="categoryForm" novalidate>
-																				<div layout-align="space-between center" layout="row">
-																								<md-button class="md-accent md-border md-lowspace" ng-click="vm.saveCategory()" ng-disabled="categoryForm.$invalid">Save</md-button>
+																				<div layout-align="space-between center" layout="row" class="mb25">
+																								<md-button class="md-primary md-border md-lowspace" ng-click="vm.saveCategory(categoryForm.$valid)" ng-disabled="categoryForm.$invalid">Save</md-button>
 																								<span flex></span>
-																								<md-button class="md-accent md-border md-lowspace" ng-click="vm.createCategory = false">Abort</md-button>
+																								<md-button class="md-primary md-border md-lowspace" ng-click="vm.createCategory = false">Abort</md-button>
 																				</div>
 																				<div class="indicator-fields" >
 																								<md-input-container class="md-block big">
@@ -169,21 +169,20 @@
 																												</div>
 																								</md-input-container>
 
-																								<md-autocomplete md-item-text="item.title" md-items="item in vm.querySearchCategory(vm.searchText)" md-min-length="0" md-no-cache="vm.noCache" md-search-text-change="vm.searchTextChange(ctrl.searchText)" md-search-text="vm.searchText" md-selected-item-change="vm.selectedItemChange(item)" md-selected-item="vm.selectedItem" ng-disabled="vm.isDisabled" placeholder="Select a parent category?">
+																								<md-autocomplete md-item-text="cat.title" md-items="cat in vm.querySearchCategory(vm.searchTextCat)" md-min-length="0" md-no-cache="vm.noCache" md-search-text-change="vm.searchTextChange(ctrl.searchTextCat)" md-search-text="vm.searchTextCat" md-selected-item="vm.category.parent" ng-disabled="vm.isDisabled" placeholder="Select a parent category?">
 																												<md-item-template>
-																																<span md-highlight-text="vm.searchText">{{item.title}}</span>
+																																<span md-highlight-text="vm.searchTextCat">{{cat.title}}</span>
 																												</md-item-template>
 																												<md-not-found>
-																																No states matching "{{vm.searchText}}" were found.
-																																<a ng-click="vm.newState(vm.searchText)">Create a new one!</a>
+																																No states matching "{{vm.searchTextCat}}" were found.
 																												</md-not-found>
 																								</md-autocomplete>
-																								<md-input-container class="md-block">
+																								<md-input-container class="md-block mt2">
 																												<label>Description</label>
 																												<textarea ng-model="vm.category.description"></textarea>
 																								</md-input-container>
 																								<div layout-align="center center" layout="row">
-																												<md-switch aria-label="Public" ng-model="vm.category.is_public">
+																												<md-switch aria-label="Public" class="md-primary" ng-model="vm.category.is_public">
 																																Public
 																												</md-switch>
 																								</div>
@@ -192,7 +191,7 @@
 												</md-content>
 												<md-content class="md-accent anim-left" layout-padding ng-if="(vm.item.categories.length || vm.chooseCategories) && !vm.createCategory">
 																<div layout-align="space-between center" layout="row">
-																				<md-button ng-if="vm.options.withSave" class="md-accent md-border md-lowspace" ng-click="vm.saveCategory()" ng-disabled="categoryForm.$invalid">Save</md-button>
+																				<md-button ng-if="vm.options.withSave" class="md-primary md-border md-lowspace" ng-click="vm.saveCategory()" ng-disabled="categoryForm.$invalid">Save</md-button>
 																				<span flex></span>
 																				<md-button class="md-primary md-border md-lowspace" ng-click="vm.createCategory = true">Create new Categories</md-button>
 																</div>

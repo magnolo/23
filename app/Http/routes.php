@@ -73,6 +73,8 @@ $api->version('v1', ['middleware' => 'api.auth'], function ($api) {
     $api->post('data/tables', 'App\Http\Controllers\UserdataController@createDataTable');
     $api->post('data/tables/{table}/insert', 'App\Http\Controllers\UserdataController@insertDataToTable');
 
+    $api->post('categories', 'App\Http\Controllers\CategoriesController@store');
+
     //$api->post('index', 'App\Http\Controllers\IndexController@create');
 
     $api->put('indicators/{id}', 'App\Http\Controllers\IndicatorController@update');

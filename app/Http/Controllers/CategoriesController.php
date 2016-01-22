@@ -9,6 +9,8 @@ use App\Http\Controllers\Controller;
 
 use App\Categorie;
 
+use Auth;
+
 class CategoriesController extends Controller
 {
     /**
@@ -40,7 +42,32 @@ class CategoriesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $name = str_slug($request->input('title'), '-');
+        $cat = Categorie::where('name',$name)->first();
+        if($cat){
+          return response()->json(['error' => 'Categorie with this name already exists'], 500);
+        }
+        else{
+          $user = Auth::user();
+          $parent = $request->input('parent');//
+          $parent_id = 0;
+          if($parent){
+            $parent_id = $parent['id'];
+          }
+
+          $category = new Categorie;
+          $category->title = $request->input('title');
+          $category->name = $name;
+          $category->is_public = $request->input('is_public');
+          $category->description = $request->input('description');
+          $category->parent_id = $parent_id;
+          $category->user_id = $user->id;
+          $category->save();
+        }
+
+
+        return response()->api($category);
+
     }
 
     /**

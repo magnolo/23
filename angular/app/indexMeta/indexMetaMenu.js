@@ -1,7 +1,7 @@
 (function(){
     "use strict";
 
-    angular.module('app.controllers').controller('IndexMetaMenuCtrl', function($scope,DataService,IndexService){
+    angular.module('app.controllers').controller('IndexMetaMenuCtrl', function($scope,DataService,DialogService, IndexService){
       var vm = this;
       vm.data = IndexService.getData();
       vm.meta = IndexService.getMeta();
@@ -36,5 +36,23 @@
         if(n === o)return;
         vm.indicators[n.column_name] = n;
       },true);
+      $scope.$watch(function(){ return IndexService.activeIndicator()}, function(n,o){
+        if (n === o || typeof o == "undefined") return;
+        if(!vm.askedToReplicate) {
+          vm.preProvider = vm.indicators[o.column_name].dataprovider;
+          vm.preMeasure = vm.indicators[o.column_name].measure_type_id;
+          vm.preCategories = vm.indicators[o.column_name].categories;
+          vm.prePublic = vm.indicators[o.column_name].is_public;
+          vm.preStyle = vm.indicators[o.column_name].style;
+          console.log(vm.preStyle);
+          DialogService.fromTemplate('copyprovider', $scope);
+        } else {
+          //n.dataprovider = vm.doProviders ? vm.preProvider : [];
+          //n.measure_type_id = vm.doMeasures ? vm.preMeasure : 0;
+          //n.categories = vm.doCategories ? vm.preCategories: [];
+          //n.is_public = vm.doPublic ? vm.prePublic: false;
+        }
+
+      });
     });
 })();

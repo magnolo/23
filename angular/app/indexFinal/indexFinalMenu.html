@@ -1,5 +1,29 @@
-<md-subheader class="md-primary">
-  Information
+
+<md-subheader class="md-accent filled">
+<md-toolbar>
+        <div flex layout-align="space-between center" layout="row">
+                <div layout="column" layout-align="center start">
+                <!--<h2 style="margin:0" class="md-title">{{vm.indicator.title || vm.indicator.column_name || 'Select Item on the left'}}</h2>-->
+                <h3 style="margin:0" class="md-subhead">CSV Import 3/3</h3>
+              </div>
+                <span flex></span>
+                <div layout-align="space-between center" layout="row">
+                        <!--<md-button class="md-raised" ui-sref="app.index.check">
+                                <ng-md-icon class="middle" icon="chevron_left"></ng-md-icon>
+                                Prev
+                        </md-button>
+                        <md-button class="md-raised"  ui-sref="app.index.final">
+                                Next
+                                <ng-md-icon class="middle" icon="chevron_right"></ng-md-icon>
+                        </md-button>-->
+                        <md-button ui-sref="app.index.meta" ng-disabled="vm.loading">
+                                <ng-md-icon class="middle" icon="chevron_left"></ng-md-icon>
+                                Prev
+                        </md-button>
+
+                </div>
+        </div>
+</md-toolbar>
 </md-subheader>
 <md-content layout-padding>
   <p>

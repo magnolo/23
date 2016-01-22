@@ -23,7 +23,15 @@
           return Restangular.one(route, id).get();
         }
         function post(route, data){
-          return Restangular.all(route).post(data);
+          var data = Restangular.all(route).post(data);
+          data.then(function(){}, function(data){
+            toastr.error(data.data.error, 'Saving failed');
+            console.log(data);
+          });
+          return data;
+        }
+        function put(route, data){
+          return Restangular.all(route).put(data);
         }
     }
 

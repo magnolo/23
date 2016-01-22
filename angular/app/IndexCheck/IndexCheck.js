@@ -1,9 +1,8 @@
 (function(){
     "use strict";
 
-    angular.module('app.controllers').controller('IndexCheckCtrl', function($rootScope, $scope, $filter, toastr, DialogService, IndexService){
-        //
-        //$rootScope.sidebarOpen = false;
+    angular.module('app.controllers').controller('IndexCheckCtrl', function($scope,$state, $filter, toastr, DialogService, IndexService){
+  
 
         var vm = this;
         vm.data = IndexService.getData();
@@ -29,6 +28,17 @@
           page: 1
         };
 
+        activate();
+
+        function activate(){
+          checkData();
+        }
+
+        function checkData(){
+          if(!vm.data){
+            $state.go('app.index.create');
+          }
+        }
 
         function search(predicate) {
           vm.filter = predicate;

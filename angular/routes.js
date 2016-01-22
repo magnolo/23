@@ -211,6 +211,7 @@
 			.state('app.index.final', {
 				url: '/final',
 				auth:true,
+				layout:'row',
 				views:{
 					'main@':{
 						templateUrl:getView('indexFinal'),

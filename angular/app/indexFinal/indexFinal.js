@@ -25,6 +25,7 @@
         function saveData(){
           var insertData = {data:[]};
           var insertMeta = [], fields = [];
+          vm.loading = true;
           angular.forEach(vm.data, function(item, key){
             if(item.errors.length == 0){
               item.data[0].year = vm.meta.year;
@@ -38,6 +39,7 @@
             }
           });
           angular.forEach(vm.indicators, function(item, key){
+              if(key != vm.meta.iso_field && key != vm.meta.country_field){
               var field = {
                 'column': key,
                 'title':vm.indicators[key].title,
@@ -52,6 +54,7 @@
               });
               field.categories = categories;
               fields.push(field);
+            }
           });
           vm.meta.fields = fields;
           console.log(vm.meta);
@@ -64,11 +67,14 @@
                   vm.data = [];
                   vm.step = 0;
                 }
+                  vm.loading = false;
               });
           }, function(response){
             if(response.message){
               toastr.error(response.message, 'Ouch!');
+
             }
+              vm.loading = false;
           })
         }
     });

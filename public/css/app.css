@@ -594,6 +594,7 @@ p.small-info:hover {
   left: 1em;
   bottom: auto;
   max-height: calc(100% - 2em);
+  overflow-x: hidden;
 }
 .loose.sidebar-closed .Page {
   margin-left: 1em;
@@ -605,6 +606,25 @@ p.small-info:hover {
 }
 .loose.rowed .Page {
   width: 400px;
+}
+
+.mb1 {
+  margin-bottom: 1em;
+}
+.mb2 {
+  margin-bottom: 2em;
+}
+.mb25 {
+  margin-bottom: 2.5em;
+}
+.mt1 {
+  margin-top: 1em;
+}
+.mt2 {
+  margin-top: 2em;
+}
+.mt25 {
+  margin-top: 2.5em;
 }
 
 md-toast[md-theme=warn] {
@@ -1129,7 +1149,6 @@ section.table md-data-table-container table[md-data-table] > tbody > tr td.md-wa
   line-height: 3em;
 }
 section.table md-data-table-pagination {
-  position: absolute;
   bottom: 0;
   width: 100%;
   background: #fff;
@@ -1319,6 +1338,9 @@ div[ui-view='map'] {
 	max-width: 250px !important;
 	background-color: rgb(63, 81, 181);
 }*/
+.Sidebar md-toolbar path {
+  fill: #fff;
+}
 .Sidebar-title {
   font-size: 25px;
   height: 100px;

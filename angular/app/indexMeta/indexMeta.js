@@ -1,7 +1,7 @@
 (function(){
     "use strict";
 
-    angular.module('app.controllers').controller('IndexMetaCtrl', function($scope, VectorlayerService,$timeout,IndexService,leafletData, toastr){
+    angular.module('app.controllers').controller('IndexMetaCtrl', function($scope, $state, VectorlayerService,$timeout,IndexService,leafletData, toastr){
         //
 
         var vm = this;
@@ -15,6 +15,19 @@
         vm.indicator = IndexService.activeIndicator();
         vm.countriesStyle = countriesStyle;
         VectorlayerService.createCanvas('#ff0000');
+
+
+        activate();
+
+        function activate(){
+          checkData();
+        }
+
+        function checkData(){
+          if(!vm.data){
+            $state.go('app.index.create');
+          }
+        }
 
         $scope.$watch(function(){ return IndexService.activeIndicator()}, function(n,o){
           if(n === o)return;
@@ -49,7 +62,7 @@
                 VectorlayerService.updateCanvas('#ff0000');
               }
             }
-              drawCountries();
+            drawCountries();
           }
           //IndexService.setActiveIndicatorData(n);
           IndexService.setToLocalStorage();

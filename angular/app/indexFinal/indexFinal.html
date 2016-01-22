@@ -1,22 +1,14 @@
-<section class="table anim md-whiteframe-z2" layout="column">
-        <md-data-table-toolbar class="md-whiteframe-z1">
+<section class="table" layout="column">
+        <md-data-table-toolbar>
                 <div flex layout-align="space-between center" layout="row">
                         <div layout="column" layout-align="center start">
                         <h2 style="margin:0" class="md-title">Upload Information</h2>
-                        <h3 style="margin:0" class="md-subhead">CSV Import 3/3</h3>
                       </div>
-                        <span flex></span>
-                        <div layout-align="space-between center" layout="row">
-                                <md-button ui-sref="app.index.meta">
-                                        <ng-md-icon class="middle" icon="chevron_left"></ng-md-icon>
-                                        Prev
-                                </md-button>
 
-                        </div>
                 </div>
         </md-data-table-toolbar>
         <div layout-align="center center" layout-padding layout="row">
-                <div flex="50">
+                <div>
                         <div layout layout-sm="column">
                                 <md-input-container flex="80">
                                         <label>Title</label>
@@ -38,7 +30,7 @@
 
                         <div layout-align="space-between center" layout="row">
 
-                                <md-button class="md-primary md-raised" flex ng-click="vm.saveData()">
+                                <md-button class="md-primary md-raised" ng-disabled="vm.loading" flex ng-click="vm.saveData()">
                                         Save
                                 </md-button>
                         </div>

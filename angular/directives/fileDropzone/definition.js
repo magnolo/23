@@ -56,10 +56,11 @@
 						}
 					};
 					file = event.dataTransfer.files[0];
-					name = file.name;
+					/*name = file.name;
 					type = file.type;
 					size = file.size;
-					reader.readAsDataURL(file);
+					reader.readAsDataURL(file);*/
+					scope.file = file;
 					return false;
 				});
 			}

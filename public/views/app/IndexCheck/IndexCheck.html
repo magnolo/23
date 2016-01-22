@@ -1,14 +1,15 @@
-<section class="table anim md-whiteframe-z2">
-        <md-data-table-toolbar class="md-whiteframe-z1">
+<section class="table ">
+        <md-data-table-toolbar >
                 <div flex layout-align="start center" layout="row">
                         <h2 class="md-title">Data Overview</h2>
                         <div layout-align="space-between center" layout="row">
+                          <md-button class="md-raised md-warn anim-fade icon-space" ng-click="vm.deleteSelected()" ng-if="vm.selected.length">
+                                  <ng-md-icon class="middle" icon="delete"></ng-md-icon>
+                          </md-button>
                                 <md-button class="md-raised md-primary anim-fade icon-space" layout-align="center center" layout="row" ng-click="vm.editRow()" ng-if="vm.selected.length == 1">
                                         <ng-md-icon class="middle" icon="mode_edit"></ng-md-icon>
                                 </md-button>
-                                <md-button class="md-raised md-warn anim-fade icon-space" ng-click="vm.deleteSelected()" ng-if="vm.selected.length">
-                                        <ng-md-icon class="middle" icon="delete"></ng-md-icon>
-                                </md-button>
+
                         </div>
                 </div>
         </md-data-table-toolbar>

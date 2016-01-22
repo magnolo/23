@@ -1,7 +1,7 @@
 (function () {
 	"use strict";
 
-	angular.module('app.controllers').controller('IndicatorCtrl', function ($scope, DataService, DialogService, $filter) {
+	angular.module('app.controllers').controller('IndicatorCtrl', function ($scope, DataService, DialogService, $filter, toastr) {
 		//
 		var vm = this;
 
@@ -17,6 +17,7 @@
 
 		vm.toggleCategorie = toggleCategorie;
 		vm.selectedCategorie = selectedCategorie;
+		vm.saveCategory = saveCategory;
 
 		vm.toggleStyle = toggleStyle;
 		vm.selectedStyle = selectedStyle;
@@ -54,7 +55,14 @@
 		}
 
 		function toggleCategorie(categorie) {
-			var index = vm.item.categories.indexOf(categorie);
+			var found = false, index = -1;
+			angular.forEach(vm.item.categories, function(cat, i){
+				if(cat.id == categorie.id){
+					found = true;
+					index = i;
+				}
+			})
+			console.log(found, index);
 			index === -1 ? vm.item.categories.push(categorie) : vm.item.categories.splice(index, 1);
 		}
 
@@ -64,12 +72,23 @@
 				return false;
 			}
 		 	var found = false;
-			angular.forEach(item.categories, function(item, key){
-				if(item.id == categorie.id){
+			angular.forEach(item.categories, function(cat, key){
+				if(cat.id == categorie.id){
 					found = true;
 				}
 			});
 			return found;
+		}
+		function saveCategory(valid){
+			if(valid){
+				console.log(vm.category);
+				DataService.post('categories', vm.category).then(function(data){
+					vm.categories.push(data);
+					vm.createCategory = false;
+					vm.item.categories.push(data);
+					toastr.success('New Category was saved','Success');
+				});
+			}
 		}
 		function toggleStyle(style) {
 			if(vm.item.style_id == style.id){
@@ -84,21 +103,7 @@
 			return vm.item.style_id == style.id ? true : false;
 		}
 
-		$scope.$watch('vm.item', function (n, o) {
-			if (n === o) return;
-			if(!vm.askedToReplicate) {
-				vm.preProvider = o.dataprovider;
-				vm.preMeasure = o.measure_type_id;
-				vm.preCategories = o.categories;
-				vm.prePublic = o.is_public;
-				DialogService.fromTemplate('copyprovider', $scope);
-			} else {
-				n.dataprovider = vm.doProviders ? vm.preProvider : [];
-				n.measure_type_id = vm.doMeasures ? vm.preMeasure : 0;
-				n.categories = vm.doCategories ? vm.preCategories: [];
-				n.is_public = vm.doPublic ? vm.prePublic: false;
-			}
-		});
+
 	});
 
 })();
