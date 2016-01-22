@@ -1208,6 +1208,25 @@ md-list .md-button {
 md-list .md-button .md-ripple-container {
   border-radius: 0;
 }
+.chooser.unchecked > ng-md-icon {
+  background-color: #ddd;
+}
+.chooser.unchecked > ng-md-icon path {
+  fill: #fff;
+}
+.chooser.checked > ng-md-icon {
+  background-color: #333;
+}
+.chooser.checked > ng-md-icon path {
+  fill: #fff;
+}
+.chooser > ng-md-icon {
+  top: 0;
+  border-radius: 50%;
+  width: 22px;
+  height: 22px;
+  cursor: pointer;
+}
 .selector {
   border-bottom: 0;
   padding-bottom: 0;

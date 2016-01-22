@@ -62,9 +62,9 @@
 				 <md-divider></md-divider>
 				 <div layout="row">
 								 <md-list flex>
-												 <md-list-item ng-repeat="indicator in vm.indicators | filter:vm.search">
+												 <md-list-item class="chooser" ng-repeat="indicator in vm.indicators | filter:vm.search" ng-class="{'checked': vm.selectedItems(indicator), 'unchecked': !vm.selectedItems(indicator)}">
 																 <p class="cursor" ng-class="{'warning':!indicator.title}" ui-sref="app.index.editor.indicator({id:indicator.id})">{{indicator.title || '['+indicator.name+']'}}</p>
-																 <ng-md-icon icon="check" layout-align="center center" layout="row" size="18"></ng-md-icon>
+																 <ng-md-icon ng-click="vm.toggleSelection(indicator)" icon="check" layout-align="center center" layout="row" size="18"></ng-md-icon>
 																 <indicator-menu item="indicator"></indicator-menu>
 												 </md-list-item>
 								 </md-list>

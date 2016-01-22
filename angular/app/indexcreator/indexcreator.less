@@ -1,4 +1,5 @@
 @import (less) '../../material/colors.less';
+
 section {
     &.module-top {
         background-color: #fff;
@@ -6,9 +7,11 @@ section {
         margin-left: 1em;
         margin-top: 1em;
         margin-bottom: 1em;
+        
         &.out {
             transform: translateX(-380px);
         }
+
         .md-subheader {
             font-size: 1.4em;
         }
@@ -16,10 +19,12 @@ section {
         .upload-container {
             text-align: center;
         }
+
         .md-subhead {
             color: @grey;
         }
     }
+
     &.module-second {
         position: fixed;
         top: 48px;
@@ -33,37 +38,46 @@ section {
         .md-subheader-inner {
             padding: 0;
         }
+
         md-content {
             max-height: calc(~"100%");
             height: 100%;
         }
+
         .index-element {
             position: relative;
             width: 100%;
             overflow: hidden;
             transition: all 0.25s ease-in-out;
+            
             .sub-menue {
                 position: absolute;
                 right: 0;
                 height: 100%;
                 transform: translateX(100%);
                 transition: all 0.1s ease-in-out;
+                
                 .md-icon-button {
                     margin: 0 3px;
+                    
                     ng-md-icon {
                         top: 3px;
                     }
                 }
             }
+
             &:hover {
                 background-color: rgba(0,0,0,0.03);
+                
                 .sub-menue {
                     transform: translateX(0%);
                 }
             }
+
             &.editing {
                 background-color: @base;
                 color: #fff;
+                
                 * {
                     path {
                         fill: #fff;
@@ -72,6 +86,7 @@ section {
             }
         }
     }
+
     &.module-third {
         position: fixed;
         top: 48px;
@@ -80,6 +95,7 @@ section {
         max-height: calc(~"100% - 48px - 2em");
         min-height: 0;
     }
+
     &.table {
         background-color: rgba(255,255,255,0.2);
         width: 100%;
@@ -88,27 +104,34 @@ section {
         left: 0;
         height: calc(~"100%");
         background: #fff;
+        
         md-data-table-toolbar {
             position: relative;
             background: #006bb9;
             color: #fff;
+            
             * {
                 fill: #fff;
             }
+
             md-input-container {
                 padding-bottom: 0.5em;
             }
         }
+
         md-data-table-container {
             font-family: RobotoDraft,Roboto,'Helvetica Neue',sans-serif;
             max-height: calc(~"100% - 120px");
             overflow: auto;
+            
             thead:not([md-table-progress])>tr>th {
                 color: #006bb9;
+                
                 &.iconed {
                     position: relative;
                     //background:#006bb9;
                     padding-left: 3em !important;
+                    
                     span {
                         &.icon {
                             opacity: 0;
@@ -116,9 +139,11 @@ section {
                             position: absolute;
                             top: 1.3em;
                             left: 0;
+                            
                             path {
                                 fill: #ccc;
                             }
+
                             &:hover {
                                 path {
                                     fill: #006bb9;
@@ -126,14 +151,17 @@ section {
                             }
                         }
                     }
+
                     &.globe {
                         span {
                             opacity: 1;
+                            
                             path {
                                 fill: #006bb9;
                             }
                         }
                     }
+
                     &:hover {
                         span {
                             &.icon {
@@ -142,12 +170,15 @@ section {
                         }
                     }
                 }
+
                 &.done,
                 &.done.md-active {
                     color: green !important;
+                    
                     path {
                         //fill:green;
                     }
+
                     span {
                         &:hover {
                             path {
@@ -157,11 +188,14 @@ section {
                     }
                 }
             }
+
             table[md-data-table]>tbody>tr {
                 height: 2.5em;
+                
                 &.md-warn {
                     background-color: rgba(244,67,54,0.2);
                 }
+
                 td {
                     &.md-warn {
                         //background-color:rgba(244,67,54,0.2);
@@ -177,6 +211,7 @@ section {
                 }
             }
         }
+
         md-data-table-pagination {
             //position: absolute;
             bottom: 0;
@@ -185,6 +220,7 @@ section {
         }
     }
 }
+
 .angular-ui-tree-placeholder {
     //outline:1px solid lighten(@base,30%);
     border-left: 3px solid @base;
@@ -192,94 +228,145 @@ section {
     width: 100%;
     //box-shadow: 0px 3px 1px -2px rgba(0, 0, 255, 0.14), 0px 2px 2px 0px rgba(0, 0, 255, 0.098), 0px 1px 5px 0px rgba(0, 0, 255, 0.084);
 }
+
 .angular-ui-tree-drag {
     background-color: rgba(255,255,255,0.8);
     width: auto !important;
     padding-right: 1em;
     box-shadow: 0 3px 1px -2px rgba(0, 0, 255, 0.14), 0 2px 2px 0 rgba(0, 0, 255, 0.098), 0 1px 5px 0 rgba(0, 0, 255, 0.084);
+    
     .actions,
     .sub-menue {
         display: none;
     }
 }
+
 .angular-ui-tree-node {
     .group {
         color: @base;
         font-size: 1.1em;
     }
+
     md-checkbox {
         opacity: 0.25;
+        
         &.md-checked {
             opacity: 1;
         }
     }
 }
+
 .select-list {
     .md-icon-button {
         min-width: 48px;
     }
+
     .icon {
         font-size: 3em;
         position: relative;
         top: 3px;
     }
 }
+
 .fill-noheader {
     height: calc(~'100% - 64px');
     min-height: calc(~'100% - 64px');
 }
+
 md-list {
     md-list-item {
         border-bottom: 1px solid @grey-light;
+        
         &:last-child {
             border-bottom: 0;
         }
+
         &.sub-list {
             padding: 0;
+            
             md-list {
                 width: 100%;
             }
-
         }
     }
+
     .md-button {
         border-radius: 0;
+        
         .md-ripple-container {
             border-radius: 0;
         }
     }
 }
+
+.chooser {
+    &.unchecked {
+        > ng-md-icon {
+            background-color: #ddd;
+            
+            path {
+                fill: #fff;
+            }
+        }
+    }
+
+    &.checked {
+        > ng-md-icon {
+            background-color: #333;
+            
+            path {
+                fill: #fff;
+            }
+        }
+    }
+
+    > ng-md-icon {
+        top: 0;
+        border-radius: 50%;
+        width: 22px;
+        height: 22px;
+        cursor: pointer;
+    }
+}
+
 .selector {
     border-bottom: 0;
-    padding-bottom:0;
+    padding-bottom: 0;
     font-size: 0.95em;
     min-height: 1em;
+    
     ng-md-icon {
         top: 0;
         border-radius: 50%;
         width: 22px;
         height: 22px;
     }
+
     .md-list-item-inner {
         min-height: 1em;
     }
+
     &.unchecked {
         ng-md-icon {
             background-color: #ddd;
         }
+
         path {
             fill: #fff;
         }
     }
+
     &.checked {
         ng-md-icon {
             background-color: #333;
         }
+
         path {
             fill: #fff;
         }
     }
 }
+
 md-list-item {
     &.active {
         background: @grey-light;
