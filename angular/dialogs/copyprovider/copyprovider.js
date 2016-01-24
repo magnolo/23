@@ -11,6 +11,9 @@
         $scope.save = function(){
 
           angular.forEach($scope.$parent.vm.data[0].data[0], function(data, key){
+            if(key != "year"){
+
+
             if(typeof IndexService.getIndicator(key) == "undefined"){
               IndexService.setIndicator(key,{
                 column_name:key,
@@ -38,6 +41,7 @@
               }
 
             }
+          }
           });
           IndexService.setToLocalStorage();
           DialogService.hide();
