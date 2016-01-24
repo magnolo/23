@@ -20,7 +20,7 @@
 </md-toolbar>
 </md-subheader>
 <md-list class="selector">
-        <md-list-item class="md-2-line" ng-class="{'active': key == vm.editingItem, 'md-warn': !vm.checkFull(vm.indicators[key])}" ng-click="vm.selectForEditing(key)" ng-if="key != vm.meta.iso_field && key != vm.meta.country_field && key != 'year'" ng-repeat="(key, item) in vm.data[0].data[0]">
+        <md-list-item class="md-2-line" ng-class="{'active': key == vm.editingItem, 'md-warn': !vm.checkFull(vm.indicators[key])}" ng-click="vm.selectForEditing(key)" ng-if="key != vm.meta.iso_field && key != vm.meta.country_field && key != vm.meta.year_field" ng-repeat="(key, item) in vm.data[0].data[0]">
                 <div class="md-list-item-text">
                         <h3>{{vm.indicators[key].title || key}}</h3>
                         <p>

@@ -73,6 +73,9 @@
           setCountryField: function(key){
             return serviceData.meta.country_field = key;
           },
+          setYearField: function(key){
+            return serviceData.meta.year_field = key;
+          },
           setErrors: function(errors){
             return serviceData.errors = errors;
           },

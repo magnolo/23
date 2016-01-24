@@ -7,5 +7,6 @@
       vm.meta = IndexService.getMeta();
       vm.indicators = IndexService.getIndicators();
       vm.indicatorsLength = Object.keys(vm.indicators).length;
+
     });
 })();

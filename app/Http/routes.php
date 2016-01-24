@@ -69,14 +69,19 @@ $api->version('v1', ['middleware' => 'api.auth'], function ($api) {
     $api->get('indicators', 'App\Http\Controllers\IndicatorController@index');
     $api->get('indicators/{id}', 'App\Http\Controllers\IndicatorController@show');
     $api->get('indicators/{id}/data', 'App\Http\Controllers\IndicatorController@fetchData');
+    $api->put('indicators/{id}', 'App\Http\Controllers\IndicatorController@update');
 
     $api->post('data/tables', 'App\Http\Controllers\UserdataController@createDataTable');
     $api->post('data/tables/{table}/insert', 'App\Http\Controllers\UserdataController@insertDataToTable');
 
     $api->post('categories', 'App\Http\Controllers\CategoriesController@store');
 
+    $api->post('dataproviders', 'App\Http\Controllers\DataprovidersController@store');
+
+    $api->post('measure_types', 'App\Http\Controllers\MeasureTypesController@store');
+
     //$api->post('index', 'App\Http\Controllers\IndexController@create');
 
-    $api->put('indicators/{id}', 'App\Http\Controllers\IndicatorController@update');
+
 
 });

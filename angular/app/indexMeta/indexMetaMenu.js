@@ -23,7 +23,7 @@
       }
       function checkBase(item){
         if(typeof item == "undefined") return false;
-  			if (item.title && item.measure_type_id && item.dataprovider && item.title.length >= 3) {
+  			if (item.title && item.type && item.dataprovider && item.title.length >= 3) {
   				return true;
   			}
   			return false;
@@ -41,10 +41,11 @@
         if(!vm.askedToReplicate) {
           vm.preProvider = vm.indicators[o.column_name].dataprovider;
           vm.preMeasure = vm.indicators[o.column_name].measure_type_id;
+          vm.preType = vm.indicators[o.column_name].type;
           vm.preCategories = vm.indicators[o.column_name].categories;
           vm.prePublic = vm.indicators[o.column_name].is_public;
           vm.preStyle = vm.indicators[o.column_name].style;
-          console.log(vm.preStyle);
+
           DialogService.fromTemplate('copyprovider', $scope);
         } else {
           //n.dataprovider = vm.doProviders ? vm.preProvider : [];

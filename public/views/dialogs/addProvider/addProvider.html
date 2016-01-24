@@ -1,0 +1,37 @@
+<md-dialog ng-controller="AddProviderCtrl as vm">
+	<form name="providerForm" ng-submit="vm.save(providerForm.$valid)">
+		<md-dialog-content>
+			<h2 class="md-title mb2">Add a new Data Provider</h2>
+
+			<md-input-container class="md-block">
+        		<label>Name*</label>
+				<input auto-focus type="text" required minlength="3" name="title" ng-model="vm.dataprovider.title">
+				<div ng-messages="providerForm.title.$error" ng-show="providerForm.title.$error">
+								<div ng-message="required">You
+												<b>must</b>
+												enter a title.</div>
+								<div ng-message="minlength">The title is not long enough. At least 3 characters!</div>
+								<div ng-message="maxlength">The name has to be less than 56 characters long.</div>
+				</div>
+      		</md-input-container>
+			<md-input-container class="md-block">
+				<label>Url*</label>
+				<input maxlength="56" minlength="5" name="url" ng-model="vm.dataprovider.url" required type="url"/>
+				<div ng-messages="providerForm.url.$error" ng-show="providerForm.url.$error">
+								<div ng-message="minlength">The url is not long enough. At least 5 characters!</div>
+								<div ng-message="pattern">This is not a valid url!</div>
+								<div ng-message="maxlength">The name has to be less than 30 characters long.</div>
+				</div>
+			</md-input-container>
+				<md-input-container class="md-block">
+					<label>Description</label>
+					<textarea ng-model="vm.dataprovider.description"></textarea>
+				</md-input-container>
+		</md-dialog-content>
+
+		<div class="md-actions" layout="row">
+			<md-button type="button" ng-click="vm.hide()">Cancel</md-button>
+			<md-button class="md-primary md-raised" type="submit" ng-disabled="providerForm.$invalid">Save</md-button>
+		</div>
+	</form>
+</md-dialog>

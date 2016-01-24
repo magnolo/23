@@ -9,14 +9,22 @@
         </md-data-table-toolbar>
         <div layout-align="center center" layout-padding layout="row">
                 <div>
+                  <form name="importForm" ng-submit="vm.saveData(importForm.$valid)">
                         <div layout layout-sm="column">
                                 <md-input-container flex="80">
                                         <label>Title</label>
-                                        <input ng-model="vm.meta.name" required type="text">
+                                        <input maxlength="56" minlength="3" name="title" ng-model="vm.meta.name" required type="text"/>
+                                        <div ng-messages="importForm.title.$error" ng-show="importForm.title.$error">
+                                                <div ng-message="required">You
+                                                        <b>must</b>
+                                                        enter a title.</div>
+                                                <div ng-message="minlength">At least 3 characters!</div>
+                                                <div ng-message="maxlength">Less than 56 characters long!</div>
+                                        </div>
                                 </md-input-container>
                                 <md-input-container flex="20">
                                         <label>Year</label>
-                                        <input ng-model="vm.meta.year" required>
+                                        <input ng-model="vm.meta.year" type="text" required>
                                 </md-input-container>
                         </div>
                         <md-input-container class="md-block">
@@ -30,10 +38,11 @@
 
                         <div layout-align="space-between center" layout="row">
 
-                                <md-button class="md-primary md-raised" ng-disabled="vm.loading" flex ng-click="vm.saveData()">
+                                <md-button class="md-primary md-raised" ng-disabled="vm.loading" flex ng-disabled="importForm.$invalid" type="submit">
                                         Save
                                 </md-button>
                         </div>
+                      </form>
                 </div>
         </div>
 </section>

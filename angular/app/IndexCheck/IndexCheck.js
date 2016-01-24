@@ -2,12 +2,13 @@
     "use strict";
 
     angular.module('app.controllers').controller('IndexCheckCtrl', function($scope,$state, $filter, toastr, DialogService, IndexService){
-  
+
 
         var vm = this;
         vm.data = IndexService.getData();
         vm.meta = IndexService.getMeta();
         vm.errors = IndexService.getErrors();
+        vm.iso_errors = IndexService.getIsoErrors();
         vm.selected = [];
 
         vm.deleteData = deleteData;
@@ -16,7 +17,7 @@
         vm.onOrderChange = onOrderChange;
         vm.onPaginationChange = onPaginationChange;
         vm.checkForErrors = checkForErrors;
-
+        vm.selectErrors = selectErrors;
         vm.showUploadContainer = false;
         //vm.editColumnData = editColumnData;
         vm.editRow = editRow;
@@ -85,6 +86,14 @@
             vm.deleteData();
             $state.go('app.index.create');
           }
+        }
+        function selectErrors(){
+          vm.selected = [];
+          angular.forEach(vm.data, function(item, key){
+            if(item.errors.length){
+              vm.selected.push(item);
+            }
+          })
         }
         function editRow(){
           vm.row = vm.selected[0];

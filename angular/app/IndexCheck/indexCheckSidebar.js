@@ -15,6 +15,7 @@
 		function activate() {
 			vm.myData = DataService.getAll('me/data');
 			checkMyData();
+			console.log(vm.meta);
 		}
 
 		function checkMyData() {
@@ -31,11 +32,14 @@
 								}
 							})
 						});
-						if (found >= vm.data[0].meta.fields.length - 2) {
+						if (found >= vm.data[0].meta.fields.length - 3) {
 							vm.extendingChoices.push(entry);
 						}
 					})
 					if (vm.extendingChoices.length) {
+						if(vm.meta.year_field){
+							vm.meta.year = vm.data[0].data[0][vm.meta.year_field];
+						}
 						DialogService.fromTemplate('extendData', $scope);
 					}
 				});
@@ -46,7 +50,7 @@
 			angular.forEach(vm.data, function(row, key) {
 				angular.forEach(row.data[0], function(item, k) {
 					if (isNaN(item) || item < 0) {
-						if ( /*item.toString().toUpperCase() == "NA" ||*/ item < 0 || item.toString().toUpperCase().indexOf('N/A') > -1) {
+						if ( item.toString().toUpperCase() == "#NA" || item < 0 || item.toString().toUpperCase().indexOf('N/A') > -1) {
 							vm.data[key].data[0][k] = null;
 							row.errors.splice(0, 1);
 							vm.errors.splice(0, 1);
@@ -70,6 +74,7 @@
 					if (!errorFound) {
 						row.errors.push(error);
 						vm.iso_errors.push(error);
+
 					}
 				}
 			});
@@ -152,7 +157,7 @@
 
 									}
 								} else {
-									console.log(vm.data[k]);
+									//console.log(vm.data[k]);
 									var error = {
 										type: "3",
 										message: "Could not locate a valid iso name!",
@@ -194,6 +199,9 @@
 			angular.forEach(vm.data, function(item, key) {
 				if (item.errors.length == 0) {
 					item.data[0].year = vm.meta.year;
+					if(vm.meta.year_field && vm.meta.year_field != "year") {
+						delete item.data[0][vm.meta.year_field];
+					}
 					insertData.data.push(item.data[0]);
 				} else {
 					toastr.error('There are some errors left!', 'Huch!');

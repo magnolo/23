@@ -41,6 +41,13 @@ class DataprovidersController extends Controller
     public function store(Request $request)
     {
         //
+        $provider = new DataProvider();
+        $provider->title = $request->input('title');
+        $provider->name = str_slug($request->input('title'));
+        $provider->url = $request->input('url');
+        $provider->description = $request->input('description');
+        $provider->save();
+        return response()->api($provider);
     }
 
     /**

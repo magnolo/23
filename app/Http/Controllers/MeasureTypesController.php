@@ -41,6 +41,13 @@ class MeasureTypesController extends Controller
     public function store(Request $request)
     {
         //
+        $type = new MeasureType();
+        $type->title = $request->input('title');
+        $type->name = str_slug($request->input('title'));
+        $type->ext = $request->input('ext');
+        $type->description = $request->input('description');
+        $type->save();
+        return response()->api($type);
     }
 
     /**

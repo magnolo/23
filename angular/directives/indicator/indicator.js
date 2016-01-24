@@ -12,8 +12,12 @@
 		vm.dataproviders = [];
 		vm.selectedItem = null;
 		vm.searchText = null;
+		vm.searchUnit = null;
 		vm.querySearch = querySearch;
+		vm.queryUnit = queryUnit;
 		vm.querySearchCategory = querySearchCategory;
+
+		vm.save = save;
 
 		vm.toggleCategorie = toggleCategorie;
 		vm.selectedCategorie = selectedCategorie;
@@ -21,6 +25,9 @@
 
 		vm.toggleStyle = toggleStyle;
 		vm.selectedStyle = selectedStyle;
+
+		vm.createProvider = createProvider;
+		vm.createUnit = createUnit;
 
 		activate();
 
@@ -30,6 +37,9 @@
 
 		function querySearch(query) {
 			return $filter('findbyname')(vm.dataproviders, query, 'title');
+		}
+		function queryUnit(query) {
+			return $filter('findbyname')(vm.measureTypes, query, 'title');
 		}
 
 		function querySearchCategory(query) {
@@ -44,7 +54,7 @@
 		}
 
 		function checkBase(){
-			if (vm.item.title && vm.item.measure_type_id && vm.item.dataprovider && vm.item.title.length >= 3) {
+			if (vm.item.title && vm.item.type && vm.item.dataprovider && vm.item.title.length >= 3) {
 				return true;
 			}
 			return false;
@@ -53,7 +63,13 @@
 			if(typeof vm.item.categories == "undefined") return false;
 			return checkBase() && vm.item.categories.length ? true : false;
 		}
-
+		function save(){
+			vm.item.save().then(function(response){
+				if(response.data){
+					toastr.success('Data successfully updated!', 'Successfully saved');
+				}
+			});
+		}
 		function toggleCategorie(categorie) {
 			var found = false, index = -1;
 			angular.forEach(vm.item.categories, function(cat, i){
@@ -81,7 +97,7 @@
 		}
 		function saveCategory(valid){
 			if(valid){
-				console.log(vm.category);
+
 				DataService.post('categories', vm.category).then(function(data){
 					vm.categories.push(data);
 					vm.createCategory = false;
@@ -103,6 +119,13 @@
 			return vm.item.style_id == style.id ? true : false;
 		}
 
+		//TODO: ITS A HACK TO GET IT WORK: ng-click vs ng-mousedown
+		function createProvider(text){
+			DialogService.fromTemplate('addProvider', $scope);
+		}
+		function createUnit(text){
+			DialogService.fromTemplate('addUnit', $scope);
+		}
 
 	});
 

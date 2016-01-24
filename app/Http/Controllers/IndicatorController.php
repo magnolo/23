@@ -75,10 +75,21 @@ class IndicatorController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $cats = array();
+        foreach($request->input('categories') as $cat){
+          $cats[] = $cat['id'];
+        };
         $indicator = Indicator::find($id);
+        $indicator->title = $request->input('title');
+        $indicator->name = str_slug($request->input('title'));
+        $indicator->description = str_slug($request->input('description'));
+        $indicator->style_id = $request->input('style_id');
+        $indicator->measure_type_id = $request->input('type')['id'];
+        $indicator->dataprovider_id = $request->input('dataprovider')['id'];
         $indicator->is_official = $request->input('is_official');
         $indicator->is_public = $request->input('is_public');
+        $indicator->categories()->sync($cats);
+
         return response()->api($indicator->save());
     }
 
@@ -96,11 +107,11 @@ class IndicatorController extends Controller
       $indicator = Indicator::find($id);
       $iso_field = $indicator->userdata->iso_type == 'iso-3166-1' ? 'adm0_a3': 'iso_a2';
       $data = \DB::table($indicator->table_name)
-        ->where('year', 2014)
+        ->where('year', \DB::raw('(select MAX('.$indicator->table_name.'.year) from '.$indicator->table_name.')'))
         ->leftJoin('23_countries', $indicator->table_name.".".$indicator->iso_name, '=', '23_countries.'.$iso_field)
         ->select($indicator->table_name.".".$indicator->column_name.' as score', $indicator->table_name.'.year','23_countries.'.$iso_field.' as iso','23_countries.admin as country')
         ->orderBy($indicator->table_name.".".$indicator->column_name, 'desc')->get();
-      //$index->data = $data;
+    
       return response()->api($data);
     }
 }

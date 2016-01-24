@@ -42,7 +42,7 @@
       <span>{{vm.iso_errors.length}} ISO errors detected</span>
     </div>
 </md-toolbar>
-<md-content layout-padding>
+<md-content style="margin:1em;">
 <md-input-container class="md-block" >
         <label>ISO Field</label>
         <md-select ng-model="vm.meta.iso_field" required>
@@ -55,7 +55,13 @@
                 <md-option ng-repeat="(key, item) in vm.data[0].data[0]" value="{{key}}">{{key}}</md-option>
         </md-select>
 </md-input-container>
-
+<md-input-container class="md-block">
+        <label>Year Field</label>
+        <md-select ng-model="vm.meta.year_field">
+                <md-option value="">None</md-option>
+                <md-option ng-repeat="(key, item) in vm.data[0].data[0]" value="{{key}}">{{key}}</md-option>
+        </md-select>
+</md-input-container>
         <div ng-if="vm.iso_errors.length || !vm.iso_checked" layout="row" layout-align="center center" >
 
                 <md-button class="md-raised md-primary md-min-width" ng-click="vm.fetchIso()" >

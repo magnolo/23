@@ -421,6 +421,12 @@ p.warning {
 p.warning path {
   fill: #f44336;
 }
+.mini-info {
+  max-width: 305px;
+  text-align: justify;
+  color: #aaa;
+  font-size: 0.9em;
+}
 .md-warn ng-md-icon path {
   fill: #f44336;
 }
@@ -637,6 +643,10 @@ md-toast[md-theme=warn] {
 }
 
 
+md-list-item a.md-no-style {
+  margin: 0px;
+}
+
 /*.Header{
 	position: fixed;
 	left: 0px;
@@ -660,10 +670,6 @@ md-toast[md-theme=warn] {
 }*/
 md-toolbar.Header .md-button.md-border {
   color: #006bb9;
-}
-
-md-list-item a.md-no-style {
-  margin: 0px;
 }
 
 md-toolbar.md-menu-toolbar {

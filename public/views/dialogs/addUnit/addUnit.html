@@ -1,0 +1,40 @@
+<md-dialog ng-controller="AddUnitCtrl as vm">
+	<form name="unitForm" ng-submit="vm.save(unitForm.$valid)">
+		<md-dialog-content>
+			<h2 class="md-title mb2">Add a new Unit of Measure</h2>
+
+			<md-input-container class="md-block">
+        		<label>Name*</label>
+				<input auto-focus type="text" required minlength="3" name="title" ng-model="vm.unit.title">
+				<div ng-messages="unitForm.title.$error" ng-show="unitForm.title.$error">
+								<div ng-message="required">You
+												<b>must</b>
+												enter a title.</div>
+								<div ng-message="minlength">The title is not long enough. At least 3 characters!</div>
+								<div ng-message="maxlength">The name has to be less than 56 characters long.</div>
+				</div>
+      		</md-input-container>
+					<div class="mini-info mb2" >
+							Please provide an identifier for the measure unit. For example its <span class="info">%</span> for the field <span class="info">Percentage</span> or <span class="info">m²</span> for <span class="info">Square Meters</span>.
+					</div>
+			<md-input-container class="md-block">
+				<label>Extension*</label>
+				<input maxlength="30" minlength="1" name="ext" ng-model="vm.unit.ext" required type="text"/>
+				<div ng-messages="unitForm.ext.$error" ng-show="providerForm.ext.$error">
+								<div ng-message="maxlength">The extension has to be less than 30 characters long.</div>
+				</div>
+
+			</md-input-container>
+
+				<md-input-container class="md-block">
+					<label>Description</label>
+					<textarea ng-model="vm.dataprovider.description"></textarea>
+				</md-input-container>
+		</md-dialog-content>
+
+		<div class="md-actions" layout="row">
+			<md-button type="button" ng-click="vm.hide()">Cancel</md-button>
+			<md-button class="md-primary md-raised" type="submit" ng-disabled="unitForm.$invalid">Save</md-button>
+		</div>
+	</form>
+</md-dialog>

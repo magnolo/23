@@ -22,7 +22,7 @@
               item.dataprovider =  $scope.$parent.vm.preProvider ;
             }
             if($scope.$parent.vm.doMeasures){
-                item.measure_type_id = $scope.$parent.vm.preMeasure ;
+                item.type = $scope.$parent.vm.preType ;
             }
             if($scope.$parent.vm.doCategories){
                 item.categories = $scope.$parent.vm.preCategories;
@@ -33,7 +33,7 @@
             if($scope.$parent.vm.doStyle){
 
               if(typeof item.style != "undefined"){
-                    item.style = $scope.$parent.vm.preStyle;
+                item.style = $scope.$parent.vm.preStyle;
                 item.style_id = $scope.$parent.vm.preStyle.id;
               }
 
