@@ -180,7 +180,7 @@
 				auth:true,
 				views:{
 					'main@':{
-						templateUrl:getView('IndexCheck'),
+						templateUrl:getView('indexCheck'),
 						controller: 'IndexCheckCtrl',
 						controllerAs: 'vm'
 					},
