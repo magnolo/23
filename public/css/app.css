@@ -642,11 +642,6 @@ md-toast[md-theme=warn] {
   text-align: center;
 }
 
-
-md-list-item a.md-no-style {
-  margin: 0px;
-}
-
 /*.Header{
 	position: fixed;
 	left: 0px;
@@ -717,6 +712,10 @@ md-menu-bar {
   margin: 0 auto;
   max-width: 680px;
   padding: 24px;
+}
+
+md-list-item a.md-no-style {
+  margin: 0px;
 }
 
 /*.info-container {
@@ -981,6 +980,7 @@ md-menu-bar {
 .nvtooltip {
   border-radius: 0px;
 }
+
 
 
 .md-subheader.filled .md-subheader-inner {
@@ -1269,7 +1269,6 @@ md-list-item.active {
 }
 
 
-
 div[ui-view='map'] {
   position: absolute;
   width: 100%;
@@ -1351,6 +1350,7 @@ div[ui-view='map'] {
 .label-icon-number-selected {
   box-shadow: 0px 0px 0px 7px rgba(255, 140, 0, 0.6);
 }
+
 
 
 /*.Sidebar {
