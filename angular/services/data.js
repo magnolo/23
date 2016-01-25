@@ -11,8 +11,8 @@
           post: post
         };
 
-        function getAll(route){
-          var data = Restangular.all(route).getList();
+        function getAll(route, filter){
+          var data = Restangular.all(route).getList(filter);
             data.then(function(){}, function(data){
               toastr.error(data.statusText, 'Connection Error');
               console.log(data);

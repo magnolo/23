@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Input;
 
 use App\Indicator;
 
@@ -18,8 +19,51 @@ class IndicatorController extends Controller
      */
     public function index()
     {
-        //
-        return response()->api(Indicator::with('type', 'categories', 'dataprovider')->get());
+        //BASIC FILTER
+        $limit = Input::get('limit') ? Input::get('limit') : 25;
+        $order = Input::get('order') ? Input::get('order') : 'title';
+        $page = Input::get('page') ? Input::get('page') : 1;
+        $dir = Input::get('dir') ? Input::get('dir') : 'ASC';
+        $offset = 0;
+        if($page > 1){
+          $offset = $limit * ($page - 1);
+        }
+        $categories = Input::get('categories') ? Input::get('categories') : true;
+        $infographic = Input::get('infographic') ? Input::get('infographic') : true;
+        $style = Input::get('style') ? Input::get('style') : true;
+        $title = Input::get('title') ? Input::get('title') : true;
+        $description = Input::get('description') ? Input::get('description') : true;
+        $q= Input::get('q') ? Input::get('q') : null;
+
+        $query = Indicator::with('type', 'categories', 'dataprovider', 'style');
+        if($q){
+          if($categories){
+            $query = $query->whereHas('categories', function($query) use ($q){
+                $query->where('title', 'like', "%$q%");
+            });
+          }
+          if($style){
+            $query = $query->whereHas('style', function($query) use ($q){
+                $query->where('title', 'like', "%$q%");
+            });
+          }
+          if($title){
+              $query = $query->where('title', 'like', "%$q%");
+          }
+          if($description){
+              $query = $query->where('description', 'like', "%$q%");
+          }
+          /*if($infographic){
+            $query = $query->whereHas('infographics', function($query) use ($q){
+                $query->where('title', 'like', $q.'%');
+            });
+          }*/
+        }
+
+        $query = $query->orderBy($order, $dir)->skip($offset)->take($limit);
+
+
+        return response()->api($query->get());
     }
 
     /**
@@ -111,7 +155,7 @@ class IndicatorController extends Controller
         ->leftJoin('23_countries', $indicator->table_name.".".$indicator->iso_name, '=', '23_countries.'.$iso_field)
         ->select($indicator->table_name.".".$indicator->column_name.' as score', $indicator->table_name.'.year','23_countries.'.$iso_field.' as iso','23_countries.admin as country')
         ->orderBy($indicator->table_name.".".$indicator->column_name, 'desc')->get();
-    
+
       return response()->api($data);
     }
 }

@@ -19,7 +19,7 @@ class DataprovidersController extends Controller
     public function index()
     {
         //
-        return response()->api(DataProvider::all());
+        return response()->api(DataProvider::with('indicators')->get());
     }
 
     /**

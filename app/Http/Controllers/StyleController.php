@@ -41,6 +41,14 @@ class StyleController extends Controller
     public function store(Request $request)
     {
         //
+        $style = new Style();
+        $style->title = $request->input('title');
+        $style->name = str_slug($request->input('title'));
+        $style->base_color = $request->input('base_color');
+        $status = $style->save();
+
+        return response()->api($style);
+
     }
 
     /**

@@ -1,37 +1,59 @@
 .doAnim.ng-enter {
-  -webkit-animation: slideInRight .5s;
-  animation: slideInRight .5s;
+  -webkit-animation: slideInRight 0.5s;
+  animation: slideInRight 0.5s;
 }
 .doAnim.ng-leave {
-  -webkit-animation: slideOutRight .3s;
-  animation: slideOutRight .3s;
+  -webkit-animation: slideOutRight 0.3s;
+  animation: slideOutRight 0.3s;
   position: absolute;
   top: 0;
   width: 100%;
 }
 .doAnim-right.ng-enter {
-  -webkit-animation: slideInLeft .5s;
-  animation: slideInLeft .5s;
+  -webkit-animation: slideInLeft 0.5s;
+  animation: slideInLeft 0.5s;
   z-index: 2;
 }
 .doAnim-right.ng-leave {
-  -webkit-animation: fadeOutRight .8s;
-  animation: fadeOutRight .8s;
+  -webkit-animation: fadeOutRight 0.8s;
+  animation: fadeOutRight 0.8s;
   position: absolute;
   z-index: 1;
   top: 0;
 }
 .doAnim-left.ng-enter {
-  -webkit-animation: slideInLeft .5s;
-  animation: slideInLeft .5s;
+  -webkit-animation: slideInLeft 0.5s;
+  animation: slideInLeft 0.5s;
   z-index: 2;
 }
 .doAnim-left.ng-leave {
-  -webkit-animation: slideOutLeft .3s;
-  animation: slideOutLeft .3s;
+  -webkit-animation: slideOutLeft 0.3s;
+  animation: slideOutLeft 0.3s;
   position: absolute;
   z-index: 1;
   top: 0;
+}
+.list-anim.ng-enter-stagger,
+.list-anim.ng-leave-stagger,
+.list-anim.ng-move-stagger {
+  /* 200ms will be applied between each sucessive enter operation */
+  transition-delay: 0.02s;
+}
+.list-anim.ng-enter,
+.list-anim.ng-leave,
+.list-anim.ng-move {
+  transition: 0.1s linear all;
+}
+.list-anim.ng-leave.ng-leave-active,
+.list-anim.ng-enter,
+.list-anim.ng-move {
+  transition: 0.1s linear all;
+  opacity: 0;
+}
+.list-anim.ng-leave,
+.list-anim.ng-move.ng-move-active,
+.list-anim.ng-enter.ng-enter-active {
+  opacity: 1;
 }
 .anim.ng-enter,
 .anim.ng-leave {
@@ -66,7 +88,7 @@
 }
 .anim-left.ng-enter,
 .anim-left.ng-leave {
-  transition: all .3s ease;
+  transition: all 0.3s ease;
 }
 .anim-left.ng-enter,
 .anim-left.ng-leave.ng-leave-active {
@@ -119,7 +141,7 @@
 }
 .anim-height.ng-enter,
 .anim-height.ng-leave.ng-leave-active {
-  max-height: 0px;
+  max-height: 0;
 }
 .anim-height.ng-enter.ng-enter-active {
   max-height: 1000px;
@@ -631,6 +653,9 @@ p.small-info:hover {
 }
 .mt25 {
   margin-top: 2.5em;
+}
+.plr8 {
+  padding: 0 8px;
 }
 
 md-toast[md-theme=warn] {
@@ -1488,6 +1513,26 @@ div[ui-view='map'] {
 .indicator-tabs md-autocomplete[md-floating-label] md-input-container {
   padding-bottom: 2px;
 }
+.md-color-container.md-color-picker-preview {
+  content: '';
+  width: 24px;
+  height: 24px;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.14), 0 2px 2px 0 rgba(0, 0, 0, 0.098), 0 1px 5px 0 rgba(0, 0, 0, 0.084);
+  margin: auto;
+  bottom: 26px;
+  margin-right: 1em;
+  overflow: hidden;
+  background-color: #fff;
+  background-image: linear-gradient(45deg, #ddd 25%, transparent 25%, transparent 75%, #ddd 75%, #ddd), linear-gradient(45deg, #ddd 25%, transparent 25%, transparent 75%, #ddd 75%, #ddd);
+  background-size: 8px 8px;
+  background-position: 0 0,4px 4px;
+}
+.md-color-container.md-color-picker-preview .md-color-picker-result {
+  width: 100%;
+  height: 100%;
+}
 
 .indicator-menu {
   position: absolute;
@@ -1520,35 +1565,6 @@ div[ui-view='map'] {
 }
 .indicator-menu ng-md-icon.greyed path {
   fill: #ddd;
-}
-
-.dropzone {
-  border: 2px dashed #ddd;
-  padding: 2em;
-}
-.or {
-  position: relative;
-  margin: 1em 0;
-}
-.or::after {
-  content: '';
-  width: 200%;
-  position: absolute;
-  left: 50%;
-  margin-left: -2.5em;
-  border-bottom: 1px solid;
-  height: 1px;
-  top: 0.5em;
-}
-.or::before {
-  content: '';
-  width: 200%;
-  position: absolute;
-  right: 50%;
-  margin-right: -2.5em;
-  border-bottom: 1px solid;
-  height: 1px;
-  top: 0.5em;
 }
 
 median {
@@ -1606,14 +1622,42 @@ median .slider text {
   cursor: ew-resize;
 }
 
+.dropzone {
+  border: 2px dashed #ddd;
+  padding: 2em;
+}
+.or {
+  position: relative;
+  margin: 1em 0;
+}
+.or::after {
+  content: '';
+  width: 200%;
+  position: absolute;
+  left: 50%;
+  margin-left: -2.5em;
+  border-bottom: 1px solid;
+  height: 1px;
+  top: 0.5em;
+}
+.or::before {
+  content: '';
+  width: 200%;
+  position: absolute;
+  right: 50%;
+  margin-right: -2.5em;
+  border-bottom: 1px solid;
+  height: 1px;
+  top: 0.5em;
+}
+
+
 .slide-toggle {
   transition: all .5s;
 }
 .slide-toggle.ng-animate {
   overflow: hidden;
 }
-
-
 
 .section {
   padding: 30px;
@@ -1739,5 +1783,6 @@ median .slider text {
 .calculating .field-name-field-calculating-text {
   padding-right: 220px;
 }
+
 
 /*# sourceMappingURL=app.css.map */

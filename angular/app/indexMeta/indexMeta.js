@@ -127,14 +127,17 @@
     			}
     			return style;
     		}
+        function setCountries(){
+          vm.mvtSource.setStyle(countriesStyle);
+          vm.mvtSource.redraw()
+        }
         function drawCountries() {
           minMax();
     			leafletData.getMap('map').then(function (map) {
     				vm.map = map;
     				vm.mvtSource = VectorlayerService.getLayer();
     				$timeout(function () {
-    						vm.mvtSource.setStyle(countriesStyle);
-    					//vm.mvtSource.redraw();
+    						setCountries();
     				});
     			});
     		}

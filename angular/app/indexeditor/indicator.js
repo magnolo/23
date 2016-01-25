@@ -1,10 +1,10 @@
 (function () {
 	"use strict";
 
-	angular.module('app.controllers').controller('IndexeditorindicatorCtrl', function ($scope, $state,$timeout, VectorlayerService, leafletData, ContentService) {
+	angular.module('app.controllers').controller('IndexeditorindicatorCtrl', function ($scope, $state,$timeout, VectorlayerService, leafletData, ContentService, indicator) {
 		//
 		var vm = this;
-    vm.indicator = ContentService.getIndicator($state.params.id);
+    vm.indicator = indicator;
 		vm.scale = "";
 		vm.min = 10000000;
 		vm.max = 0;
@@ -12,7 +12,18 @@
 		setActive();
 
 		ContentService.getIndicatorData($state.params.id).then(function(data){
-			VectorlayerService.createCanvas('#ff0000');
+			var base_color = '#ff0000';
+			if(typeof vm.indicator.style == "undefined"){
+				angular.forEach(vm.indicator.categories, function(cat){
+					if(typeof cat.style != "undefined"){
+						base_color = cat.style.base_color;
+					}
+				});
+			}
+			else if(vm.indicator.style){
+				base_color = vm.indicator.style.base_color;
+			}
+			VectorlayerService.createCanvas(base_color );
 			vm.data = data;
 			minMax();
 			drawCountries();

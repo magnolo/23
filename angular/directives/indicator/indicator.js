@@ -1,7 +1,7 @@
 (function () {
 	"use strict";
 
-	angular.module('app.controllers').controller('IndicatorCtrl', function ($scope, DataService, DialogService, $filter, toastr) {
+	angular.module('app.controllers').controller('IndicatorCtrl', function ($scope, DataService, DialogService, $filter, toastr, VectorlayerService) {
 		//
 		var vm = this;
 
@@ -25,6 +25,7 @@
 
 		vm.toggleStyle = toggleStyle;
 		vm.selectedStyle = selectedStyle;
+		vm.saveStyle = saveStyle;
 
 		vm.createProvider = createProvider;
 		vm.createUnit = createUnit;
@@ -78,7 +79,6 @@
 					index = i;
 				}
 			})
-			console.log(found, index);
 			index === -1 ? vm.item.categories.push(categorie) : vm.item.categories.splice(index, 1);
 		}
 
@@ -102,7 +102,7 @@
 					vm.categories.push(data);
 					vm.createCategory = false;
 					vm.item.categories.push(data);
-					toastr.success('New Category was saved','Success');
+					toastr.success('New Category has been saved','Success');
 				});
 			}
 		}
@@ -118,6 +118,14 @@
 		function selectedStyle(item, style) {
 			return vm.item.style_id == style.id ? true : false;
 		}
+		function saveStyle(){
+			DataService.post('styles', vm.style).then(function(data){
+				vm.styles.push(data);
+				vm.createStyle = false;
+				vm.item.style = data;
+				toastr.success('New Style has been saved','Success');
+			});
+		}
 
 		//TODO: ITS A HACK TO GET IT WORK: ng-click vs ng-mousedown
 		function createProvider(text){
@@ -127,6 +135,10 @@
 			DialogService.fromTemplate('addUnit', $scope);
 		}
 
+		$scope.$watch('vm.item', function(n, o){
+			if(n === o) return;
+
+		},true)
 	});
 
 })();

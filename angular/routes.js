@@ -117,7 +117,7 @@
 						controllerAs: 'vm',
 						resolve:{
 							indicators:function(ContentService){
-								return ContentService.fetchIndicators();
+								return ContentService.fetchIndicators({page:1, order:'title', limit:20, dir: 'ASC'});
 							}
 						}
 					}
@@ -142,6 +142,11 @@
 						templateUrl:'/views/app/indexeditor/indexeditorindicator.html',
 						controller: 'IndexeditorindicatorCtrl',
 						controllerAs: 'vm',
+						resolve:{
+							indicator:function(ContentService, $stateParams){
+								return ContentService.getIndicator($stateParams.id)
+							}
+						}
 					}
 				}
 				/*views:{

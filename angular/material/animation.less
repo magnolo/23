@@ -1,148 +1,168 @@
-.doAnim{
-  &.ng-enter {
-    -webkit-animation: slideInRight .5s;
-    -moz-animation: slideInRight .5s;
-    -ms-animation: slideInRight .5s;
-    animation: slideInRight .5s;
-  }
-  &.ng-leave {
-    -webkit-animation: slideOutRight .3s;
-    -moz-animation: slideOutRight .3s;
-    -ms-animation: slideOutRight .3s;
-    animation: slideOutRight .3s;
-    position:absolute;
-    top:0;
-    width:100%
-  }
+.doAnim {
+    &.ng-enter {
+        -webkit-animation: slideInRight 0.5s;
+        -moz-animation: slideInRight 0.5s;
+        -ms-animation: slideInRight 0.5s;
+        animation: slideInRight 0.5s;
+    }
+    &.ng-leave {
+        -webkit-animation: slideOutRight 0.3s;
+        -moz-animation: slideOutRight 0.3s;
+        -ms-animation: slideOutRight 0.3s;
+        animation: slideOutRight 0.3s;
+        position: absolute;
+        top: 0;
+        width: 100%;
+    }
 }
-.doAnim-right{
-
-  &.ng-enter {
-    -webkit-animation: slideInLeft .5s;
-    -moz-animation: slideInLeft .5s;
-    -ms-animation: slideInLeft .5s;
-    animation: slideInLeft .5s;
-    z-index:2;
-  }
-  &.ng-leave {
-    -webkit-animation: fadeOutRight .8s;
-    -moz-animation: fadeOutRight .8s;
-    -ms-animation: fadeOutRight .8s;
-    animation: fadeOutRight .8s;
-    position:absolute;
-    z-index:1;
-    top:0;
-    //width:100%
-  }
+.doAnim-right {
+    &.ng-enter {
+        -webkit-animation: slideInLeft 0.5s;
+        -moz-animation: slideInLeft 0.5s;
+        -ms-animation: slideInLeft 0.5s;
+        animation: slideInLeft 0.5s;
+        z-index: 2;
+    }
+    &.ng-leave {
+        -webkit-animation: fadeOutRight 0.8s;
+        -moz-animation: fadeOutRight 0.8s;
+        -ms-animation: fadeOutRight 0.8s;
+        animation: fadeOutRight 0.8s;
+        position: absolute;
+        z-index: 1;
+        top: 0;
+        //width:100%
+    }
 }
-.doAnim-left{
-
-  &.ng-enter {
-    -webkit-animation: slideInLeft .5s;
-    -moz-animation: slideInLeft .5s;
-    -ms-animation: slideInLeft .5s;
-    animation: slideInLeft .5s;
-    z-index:2;
-  }
-  &.ng-leave {
-    -webkit-animation: slideOutLeft .3s;
-    -moz-animation: slideOutLeft .3s;
-    -ms-animation: slideOutLeft .3s;
-    animation: slideOutLeft .3s;
-    position:absolute;
-    z-index:1;
-    top:0;
-    //width:100%
-  }
+.doAnim-left {
+    &.ng-enter {
+        -webkit-animation: slideInLeft 0.5s;
+        -moz-animation: slideInLeft 0.5s;
+        -ms-animation: slideInLeft 0.5s;
+        animation: slideInLeft 0.5s;
+        z-index: 2;
+    }
+    &.ng-leave {
+        -webkit-animation: slideOutLeft 0.3s;
+        -moz-animation: slideOutLeft 0.3s;
+        -ms-animation: slideOutLeft 0.3s;
+        animation: slideOutLeft 0.3s;
+        position: absolute;
+        z-index: 1;
+        top: 0;
+        //width:100%
+    }
 }
-
-
-
-.anim.ng-enter, .anim.ng-leave {
-  transition:all .3s ease-in;
+.list-anim {
+    &.ng-enter-stagger,
+    &.ng-leave-stagger,
+    &.ng-move-stagger {
+        /* 200ms will be applied between each sucessive enter operation */
+        -webkit-transition-delay: 0.02s;
+        transition-delay: 0.02s;
+    }
+    &.ng-enter,
+    &.ng-leave,
+    &.ng-move {
+        -webkit-transition: 0.1s linear all;
+        transition: 0.1s linear all;
+    }
+    &.ng-leave.ng-leave-active,
+    &.ng-enter,
+    &.ng-move {
+        -webkit-transition: 0.1s linear all;
+        transition: 0.1s linear all;
+        opacity: 0;
+    }
+    &.ng-leave,
+    &.ng-move.ng-move-active,
+    &.ng-enter.ng-enter-active {
+        opacity: 1;
+    }
 }
-.anim.ng-enter, .anim.ng-leave.ng-leave-active {
-  transform: translateY(100%);
-  opacity: 0;
+.anim.ng-enter,
+.anim.ng-leave {
+    transition: all 0.3s ease-in;
+}
+.anim.ng-enter,
+.anim.ng-leave.ng-leave-active {
+    transform: translateY(100%);
+    opacity: 0;
 }
 .anim.ng-enter.ng-enter-active {
     transform: translateY(0%);
     opacity: 1;
 }
-.anim-total.ng-enter, .anim.ng-leave {
-  transition:all .3s ease-in;
+.anim-total.ng-enter,
+.anim.ng-leave {
+    transition: all 0.3s ease-in;
 }
-.anim-total.ng-enter, .anim-total.ng-leave.ng-leave-active {
-  transform: translateX(100%);
-  opacity: 0;
-  position:absolute;
+.anim-total.ng-enter,
+.anim-total.ng-leave.ng-leave-active {
+    transform: translateX(100%);
+    opacity: 0;
+    position: absolute;
 }
 .anim-total.ng-enter.ng-enter-active {
     transform: translateX(0%);
     opacity: 1;
 }
-
-
-
-.anim-left.ng-enter, .anim-left.ng-leave {
-  transition:all .3s ease;
-
+.anim-left.ng-enter,
+.anim-left.ng-leave {
+    transition: all 0.3s ease;
 }
-.anim-left.ng-enter, .anim-left.ng-leave.ng-leave-active {
-  transform: translateX(-100%);
-  z-index:-1;
-  opacity: 1;
+.anim-left.ng-enter,
+.anim-left.ng-leave.ng-leave-active {
+    transform: translateX(-100%);
+    z-index: -1;
+    opacity: 1;
 }
 .anim-left.ng-enter.ng-enter-active {
     transform: translateX(0%);
     opacity: 1;
-    z-index:-1;
+    z-index: -1;
 }
-
-
-
-.anim-opacity.ng-enter, .anim-opacity.ng-leave {
-  transition:all .3s ease-in;
+.anim-opacity.ng-enter,
+.anim-opacity.ng-leave {
+    transition: all 0.3s ease-in;
 }
-.anim-opacity.ng-enter, .anim-opacity.ng-leave.ng-leave-active {
-  opacity: 0;
+.anim-opacity.ng-enter,
+.anim-opacity.ng-leave.ng-leave-active {
+    opacity: 0;
 }
 .anim-opacity.ng-enter.ng-enter-active {
-  opacity: 1;
+    opacity: 1;
 }
-
-
-.anim-fade.ng-enter{
-  transition:all .4s ease-in-out;
+.anim-fade.ng-enter {
+    transition: all 0.4s ease-in-out;
 }
 .anim-fade.ng-leave {
-  transition:all .5s ease-in;
+    transition: all 0.5s ease-in;
 }
-.anim-fade.ng-enter{
-  //transition-delay: .2s;
+.anim-fade.ng-enter {
+    //transition-delay: .2s;
 }
-
-.anim-fade.ng-enter, .anim-fade.ng-leave.ng-leave-active {
-  opacity: 0;
-  transform:scale(0.8);
+.anim-fade.ng-enter,
+.anim-fade.ng-leave.ng-leave-active {
+    opacity: 0;
+    transform: scale(0.8);
 }
 .anim-fade.ng-enter.ng-enter-active {
-  opacity: 0;
-  transform:scale(1.1);
+    opacity: 0;
+    transform: scale(1.1);
 }
-
-
-.anim-height{
-    transition:all .5s ease-in;
+.anim-height {
+    transition: all 0.5s ease-in;
 }
-.anim-height.ng-enter, .anim-height.ng-leave{
-  transition:all .5s ease-in;
-  overflow:hidden;
+.anim-height.ng-enter,
+.anim-height.ng-leave {
+    transition: all 0.5s ease-in;
+    overflow: hidden;
 }
-.anim-height.ng-enter, .anim-height.ng-leave.ng-leave-active {
-  max-height:0px;
-
+.anim-height.ng-enter,
+.anim-height.ng-leave.ng-leave-active {
+    max-height: 0;
 }
 .anim-height.ng-enter.ng-enter-active {
-  max-height:1000px;
+    max-height: 1000px;
 }

@@ -132,10 +132,11 @@
 												<ng-md-icon icon="brush" ng-class="{'valid': vm.item.style_id}"></ng-md-icon>
 								</md-tab-label>
 								<md-tab-body>
-												<md-content class="md-accent anim-left" layout-padding >
+												<md-content class="md-accent doAnim-left" layout-padding ng-if="!vm.createStyle">
 																<div layout-align="space-between center" layout="row">
+																	<md-button class="md-primary md-border md-lowspace" ng-click="vm.save()" ng-disabled="styleForm.$invalid" ng-if="vm.options.withSave">Save</md-button>
 																				<span flex></span>
-																				<md-button class="md-primary md-border md-lowspace">Create new Style</md-button>
+																				<md-button class="md-primary md-border md-lowspace" ng-click="vm.createStyle = true">Create new Style</md-button>
 																</div>
 																<div layout-align="center center" layout="row">
 																				<h2 class="md-headline">Choose Style</h2>
@@ -143,11 +144,40 @@
 																<div class="indicator-fields">
 																				<md-list>
 																								<md-list-item class="selector" ng-class="{'checked': vm.selectedStyle(vm.item, style), 'unchecked': !vm.selectedStyle(vm.item, style)}" ng-click="vm.toggleStyle(style)" ng-repeat="style in vm.styles | filter:vm.resourceSearch">
-																												<p>{{style.title}}</p>
+																									<div class="md-color-container md-color-picker-preview md-color-picker-checkered-bg" ng-click="showColorPicker()" role="button" tabindex="0">
+			<div class="md-color-picker-result" ng-style="{background: style.base_color}"></div>
+			</div>
+																															<p>{{style.title}}</p>
 																												<ng-md-icon icon="check" layout-align="center center" layout="row" size="18"></ng-md-icon>
 																								</md-list-item>
 																				</md-list>
 																</div>
+												</md-content>
+												<md-content class="md-accent doAnim-left" layout-padding ng-if="vm.createStyle">
+																<form name="styleForm" novalidate>
+																				<div class="mb25" layout-align="space-between center" layout="row">
+																								<md-button class="md-primary md-border md-lowspace" ng-click="vm.saveStyle(styleForm.$valid)" ng-disabled="styleForm.$invalid">Save</md-button>
+																								<span flex></span>
+																								<md-button class="md-primary md-border md-lowspace" ng-click="vm.createStyle = false">Abort</md-button>
+																				</div>
+																				<div class="indicator-fields">
+																								<md-input-container class="md-block big">
+																												<label>Name*</label>
+																												<input maxlength="56" minlength="3" name="styleTitle" ng-model="vm.style.title" required type="text"/>
+
+																								</md-input-container>
+																								<div md-color-picker label="Main Color" ng-model="vm.style.base_color" required></div>
+																								<md-input-container class="md-block mt2">
+																												<label>Description</label>
+																												<textarea ng-model="vm.category.description"></textarea>
+																								</md-input-container>
+																								<div layout-align="center center" layout="row">
+																												<md-switch aria-label="Public" class="md-primary" ng-model="vm.style.is_public">
+																																Public
+																												</md-switch>
+																								</div>
+																				</div>
+																</form>
 												</md-content>
 								</md-tab-body>
 				</md-tab>

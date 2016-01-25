@@ -12,13 +12,14 @@
             styles:[],
             infographics:[]
           },
-          fetchIndicators: function(){
-             return this.content.indicators = DataService.getAll('indicators').$object
+          fetchIndicators: function(filter){
+             return this.content.indicators = DataService.getAll('indicators' , filter).$object
           },
           getIndicators: function(){
             return this.content.indicators;
           },
           getIndicator: function(id){
+            console.log(id);
             if(this.content.indicators.length){
               for(var i = 0; i < this.content.indicators.length; i++){
                 if(this.content.indicators[i].id == id){

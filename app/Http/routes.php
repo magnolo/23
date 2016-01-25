@@ -75,10 +75,12 @@ $api->version('v1', ['middleware' => 'api.auth'], function ($api) {
     $api->post('data/tables/{table}/insert', 'App\Http\Controllers\UserdataController@insertDataToTable');
 
     $api->post('categories', 'App\Http\Controllers\CategoriesController@store');
+    $api->post('styles', 'App\Http\Controllers\StyleController@store');
 
     $api->post('dataproviders', 'App\Http\Controllers\DataprovidersController@store');
 
     $api->post('measure_types', 'App\Http\Controllers\MeasureTypesController@store');
+
 
     //$api->post('index', 'App\Http\Controllers\IndexController@create');
 
