@@ -34,6 +34,7 @@
     "angular-moment": "~0.10.3",
     "moment": "~2.10.6",
     "animate.css": "git@github.com:daneden/animate.css.git#~3.5.1",
-    "lodash": "3.10.1"
+    "lodash": "3.10.1",
+    "angular-filter": "~0.5.8"
   }
 }

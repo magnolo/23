@@ -23,6 +23,7 @@ elixir(function(mix){
 		.copy('./angular/app/**/*.html', 'public/views/app/')
 		.copy('./angular/directives/**/*.html', 'public/views/directives/')
 		.copy('./angular/dialogs/**/*.html', 'public/views/dialogs/')
+		.copy('./angular/bottomsheets/**/*.html', 'public/views/bottomsheets/')
 		.livereload([
 			'public/js/vendor.js',
 			'public/js/app.js',

@@ -7,7 +7,7 @@ section {
         margin-left: 1em;
         margin-top: 1em;
         margin-bottom: 1em;
-        
+
         &.out {
             transform: translateX(-380px);
         }
@@ -49,17 +49,17 @@ section {
             width: 100%;
             overflow: hidden;
             transition: all 0.25s ease-in-out;
-            
+
             .sub-menue {
                 position: absolute;
                 right: 0;
                 height: 100%;
                 transform: translateX(100%);
                 transition: all 0.1s ease-in-out;
-                
+
                 .md-icon-button {
                     margin: 0 3px;
-                    
+
                     ng-md-icon {
                         top: 3px;
                     }
@@ -68,7 +68,7 @@ section {
 
             &:hover {
                 background-color: rgba(0,0,0,0.03);
-                
+
                 .sub-menue {
                     transform: translateX(0%);
                 }
@@ -77,7 +77,7 @@ section {
             &.editing {
                 background-color: @base;
                 color: #fff;
-                
+
                 * {
                     path {
                         fill: #fff;
@@ -104,12 +104,12 @@ section {
         left: 0;
         height: calc(~"100%");
         background: #fff;
-        
+
         md-data-table-toolbar {
             position: relative;
             background: #006bb9;
             color: #fff;
-            
+
             * {
                 fill: #fff;
             }
@@ -123,15 +123,15 @@ section {
             font-family: RobotoDraft,Roboto,'Helvetica Neue',sans-serif;
             max-height: calc(~"100% - 120px");
             overflow: auto;
-            
+
             thead:not([md-table-progress])>tr>th {
                 color: #006bb9;
-                
+
                 &.iconed {
                     position: relative;
                     //background:#006bb9;
                     padding-left: 3em !important;
-                    
+
                     span {
                         &.icon {
                             opacity: 0;
@@ -139,7 +139,7 @@ section {
                             position: absolute;
                             top: 1.3em;
                             left: 0;
-                            
+
                             path {
                                 fill: #ccc;
                             }
@@ -155,7 +155,7 @@ section {
                     &.globe {
                         span {
                             opacity: 1;
-                            
+
                             path {
                                 fill: #006bb9;
                             }
@@ -174,7 +174,7 @@ section {
                 &.done,
                 &.done.md-active {
                     color: green !important;
-                    
+
                     path {
                         //fill:green;
                     }
@@ -191,7 +191,7 @@ section {
 
             table[md-data-table]>tbody>tr {
                 height: 2.5em;
-                
+
                 &.md-warn {
                     background-color: rgba(244,67,54,0.2);
                 }
@@ -234,7 +234,7 @@ section {
     width: auto !important;
     padding-right: 1em;
     box-shadow: 0 3px 1px -2px rgba(0, 0, 255, 0.14), 0 2px 2px 0 rgba(0, 0, 255, 0.098), 0 1px 5px 0 rgba(0, 0, 255, 0.084);
-    
+
     .actions,
     .sub-menue {
         display: none;
@@ -249,7 +249,7 @@ section {
 
     md-checkbox {
         opacity: 0.25;
-        
+
         &.md-checked {
             opacity: 1;
         }
@@ -276,14 +276,14 @@ section {
 md-list {
     md-list-item {
         border-bottom: 1px solid @grey-light;
-        
+
         &:last-child {
             border-bottom: 0;
         }
 
         &.sub-list {
             padding: 0;
-            
+
             md-list {
                 width: 100%;
             }
@@ -292,7 +292,7 @@ md-list {
 
     .md-button {
         border-radius: 0;
-        
+
         .md-ripple-container {
             border-radius: 0;
         }
@@ -300,10 +300,13 @@ md-list {
 }
 
 .chooser {
+    ng-md-icon{
+      transition: all .2s ease;
+    }
     &.unchecked {
         > ng-md-icon {
             background-color: #ddd;
-            
+
             path {
                 fill: #fff;
             }
@@ -311,9 +314,10 @@ md-list {
     }
 
     &.checked {
+
         > ng-md-icon {
             background-color: #333;
-            
+              box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
             path {
                 fill: #fff;
             }
@@ -334,7 +338,7 @@ md-list {
     padding-bottom: 0;
     font-size: 0.95em;
     min-height: 1em;
-    
+
     ng-md-icon {
         top: 0;
         border-radius: 50%;

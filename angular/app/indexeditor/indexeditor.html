@@ -1,90 +1,143 @@
 <md-subheader class="md-primary">
 				<div layout-align="space-between center" layout="row">
 								<span>Data Editor</span>
+								<span flex></span>
+								<div class="chooser" ng-class="{'unchecked': vm.selection.length != vm.indicators.length, 'checked': vm.selection.length == vm.indicators.length}">
+												<ng-md-icon icon="check" layout-align="center center" layout="row" ng-click="vm.selectAll()" size="18"></ng-md-icon>
+												<md-tooltip>De/Select All</md-tooltip>
+								</div>
 				</div>
 </md-subheader>
 <!--<div layout="row">
 				<span flex></span>
 				<md-button class="md-primary md-border" ui-sref="app.index.create">Upload New Data</md-button>
 </div>-->
- <md-tabs md-selected="selectedIndex" md-autoselect md-stretch-tabs md-dynamic-height >
-	 <md-tab label="Indizes">
-			 <md-content md-scroll-y>
-				 <div layout="column" style="font-size:0.8em">
-				 <div layout="row" layout-align="center center">
-					 			<span flex layout-align="center center" class="plr8">
-									<span ng-click="vm.filter.sort = 0" ng-class="{'info': vm.filter.sort == 0}">a-z</span>
-									<span>&nbsp;/&nbsp;</span>
-									<span ng-click="vm.filter.sort = 1" ng-class="{'info': vm.filter.sort == 1}">Dataprovider</span>
-								</span>
+<md-tabs md-autoselect md-dynamic-height md-selected="selectedIndex" md-stretch-tabs>
+				<md-tab label="Indizes">
+								<md-content md-scroll-y>
+												<div layout="column" style="position:relative;">
+																<div class="p1 pr0" layout-align="space-between center" layout="row">
+																				<md-input-container class="mb0">
+																								<label>Sort by</label>
+																								<md-select ng-model="vm.filter.sort">
+																												<md-option value="title">
+																																A-Z
+																												</md-option>
+																												<md-option value="dataprovider_id">
+																																Dataprovider
+																												</md-option>
+																												<md-option value="">
+																																Categories
+																												</md-option>
+																												<md-option value="created_at">
+																																Date created
+																												</md-option>
+																								</md-select>
+																				</md-input-container>
+																				<span flex></span>
 
-								 <md-button class="md-primary md-border small" ng-class="{'md-primary md-border': !vm.filter.published}" ng-click="vm.filter.published = false">Unpublished</md-button>
-								 <md-button ng-class="{'md-primary md-border': vm.filter.published}" ng-click="vm.filter.published = true">Published</md-button>
-				 </div>
-				 <div layout-align="space-between center" layout="row">
-								 <md-menu>
-												 <md-button aria-label="Open filter menu" ng-click="vm.openMenu($mdOpenMenu, $event)">
-																 Filter
-												 </md-button>
-												 <md-menu-content style="padding:0 1em">
-																 <md-menu-item>
-																				 <md-checkbox class="md-primary" aria-label="Filter Title" ng-model="vm.filter.types.title">
-																								 Title
-																				 </md-checkbox>
-																 </md-menu-item>
-																 <md-menu-item>
-																				 <md-checkbox class="md-primary"  aria-label="Filter Title" ng-model="vm.filter.types.categories">
-																								 Categories
-																				 </md-checkbox>
-																 </md-menu-item>
-																 <md-menu-item>
-																				 <md-checkbox class="md-primary"  aria-label="Filter Title" ng-model="vm.filter.types.infographic">
-																								 Infographic
-																				 </md-checkbox>
-																 </md-menu-item>
-																 <md-menu-item>
-																				 <md-checkbox class="md-primary"  aria-label="Filter Title" ng-model="vm.filter.types.description">
-																								 Description
-																				 </md-checkbox>
-																 </md-menu-item>
-																 <md-menu-item>
-																				 <md-checkbox class="md-primary" aria-label="Filter Title" ng-model="vm.filter.types.style">
-																								 Style
-																				 </md-checkbox>
-																 </md-menu-item>
-												 </md-menu-content>
-								 </md-menu>
-								 <md-input-container flex="50">
-												 <label>Search</label>
-												 <input name="search" ng-model="vm.search" ng-model-options="{debounce: 500}" type="text"/>
-								 </md-input-container>
-				 </div>
-			 </div>
-				 <md-divider></md-divider>
-				 <div layout="row">
-								 <md-list flex lr-infinite-scroll="vm.loadIndicators">
-												 <md-list-item class="chooser list-anim" ng-repeat="indicator in vm.indicators | filter:vm.search" ng-class="{'checked': vm.selectedItems(indicator), 'unchecked': !vm.selectedItems(indicator)}">
-																 <p class="cursor" ng-class="{'warning':!indicator.title}" ui-sref="app.index.editor.indicator({id:indicator.id})">{{indicator.title || '['+indicator.name+']'}}</p>
-																 <ng-md-icon ng-click="vm.toggleSelection(indicator)" icon="check" layout-align="center center" layout="row" size="18"></ng-md-icon>
-																 <indicator-menu item="indicator"></indicator-menu>
-												 </md-list-item>
-								 </md-list>
-				 </div>
-			 </md-content>
-	</md-tab>
-	<md-tab label="Categories">
-		<md-content>
+																				<md-button class="md-fab md-mini" ng-class="{'md-primary': vm.filter.published}" ng-click="vm.filter.published = !vm.filter.published">
+																								<md-icon class="ng-scope ng-isolate-scope material-icons" ng-if="!vm.filter.published">lock</md-icon>
+																								<md-icon class="material-icons" ng-if="vm.filter.published">lock_open</md-icon>
+																				</md-button>
+																				<md-button class="md-fab md-mini" ng-class="{'md-primary': vm.search.show}" ng-click="vm.search.show = !vm.search.show">
+																								<md-icon class="material-icons">search</md-icon>
+																				</md-button>
+																				<md-button ng-click="vm.showListBottomSheet()">
+																								<md-icon class="material-icons">more_vert</md-icon>
+																				</md-button>
+																</div>
+																<div class="doAnim-bottom md-top" layout-align="space-between center" layout="row" ng-if="vm.search.show">
+																				<!--<md-input-container flex="50">
+																								<label>Search</label>
+																								<input name="search" ng-model-options="{debounce: 500}" ng-model="vm.search.query" type="text"/>
+																				</md-input-container>-->
+																				<md-input-container class="m0" flex>
+																								<label>&nbsp;</label>
+																								<input ng-model="vm.search.query" placeholder="Enter Search...">
+																				</md-input-container>
+																				<md-button aria-label="Search" class="md-fab md-mini md-primary" ng-click="vm.search.show = !vm.search.show">
+																								<md-icon class="material-icons">search</md-icon>
+																				</md-button>
+																				<md-menu>
+																								<md-button aria-label="Open filter menu" class="md-fab md-mini" ng-click="vm.openMenu($mdOpenMenu, $event)">
+																												<md-icon class="material-icons">view_list</md-icon>
+																								</md-button>
+																								<md-menu-content style="padding:0 1em">
+																												<md-menu-item>
+																																<md-checkbox aria-label="Filter Title" class="md-primary" ng-model="vm.filter.types.title">
+																																				Title
+																																</md-checkbox>
+																												</md-menu-item>
+																												<md-menu-item>
+																																<md-checkbox aria-label="Filter Title" class="md-primary" ng-model="vm.filter.types.categories">
+																																				Categories
+																																</md-checkbox>
+																												</md-menu-item>
+																												<md-menu-item>
+																																<md-checkbox aria-label="Filter Title" class="md-primary" ng-model="vm.filter.types.infographic">
+																																				Infographic
+																																</md-checkbox>
+																												</md-menu-item>
+																												<md-menu-item>
+																																<md-checkbox aria-label="Filter Title" class="md-primary" ng-model="vm.filter.types.description">
+																																				Description
+																																</md-checkbox>
+																												</md-menu-item>
+																												<md-menu-item>
+																																<md-checkbox aria-label="Filter Title" class="md-primary" ng-model="vm.filter.types.style">
+																																				Style
+																																</md-checkbox>
+																												</md-menu-item>
+																								</md-menu-content>
+																				</md-menu>
 
-		</md-content>
-	</md-tab>
-	<md-tab label="Composits">
-		<md-content>
-
-		</md-content>
-	</md-tab>
-	<md-tab label="Aggregats">
-		<md-content>
-
-		</md-content>
-	</md-tab>
- </md-tabs>
+																				<md-button aria-label="Search" class="md-fab md-mini" ng-click="vm.search.show = !vm.search.show">
+																								<md-icon class="material-icons">close</md-icon>
+																				</md-button>
+																</div>
+												</div>
+												<md-divider></md-divider>
+												<div layout="row">
+																<md-list ng-if="vm.filter.sort == 'dataprovider_id'" flex>
+																				<md-list-item ng-repeat="(key, group) in vm.indicators | filter: { is_official: vm.filter.published}  | orderBy: vm.filter.sort : vm.filter.reverse | groupBy: 'dataprovider.title'">
+																								<div class="md-list-item-text" flex>
+																												<p layout="row" layout-align="space-between center" >
+																													<span ng-click="vm.toggleList(key)" style="font-style:italic">{{key}}</span>
+																													<span flex></span>
+																													<span class="chooser" ng-class="{'unchecked': vm.selected.length != vm.indicators.length, 'checked': vm.selected.length == vm.indicators.length}">
+																																	<ng-md-icon icon="check" layout-align="center center" layout="row" ng-click="vm.selectAllGroup(group)" size="18"></ng-md-icon>
+																																	<md-tooltip>De/Select All</md-tooltip>
+																													</span>
+																													<md-icon ng-click="vm.toggleList(key)" class="material-icons">{{ vm.visibleList == key ? 'arrow_drop_up' : 'arrow_drop_down'}}</md-icon>
+																												</p>
+																												<md-list class="no-line slide-toggle" ng-if="vm.visibleList == key" flex>
+																																<md-list-item class="chooser" flex ng-class="{'checked': vm.selectedItem(indicator), 'unchecked': !vm.selectedItem(indicator)}" ng-repeat="indicator in group">
+																																				<p class="cursor" ng-class="{'warning':!indicator.title}" ui-sref="app.index.editor.indicator({id:indicator.id})">{{indicator.title || '['+indicator.name+']'}}</p>
+																																				<ng-md-icon icon="check" layout-align="center center" layout="row" ng-click="vm.toggleSelection(indicator)" size="18"></ng-md-icon>
+																																				<indicator-menu item="indicator" layout-align="center center" layout="row"></indicator-menu>
+																																</md-list-item>
+																												</md-list>
+																								</div>
+																				</md-list-item>
+																</md-list>
+																<md-list ng-if="vm.filter.sort == 'title'" flex>
+																				<md-list-item flex class="chooser" ng-class="{'checked': vm.selectedItem(indicator), 'unchecked': !vm.selectedItem(indicator)}" ng-repeat="indicator in vm.indicators | filter: { is_official: vm.filter.published}  | orderBy: vm.filter.sort : vm.filter.reverse ">
+																								<p class="cursor" ng-class="{'warning':!indicator.title}" ui-sref="app.index.editor.indicator({id:indicator.id})">{{indicator.title || '['+indicator.name+']'}}</p>
+																								<ng-md-icon icon="check" layout-align="center center" layout="row" ng-click="vm.toggleSelection(indicator)" size="18"></ng-md-icon>
+																								<indicator-menu item="indicator" layout-align="center center" layout="row"></indicator-menu>
+																				</md-list-item>
+																</md-list>
+												</div>
+								</md-content>
+				</md-tab>
+				<md-tab label="Categories">
+								<md-content></md-content>
+				</md-tab>
+				<md-tab label="Composits">
+								<md-content></md-content>
+				</md-tab>
+				<md-tab label="Aggregats">
+								<md-content></md-content>
+				</md-tab>
+</md-tabs>

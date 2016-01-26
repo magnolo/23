@@ -21,7 +21,7 @@
         <header ui-view="header"></header>
     </md-toolbar>
     <md-content layout="row" flex md-scroll-y>
-        <md-sidenav class="Sidebar md-sidenav-left md-whiteframe-z1" md-component-id="left" md-is-locked-open="$root.sidebarOpen" tabindex="-1">
+        <md-sidenav id="sidebar" class="Sidebar md-sidenav-left md-whiteframe-z1" md-component-id="left" md-is-locked-open="$root.sidebarOpen" tabindex="-1">
             <!-- Sidebar header/branding -->
             <!--<md-toolbar class="Sidebar-header">
               <h1 class="md-toolbar-tools Sidebar-title">Laravel 5 angular<br>material starter</h1>

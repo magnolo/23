@@ -21,6 +21,14 @@
   z-index: 1;
   top: 0;
 }
+.doAnim-bottom.ng-enter {
+  -webkit-animation: slideInDown 0.4s;
+  animation: slideInDown 0.4s;
+}
+.doAnim-bottom.ng-leave {
+  -webkit-animation: slideOutUp 0.3s;
+  animation: slideOutUp 0.3s;
+}
 .doAnim-left.ng-enter {
   -webkit-animation: slideInLeft 0.5s;
   animation: slideInLeft 0.5s;
@@ -344,9 +352,44 @@ md-list md-list-item .md-button ng-md-icon {
   position: static;
   top: 0;
 }
+md-list.no-line md-list-item {
+  border-bottom: 0px;
+  position: relative;
+  box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
+  transition: all 0.2s ease-in-out;
+  -webkit-transform: scale(1);
+  transform: scale(1);
+  /*  &::after, &::before{
+        content:'';
+        height:1px;
+        width:0;
+        left:-2em;
+        position:absolute;
+        background-color: @grey-light;
+        transition: all .35s ease-in-out;
+      }
+      &::after{
+        bottom:0;
+      }
+      &::before{
+        top:0;
+      }*/
+  /*&.checked{
+        background-color:@base;
+        color:#fff;
+      }*/
+}
+md-list.no-line md-list-item:hover {
+  /*&::after, &::before{
+          width:150%;
+        }*/
+}
 a.md-button ng-md-icon {
   position: relative;
   top: 0.5em;
+}
+.md-button {
+  min-width: 0;
 }
 .md-button .md-ripple-container {
   border-radius: 20px;
@@ -473,6 +516,24 @@ md-sidenav.md-locked-open {
 .md-subheader .md-subheader-inner {
   font-size: 20px;
   line-height: 1.1em;
+}
+.md-top {
+  position: absolute;
+  top: 0px;
+  width: 100%;
+  z-index: 20;
+  padding: 0 1em;
+  background-color: #fff;
+  height: 100%;
+}
+.md-top md-input-container .md-errors-spacer {
+  position: absolute;
+}
+.md-subheader-wrapper:not(.md-sticky-no-effect).md-sticky-clone {
+  z-index: 21;
+}
+md-bottom-sheet {
+  position: fixed;
 }
 
 *:focus {
@@ -636,6 +697,12 @@ p.small-info:hover {
   width: 400px;
 }
 
+.m0 {
+  margin: 0px;
+}
+.mb0 {
+  margin-bottom: 0px;
+}
 .mb1 {
   margin-bottom: 1em;
 }
@@ -654,8 +721,17 @@ p.small-info:hover {
 .mt25 {
   margin-top: 2.5em;
 }
+.p1 {
+  padding: 1em;
+}
 .plr8 {
   padding: 0 8px;
+}
+.plr1 {
+  padding: 0 1em;
+}
+.pr0 {
+  padding-right: 0px;
 }
 
 md-toast[md-theme=warn] {
@@ -1239,6 +1315,9 @@ md-list .md-button {
 md-list .md-button .md-ripple-container {
   border-radius: 0;
 }
+.chooser ng-md-icon {
+  transition: all .2s ease;
+}
 .chooser.unchecked > ng-md-icon {
   background-color: #ddd;
 }
@@ -1247,6 +1326,7 @@ md-list .md-button .md-ripple-container {
 }
 .chooser.checked > ng-md-icon {
   background-color: #333;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
 }
 .chooser.checked > ng-md-icon path {
   fill: #fff;
@@ -1659,6 +1739,7 @@ median .slider text {
   overflow: hidden;
 }
 
+
 .section {
   padding: 30px;
   margin-bottom: 40px;
@@ -1783,6 +1864,5 @@ median .slider text {
 .calculating .field-name-field-calculating-text {
   padding-right: 220px;
 }
-
 
 /*# sourceMappingURL=app.css.map */
