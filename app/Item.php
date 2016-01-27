@@ -14,16 +14,19 @@ class Item extends Model
       return $this->belongsTo('App\Item', 'parent_id');
     }
     public function children(){
-      return $this->hasMany('App\Item', 'parent_id')->with('children','type','style');
+      return $this->hasMany('App\Item', 'parent_id')->with('children','type','style', 'indicator');
     }
     public function indicator(){
-      return $this->belongsTo('App\Indicator', 'indicator_id');
+      return $this->belongsTo('App\Indicator', 'indicator_id')->with('style', 'categories');
     }
     public function type(){
       return $this->belongsTo('App\ItemType', 'item_type_id');
     }
     public function style(){
       return $this->belongsTo('App\Style', 'style_id');
+    }
+    public function categories(){
+      return $this->belongsToMany('App\Categorie', '23_item_categories', 'item_id', 'categorie_id')->with('style');
     }
     public function getStyle() {
       if ($this->style) {

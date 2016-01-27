@@ -90,6 +90,13 @@ class ItemController extends Controller
        }
        return false;
     }
+
+    public function showMine(){
+
+         return response()->api(Item::where('parent_id', 0)->where('user_id', \Auth::user()->id)->with('children')->get());
+
+
+    }
     public function showWithChildren($id)
     {
         $index = array();
@@ -97,9 +104,9 @@ class ItemController extends Controller
             $index = Item::find($id)->with('children', 'style', 'indicator', 'type', 'parent');
         }
         elseif(is_string($id)){
-          $index =  Item::where('name', $id)->first()->load('children', 'style', 'indicator', 'type', 'parent');
+          $index =  Item::where('name', $id)->with('children', 'style', 'indicator', 'type', 'parent')->first();
         }
-        $index->style = $index->getStyle();
+        //$index->style = $index->getStyle();
         return response()->api($index);
     }
     public function getLatestYear($index){

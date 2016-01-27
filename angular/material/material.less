@@ -112,11 +112,14 @@ a{
   }
 }
 .md-button{
-  min-width: 0;
+
   .md-ripple-container{
     border-radius: 20px;
   }
-
+  &.small{
+    min-width: 0px;
+    min-height: 0px;
+  }
   &.md-icon-button{
     &.small{
       min-width: 0px;
@@ -136,6 +139,14 @@ a{
   border-width: 1px !important;
     &:focus{
       border-width: 1px;
+    }
+  }
+  &.md-fab{
+    &.md-mini{
+      .material-icons{
+        margin-left:-2px;
+        margin-top:-2px;
+      }
     }
   }
 }
@@ -218,7 +229,7 @@ md-toolbar{
     }
   }
 }
-.info, p{
+.info, p, span{
   &.success{
     color:@green;
     path{
@@ -289,4 +300,8 @@ md-sidenav {
 }
 md-bottom-sheet{
   position: fixed;
+}
+md-tooltip{
+  font-size:0.7em;
+  font-family: 'Roboto'
 }

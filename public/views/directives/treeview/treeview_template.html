@@ -1,0 +1,11 @@
+<script type="text/ng-template" id="treeview.html">
+  <md-list-item>
+    <p>{{ item.title }}</p>
+    <md-icon class="material-icons" ng-if="item.items" ng-click="toggleItems(item)">
+      <i class="material-icons">{{ item.expanded ? 'expand_less' : 'expand_more' }}</i>
+    </md-icon>
+  </md-list-item>
+  <md-list flex ng-if="item.items" ng-show="item.expanded">
+    <div ng-repeat="item in item.items" ng-include="'treeview.html'"></div>
+  </md-list>
+</script>

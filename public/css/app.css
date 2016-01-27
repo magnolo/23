@@ -29,6 +29,14 @@
   -webkit-animation: slideOutUp 0.3s;
   animation: slideOutUp 0.3s;
 }
+.doAnim-top.ng-enter {
+  -webkit-animation: slideInUp 0.4s;
+  animation: slideInUp 0.4s;
+}
+.doAnim-top.ng-leave {
+  -webkit-animation: fadeOutDown 0.3s;
+  animation: fadeOutDown 0.3s;
+}
 .doAnim-left.ng-enter {
   -webkit-animation: slideInLeft 0.5s;
   animation: slideInLeft 0.5s;
@@ -388,11 +396,12 @@ a.md-button ng-md-icon {
   position: relative;
   top: 0.5em;
 }
-.md-button {
-  min-width: 0;
-}
 .md-button .md-ripple-container {
   border-radius: 20px;
+}
+.md-button.small {
+  min-width: 0px;
+  min-height: 0px;
 }
 .md-button.md-icon-button.small {
   min-width: 0px;
@@ -412,6 +421,10 @@ a.md-button ng-md-icon {
 }
 .md-button.md-border:focus {
   border-width: 1px;
+}
+.md-button.md-fab.md-mini .material-icons {
+  margin-left: -2px;
+  margin-top: -2px;
 }
 a.md-button span {
   margin: 0;
@@ -471,19 +484,23 @@ md-toolbar.clean .md-toolbar-tools {
   font-size: 1.2em;
 }
 .info.success,
-p.success {
+p.success,
+span.success {
   color: #00ccaa;
 }
 .info.success path,
-p.success path {
+p.success path,
+span.success path {
   fill: #00ccaa;
 }
 .info.warning,
-p.warning {
+p.warning,
+span.warning {
   color: #f44336;
 }
 .info.warning path,
-p.warning path {
+p.warning path,
+span.warning path {
   fill: #f44336;
 }
 .mini-info {
@@ -534,6 +551,10 @@ md-sidenav.md-locked-open {
 }
 md-bottom-sheet {
   position: fixed;
+}
+md-tooltip {
+  font-size: 0.7em;
+  font-family: 'Roboto';
 }
 
 *:focus {
@@ -1324,8 +1345,15 @@ md-list .md-button .md-ripple-container {
 .chooser.unchecked > ng-md-icon path {
   fill: #fff;
 }
-.chooser.checked > ng-md-icon {
+.chooser.children > ng-md-icon {
   background-color: #333;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+}
+.chooser.children > ng-md-icon path {
+  fill: #fff;
+}
+.chooser.checked > ng-md-icon {
+  background-color: #006bb9;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
 }
 .chooser.checked > ng-md-icon path {
@@ -1563,6 +1591,7 @@ div[ui-view='map'] {
 
 
 
+
 .indicator-tabs .indicator-fields {
   padding: 0 1em;
   max-width: 500px;
@@ -1740,6 +1769,7 @@ median .slider text {
 }
 
 
+
 .section {
   padding: 30px;
   margin-bottom: 40px;
@@ -1863,6 +1893,19 @@ median .slider text {
 }
 .calculating .field-name-field-calculating-text {
   padding-right: 220px;
+}
+
+.treeview md-list-item {
+  min-height: 32px;
+}
+.treeview md-list-item .md-list-item-text > p {
+  margin: .7em 0;
+}
+.treeview:not(:first-child) md-list-item {
+  padding-right: 0px;
+}
+.treeview .toggler {
+  padding: 0 .3em;
 }
 
 /*# sourceMappingURL=app.css.map */

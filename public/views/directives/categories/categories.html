@@ -1,0 +1,82 @@
+<div>
+  <md-content class="md-accent doAnim" layout-padding ng-if="!vm.item.categories.length && !vm.chooseCategories && !vm.createCategory">
+          <div layout-align="space-between center" layout="row">
+                  <h2 class="md-headline">Choose Categories</h2>
+                  <span flex></span>
+                  <md-button class="md-primary md-border md-lowspace " ng-click="vm.saveIndex()" ng-disabled="baseForm.$invalid">Done</md-button>
+          </div>
+          <div class="indicator-fields">
+                  <div layout-align="center center" layout="row">
+                          <md-button class="md-primary md-border md-min-width" ng-click="vm.chooseCategories = true">Add to Category</md-button>
+                  </div>
+                  <div layout-align="center center" layout="row">
+                          <md-button class="md-primary md-border md-min-width" ng-click="vm.createCategory = true">Create new Category</md-button>
+                  </div>
+          </div>
+  </md-content>
+  <md-content class="md-accent doAnim" layout-padding ng-if="vm.createCategory">
+          <form name="categoryForm" novalidate>
+                  <div class="mb25" layout-align="space-between center" layout="row">
+                        <span flex></span>
+                          <md-button class="md-primary md-fab md-mini doAnim-bottom" ng-if="categoryForm.$dirty" ng-click="vm.saveStyle(styleForm.$valid)" ng-disabled="categoryForm.$invalid">
+                            <md-icon class="material-icons">save</md-icon>
+                            <md-tooltip md-delay="500">Save changes</md-tooltip>
+                          </md-button>
+                          <md-button class="md-warn md-fab md-mini" ng-click="vm.createCategory = false" >
+                            <md-icon class="material-icons">close</md-icon>
+                            <md-tooltip md-delay="500">Abort</md-tooltip>
+                          </md-button>
+                  </div>
+                  <div class="indicator-fields">
+                          <md-input-container class="md-block big">
+                                  <label>Name*</label>
+                                  <input maxlength="56" minlength="3" name="categoryTitle" ng-model="vm.category.title" required type="text"/>
+                                  <div ng-messages="categoryForm.categoryTitle.$error" ng-show="categoryForm.categoryTitle.$error">
+                                          <div ng-message="required">You
+                                                  <b>must</b>
+                                                  enter a category name.</div>
+                                          <div ng-message="minlength">The name is not long enough. At least 3 characters!</div>
+                                          <div ng-message="maxlength">The name has to be less than 56 characters long.</div>
+                                  </div>
+                          </md-input-container>
+
+                          <md-autocomplete md-item-text="cat.title" md-items="cat in vm.querySearchCategory(vm.searchTextCat)" md-min-length="0" md-no-cache="vm.noCache" md-search-text-change="vm.searchTextChange(ctrl.searchTextCat)" md-search-text="vm.searchTextCat" md-selected-item="vm.category.parent" ng-disabled="vm.isDisabled" placeholder="Select a parent category?">
+                                  <md-item-template>
+                                          <span md-highlight-text="vm.searchTextCat">{{cat.title}}</span>
+                                  </md-item-template>
+                                  <md-not-found>
+                                          No states matching "{{vm.searchTextCat}}" were found.
+                                  </md-not-found>
+                          </md-autocomplete>
+                          <md-input-container class="md-block mt2">
+                                  <label>Description</label>
+                                  <textarea ng-model="vm.category.description"></textarea>
+                          </md-input-container>
+                          <div layout-align="center center" layout="row">
+                                  <md-switch aria-label="Public" class="md-primary" ng-model="vm.category.is_public">
+                                          Public
+                                  </md-switch>
+                          </div>
+                  </div>
+          </form>
+  </md-content>
+  <md-content class="md-accent doAnim-left" layout-padding ng-if="(vm.item.categories.length || vm.chooseCategories) && !vm.createCategory">
+          <div layout-align="space-between center" layout="row">
+                  <span flex></span>
+                  <md-button ng-if="vm.item.isDirty && vm.item.categories.length > 0" class="doAnim-bottom md-primary md-fab md-mini" ng-click="vm.save()" ng-disabled="categoryForm.$invalid" ng-if="vm.options.globalSave">
+                      <md-icon class="material-icons">save</md-icon>
+                      <md-tooltip md-delay="500" >Save changes</md-tooltip>
+                  </md-button>
+                  <md-button class="md-primary md-fab md-mini" ng-click="vm.createCategory = true">
+                    <md-icon class="material-icons">add</md-icon>
+                    <md-tooltip md-delay="500" >Create new one</md-tooltip>
+                  </md-button>
+          </div>
+          <div layout-align="center center" layout="row">
+                  <h2 class="md-headline">Choose Categories</h2>
+          </div>
+          <div class="indicator-fields">
+                  <treeview items="vm.categories" item="vm.item" options="{drag:false, type:'categories'}"></treeview>
+          </div>
+  </md-content>
+</div>

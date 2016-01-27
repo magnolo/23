@@ -12,40 +12,28 @@
 				<span flex></span>
 				<md-button class="md-primary md-border" ui-sref="app.index.create">Upload New Data</md-button>
 </div>-->
-<md-tabs md-autoselect md-dynamic-height md-selected="selectedIndex" md-stretch-tabs>
-				<md-tab label="Indizes">
+<md-tabs md-autoselect md-dynamic-height md-selected="vm.selectedTab" md-stretch-tabs ng-cloak>
+				<md-tab label="Indizes" md-on-select="vm.checkTabContent(0)">
 								<md-content md-scroll-y>
 												<div layout="column" style="position:relative;">
 																<div class="p1 pr0" layout-align="space-between center" layout="row">
-																				<md-input-container class="mb0">
-																								<label>Sort by</label>
-																								<md-select ng-model="vm.filter.sort">
-																												<md-option value="title">
-																																A-Z
-																												</md-option>
-																												<md-option value="dataprovider_id">
-																																Dataprovider
-																												</md-option>
-																												<md-option value="categories">
-																																Categories
-																												</md-option>
-																												<md-option value="created_at">
-																																Date created
-																												</md-option>
-																								</md-select>
-																				</md-input-container>
+																				<div layout="row" layout-align="space-around center">
+																					<md-button ng-class="{'md-primary':vm.filter.sort == 'title'}" ng-click="vm.filter.sort = 'title'" class="m0 small">A-Z</md-button>
+																					<span>/</span>
+																					<md-button ng-class="{'md-primary':vm.filter.sort == 'dataprovider_id'}" ng-click="vm.filter.sort = 'dataprovider_id'" class="m0 small">Dataprovider</md-button>
+																				</div>
 																				<span flex></span>
 
-																				<md-button class="md-fab md-mini" ng-class="{'md-primary': vm.filter.published}" ng-click="vm.filter.published = !vm.filter.published">
+																				<md-button aria-label="Toggle Published" class=" md-mini md-fab" ng-class="{'md-primary': vm.filter.published }" ng-click="vm.filter.published = !vm.filter.published">
 																								<md-icon class="ng-scope ng-isolate-scope material-icons" ng-if="!vm.filter.published">lock</md-icon>
 																								<md-icon class="material-icons" ng-if="vm.filter.published">lock_open</md-icon>
 																				</md-button>
 																				<md-button class="md-fab md-mini" ng-class="{'md-primary': vm.search.show}" ng-click="vm.search.show = !vm.search.show">
 																								<md-icon class="material-icons">search</md-icon>
 																				</md-button>
-																				<md-button ng-click="vm.showListBottomSheet()">
+																				<!--<md-button ng-click="vm.showListBottomSheet()">
 																								<md-icon class="material-icons">more_vert</md-icon>
-																				</md-button>
+																				</md-button>-->
 																</div>
 																<div class="doAnim-bottom md-top" layout-align="space-between center" layout="row" ng-if="vm.search.show">
 																				<!--<md-input-container flex="50">
@@ -99,19 +87,19 @@
 												</div>
 												<md-divider></md-divider>
 												<div layout="row">
-																<md-list ng-if="vm.filter.sort == 'dataprovider_id'" flex>
+																<md-list flex ng-if="vm.filter.sort == 'dataprovider_id'">
 																				<md-list-item ng-repeat="(key, group) in vm.indicators | filter: { is_official: vm.filter.published}  | orderBy: vm.filter.sort : vm.filter.reverse | groupBy: 'dataprovider.title'">
 																								<div class="md-list-item-text" flex>
-																												<p layout="row" layout-align="space-between center" >
-																													<span ng-click="vm.toggleList(key)" style="font-style:italic">{{key}}</span>
-																													<span flex></span>
-																													<span class="chooser" ng-class="{'unchecked': vm.selected.length != vm.indicators.length, 'checked': vm.selected.length == vm.indicators.length}">
-																																	<ng-md-icon icon="check" layout-align="center center" layout="row" ng-click="vm.selectAllGroup(group)" size="18"></ng-md-icon>
-																																	<md-tooltip>De/Select All</md-tooltip>
-																													</span>
-																													<md-icon ng-click="vm.toggleList(key)" class="material-icons">{{ vm.visibleList == key ? 'arrow_drop_up' : 'arrow_drop_down'}}</md-icon>
+																												<p layout-align="space-between center" layout="row">
+																																<span ng-click="vm.toggleList(key)" style="font-style:italic">{{key}}</span>
+																																<span flex></span>
+																																<span class="chooser" ng-class="{'unchecked': vm.selected.length != vm.indicators.length, 'checked': vm.selected.length == vm.indicators.length}">
+																																				<ng-md-icon icon="check" layout-align="center center" layout="row" ng-click="vm.selectAllGroup(group)" size="18"></ng-md-icon>
+																																				<md-tooltip>De/Select All</md-tooltip>
+																																</span>
+																																<md-icon class="material-icons" ng-click="vm.toggleList(key)">{{ vm.visibleList == key ? 'arrow_drop_up' : 'arrow_drop_down'}}</md-icon>
 																												</p>
-																												<md-list class="no-line slide-toggle" ng-if="vm.visibleList == key" flex>
+																												<md-list class="no-line slide-toggle" flex ng-if="vm.visibleList == key">
 																																<md-list-item class="chooser" flex ng-class="{'checked': vm.selectedItem(indicator), 'unchecked': !vm.selectedItem(indicator)}" ng-repeat="indicator in group">
 																																				<p class="cursor" ng-class="{'warning':!indicator.title}" ui-sref="app.index.editor.indicator({id:indicator.id})">{{indicator.title || '['+indicator.name+']'}}</p>
 																																				<ng-md-icon icon="check" layout-align="center center" layout="row" ng-click="vm.toggleSelection(indicator)" size="18"></ng-md-icon>
@@ -121,43 +109,27 @@
 																								</div>
 																				</md-list-item>
 																</md-list>
-																<md-list ng-if="vm.filter.sort == 'title'" flex>
-																				<md-list-item flex class="chooser" ng-class="{'checked': vm.selectedItem(indicator), 'unchecked': !vm.selectedItem(indicator)}" ng-repeat="indicator in vm.indicators | filter: { is_official: vm.filter.published}  | orderBy: vm.filter.sort : vm.filter.reverse ">
+																<md-list flex ng-if="vm.filter.sort == 'title'">
+																				<md-list-item class="chooser" flex ng-class="{'checked': vm.selectedItem(indicator), 'unchecked': !vm.selectedItem(indicator)}" ng-repeat="indicator in vm.indicators | filter: { is_official: vm.filter.published}  | orderBy: vm.filter.sort : vm.filter.reverse ">
 																								<p class="cursor" ng-class="{'warning':!indicator.title}" ui-sref="app.index.editor.indicator({id:indicator.id})">{{indicator.title || '['+indicator.name+']'}}</p>
 																								<ng-md-icon icon="check" layout-align="center center" layout="row" ng-click="vm.toggleSelection(indicator)" size="18"></ng-md-icon>
 																								<indicator-menu item="indicator" layout-align="center center" layout="row"></indicator-menu>
 																				</md-list-item>
 																</md-list>
-																<md-list ng-if="vm.filter.sort == 'categories'" flex>
-																				<md-list-item ng-repeat="(key, group) in vm.indicators | filter: { is_official: vm.filter.published}  | orderBy: vm.filter.sort : vm.filter.reverse | groupBy: 'categories[0].title'">
-																								<div class="md-list-item-text" flex>
-																												<p layout="row" layout-align="space-between center" >
-																													<span ng-click="vm.toggleList(key)" style="font-style:italic">{{key}}</span>
-																													<span flex></span>
-																													<span class="chooser" ng-class="{'unchecked': vm.selected.length != vm.indicators.length, 'checked': vm.selected.length == vm.indicators.length}">
-																																	<ng-md-icon icon="check" layout-align="center center" layout="row" ng-click="vm.selectAllGroup(group)" size="18"></ng-md-icon>
-																																	<md-tooltip>De/Select All</md-tooltip>
-																													</span>
-																													<md-icon ng-click="vm.toggleList(key)" class="material-icons">{{ vm.visibleList == key ? 'arrow_drop_up' : 'arrow_drop_down'}}</md-icon>
-																												</p>
-																												<md-list class="no-line slide-toggle" ng-if="vm.visibleList == key" flex>
-																																<md-list-item class="chooser" flex ng-class="{'checked': vm.selectedItem(indicator), 'unchecked': !vm.selectedItem(indicator)}" ng-repeat="indicator in group">
-																																				<p class="cursor" ng-class="{'warning':!indicator.title}" ui-sref="app.index.editor.indicator({id:indicator.id})">{{indicator.title || '['+indicator.name+']'}}</p>
-																																				<ng-md-icon icon="check" layout-align="center center" layout="row" ng-click="vm.toggleSelection(indicator)" size="18"></ng-md-icon>
-																																				<indicator-menu item="indicator" layout-align="center center" layout="row"></indicator-menu>
-																																</md-list-item>
-																												</md-list>
-																								</div>
-																				</md-list-item>
-																</md-list>
+
 												</div>
+
+
 								</md-content>
 				</md-tab>
-				<md-tab label="Categories">
-								<md-content></md-content>
+				<md-tab label="Categories" md-on-select="vm.checkTabContent(1)">
+								<md-content>
+									<treeview items="vm.categories" item="vm.selection" options="{drag:true, type:'categories'}"></treeview>
+								</md-content>
 				</md-tab>
-				<md-tab label="Composits">
-								<md-content></md-content>
+				<md-tab label="Composits" md-on-select="vm.checkTabContent(2)">
+									<treeview items="vm.composits" item="vm.selection" options="{drag:true, type:'composits'}"></treeview>
+
 				</md-tab>
 				<md-tab label="Aggregats">
 								<md-content></md-content>

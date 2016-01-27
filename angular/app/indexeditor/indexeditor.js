@@ -1,12 +1,13 @@
 (function () {
 	"use strict";
 
-	angular.module('app.controllers').controller('IndexeditorCtrl', function ($scope, $filter, $mdBottomSheet, $timeout,$state, indicators, ContentService) {
+	angular.module('app.controllers').controller('IndexeditorCtrl', function ($scope, $filter, $timeout,$state, indicators, DataService,ContentService) {
 		//
 		var vm = this;
 
 		vm.indicators = indicators;
 		vm.selection = [];
+		vm.selectedTab = 1;
 		vm.filter = {
 			sort:'title',
 			reverse:false,
@@ -31,10 +32,10 @@
 		vm.toggleSelection = toggleSelection;
 		vm.loadIndicators = loadIndicators;
 
-		vm.showListBottomSheet = showListBottomSheet;
 
 		vm.toggleList = toggleList;
 
+		vm.checkTabContent = checkTabContent;
 
 		activate($state.params);
 
@@ -56,8 +57,6 @@
 				vm.visibleList = key;
 			}
 		}
-
-
 		function selectedItem(item) {
 			return vm.selection.indexOf(item) > -1 ? true : false;
 		}
@@ -88,25 +87,28 @@
 				return vm.selection.push(item);
 			}
 		}
-
 		function loadIndicators() {
 
 		}
+		function checkTabContent(index){
+			switch (index) {
+				case 0:
 
+					break;
+				case 1:
+						vm.categories = ContentService.getCategories({indicators:true, tree:true});
+					break;
+				case 2:
+						vm.composits = DataService.getAll('me/indizes').$object;
+					break;
+				default:
 
+			}
+		}
 		function openMenu($mdOpenMenu, ev) {
 			$mdOpenMenu(ev);
 		}
-		 function showListBottomSheet($event) {
-		    $mdBottomSheet.show({
-		      templateUrl: '/views/bottomsheets/indizes/bottomsheet_indizes.html',
-		      //controller: 'ListBottomSheetCtrl',
-		      targetEvent: $event,
-					parent:'#sidebar',
-		    }).then(function(clickedItem) {
 
-		    });
-		  }
 
 		$scope.$watch('vm.search.query', function (query, oldQuery) {
 			if(query === oldQuery) return false;

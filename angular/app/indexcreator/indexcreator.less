@@ -312,11 +312,19 @@ md-list {
             }
         }
     }
-
+    &.children{
+      > ng-md-icon {
+          background-color: #333;
+            box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+          path {
+              fill: #fff;
+          }
+      }
+    }
     &.checked {
 
         > ng-md-icon {
-            background-color: #333;
+            background-color: @base;
               box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
             path {
                 fill: #fff;

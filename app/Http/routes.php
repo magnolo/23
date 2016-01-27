@@ -65,6 +65,7 @@ $api->version('v1', ['middleware' => 'api.auth'], function ($api) {
 
     $api->get('me', 'App\Http\Controllers\UserController@index');
     $api->get('me/data', 'App\Http\Controllers\UserController@myData');
+    $api->get('me/indizes','App\Http\Controllers\ItemController@showMine');
 
     $api->get('indicators', 'App\Http\Controllers\IndicatorController@index');
     $api->get('indicators/{id}', 'App\Http\Controllers\IndicatorController@show');

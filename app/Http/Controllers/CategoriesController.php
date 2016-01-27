@@ -21,7 +21,24 @@ class CategoriesController extends Controller
     public function index()
     {
         //
-        return response()->api(Categorie::all()->load('style'));
+        $with = ['style'];
+        $tree = false;
+        if(\Input::has('indicators')){
+          if(\Input::get('indicators') == true){
+            $with = ['style', 'indicators'];
+          }
+        }
+        if(\Input::has('tree')){
+          if(\Input::get('tree') == true){
+            $with = ['style', 'indicators', 'children'];
+            $tree = true;
+          }
+        }
+        $categories = Categorie::with($with)->orderBy('title');
+        if($tree){
+          $categories = $categories->where('parent_id', 0);
+        }
+        return response()->api($categories->get());
     }
 
     /**

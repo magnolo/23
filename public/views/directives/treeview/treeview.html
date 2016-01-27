@@ -1,0 +1,20 @@
+<md-list class=" no-line treeview" flex >
+				<md-list-item flex ng-repeat="item in vm.items" >
+								<div class="md-list-item-text " flex>
+												<p layout-align="space-between center" layout="row">
+                                <span ng-if="vm.options.drag" >
+                                <md-icon class="matrial-icons">more_vert</md-icon>
+                              </span>
+																<span>{{ item.title }}</span>
+																<span flex></span>
+                                <span class="chooser unchecked" ng-click="vm.toggleItem(item)" ng-class="{'unchecked': !vm.selectedItem(item), 'checked': vm.selectedItem(item),'children': vm.childSelected(item.children)}">
+                                        <ng-md-icon icon="check" layout-align="center center" layout="row" ng-click="item.selected = !item.selected" size="18"></ng-md-icon>
+                                </span>
+                                <md-icon class="material-icons toggler cursor" ng-click="item.expanded = !item.expanded" >
+																				<i class="material-icons" ng-if="item.children.length">{{ item.expanded ? 'expand_less' : 'expand_more' }}</i>
+																</md-icon>
+												</p>
+												<treeview items="item.children" item="vm.item" ng-if="item.expanded" options="vm.options"></treeview>
+								</div>
+				</md-list-item>
+</md-list>
