@@ -7,6 +7,15 @@
 		vm.selectedItem = selectedItem;
 		vm.childSelected = childSelected;
 		vm.toggleItem = toggleItem;
+		vm.onDragComplete = onDragComplete;
+		vm.onDropComplete = onDropComplete;
+
+		function onDragComplete(data,evt){
+       console.log("drag success, data:", data);
+    }
+    function onDropComplete(index, data,evt){
+				return vm.items.splice(index, 1);
+    }
 
 		function selectedItem(item) {
 			if(typeof vm.item === "undefined") return false;
@@ -20,7 +29,6 @@
 		}
 		function childSelected(children){
 			var found = false;
-			console.log($filter('flatten')(children));
 			angular.forEach($filter('flatten')(children), function(child){
 					if(selectedItem(child)){
 						found = true;

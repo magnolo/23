@@ -1,18 +1,23 @@
-.treeview{
-    md-list-item{
-      min-height: 32px;
-      .md-list-item-text{
-        > p{
-          margin:.7em 0;
+.treeview {
+    md-list-item {
+        min-height: 32px;
+        .md-list-item-text {
+            > p {
+                margin: 0.7em 0;
+            }
         }
-      }
     }
-    &:not(:first-child){
-      md-list-item{
-        padding-right:0px;
-      }
+    &:not(:first-child) {
+        md-list-item {
+            padding-right: 0;
+        }
     }
-    .toggler{
-      padding:0 .3em;
+    .toggler {
+        padding: 0 0.3em;
+    }
+    .dndPlaceholder{
+      height:2em;
+      list-style-type: none;
+      background-color:#ccc;
     }
 }

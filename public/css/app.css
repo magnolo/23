@@ -556,6 +556,21 @@ md-tooltip {
   font-size: 0.7em;
   font-family: 'Roboto';
 }
+.noselect {
+  -webkit-touch-callout: none;
+  /* iOS Safari */
+  -webkit-user-select: none;
+  /* Chrome/Safari/Opera */
+  -khtml-user-select: none;
+  /* Konqueror */
+  -moz-user-select: none;
+  /* Firefox */
+  -ms-user-select: none;
+  /* IE/Edge */
+  user-select: none;
+  /* non-prefixed version, currently
+                                  not supported by any browser */
+}
 
 *:focus {
   border: 0;
@@ -789,10 +804,6 @@ md-toolbar.Header .md-button.md-border {
   color: #006bb9;
 }
 
-md-list-item a.md-no-style {
-  margin: 0px;
-}
-
 md-toolbar.md-menu-toolbar {
   background-color: #ffffff;
   color: rgba(0, 0, 0, 0.87);
@@ -838,6 +849,10 @@ md-menu-bar {
   margin: 0 auto;
   max-width: 680px;
   padding: 24px;
+}
+
+md-list-item a.md-no-style {
+  margin: 0px;
 }
 
 /*.info-container {
@@ -1592,6 +1607,7 @@ div[ui-view='map'] {
 
 
 
+
 .indicator-tabs .indicator-fields {
   padding: 0 1em;
   max-width: 500px;
@@ -1899,13 +1915,18 @@ median .slider text {
   min-height: 32px;
 }
 .treeview md-list-item .md-list-item-text > p {
-  margin: .7em 0;
+  margin: 0.7em 0;
 }
 .treeview:not(:first-child) md-list-item {
-  padding-right: 0px;
+  padding-right: 0;
 }
 .treeview .toggler {
-  padding: 0 .3em;
+  padding: 0 0.3em;
+}
+.treeview .dndPlaceholder {
+  height: 2em;
+  list-style-type: none;
+  background-color: #ccc;
 }
 
 /*# sourceMappingURL=app.css.map */
