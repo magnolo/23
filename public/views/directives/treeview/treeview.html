@@ -1,20 +1,27 @@
-<md-list class=" no-line treeview" dnd-disable-if="!vm.options.drag" dnd-list="vm.items" flex>
-				<md-list-item dnd-draggable="item" dnd-effect-allowed="copyMove" dnd-effect-allowed="move" dnd-moved="vm.onDropComplete($index, 1)" flex ng-repeat="item in vm.items">
+<md-list class=" no-line treeview" dnd-disable-if="!vm.options.drag" dnd-list="vm.items" flex  dnd-dragover="vm.onDragOver(event, index, external, type)" dnd-drop="vm.onDropComplete(event, index, item, external)">
+				<md-list-item dnd-draggable="item" dnd-effect-allowed="copyMove"  flex ng-repeat="(key,item) in vm.items">
 								<div class="md-list-item-text " flex>
 												<p layout-align="space-between center" layout="row">
-																<span class="handle" ng-if="vm.options.drag">
+																<span class="handle" ng-if="vm.options.drag && item.id != 0">
 																				<md-icon class="matrial-icons">more_vert</md-icon>
 																</span>
-																<span>{{ item.title }}</span>
-																<span flex></span>
-																<span class="chooser unchecked" ng-class="{'unchecked': !vm.selectedItem(item), 'checked': vm.selectedItem(item),'children': vm.childSelected(item.children)}" ng-click="vm.toggleItem(item)">
+																<span ng-if="vm.options.drag && item.id == 0">
+																				<md-icon class="matrial-icons">close</md-icon>
+																</span>
+																<span dnd-nodrag>{{ item.title }}</span>
+																<span flex dnd-nodrag></span>
+																<weight dnd-nodrag items="vm.items" item="item"></weight>
+																<span dnd-nodrag ng-if="item.id != 0" class="chooser unchecked" ng-class="{'unchecked': !vm.selectedItem(item), 'checked': vm.selectedItem(item),'children': vm.childSelected(item.children)}" ng-click="vm.toggleItem(item)">
 																				<ng-md-icon icon="check" layout-align="center center" layout="row" ng-click="item.selected = !item.selected" size="18"></ng-md-icon>
 																</span>
-																<md-icon class="material-icons toggler cursor" ng-click="item.expanded = !item.expanded">
-																				<i class="material-icons" ng-if="item.children.length">{{ item.expanded ? 'expand_less' : 'expand_more' }}</i>
+																<md-icon class="material-icons" ng-click="vm.onMovedComplete(key)">close</md-icon>
+																<md-icon dnd-nodrag class="material-icons toggler cursor" >
+																				<i class="material-icons" ng-if="item.children.length" ng-click="item.expanded = !item.expanded">{{ item.expanded ? 'expand_less' : 'expand_more' }}</i>
+																				<i class="material-icons" ng-if="!item.children.length && item.id != 0" ng-click="vm.addChildren(item)">add</i>
 																</md-icon>
 												</p>
 												<treeview item="vm.item" items="item.children" ng-if="item.expanded" options="vm.options"></treeview>
+
 								</div>
 				</md-list-item>
 </md-list>

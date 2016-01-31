@@ -93,7 +93,8 @@ class ItemController extends Controller
 
     public function showMine(){
 
-         return response()->api(Item::where('parent_id', 0)->where('user_id', \Auth::user()->id)->with('children')->get());
+         //return response()->api(Item::where('parent_id', 0)->where('user_id', \Auth::user()->id)->with('children')->get());
+         return response()->api(Item::where('parent_id', 0)->with('children')->get());
 
 
     }

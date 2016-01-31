@@ -1,23 +1,44 @@
 .treeview {
+    position: relative;
+    
     md-list-item {
         min-height: 32px;
+        position: relative;
+        
         .md-list-item-text {
             > p {
                 margin: 0.7em 0;
             }
         }
     }
+
     &:not(:first-child) {
         md-list-item {
             padding-right: 0;
         }
     }
+
     .toggler {
         padding: 0 0.3em;
     }
-    .dndPlaceholder{
-      height:2em;
-      list-style-type: none;
-      background-color:#ccc;
+
+    .dndPlaceholder {
+        height: 46px;
+        list-style-type: none;
+        background-color: #ccc;
+    }
+
+    .dndDraggingSource {
+        display: none;
+    }
+
+    .handle {
+        cursor: move;
+    }
+
+    &.dndDragover {
+        .dndPlaceholder {
+            display: flex;
+        }
     }
 }
