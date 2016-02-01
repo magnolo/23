@@ -173,6 +173,7 @@ class ItemController extends Controller
           }
           $country[$name]['year'] = $index['year'];
         }
+        //DIVISION BY ZERO !!!!
         $country[$name]['value'] = $calc[$name]['value']/$length;
       }
       return $item;
