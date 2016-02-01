@@ -12,13 +12,25 @@
 .doAnim-right.ng-enter {
   -webkit-animation: slideInLeft 0.5s;
   animation: slideInLeft 0.5s;
-  z-index: 2;
+  z-index: 1;
 }
 .doAnim-right.ng-leave {
-  -webkit-animation: fadeOutRight 0.8s;
-  animation: fadeOutRight 0.8s;
+  -webkit-animation: fadeOutRight 0.75s;
+  animation: fadeOutRight 0.75s;
   position: absolute;
+  z-index: 2;
+  top: 0;
+}
+.doAnim-hinge.ng-enter {
+  -webkit-animation: bounceInDown 0.5s;
+  animation: bounceInDown 0.5s;
   z-index: 1;
+}
+.doAnim-hinge.ng-leave {
+  -webkit-animation: bounceOutDown 0.75s;
+  animation: bounceOutDown 0.75s;
+  position: absolute;
+  z-index: 2;
   top: 0;
 }
 .doAnim-bottom.ng-enter {
@@ -695,6 +707,7 @@ p.small-info:hover {
 }
 .rowed .Page {
   width: 400px;
+  height: 100%;
 }
 .loose .Header {
   background: #fff !important;
@@ -732,9 +745,20 @@ p.small-info:hover {
 .loose.rowed .Page {
   width: 400px;
 }
+.additional {
+  position: absolute;
+  top: 0;
+  width: 400px;
+  height: 100%;
+  left: 400px;
+  background-color: #fff;
+}
 
 .m0 {
   margin: 0px;
+}
+.m1 {
+  margin: 1em;
 }
 .mb0 {
   margin-bottom: 0px;
@@ -757,6 +781,9 @@ p.small-info:hover {
 .mt25 {
   margin-top: 2.5em;
 }
+.mtb1 {
+  margin: 1em 0;
+}
 .p1 {
   padding: 1em;
 }
@@ -778,7 +805,6 @@ md-toast[md-theme=warn] {
 .u-center {
   text-align: center;
 }
-
 
 /*.Header{
 	position: fixed;
@@ -803,10 +829,6 @@ md-toast[md-theme=warn] {
 }*/
 md-toolbar.Header .md-button.md-border {
   color: #006bb9;
-}
-
-md-list-item a.md-no-style {
-  margin: 0px;
 }
 
 md-toolbar.md-menu-toolbar {
@@ -855,6 +877,11 @@ md-menu-bar {
   max-width: 680px;
   padding: 24px;
 }
+
+md-list-item a.md-no-style {
+  margin: 0px;
+}
+
 
 /*.info-container {
     line-height: 1em;
@@ -1412,6 +1439,7 @@ md-list-item.active {
   background: #d7dddd;
 }
 
+
 .cursor {
   cursor: pointer;
 }
@@ -1499,7 +1527,6 @@ div[ui-view='map'] {
 .label-icon-number-selected {
   box-shadow: 0px 0px 0px 7px rgba(255, 140, 0, 0.6);
 }
-
 
 /*.Sidebar {
 	position: fixed !important;
@@ -1691,6 +1718,7 @@ div[ui-view='map'] {
 .indicator-menu ng-md-icon.greyed path {
   fill: #ddd;
 }
+
 
 median {
   overflow: hidden;
@@ -1911,8 +1939,10 @@ median .slider text {
   padding-right: 220px;
 }
 
+
 .treeview {
   position: relative;
+  margin-bottom: 2px;
 }
 .treeview md-list-item {
   min-height: 32px;
@@ -1925,12 +1955,14 @@ median .slider text {
   padding-right: 0;
 }
 .treeview .toggler {
-  padding: 0 0.3em;
+  margin: 0 0.3em;
 }
 .treeview .dndPlaceholder {
   height: 46px;
   list-style-type: none;
-  background-color: #ccc;
+  background-color: #efefef;
+  border: 1px dashed #ccc;
+  margin-left: 1em;
 }
 .treeview .dndDraggingSource {
   display: none;
@@ -1938,10 +1970,11 @@ median .slider text {
 .treeview .handle {
   cursor: move;
 }
-.treeview.dndDragover .dndPlaceholder {
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
+.treeview.dndDragover {
+  outline: 1px dashed #ccc;
+}
+.treeview.dndDragover .meanwhile {
+  opacity: 0.3;
 }
 
 

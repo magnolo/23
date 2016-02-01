@@ -133,7 +133,11 @@
 					}
 				}*/
 			})
-			.state('app.index.editor.indicator',{
+			.state('app.index.editor.indicators',{
+				url:'/indicators',
+				auth:true,
+			})
+			.state('app.index.editor.indicators.indicator',{
 				url: '/:id',
 				auth:true,
 				layout: 'row',
@@ -160,7 +164,48 @@
 					}
 				}*/
 			})
-			.state('app.index.editor.indicator.details',{
+			.state('app.index.editor.indizes',{
+				url:'/indizes',
+				auth:true,
+			})
+			.state('app.index.editor.indizes.data',{
+				url:'/:id',
+				auth:true,
+				layout: 'row',
+				views: {
+					'main@': {
+						templateUrl:'/views/app/indexeditor/indexeditorindizes.html',
+						controller: 'IndexeditorindizesCtrl',
+						controllerAs: 'vm',
+						resolve:{
+							index:function(ContentService, $stateParams){
+								return ContentService.getItem($stateParams.id)
+							}
+						}
+					}
+				}
+			})
+			.state('app.index.editor.indizes.data.add',{
+				url:'/add',
+				layout:'row',
+				views: {
+					'additional@': {
+						templateUrl:'/views/app/indexeditor/indicators.html',
+						controller: 'IndexinidcatorsCtrl',
+						controllerAs: 'vm',
+						resolve:{
+							indicators:function(ContentService, $stateParams){
+								return ContentService.fetchIndicators({page:1, order:'title', limit:25, dir: 'ASC'});
+							}
+						}
+					}
+				}
+			})
+			.state('app.index.editor.categories',{
+				url:'/categories',
+				auth:true,
+			})
+			.state('app.index.editor.indicators.indicator.details',{
 				url: '/:entry',
 				auth:true,
 				layout:'row'

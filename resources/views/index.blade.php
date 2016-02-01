@@ -31,6 +31,7 @@
         <md-content layout="column" flex role="main" tabindex="-1" md-scroll-y>
             <div ui-view="map" class="Map_Container" id="map" flex></div>
             <div ui-view="main" class="Page doAnim-right" flex md-scroll-y style="overflow-y:auto"></div>
+            <div ui-view="additional" class="additional doAnim-hinge md-whiteframe-z1" md-scroll-y style="overflow-y:auto" ng-if="$root.additional"></div>
         </md-content>
     </md-content>
     <div class="cssload-container" ng-if="stateIsLoading">

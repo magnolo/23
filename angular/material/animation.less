@@ -21,15 +21,36 @@
         -moz-animation: slideInLeft 0.5s;
         -ms-animation: slideInLeft 0.5s;
         animation: slideInLeft 0.5s;
-        z-index: 2;
+        z-index: 1;
     }
     &.ng-leave {
-        -webkit-animation: fadeOutRight 0.8s;
-        -moz-animation: fadeOutRight 0.8s;
-        -ms-animation: fadeOutRight 0.8s;
-        animation: fadeOutRight 0.8s;
+        -webkit-animation: fadeOutRight 0.75s;
+        -moz-animation: fadeOutRight 0.75s;
+        -ms-animation: fadeOutRight 0.75s;
+        animation: fadeOutRight 0.75s;
         position: absolute;
+        //animation-delay: 0.3s;
+        z-index: 2;
+        top: 0;
+        //width:100%
+    }
+}
+.doAnim-hinge {
+    &.ng-enter {
+        -webkit-animation: bounceInDown 0.5s;
+        -moz-animation: bounceInDown 0.5s;
+        -ms-animation: bounceInDown 0.5s;
+        animation: bounceInDown 0.5s;
         z-index: 1;
+    }
+    &.ng-leave {
+        -webkit-animation: bounceOutDown 0.75s;
+        -moz-animation: bounceOutDown 0.75s;
+        -ms-animation: bounceOutDown 0.75s;
+        animation: bounceOutDown 0.75s;
+        position: absolute;
+        //animation-delay: 0.3s;
+        z-index: 2;
         top: 0;
         //width:100%
     }

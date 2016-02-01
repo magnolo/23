@@ -1,10 +1,12 @@
 (function(){
 	"use strict";
 
-	angular.module('app.routes').run(function($rootScope, $mdSidenav, $timeout, $auth, $state,$localStorage,leafletData, toastr){
+	angular.module('app.routes').run(function($rootScope, $mdSidenav, $timeout, $auth, $state,$localStorage,$window, leafletData, toastr){
 		$rootScope.sidebarOpen = true;
 		$rootScope.looseLayout = $localStorage.fullView || false;
-
+		$rootScope.goBack = function(){
+		 $window.history.back();
+	 }
 		$rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState,fromParams){
 			if (toState.auth && !$auth.isAuthenticated()){
 				toastr.error('Your not allowed to go there buddy!', 'Access denied');
@@ -20,6 +22,18 @@
 			else{
 				$rootScope.rowed = false;
 			}
+			if(typeof toState.views != "undefined"){
+				if(toState.views.hasOwnProperty('additional@')){
+					$rootScope.additional = true;
+				}
+				else{
+					$rootScope.additional = false;
+				}
+			}
+			else{
+				$rootScope.additional = false;
+			}
+
 			$rootScope.previousPage = {state:fromState, params:fromParams};
 			$rootScope.stateIsLoading = true;
 		});

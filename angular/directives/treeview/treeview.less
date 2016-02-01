@@ -1,10 +1,10 @@
 .treeview {
     position: relative;
-    
+    margin-bottom:2px;
     md-list-item {
         min-height: 32px;
         position: relative;
-        
+
         .md-list-item-text {
             > p {
                 margin: 0.7em 0;
@@ -15,17 +15,20 @@
     &:not(:first-child) {
         md-list-item {
             padding-right: 0;
+            //font-size:14px;
         }
     }
 
     .toggler {
-        padding: 0 0.3em;
+        margin: 0 0.3em;
     }
 
     .dndPlaceholder {
         height: 46px;
         list-style-type: none;
-        background-color: #ccc;
+        background-color: #efefef;
+        border:1px dashed #ccc;
+        margin-left:1em;
     }
 
     .dndDraggingSource {
@@ -37,8 +40,10 @@
     }
 
     &.dndDragover {
-        .dndPlaceholder {
-            display: flex;
+        outline:1px dashed #ccc;
+        .meanwhile {
+            opacity: 0.3;
         }
+
     }
 }

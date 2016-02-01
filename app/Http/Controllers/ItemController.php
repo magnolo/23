@@ -94,7 +94,7 @@ class ItemController extends Controller
     public function showMine(){
 
          //return response()->api(Item::where('parent_id', 0)->where('user_id', \Auth::user()->id)->with('children')->get());
-         return response()->api(Item::where('parent_id', 0)->with('children')->get());
+         return response()->api(Item::where('parent_id', 0)->with('type','categories', 'style', 'indicator','children')->get());
 
 
     }
@@ -111,7 +111,10 @@ class ItemController extends Controller
         return response()->api($index);
     }
     public function getLatestYear($index){
-      return \DB::table($index->indicator->table_name)->max('year');
+      if($index->indicator_id != 0){
+        return \DB::table($index->indicator->table_name)->max('year');
+      }
+
     }
     public function fetchData($index, $year){
         if(count($index->children) > 0){
@@ -119,15 +122,17 @@ class ItemController extends Controller
             $item = $this->fetchData($item, $year);
           }
         }
+        if($index->indicator_id != 0){
+          $index->indicator->load('userdata');
+          $iso_field = $index->indicator->userdata->iso_type == 'iso-3166-1' ? 'adm0_a3': 'iso_a2';
+          $data = \DB::table($index->indicator->table_name)
+            ->where('year', $year)
+            ->leftJoin('23_countries', $index->indicator->table_name.".".$index->indicator->iso_name, '=', '23_countries.'.$iso_field)
+            ->select($index->indicator->table_name.".".$index->indicator->column_name.' as score', $index->indicator->table_name.".year",'23_countries.'.$iso_field.' as iso','23_countries.admin as country')
+            ->orderBy($index->indicator->table_name.".".$index->indicator->column_name, 'desc')->get();
+          $index->data = $data;
+        }
 
-        $index->indicator->load('userdata');
-        $iso_field = $index->indicator->userdata->iso_type == 'iso-3166-1' ? 'adm0_a3': 'iso_a2';
-        $data = \DB::table($index->indicator->table_name)
-          ->where('year', $year)
-          ->leftJoin('23_countries', $index->indicator->table_name.".".$index->indicator->iso_name, '=', '23_countries.'.$iso_field)
-          ->select($index->indicator->table_name.".".$index->indicator->column_name.' as score', $index->indicator->table_name.".year",'23_countries.'.$iso_field.' as iso','23_countries.admin as country')
-          ->orderBy($index->indicator->table_name.".".$index->indicator->column_name, 'desc')->get();
-        $index->data = $data;
         return $index;
     }
     public function fetchDataForCountry($index, $iso){
@@ -393,9 +398,32 @@ class ItemController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function update(Request $request, $id)
+    public function saveChildren($item){
+
+    }
+    public function update(Request $request, $name, $id)
     {
         //
+        $cats = array();
+
+
+        $item = Item::find($id);
+        $item->title = $request->input('title');
+        $item->name = str_slug($request->input('title'));
+        $item->description = str_slug($request->input('description'));
+        $item->style_id = $request->input('style_id');
+        $item->item_type_id = $request->input('type')['id'];
+        $item->is_official = $request->input('is_official');
+        $item->is_public = $request->input('is_public');
+
+        if($request->has('categories')){
+          foreach($request->input('categories') as $cat){
+            $cats[] = $cat['id'];
+          };
+            $item->categories()->sync($cats);
+        }
+
+        return response()->api($item->save());
     }
     /**
      * Remove the specified resource from storage.

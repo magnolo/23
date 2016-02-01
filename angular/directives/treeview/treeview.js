@@ -13,18 +13,25 @@
 		vm.addChildren = addChildren;
 
 		function onDragOver(event, index, external, type) {
-			console.log(event, index, external, type);
 			return true;
 		}
 
 		function onDropComplete(event, index, item, external) {
-			console.log(event, index, item, external);
+			console.log(vm.items);
+			angular.forEach(vm.items, function(entry, key){
+				if(entry.id == 0){
+					vm.items.splice(key, 1);
+				}
+			})
 			return item;
 		}
 
 		function onMovedComplete(index, data, evt) {
+			console.log(index);
+			if(vm.options.allowMove){
+				return vm.items.splice(index, 1);
+			}
 
-			return vm.items.splice(index, 1);
 		}
 
 		function addChildren(item) {

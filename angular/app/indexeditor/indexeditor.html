@@ -13,7 +13,7 @@
 				<md-button class="md-primary md-border" ui-sref="app.index.create">Upload New Data</md-button>
 </div>-->
 <md-tabs md-autoselect md-dynamic-height md-selected="vm.selectedTab" md-stretch-tabs ng-cloak>
-				<md-tab label="Indizes" md-on-select="vm.checkTabContent(0)">
+				<md-tab label="Indicators" md-on-select="vm.checkTabContent(0)">
 								<md-content md-scroll-y>
 												<div layout="column" style="position:relative;">
 																<div class="p1 pr0" layout-align="space-between center" layout="row">
@@ -101,7 +101,7 @@
 																												</p>
 																												<md-list class="no-line slide-toggle" flex ng-if="vm.visibleList == key">
 																																<md-list-item class="chooser" flex ng-class="{'checked': vm.selectedItem(indicator), 'unchecked': !vm.selectedItem(indicator)}" ng-repeat="indicator in group">
-																																				<p class="cursor" ng-class="{'warning':!indicator.title}" ui-sref="app.index.editor.indicator({id:indicator.id})">{{indicator.title || '['+indicator.name+']'}}</p>
+																																				<p class="cursor" ng-class="{'warning':!indicator.title}" ui-sref="app.index.editor.indicators.indicator({id:indicator.id})">{{indicator.title || '['+indicator.name+']'}}</p>
 																																				<ng-md-icon icon="check" layout-align="center center" layout="row" ng-click="vm.toggleSelection(indicator)" size="18"></ng-md-icon>
 																																				<indicator-menu item="indicator" layout-align="center center" layout="row"></indicator-menu>
 																																</md-list-item>
@@ -111,7 +111,7 @@
 																</md-list>
 																<md-list flex ng-if="vm.filter.sort == 'title'">
 																				<md-list-item class="chooser" flex ng-class="{'checked': vm.selectedItem(indicator), 'unchecked': !vm.selectedItem(indicator)}" ng-repeat="indicator in vm.indicators | filter: { is_official: vm.filter.published}  | orderBy: vm.filter.sort : vm.filter.reverse ">
-																								<p class="cursor" ng-class="{'warning':!indicator.title}" ui-sref="app.index.editor.indicator({id:indicator.id})">{{indicator.title || '['+indicator.name+']'}}</p>
+																								<p class="cursor" ng-class="{'warning':!indicator.title}" ui-sref="app.index.editor.indicators.indicator({id:indicator.id})">{{indicator.title || '['+indicator.name+']'}}</p>
 																								<ng-md-icon icon="check" layout-align="center center" layout="row" ng-click="vm.toggleSelection(indicator)" size="18"></ng-md-icon>
 																								<indicator-menu item="indicator" layout-align="center center" layout="row"></indicator-menu>
 																				</md-list-item>
@@ -124,15 +124,15 @@
 				</md-tab>
 				<md-tab label="Categories" md-on-select="vm.checkTabContent(1)">
 								<md-content>
-									<treeview items="vm.categories" item="vm.selection" options="{drag:true, type:'categories'}"></treeview>
+									<treeview items="vm.categories" item="vm.selection" options="{drag:false, type:'categories'}"></treeview>
 								</md-content>
 				</md-tab>
-				<md-tab label="Composits" md-on-select="vm.checkTabContent(2)">
+				<md-tab label="Indizes" md-on-select="vm.checkTabContent(2)">
 								<md-content>
-									<treeview items="vm.composits" item="vm.selection" options="{drag:true, type:'composits'}"></treeview>
+									<treeview items="vm.composits" item="vm.selection" options="vm.options.composits"></treeview>
 								</md-content>
 				</md-tab>
-				<md-tab label="Aggregats">
+				<md-tab label="Styles">
 								<md-content></md-content>
 				</md-tab>
 </md-tabs>

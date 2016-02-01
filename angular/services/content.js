@@ -42,6 +42,9 @@
           },
           getIndicatorData: function(id){
             return this.content.data = DataService.getAll('indicators/'+id+'/data');
+          },
+          getItem: function(id){
+            return this.content.data = DataService.getOne('index/'+id)
           }
 
         }

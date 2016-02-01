@@ -1,0 +1,17 @@
+<md-content style="height:100%">
+<md-subheader class="md-primary">
+  <div layout="row" layout-align="space-between center">
+    <span>  Drag'n'Drop Indicators to list</span>
+    <span flex></span>
+    <div layout="row" layout-align="end center">
+    <md-button class="md-fab md-mini">
+      <md-icon class="material-icons">search</md-icon>
+    </md-button>
+    <md-button class="small" ng-click="$root.goBack()">
+      <md-icon class="material-icons">close</md-icon>
+    </md-button>
+  </div>
+</div>
+</md-subheader>
+<treeview items="vm.indicators" item="vm.selection" options="{drag:true, type:'indicators', simple: true}"></treeview>
+</md-content>

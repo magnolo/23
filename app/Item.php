@@ -14,7 +14,7 @@ class Item extends Model
       return $this->belongsTo('App\Item', 'parent_id');
     }
     public function children(){
-      return $this->hasMany('App\Item', 'parent_id')->with('children','type','style', 'indicator');
+      return $this->hasMany('App\Item', 'parent_id')->with('children','type','style', 'indicator', 'categories');
     }
     public function indicator(){
       return $this->belongsTo('App\Indicator', 'indicator_id')->with('style', 'categories');
@@ -26,7 +26,7 @@ class Item extends Model
       return $this->belongsTo('App\Style', 'style_id');
     }
     public function categories(){
-      return $this->belongsToMany('App\Categorie', '23_item_categories', 'item_id', 'categorie_id')->with('style');
+      return $this->belongsToMany('App\Categorie', '23_items_categories', 'item_id', 'categorie_id')->with('style');
     }
     public function getStyle() {
       if ($this->style) {

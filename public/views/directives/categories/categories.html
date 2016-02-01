@@ -1,24 +1,9 @@
 <div>
-  <md-content class="md-accent doAnim" layout-padding ng-if="!vm.item.categories.length && !vm.chooseCategories && !vm.createCategory">
-          <div layout-align="space-between center" layout="row">
-                  <h2 class="md-headline">Choose Categories</h2>
-                  <span flex></span>
-                  <md-button class="md-primary md-border md-lowspace " ng-click="vm.saveIndex()" ng-disabled="baseForm.$invalid">Done</md-button>
-          </div>
-          <div class="indicator-fields">
-                  <div layout-align="center center" layout="row">
-                          <md-button class="md-primary md-border md-min-width" ng-click="vm.chooseCategories = true">Add to Category</md-button>
-                  </div>
-                  <div layout-align="center center" layout="row">
-                          <md-button class="md-primary md-border md-min-width" ng-click="vm.createCategory = true">Create new Category</md-button>
-                  </div>
-          </div>
-  </md-content>
   <md-content class="md-accent doAnim" layout-padding ng-if="vm.createCategory">
           <form name="categoryForm" novalidate>
                   <div class="mb25" layout-align="space-between center" layout="row">
                         <span flex></span>
-                          <md-button class="md-primary md-fab md-mini doAnim-bottom" ng-if="categoryForm.$dirty" ng-click="vm.saveStyle(styleForm.$valid)" ng-disabled="categoryForm.$invalid">
+                          <md-button class="md-primary md-fab md-mini doAnim-bottom" ng-if="categoryForm.$dirty" ng-click="vm.saveCategory(categoryForm.$valid)" ng-disabled="categoryForm.$invalid">
                             <md-icon class="material-icons">save</md-icon>
                             <md-tooltip md-delay="500">Save changes</md-tooltip>
                           </md-button>
@@ -60,7 +45,7 @@
                   </div>
           </form>
   </md-content>
-  <md-content class="md-accent doAnim-left" layout-padding ng-if="(vm.item.categories.length || vm.chooseCategories) && !vm.createCategory">
+  <md-content class="md-accent doAnim-left" layout-padding ng-if="!vm.createCategory">
           <div layout-align="space-between center" layout="row">
                   <span flex></span>
                   <md-button ng-if="vm.item.isDirty && vm.item.categories.length > 0" class="doAnim-bottom md-primary md-fab md-mini" ng-click="vm.save()" ng-disabled="categoryForm.$invalid" ng-if="vm.options.globalSave">

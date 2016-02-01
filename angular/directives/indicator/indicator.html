@@ -16,8 +16,8 @@
 																												</span>
 																												<span flex></span>
 																												<md-button class="md-primary md-fab md-mini doAnim-bottom" ng-click="vm.save()" ng-disabled="baseForm.$invalid || !vm.checkBase()" ng-if="vm.options.withSave && vm.item.isDirty">
-																														<md-icon class="material-icons">save</md-icon>
-																														<md-tooltip md-delay="500" >Save changes</md-tooltip>
+																																<md-icon class="material-icons">save</md-icon>
+																																<md-tooltip md-delay="500">Save changes</md-tooltip>
 																												</md-button>
 																								</div>
 																								<div class="indicator-fields">
@@ -47,14 +47,15 @@
 																																				</md-select>
 
 																																</md-input-container>-->
-																																<md-autocomplete class="md-block" flex md-min-length="0" md-floating-label="Units of measure*" md-input-maxlength="56" md-input-name="unitField" md-item-text="type.title" md-items="type in vm.queryUnit(vm.searchUnit)" md-no-cache="vm.noCache" md-search-text="vm.searchUnit" md-selected-item="vm.item.type" required>
+																																<md-autocomplete class="md-block" flex md-floating-label="Units of measure*" md-input-maxlength="56" md-input-name="unitField" md-item-text="type.title" md-items="type in vm.queryUnit(vm.searchUnit)" md-min-length="0" md-no-cache="vm.noCache" md-search-text="vm.searchUnit" md-selected-item="vm.item.type" required>
 																																				<md-item-template>
 																																								<span md-highlight-flags="^i" md-highlight-text="vm.searchUnit">{{type.title}}</span>
 																																				</md-item-template>
 																																				<md-not-found>
 
-																																					<a class="md-button md-primary" ng-mousedown="vm.createUnit(vm.searchUnit)"><ng-md-icon icon="add"></ng-md-icon>&nbsp;&nbsp;Create a new one</a>
-																																		</md-not-found>
+																																								<a class="md-button md-primary" ng-mousedown="vm.createUnit(vm.searchUnit)">
+																																												<ng-md-icon icon="add"></ng-md-icon>&nbsp;&nbsp;Create a new one</a>
+																																				</md-not-found>
 																																				<div ng-if="baseForm.unitField.$touched" ng-messages="baseForm.unitField.$error">
 																																								<div ng-message="required">You
 																																												<b>must</b>
@@ -69,13 +70,14 @@
 																																				<img ng-if="vm.item.dataprovider.image.url" ng-src="vm.item.dataprovider.image.url"/>
 																																				<span>Upload a logo</span>
 																																</div>-->
-																																<md-autocomplete class="md-block" flex md-min-length="0" md-floating-label="Data Provider*" md-input-maxlength="56" md-input-name="providerField" md-item-text="item.title" md-items="item in vm.querySearch(vm.searchText)" md-no-cache="vm.noCache" md-search-text="vm.searchText" md-selected-item="vm.item.dataprovider" required>
+																																<md-autocomplete class="md-block" flex md-floating-label="Data Provider*" md-input-maxlength="56" md-input-name="providerField" md-item-text="item.title" md-items="item in vm.querySearch(vm.searchText)" md-min-length="0" md-no-cache="vm.noCache" md-search-text="vm.searchText" md-selected-item="vm.item.dataprovider" required>
 																																				<md-item-template>
 																																								<span md-highlight-flags="^i" md-highlight-text="vm.searchText">{{item.title}}</span>
 																																				</md-item-template>
 																																				<md-not-found>
 
-																																								<a class="md-button md-primary" ng-mousedown="vm.createProvider(vm.searchText)"><ng-md-icon icon="add"></ng-md-icon>&nbsp;&nbsp;Create a new one</a>
+																																								<a class="md-button md-primary" ng-mousedown="vm.createProvider(vm.searchText)">
+																																												<ng-md-icon icon="add"></ng-md-icon>&nbsp;&nbsp;Create a new one</a>
 																																				</md-not-found>
 																																				<div ng-if="baseForm.providerField.$touched" ng-messages="baseForm.providerField.$error">
 																																								<div ng-message="required">You
@@ -88,7 +90,7 @@
 																																</md-autocomplete>
 																																<md-input-container class="md-block">
 																																				<label>Url</label>
-																																				<input maxlength="56" minlength="5" name="url" disabled ng-model="vm.item.dataprovider.url" type="url"/>
+																																				<input disabled maxlength="56" minlength="5" name="url" ng-model="vm.item.dataprovider.url" type="url"/>
 																																				<div ng-messages="baseForm.url.$error">
 																																								<div ng-message="minlength">The url is not long enough. At least 5 characters!</div>
 																																								<div ng-message="pattern">This is not a valid url!</div>
@@ -117,35 +119,32 @@
 												</md-tab-label>
 												<md-tab-body></md-tab-body>
 								</md-tab>
-								<md-tab ng-disabled="!vm.checkFull()">
+								<!--<md-tab ng-disabled="!vm.checkFull()">
 												<md-tab-label>
 																<ng-md-icon icon="format_list_bulleted"></ng-md-icon>
 												</md-tab-label>
 												<md-tab-body>
 																<md-content layout-padding>
-																				<!--<div layout="row">
-																								<md-button class="md-accent md-border md-lowspace" ng-click="vm.saveIndex()">Save</md-button>
-																				</div>
-																				<h2></h2>-->
-																</md-toolbar>
-												</md-content>
-								</md-tab-body>
-				</md-tab>
-				<md-tab ng-disabled="!vm.checkFull()">
-								<md-tab-label>
-												<ng-md-icon icon="brush" ng-class="{'valid': vm.item.style_id}"></ng-md-icon>
-								</md-tab-label>
-								<md-tab-body>
-												<styles item="vm.item" styles="vm.styles" save="vm.save()" options="{globalSave:true}"></styles>
-								</md-tab-body>
-				</md-tab>
-				<md-tab>
-								<md-tab-label>
-												<ng-md-icon icon="settings_input_component" ng-class="{'valid': vm.item.categories.length}"></ng-md-icon>
-								</md-tab-label>
-								<md-tab-body>
-												<categories item="vm.item" categories="vm.categories" save="vm.save()" options="{globalSave:true}"></categories>
-								</md-tab-body>
-				</md-tab>
-</md-tabs>
+																			
+
+																</md-content>
+												</md-tab-body>
+								</md-tab>-->
+								<md-tab ng-disabled="!vm.checkFull()">
+												<md-tab-label>
+																<ng-md-icon icon="brush" ng-class="{'valid': vm.item.style_id}"></ng-md-icon>
+												</md-tab-label>
+												<md-tab-body>
+																<styles item="vm.item" options="{globalSave:true}" save="vm.save()" styles="vm.styles"></styles>
+												</md-tab-body>
+								</md-tab>
+								<md-tab>
+												<md-tab-label>
+																<ng-md-icon icon="settings_input_component" ng-class="{'valid': vm.item.categories.length}"></ng-md-icon>
+												</md-tab-label>
+												<md-tab-body>
+																<categories categories="vm.categories" item="vm.item" options="{globalSave:true}" save="vm.save()"></categories>
+												</md-tab-body>
+								</md-tab>
+				</md-tabs>
 </md-content>

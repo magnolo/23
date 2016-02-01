@@ -7,12 +7,14 @@
 			restrict: 'EA',
 			templateUrl: 'views/directives/composits/composits.html',
 			controller: 'CompositsCtrl',
+			controllerAs: 'vm',
+			scope:{},
 			bindToController: {
+				items: '=',
 				item: '=',
-				composits: '=',
-				options:'=',
-				save: '&'
+				options:'='
 			},
+			replace:true,
 			link: function( scope, element, attrs ){
 				//
 			}
