@@ -201,14 +201,31 @@
 					}
 				}
 			})
-			.state('app.index.editor.categories',{
-				url:'/categories',
-				auth:true,
-			})
 			.state('app.index.editor.indicators.indicator.details',{
 				url: '/:entry',
 				auth:true,
 				layout:'row'
+			})
+			.state('app.index.editor.categories',{
+				url:'/categories',
+				auth:true,
+			})
+			.state('app.index.editor.categories.category',{
+				url:'/:id',
+				auth:true,
+				layout:'row',
+				views:{
+					'main@':{
+						templateUrl:'/views/app/indexeditor/indexeditorcategory.html',
+						controller: 'IndexeditorcategoryCtrl',
+						controllerAs: 'vm',
+						resolve:{
+							category:function(ContentService, $stateParams){
+								return ContentService.getCategory($stateParams.id);
+							}
+						}
+					}
+				}
 			})
 			.state('app.index.create', {
 				url: '/create',

@@ -16,9 +16,20 @@
 				allowMove:false,
 				allowDrop:false,
 				itemClick: function(id, name){
-					console.log(id);
 					$state.go('app.index.editor.indizes.data', {id:name})
 				}
+			},
+			categories:{
+				drag:false,
+				type:'categories',
+				itemClick: function(id, name){
+					$state.go('app.index.editor.categories.category', {id:id})
+				}
+			},
+			styles:{
+				drag:false,
+				type:'styles',
+				withColor:true
 			}
 		};
 		vm.filter = {
@@ -105,14 +116,14 @@
 		}
 		function checkTabContent(index){
 			switch (index) {
-				case 0:
+				case 1:
 						$state.go('app.index.editor.indicators');
 					break;
-				case 1:
+				case 2:
 						$state.go('app.index.editor.categories');
 						vm.categories = ContentService.getCategories({indicators:true, tree:true});
 					break;
-				case 2:
+				case 0:
 						if(typeof $state.params.id != "undefined"){
 								$state.go('app.index.editor.indizes.data',{
 									id:$state.params.id
@@ -123,6 +134,9 @@
 						}
 
 						vm.composits = DataService.getAll('me/indizes').$object;
+					break;
+				case 3:
+						vm.styles = ContentService.getStyles();
 					break;
 				default:
 
@@ -141,14 +155,14 @@
 		});
 		$scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
 			if(toState.name.indexOf('app.index.editor.indicators') != -1){
-				vm.selectedTab = 0;
+				vm.selectedTab = 1;
 				activate(toParams);
 			}
 			else if(toState.name.indexOf('app.index.editor.categories') != -1){
-				vm.selectedTab = 1;
+				vm.selectedTab = 2;
 			}
 			else if(toState.name.indexOf('app.index.editor.indizes') != -1){
-				vm.selectedTab = 2;
+				vm.selectedTab = 0;
 
 			}
 

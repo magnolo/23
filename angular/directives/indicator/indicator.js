@@ -59,7 +59,6 @@
 					toastr.success('Data successfully updated!', 'Successfully saved');
 					vm.item.isDirty = false;
 					vm.original = angular.copy(vm.item);
-
 				}
 			});
 		}

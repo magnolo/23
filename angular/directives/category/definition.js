@@ -1,18 +1,19 @@
 (function(){
 	"use strict";
 
-	angular.module('app.directives').directive( 'treemenu', function() {
+	angular.module('app.directives').directive( 'category', function() {
 
 		return {
 			restrict: 'EA',
-			templateUrl: 'views/directives/treemenu/treemenu.html',
-			controller: 'TreemenuCtrl',
+			templateUrl: 'views/directives/category/category.html',
+			controller: 'CategoryCtrl',
 			controllerAs: 'vm',
 			scope:{},
 			bindToController: {
+				item: '=',
+				categories: '=',
 				options:'=',
-				item:'=',
-				selection: '='
+				save: '&'
 			},
 			replace:true,
 			link: function( scope, element, attrs ){

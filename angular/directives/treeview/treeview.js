@@ -44,9 +44,7 @@
 		function selectedItem(item) {
 			if (typeof vm.item === "undefined") return false;
 			var found = false;
-			console.log(vm.item);
 			angular.forEach(vm.item[vm.options.type], function(entry, key) {
-				console.log(entry)
 				if (entry.id == item.id) {
 					found = true;
 				}

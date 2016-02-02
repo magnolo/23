@@ -9,14 +9,19 @@
             indicator:{},
             data: [],
             categories:[],
+            category:{},
             styles:[],
-            infographics:[]
+            infographics:[],
+
           },
           fetchIndicators: function(filter){
              return this.content.indicators = DataService.getAll('indicators' , filter).$object
           },
           fetchCategories: function(filter){
             return this.content.categories = DataService.getAll('categories' , filter).$object;
+          },
+          fetchStyles: function(filter){
+            return this.content.styles = DataService.getAll('styles' , filter).$object;
           },
           getCategories: function(filter){
             if(this.content.categories.length == 0){
@@ -26,6 +31,12 @@
           },
           getIndicators: function(){
             return this.content.indicators;
+          },
+          getStyles: function(filter){
+            if(this.content.styles.length == 0){
+              return this.fetchStyles(filter);
+            }
+            return this.content.styles;
           },
           getIndicator: function(id){
             if(this.content.indicators.length){
@@ -45,6 +56,18 @@
           },
           getItem: function(id){
             return this.content.data = DataService.getOne('index/'+id)
+          },
+          getCategory: function(id){
+            if(this.content.categories.length){
+              for(var i = 0; i < this.content.categories.length; i++){
+                if(this.content.categories[i].id == id){
+                  return this.content.categories[i];
+                }
+              }
+            }
+            else{
+              return this.content.category = DataService.getOne('categories/'+id).$object;
+            }
           }
 
         }

@@ -8,7 +8,8 @@
         return {
           getAll: getAll,
           getOne: getOne,
-          post: post
+          post: post,
+          put: put
         };
 
         function getAll(route, filter){

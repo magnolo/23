@@ -38,7 +38,7 @@ class CategoriesController extends Controller
         if($tree){
           $categories = $categories->where('parent_id', 0);
         }
-        return response()->api($categories->get());
+        return response()->api($categories->get())->meta('hello');
     }
 
     /**
@@ -96,7 +96,7 @@ class CategoriesController extends Controller
     public function show($id)
     {
         //
-        return response()->api(Categorie::where('name', $id)->firstOrFail());
+        return response()->api(Categorie::where('name', $id)->with('style', 'parent', 'children')->firstOrFail());
     }
     public function showWithIndicators($id){
 
@@ -122,6 +122,14 @@ class CategoriesController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $categorie = Categorie::find($id);
+        $categorie->title = $request->input('title');
+        $categorie->name = str_slug($request->input('title'));
+        $categorie->parent_id = $request->input('parent_id');
+        $categorie->style_id = $request->input('style_id');
+        $categorie->is_public = $request->input('is_public');
+
+        return response()->api($categorie->save());
     }
 
     /**

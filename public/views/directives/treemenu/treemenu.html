@@ -1,15 +1,25 @@
 <div class="m1" layout-align="space-between center" layout="row">
-				<md-button class="md-fab md-mini md-primary" ng-click="vm.options.addClick()">
-								<md-icon class="material-icons">add</md-icon>
+				<md-button class="md-fab md-mini doAnim-bottom" ng-if="vm.options.assigments" ng-class="{'md-primary': vm.options.editWeight}" ng-click="vm.options.editWeight = !vm.options.editWeight">
+								<md-icon class="material-icons">assignment</md-icon>
 				</md-button>
 				<span flex></span>
-				<md-button class="md-fab md-mini" ng-click="vm.options.editWeight = !vm.options.editWeight">
-								<md-icon class="material-icons">format_list_numbered</md-icon>
+				<md-button class="md-fab md-mini md-primary doAnim-bottom" ng-if="vm.options.allowSave && vm.item.isDirty" ng-click="vm.options.saveClick()">
+								<md-icon class="material-icons">save</md-icon>
 				</md-button>
-				<md-button class="md-fab md-mini" ng-click="vm.options.edit = !vm.options.edit">
+				<md-button class="md-fab md-mini md-primary doAnim-bottom" ng-if="vm.options.allowAdd" ng-click="vm.options.addClick()">
+								<md-icon class="material-icons">add</md-icon>
+				</md-button>
+        <md-button ng-if="vm.options.allowAddContainer" class="md-fab md-mini md-primary doAnim-bottom" ng-click="vm.options.addContainerClick()">
+                <md-icon class="material-icons">note_add</md-icon>
+        </md-button>
+
+				<md-button class="md-fab md-mini md-warn doAnim-bottom" ng-if="vm.options.allowDelete && !vm.options.drag && vm.selection.length > 0">
+								<md-icon class="material-icons">delete</md-icon>
+				</md-button>
+				<!--<md-button class="md-fab md-mini" ng-click="vm.options.edit = !vm.options.edit">
 								<md-icon class="material-icons">mode_edit</md-icon>
-				</md-button>
-				<div class="trashcan">
+				</md-button>-->
+				<div class="trashcan doAnim-bottom" ng-if="vm.options.allowDelete && vm.options.drag">
 								<ul dnd-list="[]">
 												<li>
 																<md-button class="md-fab md-mini md-warn">
@@ -18,7 +28,5 @@
 												</li>
 								</ul>
 				</div>
-				<md-button class="md-fab md-mini md-primary">
-								<md-icon class="material-icons">save</md-icon>
-				</md-button>
+
 </div>

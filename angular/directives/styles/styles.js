@@ -7,6 +7,7 @@
 		vm.toggleStyle = toggleStyle;
 		vm.selectedStyle = selectedStyle;
 		vm.saveStyle = saveStyle;
+		vm.style = [];
 
 		function toggleStyle(style) {
 			if (vm.item.style_id == style.id) {
@@ -23,6 +24,7 @@
 			DataService.post('styles', vm.style).then(function (data) {
 				vm.styles.push(data);
 				vm.createStyle = false;
+					vm.style = [];
 				vm.item.style = data;
 				toastr.success('New Style has been saved', 'Success');
 			});

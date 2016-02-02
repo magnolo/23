@@ -14,7 +14,8 @@
 		}
 
 		function calcStart() {
-			if (typeof vm.item.weight == "undefined") {
+
+			if (typeof vm.item.weight == "undefined" || !vm.item.weight) {
 				angular.forEach(vm.items, function(entry) {
 					entry.weight = 100 / vm.items.length;
 				})
@@ -33,6 +34,7 @@
 		}
 
 		function raiseWeight() {
+			if(vm.item.weight >= 95) return false;
 			if (vm.item.weight % 5 != 0) {
 				vm.item.weight = 5 * Math.round(vm.item.weight / 5);
 			} else {
@@ -42,6 +44,7 @@
 		}
 
 		function lowerWeight() {
+			if(vm.item.weight <= 5) return false;
 			if (vm.item.weight % 5 != 0) {
 				vm.item.weight = 5 * Math.round(vm.item.weight / 5) - 5;
 			} else {

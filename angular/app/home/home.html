@@ -2,7 +2,7 @@
 				<md-subheader class="md-no-sticky md-primary">Choose the index you wanna see</md-subheader>
 				<md-list >
 								<md-list-item ng-repeat="index in vm.indizes" ui-sref="app.index.show({index:index.name})">
-									<md-icon class="material-icons md-rounded md-primary">public</md-icon>
+									<md-icon class="material-icons md-rounded md-primary" ng-style="{'color': index.style.base_color}">public</md-icon>
                   <p>{{index.title}}</p>
 							</md-list-item>
 							<md-list-item  ui-sref="app.index.fulllist">

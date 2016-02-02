@@ -78,6 +78,7 @@ $api->version('v1', ['middleware' => 'api.auth'], function ($api) {
     $api->post('data/tables/{table}/insert', 'App\Http\Controllers\UserdataController@insertDataToTable');
 
     $api->post('categories', 'App\Http\Controllers\CategoriesController@store');
+    $api->put('categories/{id}', 'App\Http\Controllers\CategoriesController@update');
     $api->post('styles', 'App\Http\Controllers\StyleController@store');
 
     $api->post('dataproviders', 'App\Http\Controllers\DataprovidersController@store');

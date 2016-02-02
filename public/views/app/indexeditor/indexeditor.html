@@ -13,7 +13,12 @@
 				<md-button class="md-primary md-border" ui-sref="app.index.create">Upload New Data</md-button>
 </div>-->
 <md-tabs md-autoselect md-dynamic-height md-selected="vm.selectedTab" md-stretch-tabs ng-cloak>
-				<md-tab label="Indicators" md-on-select="vm.checkTabContent(0)">
+				<md-tab label="Indizes" md-on-select="vm.checkTabContent(0)">
+								<md-content>
+									<treeview items="vm.composits" item="vm.selection" options="vm.options.composits"></treeview>
+								</md-content>
+				</md-tab>
+				<md-tab label="Indicators" md-on-select="vm.checkTabContent(1)">
 								<md-content md-scroll-y>
 												<div layout="column" style="position:relative;">
 																<div class="p1 pr0" layout-align="space-between center" layout="row">
@@ -122,17 +127,16 @@
 
 								</md-content>
 				</md-tab>
-				<md-tab label="Categories" md-on-select="vm.checkTabContent(1)">
+				<md-tab label="Categories" md-on-select="vm.checkTabContent(2)">
 								<md-content>
-									<treeview items="vm.categories" item="vm.selection" options="{drag:false, type:'categories'}"></treeview>
+									<treemenu options="{allowAdd:true, allowDelete:true}" selection="vm.selection['categories']"></treemenu>
+									<treeview items="vm.categories" item="vm.selection" options="vm.options.categories"></treeview>
 								</md-content>
 				</md-tab>
-				<md-tab label="Indizes" md-on-select="vm.checkTabContent(2)">
+				<md-tab label="Styles"  md-on-select="vm.checkTabContent(3)">
 								<md-content>
-									<treeview items="vm.composits" item="vm.selection" options="vm.options.composits"></treeview>
+									<treemenu options="{allowAdd:true, allowDelete:true}" selection="vm.selection['styles']"></treemenu>
+									<treeview items="vm.styles" item="vm.selection['styles']" options="vm.options.styles"></treeview>
 								</md-content>
-				</md-tab>
-				<md-tab label="Styles">
-								<md-content></md-content>
 				</md-tab>
 </md-tabs>

@@ -1,14 +1,27 @@
 (function(){
 	"use strict";
 
-	angular.module( 'app.controllers' ).controller( 'IndizesCtrl', function($scope, $filter,toastr, DataService, ContentService){
+	angular.module( 'app.controllers' ).controller( 'IndizesCtrl', function($scope, $filter, toastr, DataService, ContentService){
 		//
 		var vm = this;
 		vm.original = angular.copy(vm.item);
 		vm.checkBase = checkBase;
 		vm.checkFull = checkFull;
 		vm.save = save;
-		console.log(vm.item);
+		console.log(vm.options);
+		vm.baseOptions = {
+			drag:true,
+			allowDrop:true,
+			allowDrag:true,
+			allowMove:true,
+			allowSave:true,
+			allowDelete:true,
+			allowAddContainer:true,
+			allowAdd:true,
+			assigments: true,
+			saveClick: save,
+			addClick: vm.options.indizes.addClick
+		};
 		activate();
 
 
@@ -35,7 +48,8 @@
 				if(response){
 					toastr.success('Data successfully updated!', 'Successfully saved');
 					vm.item.isDirty = false;
-						vm.original = angular.copy(vm.item);
+					vm.original = angular.copy(vm.item);
+					//$state.go('app.index.editor.indizes.data',{id:vm.item.name})
 				}
 			});
 		}

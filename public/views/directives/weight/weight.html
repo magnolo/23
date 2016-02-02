@@ -1,5 +1,6 @@
-<div layout="row" layout-align="space-between center">
+<div class="weight-control" layout="row" layout-align="space-between center">
   <md-icon  ng-click="vm.raiseWeight()" class="material-icons" >arrow_drop_up</md-icon>
+  <span flex></span>
   <span>{{vm.item.weight | number: 0}} %</span>
   <md-icon ng-click="vm.lowerWeight()" class="material-icons">arrow_drop_down</md-icon>
 </div>
