@@ -19,11 +19,15 @@ body {
     font-size: 16px;
     color: @main-color;
     overflow-x:hidden;
+    background:url("/images/geometry.png");
     > canvas{
       z-index: 1000;
     position: fixed;
     right: 10px;
     bottom: 10px;
+    }
+    > md-content{
+      border-top:1px solid @base-light;
     }
 }
 

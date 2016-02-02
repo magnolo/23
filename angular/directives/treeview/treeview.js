@@ -27,11 +27,9 @@
 		}
 
 		function onMovedComplete(index, data, evt) {
-			console.log(index);
 			if(vm.options.allowMove){
 				return vm.items.splice(index, 1);
 			}
-
 		}
 
 		function addChildren(item) {
@@ -46,7 +44,9 @@
 		function selectedItem(item) {
 			if (typeof vm.item === "undefined") return false;
 			var found = false;
+			console.log(vm.item);
 			angular.forEach(vm.item[vm.options.type], function(entry, key) {
+				console.log(entry)
 				if (entry.id == item.id) {
 					found = true;
 				}

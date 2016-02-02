@@ -88,11 +88,12 @@
 				var create_nodes = function () {
 					if(scope.indexer.children.length == 2 && scope.indexer.children[0].children.length > 0){
 						angular.forEach(scope.indexer.children, function (group, index) {
+							console.log(group);
 							var d = {
 								type: group.name,
 								name: group.title,
 								group: group.name,
-								color: group.color,
+								color: group.style.base_color || group.color,
 								icon: group.icon,
 								unicode: IconsService.getUnicode(group.icon),
 								data: group,
@@ -101,6 +102,13 @@
 							labels.push(d);
 							angular.forEach(group.children, function (item) {
 								if (scope.chartdata[item.name]) {
+									var color = item.color;
+									if(item.style_id != 0){
+										color = item.style.base_color;
+									}
+									else if(group.style_id != 0){
+										color = group.style.base_color;
+									}
 									var node = {
 										type: item.name,
 										radius: scope.chartdata[item.name] / scope.sizefactor,
@@ -109,7 +117,7 @@
 										group: group.name,
 										x: options.center.x,
 										y: options.center.y,
-										color: item.color,
+										color: color,
 										icon: item.icon,
 										unicode: IconsService.getUnicode(item.icon),
 										data: item,
@@ -123,11 +131,12 @@
 
 					}
 					else{
+
 						var d = {
 							type: scope.indexer.name,
 							name: scope.indexer.title,
 							group: scope.indexer.name,
-							color: scope.indexer.color,
+							color: scope.indexer.style.base_color || scope.indexer.color,
 							icon: scope.indexer.icon,
 							unicode: scope.indexer.unicode,
 							data: scope.indexer.data,
@@ -264,7 +273,7 @@
 					})).attr("stroke-width", 0).attr("stroke", function (d) {
 						return d3.rgb(options.fill_color(d.group)).darker();
 					}).attr("id", function (d) {
-	
+
 						return "bubble_" + d.type;
 					});
 					options.icons = options.containers.append("text")

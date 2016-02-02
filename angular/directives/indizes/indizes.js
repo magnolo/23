@@ -8,7 +8,7 @@
 		vm.checkBase = checkBase;
 		vm.checkFull = checkFull;
 		vm.save = save;
-
+		console.log(vm.item);
 		activate();
 
 

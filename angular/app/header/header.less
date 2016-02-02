@@ -1,15 +1,16 @@
 @import (less) '../../material/colors.less';
-/*.Header{
-	position: fixed;
-	left: 0px;
-	right: 0;
-	z-index:3;
-	top:0px;
+.Header{
+	height:48px;
+	min-height:48px;
+	background-color: #fff !important;
+	//box-shadow: 0px 0px 5px @base;
 	.md-toolbar-tools, md-toolbar{
 		height:48px;
 		min-height:48px;
 	}
+
 	a{
+		color:@base;
 		&.md-button{
 			span{
 				color:@base;
@@ -19,7 +20,16 @@
 	.md-menu{
 		padding:0px;
 	}
-}*/
+	.inline-list{
+		&.menu-list{
+			li{
+				a, &::before{
+					color:@base;
+				}
+			}
+		}
+	}
+}
 md-toolbar{
 	&.Header{
 		.md-button{

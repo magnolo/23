@@ -14,14 +14,23 @@
 
 		function saveCategory(valid) {
 			if(valid){
-			DataService.post('categories', vm.category).then(function (data) {
-				vm.categories.push(data);
-				vm.createCategory = false;
-				vm.item.categories.push(data);
-				toastr.success('New Category has been saved', 'Success');
-			});
+				if(vm.category.id){
+					DataService.put('categories', vm.category).then(function (data) {
+						toastr.success('Category has been updated', 'Success');
+					});
 				}
+				else{
+					DataService.post('categories', vm.category).then(function (data) {
+						vm.categories.push(data);
+						vm.createCategory = false;
+						vm.item.categories.push(data);
+						toastr.success('New Category has been saved', 'Success');
+					});
+				}
+
+			}
 		}
+
 	});
 
 })();

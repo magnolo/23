@@ -1,4 +1,4 @@
-<md-list class=" no-line treeview" dnd-disable-if="!vm.options.drag" dnd-list="vm.items" flex  dnd-dragover="vm.onDragOver(event, index, external, type)" dnd-drop="vm.onDropComplete(event, index, item, external)">
+<md-list class="no-line treeview" dnd-disable-if="!vm.options.allowDrop && vm.options.drag" dnd-list="vm.items" flex  dnd-dragover="vm.onDragOver(event, index, external, type)" dnd-drop="vm.onDropComplete(event, index, item, external)">
 				<md-list-item ng-class="{'meanwhile':item.id == 0}" dnd-draggable="item" dnd-effect-allowed="copyMove"  dnd-moved="vm.onMovedComplete($index)" flex ng-repeat="(key,item) in vm.items">
 								<div class="md-list-item-text" flex>
 												<p layout-align="space-between center" layout="row">
@@ -21,7 +21,9 @@
 																</md-icon>
 												</p>
 												<treeview item="item" items="item.children" ng-if="item.expanded" options="vm.options"></treeview>
-
 								</div>
+				</md-list-item>
+				<md-list-item ng-if="vm.items.length == 0" class="meanwhile doAnim-fade">
+						<h3 layout="column" layout-align="center center" style="width:100%;margin-right:1em;border:1px dashed #ccc;padding:1.5em;color:#ccc"><md-icon class="material-icons">vertical_align_bottom</md-icon>Drag Items here</h3>
 				</md-list-item>
 </md-list>

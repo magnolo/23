@@ -61,6 +61,14 @@
   z-index: 1;
   top: 0;
 }
+.doAnim-fade.ng-enter {
+  -webkit-animation: fadeIn 0.5s;
+  animation: fadeIn 0.5s;
+}
+.doAnim-fade.ng-leave {
+  -webkit-animation: fadeOut 0.1s;
+  animation: fadeOut 0.1s;
+}
 .list-anim.ng-enter-stagger,
 .list-anim.ng-leave-stagger,
 .list-anim.ng-move-stagger {
@@ -235,6 +243,9 @@
   position: fixed;
   width: 100%;
   height: 100%;
+  top: 0%;
+  left: 0;
+  z-index: 100000;
 }
 .cssload-whirlpool,
 .cssload-whirlpool::before,
@@ -242,8 +253,9 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  border: 1px solid rgba(175, 175, 175, 0.48);
+  border: 2px solid rgba(175, 175, 175, 0.48);
   border-left-color: #006cb9;
+  border-top-color: #006cb9;
   border-radius: 774px;
   -o-border-radius: 774px;
   -ms-border-radius: 774px;
@@ -251,20 +263,21 @@
   -moz-border-radius: 774px;
 }
 .cssload-whirlpool {
-  margin: -19px 0 0 -19px;
-  height: 39px;
-  width: 39px;
+  margin: -31px 0 0 -31px;
+  height: 64px;
+  width: 64px;
   animation: cssload-rotate 2200ms linear infinite;
   -o-animation: cssload-rotate 2200ms linear infinite;
   -ms-animation: cssload-rotate 2200ms linear infinite;
   -webkit-animation: cssload-rotate 2200ms linear infinite;
   -moz-animation: cssload-rotate 2200ms linear infinite;
+  background-color: rgba(255, 255, 255, 0.3);
 }
 .cssload-whirlpool::before {
   content: "";
-  margin: -18px 0 0 -18px;
-  height: 34px;
-  width: 34px;
+  margin: -17px 0 0 -17px;
+  height: 30px;
+  width: 30px;
   animation: cssload-rotate 2200ms linear infinite;
   -o-animation: cssload-rotate 2200ms linear infinite;
   -ms-animation: cssload-rotate 2200ms linear infinite;
@@ -273,14 +286,24 @@
 }
 .cssload-whirlpool::after {
   content: "";
-  margin: -22px 0 0 -22px;
-  height: 43px;
-  width: 43px;
+  margin: -26px 0 0 -26px;
+  height: 48px;
+  width: 48px;
   animation: cssload-rotate 4400ms linear infinite;
   -o-animation: cssload-rotate 4400ms linear infinite;
   -ms-animation: cssload-rotate 4400ms linear infinite;
   -webkit-animation: cssload-rotate 4400ms linear infinite;
   -moz-animation: cssload-rotate 4400ms linear infinite;
+}
+.cssload-text {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -7px;
+  margin-top: -5px;
+  color: rgba(175, 175, 175, 0.48);
+  font-weight: bold;
+  display: none;
 }
 @keyframes cssload-rotate {
   100% {
@@ -599,12 +622,16 @@ body {
   font-size: 16px;
   color: #606060;
   overflow-x: hidden;
+  background: url("/images/geometry.png");
 }
 body > canvas {
   z-index: 1000;
   position: fixed;
   right: 10px;
   bottom: 10px;
+}
+body > md-content {
+  border-top: 1px solid rgba(0, 107, 185, 0.4);
 }
 .Page-name {
   color: #006bb9;
@@ -806,29 +833,35 @@ md-toast[md-theme=warn] {
   text-align: center;
 }
 
-/*.Header{
-	position: fixed;
-	left: 0px;
-	right: 0;
-	z-index:3;
-	top:0px;
-	.md-toolbar-tools, md-toolbar{
-		height:48px;
-		min-height:48px;
-	}
-	a{
-		&.md-button{
-			span{
-				color:@base;
-			}
-		}
-	}
-	.md-menu{
-		padding:0px;
-	}
-}*/
+.Header {
+  height: 48px;
+  min-height: 48px;
+  background-color: #fff !important;
+}
+.Header .md-toolbar-tools,
+.Header md-toolbar {
+  height: 48px;
+  min-height: 48px;
+}
+.Header a {
+  color: #006bb9;
+}
+.Header a.md-button span {
+  color: #006bb9;
+}
+.Header .md-menu {
+  padding: 0px;
+}
+.Header .inline-list.menu-list li a,
+.Header .inline-list.menu-list li::before {
+  color: #006bb9;
+}
 md-toolbar.Header .md-button.md-border {
   color: #006bb9;
+}
+
+md-list-item a.md-no-style {
+  margin: 0px;
 }
 
 md-toolbar.md-menu-toolbar {
@@ -877,11 +910,6 @@ md-menu-bar {
   max-width: 680px;
   padding: 24px;
 }
-
-md-list-item a.md-no-style {
-  margin: 0px;
-}
-
 
 /*.info-container {
     line-height: 1em;
@@ -1145,6 +1173,7 @@ md-list-item a.md-no-style {
 .nvtooltip {
   border-radius: 0px;
 }
+
 
 
 .md-subheader.filled .md-subheader-inner {
@@ -1439,7 +1468,6 @@ md-list-item.active {
   background: #d7dddd;
 }
 
-
 .cursor {
   cursor: pointer;
 }
@@ -1527,6 +1555,7 @@ div[ui-view='map'] {
 .label-icon-number-selected {
   box-shadow: 0px 0px 0px 7px rgba(255, 140, 0, 0.6);
 }
+
 
 /*.Sidebar {
 	position: fixed !important;
@@ -1939,6 +1968,16 @@ median .slider text {
   padding-right: 220px;
 }
 
+.trashcan ul {
+  padding: 0;
+  margin: 0;
+}
+.trashcan ul li {
+  list-style-type: none;
+}
+.trashcan ul .dndPlaceholder {
+  display: none;
+}
 
 .treeview {
   position: relative;
@@ -1958,14 +1997,19 @@ median .slider text {
   margin: 0 0.3em;
 }
 .treeview .dndPlaceholder {
-  height: 46px;
+  height: 44px;
   list-style-type: none;
   background-color: #efefef;
   border: 1px dashed #ccc;
   margin-left: 1em;
 }
-.treeview .dndDraggingSource {
-  display: none;
+.treeview .dndDragging {
+  background-color: #006bb9 !important;
+  color: #fff;
+  width: 100%;
+}
+.treeview .dndDragging md-icon {
+  color: #fff;
 }
 .treeview .handle {
   cursor: move;
@@ -1974,7 +2018,7 @@ median .slider text {
   outline: 1px dashed #ccc;
 }
 .treeview.dndDragover .meanwhile {
-  opacity: 0.3;
+  opacity: 0.1;
 }
 
 

@@ -24,15 +24,22 @@
     }
 
     .dndPlaceholder {
-        height: 46px;
+        height: 44px;
         list-style-type: none;
         background-color: #efefef;
         border:1px dashed #ccc;
         margin-left:1em;
     }
-
+    .dndDragging{
+      background-color:rgba(0,107,185,1) !important;
+      color:#fff;
+      width:100%;
+      md-icon{
+        color:#fff;
+      }
+    }
     .dndDraggingSource {
-        display: none;
+        //display: none;
     }
 
     .handle {
@@ -42,7 +49,7 @@
     &.dndDragover {
         outline:1px dashed #ccc;
         .meanwhile {
-            opacity: 0.3;
+            opacity: 0.1;
         }
 
     }

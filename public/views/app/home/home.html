@@ -1,24 +1,28 @@
 
-				<md-subheader class="md-no-sticky">Choose the index you wanna see</md-subheader>
+				<md-subheader class="md-no-sticky md-primary">Choose the index you wanna see</md-subheader>
 				<md-list >
 								<md-list-item ng-repeat="index in vm.indizes" ui-sref="app.index.show({index:index.name})">
+									<md-icon class="material-icons md-rounded md-primary">public</md-icon>
                   <p>{{index.title}}</p>
-                <ng-md-icon icon="chevron_right"></ng-md-icon>
 							</md-list-item>
 							<md-list-item  ui-sref="app.index.fulllist">
+											<md-icon class="material-icons md-primary">view_list</md-icon>
 								<p>Browse Full List</p>
-							<ng-md-icon icon="chevron_right"></ng-md-icon>
+
 						</md-list-item>
 						<md-list-item ng-if="$root.isAuthenticated()"  ui-sref="app.index.mydata">
+							<md-icon class="material-icons md-rounded md-primary">fingerprint</md-icon>
 							<p>Your Data</p>
-						<ng-md-icon icon="chevron_right"></ng-md-icon>
+
 					</md-list-item>
 					<md-list-item ng-if="$root.isAuthenticated()"  ui-sref="app.index.create">
+						<md-icon class="material-icons md-rounded md-primary">file_upload</md-icon>
 						<p>Upload new data</p>
-					<ng-md-icon icon="chevron_right"></ng-md-icon>
+
 				</md-list-item>
 				<md-list-item  ng-if="$root.isAuthenticated()"  ui-sref="app.index.editor">
+					<md-icon class="material-icons md-primary">edit</md-icon>
 					<p>Edit exisiting data</p>
-				<ng-md-icon icon="chevron_right"></ng-md-icon>
+
 			</md-list-item>
         </md-list>

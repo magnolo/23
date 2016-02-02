@@ -13,6 +13,8 @@
 			composits:{
 				drag:false,
 				type:'composits',
+				allowMove:false,
+				allowDrop:false,
 				itemClick: function(id, name){
 					console.log(id);
 					$state.go('app.index.editor.indizes.data', {id:name})

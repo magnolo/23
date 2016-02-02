@@ -8,9 +8,7 @@
     <link rel="stylesheet" href="{!! asset('css/app.css') !!}">
     <link href='//fonts.googleapis.com/css?family=Roboto:500,400' rel='stylesheet' type='text/css'>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
-
-    <title>23°</title>
+    <title update-title>23°</title>
     <!--[if lte IE 10]>
     <script type="text/javascript">document.location.href = '/unsupported-browser'</script>
     <![endif]-->
@@ -22,10 +20,6 @@
     </md-toolbar>
     <md-content layout="row" flex md-scroll-y>
         <md-sidenav id="sidebar" class="Sidebar md-sidenav-left md-whiteframe-z1" md-component-id="left" md-is-locked-open="$root.sidebarOpen" tabindex="-1">
-            <!-- Sidebar header/branding -->
-            <!--<md-toolbar class="Sidebar-header">
-              <h1 class="md-toolbar-tools Sidebar-title">Laravel 5 angular<br>material starter</h1>
-            </md-toolbar>-->
             <md-content class="Sidebar-pages md-default-theme doAnim-right" flex ui-view="sidebar" md-scroll-y></md-content>
         </md-sidenav>
         <md-content layout="column" flex role="main" tabindex="-1" md-scroll-y>
@@ -34,8 +28,9 @@
             <div ui-view="additional" class="additional doAnim-hinge md-whiteframe-z1" md-scroll-y style="overflow-y:auto" ng-if="$root.additional"></div>
         </md-content>
     </md-content>
-    <div class="cssload-container" ng-if="stateIsLoading">
+    <div class="cssload-container doAnim-fade" ng-if="$root.stateIsLoading">
         <div class="cssload-whirlpool"></div>
+        <div class="cssload-text">23°</div>
     </div>
 
 

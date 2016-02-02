@@ -95,17 +95,17 @@ class ItemController extends Controller
 
          //return response()->api(Item::where('parent_id', 0)->where('user_id', \Auth::user()->id)->with('children')->get());
          return response()->api(Item::where('parent_id', 0)->with('type','categories', 'style', 'indicator','children')->get());
-
+ 
 
     }
     public function showWithChildren($id)
     {
         $index = array();
         if(is_numeric($id)){
-            $index = Item::find($id)->with('children', 'style', 'indicator', 'type', 'parent');
+            $index = Item::find($id)->with('children', 'style', 'indicator', 'type', 'parent', 'categories');
         }
         elseif(is_string($id)){
-          $index =  Item::where('name', $id)->with('children', 'style', 'indicator', 'type', 'parent')->first();
+          $index =  Item::where('name', $id)->with('children', 'style', 'indicator', 'type', 'parent', 'categories')->first();
         }
         //$index->style = $index->getStyle();
         return response()->api($index);
@@ -411,7 +411,7 @@ class ItemController extends Controller
         $item = Item::find($id);
         $item->title = $request->input('title');
         $item->name = str_slug($request->input('title'));
-        $item->description = str_slug($request->input('description'));
+        $item->description = $request->input('description');
         $item->style_id = $request->input('style_id');
         $item->item_type_id = $request->input('type')['id'];
         $item->is_official = $request->input('is_official');
