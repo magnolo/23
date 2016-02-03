@@ -95,7 +95,7 @@ class ItemController extends Controller
 
          //return response()->api(Item::where('parent_id', 0)->where('user_id', \Auth::user()->id)->with('children')->get());
          return response()->api(Item::where('parent_id', 0)->with('type','categories', 'style', 'indicator','children')->get());
- 
+
 
     }
     public function showWithChildren($id)
@@ -174,6 +174,9 @@ class ItemController extends Controller
           $country[$name]['year'] = $index['year'];
         }
         //DIVISION BY ZERO !!!!
+        if($length == 0){
+          $length = 1;
+        }
         $country[$name]['value'] = $calc[$name]['value']/$length;
       }
       return $item;

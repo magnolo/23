@@ -38,7 +38,7 @@ class CategoriesController extends Controller
         if($tree){
           $categories = $categories->where('parent_id', 0);
         }
-        return response()->api($categories->get())->meta('hello');
+        return response()->api($categories->get());
     }
 
     /**
