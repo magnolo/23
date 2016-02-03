@@ -88,12 +88,16 @@
 				var create_nodes = function () {
 					if(scope.indexer.children.length == 2 && scope.indexer.children[0].children.length > 0){
 						angular.forEach(scope.indexer.children, function (group, index) {
-							console.log(group);
+							var mColor = group.color;
+							if(group.style_id != 0){
+								mColor = group.style.base_color;
+							}
+
 							var d = {
 								type: group.name,
 								name: group.title,
 								group: group.name,
-								color: group.style.base_color || group.color,
+								color: mColor,
 								icon: group.icon,
 								unicode: IconsService.getUnicode(group.icon),
 								data: group,
@@ -145,6 +149,7 @@
 						labels.push(d);
 						angular.forEach(scope.indexer.children, function (item) {
 							if (scope.chartdata[item.name]) {
+								
 								var node = {
 									type: item.name,
 									radius: scope.chartdata[item.name] / scope.sizefactor,
