@@ -15,8 +15,13 @@
 				type:'composits',
 				allowMove:false,
 				allowDrop:false,
+				allowAdd:true,
+				allowDelete:true,
 				itemClick: function(id, name){
 					$state.go('app.index.editor.indizes.data', {id:name})
+				},
+				addClick:function(){
+						$state.go('app.index.editor.indizes.data', {id:'new'})
 				}
 			},
 			categories:{

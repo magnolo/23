@@ -17,7 +17,7 @@ class StyleSeeder extends Seeder
         $style = new Style([
           'name' => 'environment',
           'title' => 'Environment',
-          'base_color' => '#D81E05',
+          'base_color' => '#00ccaa',
           'icon_name' => 'tree'
         ]);
         $style->save();

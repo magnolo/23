@@ -2,7 +2,14 @@
 	"use strict";
 
 	angular.module('app.controllers').controller('SimplelinechartCtrl', function ($scope) {
-		$scope.config = {
+		var vm = this;
+		var defaults = function(){
+			return {
+				invert:false
+			}
+		}
+		vm.options = angular.extend(defaults(), vm.options);
+		vm.config = {
 			visible: true, // default: true
 			extended: false, // default: false
 			disabled: false, // default: false
@@ -13,14 +20,22 @@
 			deepWatchConfig: true, // default: true
 			debounce: 10 // default: 10
 		};
-		$scope.chart = {
+		vm.chart = {
 			options: {
 				chart: {}
 			},
 			data: []
 		};
-		$scope.setChart = function () {
-			$scope.chart.options.chart = {
+
+		activate();
+
+		function activate(){
+			calculateGraph();
+			setChart();
+		}
+
+	 	function setChart() {
+			vm.chart.options.chart = {
 				type: 'lineChart',
 				legendPosition: 'left',
 				margin: {
@@ -57,52 +72,55 @@
 				}
 
 			};
-			if ($scope.options.invert == true) {
-				$scope.chart.options.chart.yDomain = [parseInt($scope.range.max), $scope.range.min];
+			if (vm.options.invert == true) {
+				vm.chart.options.chart.yDomain = [parseInt(vm.range.max), vm.range.min];
 			}
-			return $scope.chart;
+			return vm.chart;
 		}
-		$scope.calculateGraph = function () {
+		function calculateGraph() {
 			var chartData = [];
-			$scope.range = {
+			vm.range = {
 				max: 0,
 				min: 1000
 			};
-			angular.forEach($scope.selection, function (item, key) {
+
+			angular.forEach(vm.selection, function (item, key) {
 				var graph = {
 					id: key,
 					key: item.title,
 					color: item.color,
 					values: []
 				};
-				angular.forEach($scope.data, function (data, k) {
+				angular.forEach(vm.data, function (data, k) {
 					graph.values.push({
 						id: k,
 						x: data[item.fields.x],
 						y: data[item.fields.y]
 					});
-					$scope.range.max = Math.max($scope.range.max, data[item.fields.y]);
-					$scope.range.min = Math.min($scope.range.min, data[item.fields.y]);
+					vm.range.max = Math.max(vm.range.max, data[item.fields.y]);
+					vm.range.min = Math.min(vm.range.min, data[item.fields.y]);
 				});
 				chartData.push(graph);
 			});
 
-			$scope.chart.data = chartData;
-			if ($scope.options.invert == "true") {
-				$scope.chart.options.chart.yDomain = [parseInt($scope.range.max), $scope.range.min];
+			vm.chart.data = chartData;
+			if (vm.options.invert == "true") {
+				vm.chart.options.chart.yDomain = [parseInt(vm.range.max), vm.range.min];
 			}
+
 		};
-		$scope.$watch('data', function (n, o) {
+		$scope.$watch('vm.data', function (n, o) {
 			if (!n) {
 				return;
 			}
-			$scope.calculateGraph();
+			console.log(n);
+			calculateGraph();
 		});
-		$scope.$watch('selection', function (n, o) {
+		$scope.$watch('vm.selection', function (n, o) {
 			if (n === o) {
 				return;
 			}
-			$scope.calculateGraph();
+			calculateGraph();
 		})
 	});
 

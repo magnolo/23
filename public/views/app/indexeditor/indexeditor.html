@@ -15,6 +15,7 @@
 <md-tabs md-autoselect md-dynamic-height md-selected="vm.selectedTab" md-stretch-tabs ng-cloak>
 				<md-tab label="Indizes" md-on-select="vm.checkTabContent(0)">
 								<md-content>
+									<treemenu options="vm.options.composits" item="vm.selection"></treemenu>
 									<treeview items="vm.composits" item="vm.selection" options="vm.options.composits"></treeview>
 								</md-content>
 				</md-tab>

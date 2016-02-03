@@ -15,14 +15,14 @@
 			restrict: 'E',
 			controller: 'CirclegraphCtrl',
 			scope: {
-				options: '='
+				options: '=',
+				item: '='
 			},
-			require: 'ngModel',
-			link: function ($scope, element, $attrs, ngModel) {
+			link: function ($scope, element, $attrs) {
 				//Fetching Options
 
 				$scope.options = angular.extend(defaults(), $scope.options);
-
+				var  τ = 2 * Math.PI;
 				//Creating the Scale
 				var rotate = d3.scale.linear()
 					.domain([1, $scope.options.size])
@@ -34,14 +34,17 @@
 					.attr('width', $scope.options.width)
 					.attr('height', $scope.options.height)
 					.append('g');
+
 				var container = svg.append('g')
 					.attr('transform', 'translate(' + $scope.options.width / 2 + ',' + $scope.options.height / 2 + ')');
+
 				var circleBack = container.append('circle')
 					.attr('r', $scope.options.width / 2 - 2)
 					.attr('stroke-width', 2)
 					.attr('stroke', $scope.options.color)
 					.style('opacity', '0.6')
 					.attr('fill', 'none');
+
 				var arc = d3.svg.arc()
 					.startAngle(0)
 					.innerRadius(function (d) {
@@ -50,6 +53,7 @@
 					.outerRadius(function (d) {
 						return $scope.options.width / 2;
 					});
+
 				var circleGraph = container.append('path')
 					.datum({
 						endAngle: 2 * Math.PI * 0
@@ -70,9 +74,12 @@
 
 				//Transition if selection has changed
 				function animateIt(radius) {
-					circleGraph.transition()
-						.duration(750)
-						.call(arcTween, rotate(radius) * 2 * Math.PI);
+
+						circleGraph.transition()
+							.duration(750)
+							.call(arcTween, rotate(radius) * 2 * Math.PI);
+
+
 					text.transition().duration(750).tween('text', function (d) {
 						var data = this.textContent.split('N°');
 						var i = d3.interpolate(parseInt(data[1]), radius);
@@ -93,7 +100,7 @@
 					});
 				}
 
-				$scope.$watch('options', function (n, o) {
+				/*$scope.$watch('options', function (n, o) {
 					if (n === o) {
 						return;
 					}
@@ -101,22 +108,18 @@
 					circleGraph.style('fill', n.color);
 					text.style('fill', n.color);
 					$timeout(function () {
-						animateIt(ngModel.$modelValue[n.field])
+						animateIt($scope.item[n.field])
 					});
-				});
+				});*/
 
 				//Watching if selection has changed from another UI element
-				$scope.$watch(
-					function () {
-						return ngModel.$modelValue;
-					},
-					function (n, o) {
+				$scope.$watch('item',	function (n, o) {
 						if (!n) {
-							n = {};
 							n[$scope.options.field] = $scope.options.size;
 						}
 						$timeout(function () {
-							animateIt(n[$scope.options.field]);
+								console.log(n[$scope.options.field])
+								animateIt(n[$scope.options.field]);
 						});
 					});
 			}

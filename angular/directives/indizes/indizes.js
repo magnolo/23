@@ -1,7 +1,7 @@
 (function(){
 	"use strict";
 
-	angular.module( 'app.controllers' ).controller( 'IndizesCtrl', function($scope, $filter, toastr, DataService, ContentService){
+	angular.module( 'app.controllers' ).controller( 'IndizesCtrl', function($scope, $state, $filter, $timeout, toastr, DataService, ContentService){
 		//
 		var vm = this;
 		vm.original = angular.copy(vm.item);
@@ -32,9 +32,15 @@
 		function loadAll() {
 			vm.categories = ContentService.getCategories({tree:true});
 			vm.styles = DataService.getAll('styles').$object;
+			vm.types = DataService.getAll('index/types').$object;
+
+			if(typeof vm.item.id == "undefined"){
+				vm.item.item_type_id = 1;
+				vm.item.children = [];
+			}
 		}
 		function checkBase(){
-			if (vm.item.title && vm.item.type && vm.item.title.length >= 3) {
+			if (vm.item.title && vm.item.item_type_id && vm.item.title.length >= 3) {
 				return true;
 			}
 			return false;
@@ -44,14 +50,27 @@
 			return checkBase() && vm.item.categories.length ? true : false;
 		}
 		function save(){
-			vm.item.save().then(function(response){
-				if(response){
-					toastr.success('Data successfully updated!', 'Successfully saved');
-					vm.item.isDirty = false;
-					vm.original = angular.copy(vm.item);
-					//$state.go('app.index.editor.indizes.data',{id:vm.item.name})
-				}
-			});
+			if(vm.item.id){
+				vm.item.save().then(function(response){
+					if(response){
+						toastr.success('Data successfully updated!', 'Successfully saved');
+						vm.item.isDirty = false;
+						vm.original = angular.copy(vm.item);
+						//$state.go('app.index.editor.indizes.data',{id:vm.item.name})
+					}
+				});
+			}
+			else{
+				DataService.post('index', vm.item).then(function(response){
+					if(response){
+						toastr.success('Data successfully saved!', 'Successfully saved');
+						vm.item.isDirty = false;
+						vm.original = angular.copy(vm.item);
+						$state.go('app.index.editor.indizes.data',{id:response.name})
+					}
+				});
+			}
+
 		}
 		$scope.$watch('vm.item', function(n, o){
 			if(n != o) {

@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Item;
 use App\Style;
+use App\ItemType;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Auth;
@@ -27,41 +28,69 @@ class ItemController extends Controller
     public function alphabethical(){
         return Item::orderBy('title', 'ASC')->get();
     }
+
+    public function types(){
+      return response()->api(ItemType::all());
+    }
     /**
      * Show the form for creating a new resource.
      *
      * @return Response
      */
     protected function saveSubIndex($data, $parent){
-      foreach($data as $entry){
-        $index = new Item();
-        $index->title = $entry['title'];
-        $index->name = str_slug($entry['title'], '-');
-        $index->indicator_id = isset($entry['incator_id']) ? $entry['incator_id'] : null;
-        $index->item_type_id = $entry['type_id'];
-        $index->style_id = $entry['style_id'];
-        $index->parent_id = $parent->id;
-        $index->user_id = Auth::user()->id;
-        $index->save();
-        if($index->id && isset($entry['nodes'])){
-          $this->saveSubIndex($entry['nodes'], $index);
+      if(count($data) > 0){
+        foreach($data as $entry){
+          $index = new Item();
+          $index->title = $entry['title'];
+          $index->name = str_slug($entry['title']);
+
+          if(isset($entry['item_type_id'])){
+            $index->item_type_id = $entry['item_type_id'];
+            $index->indicator_id = isset($entry['indicator_id']) ? $entry['indicator_id'] : null;
+            $index->style_id = $entry['style_id'];
+          }
+          else{
+            $index->item_type_id = 4;
+            $index->indicator_id = $entry['id'];
+          }
+
+          $index->parent_id = $parent->id;
+          $index->user_id = Auth::user()->id;
+          $index->save();
+
+          if(isset($index['categories']) && isset($entry['item_type_id'])){
+            foreach($index['categories'] as $cat){
+              $index->categories()->attach($cat['id']);
+            }
+          }
+
+          if($index->id && isset($entry['children'])){
+            $this->saveSubIndex($entry['children'], $index);
+          }
         }
       }
+
     }
     public function create(Request $request)
     {
         //
         $index = new Item();
         $index->title = $request->input('title');
-        $index->name = str_slug($request->input('title'), "_");
-        $index->indicator_id = $request->has('incator_id') ? $request->input('incator_id') : null;
-        $index->item_type_id = $request->input('type_id');
-        $index->parent_id = 0;
-        $index->style_id = $request->input('type_id');
+        $index->name = str_slug($request->input('title'));
+        $index->indicator_id = $request->has('indicator_id') ? $request->input('indicator_id') : null;
+        $index->item_type_id = $request->input('item_type_id');
+        $index->parent_id = $request->has('parent_id') ? $request->input('parent_id') : 0;
+        $index->style_id = $request->input('style_id');
         $index->user_id = Auth::user()->id;
         $index->save();
+
+        if(isset($index['categories'])){
+          foreach($index['categories'] as $cat){
+            $index->categories()->attach($cat['id']);
+          }
+        }
         if($index->id){
-          $this->saveSubIndex($request->input('data'), $index);
+          $this->saveSubIndex($request->input('children'), $index);
         }
         return response()->api($index);
     }
@@ -116,6 +145,108 @@ class ItemController extends Controller
       }
 
     }
+
+
+    public function showByIso($id, $iso){
+      if(is_int($id)){
+        $item = Item::findOrFail($id)->load('type', 'children');
+      }
+      elseif(is_string($id)){
+        $item = Item::where('name', $id)->with('type', 'children')->firstOrFail();
+      }
+
+        $response = [
+           'iso' => $iso,
+           'data' => $this->calcValuesForStatistic($this->fetchDataForCountry($item, $iso))
+        ];
+        return response()->api($response);
+    }
+    public function showByYear($id, $year)
+    {
+        if(is_int($id)){
+          $item = Item::find($id)->with('type','children');
+        }
+        elseif(is_string($id)){
+          $item = Item::where('name', $id)->with('type','children')->firstOrFail();
+        }
+
+        $data =  $this->calcValues($this->fetchData($item, $year));
+        return response()->api($data);
+    }
+
+    public function showLatestYear($id)
+    {
+        if(is_int($id)){
+          $item = Item::find($id)->with('type', 'children');
+        }
+        elseif(is_string($id)){
+          $item = Item::where('name', $id)->with('type', 'children')->firstOrFail()->load('type');
+        }
+        $year = $this->searchForYear($item);
+        $data =  $this->calcValues($this->fetchData($item, $year));
+        return response()->api($data);
+    }
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function edit($id)
+    {
+        //
+    }
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  Request  $request
+     * @param  int  $id
+     * @return Response
+     */
+    public function saveChildren($item){
+
+    }
+    public function update(Request $request, $name, $id)
+    {
+        //
+        $cats = array();
+
+        $item = Item::find($id);
+        $item->title = $request->input('title');
+        $item->name = str_slug($request->input('title'));
+        $item->description = $request->input('description');
+        $item->style_id = $request->input('style_id');
+        $item->item_type_id = $request->input('type')['id'];
+        $item->is_official = $request->input('is_official');
+        $item->is_public = $request->input('is_public');
+        if($request->has('categories')){
+          foreach($request->input('categories') as $cat){
+            $cats[] = $cat['id'];
+          };
+          $item->categories()->sync($cats);
+        }
+        return response()->api($item->save());
+    }
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function destroy($id)
+    {
+        //
+    }
+
+
+
+
+    /**
+    *
+    *   FOLLOWING FUNCTIONS ARE FOR CALCULATIONS
+    *   SHOULD BE MOVED TO OWN PROVIDER
+    */
+
     public function fetchData($index, $year){
         if(count($index->children) > 0){
           foreach($index->children as $key => &$item){
@@ -163,6 +294,7 @@ class ItemController extends Controller
       return $index;
     }
     public function calcAverage($item, $length, $name){
+
       foreach ($item as $key => &$country) {
         $calc[$name]['value'] = 0;
         foreach ($country as $k => $index) {
@@ -173,10 +305,7 @@ class ItemController extends Controller
           }
           $country[$name]['year'] = $index['year'];
         }
-        //DIVISION BY ZERO !!!!
-        if($length == 0){
-          $length = 1;
-        }
+
         $country[$name]['value'] = $calc[$name]['value']/$length;
       }
       return $item;
@@ -203,7 +332,7 @@ class ItemController extends Controller
                   $sum[$key][$k]['value'] = $dat['value'];
                   $sum[$key][$k]['year'] = $dat['year'];
                   $sum[$key][$k]['calc'] = false;
-                  if($k == $child['score_field_name']){
+                  if($k == $child->name){
                     $sum[$key][$k]['calc'] = true;
                   }
                 }
@@ -237,36 +366,41 @@ class ItemController extends Controller
     }
     public function averageData($item){
       $sum = array();
+
       if(count($item['children']) > 0){
-        foreach($item['children'] as $child){
-          $child->load('indicator');
-          if(!$child->type->name != "group" && isset($child->data)){
-            foreach($child->data as $data){
-              if(!isset($sum[$data->iso][$child->name])){
+        foreach ($item['children'] as $child) {
+          if($child->type->name == "index"){
+            if(isset($child->data)){
+              foreach($child->data as $data){
+                if(!isset($sum[$data->iso][$child->name])){
                   $sum[$data->iso][$child->name]['value'] = 0;
                   $sum[$data->iso][$child->name]['year'] = $data->year;
-                  if($child->type->name == "index"){
-                    $sum[$data->iso][$child->name]['calc'] = false;
+                  if($item->type->name == "group"){
+                      $sum[$data->iso][$child->name]['calc'] = true;
                   }
                   else{
-                    $sum[$data->iso][$child->name]['calc'] = true;
+                    $sum[$data->iso][$child->name]['calc'] = false;
                   }
-
-                  //$sum[$data->iso]['country'] = $data->country;
+                }
+                $sum[$data->iso][$child->name]['value'] += $data->score;
               }
-              $sum[$data->iso][$child->name]['value'] += $data->score;
             }
           }
           else{
-            $sub = $this->averageData($child);
-            $su = $this->calcAverage($sub, $this->fieldCount($sub),$child->name);
-            foreach($su as $key => &$s){
-              foreach($s as $k => &$dat){
-                $sum[$key][$k]['value'] = $dat['value'];
-                $sum[$key][$k]['year'] = $dat['year'];
-                $sum[$key][$k]['calc'] = false;
-                if($k == $child['column_name']){
-                  $sum[$key][$k]['calc'] = true;
+            $soup = $this->averageData($child);
+            $sub = $this->calcAverage($soup, $this->fieldCount($soup), $child->name);
+
+            foreach($sub as $iso => &$s){
+              foreach($s as $key => &$data){
+                if(!isset($sum[$iso][$key])){
+                  $sum[$iso][$key]['value'] = $data['value'];
+                  $sum[$iso][$key]['year'] = $data['year'];
+                  if($key == $child->name){
+                    $sum[$iso][$key]['calc'] = true;
+                  }
+                  else{
+                    $sum[$iso][$key]['calc'] = false;
+                  }
                 }
               }
             }
@@ -279,27 +413,33 @@ class ItemController extends Controller
               $sum[$data->iso][$item->name]['value'] = 0;
               $sum[$data->iso][$item->name]['year'] = $data->year;
               $sum[$data->iso][$item->name]['calc'] = true;
-              //$sum[$data->iso]['country'] = $data->country;
           }
           $sum[$data->iso][$item->name]['value'] += $data->score;
         }
       }
       return $sum;
     }
+
     public function fieldCount($items){
       $fields = array();
+
       foreach($items as $key => $item) {
+
         foreach($item as $k => $i){
+
           if($i['calc'] && !isset($fields[$k])){
+
             $fields[$k] = true;
           }
         }
+
       }
       return count($fields);
     }
     public function calcValuesForStatistic($index){
       $scores = $this->averageDataForCountry($index);
       $data = array();
+      //dd($scores);
       $scores = $this->calcAverage($scores, $this->fieldCount($scores), $index->name);
       foreach ($scores as $key => $value) {
         foreach($value as $k => $column){
@@ -314,6 +454,7 @@ class ItemController extends Controller
       $data = array();
       if($index->type->name == "group"){
         $score = $this->averageData($index);
+
         $score = $this->calcAverage($score, $this->fieldCount($score), $index->name);
       }
       else if($index->type->name == "index"){
@@ -335,108 +476,20 @@ class ItemController extends Controller
       }
       return $data;
     }
-    public function showByIso($id, $iso){
-      if(is_int($id)){
-        $index = Item::findOrFail($id)->load('type');
-      }
-      elseif(is_string($id)){
-        $index = Item::where('name', $id)->firstOrFail()->load('type');
-      }
-        $data = $index->load('children');
-        $response = [
-           'iso' => $iso,
-           'data' => $this->calcValuesForStatistic($this->fetchDataForCountry($data, $iso))
-        ];
-        return response()->api($response);
-    }
-    public function showByYear($id, $year)
-    {
-        if(is_int($id)){
-          $index = Item::find($id)->with('type');
-        }
-        elseif(is_string($id)){
-          $index = Item::where('name', $id)->firstOrFail()->load('type');
-        }
-        $data = $index->load('children');
-        $data =  $this->calcValues($this->fetchData($data, $year));
-        return response()->api($data);
-    }
-    public function showLatestYear($id)
-    {
-        if(is_int($id)){
-          $index = Item::find($id)->with('type');
-        }
-        elseif(is_string($id)){
-          $index = Item::where('name', $id)->firstOrFail()->load('type');
-        }
-        $data = $index->load('children');
-        $year = '';
-        if($index->type->name == 'group'){
-          foreach($data->children as $child){
-            if($child->type->name != 'group'){
-              $year = $this->getLatestYear($child);
-            }
+    public function searchForYear($data){
+      if($data->type->name == 'group'){
+        foreach($data->children as $child){
+          if($child->type->name != 'group'){
+            $year = $this->getLatestYear($child);
+          }
+          else{
+            $year = $this->searchForYear($child);
           }
         }
-        else{
-          $year = $this->getLatestYear($index);
-        }
-        //return response()->api($this->fetchData($data, $year));
-        $data =  $this->calcValues($this->fetchData($data, $year));
-        return response()->api($data);
-    }
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  Request  $request
-     * @param  int  $id
-     * @return Response
-     */
-    public function saveChildren($item){
-
-    }
-    public function update(Request $request, $name, $id)
-    {
-        //
-        $cats = array();
-
-
-        $item = Item::find($id);
-        $item->title = $request->input('title');
-        $item->name = str_slug($request->input('title'));
-        $item->description = $request->input('description');
-        $item->style_id = $request->input('style_id');
-        $item->item_type_id = $request->input('type')['id'];
-        $item->is_official = $request->input('is_official');
-        $item->is_public = $request->input('is_public');
-
-        if($request->has('categories')){
-          foreach($request->input('categories') as $cat){
-            $cats[] = $cat['id'];
-          };
-            $item->categories()->sync($cats);
-        }
-
-        return response()->api($item->save());
-    }
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function destroy($id)
-    {
-        //
+      }
+      else{
+        $year = $this->getLatestYear($data);
+      }
+      return $year;
     }
 }

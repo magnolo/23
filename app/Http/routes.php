@@ -27,12 +27,12 @@ $api->version('v1', function ($api) {
 
     $api->get('index', 'App\Http\Controllers\ItemController@index');
     $api->get('index/alphabethical', 'App\Http\Controllers\ItemController@alphabethical');
+    $api->get('index/types', 'App\Http\Controllers\ItemController@types');
     $api->get('index/{id}', 'App\Http\Controllers\ItemController@showWithChildren');
     $api->get('index/{id}/year/latest', 'App\Http\Controllers\ItemController@showLatestYear');
     $api->get('index/{id}/year/{year}', 'App\Http\Controllers\ItemController@showByYear');
     $api->get('index/{id}/structure', 'App\Http\Controllers\ItemController@showWithChildren');
     $api->get('index/{id}/{iso}', 'App\Http\Controllers\ItemController@showByIso');
-
 
 
     //$api->get('nations', 'App\Http\Controllers\NationsController@index');
@@ -73,6 +73,7 @@ $api->version('v1', ['middleware' => 'api.auth'], function ($api) {
     $api->put('indicators/{id}', 'App\Http\Controllers\IndicatorController@update');
 
     $api->put('index/{name}/{id}', 'App\Http\Controllers\ItemController@update');
+    $api->post('index','App\Http\Controllers\ItemController@create');
 
     $api->post('data/tables', 'App\Http\Controllers\UserdataController@createDataTable');
     $api->post('data/tables/{table}/insert', 'App\Http\Controllers\UserdataController@insertDataToTable');

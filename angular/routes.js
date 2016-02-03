@@ -179,6 +179,7 @@
 						controllerAs: 'vm',
 						resolve:{
 							index:function(ContentService, $stateParams){
+								if($stateParams.id == 'new') return {};
 								return ContentService.getItem($stateParams.id)
 							}
 						}
