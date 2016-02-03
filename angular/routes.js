@@ -117,7 +117,7 @@
 						controllerAs: 'vm',
 						resolve:{
 							indicators:function(ContentService){
-								return ContentService.fetchIndicators({page:1, order:'title', limit:25, dir: 'ASC'});
+								return ContentService.fetchIndicators({page:1, order:'title', limit:1000, dir: 'ASC'});
 							}
 						}
 					}
@@ -196,7 +196,7 @@
 						controllerAs: 'vm',
 						resolve:{
 							indicators:function(ContentService, $stateParams){
-								return ContentService.fetchIndicators({page:1, order:'title', limit:25, dir: 'ASC'});
+								return ContentService.fetchIndicators({page:1, order:'title', limit:1000, dir: 'ASC'});
 							}
 						}
 					}
