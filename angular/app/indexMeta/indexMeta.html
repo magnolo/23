@@ -3,7 +3,7 @@
                 <section flex layout-fill layout="row">
                         <md-content flex>
                                 <div layout-align="top center" layout-fill layout="column" ng-if="vm.indicator">
-                                        <indicator item="vm.indicator"></indicator>
+                                        <indicator item="vm.indicator" options="{globalSave:false}"></indicator>
                                 </div>
                                 <div layout-fill ng-if="!vm.indicator" layout="column" layout-align="center center">
 

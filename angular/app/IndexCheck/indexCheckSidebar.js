@@ -15,7 +15,6 @@
 		function activate() {
 			vm.myData = DataService.getAll('me/data');
 			checkMyData();
-			console.log(vm.meta);
 		}
 
 		function checkMyData() {
@@ -74,7 +73,6 @@
 					if (!errorFound) {
 						row.errors.push(error);
 						vm.iso_errors.push(error);
-
 					}
 				}
 			});

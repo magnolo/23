@@ -59,7 +59,7 @@ class CategoriesController extends Controller
      */
     public function store(Request $request)
     {
-        $name = str_slug($request->input('title'), '-');
+        $name = str_slug($request->input('title'));
         $cat = Categorie::where('name',$name)->first();
         if($cat){
           return response()->json(['error' => 'Categorie with this name already exists'], 500);
@@ -75,7 +75,7 @@ class CategoriesController extends Controller
           $category = new Categorie;
           $category->title = $request->input('title');
           $category->name = $name;
-          $category->is_public = $request->input('is_public');
+          $category->is_public = $request->input('is_public') ? $request->input('is_public') : false;
           $category->description = $request->input('description');
           $category->parent_id = $parent_id;
           $category->user_id = $user->id;
@@ -128,6 +128,7 @@ class CategoriesController extends Controller
         $categorie->parent_id = $request->input('parent_id');
         $categorie->style_id = $request->input('style_id');
         $categorie->is_public = $request->input('is_public');
+        $categorie->description = $request->input('description');
 
         return response()->api($categorie->save());
     }
