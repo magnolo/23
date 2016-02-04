@@ -130,7 +130,7 @@
 				</md-tab>
 				<md-tab label="Categories" md-on-select="vm.checkTabContent(2)">
 								<md-content>
-									<treemenu options="{allowAdd:true, allowDelete:true}" selection="vm.selection['categories']"></treemenu>
+									<treemenu options="{allowAdd:true, allowDelete:true, allowSave:true}" selection="vm.selection['categories']"></treemenu>
 									<treeview items="vm.categories" item="vm.selection" options="vm.options.categories"></treeview>
 								</md-content>
 				</md-tab>

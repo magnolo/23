@@ -3,7 +3,7 @@
 				<md-content class="md-accent doAnim-left" layout-padding ng-if="!vm.createStyle">
 								<div layout-align="space-between center" layout="row">
 												<span flex></span>
-												<md-button class="doAnim-bottom md-primary md-fab md-mini" ng-click="vm.save()" ng-disabled="categoryForm.$invalid" ng-if="vm.item.isDirty && vm.item.style.id" ng-if="vm.options.globalSave">
+												<md-button class="doAnim-bottom md-primary md-fab md-mini" ng-click="vm.save()" ng-disabled="categoryForm.$invalid" ng-if="vm.item.isDirty && vm.item.style.id && vm.options.globalSave">
 																<md-icon class="material-icons">save</md-icon>
 																<md-tooltip md-delay="500">Save changes</md-tooltip>
 												</md-button>

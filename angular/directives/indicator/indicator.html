@@ -125,7 +125,7 @@
 												</md-tab-label>
 												<md-tab-body>
 																<md-content layout-padding>
-																			
+
 
 																</md-content>
 												</md-tab-body>
@@ -135,7 +135,7 @@
 																<ng-md-icon icon="brush" ng-class="{'valid': vm.item.style_id}"></ng-md-icon>
 												</md-tab-label>
 												<md-tab-body>
-																<styles item="vm.item" options="{globalSave:true}" save="vm.save()" styles="vm.styles"></styles>
+																<styles item="vm.item" options="{globalSave:vm.options.globalSave}" save="vm.save()" styles="vm.styles"></styles>
 												</md-tab-body>
 								</md-tab>
 								<md-tab>
@@ -143,7 +143,7 @@
 																<ng-md-icon icon="settings_input_component" ng-class="{'valid': vm.item.categories.length}"></ng-md-icon>
 												</md-tab-label>
 												<md-tab-body>
-																<categories categories="vm.categories" item="vm.item" options="{globalSave:true}" save="vm.save()"></categories>
+																<categories categories="vm.categories" item="vm.item" options="{globalSave:vm.options.globalSave}" save="vm.save()"></categories>
 												</md-tab-body>
 								</md-tab>
 				</md-tabs>
