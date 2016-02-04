@@ -1,4 +1,7 @@
 <section class="table ">
+	<div layout="row">
+		<span ng-click="vm.yearfilter = year" ng-repeat="year in vm.years ">{{year}}</span>
+	</div>
 				<md-data-table-toolbar >
 								<div flex layout-align="start center" layout="row">
 												<h2 class="md-title">Data Overview</h2>
@@ -47,7 +50,7 @@
 												</thead>
 												<tbody>
 
-																<tr class="{{ vm.checkForErrors(item) }}" md-auto-select ng-repeat="item in vm.data | orderBy:vm.query.order | limitTo: vm.query.limit : (vm.query.page-1)*vm.query.limit">
+																<tr class="{{ vm.checkForErrors(item) }}" md-auto-select ng-repeat="item in vm.data |  orderBy:vm.query.order | limitTo: vm.query.limit : (vm.query.page-1)*vm.query.limit">
 																				<td ng-if="vm.errors.length || vm.iso_errors.length">{{item.errors.length}}</td>
 																				<td ng-class="{'md-warn': vm.meta.iso_field == k && !column}" ng-repeat="(k, column) in item.data[0]">{{column}}</td>
 																</tr>

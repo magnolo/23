@@ -13,11 +13,12 @@
 		activate();
 
 		function activate() {
-			vm.myData = DataService.getAll('me/data');
-			checkMyData();
+
+			//vm.myData = DataService.getAll('me/data');
+			//checkMyData();
 		}
 
-		function checkMyData() {
+		/*function checkMyData() {
 			vm.extendingChoices = [];
 			if (vm.data.length) {
 				vm.myData.then(function(imports) {
@@ -43,7 +44,7 @@
 					}
 				});
 			}
-		}
+		}*/
 
 		function clearErrors() {
 			angular.forEach(vm.data, function(row, key) {
