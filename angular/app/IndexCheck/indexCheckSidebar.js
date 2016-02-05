@@ -8,7 +8,7 @@
 		vm.errors = IndexService.getErrors();
 		vm.iso_errors = IndexService.getIsoErrors();
 		vm.clearErrors = clearErrors;
-		vm.fetchIso = fetchIso;
+		vm.fetchIso = fetchIso; 
 
 		activate();
 
@@ -178,7 +178,7 @@
 							}
 						}
 					});
-				}); 
+				});
 				vm.iso_checked = true;
 				IndexService.setToLocalStorage();
 				if (IndexService.getToSelect().length) {

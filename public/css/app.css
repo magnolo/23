@@ -1664,6 +1664,7 @@ div[ui-view='map'] {
 
 
 
+
 .indicator-tabs .indicator-fields {
   padding: 0 1em;
   max-width: 500px;
@@ -1694,7 +1695,6 @@ div[ui-view='map'] {
 .indicator-tabs md-autocomplete[md-floating-label] md-input-container {
   padding-bottom: 2px;
 }
-
 
 .indicator-menu {
   position: absolute;
@@ -1729,35 +1729,6 @@ div[ui-view='map'] {
   fill: #ddd;
 }
 
-
-.dropzone {
-  border: 2px dashed #ddd;
-  padding: 2em;
-}
-.or {
-  position: relative;
-  margin: 1em 0;
-}
-.or::after {
-  content: '';
-  width: 200%;
-  position: absolute;
-  left: 50%;
-  margin-left: -2.5em;
-  border-bottom: 1px solid;
-  height: 1px;
-  top: 0.5em;
-}
-.or::before {
-  content: '';
-  width: 200%;
-  position: absolute;
-  right: 50%;
-  margin-right: -2.5em;
-  border-bottom: 1px solid;
-  height: 1px;
-  top: 0.5em;
-}
 
 median {
   overflow: hidden;
@@ -1812,6 +1783,35 @@ median .slider text {
   -ms-user-select: none;
   user-select: none;
   cursor: ew-resize;
+}
+
+.dropzone {
+  border: 2px dashed #ddd;
+  padding: 2em;
+}
+.or {
+  position: relative;
+  margin: 1em 0;
+}
+.or::after {
+  content: '';
+  width: 200%;
+  position: absolute;
+  left: 50%;
+  margin-left: -2.5em;
+  border-bottom: 1px solid;
+  height: 1px;
+  top: 0.5em;
+}
+.or::before {
+  content: '';
+  width: 200%;
+  position: absolute;
+  right: 50%;
+  margin-right: -2.5em;
+  border-bottom: 1px solid;
+  height: 1px;
+  top: 0.5em;
 }
 
 

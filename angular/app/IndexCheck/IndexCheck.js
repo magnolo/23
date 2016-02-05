@@ -3,7 +3,7 @@
 
 	angular.module('app.controllers').controller('IndexCheckCtrl', function ($scope, $state, $filter, toastr, DialogService, IndexService) {
 
-
+ 
 		var vm = this;
 		vm.data = IndexService.getData();
 		vm.meta = IndexService.getMeta();
@@ -129,7 +129,7 @@
 
 		function deleteData() {
 			vm.data = [];
-		} 
+		}
 
 		function searchForErrors() {
 			angular.forEach(vm.data, function (row, k) {

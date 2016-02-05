@@ -10,7 +10,6 @@
 			replace:true,
 			link: function( $scope, element, $attrs ){
 				//
-
 				$scope.$watch('file', function(n,o){
 					if(n===o) return false;
 					console.log(n);

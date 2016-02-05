@@ -3,7 +3,7 @@
 
     angular.module('app.services').factory('ErrorCheckerService', function(DataService, DialogService, IndexService){
         //
-
+        var vm = this;
 
         function checkMyData(data) {
     			vm.extendingChoices = [];
