@@ -3,7 +3,7 @@
 
 	angular.module('app.controllers').controller('IndexCheckCtrl', function ($scope, $state, $filter, toastr, DialogService, IndexService) {
 
- 
+
 		var vm = this;
 		vm.data = IndexService.getData();
 		vm.meta = IndexService.getMeta();
@@ -41,7 +41,7 @@
 			if (!vm.data) {
 				$state.go('app.index.create');
 			}
-			//console.log(vm.data);
+			console.log(vm.data);
 		}
     function getYears(){
       var dat = ($filter('groupBy')(vm.data, 'data.'+vm.meta.country_field ));
