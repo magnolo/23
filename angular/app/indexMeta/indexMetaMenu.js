@@ -43,10 +43,8 @@
         });
         console.log(done, Object.keys(vm.indicators).length);
         if(done == Object.keys(vm.indicators).length){
-
           return true;
         }
-
         return false;
       }
       function saveData() {

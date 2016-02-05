@@ -178,7 +178,7 @@
 							}
 						}
 					});
-				});
+				}); 
 				vm.iso_checked = true;
 				IndexService.setToLocalStorage();
 				if (IndexService.getToSelect().length) {

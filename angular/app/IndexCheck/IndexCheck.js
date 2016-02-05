@@ -129,7 +129,7 @@
 
 		function deleteData() {
 			vm.data = [];
-		}
+		} 
 
 		function searchForErrors() {
 			angular.forEach(vm.data, function (row, k) {
