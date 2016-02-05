@@ -1,7 +1,5 @@
 <section class="table ">
-	<div layout="row">
-		<span ng-click="vm.yearfilter = year" ng-repeat="year in vm.years ">{{year}}</span>
-	</div>
+
 				<md-data-table-toolbar >
 								<div flex layout-align="start center" layout="row">
 												<h2 class="md-title">Data Overview</h2>
@@ -23,12 +21,15 @@
 												</div>
 								</div>
 				</md-data-table-toolbar>
+				<md-tabs style="border-bottom:1px solid #efefef">
+						<md-tab md-on-select="vm.yearfilter = year" ng-repeat="year in vm.years ">{{year}}</md-tab>
+			</md-tabs>
 				<md-data-table-container>
 								<table md-data-table md-row-select="vm.selected">
 												<thead md-order="vm.query.order" md-trigger="vm.onOrderChange">
 																<tr >
 																				<th name="Errors" ng-if="vm.errors.length || vm.iso_errors.length" order-by="errors"></th>
-																				<th class="iconed" name="{{key}}" ng-class="{'globe': key == vm.meta.iso_field || key == vm.meta.country_field || key == vm.meta.year_field}" ng-repeat="(key, item) in vm.data[0].data[0]" order-by="{{key}}">
+																				<th class="iconed" name="{{key}}" ng-class="{'globe': key == vm.meta.iso_field || key == vm.meta.country_field || key == vm.meta.year_field}" ng-repeat="(key, item) in vm.data[0].data" order-by="{{key}}">
 																								<span class="icon" ng-if="key == vm.meta.iso_field">
 																												<ng-md-icon icon="public"></ng-md-icon>
 																								</span>
@@ -50,14 +51,14 @@
 												</thead>
 												<tbody>
 
-																<tr class="{{ vm.checkForErrors(item) }}" md-auto-select ng-repeat="item in vm.data |  orderBy:vm.query.order | limitTo: vm.query.limit : (vm.query.page-1)*vm.query.limit">
+																<tr class="{{ vm.checkForErrors(item) }}" md-auto-select ng-repeat="item in vm.data | property: vm.meta.year_field : vm.yearfilter | orderBy:vm.query.order | limitTo: vm.query.limit : (vm.query.page-1)*vm.query.limit">
 																				<td ng-if="vm.errors.length || vm.iso_errors.length">{{item.errors.length}}</td>
-																				<td ng-class="{'md-warn': vm.meta.iso_field == k && !column}" ng-repeat="(k, column) in item.data[0]">{{column}}</td>
+																				<td ng-class="{'md-warn': vm.meta.iso_field == k && !column}" ng-repeat="(k, column) in item.data">{{column}}</td>
 																</tr>
 												</tbody>
 								</table>
 				</md-data-table-container>
-				<md-data-table-pagination md-limit="vm.query.limit" md-page="vm.query.page" md-total="{{vm.data.length}}" md-trigger="vm.onPaginationChange"></md-data-table-pagination>
+				<md-data-table-pagination md-limit="vm.query.limit" md-page="vm.query.page" md-total="{{vm.data.length }}" md-trigger="vm.onPaginationChange"></md-data-table-pagination>
 </section>
 <!--<section class="anim md-whiteframe-z2" ng-if="vm.data.length && vm.step == 1">
         <md-data-table-toolbar class="md-whiteframe-z1">

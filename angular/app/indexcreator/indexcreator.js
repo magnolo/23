@@ -53,7 +53,6 @@
 
         vm.icons = IconsService.getList();
 
-
         vm.meta = {
           iso_field: '',
           country_field:'',
@@ -86,6 +85,7 @@
 
         function activate(){
           //clearMap();
+          IndexService.resetLocalStorage();
         }
         function openClose(active){
           return active ? 'remove' : 'add';

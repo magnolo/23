@@ -144,6 +144,23 @@
           },
           resetToSelect: function(){
             return serviceData.toSelect = [];
+          },
+          resetLocalStorage: function(){
+            if(CacheFactory.get('importData')){
+                importCache.remove('dataToImport');
+            }
+            return serviceData= {
+                data: [],
+                errors: [],
+                iso_errors:[],
+                meta:{
+                  iso_field: '',
+                  country_field:'',
+                  year_field:''
+                },
+                toSelect:[],
+                indicators:{}
+            };
           }
         }
     });

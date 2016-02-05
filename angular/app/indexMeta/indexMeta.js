@@ -73,16 +73,16 @@
           vm.min = 10000000;
           vm.max = 0;
           angular.forEach(vm.data, function(item, key){
-              vm.min = Math.min(item.data[0][vm.indicator.column_name], vm.min);
-              vm.max = Math.max(item.data[0][vm.indicator.column_name], vm.max);
+              vm.min = Math.min(item.data[vm.indicator.column_name], vm.min);
+              vm.max = Math.max(item.data[vm.indicator.column_name], vm.max);
           });
           vm.scale = d3.scale.linear().domain([vm.min,vm.max]).range([0,100]);
         }
         function getValueByIso(iso){
           var value = 0;
           angular.forEach(vm.data, function(item, key){
-             if(item.data[0][vm.meta.iso_field] == iso){
-               value = item.data[0][vm.indicator.column_name];
+             if(item.data[vm.meta.iso_field] == iso){
+               value = item.data[vm.indicator.column_name];
              }
           });
           return value;

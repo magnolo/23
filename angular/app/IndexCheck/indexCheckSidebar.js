@@ -48,20 +48,20 @@
 
 		function clearErrors() {
 			angular.forEach(vm.data, function(row, key) {
-				angular.forEach(row.data[0], function(item, k) {
+				angular.forEach(row.data, function(item, k) {
 					if (isNaN(item) || item < 0) {
 						if ( item.toString().toUpperCase() == "#NA" || item < 0 || item.toString().toUpperCase().indexOf('N/A') > -1) {
-							vm.data[key].data[0][k] = null;
+							vm.data[key].data[k] = null;
 							row.errors.splice(0, 1);
 							vm.errors.splice(0, 1);
 						}
 					}
 				});
-				if (!row.data[0][vm.meta.iso_field]) {
+				if (!row.data[vm.meta.iso_field]) {
 					var error = {
 						type: "2",
 						message: "Iso field is not valid!",
-						value: row.data[0][vm.meta.iso_field],
+						value: row.data[vm.meta.iso_field],
 						column: vm.meta.iso_field,
 						row: key
 					};
@@ -77,6 +77,7 @@
 					}
 				}
 			});
+			IndexService.setToLocalStorage();
 		}
 
 		function fetchIso() {
@@ -98,28 +99,28 @@
 			var isoCheck = 0;
 			var isoType = 'iso-3166-2';
 			angular.forEach(vm.data, function(item, key) {
-				if (item.data[0][vm.meta.iso_field]) {
-					isoCheck += item.data[0][vm.meta.iso_field].length == 3 ? 1 : 0;
+				if (item.data[vm.meta.iso_field]) {
+					isoCheck += item.data[vm.meta.iso_field].length == 3 ? 1 : 0;
 				}
-				switch (item.data[0][vm.meta.country_field]) {
+				switch (item.data[vm.meta.country_field]) {
 					case 'Cabo Verde':
-						item.data[0][vm.meta.country_field] = 'Cape Verde';
+						item.data[vm.meta.country_field] = 'Cape Verde';
 						break;
 					case "Democratic Peoples Republic of Korea":
-						item.data[0][vm.meta.country_field] = "Democratic People's Republic of Korea";
+						item.data[vm.meta.country_field] = "Democratic People's Republic of Korea";
 						break;
 					case "Cote d'Ivoire":
-						item.data[0][vm.meta.country_field] = "Ivory Coast";
+						item.data[vm.meta.country_field] = "Ivory Coast";
 						break;
 					case "Lao Peoples Democratic Republic":
-						item.data[0][vm.meta.country_field] = "Lao People's Democratic Republic";
+						item.data[vm.meta.country_field] = "Lao People's Democratic Republic";
 						break;
 					default:
 						break;
 				}
 				entries.push({
-					iso: item.data[0][vm.meta.iso_field],
-					name: item.data[0][vm.meta.country_field]
+					iso: item.data[vm.meta.iso_field],
+					name: item.data[vm.meta.country_field]
 				});
 			});
 			var isoType = isoCheck >= (entries.length / 2) ? 'iso-3166-1' : 'iso-3166-2';
@@ -130,17 +131,17 @@
 			}).then(function(response) {
 				angular.forEach(response, function(country, key) {
 					angular.forEach(vm.data, function(item, k) {
-						if (country.name == item.data[0][vm.meta.country_field]) {
+						if (country.name == item.data[vm.meta.country_field]) {
 							if (country.data.length > 1) {
 								var toSelect = {
 									entry: item,
 									options: country.data
 								};
 								IndexService.addToSelect(toSelect);
-							} else {
-								if (typeof country.data[0] != "undefined") {
-									vm.data[k].data[0][vm.meta.iso_field] = country.data[0].iso;
-									vm.data[k].data[0][vm.meta.country_field] = country.data[0].admin;
+							} else if(country.data.length == 1){
+								if (typeof country.data != "undefined") {
+									vm.data[k].data[vm.meta.iso_field] = country.data[0].iso;
+									vm.data[k].data[vm.meta.country_field] = country.data[0].admin;
 									if (item.errors.length) {
 										angular.forEach(item.errors, function(error, e) {
 											if (error.type == 2 || error.type == 3) {
@@ -179,6 +180,7 @@
 					});
 				});
 				vm.iso_checked = true;
+				IndexService.setToLocalStorage();
 				if (IndexService.getToSelect().length) {
 					DialogService.fromTemplate('selectisofetchers');
 				}
@@ -199,9 +201,9 @@
 				if (item.errors.length == 0) {
 					item.data[0].year = vm.meta.year;
 					if(vm.meta.year_field && vm.meta.year_field != "year") {
-						delete item.data[0][vm.meta.year_field];
+						delete item.data[vm.meta.year_field];
 					}
-					insertData.data.push(item.data[0]);
+					insertData.data.push(item.data);
 				} else {
 					toastr.error('There are some errors left!', 'Huch!');
 					return;

@@ -139,15 +139,12 @@ class UserdataController extends Controller
     }
     public function createDataTable(Request $request){
       $data = array();
-      $name = preg_replace('/\s[\s]+/','_',$request->input('name'));    // Strip off multiple spaces
-      $name = preg_replace('/[\s\W]+/','_',$name);    // Strip off spaces and non-alpha-numeric
-      $name = preg_replace('/^[\-]+/','',$name); // Strip off the starting hyphens
-      $name = preg_replace('/[\-]+$/','',$name); // // Strip off the ending hyphens
-      $name = strtolower($name);
+      $user = Auth::user();
+      $name = $user->id."_".substr(md5(time()), 0, 8);
       //dd(strtolower($name));
       $data['table_name'] = 'user_table_'.$name;
 
-      \DB::transaction(function () use ($request, $name, &$data) {
+      \DB::transaction(function () use ($request, $name, &$data, $user) {
       $data['db'] = \Schema::create('user_table_'.$name, function(Blueprint $table) use ($request){
         $table->increments('id');
         $table->string($request->input('iso_field'));
@@ -162,12 +159,12 @@ class UserdataController extends Controller
         $table->integer('year');
       });
 
-      $user = Auth::user();
+
       $data['userdata_id'] = UserData::insertGetId([
         'user_id' => $user->id,
         'table_name' => 'user_table_'.$name,
         'name' => $name,
-        'title' => $request->input('name'),
+        'title' => $name, //$request->input('name'),
         'description' => $request->input('description'),
         'caption' => $request->input('caption'),
         'meta_data' => json_encode($request->input('fields')),

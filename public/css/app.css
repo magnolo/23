@@ -864,6 +864,53 @@ md-list-item a.md-no-style {
   margin: 0px;
 }
 
+md-toolbar.md-menu-toolbar {
+  background-color: #ffffff;
+  color: rgba(0, 0, 0, 0.87);
+}
+md-toolbar.md-menu-toolbar md-button {
+  color: rgba(0, 0, 0, 0.87);
+}
+md-toolbar.md-menu-toolbar md-toolbar-filler {
+  background-color: #106cc8;
+  color: rgba(255, 255, 255, 0.87);
+}
+md-toolbar.md-menu-toolbar h2.md-toolbar-tools {
+  height: auto;
+  line-height: 1rem;
+  padding: 28px 28px 12px;
+}
+md-menu-bar md-menu.md-open > button,
+md-menu-bar md-menu > button:focus {
+  background: #eeeeee none repeat scroll 0 0;
+  outline: medium none;
+}
+md-menu-bar button {
+  background-color: transparent;
+  border: 0 none;
+  font-size: 14px;
+  height: 40px;
+  margin: 0;
+  padding: 0 10px;
+}
+md-menu-bar {
+  display: block;
+  padding: 0 20px;
+  position: relative;
+  z-index: 2;
+}
+.editContent .page-container {
+  background-color: #f1f1f1;
+  padding: 32px;
+}
+.editContent .page {
+  background-color: white;
+  box-shadow: 0 1px 2px 1px rgba(0, 0, 0, 0.25);
+  margin: 0 auto;
+  max-width: 680px;
+  padding: 24px;
+}
+
 /*.info-container {
     line-height: 1em;
     top:calc(~"48px + 1em");
@@ -1125,53 +1172,6 @@ md-list-item a.md-no-style {
 }
 .nvtooltip {
   border-radius: 0px;
-}
-
-md-toolbar.md-menu-toolbar {
-  background-color: #ffffff;
-  color: rgba(0, 0, 0, 0.87);
-}
-md-toolbar.md-menu-toolbar md-button {
-  color: rgba(0, 0, 0, 0.87);
-}
-md-toolbar.md-menu-toolbar md-toolbar-filler {
-  background-color: #106cc8;
-  color: rgba(255, 255, 255, 0.87);
-}
-md-toolbar.md-menu-toolbar h2.md-toolbar-tools {
-  height: auto;
-  line-height: 1rem;
-  padding: 28px 28px 12px;
-}
-md-menu-bar md-menu.md-open > button,
-md-menu-bar md-menu > button:focus {
-  background: #eeeeee none repeat scroll 0 0;
-  outline: medium none;
-}
-md-menu-bar button {
-  background-color: transparent;
-  border: 0 none;
-  font-size: 14px;
-  height: 40px;
-  margin: 0;
-  padding: 0 10px;
-}
-md-menu-bar {
-  display: block;
-  padding: 0 20px;
-  position: relative;
-  z-index: 2;
-}
-.editContent .page-container {
-  background-color: #f1f1f1;
-  padding: 32px;
-}
-.editContent .page {
-  background-color: white;
-  box-shadow: 0 1px 2px 1px rgba(0, 0, 0, 0.25);
-  margin: 0 auto;
-  max-width: 680px;
-  padding: 24px;
 }
 
 

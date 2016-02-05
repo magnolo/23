@@ -4,7 +4,7 @@
                 <div layout="column" layout-align="center start">
                 <!--<h2 style="margin:0" class="md-title">{{vm.indicator.title || vm.indicator.column_name || 'Select Item on the left'}}</h2>-->
                 <h3 style="margin:0" class="md-subhead">CSV Import 1/3</h3>
-              </div> 
+              </div>
                 <span flex></span>
                 <div layout-align="space-between center" layout="row">
                         <!--<md-button class="md-raised" ui-sref="app.index.check">
@@ -46,20 +46,20 @@
 <md-input-container class="md-block" >
         <label>ISO Field</label>
         <md-select ng-model="vm.meta.iso_field" required>
-                <md-option ng-repeat="(key, item) in vm.data[0].data[0]" value="{{key}}">{{key}}</md-option>
+                <md-option ng-repeat="(key, item) in vm.data[0].data" value="{{key}}">{{key}}</md-option>
         </md-select>
 </md-input-container>
 <md-input-container class="md-block">
         <label>Country Field</label>
         <md-select ng-model="vm.meta.country_field" required>
-                <md-option ng-repeat="(key, item) in vm.data[0].data[0]" value="{{key}}">{{key}}</md-option>
+                <md-option ng-repeat="(key, item) in vm.data[0].data" value="{{key}}">{{key}}</md-option>
         </md-select>
 </md-input-container>
 <md-input-container class="md-block">
         <label>Year Field</label>
         <md-select ng-model="vm.meta.year_field">
                 <md-option value="">None</md-option>
-                <md-option ng-repeat="(key, item) in vm.data[0].data[0]" value="{{key}}">{{key}}</md-option>
+                <md-option ng-repeat="(key, item) in vm.data[0].data" value="{{key}}">{{key}}</md-option>
         </md-select>
 </md-input-container>
         <div ng-if="vm.iso_errors.length || !vm.iso_checked" layout="row" layout-align="center center" >

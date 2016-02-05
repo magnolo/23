@@ -10,8 +10,8 @@
         <div layout-align="center center" layout-padding layout="row">
                 <div>
                   <form name="importForm" ng-submit="vm.saveData(importForm.$valid)">
-                        <div layout layout-sm="column">
-                                <md-input-container flex="80">
+
+                                <md-input-container class="md-block">
                                         <label>Title</label>
                                         <input maxlength="56" minlength="3" name="title" ng-model="vm.meta.name" required type="text"/>
                                         <div ng-messages="importForm.title.$error" ng-show="importForm.title.$error">
@@ -22,11 +22,11 @@
                                                 <div ng-message="maxlength">Less than 56 characters long!</div>
                                         </div>
                                 </md-input-container>
-                                <md-input-container flex="20">
+                                <!--<md-input-container flex="20">
                                         <label>Year</label>
                                         <input ng-model="vm.meta.year" type="text" required>
-                                </md-input-container>
-                        </div>
+                                </md-input-container>-->
+
                         <md-input-container class="md-block">
                                 <label>Description</label>
                                 <textarea name="description" ng-model="vm.meta.description"></textarea>

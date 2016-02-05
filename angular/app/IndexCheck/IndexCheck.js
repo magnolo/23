@@ -41,13 +41,13 @@
 			if (!vm.data) {
 				$state.go('app.index.create');
 			}
-
+			//console.log(vm.data);
 		}
     function getYears(){
-      var dat = ($filter('groupBy')(vm.data, 'data[0].'+vm.meta.country_field ));
+      var dat = ($filter('groupBy')(vm.data, 'data.'+vm.meta.country_field ));
       vm.years = [];
       angular.forEach(dat[Object.keys(dat)[0]],function(entry){
-          vm.years.push(entry.data[0][vm.meta.year_field])
+          vm.years.push(entry.data[vm.meta.year_field])
       });
 
     }
@@ -65,7 +65,7 @@
 		};
 
 		function checkForErrors(item) {
-			//return item.errors.length > 0 ? 'md-warn' : '';
+			return item.errors.length > 0 ? 'md-warn' : '';
 		}
 
 		/*function editColumnData(e, key){
@@ -74,12 +74,22 @@
 		}*/
 		function deleteColumn(e, key) {
 			angular.forEach(vm.data, function (item, k) {
-				angular.forEach(item.data[0], function (field, l) {
+				angular.forEach(item.data, function (field, l) {
 					if (l == key) {
-						delete vm.data[k].data[0][key];
+						angular.forEach(vm.data[k].errors, function(error, i){
+							if(error.column == key){
+								if (error.type == 2 || error.type == 3) {
+									IndexService.reduceIsoError();
+								}
+								IndexService.reduceError();
+								vm.data[k].errors.splice(i, 1);
+							}
+						})
+						delete vm.data[k].data[key];
 					}
 				})
 			});
+			IndexService.setToLocalStorage();
 			return false;
 		}
 
@@ -96,6 +106,7 @@
 				vm.data.splice(vm.data.indexOf(item), 1);
 			});
 			vm.selected = [];
+			IndexService.setToLocalStorage();
 			if (vm.data.length == 0) {
 				vm.deleteData();
 				$state.go('app.index.create');
@@ -122,7 +133,7 @@
 
 		function searchForErrors() {
 			angular.forEach(vm.data, function (row, k) {
-				angular.forEach(row.data[0], function (item, key) {
+				angular.forEach(row.data, function (item, key) {
 					if (isNaN(item) || item < 0) {
 						if (item.toString().toUpperCase() == "#NA" || item < 0 || item.toString().toUpperCase().indexOf('N/A') > -1) {
 							var error = {
@@ -132,7 +143,7 @@
 								value: item
 							};
 							row.errors.push(error)
-							errors.push(error);
+							vm.errors.push(error);
 						}
 					}
 				});
@@ -140,5 +151,6 @@
 		}
 
 	});
+
 
 })();

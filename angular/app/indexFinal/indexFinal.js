@@ -14,9 +14,9 @@
 		activate();
 
 		function activate() {
-			if (vm.meta.year_field) {
-				vm.meta.year = vm.data[0].data[0][vm.meta.year_field];
-			}
+			/*if (vm.meta.year_field) {
+				vm.meta.year = vm.data[0].data[vm.meta.year_field];
+			}*/
 			checkData();
 		}
 
@@ -31,17 +31,26 @@
 				var insertData = {
 					data: []
 				};
+				var noYears = [];
 				var insertMeta = [],
 					fields = [];
 				vm.loading = true;
 				angular.forEach(vm.data, function (item, key) {
 					if (item.errors.length == 0) {
-						item.data[0].year = vm.meta.year;
-						if(vm.meta.year_field && vm.meta.year_field != "year") {
-							delete item.data[0][vm.meta.year_field];
+						if(item.data[vm.meta.year_field]){
+							item.data.year = item.data[vm.meta.year_field];
+
+							if(vm.meta.year_field && vm.meta.year_field != "year") {
+								delete item.data[vm.meta.year_field];
+							}
+
+							vm.meta.iso_type = item.data[vm.meta.iso_field].length == 3 ? 'iso-3166-1' : 'iso-3166-2';
+							insertData.data.push(item.data);
 						}
-						vm.meta.iso_type = item.data[0][vm.meta.iso_field].length == 3 ? 'iso-3166-1' : 'iso-3166-2';
-						insertData.data.push(item.data[0]);
+						else{
+							noYears.push(item);
+						}
+
 
 					} else {
 						toastr.error('There are some errors left!', 'Huch!');
@@ -72,7 +81,10 @@
 					}
 				});
 				vm.meta.fields = fields;
-				console.log(vm.meta);
+				if(noYears.length > 0){
+					toastr.error("for "+noYears.length + " entries", 'No year value found!');
+				}
+
 				DataService.post('data/tables', vm.meta).then(function (response) {
 					DataService.post('data/tables/' + response.table_name + '/insert', insertData).then(function (res) {
 						if (res == true) {

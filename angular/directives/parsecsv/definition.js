@@ -71,6 +71,7 @@
 											//rawList[key].errors = row.errors;
 										}
 										else{
+											row.data = row.data[0];
 											IndexService.addData(row);
 										}
 										//console.log(row);
@@ -136,7 +137,7 @@
 
 										//See if there is an field name "iso" in the headings;
 										if(!isVertical){
-											angular.forEach(IndexService.getFirstEntry().data[0], function(item, key){
+											angular.forEach(IndexService.getFirstEntry().data, function(item, key){
 												if(key.toLowerCase().indexOf('iso') != -1 || key.toLowerCase().indexOf('code') != -1){
 													IndexService.setIsoField(key);
 												}
@@ -166,6 +167,7 @@
 															}
 														}
 													});
+
 													IndexService.addData({data:[r], errors:item.errors});
 												}
 											});
