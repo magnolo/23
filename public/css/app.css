@@ -833,31 +833,426 @@ md-toast[md-theme=warn] {
   text-align: center;
 }
 
-.Header {
-  height: 48px;
-  min-height: 48px;
-  background-color: #fff !important;
+.bubbles {
+  overflow: hidden;
+  margin: 1em 0;
 }
-.Header .md-toolbar-tools,
-.Header md-toolbar {
-  height: 48px;
-  min-height: 48px;
+.node {
+  cursor: pointer;
 }
-.Header a {
+.tooltip {
+  position: fixed;
+  padding: 1em;
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid;
+  z-index: 99;
+}
+.tooltip::after,
+.tooltip::before {
+  right: 100%;
+  top: 50%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+.tooltip::after {
+  border-right-color: #fff;
+  border-width: 10px;
+  margin-top: -10px;
+}
+.tooltip::before {
+  border-right-color: rgba(0, 0, 0, 0.87);
+  border-width: 11px;
+  margin-top: -11px;
+}
+.tooltip .close-it {
+  position: absolute;
+  top: 2px;
+  right: 4px;
+  cursor: pointer;
+  color: #d7dddd;
+}
+.tooltip .close-it:hover {
+  color: rgba(0, 0, 0, 0.87);
+}
+
+
+
+
+
+
+
+.indicator-tabs .indicator-fields {
+  padding: 0 1em;
+  max-width: 500px;
+  margin: 0 auto;
+}
+.indicator-tabs md-tab-content md-content {
+  padding-bottom: 1em;
+  padding-top: 1em;
+}
+.indicator-tabs md-tab-item ng-md-icon:not(.valid) path {
+  fill: #f44336;
+}
+.indicator-tabs md-tabs > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item {
+  background: #efefef;
+}
+.indicator-tabs md-tabs > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item.md-active {
+  background: #fff;
+}
+.indicator-tabs .md-tab.md-disabled {
+  opacity: 1;
+}
+.indicator-tabs .md-tab.md-disabled ng-md-icon {
+  opacity: 0.3;
+}
+.indicator-tabs md-input-container .md-errors-spacer {
+  position: absolute;
+}
+.indicator-tabs md-autocomplete[md-floating-label] md-input-container {
+  padding-bottom: 2px;
+}
+
+.indicator-menu {
+  position: absolute;
+  right: 2.5em;
+  -webkit-transform: translateX(120%);
+  transform: translateX(120%);
+  transition: all .15s ease;
+  top: 50%;
+  padding-left: 2em;
+  margin-top: -12px;
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,ffffff+98&0+0,1+25 */
+  /* FF3.6-15 */
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, #ffffff 25%, #ffffff 98%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00ffffff', endColorstr='#ffffff', GradientType=1);
+  /* IE6-9 */
+}
+.indicator-menu.active {
+  display: block;
+  -webkit-transform: translateX(0%);
+  transform: translateX(0%);
+  transition-delay: .0s;
+}
+.indicator-menu ng-md-icon {
+  cursor: pointer;
+}
+.indicator-menu ng-md-icon:not(.valid) path {
+  fill: #f44336;
+}
+.indicator-menu ng-md-icon.greyed path {
+  fill: #ddd;
+}
+
+
+median {
+  overflow: hidden;
+  border-radius: 20px;
+  display: inline-block;
+  height: 40px;
+}
+median .endLabel {
+  fill: #fff;
+  stroke-width: 0;
+}
+median .endLabel text {
+  fill: #606060;
+}
+median .startLabel {
+  fill: none;
+  stroke: #fff;
+  stroke-width: 1px;
+}
+median .startLabel text {
+  fill: #fff;
+  stroke-width: 0;
+}
+median .axis {
+  font: 10px sans-serif;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+median .axis .domain {
+  fill: none;
+  stroke: #000;
+  stroke-opacity: 0.3;
+  stroke-width: 10px;
+  stroke-linecap: round;
+}
+median .axis .halo {
+  fill: none;
+  stroke: #ddd;
+  stroke-width: 40px;
+  stroke-linecap: round;
+}
+median .slider .handle {
+  fill: #0ca;
+  stroke-width: 0;
+  cursor: ew-resize;
+}
+median .slider text {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  cursor: ew-resize;
+}
+
+.dropzone {
+  border: 2px dashed #ddd;
+  padding: 2em;
+}
+.or {
+  position: relative;
+  margin: 1em 0;
+}
+.or::after {
+  content: '';
+  width: 200%;
+  position: absolute;
+  left: 50%;
+  margin-left: -2.5em;
+  border-bottom: 1px solid;
+  height: 1px;
+  top: 0.5em;
+}
+.or::before {
+  content: '';
+  width: 200%;
+  position: absolute;
+  right: 50%;
+  margin-right: -2.5em;
+  border-bottom: 1px solid;
+  height: 1px;
+  top: 0.5em;
+}
+
+
+.slide-toggle {
+  transition: all .5s;
+}
+.slide-toggle.ng-animate {
+  overflow: hidden;
+}
+
+.md-color-container.md-color-picker-preview {
+  content: '';
+  width: 24px;
+  height: 24px;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.14), 0 2px 2px 0 rgba(0, 0, 0, 0.098), 0 1px 5px 0 rgba(0, 0, 0, 0.084);
+  margin: auto;
+  bottom: 26px;
+  margin-right: 1em;
+  overflow: hidden;
+  background-color: #fff;
+  background-image: linear-gradient(45deg, #ddd 25%, transparent 25%, transparent 75%, #ddd 75%, #ddd), linear-gradient(45deg, #ddd 25%, transparent 25%, transparent 75%, #ddd 75%, #ddd);
+  background-size: 8px 8px;
+  background-position: 0 0,4px 4px;
+}
+.md-color-container.md-color-picker-preview .md-color-picker-result {
+  width: 100%;
+  height: 100%;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+
+.section {
+  padding: 30px;
+  margin-bottom: 40px;
+}
+.field-name-field-intro-text {
+  margin-bottom: 40px;
+}
+.field-name-field-framework-text {
+  /*  @include sans-light;
+        @include font-size(20,24);
+        color: $grey-label;*/
+  margin-bottom: 35px;
+}
+.framework h3 {
+  /*    @include sans-bold;
+            @include font-size(16,16);
+            color: $turq-medium;
+            */
+  text-transform: uppercase;
+}
+.framework div + h3 {
+  margin-top: 35px;
+}
+.framework .wrap {
+  padding: 0 30px;
+}
+.framework .views-row {
+  position: relative;
+  clear: both;
+  min-height: 35px;
+  margin: 15px 0;
+  display: table;
+}
+.framework .views-row .views-field-field-icon-svg {
+  display: table-cell;
+  padding-right: 10px;
+  vertical-align: middle;
+}
+.framework .views-row .views-field-field-icon-svg svg {
+  width: 35px;
+  height: 35px;
+}
+.framework .views-row .views-field-title-1 {
+  display: table-cell;
+  vertical-align: middle;
+  width: 140px;
+}
+.framework .views-row .views-field-title-1 a {
+  /*  @include sans-regular;
+                    @include font-size(20,22);
+                    color: $black;*/
+}
+.framework .field-name-field-caption {
+  /*  margin-top: 30px;
+            @include font-size(16,21);
+            color: $grey-medium2;
+            @include sans-lightitalic;
+            strong {
+                @include sans-mediumitalic;
+            }*/
+}
+.framework #vis {
+  width: 610px;
+}
+.framework #depth0 {
+  fill: #fff;
+  font-size: 160%;
+  font-weight: bold;
+  text-align: center !important;
+}
+.framework #depth1 {
+  font-size: 65%;
+  fill: #fff;
+  width: 100px !important;
+}
+.framework #depth2 {
+  font-size: 70%;
+  fill: #fff;
+}
+.framework #depth3 {
+  font-size: 70%;
+  width: 120px !important;
+  fill: #2d2019;
+}
+.framework .sector {
+  font-family: centro, sans-serif;
+}
+.framework path {
+  stroke: #fff;
+  stroke-width: 1.5;
+  cursor: pointer;
+}
+.framework text {
+  font: 11px sans-serif;
+  cursor: pointer;
+}
+.framework body {
+  width: 880px;
+  margin: 0 auto;
+}
+.framework h1 {
+  text-align: center;
+  margin: 0.5em 0;
+}
+.framework p#intro {
+  text-align: center;
+  margin: 1em 0;
+}
+.framework tspan {
+  text-align: center !important;
+  color: #00f !important;
+}
+.calculating {
+  margin-bottom: 0;
+}
+.calculating .field-name-field-calculating-intro {
+  /*@include sans-light;
+            @include font-size(20,24);
+            color: $grey-medium;*/
+  margin-bottom: 15px;
+}
+.calculating .field-name-field-calculating-text {
+  padding-right: 220px;
+}
+
+.trashcan ul {
+  padding: 0;
+  margin: 0;
+}
+.trashcan ul li {
+  list-style-type: none;
+}
+.trashcan ul .dndPlaceholder {
+  display: none;
+}
+
+.treeview {
+  position: relative;
+  margin-bottom: 2px;
+}
+.treeview md-list-item {
+  min-height: 32px;
+  position: relative;
+}
+.treeview md-list-item .md-list-item-text > p {
+  margin: 0.7em 0;
+}
+.treeview:not(:first-child) md-list-item {
+  padding-right: 0;
+}
+.treeview .toggler {
+  margin: 0 0.3em;
+}
+.treeview .dndPlaceholder {
+  height: 44px;
+  list-style-type: none;
+  background-color: #efefef;
+  border: 1px dashed #ccc;
+  margin-left: 1em;
+}
+.treeview .dndDragging {
+  background-color: #006bb9 !important;
+  color: #fff;
+  width: 100%;
+}
+.treeview .dndDragging md-icon {
+  color: #fff;
+}
+.treeview .handle {
+  cursor: move;
+}
+.treeview.dndDragover {
+  outline: 1px dashed #ccc;
+}
+.treeview.dndDragover .meanwhile {
+  opacity: 0.1;
+}
+
+.weight-control {
+  min-width: 85px;
+  width: 85px;
   color: #006bb9;
 }
-.Header a.md-button span {
+.weight-control md-icon {
   color: #006bb9;
-}
-.Header .md-menu {
-  padding: 0px;
-}
-.Header .inline-list.menu-list li a,
-.Header .inline-list.menu-list li::before {
-  color: #006bb9;
-}
-md-toolbar.Header .md-button.md-border {
-  color: #006bb9;
+  cursor: pointer;
 }
 
 md-list-item a.md-no-style {
@@ -1613,426 +2008,31 @@ div[ui-view='map'] {
 
 
 
-.bubbles {
-  overflow: hidden;
-  margin: 1em 0;
-}
-.node {
-  cursor: pointer;
-}
-.tooltip {
-  position: fixed;
-  padding: 1em;
-  background-color: rgba(255, 255, 255, 0.8);
-  border: 1px solid;
-  z-index: 99;
-}
-.tooltip::after,
-.tooltip::before {
-  right: 100%;
-  top: 50%;
-  border: solid transparent;
-  content: " ";
-  height: 0;
-  width: 0;
-  position: absolute;
-  pointer-events: none;
-}
-.tooltip::after {
-  border-right-color: #fff;
-  border-width: 10px;
-  margin-top: -10px;
-}
-.tooltip::before {
-  border-right-color: rgba(0, 0, 0, 0.87);
-  border-width: 11px;
-  margin-top: -11px;
-}
-.tooltip .close-it {
-  position: absolute;
-  top: 2px;
-  right: 4px;
-  cursor: pointer;
-  color: #d7dddd;
-}
-.tooltip .close-it:hover {
-  color: rgba(0, 0, 0, 0.87);
-}
-
-
-
-
-
-
-
-.indicator-tabs .indicator-fields {
-  padding: 0 1em;
-  max-width: 500px;
-  margin: 0 auto;
-}
-.indicator-tabs md-tab-content md-content {
-  padding-bottom: 1em;
-  padding-top: 1em;
-}
-.indicator-tabs md-tab-item ng-md-icon:not(.valid) path {
-  fill: #f44336;
-}
-.indicator-tabs md-tabs > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item {
-  background: #efefef;
-}
-.indicator-tabs md-tabs > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item.md-active {
-  background: #fff;
-}
-.indicator-tabs .md-tab.md-disabled {
-  opacity: 1;
-}
-.indicator-tabs .md-tab.md-disabled ng-md-icon {
-  opacity: 0.3;
-}
-.indicator-tabs md-input-container .md-errors-spacer {
-  position: absolute;
-}
-.indicator-tabs md-autocomplete[md-floating-label] md-input-container {
-  padding-bottom: 2px;
-}
-
-.indicator-menu {
-  position: absolute;
-  right: 2.5em;
-  -webkit-transform: translateX(120%);
-  transform: translateX(120%);
-  transition: all .15s ease;
-  top: 50%;
-  padding-left: 2em;
-  margin-top: -12px;
-  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,ffffff+98&0+0,1+25 */
-  /* FF3.6-15 */
-  /* Chrome10-25,Safari5.1-6 */
-  background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, #ffffff 25%, #ffffff 98%);
-  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00ffffff', endColorstr='#ffffff', GradientType=1);
-  /* IE6-9 */
-}
-.indicator-menu.active {
-  display: block;
-  -webkit-transform: translateX(0%);
-  transform: translateX(0%);
-  transition-delay: .0s;
-}
-.indicator-menu ng-md-icon {
-  cursor: pointer;
-}
-.indicator-menu ng-md-icon:not(.valid) path {
-  fill: #f44336;
-}
-.indicator-menu ng-md-icon.greyed path {
-  fill: #ddd;
-}
-
-
-median {
-  overflow: hidden;
-  border-radius: 20px;
-  display: inline-block;
-  height: 40px;
-}
-median .endLabel {
-  fill: #fff;
-  stroke-width: 0;
-}
-median .endLabel text {
-  fill: #606060;
-}
-median .startLabel {
-  fill: none;
-  stroke: #fff;
-  stroke-width: 1px;
-}
-median .startLabel text {
-  fill: #fff;
-  stroke-width: 0;
-}
-median .axis {
-  font: 10px sans-serif;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-median .axis .domain {
-  fill: none;
-  stroke: #000;
-  stroke-opacity: 0.3;
-  stroke-width: 10px;
-  stroke-linecap: round;
-}
-median .axis .halo {
-  fill: none;
-  stroke: #ddd;
-  stroke-width: 40px;
-  stroke-linecap: round;
-}
-median .slider .handle {
-  fill: #0ca;
-  stroke-width: 0;
-  cursor: ew-resize;
-}
-median .slider text {
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  cursor: ew-resize;
-}
-
-.dropzone {
-  border: 2px dashed #ddd;
-  padding: 2em;
-}
-.or {
-  position: relative;
-  margin: 1em 0;
-}
-.or::after {
-  content: '';
-  width: 200%;
-  position: absolute;
-  left: 50%;
-  margin-left: -2.5em;
-  border-bottom: 1px solid;
-  height: 1px;
-  top: 0.5em;
-}
-.or::before {
-  content: '';
-  width: 200%;
-  position: absolute;
-  right: 50%;
-  margin-right: -2.5em;
-  border-bottom: 1px solid;
-  height: 1px;
-  top: 0.5em;
-}
-
-
-.slide-toggle {
-  transition: all .5s;
-}
-.slide-toggle.ng-animate {
-  overflow: hidden;
-}
-
-.md-color-container.md-color-picker-preview {
-  content: '';
-  width: 24px;
-  height: 24px;
-  border: 2px solid #fff;
-  border-radius: 50%;
-  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.14), 0 2px 2px 0 rgba(0, 0, 0, 0.098), 0 1px 5px 0 rgba(0, 0, 0, 0.084);
-  margin: auto;
-  bottom: 26px;
-  margin-right: 1em;
-  overflow: hidden;
-  background-color: #fff;
-  background-image: linear-gradient(45deg, #ddd 25%, transparent 25%, transparent 75%, #ddd 75%, #ddd), linear-gradient(45deg, #ddd 25%, transparent 25%, transparent 75%, #ddd 75%, #ddd);
-  background-size: 8px 8px;
-  background-position: 0 0,4px 4px;
-}
-.md-color-container.md-color-picker-preview .md-color-picker-result {
-  width: 100%;
-  height: 100%;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-}
-
-
-.section {
-  padding: 30px;
-  margin-bottom: 40px;
-}
-.field-name-field-intro-text {
-  margin-bottom: 40px;
-}
-.field-name-field-framework-text {
-  /*  @include sans-light;
-        @include font-size(20,24);
-        color: $grey-label;*/
-  margin-bottom: 35px;
-}
-.framework h3 {
-  /*    @include sans-bold;
-            @include font-size(16,16);
-            color: $turq-medium;
-            */
-  text-transform: uppercase;
-}
-.framework div + h3 {
-  margin-top: 35px;
-}
-.framework .wrap {
-  padding: 0 30px;
-}
-.framework .views-row {
-  position: relative;
-  clear: both;
-  min-height: 35px;
-  margin: 15px 0;
-  display: table;
-}
-.framework .views-row .views-field-field-icon-svg {
-  display: table-cell;
-  padding-right: 10px;
-  vertical-align: middle;
-}
-.framework .views-row .views-field-field-icon-svg svg {
-  width: 35px;
-  height: 35px;
-}
-.framework .views-row .views-field-title-1 {
-  display: table-cell;
-  vertical-align: middle;
-  width: 140px;
-}
-.framework .views-row .views-field-title-1 a {
-  /*  @include sans-regular;
-                    @include font-size(20,22);
-                    color: $black;*/
-}
-.framework .field-name-field-caption {
-  /*  margin-top: 30px;
-            @include font-size(16,21);
-            color: $grey-medium2;
-            @include sans-lightitalic;
-            strong {
-                @include sans-mediumitalic;
-            }*/
-}
-.framework #vis {
-  width: 610px;
-}
-.framework #depth0 {
-  fill: #fff;
-  font-size: 160%;
-  font-weight: bold;
-  text-align: center !important;
-}
-.framework #depth1 {
-  font-size: 65%;
-  fill: #fff;
-  width: 100px !important;
-}
-.framework #depth2 {
-  font-size: 70%;
-  fill: #fff;
-}
-.framework #depth3 {
-  font-size: 70%;
-  width: 120px !important;
-  fill: #2d2019;
-}
-.framework .sector {
-  font-family: centro, sans-serif;
-}
-.framework path {
-  stroke: #fff;
-  stroke-width: 1.5;
-  cursor: pointer;
-}
-.framework text {
-  font: 11px sans-serif;
-  cursor: pointer;
-}
-.framework body {
-  width: 880px;
-  margin: 0 auto;
-}
-.framework h1 {
-  text-align: center;
-  margin: 0.5em 0;
-}
-.framework p#intro {
-  text-align: center;
-  margin: 1em 0;
-}
-.framework tspan {
-  text-align: center !important;
-  color: #00f !important;
-}
-.calculating {
-  margin-bottom: 0;
-}
-.calculating .field-name-field-calculating-intro {
-  /*@include sans-light;
-            @include font-size(20,24);
-            color: $grey-medium;*/
-  margin-bottom: 15px;
-}
-.calculating .field-name-field-calculating-text {
-  padding-right: 220px;
-}
-
-.trashcan ul {
-  padding: 0;
-  margin: 0;
-}
-.trashcan ul li {
-  list-style-type: none;
-}
-.trashcan ul .dndPlaceholder {
-  display: none;
-}
-
-.treeview {
-  position: relative;
-  margin-bottom: 2px;
-}
-.treeview md-list-item {
-  min-height: 32px;
-  position: relative;
-}
-.treeview md-list-item .md-list-item-text > p {
-  margin: 0.7em 0;
-}
-.treeview:not(:first-child) md-list-item {
-  padding-right: 0;
-}
-.treeview .toggler {
-  margin: 0 0.3em;
-}
-.treeview .dndPlaceholder {
-  height: 44px;
-  list-style-type: none;
-  background-color: #efefef;
-  border: 1px dashed #ccc;
-  margin-left: 1em;
-}
-.treeview .dndDragging {
-  background-color: #006bb9 !important;
-  color: #fff;
-  width: 100%;
-}
-.treeview .dndDragging md-icon {
-  color: #fff;
-}
-.treeview .handle {
-  cursor: move;
-}
-.treeview.dndDragover {
-  outline: 1px dashed #ccc;
-}
-.treeview.dndDragover .meanwhile {
-  opacity: 0.1;
-}
-
-.weight-control {
-  min-width: 85px;
-  width: 85px;
+.Header {
+  height: 48px;
+  min-height: 48px;
+  background-color: #fff !important;
+}
+.Header .md-toolbar-tools,
+.Header md-toolbar {
+  height: 48px;
+  min-height: 48px;
+}
+.Header a {
   color: #006bb9;
 }
-.weight-control md-icon {
+.Header a.md-button span {
   color: #006bb9;
-  cursor: pointer;
+}
+.Header .md-menu {
+  padding: 0px;
+}
+.Header .inline-list.menu-list li a,
+.Header .inline-list.menu-list li::before {
+  color: #006bb9;
+}
+md-toolbar.Header .md-button.md-border {
+  color: #006bb9;
 }
 
 /*# sourceMappingURL=app.css.map */

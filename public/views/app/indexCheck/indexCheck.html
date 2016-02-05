@@ -1,0 +1,61 @@
+<section class="table ">
+				<md-data-table-toolbar >
+								<div flex layout-align="start center" layout="row">
+												<h2 class="md-title">Data Overview</h2>
+												<div layout-align="space-between center" layout="row">
+																<md-button class="md-raised md-warn anim-fade icon-space" ng-click="vm.selectErrors()" ng-if="vm.errors.length || vm.iso_errors.length">
+																				<md-tooltip md-direction="bottom">
+																								Select all rows with errors
+																				</md-tooltip>
+																				<ng-md-icon class="middle" icon="bug_report"></ng-md-icon>
+
+																</md-button>
+																<md-button class="md-raised md-warn anim-fade icon-space" ng-click="vm.deleteSelected()" ng-if="vm.selected.length">
+																				<ng-md-icon class="middle" icon="delete"></ng-md-icon>
+																</md-button>
+																<md-button class="md-raised md-primary anim-fade icon-space" layout-align="center center" layout="row" ng-click="vm.editRow()" ng-if="vm.selected.length == 1">
+																				<ng-md-icon class="middle" icon="mode_edit"></ng-md-icon>
+																</md-button>
+
+												</div>
+								</div>
+				</md-data-table-toolbar>
+				<md-tabs style="border-bottom:1px solid #efefef">
+						<md-tab md-on-select="vm.yearfilter = year" ng-repeat="year in vm.years ">{{year}}</md-tab>
+			</md-tabs>
+				<md-data-table-container>
+								<table md-data-table md-row-select="vm.selected">
+												<thead md-order="vm.query.order" md-trigger="vm.onOrderChange">
+																<tr >
+																				<th name="Errors" ng-if="vm.errors.length || vm.iso_errors.length" order-by="errors"></th>
+																				<th class="iconed" name="{{key}}" ng-class="{'globe': key == vm.meta.iso_field || key == vm.meta.country_field || key == vm.meta.year_field}" ng-repeat="(key, item) in vm.data[0].data" order-by="{{key}}">
+																								<span class="icon" ng-if="key == vm.meta.iso_field">
+																												<ng-md-icon icon="public"></ng-md-icon>
+																								</span>
+																								<span class="icon" ng-if="key == vm.meta.country_field">
+																												<ng-md-icon icon="my_location"></ng-md-icon>
+																								</span>
+																								<span class="icon" ng-if="key == vm.meta.year_field">
+																												<ng-md-icon icon="event"></ng-md-icon>
+																								</span>
+
+																								<!--<span class="icon" ng-click="vm.editColumnData($event, key)" ng-if="key != vm.meta.iso_field && key != vm.meta.country_field">
+                                                        <ng-md-icon icon="mode_edit"></ng-md-icon>
+                                                </span>-->
+																								<span class="icon" ng-click="vm.deleteColumn($event, key)" ng-if="key != vm.meta.iso_field && key != vm.meta.country_field">
+																												<ng-md-icon icon="delete"></ng-md-icon>
+																								</span>
+																				</th>
+																</tr>
+												</thead>
+												<tbody>
+
+																<tr class="{{ vm.checkForErrors(item) }}" md-auto-select ng-repeat="item in vm.data | property: vm.meta.year_field : vm.yearfilter | orderBy:vm.query.order | limitTo: vm.query.limit : (vm.query.page-1)*vm.query.limit">
+																				<td ng-if="vm.errors.length || vm.iso_errors.length">{{item.errors.length}}</td>
+																				<td ng-class="{'md-warn': vm.meta.iso_field == k && !column}" ng-repeat="(k, column) in item.data">{{column}}</td>
+																</tr>
+												</tbody>
+								</table>
+				</md-data-table-container>
+				<md-data-table-pagination md-limit="vm.query.limit" md-page="vm.query.page" md-total="{{vm.data.length }}" md-trigger="vm.onPaginationChange"></md-data-table-pagination>
+</section>

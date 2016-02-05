@@ -1,9 +1,9 @@
-(function () {
+(function() {
 	"use strict";
 
-	angular.module('app.routes').config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
-	//	$locationProvider.html5Mode(true);
-		var getView = function (viewName) {
+	angular.module('app.routes').config(function($stateProvider, $urlRouterProvider, $locationProvider) {
+		//	$locationProvider.html5Mode(true);
+		var getView = function(viewName) {
 			return '/views/app/' + viewName + '/' + viewName + '.html';
 		};
 
@@ -26,10 +26,10 @@
 					}
 				}
 			})
-			.state('app.home',{
-				url:'/',
-				views:{
-					'sidebar@':{
+			.state('app.home', {
+				url: '/',
+				views: {
+					'sidebar@': {
 						templateUrl: getView('home'),
 						controller: 'HomeCtrl',
 						controllerAs: 'vm'
@@ -55,14 +55,14 @@
 			})
 			.state('app.user.profile', {
 				url: '/my-profile',
-				auth:true,
+				auth: true,
 				views: {
 					'main@': {
 						templateUrl: getView('user'),
 						controller: 'UserCtrl',
 						controllerAs: 'vm',
 						resolve: {
-							profile: function (DataService, $auth) {
+							profile: function(DataService, $auth) {
 								return DataService.getOne('me').$object;
 							}
 						}
@@ -76,48 +76,53 @@
 
 			})
 			.state('app.index.mydata', {
-				url:'/my-data',
-				auth:true,
-				views:{
-					'sidebar@':{
-						templateUrl:'/views/app/indexMyData/indexMyDataMenu.html',
+				url: '/my-data',
+				auth: true,
+				views: {
+					'sidebar@': {
+						templateUrl: '/views/app/indexMyData/indexMyDataMenu.html',
 						controller: 'IndexMyDataMenuCtrl',
 						controllerAs: 'vm'
 					},
-					'main@':{
-						templateUrl:getView('indexMyData'),
+					'main@': {
+						templateUrl: getView('indexMyData'),
 						controller: 'IndexMyDataCtrl',
 						controllerAs: 'vm'
 					}
 				}
 			})
 			.state('app.index.mydata.entry', {
-				url:'/:name',
-				auth:true,
-				views:{
-					'sidebar@':{
-						templateUrl:'/views/app/indexMyData/indexMyDataMenu.html',
+				url: '/:name',
+				auth: true,
+				views: {
+					'sidebar@': {
+						templateUrl: '/views/app/indexMyData/indexMyDataMenu.html',
 						controller: 'IndexMyDataMenuCtrl',
 						controllerAs: 'vm'
 					},
-					'main@':{
-							templateUrl:'/views/app/indexMyData/indexMyDataEntry.html',
-							controller: 'IndexMyDataEntryCtrl',
-							controllerAs: 'vm'
+					'main@': {
+						templateUrl: '/views/app/indexMyData/indexMyDataEntry.html',
+						controller: 'IndexMyDataEntryCtrl',
+						controllerAs: 'vm'
 					}
 				}
 			})
-			.state('app.index.editor',{
+			.state('app.index.editor', {
 				url: '/editor',
-				auth:true,
+				auth: true,
 				views: {
 					'sidebar@': {
 						templateUrl: getView('indexeditor'),
 						controller: 'IndexeditorCtrl',
 						controllerAs: 'vm',
-						resolve:{
-							indicators:function(ContentService){
-								return ContentService.fetchIndicators({page:1, order:'title', limit:1000, dir: 'ASC'});
+						resolve: {
+							indicators: function(ContentService) {
+								return ContentService.fetchIndicators({
+									page: 1,
+									order: 'title',
+									limit: 1000,
+									dir: 'ASC'
+								});
 							}
 						}
 					}
@@ -133,21 +138,21 @@
 					}
 				}*/
 			})
-			.state('app.index.editor.indicators',{
-				url:'/indicators',
-				auth:true,
+			.state('app.index.editor.indicators', {
+				url: '/indicators',
+				auth: true,
 			})
-			.state('app.index.editor.indicators.indicator',{
+			.state('app.index.editor.indicators.indicator', {
 				url: '/:id',
-				auth:true,
+				auth: true,
 				layout: 'row',
 				views: {
 					'main@': {
-						templateUrl:'/views/app/indexeditor/indexeditorindicator.html',
+						templateUrl: '/views/app/indexeditor/indexeditorindicator.html',
 						controller: 'IndexeditorindicatorCtrl',
 						controllerAs: 'vm',
-						resolve:{
-							indicator:function(ContentService, $stateParams){
+						resolve: {
+							indicator: function(ContentService, $stateParams) {
 								return ContentService.getIndicator($stateParams.id)
 							}
 						}
@@ -164,64 +169,69 @@
 					}
 				}*/
 			})
-			.state('app.index.editor.indizes',{
-				url:'/indizes',
-				auth:true,
+			.state('app.index.editor.indizes', {
+				url: '/indizes',
+				auth: true,
 			})
-			.state('app.index.editor.indizes.data',{
-				url:'/:id',
-				auth:true,
+			.state('app.index.editor.indizes.data', {
+				url: '/:id',
+				auth: true,
 				layout: 'row',
 				views: {
 					'main@': {
-						templateUrl:'/views/app/indexeditor/indexeditorindizes.html',
+						templateUrl: '/views/app/indexeditor/indexeditorindizes.html',
 						controller: 'IndexeditorindizesCtrl',
 						controllerAs: 'vm',
-						resolve:{
-							index:function(ContentService, $stateParams){
-								if($stateParams.id == 'new') return {};
+						resolve: {
+							index: function(ContentService, $stateParams) {
+								if ($stateParams.id == 'new') return {};
 								return ContentService.getItem($stateParams.id)
 							}
 						}
 					}
 				}
 			})
-			.state('app.index.editor.indizes.data.add',{
-				url:'/add',
-				layout:'row',
+			.state('app.index.editor.indizes.data.add', {
+				url: '/add',
+				layout: 'row',
 				views: {
 					'additional@': {
-						templateUrl:'/views/app/indexeditor/indicators.html',
+						templateUrl: '/views/app/indexeditor/indicators.html',
 						controller: 'IndexinidcatorsCtrl',
 						controllerAs: 'vm',
-						resolve:{
-							indicators:function(ContentService, $stateParams){
-								return ContentService.fetchIndicators({page:1, order:'title', limit:1000, dir: 'ASC'});
+						resolve: {
+							indicators: function(ContentService, $stateParams) {
+								return ContentService.fetchIndicators({
+									page: 1,
+									order: 'title',
+									limit: 1000,
+									dir: 'ASC'
+								});
 							}
 						}
 					}
 				}
 			})
-			.state('app.index.editor.indicators.indicator.details',{
+			.state('app.index.editor.indicators.indicator.details', {
 				url: '/:entry',
-				auth:true,
-				layout:'row'
+				auth: true,
+				layout: 'row'
 			})
-			.state('app.index.editor.categories',{
-				url:'/categories',
-				auth:true,
+			.state('app.index.editor.categories', {
+				url: '/categories',
+				auth: true,
 			})
-			.state('app.index.editor.categories.category',{
-				url:'/:id',
-				auth:true,
-				layout:'row',
-				views:{
-					'main@':{
-						templateUrl:'/views/app/indexeditor/indexeditorcategory.html',
+			.state('app.index.editor.categories.category', {
+				url: '/:id',
+				auth: true,
+				layout: 'row',
+				views: {
+					'main@': {
+						templateUrl: '/views/app/indexeditor/indexeditorcategory.html',
 						controller: 'IndexeditorcategoryCtrl',
 						controllerAs: 'vm',
-						resolve:{
-							category:function(ContentService, $stateParams){
+						resolve: {
+							category: function(ContentService, $stateParams) {
 								return ContentService.getCategory($stateParams.id);
 							}
 						}
@@ -230,7 +240,7 @@
 			})
 			.state('app.index.create', {
 				url: '/create',
-				auth:true,
+				auth: true,
 				views: {
 					'sidebar@': {
 						templateUrl: getView('indexcreator'),
@@ -241,14 +251,14 @@
 			})
 			.state('app.index.create.basic', {
 				url: '/basic',
-				auth:true
+				auth: true
 			})
 			.state('app.index.check', {
 				url: '/checking',
-				auth:true,
-				views:{
-					'main@':{
-						templateUrl:getView('indexCheck'),
+				auth: true,
+				views: {
+					'main@': {
+						templateUrl: getView('indexCheck'),
 						controller: 'IndexCheckCtrl',
 						controllerAs: 'vm'
 					},
@@ -261,15 +271,15 @@
 			})
 			.state('app.index.meta', {
 				url: '/adding-meta-data',
-				auth:true,
-				layout:'row',
-				views:{
-					'main@':{
-						templateUrl:getView('indexMeta'),
+				auth: true,
+				layout: 'row',
+				views: {
+					'main@': {
+						templateUrl: getView('indexMeta'),
 						controller: 'IndexMetaCtrl',
 						controllerAs: 'vm'
 					},
-					'sidebar@':{
+					'sidebar@': {
 						templateUrl: '/views/app/indexMeta/indexMetaMenu.html',
 						controller: 'IndexMetaMenuCtrl',
 						controllerAs: 'vm'
@@ -278,15 +288,15 @@
 			})
 			.state('app.index.final', {
 				url: '/final',
-				auth:true,
-				layout:'row',
-				views:{
-					'main@':{
-						templateUrl:getView('indexFinal'),
+				auth: true,
+				layout: 'row',
+				views: {
+					'main@': {
+						templateUrl: getView('indexFinal'),
 						controller: 'IndexFinalCtrl',
 						controllerAs: 'vm'
 					},
-					'sidebar@':{
+					'sidebar@': {
 						templateUrl: '/views/app/indexFinal/indexFinalMenu.html',
 						controller: 'IndexFinalMenuCtrl',
 						controllerAs: 'vm'
@@ -301,10 +311,10 @@
 						controller: 'IndexCtrl',
 						controllerAs: 'vm',
 						resolve: {
-							data: function (IndizesService, $stateParams) {
+							data: function(IndizesService, $stateParams) {
 								return IndizesService.fetchData($stateParams.index);
 							},
-							countries: function(CountriesService){
+							countries: function(CountriesService) {
 								return CountriesService.getData();
 							}
 						}
@@ -315,14 +325,14 @@
 				}
 			})
 			.state('app.index.show.info', {
-				 url:'/info',
-				 views:{
-					 'main@':{
-						 controller:'IndexinfoCtrl',
-						 controllerAs: 'vm',
-						 	templateUrl:getView('indexinfo')
-					 }
-				 }
+				url: '/info',
+				views: {
+					'main@': {
+						controller: 'IndexinfoCtrl',
+						controllerAs: 'vm',
+						templateUrl: getView('indexinfo')
+					}
+				}
 			})
 			.state('app.index.show.selected', {
 				url: '/:item',
@@ -355,7 +365,7 @@
 				}
 			});
 
-			//$locationProvider.html5Mode(true);
+		//$locationProvider.html5Mode(true);
 
 	});
 })();
