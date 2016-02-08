@@ -72,8 +72,12 @@
 			})
 			.state('app.index', {
 				abstract: true,
-				url: '/index'
-
+				url: '/index',
+				resolve: {
+					countries: function(CountriesService) {
+						return CountriesService.getData();
+					}
+				}
 			})
 			.state('app.index.mydata', {
 				url: '/my-data',
@@ -303,6 +307,47 @@
 					}
 				}
 			})
+			.state('app.index.list', {
+				url: '/list',
+				views: {
+					'sidebar@': {
+						templateUrl: getView('fullList'),
+						controller: 'FullListCtrl',
+						controllerAs: 'vm',
+						resolve: {
+							indicators: function(ContentService) {
+								return ContentService.fetchIndicators({
+									page: 1,
+									order: 'title',
+									limit: 1000,
+									dir: 'ASC'
+								})
+							},
+							indices: function(DataService) {
+								return DataService.getAll('index').$object;
+							}
+						}
+					}
+				}
+			})
+			.state('app.index.indicator', {
+				url: '/indicator/:id/:name',
+				views: {
+					'sidebar@': {
+						templateUrl: getView('indicator'),
+						controller: 'IndicatorShowCtrl',
+						controllerAs: 'vm',
+						resolve: {
+							indicator: function(ContentService, $stateParams) {
+								return ContentService.fetchIndicator($stateParams.id);
+							},
+							data: function(ContentService, $stateParams) {
+								return ContentService.getIndicatorData($stateParams.id);
+							}
+						}
+					}
+				}
+			})
 			.state('app.index.show', {
 				url: '/:index',
 				views: {
@@ -364,8 +409,5 @@
 					'map': {}
 				}
 			});
-
-		//$locationProvider.html5Mode(true);
-
 	});
 })();

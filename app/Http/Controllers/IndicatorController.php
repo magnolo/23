@@ -96,7 +96,14 @@ class IndicatorController extends Controller
     public function show($id)
     {
         //
-        return response()->api(Indicator::where('id',$id)->with('type', 'categories', 'dataprovider', 'style', 'userdata')->first());
+        $indicator =  Indicator::where('id',$id)->with('type', 'categories', 'dataprovider', 'style', 'userdata')->first();
+        $years = \DB::table($indicator->table_name)->select('year')->groupBy('year')->get();
+        $indicator->years = $years;
+
+        if($indicator->style_id == 0){
+          $indicator->style = $indicator->categories[0]->style;
+        }
+        return response()->api($indicator);
     }
 
     /**
@@ -147,11 +154,23 @@ class IndicatorController extends Controller
     {
         //
     }
+
     public function fetchData($id){
       $indicator = Indicator::find($id);
       $iso_field = $indicator->userdata->iso_type == 'iso-3166-1' ? 'adm0_a3': 'iso_a2';
       $data = \DB::table($indicator->table_name)
         ->where('year', \DB::raw('(select MAX('.$indicator->table_name.'.year) from '.$indicator->table_name.')'))
+        ->leftJoin('23_countries', $indicator->table_name.".".$indicator->iso_name, '=', '23_countries.'.$iso_field)
+        ->select($indicator->table_name.".".$indicator->column_name.' as score', $indicator->table_name.'.year','23_countries.'.$iso_field.' as iso','23_countries.admin as country')
+        ->orderBy($indicator->table_name.".".$indicator->column_name, 'desc')->get();
+
+      return response()->api($data);
+    }
+    public function fetchDataByYear($id, $year){
+      $indicator = Indicator::find($id);
+      $iso_field = $indicator->userdata->iso_type == 'iso-3166-1' ? 'adm0_a3': 'iso_a2';
+      $data = \DB::table($indicator->table_name)
+        ->where('year', $year)
         ->leftJoin('23_countries', $indicator->table_name.".".$indicator->iso_name, '=', '23_countries.'.$iso_field)
         ->select($indicator->table_name.".".$indicator->column_name.' as score', $indicator->table_name.'.year','23_countries.'.$iso_field.' as iso','23_countries.admin as country')
         ->orderBy($indicator->table_name.".".$indicator->column_name, 'desc')->get();

@@ -22,13 +22,13 @@ class ItemController extends Controller
      */
     public function index()
     {
-        $item = Item::where('parent_id', 0)->with('children', 'type', 'style')->get();
+        $item = Item::where('parent_id', 0)->with('children', 'type', 'style')->orderBy('title')->get();
         return response()->api($item);
     }
     public function alphabethical(){
         return Item::orderBy('title', 'ASC')->get();
     }
-
+    
     public function types(){
       return response()->api(ItemType::all());
     }

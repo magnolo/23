@@ -34,6 +34,10 @@ $api->version('v1', function ($api) {
     $api->get('index/{id}/structure', 'App\Http\Controllers\ItemController@showWithChildren');
     $api->get('index/{id}/{iso}', 'App\Http\Controllers\ItemController@showByIso');
 
+    $api->get('indicators', 'App\Http\Controllers\IndicatorController@index');
+    $api->get('indicators/{id}', 'App\Http\Controllers\IndicatorController@show');
+    $api->get('indicators/{id}/data', 'App\Http\Controllers\IndicatorController@fetchData');
+    $api->get('indicators/{id}/data/{year}', 'App\Http\Controllers\IndicatorController@fetchDataByYear');
 
     //$api->get('nations', 'App\Http\Controllers\NationsController@index');
     $api->get('countries', 'App\Http\Controllers\CountriesController@index');
@@ -67,9 +71,7 @@ $api->version('v1', ['middleware' => 'api.auth'], function ($api) {
     $api->get('me/data', 'App\Http\Controllers\UserController@myData');
     $api->get('me/indizes','App\Http\Controllers\ItemController@showMine');
 
-    $api->get('indicators', 'App\Http\Controllers\IndicatorController@index');
-    $api->get('indicators/{id}', 'App\Http\Controllers\IndicatorController@show');
-    $api->get('indicators/{id}/data', 'App\Http\Controllers\IndicatorController@fetchData');
+
     $api->put('indicators/{id}', 'App\Http\Controllers\IndicatorController@update');
 
     $api->put('index/{name}/{id}', 'App\Http\Controllers\ItemController@update');

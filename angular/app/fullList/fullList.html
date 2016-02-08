@@ -1,0 +1,12 @@
+<md-subheader class="md-primary">Indices</md-subheader>
+<md-list>
+        <md-list-item ng-repeat="index in vm.indices" ui-sref="app.index.show({index:index.name})">
+          {{index.title}}
+        </md-list>
+</md-list>
+<md-subheader class="md-primary">Indicators</md-subheader>
+<md-list>
+        <md-list-item ng-repeat="indicator in vm.indicators" ui-sref="app.index.indicator({name:indicator.name, id:indicator.id})">
+          {{indicator.title}}
+        </md-list>
+</md-list>
