@@ -149,7 +149,7 @@
 						labels.push(d);
 						angular.forEach(scope.indexer.children, function (item) {
 							if (scope.chartdata[item.name]) {
-								
+
 								var node = {
 									type: item.name,
 									radius: scope.chartdata[item.name] / scope.sizefactor,
@@ -302,6 +302,7 @@
 							return d.unicode || '1'
 						});
 					options.icons.on("mouseover", function (d, i) {
+
 						return show_details(d, i, this);
 					}).on("mouseout", function (d, i) {
 						return hide_details(d, i, this);
@@ -387,10 +388,22 @@
 				};
 				var show_details = function (data, i, element) {
 					var content;
-					content = "<span class=\"title\">" + data.name + "</span><br/>";
+					var	barOptions = {
+						titled:true
+					};
+					content = '<md-progress-linear md-mode="determinate" value="'+data.value+'"></md-progress-linear>'
+					content += "<span class=\"title\">"+ data.name + "</span><br/>";
 					angular.forEach(data.data.children, function (info) {
-						content += "<span class=\"name\" style=\"color:" + (info.color || data.color) + "\"> " + (info.title) + "</span><br/>";
+						if(scope.chartdata[info.name] > 0 ){
+							content += '<div class="sub">';
+							content += '<md-progress-linear md-mode="determinate" value="'+scope.chartdata[info.name]+'"></md-progress-linear>'
+							content += "<span class=\"name\" style=\"color:" + (info.color || data.color) + "\"> "+scope.chartdata[info.name]+' - ' + (info.title) + "</span><br/>";
+							content += '</div>';
+						}
+
 					});
+					//content = '<bars options="barOptions" structure="data.data.children" data="data"></bars>';
+
 					$compile(options.tooltip.showTooltip(content, data, d3.event, elem).contents())(scope);
 				};
 

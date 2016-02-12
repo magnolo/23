@@ -52,6 +52,8 @@
 
 		vm.calcTree = calcTree;
 
+		vm.isPrelast = isPrelast;
+
 		activate();
 
 		function activate() {
@@ -97,7 +99,15 @@
 			$window.history.back();
 		}
 
-
+		function isPrelast(){
+			var levelsFound = false;
+			angular.forEach(vm.structure.children, function(child){
+				if(child.children.length > 0){
+					levelsFound = true;
+				}
+			});
+			return levelsFound;
+		}
 		function showTabContent(content) {
 			if (content == '' && vm.tabContent == '') {
 				vm.tabContent = 'rank';
@@ -119,6 +129,7 @@
 
 		function setCurrent(nat) {
 			vm.current = nat;
+			console.log(vm.current);
 			vm.setSelectedFeature();
 		};
 

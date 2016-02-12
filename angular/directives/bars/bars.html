@@ -1,0 +1,21 @@
+<div class="bar-viewer">
+    <div ng-if="vm.options.titled" class="main-bar">
+      <div class="bar">
+          <div class="bar-value"></div>
+      </div>
+      <div class="title">
+          <span>{{main.value}}</span>
+          <span>{{main.title}}</span>
+      </div>
+    </div>
+    <div class="sub-bar" ng-click="vm.onClick()" ng-class="{'titled': vm.options.titled}" ng-repeat="item in vm.structure | orderBy: item.name">
+      <div class="bar">
+          <div class="bar-value" ng-style="{width:vm.width(item)+'%', 'background-color' : vm.options.color}"></div>
+      </div>
+      <div class="title">
+
+          <span>{{item.title}}</span>
+          <span> - {{vm.data[item.name] || 0 }}</span>
+      </div>
+    </div>
+</div>

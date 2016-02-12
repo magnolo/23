@@ -111,7 +111,10 @@
 												<section>
 																<md-tabs md-stretch-tabs="true" md-center-tabs="true" md-dynamic-height md-no-pagination="true" md-swipe-content="true" ng-if="vm.current" md-selected="vm.activeTab">
 																				<md-tab label="Details" md-active="vm.activeTab == 0" md-on-select="vm.setTab(0)">
-																								<div class="module bubbles slide-toggle mt mb" layout="column">
+																								<div class="module bubbles slide-toggle mt mb" layout="column" ng-show="!vm.isPrelast()">
+																									<bars options="{'titled': false, color:vm.structure.style.base_color}" structure="vm.structure.children" data="vm.current.data.data[0]"></bars>
+																								</div>
+																								<div class="module bubbles slide-toggle mt mb" layout="column" ng-show="vm.isPrelast()">
 																												<bubbles chartdata="vm.current" height="320" indexer="vm.structure" ng-model="vm.display.selectedCat" sizefactor="3" width="300"></bubbles>
 																								</div>
 																				</md-tab>
