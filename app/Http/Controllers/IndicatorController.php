@@ -96,13 +96,10 @@ class IndicatorController extends Controller
     public function show($id)
     {
         //
-        $indicator =  Indicator::where('id',$id)->with('type', 'categories', 'dataprovider', 'style', 'userdata')->first();
-        $years = \DB::table($indicator->table_name)->select('year')->groupBy('year')->get();
+        $indicator =  Indicator::where('id',$id)->with('type', 'categories', 'dataprovider', 'userdata')->first();
+        $years = \DB::table($indicator->table_name)->select('year')->groupBy('year')->orderBy('year', 'DESC')->get();
         $indicator->years = $years;
-
-        if($indicator->style_id == 0){
-          $indicator->style = $indicator->categories[0]->style;
-        }
+        $indicator->styled = $indicator->getStyle();
         return response()->api($indicator);
     }
 

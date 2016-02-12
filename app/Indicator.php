@@ -29,5 +29,14 @@ class Indicator extends Model
     public function style(){
       return $this->belongsTo('App\Style', 'style_id');
     }
+    public function getStyle() {
+      if ($this->style) {
+        return $this->style;
+      }
+      if ($this->categories) {
+        return $this->categories[0]->style;
+      }
+      return null;
+    }
 
 }

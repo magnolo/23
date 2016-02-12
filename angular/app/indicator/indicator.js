@@ -4,19 +4,56 @@
 	angular.module('app.controllers').controller('IndicatorShowCtrl', function(indicator, data, countries, ContentService, VectorlayerService) {
 		//
 		var vm = this;
+		vm.current = null;
 		vm.countryList = countries;
 		vm.indicator = indicator;
 		vm.data = data;
+		vm.circleOptions = {
+			color: vm.indicator.styled.base_color || '#00ccaa',
+			field: 'score',
+			size: vm.data.length
+		};
 
 		vm.getData = getData;
+		vm.setCurrent = setCurrent;
+		vm.getOffset = getOffset;
+		vm.getRank = getRank;
 
-		VectorlayerService.setData(vm.data, vm.indicator.categories[0].style.base_color);
-		VectorlayerService.paintCountries(countriesStyle);
+		function getRank(country) {
+
+			var rank = vm.data.indexOf(country) + 1;
+			return rank;
+		}
+
+		function getOffset() {
+			if (!vm.current) {
+				return 0;
+			}
+			//console.log(vm.getRank(vm.current));
+			return (vm.getRank(vm.current) - 2) * 17;
+		};
+
+		function setCurrent(nat) {
+			vm.current = nat;
+			//vm.setSelectedFeature();
+		};
+
+		/*function setSelectedFeature(iso) {
+			if (vm.mvtSource) {
+				$timeout(function() {
+					vm.mvtSource.layers[vm.mvtCountryLayerGeom].features[vm.current.iso].selected = true;
+				})
+			}
+		};*/
 
 		function getData(year) {
-			vm.data = ContentService.getIndicatorData(vm.indicator.id, year);
-			VectorlayerService.setData(vm.data, vm.indicator.categories[0].style.base_color);
-			VectorlayerService.paintCountries(countriesStyle);
+			ContentService.getIndicatorData(vm.indicator.id, year).then(function(data) {
+				vm.data = data;
+				VectorlayerService.setData(vm.data, vm.indicator.styled.base_color);
+				VectorlayerService.paintCountries(countriesStyle);
+			});
+
+
 		}
 
 		function countriesStyle(feature) {

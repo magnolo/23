@@ -2,35 +2,36 @@
 <style type="text/css">
 	md-tabs .md-tab.md-active,
 	md-tabs .md-tab.md-focused {
-		color: {{vm.indicator.style.base_color || 'rgba(128, 243, 198,1)' }}
+		color: {{vm.indicator.styled.base_color || 'rgba(128, 243, 198,1)' }}
 	}
 
 	md-tabs .md-tab .md-ripple-container {
-		color: {{vm.indicator.style.base_color || 'rgba(128, 243, 198,1)'}};
+		color: {{vm.indicator.styled.base_color || 'rgba(128, 243, 198,1)'}};
 	}
 
 	md-tabs md-ink-bar {
 			color: {{vm.indicator.style.base_color || 'rgba(128, 243, 198,1)'}};
-		background:{{vm.indicator.style.base_color || 'rgba(128, 243, 198,1)'}};
+		background:{{vm.indicator.styled.base_color || 'rgba(128, 243, 198,1)'}};
 	}
 	.info-container .info-box .module.rank .mini-list .list ul li.active {
-				color: {{vm.indicator.style.base_color || 'rgba(128, 243, 198,1)'}};
+				color: {{vm.indicator.styled.base_color || 'rgba(128, 243, 198,1)'}};
 	}
 	.info-box .module.rank .mini-list .list ul li.active, .info-box .module.comparison h4 .number{
-		color: {{vm.indicator.style.base_color || 'rgba(128, 243, 198,1)'}};
+		color: {{vm.indicator.styled.base_color || 'rgba(128, 243, 198,1)'}};
 	}
 </style>
 <div class="info-box">
-								<section class="header" layout-align="space-between center" layout="row" ng-style="{'color':vm.display.selectedCat.color}">
-												<span class="title">{{vm.indicator.title}}</span>
+								<section class="header" layout-align="space-between center" layout="row" ng-style="{'color':vm.indicator.styled.base_color}">
+												<span class="title" >{{vm.indicator.title}}</span>
 
 												<md-button class="md-icon-button" ui-sref="app.index.indicator.info({index:vm.structure.name})">
-																<ng-md-icon icon="info_outline" style="fill:#006bb9"></ng-md-icon>
+																<ng-md-icon icon="info_outline" style="fill:{{vm.indicator.styled.base_color}}"></ng-md-icon>
 												</md-button>
 								</section>
 								<md-tabs>
 										<md-tab md-on-select="vm.getData(year.year)" ng-repeat="year in vm.indicator.years | orderBy: '-year' ">{{ year.year}}</md-tab>
 								</md-tabs>
+								<div class="mtb1"></div>
 								<md-content>
 
 												<section class="header info slide-toggle" layout-align="space-between center" layout="row" ng-if="vm.current">
@@ -39,7 +40,7 @@
 																				<ng-md-icon icon="chevron_right"></ng-md-icon>
 																</span>
 												</section>
-												<section class="rank module slide-toggle" layout-align="space-between center" layout="row" ng-if="vm.current  && !vm.compare.active">
+												<section class="rank module slide-toggle" layout-align="space-between center" layout="row" ng-if="!vm.compare.active">
 												        <div class="chart" layout="row">
 												                <div layout-align="center center" layout="column">
 												                        <div class="title" layout-align="center center" layout="row">Rank</div>
@@ -49,7 +50,7 @@
 												                </div>
 												                <div class="tendency" layout-align="center center" layout="column" ng-class="{active:vm.current}">
 												                        <div>&nbsp;</div>
-												                        <ng-md-icon class="icon-space" icon="{{vm.getTendency()}}" style="fill:{{vm.structure.color}}" options='{"rotation": "none"}'></ng-md-icon>
+												                        <!--<ng-md-icon class="icon-space" icon="{{vm.getTendency()}}" style="fill:{{vm.structure.color}}" options='{"rotation": "none"}'></ng-md-icon>-->
 												                </div>
 												        </div>
 												        <div class="mini-list">
@@ -85,19 +86,15 @@
 												        </div>
 												</section>
 
-												<section class="module slide-toggle" layout-align="center center" layout="column" ng-if="vm.current  && !vm.compare.active">
-																<median data="vm.data" ng-model="vm.current" options="{color: vm.indicator.style.base_color,handling: true, field: vm.indicator.name}" style="margin:2em 0"></median>
+												<section class="module slide-toggle" layout-align="center center" layout="column" ng-if="!vm.compare.active">
+																<median data="vm.data" ng-model="vm.current" options="{color: vm.indicator.styled.base_color,handling: true, field: vm.indicator.name}" style="margin:2em 0"></median>
 												</section>
 												<section>
 																<md-tabs md-stretch-tabs="true" md-center-tabs="true" md-dynamic-height md-no-pagination="true" md-swipe-content="true" ng-if="vm.current" md-selected="vm.activeTab">
-																				<md-tab label="Details" md-active="vm.activeTab == 0" md-on-select="vm.setTab(0)">
-																								<div class="module bubbles slide-toggle mt mb" layout="column">
-																												<bubbles chartdata="vm.current" height="320" indexer="vm.structure" ng-model="vm.display.selectedCat" sizefactor="3" width="300"></bubbles>
-																								</div>
-																				</md-tab>
+
 																				<md-tab label="History" md-active="vm.activeTab == 1" md-on-select="vm.setTab(1)">
 																								<div class="module tabs no-margin" layout="column">
-																												<history chartdata="vm.current.data.data" options="{field:vm.structure.name, color:vm.structure.color}"></history>
+																												<history chartdata="vm.current.data.data" options="{field:'score', color:vm.indicator.styled.base_color}"></history>
 																								</div>
 																				</md-tab>
 																				<md-tab label="Compare" md-active="vm.activeTab == 2" md-on-deselect="vm.checkComparison(false)" md-on-select="vm.checkComparison(true)">

@@ -111,7 +111,8 @@
 				if (this.map.data.length == 0) return false;
 			},
 			paintCountries: function(style, click, mutex) {
-				var that = this
+				var that = this;
+				console.log(that.map.data)
 				$timeout(function() {
 					if (typeof style != "undefined") {
 						that.data.layer.setStyle(style);
