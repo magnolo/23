@@ -21,7 +21,7 @@
 																<md-icon class="material-icons" ng-click="vm.onMovedComplete(key)" ng-if="vm.options.edit">close</md-icon>
 																<md-icon dnd-nodrag class="material-icons toggler cursor " ng-if="!vm.options.simple" >
 																				<i class="material-icons" ng-if="item.children.length" ng-click="item.expanded = !item.expanded">{{ item.expanded ? 'expand_less' : 'expand_more' }}</i>
-																				<i class="material-icons" ng-if="!item.children.length && item.id != 0 && vm.options.drag && vm.item.type_di" ng-click="vm.addChildren(item)">add</i>
+																				<i class="material-icons" ng-if="!item.children.length && item.id != 0 && vm.options.drag " ng-click="vm.addChildren(item)">add</i>
 																</md-icon>
 												</p>
 												<treeview item="item" items="item.children" ng-if="item.expanded" options="vm.options"></treeview>

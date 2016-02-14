@@ -9,7 +9,7 @@
             data: []
           },
           myData: function(){
-            return this.user.data = DataService.getAll('me/data').$object;
+            return this.user.data = DataService.getAll('me/data');
           },
           myProfile: function(){
 

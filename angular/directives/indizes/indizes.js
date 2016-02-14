@@ -8,7 +8,7 @@
 		vm.checkBase = checkBase;
 		vm.checkFull = checkFull;
 		vm.save = save;
-		console.log(vm.options);
+		console.log(vm.item);
 		vm.baseOptions = {
 			drag:true,
 			allowDrop:true,

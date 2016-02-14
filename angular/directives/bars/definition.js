@@ -13,7 +13,7 @@
 				data: '=',
 				options: '=',
 				structure: '=',
-				onClick: '@'
+				clickEvent:'@'
 			},
 			link: function( scope, element, attrs ){
 				//

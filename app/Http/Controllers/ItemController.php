@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Auth;
 use JWTAuth;
+use Input;
 use Tymon\JWTAuth\Exceptions\JWTException;
 
 class ItemController extends Controller
@@ -22,13 +23,18 @@ class ItemController extends Controller
      */
     public function index()
     {
-        $item = Item::where('parent_id', 0)->with('children', 'type', 'style')->orderBy('title')->get();
-        return response()->api($item);
+
+        $items = Item::where('parent_id', 0)->with('children', 'type', 'style')->orderBy('title');
+        if(Input::has('is_official')){
+          $items = $items->where('is_official', true);
+        }
+        $items = $items->get();
+        return response()->api($items);
     }
     public function alphabethical(){
         return Item::orderBy('title', 'ASC')->get();
     }
-    
+
     public function types(){
       return response()->api(ItemType::all());
     }
@@ -40,30 +46,34 @@ class ItemController extends Controller
     protected function saveSubIndex($data, $parent){
       if(count($data) > 0){
         foreach($data as $entry){
-          $index = new Item();
-          $index->title = $entry['title'];
-          $index->name = str_slug($entry['title']);
+          if(!array_key_exists('parent_id', $entry) && !array_key_exists('indicator_id', $entry)){
+            $index = new Item();
+            $index->title = $entry['title'];
+            $index->name = str_slug($entry['title']);
 
-          if(isset($entry['item_type_id'])){
-            $index->item_type_id = $entry['item_type_id'];
-            $index->indicator_id = isset($entry['indicator_id']) ? $entry['indicator_id'] : null;
-            $index->style_id = $entry['style_id'];
-          }
-          else{
-            $index->item_type_id = 4;
-            $index->indicator_id = $entry['id'];
-          }
+            if(isset($entry['item_type_id'])){
+              $index->item_type_id = $entry['item_type_id'];
+              $index->indicator_id = isset($entry['indicator_id']) ? $entry['indicator_id'] : null;
+              $index->style_id = $entry['style_id'];
+            }
+            else{
+              $index->item_type_id = 4;
+              $index->indicator_id = $entry['id'];
+            }
 
-          $index->parent_id = $parent->id;
-          $index->user_id = Auth::user()->id;
-          $index->save();
+            $index->parent_id = $parent->id;
+            $index->user_id = Auth::user()->id;
+            $index->save();
 
-          if(isset($index['categories']) && isset($entry['item_type_id'])){
-            foreach($index['categories'] as $cat){
-              $index->categories()->attach($cat['id']);
+            if(isset($index['categories']) && isset($entry['item_type_id'])){
+              foreach($index['categories'] as $cat){
+                $index->categories()->attach($cat['id']);
+              }
             }
           }
-
+          else{
+            $index = Item::find($entry['id']);
+          }
           if($index->id && isset($entry['children'])){
             $this->saveSubIndex($entry['children'], $index);
           }
@@ -71,6 +81,7 @@ class ItemController extends Controller
       }
 
     }
+
     public function create(Request $request)
     {
         //
@@ -84,11 +95,13 @@ class ItemController extends Controller
         $index->user_id = Auth::user()->id;
         $index->save();
 
-        if(isset($index['categories'])){
-          foreach($index['categories'] as $cat){
+        if($request->input('categories')){
+          foreach($request->input('categories') as $cat){
             $index->categories()->attach($cat['id']);
           }
+          $index->load('categories');
         }
+
         if($index->id){
           $this->saveSubIndex($request->input('children'), $index);
         }
@@ -203,8 +216,17 @@ class ItemController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function saveChildren($item){
 
+    public function updateSubIndex($children, $item){
+      if(count($children) > 0){
+          $items = Item::where('parent_id', $item->id)->get();
+          foreach($children as $child){
+            if(!array_key_exists('parent_id') && !array_key_exists('measure_type_id')){
+              $this->saveSubIndex($children, $item);
+            }
+          }
+      }
+      return false;
     }
     public function update(Request $request, $name, $id)
     {
@@ -225,6 +247,9 @@ class ItemController extends Controller
           };
           $item->categories()->sync($cats);
         }
+
+        $this->saveSubIndex($request->input('children'), $item);
+
         return response()->api($item->save());
     }
     /**
@@ -454,7 +479,6 @@ class ItemController extends Controller
       $data = array();
       if($index->type->name == "group"){
         $score = $this->averageData($index);
-
         $score = $this->calcAverage($score, $this->fieldCount($score), $index->name);
       }
       else if($index->type->name == "index"){

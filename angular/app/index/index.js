@@ -49,6 +49,7 @@
 		vm.toggleCountrieList = toggleCountrieList;
 		vm.mapGotoCountry = mapGotoCountry;
 		vm.goBack = goBack;
+		vm.goToIndex = goToIndex;
 
 		vm.calcTree = calcTree;
 
@@ -98,7 +99,13 @@
 		function goBack() {
 			$window.history.back();
 		}
-
+		function goToIndex(item){
+			console.log(item);
+			$state.go('app.index.show.selected',{
+				index:item.name,
+				item:$state.params['item']
+			});
+		}
 		function isPrelast(){
 			var levelsFound = false;
 			angular.forEach(vm.structure.children, function(child){

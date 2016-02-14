@@ -17,6 +17,7 @@
         VectorlayerService.createCanvas('#ff0000');
 
 
+        console.log(vm.indicator);  
         activate();
 
         function activate(){
@@ -129,7 +130,7 @@
     		}
         function setCountries(){
           vm.mvtSource.setStyle(countriesStyle);
-          vm.mvtSource.redraw()
+          vm.mvtSource.redraw();
         }
         function drawCountries() {
           minMax();

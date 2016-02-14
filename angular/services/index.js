@@ -136,6 +136,9 @@
           activeIndicator: function(){
             return indicator;
           },
+          resetIndicator:function(){
+            return indicator = null;
+          },
           reduceIsoError:function(){
             return serviceData.iso_errors.splice(0,1);
           },

@@ -1,19 +1,16 @@
 <md-subheader class="md-primary">
   Your imported data
 </md-subheader>
-<md-tabs  md-dynamic-height	>
-  <md-tab label="Uploads">
+
+
 <md-list>
   <md-list-item class="md-2-line" ng-repeat="entry in vm.data" ui-sref="app.index.mydata.entry({name:entry.name})">
-     <div class="md-list-item-text">
-    <h3>{{ entry.title}}</h3>
-    <p am-time-ago="entry.created_at"></p>
+     <div class="md-list-item-text" style="margin:0.5em 0">
+    <h3>{{ entry.meta.length }} indicator(s)</h3>
+
+    <h4 am-time-ago="entry.created_at"></h4>
+    <p><span ng-repeat="indicator in entry.meta">{{indicator.title + ','}}</span></p>
   </div>
   <ng-md-icon icon="chevron_right"></ng-md-icon>
   </md-list-item>
 </md-list>
-</md-tab>
-<md-tab label="Data">
-
-</md-tab>
-</md-tabs>

@@ -189,6 +189,7 @@ class UserdataController extends Controller
         $indicator->table_name = 'user_table_'.$name;
         $indicator->iso_name = $request->input('iso_field');
         $indicator->is_public = $field['is_public'];
+        $indicator->style_id = isset($field['style_id']) ? $field['style_id'] : 0;
         $indicator->is_official = false;
         $data['indicators'][] = $indicator->save();
 

@@ -606,6 +606,9 @@ md-tooltip {
   /* non-prefixed version, currently
                                   not supported by any browser */
 }
+md-input-container .md-errors-spacer {
+  position: absolute;
+}
 
 *:focus {
   border: 0;
@@ -834,6 +837,10 @@ md-toast[md-theme=warn] {
 }
 
 
+md-list-item a.md-no-style {
+  margin: 0px;
+}
+
 .Header {
   height: 48px;
   min-height: 48px;
@@ -859,10 +866,6 @@ md-toast[md-theme=warn] {
 }
 md-toolbar.Header .md-button.md-border {
   color: #006bb9;
-}
-
-md-list-item a.md-no-style {
-  margin: 0px;
 }
 
 md-toolbar.md-menu-toolbar {
@@ -1615,6 +1618,28 @@ div[ui-view='map'] {
 
 
 
+.bar-viewer {
+  margin: 0 1em;
+}
+.bar-viewer .bar {
+  width: 100%;
+  height: 7px;
+  background-color: #efefef;
+}
+.bar-viewer .bar .bar-value {
+  height: 100%;
+  background-color: #000;
+  width: 0;
+  transition: width 0.3s ease-out;
+}
+.bar-viewer .title {
+  margin: .5em 0;
+  margin-bottom: 1em;
+}
+.bar-viewer .sub-bar.titled {
+  margin-left: 2em;
+}
+
 .bubbles {
   overflow: hidden;
   margin: 1em 0;
@@ -1685,28 +1710,6 @@ div[ui-view='map'] {
 }
 
 
-.bar-viewer {
-  margin: 0 1em;
-}
-.bar-viewer .bar {
-  width: 100%;
-  height: 7px;
-  background-color: #efefef;
-}
-.bar-viewer .bar .bar-value {
-  height: 100%;
-  background-color: #000;
-  width: 0;
-  transition: width 0.3s ease-out;
-}
-.bar-viewer .title {
-  margin: .5em 0;
-  margin-bottom: 1em;
-}
-.bar-viewer .sub-bar.titled {
-  margin-left: 2em;
-}
-
 
 
 
@@ -1735,9 +1738,6 @@ div[ui-view='map'] {
 }
 .indicator-tabs .md-tab.md-disabled ng-md-icon {
   opacity: 0.3;
-}
-.indicator-tabs md-input-container .md-errors-spacer {
-  position: absolute;
 }
 .indicator-tabs md-autocomplete[md-floating-label] md-input-container {
   padding-bottom: 2px;
@@ -1775,6 +1775,7 @@ div[ui-view='map'] {
 .indicator-menu ng-md-icon.greyed path {
   fill: #ddd;
 }
+
 
 median {
   overflow: hidden;
@@ -1831,7 +1832,6 @@ median .slider text {
   cursor: ew-resize;
 }
 
-
 .dropzone {
   border: 2px dashed #ddd;
   padding: 2em;
@@ -1868,6 +1868,7 @@ median .slider text {
 .slide-toggle.ng-animate {
   overflow: hidden;
 }
+
 
 .md-color-container.md-color-picker-preview {
   content: '';
@@ -2017,7 +2018,6 @@ median .slider text {
 .calculating .field-name-field-calculating-text {
   padding-right: 220px;
 }
-
 
 .trashcan ul {
   padding: 0;

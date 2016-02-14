@@ -59,7 +59,7 @@
 				this.ctx.fillStyle = gradient;
 				this.ctx.fillRect(0, 0, 280, 10);
 				this.palette = this.ctx.getImageData(0, 0, 257, 1).data;
-				document.getElementsByTagName('body')[0].appendChild(this.canvas);
+				//document.getElementsByTagName('body')[0].appendChild(this.canvas);
 			},
 			updateCanvas: function(color) {
 				var gradient = this.ctx.createLinearGradient(0, 0, 280, 10);

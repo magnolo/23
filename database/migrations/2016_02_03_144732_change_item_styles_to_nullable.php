@@ -15,9 +15,9 @@ class ChangeItemStylesToNullable extends Migration
         Schema::table('"23_items"', function (Blueprint $table) {
             //
             $table->string('style_id')->nullable()->change();
-            $table->string('is_public')->nullable()->change();
-            $table->string('is_official')->nullable()->change();
-            $table->string('parent_id')->nullable()->change();
+            $table->boolean('is_public')->nullable()->change();
+            $table->boolean('is_official')->nullable()->change();
+            $table->integer('parent_id')->nullable()->change();
         });
     }
 

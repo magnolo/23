@@ -5,12 +5,14 @@
       var vm = this;
       vm.data = IndexService.getData();
       vm.meta = IndexService.getMeta();
+      IndexService.resetIndicator();
       vm.indicators = IndexService.getIndicators();
       vm.selectForEditing = selectForEditing;
       vm.checkFull = checkFull;
       vm.checkBase = checkBase;
       vm.checkAll = checkAll;
       vm.saveData = saveData;
+
 
       function selectForEditing(key){
         if(typeof IndexService.getIndicator(key) == "undefined"){
@@ -41,7 +43,7 @@
             done ++;
           }
         });
-        console.log(done, Object.keys(vm.indicators).length);
+        //console.log(done, Object.keys(vm.indicators).length);
         if(done == Object.keys(vm.indicators).length){
           return true;
         }
@@ -49,6 +51,10 @@
       }
       function saveData() {
 
+          if(!vm.meta.year_field && !vm.meta.year){
+            DialogService.fromTemplate('addYear', $scope);
+            return false;
+          }
   				var insertData = {
   					data: []
   				};
@@ -69,7 +75,16 @@
   							insertData.data.push(item.data);
   						}
   						else{
-  							noYears.push(item);
+                if(vm.meta.year){
+                  item.data.year = vm.meta.year;
+                  vm.meta.iso_type = item.data[vm.meta.iso_field].length == 3 ? 'iso-3166-1' : 'iso-3166-2';
+    							insertData.data.push(item.data);
+                }
+                else{
+                  	noYears.push(item);
+                }
+
+
   						}
 
 
@@ -104,6 +119,7 @@
   				vm.meta.fields = fields;
   				if(noYears.length > 0){
   					toastr.error("for "+noYears.length + " entries", 'No year value found!');
+            return false;
   				}
 
   				DataService.post('data/tables', vm.meta).then(function (response) {
@@ -126,13 +142,22 @@
   				})
 
   		}
+      function copyToOthers(){
+      /*  vm.preProvider = vm.indicators[o.column_name].dataprovider;
+        vm.preMeasure = vm.indicators[o.column_name].measure_type_id;
+        vm.preType = vm.indicators[o.column_name].type;
+        vm.preCategories = vm.indicators[o.column_name].categories;
+        vm.prePublic = vm.indicators[o.column_name].is_public;
+        vm.preStyle = vm.indicators[o.column_name].style;
 
+        DialogService.fromTemplate('copyprovider', $scope);*/
+      }
       $scope.$watch(function(){ return IndexService.activeIndicator()}, function(n,o){
         if(n === o)return;
         vm.indicators[n.column_name] = n;
       },true);
       $scope.$watch(function(){ return IndexService.activeIndicator()}, function(n,o){
-        if (n === o || typeof o == "undefined") return;
+        if (n === o || typeof o == "undefined" || o == null) return;
         if(!vm.askedToReplicate) {
           vm.preProvider = vm.indicators[o.column_name].dataprovider;
           vm.preMeasure = vm.indicators[o.column_name].measure_type_id;

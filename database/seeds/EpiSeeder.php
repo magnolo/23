@@ -239,10 +239,12 @@ class EpiSeeder extends Seeder
               'indicator_id' => $ind->id,
               'item_type_id' => 4,
               'name' => $iName,
+              'is_public' => true,
+              'is_official' => true,
               'title' => $ind->title
             ]);
             $item->save();
-
+            $item->categories()->attach(1);
           }
         }
     }

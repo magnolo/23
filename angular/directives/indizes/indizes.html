@@ -37,9 +37,12 @@
 																																<label>Description</label>
 																																<textarea ng-model="vm.item.description"></textarea>
 																												</md-input-container>
-																												<div layout-align="center center" layout="row">
+																												<div layout-align="space-between center" layout="column">
 																																<md-switch aria-label="Public" class="md-primary" ng-model="vm.item.is_public">
 																																				Public
+																																</md-switch>
+																																<md-switch aria-label="23° Featured" class="md-primary" ng-model="vm.item.is_official">
+																																				Featured
 																																</md-switch>
 																												</div>
 																								</div>
