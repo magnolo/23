@@ -45,16 +45,14 @@
 																																				<md-select ng-model="vm.item.measure_type_id" required>
 																																								<md-option ng-repeat="type in vm.measureTypes" value="{{type.id}}">{{type.title}}</md-option>
 																																				</md-select>
-
 																																</md-input-container>-->
 																																<md-autocomplete class="md-block" flex md-floating-label="Units of measure*" md-input-maxlength="56" md-input-name="unitField" md-item-text="type.title" md-items="type in vm.queryUnit(vm.searchUnit)" md-min-length="0" md-no-cache="vm.noCache" md-search-text="vm.searchUnit" md-selected-item="vm.item.type" required>
 																																				<md-item-template>
 																																								<span md-highlight-flags="^i" md-highlight-text="vm.searchUnit">{{type.title}}</span>
 																																				</md-item-template>
 																																				<md-not-found>
-
 																																								<a class="md-button md-primary" ng-mousedown="vm.createUnit(vm.searchUnit)">
-																																												<ng-md-icon icon="add"></ng-md-icon>&nbsp;&nbsp;Create a new one</a>
+																																								<ng-md-icon icon="add"></ng-md-icon>&nbsp;&nbsp;Create a new one</a>
 																																				</md-not-found>
 																																				<div ng-if="baseForm.unitField.$touched" ng-messages="baseForm.unitField.$error">
 																																								<div ng-message="required">You
@@ -63,7 +61,6 @@
 																																								<div ng-message="md-minlength">Your entry is not long enough. At least 3 characters!</div>
 																																								<div ng-message="md-maxlength">Your entry is too long.</div>
 																																				</div>
-
 																																</md-autocomplete>
 																																<!--<div class="upload-uploader" layout-align="space-between center" layout="column">
 																																				<ng-md-icon icon="landscape" ng-if="!vm.item.dataprovider.image.url" size="98" class="no-color"></ng-md-icon>
@@ -75,9 +72,8 @@
 																																								<span md-highlight-flags="^i" md-highlight-text="vm.searchText">{{item.title}}</span>
 																																				</md-item-template>
 																																				<md-not-found>
-
 																																								<a class="md-button md-primary" ng-mousedown="vm.createProvider(vm.searchText)">
-																																												<ng-md-icon icon="add"></ng-md-icon>&nbsp;&nbsp;Create a new one</a>
+																																								<ng-md-icon icon="add"></ng-md-icon>&nbsp;&nbsp;Create a new one</a>
 																																				</md-not-found>
 																																				<div ng-if="baseForm.providerField.$touched" ng-messages="baseForm.providerField.$error">
 																																								<div ng-message="required">You

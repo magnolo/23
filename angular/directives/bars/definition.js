@@ -12,8 +12,7 @@
 			bindToController: {
 				data: '=',
 				options: '=',
-				structure: '=',
-				clickEvent:'@'
+				structure: '='
 			},
 			link: function( scope, element, attrs ){
 				//

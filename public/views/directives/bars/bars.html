@@ -8,14 +8,13 @@
           <span>{{main.title}}</span>
       </div>
     </div>
-    <div class="sub-bar" ng-click="vm.clickEvent(item)" ng-class="{'titled': vm.options.titled}" ng-repeat="item in vm.structure | orderBy: item.name">
+    <div class="sub-bar" ng-click="vm.options.onClick(item)" ng-class="{'titled': vm.options.titled}" ng-repeat="item in vm.structure | orderBy: item.name">
       <div class="bar">
           <div class="bar-value" ng-style="{width:vm.width(item)+'%', 'background-color' : vm.options.color}"></div>
       </div>
       <div class="title">
-
           <span>{{item.title}}</span>
-          <span> - {{vm.data[item.name] || 0 }}</span>
       </div>
+      <md-tooltip md-direction="right"> {{vm.data[item.name] || 0 }}</md-tooltip>
     </div>
 </div>
