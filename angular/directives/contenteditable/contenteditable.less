@@ -1,0 +1,24 @@
+[contenteditable] {
+    position:relative;
+    white-space: pre-wrap;       /* css-3 */
+    white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+    white-space: -pre-wrap;      /* Opera 4-6 */
+    white-space: -o-pre-wrap;    /* Opera 7 */
+    word-wrap: break-word;       /* Internet Explorer 5.5+ */
+    &::before {
+      content:'';
+      width:0%;
+      position:absolute;
+      left:50%;
+      bottom:-2px;
+      border-bottom:0px solid #ccc;
+      transition: all .15s ease-out;
+    }
+    &:focus {
+      &::before{
+        width:100%;
+        left:0px;
+        border-bottom-width: 1px;
+      }
+    }
+}

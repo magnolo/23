@@ -12,7 +12,8 @@
 																<span dnd-nodrag ng-if="vm.options.withColor" class="md-color-container md-color-picker-preview md-color-picker-checkered-bg" role="button" tabindex="0">
 																				<span class="md-color-picker-result" ng-style="{background: item.base_color}"></span>
 																</span>
-																<span dnd-nodrag ng-click="vm.options.itemClick(item.id, item.name)">{{ item.title }}</span>
+																<span ng-if="!vm.options.editable" dnd-nodrag ng-click="vm.options.itemClick(item.id, item.name)">{{item.title}}</span>
+																<span ng-if="vm.options.editable" dnd-nodrag contenteditable="true" ng-model="item.title"></span>
 																<span flex dnd-nodrag></span>
 																<weight dnd-nodrag items="vm.items" item="item" ng-if="vm.options.editWeight && vm.items.length > 1"></weight>
 																<span dnd-nodrag ng-if="item.id != 0 && !vm.options.editWeight && !vm.options.simple" class="chooser unchecked" ng-class="{'unchecked': !vm.selectedItem(item), 'checked': vm.selectedItem(item),'children': vm.childSelected(item.children)}" ng-click="vm.toggleItem(item)">

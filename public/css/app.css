@@ -775,6 +775,11 @@ p.small-info:hover {
 .loose.rowed .Page {
   width: 400px;
 }
+.loose .additional {
+  top: 1em;
+  height: calc(100% - 2em);
+  left: calc(800px + 1em);
+}
 .additional {
   position: absolute;
   top: 0;
@@ -1716,7 +1721,63 @@ div[ui-view='map'] {
 
 
 
+[contenteditable] {
+  position: relative;
+  white-space: pre-wrap;
+  /* css-3 */
+  white-space: -moz-pre-wrap;
+  /* Mozilla, since 1999 */
+  white-space: -pre-wrap;
+  /* Opera 4-6 */
+  white-space: -o-pre-wrap;
+  /* Opera 7 */
+  word-wrap: break-word;
+  /* Internet Explorer 5.5+ */
+}
+[contenteditable]::before {
+  content: '';
+  width: 0%;
+  position: absolute;
+  left: 50%;
+  bottom: -2px;
+  border-bottom: 0px solid #ccc;
+  transition: all 0.15s ease-out;
+}
+[contenteditable]:focus::before {
+  width: 100%;
+  left: 0px;
+  border-bottom-width: 1px;
+}
 
+
+
+.indicator-tabs .indicator-fields {
+  padding: 0 1em;
+  max-width: 500px;
+  margin: 0 auto;
+}
+.indicator-tabs md-tab-content md-content {
+  padding-bottom: 1em;
+  padding-top: 1em;
+}
+.indicator-tabs md-tab-item ng-md-icon:not(.valid) path {
+  fill: #f44336;
+}
+.indicator-tabs md-tabs > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item {
+  background: #efefef;
+}
+.indicator-tabs md-tabs > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item.md-active {
+  background: #fff;
+}
+.indicator-tabs .md-tab.md-disabled {
+  opacity: 1;
+}
+.indicator-tabs .md-tab.md-disabled ng-md-icon {
+  opacity: 0.3;
+}
+.indicator-tabs md-autocomplete[md-floating-label] md-input-container {
+  padding-bottom: 2px;
+}
 
 .indicator-menu {
   position: absolute;
@@ -1749,34 +1810,6 @@ div[ui-view='map'] {
 }
 .indicator-menu ng-md-icon.greyed path {
   fill: #ddd;
-}
-
-.indicator-tabs .indicator-fields {
-  padding: 0 1em;
-  max-width: 500px;
-  margin: 0 auto;
-}
-.indicator-tabs md-tab-content md-content {
-  padding-bottom: 1em;
-  padding-top: 1em;
-}
-.indicator-tabs md-tab-item ng-md-icon:not(.valid) path {
-  fill: #f44336;
-}
-.indicator-tabs md-tabs > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item {
-  background: #efefef;
-}
-.indicator-tabs md-tabs > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item.md-active {
-  background: #fff;
-}
-.indicator-tabs .md-tab.md-disabled {
-  opacity: 1;
-}
-.indicator-tabs .md-tab.md-disabled ng-md-icon {
-  opacity: 0.3;
-}
-.indicator-tabs md-autocomplete[md-floating-label] md-input-container {
-  padding-bottom: 2px;
 }
 
 
@@ -1865,6 +1898,13 @@ median .slider text {
 }
 
 
+.slide-toggle {
+  transition: all .5s;
+}
+.slide-toggle.ng-animate {
+  overflow: hidden;
+}
+
 .md-color-container.md-color-picker-preview {
   content: '';
   width: 24px;
@@ -1887,13 +1927,6 @@ median .slider text {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-}
-
-.slide-toggle {
-  transition: all .5s;
-}
-.slide-toggle.ng-animate {
-  overflow: hidden;
 }
 
 

@@ -18,6 +18,7 @@
 			allowDelete:true,
 			allowAddContainer:true,
 			allowAdd:true,
+			editable:true,
 			assigments: true,
 			saveClick: save,
 			addClick: vm.options.indizes.addClick,
