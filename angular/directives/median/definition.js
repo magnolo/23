@@ -42,6 +42,7 @@
 
 				var options = angular.extend(defaults(), $attrs);
 				options = angular.extend(options, $scope.options);
+				console.log($scope.data);
 				options.unique = new Date().getTime();
 				if(options.color){
 					options.colors[1].color = options.color;
@@ -102,7 +103,7 @@
 						.attr('r', options.height / 2)
 					legend2.append('text')
 						.text(function(){
-							//TDODO: CHckick if no comma there 
+							//TDODO: CHckick if no comma there
 							if(max > 1000){
 								var v = (parseInt(max) / 1000).toString();
 								return v.substr(0, v.indexOf('.') ) + "k" ;
@@ -173,7 +174,7 @@
 						count = 0,
 						found = false;
 					var final = "";
-					/*do {
+					do {
 
 						angular.forEach($scope.data, function (nat, key) {
 							if (parseInt(nat[options.field]) == parseInt(value)) {
@@ -186,7 +187,7 @@
 					} while (!found && count < max);
 
 					ngModel.$setViewValue(final);
-					ngModel.$render();*/
+					ngModel.$render();
 				}
 				$scope.$watch('options', function(n,o){
 					if(n === o){

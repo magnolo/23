@@ -348,6 +348,9 @@
 					}
 				}
 			})
+			.state('app.index.indicator.country', {
+				url: '/:iso'
+			})
 			.state('app.index.show', {
 				url: '/:index',
 				views: {

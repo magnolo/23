@@ -1,7 +1,7 @@
 (function() {
 	"use strict";
 
-	angular.module('app.controllers').controller('IndicatorShowCtrl', function(indicator, data, countries, ContentService, VectorlayerService) {
+	angular.module('app.controllers').controller('IndicatorShowCtrl', function($scope, $state, $filter,$timeout, indicator, data, countries, ContentService, VectorlayerService, toastr) {
 		//
 		var vm = this;
 		vm.current = null;
@@ -10,7 +10,7 @@
 		vm.data = data;
 		vm.circleOptions = {
 			color: vm.indicator.styled.base_color || '#00ccaa',
-			field: 'score',
+			field: 'rank',
 			size: vm.data.length
 		};
 
@@ -19,8 +19,23 @@
 		vm.getOffset = getOffset;
 		vm.getRank = getRank;
 
-		function getRank(country) {
+		activate();
 
+		function activate(){
+			console.log($state.params.iso)
+			if($state.params.iso){
+				setState($state.params.iso);
+			}
+		}
+
+		function setState(iso) {
+			$timeout(function(){
+				//console.log(VectorlayerService.getNationByIso(iso));
+				//vm.current = VectorlayerService.getNationByIso(iso);
+			})
+		};
+
+		function getRank(country) {
 			var rank = vm.data.indexOf(country) + 1;
 			return rank;
 		}
@@ -35,22 +50,37 @@
 
 		function setCurrent(nat) {
 			vm.current = nat;
-			//vm.setSelectedFeature();
+			setSelectedFeature();
 		};
 
-		/*function setSelectedFeature(iso) {
-			if (vm.mvtSource) {
-				$timeout(function() {
-					vm.mvtSource.layers[vm.mvtCountryLayerGeom].features[vm.current.iso].selected = true;
-				})
-			}
-		};*/
+		function setSelectedFeature() {
 
+			/*	$timeout(function() {
+					VectorlayerService.getLayer().layers[VectorlayerService.getName()+'_geom'].features[vm.current.iso].selected = true;
+				});*/
+				$state.go('app.index.indicator.country', {
+					id: $state.params.id,
+					name:$state.params.name,
+					iso:vm.current.iso
+				})
+		};
+		function countryClick(evt,t){
+			var c = VectorlayerService.getNationByIso(evt.feature.properties[VectorlayerService.data.iso2]);
+			if (typeof c.score != "undefined") {
+				vm.current = c;
+			} else {
+				toastr.error('No info about this location!');
+			}
+		}
 		function getData(year) {
 			ContentService.getIndicatorData(vm.indicator.id, year).then(function(data) {
 				vm.data = data;
+				angular.forEach(vm.data, function(item){
+					item.rank = vm.data.indexOf(item) +1;
+				});
+				getOffset();
 				VectorlayerService.setData(vm.data, vm.indicator.styled.base_color);
-				VectorlayerService.paintCountries(countriesStyle);
+				VectorlayerService.paintCountries(countriesStyle, countryClick);
 			});
 
 
@@ -59,12 +89,10 @@
 		function countriesStyle(feature) {
 			var style = {};
 			var iso = feature.properties[VectorlayerService.data.iso2];
-
 			var nation = VectorlayerService.getNationByIso(iso);
 			var field = 'score';
 			var type = feature.type;
 			feature.selected = false;
-
 			switch (type) {
 				case 3: //'Polygon'
 					if (typeof nation[field] != "undefined") {
@@ -86,7 +114,6 @@
 						//	debugger;
 						break;
 					} else {
-
 						style.color = 'rgba(255,255,255,0)';
 						style.outline = {
 							color: 'rgba(255,255,255,0)',
@@ -96,5 +123,8 @@
 			}
 			return style;
 		};
+
+
+
 	});
 })();

@@ -136,7 +136,6 @@
 
 		function setCurrent(nat) {
 			vm.current = nat;
-			console.log(vm.current);
 			vm.setSelectedFeature();
 		};
 

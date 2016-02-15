@@ -41,7 +41,7 @@
 																</span>
 												</section>
 												<section class="rank module slide-toggle" layout-align="space-between center" layout="row" ng-if="!vm.compare.active">
-												        <div class="chart" layout="row">
+												        <div class="chart" layout="row" ng-if="vm.current">
 												                <div layout-align="center center" layout="column">
 												                        <div class="title" layout-align="center center" layout="row">Rank</div>
 												                        <div layout="row">
@@ -87,9 +87,9 @@
 												</section>
 
 												<section class="module slide-toggle" layout-align="center center" layout="column" ng-if="!vm.compare.active">
-																<median data="vm.data" ng-model="vm.current" options="{color: vm.indicator.styled.base_color,handling: true, field: vm.indicator.name}" style="margin:2em 0"></median>
+																<median data="vm.data" ng-model="vm.current" options="{color: vm.indicator.styled.base_color,handling: true, field: 'score'}" style="margin:2em 0"></median>
 												</section>
-												<section>
+												<!--<section>
 																<md-tabs md-stretch-tabs="true" md-center-tabs="true" md-dynamic-height md-no-pagination="true" md-swipe-content="true" ng-if="vm.current" md-selected="vm.activeTab">
 
 																				<md-tab label="History" md-active="vm.activeTab == 1" md-on-select="vm.setTab(1)">
@@ -112,6 +112,6 @@
 																								</div>
 																				</md-tab>
 																</md-tabs>
-												</section>
+												</section>-->
 								</md-content>
 				</div>

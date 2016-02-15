@@ -97,14 +97,26 @@
 					this.paintCountries();
 				}
 			},
-			getNationByIso: function(iso) {
-				if (this.map.data.length == 0) return false;
-				var nation = {};
-				angular.forEach(this.map.data, function(nat) {
-					if (nat.iso == iso) {
-						nation = nat;
-					}
-				});
+			getNationByIso: function(iso, list) {
+				if(typeof list !== "undefined"){
+					if (list.length == 0) return false;
+					var nation = {};
+					angular.forEach(list, function(nat) {
+						if (nat.iso == iso) {
+							nation = nat;
+						}
+					});
+				}
+				else{
+					if (this.map.data.length == 0) return false;
+					var nation = {};
+					angular.forEach(this.map.data, function(nat) {
+						if (nat.iso == iso) {
+							nation = nat;
+						}
+					});
+				}
+
 				return nation;
 			},
 			getNationByName: function(name) {
@@ -112,7 +124,7 @@
 			},
 			paintCountries: function(style, click, mutex) {
 				var that = this;
-				console.log(that.map.data)
+
 				$timeout(function() {
 					if (typeof style != "undefined") {
 						that.data.layer.setStyle(style);
