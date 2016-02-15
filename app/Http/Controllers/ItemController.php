@@ -58,7 +58,7 @@ class ItemController extends Controller
             }
             else{
               $index->item_type_id = 4;
-              $index->indicator_id = $entry['id'];
+              $index->indicator_id = isset($entry['id']) ? $entry['id'] : null;
             }
 
             $index->parent_id = $parent->id;
@@ -73,6 +73,23 @@ class ItemController extends Controller
           }
           else{
             $index = Item::find($entry['id']);
+            $index->title = $entry['title'];
+            $index->name = str_slug($entry['title']);
+
+            if(isset($entry['item_type_id'])){
+              $index->item_type_id = $entry['item_type_id'];
+              $index->indicator_id = isset($entry['indicator_id']) ? $entry['indicator_id'] : null;
+              $index->style_id = $entry['style_id'];
+            }
+            else{
+              $index->item_type_id = 4;
+              $index->indicator_id = $entry['id'];
+            }
+
+            $index->parent_id = $parent->id;
+            $index->user_id = Auth::user()->id;
+            $index->save();
+
           }
           if($index->id && isset($entry['children'])){
             $this->saveSubIndex($entry['children'], $index);
@@ -92,6 +109,8 @@ class ItemController extends Controller
         $index->item_type_id = $request->input('item_type_id');
         $index->parent_id = $request->has('parent_id') ? $request->input('parent_id') : 0;
         $index->style_id = $request->input('style_id');
+        $index->is_public = $request->has('is_public') ? $request->input('is_public') : false;
+        $index->is_official = $request->has('is_official') ? $request->input('is_official') : false;
         $index->user_id = Auth::user()->id;
         $index->save();
 

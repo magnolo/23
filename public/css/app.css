@@ -837,10 +837,6 @@ md-toast[md-theme=warn] {
 }
 
 
-md-list-item a.md-no-style {
-  margin: 0px;
-}
-
 .Header {
   height: 48px;
   min-height: 48px;
@@ -866,6 +862,10 @@ md-list-item a.md-no-style {
 }
 md-toolbar.Header .md-button.md-border {
   color: #006bb9;
+}
+
+md-list-item a.md-no-style {
+  margin: 0px;
 }
 
 md-toolbar.md-menu-toolbar {
@@ -1869,7 +1869,6 @@ median .slider text {
   overflow: hidden;
 }
 
-
 .md-color-container.md-color-picker-preview {
   content: '';
   width: 24px;
@@ -1893,6 +1892,7 @@ median .slider text {
   display: -ms-flexbox;
   display: flex;
 }
+
 
 .section {
   padding: 30px;

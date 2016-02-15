@@ -15,7 +15,13 @@
       indizes:{
         addClick: function(){
           $state.go('app.index.editor.indizes.data.add');
-        }
+        },
+				addContainerClick:function(){
+					var item = {
+						title: 'I am a group... name me'
+					};
+					vm.index.children.push(item);
+				}
       },
       withSave: true
     }

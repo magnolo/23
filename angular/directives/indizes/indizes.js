@@ -20,7 +20,8 @@
 			allowAdd:true,
 			assigments: true,
 			saveClick: save,
-			addClick: vm.options.indizes.addClick
+			addClick: vm.options.indizes.addClick,
+			addContainerClick: vm.options.indizes.addContainerClick
 		};
 		activate();
 
