@@ -7,6 +7,7 @@
 		vm.width = width;
 
 		function width(item) {
+			if(!vm.data) return;
 			return vm.data[item.name];
 		}
 	});

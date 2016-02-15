@@ -1,0 +1,32 @@
+.nvd3 {
+    .nv-background {
+        fill: #ccc;
+    }
+    .nv-axis {
+        .tick {
+            line {
+                opacity: 0;
+                display: none;
+            }
+        }
+        &.nv-y{
+          text{
+            display:none;
+          }
+          path{
+            stroke:#afafaf;
+          }
+        }
+        &.nv-x{
+          path{
+            &.domain{
+              stroke-opacity:1;
+              stroke:#afafaf;
+            }
+          }
+        }
+        text{
+          fill:#afafaf;
+        }
+    }
+}

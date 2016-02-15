@@ -16,7 +16,7 @@
 			autorefresh: true, // default: true
 			refreshDataOnly: false, // default: false
 			deepWatchOptions: true, // default: true
-			deepWatchData: false, // default: false
+			deepWatchData: true, // default: false
 			deepWatchConfig: true, // default: true
 			debounce: 10 // default: 10
 		};
@@ -33,11 +33,14 @@
 			calculateGraph();
 			setChart();
 		}
-
+		function updateChart(){
+			vm.chart.options.chart.forceY = [vm.range.max, vm.range.min];
+		}
 	 	function setChart() {
 			vm.chart.options.chart = {
 				type: 'lineChart',
 				legendPosition: 'left',
+				duration:100,
 				margin: {
 					top: 20,
 					right: 20,
@@ -52,13 +55,15 @@
 				},
 				showLegend: false,
 				showValues: false,
-				showYAxis: false,
+				//showYAxis: false,
+
 				transitionDuration: 500,
-				useInteractiveGuideline: true,
-				//forceY: [100, 0],
-				//yDomain:yDomain,
+				//useInteractiveGuideline: true,
+				forceY: [vm.range.max, vm.range.min],
+				//yDomain:[parseInt(vm.range.min), vm.range.max],
 				xAxis: {
-					axisLabel: ''
+					axisLabel: 'Year',
+					axisLabelDistance: 30
 				},
 				yAxis: {
 					axisLabel: '',
@@ -72,9 +77,11 @@
 				}
 
 			};
+
 			if (vm.options.invert == true) {
-				vm.chart.options.chart.yDomain = [parseInt(vm.range.max), vm.range.min];
+				vm.chart.options.chart.forceY = [parseInt(vm.range.max), vm.range.min];
 			}
+			console.log(vm.chart)
 			return vm.chart;
 		}
 		function calculateGraph() {
@@ -102,25 +109,28 @@
 				});
 				chartData.push(graph);
 			});
-
+			vm.range.max++;
+			vm.range.min--;
 			vm.chart.data = chartData;
 			if (vm.options.invert == "true") {
 				vm.chart.options.chart.yDomain = [parseInt(vm.range.max), vm.range.min];
 			}
-
+			return chartData;
 		};
 		$scope.$watch('vm.data', function (n, o) {
 			if (!n) {
 				return;
 			}
-			console.log(n);
 			calculateGraph();
+			updateChart();
+
 		});
 		$scope.$watch('vm.selection', function (n, o) {
 			if (n === o) {
 				return;
 			}
-			calculateGraph();
+		//	updateChart();
+			//calculateGraph();
 		})
 	});
 

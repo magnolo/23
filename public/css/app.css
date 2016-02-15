@@ -1566,7 +1566,6 @@ div[ui-view='map'] {
   box-shadow: 0px 0px 0px 7px rgba(255, 140, 0, 0.6);
 }
 
-
 /*.Sidebar {
 	position: fixed !important;
 	top: 0;
@@ -1618,6 +1617,7 @@ div[ui-view='map'] {
 .Sidebar-version a {
   color: white;
 }
+
 
 
 
@@ -1897,6 +1897,26 @@ median .slider text {
   top: 0.5em;
 }
 
+.nvd3 .nv-background {
+  fill: #ccc;
+}
+.nvd3 .nv-axis .tick line {
+  opacity: 0;
+  display: none;
+}
+.nvd3 .nv-axis.nv-y text {
+  display: none;
+}
+.nvd3 .nv-axis.nv-y path {
+  stroke: #afafaf;
+}
+.nvd3 .nv-axis.nv-x path.domain {
+  stroke-opacity: 1;
+  stroke: #afafaf;
+}
+.nvd3 .nv-axis text {
+  fill: #afafaf;
+}
 
 .slide-toggle {
   transition: all .5s;
