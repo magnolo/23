@@ -55,6 +55,9 @@
 			fetchIndicator: function(id) {
 				return this.content.indicator = DataService.getOne('indicators/' + id).$object;
 			},
+			fetchIndicatorPromise: function(id) {
+				return DataService.getOne('indicators/' + id);
+			},
 			getIndicatorData: function(id, year) {
 				if (year) {
 					return this.content.data = DataService.getAll('indicators/' + id + '/data/' + year);

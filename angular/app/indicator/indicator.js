@@ -8,12 +8,6 @@
 		vm.countryList = countries;
 		vm.indicator = indicator;
 		vm.data = data;
-		console.log(vm.indicator);
-		vm.circleOptions = {
-			color: vm.indicator.styled.base_color || '#00ccaa',
-			field: 'rank',
-			size: vm.data.length
-		};
 
 		vm.getData = getData;
 		vm.setCurrent = setCurrent;
@@ -26,6 +20,13 @@
 			if($state.params.iso){
 				setState($state.params.iso);
 			}
+			$timeout(function(){
+				vm.circleOptions = {
+					color: vm.indicator.styled.base_color || '#00ccaa',
+					field: 'rank',
+					size: vm.data.length
+				};
+			})
 		}
 
 		function setState(iso) {
