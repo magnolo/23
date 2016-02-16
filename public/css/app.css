@@ -869,10 +869,6 @@ md-toolbar.Header .md-button.md-border {
   color: #006bb9;
 }
 
-md-list-item a.md-no-style {
-  margin: 0px;
-}
-
 md-toolbar.md-menu-toolbar {
   background-color: #ffffff;
   color: rgba(0, 0, 0, 0.87);
@@ -918,6 +914,10 @@ md-menu-bar {
   margin: 0 auto;
   max-width: 680px;
   padding: 24px;
+}
+
+md-list-item a.md-no-style {
+  margin: 0px;
 }
 
 /*.info-container {
@@ -1566,6 +1566,7 @@ div[ui-view='map'] {
   box-shadow: 0px 0px 0px 7px rgba(255, 140, 0, 0.6);
 }
 
+
 /*.Sidebar {
 	position: fixed !important;
 	top: 0;
@@ -1617,7 +1618,6 @@ div[ui-view='map'] {
 .Sidebar-version a {
   color: white;
 }
-
 
 
 
@@ -1720,7 +1720,6 @@ div[ui-view='map'] {
 
 
 
-
 [contenteditable] {
   position: relative;
   white-space: pre-wrap;
@@ -1748,6 +1747,7 @@ div[ui-view='map'] {
   left: 0px;
   border-bottom-width: 1px;
 }
+
 
 
 

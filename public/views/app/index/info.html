@@ -90,7 +90,7 @@
 												                <div class="title">Bottom</div>
 												                <div class="list">
 												                        <ul>
-												                                <li ng-click="vm.setCurrent(nat)" ng-repeat="(key, nat) in vm.data | orderBy:'-'+vm.structure.name | limitTo:3">
+												                                <li ng-click="vm.setCurrent(nat)" ng-repeat="(key, nat) in vm.data | orderBy:vm.structure.name:true | limitTo:3">
 												                                        <span class="number">{{vm.getRank(nat)}}.</span>
 												                                        <span class="value">{{nat.iso}}</span>
 												                                        <md-tooltip md-delay="700" md-direction="right">

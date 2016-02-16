@@ -154,12 +154,11 @@
 			}
 			var rank = 0;
 			var kack = [];
-			console.log(vm.structure.name);
 			angular.forEach(vm.data, function(item) {
 				item[vm.structure.name] = parseFloat(item[vm.structure.name]);
 				item['score'] = parseFloat(item[vm.structure.name]);
 			});
-			//vm.data = $filter('orderBy')(vm.data, [vm.structure.name], 'iso', true);
+			//vm.data = $filter('orderBy')(vm.data, 'score', 'iso', true);
 			rank = vm.data.indexOf(vm.current) + 1;
 			vm.current[vm.structure.name + '_rank'] = rank;
 			vm.circleOptions = {

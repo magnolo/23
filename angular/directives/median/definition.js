@@ -42,7 +42,7 @@
 
 				var options = angular.extend(defaults(), $attrs);
 				options = angular.extend(options, $scope.options);
-				console.log($scope.data);
+			
 				options.unique = new Date().getTime();
 				if(options.color){
 					options.colors[1].color = options.color;

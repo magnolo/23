@@ -118,7 +118,7 @@
 							n[$scope.options.field] = $scope.options.size;
 						}
 						$timeout(function () {
-								console.log(n[$scope.options.field])
+								console.log(n[$scope.options.field], $scope.options.size)
 								animateIt(n[$scope.options.field]);
 						});
 					});
