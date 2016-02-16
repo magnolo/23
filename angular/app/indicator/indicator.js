@@ -8,6 +8,7 @@
 		vm.countryList = countries;
 		vm.indicator = indicator;
 		vm.data = data;
+		console.log(vm.indicator);
 		vm.circleOptions = {
 			color: vm.indicator.styled.base_color || '#00ccaa',
 			field: 'rank',
@@ -22,7 +23,6 @@
 		activate();
 
 		function activate(){
-			console.log($state.params.iso)
 			if($state.params.iso){
 				setState($state.params.iso);
 			}
