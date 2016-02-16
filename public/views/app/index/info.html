@@ -124,7 +124,7 @@
 																				</md-tab>
 																				<md-tab label="History" md-active="vm.activeTab == 1" md-on-select="vm.setTab(1)">
 																								<div class="module tabs no-margin" layout="column">
-																												<history chartdata="vm.current.data.data" options="{field:vm.structure.name, color:vm.structure.color}"></history>
+																												<history chartdata="vm.current.data.data" options="{field:vm.structure.name, color:vm.structure.style.base_color || 'rgba(128, 243, 198,1)'}"></history>
 																								</div>
 																				</md-tab>
 																				<md-tab label="Compare" md-active="vm.activeTab == 2" md-on-deselect="vm.checkComparison(false)" md-on-select="vm.checkComparison(true)">

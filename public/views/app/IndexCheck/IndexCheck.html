@@ -20,7 +20,7 @@
 												</div>
 								</div>
 				</md-data-table-toolbar>
-				<md-tabs style="border-bottom:1px solid #efefef">
+				<md-tabs style="border-bottom:1px solid #efefef" ng-if="vm.meta.year_field">
 						<md-tab md-on-select="vm.yearfilter = year" ng-repeat="year in vm.years ">{{year}}</md-tab>
 			</md-tabs>
 				<md-data-table-container>
@@ -50,7 +50,11 @@
 												</thead>
 												<tbody>
 
-																<tr class="{{ vm.checkForErrors(item) }}" md-auto-select ng-repeat="item in vm.data | property: vm.meta.year_field : vm.yearfilter | orderBy:vm.query.order | limitTo: vm.query.limit : (vm.query.page-1)*vm.query.limit">
+																<tr ng-if="vm.meta.year_field" class="{{ vm.checkForErrors(item) }}" md-auto-select ng-repeat="item in vm.data | property: vm.meta.year_field : vm.yearfilter | orderBy:vm.query.order | limitTo: vm.query.limit : (vm.query.page-1)*vm.query.limit">
+																				<td ng-if="vm.errors.length || vm.iso_errors.length">{{item.errors.length}}</td>
+																				<td ng-class="{'md-warn': vm.meta.iso_field == k && !column}" ng-repeat="(k, column) in item.data">{{column}}</td>
+																</tr>
+																<tr ng-if="!vm.meta.year_field" class="{{ vm.checkForErrors(item) }}" md-auto-select ng-repeat="item in vm.data  | orderBy:vm.query.order | limitTo: vm.query.limit : (vm.query.page-1)*vm.query.limit">
 																				<td ng-if="vm.errors.length || vm.iso_errors.length">{{item.errors.length}}</td>
 																				<td ng-class="{'md-warn': vm.meta.iso_field == k && !column}" ng-repeat="(k, column) in item.data">{{column}}</td>
 																</tr>

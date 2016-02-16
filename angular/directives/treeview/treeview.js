@@ -34,10 +34,7 @@
 
 		function addChildren(item) {
 
-			item.children = [{
-				id: 0,
-				title: 'Drop Items here...'
-			}];
+			item.children = [];
 			item.expanded = true;
 		}
 

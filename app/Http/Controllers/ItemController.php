@@ -88,6 +88,7 @@ class ItemController extends Controller
 
             $index->parent_id = $parent->id;
             $index->user_id = Auth::user()->id;
+            $index->weight = $entry['weight'];
             $index->save();
 
           }

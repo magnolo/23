@@ -59,7 +59,7 @@
 				this.ctx.fillStyle = gradient;
 				this.ctx.fillRect(0, 0, 280, 10);
 				this.palette = this.ctx.getImageData(0, 0, 257, 1).data;
-				document.getElementsByTagName('body')[0].appendChild(this.canvas);
+				//document.getElementsByTagName('body')[0].appendChild(this.canvas);
 			},
 			updateCanvas: function(color) {
 				var gradient = this.ctx.createLinearGradient(0, 0, 280, 10);
@@ -97,14 +97,26 @@
 					this.paintCountries();
 				}
 			},
-			getNationByIso: function(iso) {
-				if (this.map.data.length == 0) return false;
-				var nation = {};
-				angular.forEach(this.map.data, function(nat) {
-					if (nat.iso == iso) {
-						nation = nat;
-					}
-				});
+			getNationByIso: function(iso, list) {
+				if(typeof list !== "undefined"){
+					if (list.length == 0) return false;
+					var nation = {};
+					angular.forEach(list, function(nat) {
+						if (nat.iso == iso) {
+							nation = nat;
+						}
+					});
+				}
+				else{
+					if (this.map.data.length == 0) return false;
+					var nation = {};
+					angular.forEach(this.map.data, function(nat) {
+						if (nat.iso == iso) {
+							nation = nat;
+						}
+					});
+				}
+
 				return nation;
 			},
 			getNationByName: function(name) {
@@ -112,7 +124,7 @@
 			},
 			paintCountries: function(style, click, mutex) {
 				var that = this;
-				console.log(that.map.data)
+
 				$timeout(function() {
 					if (typeof style != "undefined") {
 						that.data.layer.setStyle(style);
