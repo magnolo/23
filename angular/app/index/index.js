@@ -1,7 +1,7 @@
 (function() {
 	"use strict";
 
-	angular.module('app.controllers').controller('IndexCtrl', function($scope, $window, $rootScope, $filter, $state, $timeout, ToastService, VectorlayerService, data, countries, leafletData, DataService) {
+	angular.module('app.controllers').controller('IndexCtrl', function($scope, $window, $rootScope, $filter, $state, $timeout, toastr, VectorlayerService, data, countries, leafletData, DataService) {
 		// Variable definitions
 		var vm = this;
 		vm.map = null;
@@ -290,7 +290,7 @@
 
 		//TODO: MOVE TO VIEW
 		function setTab(i) {
-			vm.activeTab = i;
+			//vm.activeTab = i;
 		}
 
 		function getParent(data) {
@@ -600,19 +600,20 @@
 					//vm.mvtSource.redraw();
 				});
 				vm.mvtSource.options.onClick = function(evt, t) {
+
 					if (!vm.compare.active) {
 						var c = getNationByIso(evt.feature.properties[vm.iso_field]);
 						if (typeof c[vm.structure.name] != "undefined") {
 							vm.current = getNationByIso(evt.feature.properties[vm.iso_field]);
 						} else {
-							ToastService.error('No info about this location!');
+							toastr.error('No info about this location!', evt.feature.properties.admin);
 						}
 					} else {
 						var c = getNationByIso(evt.feature.properties[vm.iso_field]);
 						if (typeof c[vm.structure.name] != "undefined") {
 							vm.toggleCountrieList(c);
 						} else {
-							ToastService.error('No info about this location!');
+							toastr.error('No info about this location!', evt.feature.properties.admin);
 						}
 					}
 				}
