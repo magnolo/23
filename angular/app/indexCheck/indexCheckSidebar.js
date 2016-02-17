@@ -1,14 +1,14 @@
 (function() {
 	"use strict";
 
-	angular.module('app.controllers').controller('IndexCheckSidebarCtrl', function($scope, $state, IndexService, DataService, DialogService, toastr) {
+	angular.module('app.controllers').controller('IndexCheckSidebarCtrl', function($rootScope, $scope, $state, IndexService, DataService, DialogService, toastr) {
 		var vm = this;
 		vm.data = IndexService.getData();
 		vm.meta = IndexService.getMeta();
 		vm.errors = IndexService.getErrors();
 		vm.iso_errors = IndexService.getIsoErrors();
 		vm.clearErrors = clearErrors;
-		vm.fetchIso = fetchIso; 
+		vm.fetchIso = fetchIso;
 
 		activate();
 
@@ -50,7 +50,7 @@
 			angular.forEach(vm.data, function(row, key) {
 				angular.forEach(row.data, function(item, k) {
 					if (isNaN(item) || item < 0) {
-						if ( item.toString().toUpperCase() == "#NA" || item < 0 || item.toString().toUpperCase().indexOf('N/A') > -1) {
+						if ( item.toString().toUpperCase() == "#NA"/* || item < 0*/ || item.toString().toUpperCase().indexOf('N/A') > -1) {
 							vm.data[key].data[k] = null;
 							row.errors.splice(0, 1);
 							vm.errors.splice(0, 1);
@@ -81,6 +81,7 @@
 		}
 
 		function fetchIso() {
+
 			if (!vm.meta.iso_field) {
 				toastr.error('Check your selection for the ISO field', 'Column not specified!');
 				return false;
@@ -93,7 +94,7 @@
 				toastr.error('ISO field and COUNTRY field can not be the same', 'Selection error!');
 				return false;
 			}
-
+			$rootScope.stateIsLoading = true;
 			vm.notFound = [];
 			var entries = [];
 			var isoCheck = 0;
@@ -129,6 +130,7 @@
 				data: entries,
 				iso: isoType
 			}).then(function(response) {
+				$rootScope.stateIsLoading = false;
 				angular.forEach(response, function(country, key) {
 					angular.forEach(vm.data, function(item, k) {
 						if (country.name == item.data[vm.meta.country_field]) {
@@ -185,6 +187,7 @@
 					DialogService.fromTemplate('selectisofetchers');
 				}
 			}, function(response) {
+				$rootScope.stateIsLoading = false;
 				toastr.error('Please check your field selections', response.data.message);
 			});
 

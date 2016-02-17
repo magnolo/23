@@ -17,7 +17,7 @@
         VectorlayerService.createCanvas('#ff0000');
 
 
-        console.log(vm.indicator);  
+        console.log(vm.indicator);
         activate();
 
         function activate(){
@@ -39,6 +39,7 @@
             VectorlayerService.updateCanvas(vm.indicator.style.base_color);
           }
           drawCountries();
+            IndexService.setToLocalStorage();
         });
 
         $scope.$watch('vm.indicator', function(n,o){
@@ -65,7 +66,7 @@
             }
             drawCountries();
           }
-          //IndexService.setActiveIndicatorData(n);
+          IndexService.setActiveIndicatorData(n);
           IndexService.setToLocalStorage();
         },true);
 

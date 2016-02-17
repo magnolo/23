@@ -41,19 +41,23 @@
 			link: function ($scope, element, $attrs, ngModel) {
 
 				var options = angular.extend(defaults(), $attrs);
+				var max = 0, min = 0;
 				options = angular.extend(options, $scope.options);
-			
+
 				options.unique = new Date().getTime();
 				if(options.color){
 					options.colors[1].color = options.color;
 				}
 				element.css('height', options.height + 'px').css('border-radius', options.height / 2 + 'px');
-				var max = 0;
+
+
 				angular.forEach($scope.data, function (nat, key) {
 					max = d3.max([max, parseInt(nat[options.field])]);
+					min = d3.min([min, parseInt(nat[options.field])]);
 				});
+
 				var x = d3.scale.linear()
-					.domain([0, max])
+					.domain([min, max])
 					.range([options.margin.left, options.width - options.margin.left])
 					.clamp(true);
 
@@ -90,13 +94,15 @@
 					.attr('class', 'startLabel')
 
 				if (options.info === true) {
+
 					legend.append('circle')
 						.attr('r', options.height / 2);
 					legend.append('text')
-						.text(0)
+						.text(min)
 						.style('font-size', options.height/2.5)
 						.attr('text-anchor', 'middle')
 						.attr('y', '.35em')
+						.attr('id', 'lowerValue');
 					var legend2 = svg.append('g').attr('transform', 'translate(' + (options.width - (options.height / 2)) + ', ' + options.height / 2 + ')')
 						.attr('class', 'endLabel')
 					legend2.append('circle')
@@ -113,6 +119,7 @@
 						.style('font-size', options.height/2.5)
 						.attr('text-anchor', 'middle')
 						.attr('y', '.35em')
+						.attr('id', 'upperValue');
 				}
 				var slider = svg.append("g")
 					.attr("class", "slider");
@@ -157,6 +164,7 @@
 						value = x.invert(d3.mouse(this)[0]);
 						brush.extent([value, value]);
 					}
+
 					if(parseInt(value) > 1000){
 						var v = (parseInt(value) / 1000).toString();
 						handleLabel.text(v.substr(0, v.indexOf('.') ) + "k" );
@@ -164,7 +172,6 @@
 					else{
 						handleLabel.text(parseInt(value));
 					}
-
 					handleCont.attr("transform", 'translate(' + x(value) + ',' + options.height / 2 + ')');
 				}
 
@@ -189,6 +196,8 @@
 					ngModel.$setViewValue(final);
 					ngModel.$render();
 				}
+
+
 				$scope.$watch('options', function(n,o){
 					if(n === o){
 						return;
@@ -230,6 +239,33 @@
 							handleCont.transition().duration(500).ease('quad').attr("transform", 'translate(' + x(newValue[options.field]) + ',' + options.height / 2 + ')');
 
 						}
+					});
+					$scope.$watch('data', function(n, o){
+						if(n === o) return false;
+					//	console.log(n);
+						min = 0;
+						max = 0;
+						angular.forEach($scope.data, function (nat, key) {
+							max = d3.max([max, parseInt(nat[options.field])]);
+							min = d3.min([min, parseInt(nat[options.field])]);
+						});
+						x = d3.scale.linear()
+							.domain([min, max])
+							.range([options.margin.left, options.width - options.margin.left])
+							.clamp(true);
+						brush.x(x)
+								.extent([0, 0])
+								.on("brush", brush)
+								.on("brushend", brushed);
+						legend.select('#lowerValue').text(min);
+						legend2.select('#upperValue').text(function(){
+							//TDODO: CHckick if no comma there
+							if(max > 1000){
+								var v = (parseInt(max) / 1000).toString();
+								return v.substr(0, v.indexOf('.') ) + "k" ;
+							}
+							return max
+						});
 					});
 			}
 		};

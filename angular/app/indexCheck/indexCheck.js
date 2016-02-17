@@ -1,7 +1,7 @@
 (function () {
 	"use strict";
 
-	angular.module('app.controllers').controller('IndexCheckCtrl', function ($scope, $state, $filter, toastr, DialogService, IndexService) {
+	angular.module('app.controllers').controller('IndexCheckCtrl', function ($scope, $state, $filter, $timeout, toastr, DialogService, IndexService) {
 
 
 		var vm = this;
@@ -34,21 +34,31 @@
 
 		function activate() {
 			checkData();
-      getYears();
+    	getYears();
 		}
 
 		function checkData() {
 			if (!vm.data) {
 				$state.go('app.index.create');
 			}
-			console.log(vm.data);
 		}
     function getYears(){
-      var dat = ($filter('groupBy')(vm.data, 'data.'+vm.meta.country_field ));
-      vm.years = [];
-      angular.forEach(dat[Object.keys(dat)[0]],function(entry){
-          vm.years.push(entry.data[vm.meta.year_field])
-      });
+			$timeout(function(){
+				var dat = ($filter('groupBy')(vm.data, 'data.'+vm.meta.country_field ));
+	      vm.years = [];
+				var length = 0;
+				var index = null;
+			  angular.forEach(dat,function(entry, i){
+					if(entry.length > length){
+						index = i
+					}
+				});
+	      angular.forEach(dat[index],function(entry){
+	        vm.years.push(entry.data[vm.meta.year_field])
+	      });
+				vm.yearfilter = vm.years[0];
+			});
+
 
     }
 		function search(predicate) {

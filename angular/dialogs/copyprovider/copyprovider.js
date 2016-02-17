@@ -41,8 +41,9 @@
 					}
 				}
 			});
-			IndexService.setToLocalStorage();
 			DialogService.hide();
+			IndexService.setToLocalStorage();
+
 		};
 
 		$scope.hide = function () {

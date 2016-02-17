@@ -152,7 +152,7 @@
 
         DialogService.fromTemplate('copyprovider', $scope);*/
       }
-      $scope.$watch(function(){ return IndexService.activeIndicator()}, function(n,o){
+     $scope.$watch(function(){ return IndexService.activeIndicator()}, function(n,o){
         if(n === o)return;
         vm.indicators[n.column_name] = n;
       },true);

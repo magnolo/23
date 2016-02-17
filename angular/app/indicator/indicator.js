@@ -8,7 +8,10 @@
 		vm.countryList = countries;
 		vm.indicator = indicator;
 		vm.data = data;
-
+		vm.range = {
+			max:-100000,
+			min:100000
+		};
 		vm.getData = getData;
 		vm.setCurrent = setCurrent;
 		vm.getOffset = getOffset;
@@ -74,10 +77,19 @@
 			}
 		}
 		function getData(year) {
+
 			ContentService.getIndicatorData(vm.indicator.id, year).then(function(data) {
 				vm.data = data;
 				angular.forEach(vm.data, function(item){
 					item.rank = vm.data.indexOf(item) +1;
+					/*if(parseFloat(item.score) > vm.range.max){
+						vm.range.max = parseFloat(item.score)
+					}
+					if(parseFloat(item.score) < vm.range.min){
+						vm.range.min = parseFloat(item.score);
+					}*/
+					vm.range.max =  d3.max([vm.range.max, parseFloat(item.score)]);
+					vm.range.min =  d3.min([vm.range.min, parseFloat(item.score)]);
 				});
 				getOffset();
 				VectorlayerService.setData(vm.data, vm.indicator.styled.base_color);
@@ -90,15 +102,17 @@
 		function countriesStyle(feature) {
 			var style = {};
 			var iso = feature.properties[VectorlayerService.data.iso2];
-			var nation = VectorlayerService.getNationByIso(iso);
+			var nation = VectorlayerService.getNationByIso(iso, vm.data);
 			var field = 'score';
 			var type = feature.type;
 			feature.selected = false;
 			switch (type) {
 				case 3: //'Polygon'
-					if (typeof nation[field] != "undefined") {
-						var colorPos = parseInt(256 / 100 * parseInt(nation[field])) * 4;
+					if (typeof nation[field] != "undefined" && nation[field] != null){
+						vm.linearScale = d3.scale.linear().domain([vm.range.min,vm.range.max]).range([0,256]);
 
+						var colorPos =  parseInt(vm.linearScale(parseFloat(nation[field]))) * 4;// parseInt(256 / vm.range.max * parseInt(nation[field])) * 4;
+						console.log(colorPos, iso,nation);
 						var color = 'rgba(' + VectorlayerService.palette[colorPos] + ', ' + VectorlayerService.palette[colorPos + 1] + ', ' + VectorlayerService.palette[colorPos + 2] + ',' + VectorlayerService.palette[colorPos + 3] + ')';
 						style.color = 'rgba(' + VectorlayerService.palette[colorPos] + ', ' + VectorlayerService.palette[colorPos + 1] + ', ' + VectorlayerService.palette[colorPos + 2] + ',0.6)'; //color;
 						style.outline = {
@@ -112,15 +126,16 @@
 								size: 2
 							}
 						};
-						//	debugger;
-						break;
+
 					} else {
 						style.color = 'rgba(255,255,255,0)';
 						style.outline = {
 							color: 'rgba(255,255,255,0)',
 							size: 1
 						};
+
 					}
+						break;
 			}
 			return style;
 		};

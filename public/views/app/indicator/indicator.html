@@ -87,7 +87,7 @@
 												</section>
 
 												<section class="module slide-toggle" layout-align="center center" layout="column" ng-if="!vm.compare.active">
-																<median data="vm.data" ng-model="vm.current" options="{color: vm.indicator.styled.base_color,handling: true, field: 'score'}" style="margin:2em 0"></median>
+																<median data="vm.data" ng-model="vm.current" options="{color: vm.indicator.styled.base_color,handling: true, field: 'score', max:vm.range.max, min:vm.range.min}" style="margin:2em 0"></median>
 												</section>
 												<!--<section>
 																<md-tabs md-stretch-tabs="true" md-center-tabs="true" md-dynamic-height md-no-pagination="true" md-swipe-content="true" ng-if="vm.current" md-selected="vm.activeTab">

@@ -134,6 +134,7 @@
 					if (typeof click != "undefined") {
 						that.data.layer.options.onClick = click
 					}
+					that.data.layer.redraw();
 				});
 			},
 

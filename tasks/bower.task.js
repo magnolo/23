@@ -35,7 +35,13 @@ Elixir.extend('bower', function(jsOutputFile, jsOutputFolder, cssOutputFile, css
 	};
 
 	new Task('bower-js', function() {
-		return gulp.src(mainBowerFiles())
+		return gulp.src(mainBowerFiles({
+			'overrides':{
+				'papaparse':{
+					'main':[]
+				}
+			}
+		}))
 			.on('error', onError)
 			.pipe(filter('**/*.js'))
 			.pipe(concat(jsFile, {sourcesContent: true}))

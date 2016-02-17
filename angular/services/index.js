@@ -81,7 +81,7 @@
           },
           setToLocalStorage: function(){
             //console.log(serviceData);
-            importCache.put('dataToImport',serviceData);
+          importCache.put('dataToImport',serviceData);
           },
           setIndicator: function(key, item){
             return serviceData.indicators[key] = item;
