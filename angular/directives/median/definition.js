@@ -219,9 +219,14 @@
 					});
 					rect.style('fill', 'url(#' + options.field + '_'+n.color+')');
 					handle.style('fill', n.color);
-					handleLabel.text(parseInt(ngModel.$modelValue[n.field]));
-					handleCont.transition().duration(500).ease('quad').attr("transform", 'translate(' + x(ngModel.$modelValue[n.field]) + ',' + options.height / 2 + ')');
-				});
+					if(ngModel.$modelValue){
+							handleLabel.text(parseInt(ngModel.$modelValue[n.field]));
+							handleCont.transition().duration(500).ease('quad').attr("transform", 'translate(' + x(ngModel.$modelValue[n.field]) + ',' + options.height / 2 + ')');
+					}
+					else{
+						handleLabel.text(0);
+					}
+					});
 				$scope.$watch(
 					function () {
 						return ngModel.$modelValue;
@@ -248,7 +253,13 @@
 						angular.forEach($scope.data, function (nat, key) {
 							max = d3.max([max, parseInt(nat[options.field])]);
 							min = d3.min([min, parseInt(nat[options.field])]);
+							if(nat.iso == ngModel.$modelValue.iso){
+									handleLabel.text(parseInt(nat[options.field]));
+									handleCont.transition().duration(500).ease('quad').attr("transform", 'translate(' + x(nat[options.field]) + ',' + options.height / 2 + ')');
+
+							}
 						});
+						console.log(ngModel.$modelValue);
 						x = d3.scale.linear()
 							.domain([min, max])
 							.range([options.margin.left, options.width - options.margin.left])
@@ -266,6 +277,14 @@
 							}
 							return max
 						});
+						angular.forEach($scope.data, function (nat, key) {
+							if(nat.iso == ngModel.$modelValue.iso){
+									handleLabel.text(parseInt(nat[options.field]));
+									handleCont.transition().duration(500).ease('quad').attr("transform", 'translate(' + x(nat[options.field]) + ',' + options.height / 2 + ')');
+
+							}
+						});
+
 					});
 			}
 		};

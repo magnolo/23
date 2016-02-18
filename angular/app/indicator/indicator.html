@@ -24,11 +24,11 @@
 								<section class="header" layout-align="space-between center" layout="row" ng-style="{'color':vm.indicator.styled.base_color}">
 												<span class="title" >{{vm.indicator.title}}</span>
 
-												<md-button class="md-icon-button" ui-sref="app.index.indicator.info({index:vm.structure.name})">
+												<md-button class="md-icon-button" ng-click="vm.goInfoState()">
 																<ng-md-icon icon="info_outline" style="fill:{{vm.indicator.styled.base_color}}"></ng-md-icon>
 												</md-button>
 								</section>
-								<md-tabs>
+								<md-tabs md-selected="vm.active">
 										<md-tab md-on-select="vm.getData(year.year)" ng-repeat="year in vm.indicator.years | orderBy: '-year' ">{{ year.year}}</md-tab>
 								</md-tabs>
 								<div class="mtb1"></div>
@@ -40,7 +40,7 @@
 																				<ng-md-icon icon="chevron_right"></ng-md-icon>
 																</span>
 												</section>
-												<section class="rank module slide-toggle" layout-align="space-between center" layout="row" ng-if="!vm.compare.active">
+												<section class="rank module slide-toggle" ng-class="{'layout-align-space-around-center': !vm.current, 'layout-align-space-between-center': vm.current}"  layout="row" ng-if="!vm.compare.active">
 												        <div class="chart" layout="row" ng-if="vm.current">
 												                <div layout-align="center center" layout="column">
 												                        <div class="title" layout-align="center center" layout="row">Rank</div>
@@ -87,8 +87,9 @@
 												</section>
 
 												<section class="module slide-toggle" layout-align="center center" layout="column" ng-if="!vm.compare.active">
-																<median data="vm.data" ng-model="vm.current" options="{color: vm.indicator.styled.base_color,handling: true, field: 'score', max:vm.range.max, min:vm.range.min}" style="margin:2em 0"></median>
+																<median data="vm.data" ng-model="vm.current" options="{color: vm.indicator.styled.base_color,handling: true, field: 'score'}" style="margin:2em 0"></median>
 												</section>
+
 												<!--<section>
 																<md-tabs md-stretch-tabs="true" md-center-tabs="true" md-dynamic-height md-no-pagination="true" md-swipe-content="true" ng-if="vm.current" md-selected="vm.activeTab">
 

@@ -1,0 +1,20 @@
+
+<md-data-table-container>
+        <table md-data-table>
+                <thead md-order="vm.query.order" md-trigger="vm.onOrderChange">
+                        <tr >
+                                <th name="iso" order-by="iso"></th>
+                                <th name="Country" order-by="country"></th>
+                                <th name="Score" order-by="score"> </th>
+                        </tr>
+                </thead>
+                <tbody>
+
+                        <tr md-auto-select ng-repeat="item in vm.data ">
+                                <td>{{item.iso}}</td>
+                                <td>{{item.country}}</td>
+                                <td>{{item.score}}</td>
+                        </tr>
+                </tbody>
+        </table>
+</md-data-table-container>

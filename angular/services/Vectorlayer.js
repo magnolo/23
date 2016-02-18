@@ -2,7 +2,7 @@
 	"use strict";
 
 	angular.module('app.services').factory('VectorlayerService', function($timeout) {
-		var that = this;
+		var that = this, _self = this;
 		return {
 			canvas: false,
 			palette: [],
@@ -18,7 +18,8 @@
 				iso3: 'adm0_a3',
 				iso2: 'iso_a2',
 				iso: 'iso_a2',
-				fields: "id,admin,adm0_a3,wb_a3,su_a3,iso_a3,iso_a2,name,name_long"
+				fields: "id,admin,adm0_a3,wb_a3,su_a3,iso_a3,iso_a2,name,name_long",
+				field:'score'
 			},
 			map: {
 				data: [],
@@ -74,14 +75,21 @@
 			setBaseColor: function(color) {
 				return this.data.baseColor = color;
 			},
-			setStyle: function(style) {
+		/*	setStyle: function(style) {
 				this.data.layer.setStyle(style)
-			},
+			},*/
 			countryClick: function(clickFunction) {
-				this.data.layer.options.onClick = clickFunction;
+				var that = this;
+				$timeout(function(){
+						that.data.layer.options.onClick = clickFunction;
+				})
+
 			},
 			getColor: function(value) {
 				return this.palette[value];
+			},
+			setStyle: function(style){
+				return this.map.style = style;
 			},
 			setData: function(data, color, drawIt) {
 				this.map.data = data;
@@ -126,7 +134,7 @@
 				var that = this;
 
 				$timeout(function() {
-					if (typeof style != "undefined") {
+					if (typeof style != "undefined" && style != null) {
 						that.data.layer.setStyle(style);
 					} else {
 						that.data.layer.setStyle(that.map.style);
@@ -137,6 +145,49 @@
 					that.data.layer.redraw();
 				});
 			},
+			//FULL TO DO
+			countriesStyle: function(feature) {
+				debugger;
+				var style = {};
+				var iso = feature.properties[that.data.iso2];
+				var nation = that.getNationByIso(iso);
+				var field = that.data.field;
+				var type = feature.type;
+				feature.selected = false;
+
+				switch (type) {
+					case 3: //'Polygon'
+						if (typeof nation[field] != "undefined" && nation[field] != null){
+							var linearScale = d3.scale.linear().domain([vm.range.min,vm.range.max]).range([0,256]);
+
+							var colorPos =  parseInt(linearScale(parseFloat(nation[field]))) * 4;// parseInt(256 / vm.range.max * parseInt(nation[field])) * 4;
+							console.log(colorPos, iso,nation);
+							var color = 'rgba(' + that.palette[colorPos] + ', ' + that.palette[colorPos + 1] + ', ' + that.palette[colorPos + 2] + ',' + that.palette[colorPos + 3] + ')';
+							style.color = 'rgba(' + that.palette[colorPos] + ', ' + that.palette[colorPos + 1] + ', ' + that.palette[colorPos + 2] + ',0.6)'; //color;
+							style.outline = {
+								color: color,
+								size: 1
+							};
+							style.selected = {
+								color: 'rgba(' + that.palette[colorPos] + ', ' + that.palette[colorPos + 1] + ', ' + that.palette[colorPos + 2] + ',0.3)',
+								outline: {
+									color: 'rgba(66,66,66,0.9)',
+									size: 2
+								}
+							};
+
+						} else {
+							style.color = 'rgba(255,255,255,0)';
+							style.outline = {
+								color: 'rgba(255,255,255,0)',
+								size: 1
+							};
+
+						}
+							break;
+				}
+				return style;
+			}
 
 		}
 	});

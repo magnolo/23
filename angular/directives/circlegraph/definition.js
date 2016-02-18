@@ -74,11 +74,9 @@
 
 				//Transition if selection has changed
 				function animateIt(radius) {
-
-						circleGraph.transition()
+					circleGraph.transition()
 							.duration(750)
 							.call(arcTween, rotate(radius) * 2 * Math.PI);
-
 
 					text.transition().duration(750).tween('text', function (d) {
 						var data = this.textContent.split('N°');
@@ -114,14 +112,20 @@
 
 				//Watching if selection has changed from another UI element
 				$scope.$watch('item',	function (n, o) {
+						//if(n === o) return;
 						if (!n) {
 							n[$scope.options.field] = $scope.options.size;
 						}
 						$timeout(function () {
-								console.log(n[$scope.options.field], $scope.options.size)
 								animateIt(n[$scope.options.field]);
 						});
 					});
+				$scope.$watch('options', function(n,o){
+					if(n === o || !n) return;
+					$timeout(function () {
+							animateIt($scope.item[$scope.options.field]);
+					});
+				},true);
 			}
 		};
 

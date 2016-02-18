@@ -332,24 +332,37 @@
 			})
 			.state('app.index.indicator', {
 				url: '/indicator/:id/:name',
+				resolve: {
+					indicator: function(ContentService, $stateParams) {
+						return ContentService.fetchIndicator($stateParams.id);
+					}
+				},
 				views: {
 					'sidebar@': {
 						templateUrl: getView('indicator'),
 						controller: 'IndicatorShowCtrl',
 						controllerAs: 'vm',
-						resolve: {
-							indicator: function(ContentService, $stateParams) {
-								return ContentService.fetchIndicator($stateParams.id);
-							},
-							data: function(ContentService, $stateParams) {
-								return ContentService.getIndicatorData($stateParams.id);
-							}
-						}
 					}
 				}
 			})
-			.state('app.index.indicator.country', {
-				url: '/:iso'
+			.state('app.index.indicator.year', {
+				url: '/:year',
+			})
+			.state('app.index.indicator.year.info', {
+				url:'/details',
+				layout:'row',
+				resolve: {
+					data: function(ContentService, $stateParams) {
+						return ContentService.getIndicatorData($stateParams.id, $stateParams.year);
+					}
+				},
+				views:{
+					'main@':{
+						templateUrl: '/views/app/indicator/IndicatorYearTable.html',
+						controller:'IndicatorYearTableCtrl',
+						controllerAs:'vm',
+					}
+				}
 			})
 			.state('app.index.show', {
 				url: '/:index',
