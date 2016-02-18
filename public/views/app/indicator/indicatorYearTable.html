@@ -10,7 +10,7 @@
                 </thead>
                 <tbody>
 
-                        <tr md-auto-select ng-repeat="item in vm.data ">
+                        <tr md-auto-select ng-repeat="item in vm.data" ng-if="item.score">
                                 <td>{{item.iso}}</td>
                                 <td>{{item.country}}</td>
                                 <td>{{item.score}}</td>
