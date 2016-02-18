@@ -5,6 +5,7 @@
 		//
 		var vm = this;
 		vm.current = null;
+		vm.active = null;
 		vm.countryList = countries;
 		vm.indicator = indicator;
 		vm.data = [];
@@ -22,9 +23,7 @@
 		function activate(){
 			VectorlayerService.setStyle(countriesStyle);
 			VectorlayerService.countryClick(countryClick);
-			if($state.params.iso){
-				setState($state.params.iso);
-			}
+
 			if($state.params.year){
 				for(var i = 0; i < vm.indicator.years.length; i++){
 					if(vm.indicator.years[i].year == $state.params.year){
@@ -32,7 +31,9 @@
 					}
 				}
 			}
-
+			else if(!vm.active){
+				vm.active = 0;
+			}
 
 		}
 

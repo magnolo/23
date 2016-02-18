@@ -358,7 +358,7 @@
 				},
 				views:{
 					'main@':{
-						templateUrl: '/views/app/indicator/IndicatorYearTable.html',
+						templateUrl: '/views/app/indicator/indicatorYearTable.html',
 						controller:'IndicatorYearTableCtrl',
 						controllerAs:'vm',
 					}
