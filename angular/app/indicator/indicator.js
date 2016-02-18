@@ -23,17 +23,19 @@
 		function activate(){
 			VectorlayerService.setStyle(countriesStyle);
 			VectorlayerService.countryClick(countryClick);
-
-			if($state.params.year){
-				for(var i = 0; i < vm.indicator.years.length; i++){
-					if(vm.indicator.years[i].year == $state.params.year){
-						vm.active =  i;
+			$timeout(function(){
+				if($state.params.year){
+					for(var i = 0; i < vm.indicator.years.length; i++){
+						if(vm.indicator.years[i].year == $state.params.year){
+							vm.active =  i;
+						}
 					}
 				}
-			}
-			else if(!vm.active){
-				vm.active = 0;
-			}
+				else if(!vm.active){
+					vm.active = 0;
+				}
+			});
+
 
 		}
 
