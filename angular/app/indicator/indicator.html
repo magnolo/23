@@ -86,7 +86,7 @@
 												        </div>
 												</section>
 
-												<section class="module slide-toggle" layout-align="center center" layout="column" ng-if="!vm.compare.active">
+												<section ng-if="vm.current" class="module slide-toggle" layout-align="center center" layout="column" ng-if="!vm.compare.active">
 																<median data="vm.data" ng-model="vm.current" options="{color: vm.indicator.styled.base_color,handling: true, field: 'score'}" style="margin:2em 0"></median>
 												</section>
 
