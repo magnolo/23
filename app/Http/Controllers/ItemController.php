@@ -267,7 +267,6 @@ class ItemController extends Controller
           };
           $item->categories()->sync($cats);
         }
-
         $this->saveSubIndex($request->input('children'), $item);
 
         return response()->api($item->save());

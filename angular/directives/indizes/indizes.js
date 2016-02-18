@@ -8,7 +8,7 @@
 		vm.checkBase = checkBase;
 		vm.checkFull = checkFull;
 		vm.save = save;
-		console.log(vm.item);
+
 		vm.baseOptions = {
 			drag:true,
 			allowDrop:true,
@@ -22,7 +22,8 @@
 			assigments: true,
 			saveClick: save,
 			addClick: vm.options.indizes.addClick,
-			addContainerClick: vm.options.indizes.addContainerClick
+			addContainerClick: vm.options.indizes.addContainerClick,
+			deleteDrop: removeItems
 		};
 		activate();
 
@@ -74,12 +75,16 @@
 			}
 
 		}
+
+		function removeItems(event, item){
+		//	console.log(vm.item, item);
+
+		}
 		$scope.$watch('vm.item', function(n, o){
 			if(n != o) {
 				vm.item.isDirty = !angular.equals(vm.item, vm.original);
 			}
 		},true);
-
     });
 
 })();

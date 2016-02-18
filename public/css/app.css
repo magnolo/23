@@ -869,10 +869,6 @@ md-toolbar.Header .md-button.md-border {
   color: #006bb9;
 }
 
-md-list-item a.md-no-style {
-  margin: 0px;
-}
-
 md-toolbar.md-menu-toolbar {
   background-color: #ffffff;
   color: rgba(0, 0, 0, 0.87);
@@ -918,6 +914,10 @@ md-menu-bar {
   margin: 0 auto;
   max-width: 680px;
   padding: 24px;
+}
+
+md-list-item a.md-no-style {
+  margin: 0px;
 }
 
 /*.info-container {

@@ -13,16 +13,16 @@
                 <md-icon class="material-icons">note_add</md-icon>
         </md-button>
 
-				<md-button class="md-fab md-mini md-warn doAnim-bottom" ng-if="vm.options.allowDelete && !vm.options.drag && vm.selection.length > 0">
+				<md-button ng-click="vm.options.deleteClick()" class="md-fab md-mini md-warn doAnim-bottom" ng-if="vm.options.allowDelete && !vm.options.drag && vm.selection.length > 0">
 								<md-icon class="material-icons">delete</md-icon>
 				</md-button>
 				<!--<md-button class="md-fab md-mini" ng-click="vm.options.edit = !vm.options.edit">
 								<md-icon class="material-icons">mode_edit</md-icon>
 				</md-button>-->
 				<div class="trashcan doAnim-bottom" ng-if="vm.options.allowDelete && vm.options.drag">
-								<ul dnd-list="[]">
+								<ul dnd-list="[]" dnd-drop="vm.options.deleteDrop(event,item,external,type)">
 												<li>
-																<md-button class="md-fab md-mini md-warn">
+																<md-button ng-click="vm.options.deleteClick()" class="md-fab md-mini md-warn">
 																				<md-icon class="material-icons">delete</md-icon>
 																</md-button>
 												</li>
