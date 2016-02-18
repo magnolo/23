@@ -184,7 +184,7 @@ class UserdataController extends Controller
         $indicator->userdata_id = $data['userdata_id'];
         $indicator->dataprovider_id = $field['dataprovider_id'];
         $indicator->title = $field['title'];
-        $indicator->name = $field['title'];
+        $indicator->name = str_slug($field['title']);
         $indicator->measure_type_id = $field['measure_type_id'];
         $indicator->table_name = 'user_table_'.$name;
         $indicator->iso_name = $request->input('iso_field');
