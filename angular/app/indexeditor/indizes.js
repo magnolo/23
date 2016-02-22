@@ -26,6 +26,13 @@
       withSave: true
     }
 
+		active();
+
+
+		function active(){
+			console.log(vm.index);
+		}
+
 		/*ContentService.getIndicatorData($state.params.id).then(function(data){
 			var base_color = '#ff0000';
 			if(typeof vm.indicator.style == "undefined"){
@@ -43,6 +50,7 @@
 			minMax();
 			drawCountries();
 		});*/
+
 		function setActive(){
 		/*	if($state.current.name == 'app.index.editor.indicator.details'){
 				if($state.params.entry == "infographic"){

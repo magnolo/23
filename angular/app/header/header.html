@@ -1,6 +1,6 @@
 <div class="md-toolbar-tools">
 	<h2 style="margin-left:0px;cursor:pointer" ui-sref="app.home">
-			<span class="logo">23°</span>
+			<span class="logo"><i class="icon-23"></i></span>
 	</h2>
 	<md-button
 			ng-click="$root.sidebarOpen = !$root.sidebarOpen"
@@ -37,7 +37,8 @@
 				</md-input-container>
 				<md-input-container class="md-has-icon md-block">
 					<ng-md-icon icon="lock"></ng-md-icon>
-					<input type="password" required name="password" placeholder="Password" ng-model="vm.user.password">
+					<label>Password</label>
+					<input type="password" required name="password" ng-model="vm.user.password">
 				</md-input-container>
 				 <md-button layout-fill type="sumbit" class="md-border md-primary" >Login</md-button>
 			</form>

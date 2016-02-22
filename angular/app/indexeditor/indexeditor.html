@@ -1,11 +1,11 @@
 <md-subheader class="md-primary">
 				<div layout-align="space-between center" layout="row">
 								<span>Data Editor</span>
-								<span flex></span>
+								<!--<span flex></span>
 								<div class="chooser" ng-class="{'unchecked': vm.selection.length != vm.indicators.length, 'checked': vm.selection.length == vm.indicators.length}">
 												<ng-md-icon icon="check" layout-align="center center" layout="row" ng-click="vm.selectAll()" size="18"></ng-md-icon>
 												<md-tooltip>De/Select All</md-tooltip>
-								</div>
+								</div>-->
 				</div>
 </md-subheader>
 <!--<div layout="row">
@@ -15,8 +15,8 @@
 <md-tabs md-autoselect md-dynamic-height md-selected="vm.selectedTab" md-stretch-tabs ng-cloak>
 				<md-tab label="Indizes" md-on-select="vm.checkTabContent(0)">
 								<md-content>
-									<treemenu options="vm.options.composits" item="vm.selection"></treemenu>
-									<treeview items="vm.composits" item="vm.selection" options="vm.options.composits"></treeview>
+									<treemenu options="vm.options.composits" selection="vm.selection.indices"></treemenu>
+									<treeview items="vm.composits" selection="vm.selection.indices" options="vm.options.composits"></treeview>
 								</md-content>
 				</md-tab>
 				<md-tab label="Indicators" md-on-select="vm.checkTabContent(1)">
@@ -130,14 +130,14 @@
 				</md-tab>
 				<md-tab label="Categories" md-on-select="vm.checkTabContent(2)">
 								<md-content>
-									<treemenu options="{allowAdd:true, allowDelete:true, allowSave:true}" selection="vm.selection['categories']"></treemenu>
-									<treeview items="vm.categories" item="vm.selection" options="vm.options.categories"></treeview>
+									<treemenu options="vm.options.categories" selection="vm.selection.categories"></treemenu>
+									<treeview items="vm.categories" item="vm.selection.categories" options="vm.options.categories"></treeview>
 								</md-content>
 				</md-tab>
 				<md-tab label="Styles"  md-on-select="vm.checkTabContent(3)">
 								<md-content>
-									<treemenu options="{allowAdd:true, allowDelete:true}" selection="vm.selection['styles']"></treemenu>
-									<treeview items="vm.styles" item="vm.selection['styles']" options="vm.options.styles"></treeview>
+									<treemenu options="vm.options.styles" selection="vm.selection.styles"></treemenu>
+									<treeview items="vm.styles" item="vm.selection.styles" options="vm.options.styles"></treeview>
 								</md-content>
 				</md-tab>
 </md-tabs>

@@ -3,7 +3,7 @@
 				<md-list >
 								<md-list-item ng-repeat="index in vm.indizes" ui-sref="app.index.show({index:index.name})">
 									<md-icon class=" md-rounded md-primary" ng-if="index.style.icon_name" ng-style="{'color': index.style.base_color}">
-											<i  class="icon-{{index.style.icon_name}}"></i>
+											<i  class="epi-icon-{{index.style.icon_name}}"></i>
 									</md-icon>
 									<md-icon class="md-rounded md-primary material-icons" ng-if="!index.style.icon_name" ng-style="{'color': index.style.base_color}">public</md-icon>
 

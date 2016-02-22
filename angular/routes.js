@@ -114,33 +114,32 @@
 			.state('app.index.editor', {
 				url: '/editor',
 				auth: true,
+				resolve:{
+					indices: function(ContentService){
+						return ContentService.getIndices();
+					},
+					indicators: function(ContentService) {
+						return ContentService.fetchIndicators({
+							page: 1,
+							order: 'title',
+							limit: 1000,
+							dir: 'ASC'
+						});
+					},
+					styles: function(ContentService){
+						return ContentService.getStyles();
+					},
+					categories: function(ContentService){
+						return ContentService.getCategories({indicators:true, tree:true});
+					}
+				},
 				views: {
 					'sidebar@': {
 						templateUrl: getView('indexeditor'),
 						controller: 'IndexeditorCtrl',
 						controllerAs: 'vm',
-						resolve: {
-							indicators: function(ContentService) {
-								return ContentService.fetchIndicators({
-									page: 1,
-									order: 'title',
-									limit: 1000,
-									dir: 'ASC'
-								});
-							}
-						}
 					}
 				}
-				/*views:{
-					'info':{
-
-					},
-					'menu':{
-						templateUrl:getView('indexeditor'),
-						controller: 'IndexeditorCtrl',
-						controllerAs: 'vm'
-					}
-				}*/
 			})
 			.state('app.index.editor.indicators', {
 				url: '/indicators',
@@ -176,22 +175,23 @@
 			.state('app.index.editor.indizes', {
 				url: '/indizes',
 				auth: true,
+
 			})
 			.state('app.index.editor.indizes.data', {
-				url: '/:id',
+				url: '/:id/:name',
 				auth: true,
 				layout: 'row',
+				resolve: {
+					index: function(ContentService, $stateParams) {
+						if ($stateParams.id == 0) return {};
+						return ContentService.getItem($stateParams.id);
+					}
+				},
 				views: {
 					'main@': {
 						templateUrl: '/views/app/indexeditor/indexeditorindizes.html',
 						controller: 'IndexeditorindizesCtrl',
-						controllerAs: 'vm',
-						resolve: {
-							index: function(ContentService, $stateParams) {
-								if ($stateParams.id == 'new') return {};
-								return ContentService.getItem($stateParams.id)
-							}
-						}
+						controllerAs: 'vm'
 					}
 				}
 			})

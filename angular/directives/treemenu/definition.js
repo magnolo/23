@@ -11,8 +11,8 @@
 			scope:{},
 			bindToController: {
 				options:'=',
-				item:'=',
-				selection: '='
+				item:'=?',
+				selection: '=?'
 			},
 			replace:true,
 			link: function( scope, element, attrs ){

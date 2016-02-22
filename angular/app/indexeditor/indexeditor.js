@@ -1,12 +1,24 @@
 (function () {
 	"use strict";
 
-	angular.module('app.controllers').controller('IndexeditorCtrl', function ($scope, $filter, $timeout,$state, indicators, DataService,ContentService) {
+	angular.module('app.controllers').controller('IndexeditorCtrl', function ($scope, $filter, $timeout,$state, indicators, indices, styles, categories, DataService,ContentService) {
 		//
 		var vm = this;
+		console.log(indices.$promise);
+		indices.then(function(data){
+				vm.composits = data;
+		})
 
-		vm.indicators = indicators;
-		vm.selection = [];
+		vm.categories = categories;
+		vm.composits = indices;
+		vm.styles = styles;
+
+		vm.selection = {
+			indices:[],
+			indicators:[],
+			styles:[],
+			categories:[]
+		};
 		vm.selectedTab = 0;
 
 		vm.options = {
@@ -18,10 +30,18 @@
 				allowAdd:true,
 				allowDelete:true,
 				itemClick: function(id, name){
-					$state.go('app.index.editor.indizes.data', {id:name})
+					$state.go('app.index.editor.indizes.data', {id:id, name:name})
 				},
 				addClick:function(){
-						$state.go('app.index.editor.indizes.data', {id:'new'})
+					$state.go('app.index.editor.indizes.data', {id:0, name: 'new'})
+				},
+				deleteClick:function(){
+					angular.forEach(vm.selection.indices,function(item, key){
+						ContentService.removeItem(item.id).then(function(data){
+							removeItem(item,vm.composits);
+							vm.selection.indices = [];
+						});
+					});
 				}
 			},
 			categories:{
@@ -55,28 +75,9 @@
 			show: false
 		};
 		vm.openMenu = openMenu;
-		vm.selectAll = selectAll;
-		vm.selectAllGroup = selectAllGroup;
-		vm.selectedItem = selectedItem;
-		vm.toggleSelection = toggleSelection;
-		vm.loadIndicators = loadIndicators;
-
-
 		vm.toggleList = toggleList;
-
 		vm.checkTabContent = checkTabContent;
 
-		activate($state.params);
-
-		function activate(params){
-			vm.selection = [];
-
-			angular.forEach(vm.indicators, function(item){
-				if(item.id == params.id){
-					vm.selection.push(item);
-				}
-			});
-		}
 
 		function toggleList(key){
 			if(vm.visibleList == key){
@@ -86,7 +87,23 @@
 				vm.visibleList = key;
 			}
 		}
-		function selectedItem(item) {
+
+		function removeItem(item, list){
+			angular.forEach(list, function(entry, key){
+				if(entry.id == item.id){
+					list.splice(key, 1);
+					return true;
+				}
+				if(entry.children){
+					var subresult = removeItem(item, entry.children);
+					if(subresult){
+						return subresult;
+					}
+				}
+			});
+			return false;
+		}
+		/*function selectedItem(item) {
 			return vm.selection.indexOf(item) > -1 ? true : false;
 		}
 		function selectAll(){
@@ -115,10 +132,8 @@
 			} else {
 				return vm.selection.push(item);
 			}
-		}
-		function loadIndicators() {
+		}*/
 
-		}
 		function checkTabContent(index){
 			switch (index) {
 				case 1:
@@ -126,7 +141,7 @@
 					break;
 				case 2:
 						$state.go('app.index.editor.categories');
-						vm.categories = ContentService.getCategories({indicators:true, tree:true});
+
 					break;
 				case 0:
 						if(typeof $state.params.id != "undefined"){
@@ -138,10 +153,9 @@
 								$state.go('app.index.editor.indizes');
 						}
 
-						vm.composits = DataService.getAll('me/indizes').$object;
 					break;
 				case 3:
-						vm.styles = ContentService.getStyles();
+
 					break;
 				default:
 
@@ -150,7 +164,6 @@
 		function openMenu($mdOpenMenu, ev) {
 			$mdOpenMenu(ev);
 		}
-
 
 		$scope.$watch('vm.search.query', function (query, oldQuery) {
 			if(query === oldQuery) return false;
@@ -170,7 +183,6 @@
 				vm.selectedTab = 0;
 
 			}
-
 		});
 	});
 

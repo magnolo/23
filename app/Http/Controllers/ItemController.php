@@ -280,6 +280,8 @@ class ItemController extends Controller
     public function destroy($id)
     {
         //
+        $item = Item::find($id);
+        return response()->api($item);
     }
 
 

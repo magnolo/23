@@ -3,6 +3,23 @@
 
 	angular.module('app.services').factory('ContentService', function(DataService) {
 		//
+		function searchForItem(list,id){
+
+			for(var i = 0; i < list.length;i++){
+				var item = list[i];
+				if(item.id == id){
+					return item;
+				}
+				if(item.children){
+					var subresult = searchForItem(item.children, id);
+					if(subresult){
+						return subresult;
+					}
+
+				}
+			}
+			return null;
+		}
 		return {
 			content: {
 				indicators: [],
@@ -12,7 +29,10 @@
 				category: {},
 				styles: [],
 				infographics: [],
-
+				indices:[]
+			},
+			fetchIndices: function(filter) {
+				return DataService.getAll('me/indizes', filter);
 			},
 			fetchIndicators: function(filter) {
 				return this.content.indicators = DataService.getAll('indicators', filter).$object
@@ -22,6 +42,13 @@
 			},
 			fetchStyles: function(filter) {
 				return this.content.styles = DataService.getAll('styles', filter).$object;
+			},
+			getIndices: function(filter){
+				return this.fetchIndices(filter);
+				if (this.content.indices.length == 0) {
+
+				}
+				return this.content.indices;
 			},
 			getCategories: function(filter) {
 				if (this.content.categories.length == 0) {
@@ -65,7 +92,15 @@
 				return this.content.data = DataService.getAll('indicators/' + id + '/data');
 			},
 			getItem: function(id) {
-				return this.content.data = DataService.getOne('index/' + id)
+				if(this.content.indices.length > 0){
+					 this.content.data = searchForItem(this.content.indices, id);
+				}
+				else{
+					return this.content.data = DataService.getOne('index/' + id)
+				}
+			},
+			removeItem: function(id){
+				return DataService.remove('index/', id);
 			},
 			getCategory: function(id) {
 				if (this.content.categories.length) {

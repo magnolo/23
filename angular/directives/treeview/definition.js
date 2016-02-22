@@ -15,7 +15,8 @@
 			scope:{},
 			bindToController: {
 				items: '=',
-				item: '=',
+				item: '=?',
+				selection: '=?',
 				options:'=',
 				click: '&'
 			},

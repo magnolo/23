@@ -184,6 +184,497 @@
 }
 
 
+
+@font-face {
+  font-family: 'icomoon';
+  src: url('fonts/icomoon.eot?97jgds');
+  src: url('fonts/icomoon.eot?97jgds#iefix') format('embedded-opentype'), url('fonts/icomoon.ttf?97jgds') format('truetype'), url('fonts/icomoon.woff?97jgds') format('woff'), url('fonts/icomoon.svg?97jgds#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+[class^="icon-"],
+[class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1.8;
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.icon-other-resources:before {
+  content: "\e900";
+}
+.icon-specific-gemstone:before {
+  content: "\e901";
+}
+.icon-farmland:before {
+  content: "\e902";
+}
+.icon-ore:before {
+  content: "\e903";
+}
+.icon-cattle:before {
+  content: "\e904";
+}
+.icon-supplier:before {
+  content: "\e905";
+}
+.icon-energy:before {
+  content: "\e906";
+}
+.icon-water:before {
+  content: "\e907";
+}
+.icon-trader:before {
+  content: "\e908";
+}
+.icon-employee:before {
+  content: "\e909";
+}
+.icon-waste:before {
+  content: "\e90a";
+}
+.icon-animal-protection:before {
+  content: "\e90b";
+}
+.icon-corporate-citizenship:before {
+  content: "\e90c";
+}
+.icon-region:before {
+  content: "\e90d";
+}
+.icon-other-drug:before {
+  content: "\e90e";
+}
+.icon-poppy-opium:before {
+  content: "\e90f";
+}
+.icon-gemstones:before {
+  content: "\e910";
+}
+.icon-international-power:before {
+  content: "\e911";
+}
+.icon-renewable:before {
+  content: "\e912";
+}
+.icon-non-renewable:before {
+  content: "\e913";
+}
+.icon-coca:before {
+  content: "\e914";
+}
+.icon-oil:before {
+  content: "\e915";
+}
+.icon-subnational-predominace:before {
+  content: "\e916";
+}
+.icon-national-power:before {
+  content: "\e917";
+}
+.icon-system-ideology:before {
+  content: "\e918";
+}
+.icon-Ico-26:before {
+  content: "\e919";
+}
+.icon-plant-based-drugs:before {
+  content: "\e91a";
+}
+.icon-gas:before {
+  content: "\e91b";
+}
+.icon-autonomy:before {
+  content: "\e91c";
+}
+.icon-timber:before {
+  content: "\e91d";
+}
+.icon-profile:before {
+  content: "\e91e";
+}
+.icon-water-resources:before {
+  content: "\e91f";
+}
+.icon-agriculture:before {
+  content: "\e920";
+}
+.icon-water-sanitation:before {
+  content: "\e921";
+}
+.icon-air-quality:before {
+  content: "\e922";
+}
+.icon-fisheries:before {
+  content: "\e923";
+}
+.icon-forests:before {
+  content: "\e924";
+}
+.icon-biodiversity-habitat:before {
+  content: "\e925";
+}
+.icon-climate-energy:before {
+  content: "\e926";
+}
+.icon-territiry:before {
+  content: "\e927";
+}
+.icon-coal:before {
+  content: "\e928";
+}
+.icon-gold:before {
+  content: "\e929";
+}
+.icon-fish:before {
+  content: "\e92a";
+}
+.icon-secession:before {
+  content: "\e92b";
+}
+.icon-hydrocarbons:before {
+  content: "\e92c";
+}
+.icon-specific-ore:before {
+  content: "\e92d";
+}
+.icon-alert:before {
+  content: "\e92e";
+}
+.icon-discuss:before {
+  content: "\e92f";
+}
+.icon-write:before {
+  content: "\e930";
+}
+.icon-pin:before {
+  content: "\e931";
+}
+.icon-sort:before {
+  content: "\e932";
+}
+.icon-cluster:before {
+  content: "\e933";
+}
+.icon-delete:before {
+  content: "\e934";
+}
+.icon-link:before {
+  content: "\e935";
+}
+.icon-video:before {
+  content: "\e936";
+}
+.icon-photo:before {
+  content: "\e937";
+}
+.icon-facebook:before {
+  content: "\e938";
+}
+.icon-twitter:before {
+  content: "\e939";
+}
+.icon-google:before {
+  content: "\e93a";
+}
+.icon-image:before {
+  content: "\e93b";
+}
+.icon-on:before {
+  content: "\e93c";
+}
+.icon-off:before {
+  content: "\e93d";
+}
+.icon-mail:before {
+  content: "\e93e";
+}
+.icon-info:before {
+  content: "\e93f";
+}
+.icon-check:before {
+  content: "\e940";
+}
+.icon-search:before {
+  content: "\e941";
+}
+.icon-rate:before {
+  content: "\e942";
+}
+.icon-add:before {
+  content: "\e943";
+}
+.icon-track:before {
+  content: "\e944";
+}
+.icon-23:before {
+  content: "\e945";
+}
+.icon-chat:before {
+  content: "\e946";
+}
+.icon-edit:before {
+  content: "\e947";
+}
+.icon-pin-2:before {
+  content: "\e948";
+}
+.icon-expand:before {
+  content: "\e949";
+}
+.icon-menu:before {
+  content: "\e94a";
+}
+.icon-list:before {
+  content: "\e94b";
+}
+.icon-profile-2:before {
+  content: "\e94c";
+}
+.icon-drop-down-1:before {
+  content: "\e94d";
+}
+.icon-regional:before {
+  content: "\e94e";
+}
+.icon-drop-down-2:before {
+  content: "\e950";
+}
+.icon-drop-up-2:before {
+  content: "\e951";
+}
+.icon-global:before {
+  content: "\e952";
+}
+.icon-drop-up-1:before {
+  content: "\e953";
+}
+.icon-celsius:before {
+  content: "\e954";
+}
+.icon-fahrenheit:before {
+  content: "\e955";
+}
+.icon-sunny:before {
+  content: "\e956";
+}
+.icon-cloudy:before {
+  content: "\e957";
+}
+.icon-clouds:before {
+  content: "\e958";
+}
+.icon-rain:before {
+  content: "\e959";
+}
+.icon-thunder:before {
+  content: "\e95a";
+}
+.icon-snow:before {
+  content: "\e95b";
+}
+.icon-close:before {
+  content: "\e95c";
+}
+.icon-minus:before {
+  content: "\e95d";
+}
+.icon-plus:before {
+  content: "\e95e";
+}
+.icon-no-sound:before {
+  content: "\e95f";
+}
+.icon-sound:before {
+  content: "\e960";
+}
+.icon-play:before {
+  content: "\e961";
+}
+.icon-pause:before {
+  content: "\e962";
+}
+.icon-sections:before {
+  content: "\e963";
+}
+.icon-diamonds:before {
+  content: "\e964";
+}
+.icon-resources:before {
+  content: "\e965";
+}
+.icon-movie .path1:before {
+  content: "\e966";
+  color: #0069b8;
+}
+.icon-movie .path2:before {
+  content: "\e967";
+  margin-left: -1em;
+  color: #dcdcdb;
+}
+.icon-comments .path1:before {
+  content: "\e968";
+  color: #ffffff;
+}
+.icon-comments .path2:before {
+  content: "\e969";
+  margin-left: -1em;
+  color: #ffffff;
+}
+.icon-comments .path3:before {
+  content: "\e96a";
+  margin-left: -1em;
+  color: #0069b8;
+}
+.icon-comments .path4:before {
+  content: "\e96b";
+  margin-left: -1em;
+  color: #0069b8;
+}
+.icon-comments .path5:before {
+  content: "\e96c";
+  margin-left: -1em;
+  color: #0069b8;
+}
+.icon-youtube:before {
+  content: "\e96d";
+}
+.icon-vimeo:before {
+  content: "\e96e";
+}
+.icon-dropbox .path1:before {
+  content: "\e96f";
+  color: #0089cf;
+}
+.icon-dropbox .path2:before {
+  content: "\e970";
+  margin-left: -1em;
+  color: #0089cf;
+}
+.icon-dropbox .path3:before {
+  content: "\e971";
+  margin-left: -1em;
+  color: #0f81de;
+}
+.icon-pintrest .path1:before {
+  content: "\e972";
+  color: #ce2020;
+}
+.icon-pintrest .path2:before {
+  content: "\e973";
+  margin-left: -1em;
+  color: #ffffff;
+}
+.icon-flickr .path1:before {
+  content: "\e974";
+  color: #e2e2e2;
+}
+.icon-flickr .path2:before {
+  content: "\e975";
+  margin-left: -1em;
+  color: #ff0084;
+}
+.icon-flickr .path3:before {
+  content: "\e976";
+  margin-left: -1em;
+  color: #0063db;
+}
+.icon-child-mortality:before {
+  content: "\e977";
+}
+.icon-prisoned:before {
+  content: "\e978";
+}
+.icon-death:before {
+  content: "\e979";
+}
+.icon-basic-human-needs:before {
+  content: "\e97a";
+}
+.icon-wellbeing:before {
+  content: "\e97b";
+}
+.icon-opportunity:before {
+  content: "\e97c";
+}
+.icon-nutrition:before {
+  content: "\e97d";
+}
+.icon-knowledge:before {
+  content: "\e97e";
+}
+.icon-personal-rights:before {
+  content: "\e97f";
+}
+.icon-climate-change:before {
+  content: "\e980";
+}
+.icon-human:before {
+  content: "\e981";
+}
+.icon-water-2:before {
+  content: "\e982";
+}
+.icon-acess-to-information:before {
+  content: "\e983";
+}
+.icon-freedome-of-choice:before {
+  content: "\e984";
+}
+.icon-inequality:before {
+  content: "\e985";
+}
+.icon-quality-of-life:before {
+  content: "\e986";
+}
+.icon-conflicts:before {
+  content: "\e987";
+}
+.icon-health-wellness:before {
+  content: "\e988";
+}
+.icon-shelter:before {
+  content: "\e989";
+}
+.icon-ecosystem-sustainability:before {
+  content: "\e98a";
+}
+.icon-tolerance:before {
+  content: "\e98b";
+}
+.icon-migration:before {
+  content: "\e98c";
+}
+.icon-public-life:before {
+  content: "\e98d";
+}
+.icon-humanitarian-assistance:before {
+  content: "\e98e";
+}
+.icon-demographics:before {
+  content: "\e98f";
+}
+.icon-sustainability:before {
+  content: "\e990";
+}
+.icon-economics:before {
+  content: "\e993";
+}
+.icon-advanced-education:before {
+  content: "\e994";
+}
+.icon-animal:before {
+  content: "\e995";
+}
+.icon-safety:before {
+  content: "\e996";
+}
 @font-face {
   font-family: 'epi';
   src: url('fonts/epi.eot?-47ygze');
@@ -191,8 +682,8 @@
   font-weight: normal;
   font-style: normal;
 }
-[class^="icon-"],
-[class*=" icon-"] {
+[class^="epi-icon-"],
+[class*=" epi-icon-"] {
   font-family: 'epi';
   speak: none;
   font-style: normal;
@@ -200,38 +691,37 @@
   font-variant: normal;
   text-transform: none;
   line-height: 1;
-  /* Better Font Rendering =========== */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.icon-empty:before {
+.epi-icon-empty:before {
   content: "\e600";
 }
-.icon-agrar:before {
+.epi-icon-agrar:before {
   content: "\e600";
 }
-.icon-anchor:before {
+.epi-icon-anchor:before {
   content: "\e601";
 }
-.icon-butterfly:before {
+.epi-icon-butterfly:before {
   content: "\e602";
 }
-.icon-energy:before {
+.epi-icon-energy:before {
   content: "\e603";
 }
-.icon-sink:before {
+.epi-icon-sink:before {
   content: "\e604";
 }
-.icon-man:before {
+.epi-icon-man:before {
   content: "\e605";
 }
-.icon-fabric:before {
+.epi-icon-fabric:before {
   content: "\e606";
 }
-.icon-tree:before {
+.epi-icon-tree:before {
   content: "\e607";
 }
-.icon-water:before {
+.epi-icon-water:before {
   content: "\e608";
 }
 
@@ -865,8 +1355,15 @@ md-toast[md-theme=warn] {
 .Header .inline-list.menu-list li::before {
   color: #006bb9;
 }
+.Header .logo {
+  font-size: 3em;
+}
 md-toolbar.Header .md-button.md-border {
   color: #006bb9;
+}
+
+md-list-item a.md-no-style {
+  margin: 0px;
 }
 
 md-toolbar.md-menu-toolbar {
@@ -914,10 +1411,6 @@ md-menu-bar {
   margin: 0 auto;
   max-width: 680px;
   padding: 24px;
-}
-
-md-list-item a.md-no-style {
-  margin: 0px;
 }
 
 /*.info-container {

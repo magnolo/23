@@ -9,7 +9,8 @@
           getAll: getAll,
           getOne: getOne,
           post: post,
-          put: put
+          put: put,
+          remove: remove
         };
 
         function getAll(route, filter){
@@ -31,6 +32,9 @@
         }
         function put(route, data){
           return Restangular.all(route).put(data);
+        }
+        function remove(route, id){
+          return Restangular.one(route, id).remove();
         }
     }
 
