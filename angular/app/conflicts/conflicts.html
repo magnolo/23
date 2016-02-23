@@ -1,0 +1,32 @@
+<section class="header" style="padding:1em" >
+  <div layout="row" layout-align="space-between center">
+      <div layout-align="space-between center" layout="column">
+        <img src="/images/hiik_logo.png" />
+        <span class="title" style="font-size:1.2em;text-align:center;line-height:1em">HIIK Konfliktbarometer</span>
+      </div>
+      <div>
+        <span class="info-icon">
+                <ng-md-icon icon="info_outline"></ng-md-icon>
+        </span>
+      </div>
+    </div>
+</section>
+<section>
+  <p>Seit 1991 widmet sich das HIIK der Förderung und
+Verbreitung des Wissens um Entstehung, Verlauf
+und Beilegung inner- und zwischenstaatlicher
+politischer Konflikte. <a href="">...mehr lesen</a>
+</p>
+</section>
+<section>
+  <h3>Anzahl der Konflikte
+nach Intensitäten</h3>
+<div layout="row" layout-align="space-between center">
+  <span>{{vm.conflictIntensities.veryLow}}</span>
+  <span>{{vm.conflictIntensities.low}}</span>
+  <span>{{vm.conflictIntensities.mid}}</span>
+  <span>{{vm.conflictIntensities.high}}</span>
+  <span>{{vm.conflictIntensities.veryHigh}}</span>
+</div>
+<roundbar ng-if="vm.ready" chart-data="vm.chartData"></roundbar>
+</section>

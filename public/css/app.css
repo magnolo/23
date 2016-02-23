@@ -1332,6 +1332,8 @@ md-toast[md-theme=warn] {
 }
 
 
+
+
 .Header {
   height: 48px;
   min-height: 48px;
@@ -1412,6 +1414,7 @@ md-menu-bar {
   max-width: 680px;
   padding: 24px;
 }
+
 
 /*.info-container {
     line-height: 1em;
@@ -1675,7 +1678,6 @@ md-menu-bar {
 .nvtooltip {
   border-radius: 0px;
 }
-
 
 
 .md-subheader.filled .md-subheader-inner {
@@ -1976,7 +1978,6 @@ md-list-item.active {
 
 
 
-
 div[ui-view='map'] {
   position: absolute;
   width: 100%;
@@ -2058,6 +2059,7 @@ div[ui-view='map'] {
 .label-icon-number-selected {
   box-shadow: 0px 0px 0px 7px rgba(255, 140, 0, 0.6);
 }
+
 
 
 /*.Sidebar {
@@ -2243,7 +2245,6 @@ div[ui-view='map'] {
 }
 
 
-
 .indicator-tabs .indicator-fields {
   padding: 0 1em;
   max-width: 500px;
@@ -2271,6 +2272,7 @@ div[ui-view='map'] {
 .indicator-tabs md-autocomplete[md-floating-label] md-input-container {
   padding-bottom: 2px;
 }
+
 
 .indicator-menu {
   position: absolute;
@@ -2361,6 +2363,8 @@ median .slider text {
   cursor: ew-resize;
 }
 
+
+
 .dropzone {
   border: 2px dashed #ddd;
   padding: 2em;
@@ -2409,6 +2413,26 @@ median .slider text {
 }
 .nvd3 .nv-axis text {
   fill: #afafaf;
+}
+
+.chart {
+  background: #eee;
+  padding: 3px;
+}
+.chart div {
+  width: 0;
+  transition: all 1s ease-out;
+  -moz-transition: all 1s ease-out;
+  -webkit-transition: all 1s ease-out;
+}
+.chart div {
+  font: 10px sans-serif;
+  background-color: steelblue;
+  text-align: right;
+  padding: 3px;
+  margin: 5px;
+  color: white;
+  box-shadow: 2px 2px 2px #666;
 }
 
 .slide-toggle {

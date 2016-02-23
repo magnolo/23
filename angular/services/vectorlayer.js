@@ -70,7 +70,33 @@
 				this.ctx.fillStyle = gradient;
 				this.ctx.fillRect(0, 0, 280, 10);
 				this.palette = this.ctx.getImageData(0, 0, 257, 1).data;
-				//document.getElementsByTagName('body')[0].appendChild(vm.canvas);
+				//document.getElementsByTagName('body')[0].appendChild(this.canvas);
+			},
+			createFixedCanvas: function(colorRange){
+
+				this.canvas = document.createElement('canvas');
+				this.canvas.width = 280;
+				this.canvas.height = 10;
+				this.ctx = this.canvas.getContext('2d');
+				var gradient = this.ctx.createLinearGradient(0, 0, 280, 10);
+
+				for(var i = 0; i < colorRange.length; i++){
+					gradient.addColorStop(1 / (colorRange.length -1) * i, colorRange[i]);
+				}
+				this.ctx.fillStyle = gradient;
+				this.ctx.fillRect(0, 0, 280, 10);
+				this.palette = this.ctx.getImageData(0, 0, 257, 1).data;
+
+			},
+			updateFixedCanvas: function(colorRange) {
+				var gradient = this.ctx.createLinearGradient(0, 0, 280, 10);
+				for(var i = 0; i < colorRange.length; i++){
+					gradient.addColorStop(1 / (colorRange.length -1) * i, colorRange[i]);
+				}
+				this.ctx.fillStyle = gradient;
+				this.ctx.fillRect(0, 0, 280, 10);
+				this.palette = this.ctx.getImageData(0, 0, 257, 1).data;
+				//document.getElementsByTagName('body')[0].appendChild(this.canvas);
 			},
 			setBaseColor: function(color) {
 				return this.data.baseColor = color;
@@ -97,9 +123,19 @@
 					this.data.baseColor = color;
 				}
 				if (!this.canvas) {
-					this.createCanvas(this.data.baseColor);
+					if(typeof this.data.baseColor == 'string'){
+						this.createCanvas(this.data.baseColor);
+					}
+					else{
+						this.createFixedCanvas(this.data.baseColor);
+					}
 				} else {
-					this.updateCanvas(this.data.baseColor);
+					if(typeof this.data.baseColor == 'string'){
+						this.updateCanvas(this.data.baseColor);
+					}
+					else{
+						this.updateFixedCanvas(this.data.baseColor);
+					}
 				}
 				if (drawIt) {
 					this.paintCountries();

@@ -10,10 +10,6 @@
 			replace: true,
 			link: function ($scope, element, $attrs) {
 				//
-				$scope.$watch('file', function (n, o) {
-					if (n === o) return false;
-					console.log(n);
-				})
 				var errors = 0;
 				var stepped = 0,
 					rowCount = 0,

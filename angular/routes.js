@@ -79,6 +79,7 @@
 					}
 				}
 			})
+
 			.state('app.index.mydata', {
 				url: '/my-data',
 				auth: true,
@@ -412,6 +413,35 @@
 			})
 			.state('app.index.show.selected.compare', {
 				url: '/compare/:countries'
+			})
+			.state('app.conflict', {
+				abstract: true,
+				url: '/conflict',
+			})
+			.state('app.conflict.index',{
+				url: '/index',
+				resolve:{
+					conflicts:function(Restangular){
+						return Restangular.all('conflicts/nations').getList();
+					}
+				},
+				views:{
+					'sidebar@':{
+						controller:'ConflictsCtrl',
+						controllerAs: 'vm',
+						templateUrl:getView('conflicts')
+					}
+				}
+			})
+			.state('app.conflict.import',{
+				url: '/import',
+				views: {
+					'sidebar@': {
+						controller: 'ConflictImportCtrl',
+						controllerAs: 'vm',
+						templateUrl: getView('conflictimport')
+					}
+				}
 			})
 			.state('app.importcsv', {
 				url: '/importer',

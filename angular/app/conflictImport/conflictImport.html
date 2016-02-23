@@ -1,0 +1,14 @@
+<md-subheader class="md-primary md-no-sticky">Upload new conflict data</md-subheader>
+  <parse-conflict-csv nations="vm.nations" sum="vm.sum"></parse-conflict-csv>
+<div layout="column" layout-align="space-between center">
+  <div>{{vm.nations.length}} Conflict Nations</div>
+</div>
+<parse-conflict-events-csv events="vm.events"></parse-conflict-events-csv>
+<div layout="column" layout-align="space-between center">
+  <div>{{vm.events.length}} Conflict Events</div>
+  <div ng-if="vm.events.length && vm.nations.length">
+    <md-button class="md-primary md-border md-min-width" ng-click="vm.saveToDb()">
+            Save to DB
+    </md-button>
+  </div>
+</div>
