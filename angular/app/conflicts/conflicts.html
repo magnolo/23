@@ -21,12 +21,17 @@ politischer Konflikte. <a href="">...mehr lesen</a>
 <section>
   <h3>Anzahl der Konflikte
 nach Intensitäten</h3>
-<div layout="row" layout-align="space-between center">
+<!--<div layout="row" layout-align="space-between center">
   <span>{{vm.conflictIntensities.veryLow}}</span>
   <span>{{vm.conflictIntensities.low}}</span>
   <span>{{vm.conflictIntensities.mid}}</span>
   <span>{{vm.conflictIntensities.high}}</span>
   <span>{{vm.conflictIntensities.veryHigh}}</span>
-</div>
+</div>-->
 <roundbar ng-if="vm.ready" chart-data="vm.chartData"></roundbar>
+</section>
+<section>
+  {{ vm.conflictTypes.interstate | percent: vm.conflictCount:true}}
+  {{ vm.conflictTypes.intrastate | percent: vm.conflictCount:true}}
+  {{ vm.conflictTypes.substate | percent: vm.conflictCount:true}}
 </section>

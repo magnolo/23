@@ -1415,7 +1415,6 @@ md-menu-bar {
   padding: 24px;
 }
 
-
 /*.info-container {
     line-height: 1em;
     top:calc(~"48px + 1em");
@@ -1678,6 +1677,7 @@ md-menu-bar {
 .nvtooltip {
   border-radius: 0px;
 }
+
 
 
 .md-subheader.filled .md-subheader-inner {
@@ -1978,6 +1978,64 @@ md-list-item.active {
 
 
 
+
+
+/*.Sidebar {
+	position: fixed !important;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	width: 250px !important;
+	min-width: 250px !important;
+	max-width: 250px !important;
+	background-color: rgb(63, 81, 181);
+}*/
+.Sidebar md-toolbar path {
+  fill: #fff;
+}
+.Sidebar-title {
+  font-size: 25px;
+  height: 100px;
+  max-height: 100px;
+  text-align: center;
+  font-weight: 500;
+}
+.Sidebar-pages {
+  background-color: #3f51b5;
+  color: white;
+}
+.Sidebar-pages > div {
+  min-width: 350px;
+}
+.Sidebar-pages:empty {
+  display: none;
+}
+.Sidebar-pages md-list md-list-item button.md-button:not([disabled]):hover {
+  background-color: rgba(158, 158, 158, 0.2) !important;
+}
+.Sidebar-page {
+  cursor: pointer;
+}
+.Sidebar-page md-list-item {
+  /*IE centering fix*/
+  height: 48px;
+}
+.Sidebar-page.active {
+  background-color: rgba(158, 158, 158, 0.3) !important;
+}
+.Sidebar-version {
+  margin: 0 0 20px 0;
+  text-align: center;
+  font-weight: normal;
+}
+.Sidebar-version a {
+  color: white;
+}
+
+
+
+
+
 div[ui-view='map'] {
   position: absolute;
   width: 100%;
@@ -2059,64 +2117,6 @@ div[ui-view='map'] {
 .label-icon-number-selected {
   box-shadow: 0px 0px 0px 7px rgba(255, 140, 0, 0.6);
 }
-
-
-
-/*.Sidebar {
-	position: fixed !important;
-	top: 0;
-	bottom: 0;
-	left: 0;
-	width: 250px !important;
-	min-width: 250px !important;
-	max-width: 250px !important;
-	background-color: rgb(63, 81, 181);
-}*/
-.Sidebar md-toolbar path {
-  fill: #fff;
-}
-.Sidebar-title {
-  font-size: 25px;
-  height: 100px;
-  max-height: 100px;
-  text-align: center;
-  font-weight: 500;
-}
-.Sidebar-pages {
-  background-color: #3f51b5;
-  color: white;
-}
-.Sidebar-pages > div {
-  min-width: 350px;
-}
-.Sidebar-pages:empty {
-  display: none;
-}
-.Sidebar-pages md-list md-list-item button.md-button:not([disabled]):hover {
-  background-color: rgba(158, 158, 158, 0.2) !important;
-}
-.Sidebar-page {
-  cursor: pointer;
-}
-.Sidebar-page md-list-item {
-  /*IE centering fix*/
-  height: 48px;
-}
-.Sidebar-page.active {
-  background-color: rgba(158, 158, 158, 0.3) !important;
-}
-.Sidebar-version {
-  margin: 0 0 20px 0;
-  text-align: center;
-  font-weight: normal;
-}
-.Sidebar-version a {
-  color: white;
-}
-
-
-
-
 
 .bar-viewer {
   margin: 0 1em;
@@ -2245,6 +2245,7 @@ div[ui-view='map'] {
 }
 
 
+
 .indicator-tabs .indicator-fields {
   padding: 0 1em;
   max-width: 500px;
@@ -2272,7 +2273,6 @@ div[ui-view='map'] {
 .indicator-tabs md-autocomplete[md-floating-label] md-input-container {
   padding-bottom: 2px;
 }
-
 
 .indicator-menu {
   position: absolute;
@@ -2394,6 +2394,10 @@ median .slider text {
   top: 0.5em;
 }
 
+.bars .bg {
+  fill: #ebebeb;
+}
+
 .nvd3 .nv-background {
   fill: #ccc;
 }
@@ -2413,26 +2417,6 @@ median .slider text {
 }
 .nvd3 .nv-axis text {
   fill: #afafaf;
-}
-
-.chart {
-  background: #eee;
-  padding: 3px;
-}
-.chart div {
-  width: 0;
-  transition: all 1s ease-out;
-  -moz-transition: all 1s ease-out;
-  -webkit-transition: all 1s ease-out;
-}
-.chart div {
-  font: 10px sans-serif;
-  background-color: steelblue;
-  text-align: right;
-  padding: 3px;
-  margin: 5px;
-  color: white;
-  box-shadow: 2px 2px 2px #666;
 }
 
 .slide-toggle {
