@@ -11,11 +11,20 @@
         if (data.meta) {
             extractedData._meta = data.meta;
         }
-        if (data.included) { 
+        if (data.included) {
             extractedData._included = data.included;
         }
         return extractedData;
-    });
+    })
+		.setErrorInterceptor(function(response, deferred, responseHandler) {
+			console.log('errro');
+			if (response.status === 403) {
+
+    		return false; // error handled
+    	}
+
+    	return true; // error not handled
+    	});
 	});
 
 })();

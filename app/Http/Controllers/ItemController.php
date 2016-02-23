@@ -144,6 +144,7 @@ class ItemController extends Controller
      * @return Response
      */
     public function show($id){
+
        if(is_int($id)){
            return response()->api(Item::find($id));
        }
@@ -162,9 +163,10 @@ class ItemController extends Controller
     }
     public function showWithChildren($id)
     {
+
         $index = array();
         if(is_numeric($id)){
-            $index = Item::find($id)->with('children', 'style', 'indicator', 'type', 'parent', 'categories');
+            $index = Item::find($id)->with('children', 'style', 'indicator', 'type', 'parent', 'categories')->first();
         }
         elseif(is_string($id)){
           $index =  Item::where('name', $id)->with('children', 'style', 'indicator', 'type', 'parent', 'categories')->first();
@@ -277,10 +279,23 @@ class ItemController extends Controller
      * @param  int  $id
      * @return Response
      */
+    public function deleteChildren($item){
+      if(count($item->children) > 0){
+        foreach ($item->children as $key => $child) {
+          if(count($child->children) > 0 ){
+            $this->deleteChildren($child);
+          }
+          Item::find($child->id)->delete();
+        }
+      }
+    }
+
     public function destroy($id)
     {
         //
-        $item = Item::find($id);
+        $item = Item::find($id)->with('children')->first();
+        //$this->deleteChildren($item);
+        $item->delete();
         return response()->api($item);
     }
 

@@ -32,7 +32,7 @@
 				indices:[]
 			},
 			fetchIndices: function(filter) {
-				return DataService.getAll('me/indizes', filter);
+				return this.content.indices = DataService.getAll('me/indizes').$object;
 			},
 			fetchIndicators: function(filter) {
 				return this.content.indicators = DataService.getAll('indicators', filter).$object
@@ -92,12 +92,12 @@
 				return this.content.data = DataService.getAll('indicators/' + id + '/data');
 			},
 			getItem: function(id) {
-				if(this.content.indices.length > 0){
+			/*	if(this.content.indices.length > 0){
 					 this.content.data = searchForItem(this.content.indices, id);
 				}
-				else{
+				else{*/
 					return this.content.data = DataService.getOne('index/' + id)
-				}
+				//}
 			},
 			removeItem: function(id){
 				return DataService.remove('index/', id);

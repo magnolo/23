@@ -4,14 +4,12 @@
 	angular.module('app.controllers').controller('IndexeditorCtrl', function ($scope, $filter, $timeout,$state, indicators, indices, styles, categories, DataService,ContentService) {
 		//
 		var vm = this;
-		console.log(indices.$promise);
-		indices.then(function(data){
-				vm.composits = data;
-		})
+
 
 		vm.categories = categories;
 		vm.composits = indices;
 		vm.styles = styles;
+		vm.indicators = indicators;
 
 		vm.selection = {
 			indices:[],
