@@ -164,7 +164,6 @@
 						}
 					});
 				}
-				console.log(iso, nation, this.map.data)
 				return nation;
 			},
 			getNationByName: function(name) {
@@ -186,11 +185,20 @@
 				});
 			},
 			resetSelected: function(iso){
-				angular.forEach(this.data.layer.layers[this.data.name+'_geom'].features, function(feature, key){
-					if(key != iso)
-					feature.selected = false;
-				});
-				this.redraw();
+				if(typeof this.data.layer.layers != "undefined"){
+					angular.forEach(this.data.layer.layers[this.data.name+'_geom'].features, function(feature, key){
+						if(iso){
+							if(key != iso)
+								feature.selected = false;
+						}
+						else{
+							feature.selected = false;
+						}
+
+					});
+					this.redraw();
+				}
+
 			},
 			setSelectedFeature:function(iso, selected){
 				this.data.layer.layers[this.data.name+'_geom'].features[iso].selected = selected;

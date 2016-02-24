@@ -23,9 +23,11 @@
         activate();
 
     		function activate() {
+        	//;
     			VectorlayerService.setData(vm.conflicts, vm.colors, true);
     			VectorlayerService.setStyle(invertedStyle);
     			VectorlayerService.countryClick(countryClick);
+          VectorlayerService.resetSelected();
     			$timeout(function () {
             //VectorlayerService.setSelectedFeature(vm.nation.iso, true);
 
@@ -63,7 +65,6 @@
 
     			var country = VectorlayerService.getNationByIso(evt.feature.properties['iso_a2']);
     			if (typeof country['intensity'] != "undefined") {
-    				VectorlayerService.resetSelected(country.iso);
     				$state.go('app.conflict.index.nation', {
     					iso: country.iso
     				});
