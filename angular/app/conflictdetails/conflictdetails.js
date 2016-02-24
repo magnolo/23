@@ -1,10 +1,11 @@
 (function(){
     "use strict";
 
-    angular.module('app.controllers').controller('ConflictdetailsCtrl', function($timeout, $rootScope, VectorlayerService, conflict){
+    angular.module('app.controllers').controller('ConflictdetailsCtrl', function($timeout, $state, $rootScope, VectorlayerService, conflict, conflicts){
         //
         var vm = this;
         vm.conflict = conflict;
+        vm.conflicts = conflicts;
         vm.showCountries = false;
         vm.getTendency = getTendency;
         vm.linearScale = d3.scale.linear().domain([0, 5]).range([0, 256]);
@@ -22,7 +23,7 @@
         activate();
 
     		function activate() {
-    			VectorlayerService.setData(vm.conflict.nations, vm.colors, true);
+    			VectorlayerService.setData(vm.conflicts, vm.colors, true);
     			VectorlayerService.setStyle(invertedStyle);
     			VectorlayerService.countryClick(countryClick);
     			$timeout(function () {

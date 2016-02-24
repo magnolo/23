@@ -164,7 +164,7 @@
 						}
 					});
 				}
-
+				console.log(iso, nation, this.map.data)
 				return nation;
 			},
 			getNationByName: function(name) {

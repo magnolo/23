@@ -476,7 +476,7 @@
 					'sidebar@': {
 						controller: 'ConflictImportCtrl',
 						controllerAs: 'vm',
-						templateUrl: getView('conflictimport')
+						templateUrl: getView('conflictImport')
 					}
 				}
 			})
