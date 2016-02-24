@@ -28,6 +28,7 @@ class CreateConflictEvents extends Migration
             $table->integer('international_power')->unsigned();
             $table->integer('resources')->unsigned();
             $table->integer('other')->unsigned();
+            $table->text('text')->nullable();
           });
     }
 

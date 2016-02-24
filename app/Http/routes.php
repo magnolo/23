@@ -65,8 +65,8 @@ $api->version('v1', function ($api) {
     $api->get('conflicts/nations', 'App\Http\Controllers\ConflictsController@showNations');
     $api->get('conflicts/nations/{iso}', 'App\Http\Controllers\ConflictsController@show');
     $api->get('conflicts/events', 'App\Http\Controllers\ConflictsController@index');
-    $api->get('conflicts/events/{id}', 'App\Http\Controllers\ConflictsController@event');
-    $api->get('conflicts/{id}', 'App\Http\Controllers\ConflictsController@event');
+    $api->get('conflicts/events/{id}', 'App\Http\Controllers\ConflictsController@conflict');
+    $api->get('conflicts/{id}', 'App\Http\Controllers\ConflictsController@conflict');
 
 
 });

@@ -59,7 +59,7 @@ class ConflictsController extends Controller
     public function show($iso)
     {
         //
-        $nation = Conflictnation::where('iso', $iso)->with('conflicts')->get();
+        $nation = Conflictnation::where('iso', $iso)->with('conflicts')->first();
         return response()->api($nation);
 
     }
@@ -67,7 +67,7 @@ class ConflictsController extends Controller
     public function conflict($id)
     {
         //
-        $conflict = Conflictevent::find($id)->with('nations')->get();
+        $conflict = Conflictevent::where('id', $id)->with('nations')->first();
         return response()->api($conflict);
     }
 
@@ -118,13 +118,14 @@ class ConflictsController extends Controller
         $ce->int2015 = $event['int2015'];
         $ce->territory = $event['territory'];
         $ce->secession = $event['secession'];
-        $ce->system = $event['system/ideology'];
-        $ce->national_power = $event['national power'];
-        $ce->subnational_predominance = $event['subnational predominance'];
-        $ce->international_power = $event['international power'];
+        $ce->system = $event['system.ideology'];
+        $ce->national_power = $event['national.power'];
+        $ce->subnational_predominance = $event['subnational.predominance'];
+        $ce->international_power = $event['international.power'];
         $ce->resources = $event['resources'];
         $ce->other = $event['other'];
         $ce->type_id = $event['type_id'];
+        $ce->text = $event['text'];
         $ce->save();
       }
       foreach($nations as $key => $nation){

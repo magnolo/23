@@ -14,8 +14,8 @@
     <![endif]-->
 </head>
 
-<body ng-class="{'greyed': $root.greyed, 'loose': $root.looseLayout, 'sidebar-closed': !$root.sidebarOpen, 'rowed': $root.rowed}" layout="column">
-    <md-toolbar class="Header md-accent" tabindex="-1">
+<body ng-class="{'noHeader': $root.noHeader, 'greyed': $root.greyed, 'loose': $root.looseLayout, 'sidebar-closed': !$root.sidebarOpen, 'rowed': $root.rowed}" layout="column">
+    <md-toolbar class="Header md-accent slide-toggle" tabindex="-1" ng-if="!$root.noHeader">
         <header ui-view="header"></header>
     </md-toolbar>
     <md-content layout="row" flex md-scroll-y>
@@ -28,6 +28,7 @@
             <div ui-view="additional" class="additional doAnim-hinge md-whiteframe-z1" md-scroll-y style="overflow-y:auto" ng-if="$root.additional"></div>
         </md-content>
     </md-content>
+    <div ui-view="items-menu" class="doAnim-hinge" id="items-menu" ng-if="$root.itemMenu"></div>
     <div class="cssload-container doAnim-fade" ng-if="$root.stateIsLoading">
         <div class="cssload-whirlpool"></div>
         <div class="cssload-text">23°</div>

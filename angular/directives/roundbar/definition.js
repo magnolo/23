@@ -7,20 +7,21 @@
 			restrict: 'EA',
 			//templateUrl: 'views/directives/roundbar/roundbar.html',
 			controller: 'RoundbarCtrl',
-			replace: false,
 			scope: {
-				data: '=chartData'
+				data: '=chartData',
+				activeType: '=',
+				activeConflict: '='
 			},
 			link: function(scope, element, attrs) {
 
 				var margin = {
-						top: 20,
+						top: 40,
 						right: 20,
 						bottom: 30,
 						left: 40
 					},
 					width = 300 - margin.left - margin.right,
-					height = 250 - margin.top - margin.bottom,
+					height = 200 - margin.top - margin.bottom,
 					barWidth = 20,
 					space = 25;
 
@@ -28,13 +29,13 @@
 				var scale = {
 					y: d3.scale.linear()
 				};
-				scale.y.domain([0, 100]);
+				scale.y.domain([0, 220]);
 				scale.y.range([height, 0]);
 				var svg = d3.select(element[0]).append("svg")
 					.attr("width", width + margin.left + margin.right)
 					.attr("height", height + margin.top + margin.bottom)
 					.append("g")
-					.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+					.attr("transform", "translate(0," + margin.top + ")");
 
 				//x.domain(scope.data.map(function(d) { return d.letter; }));
 				//y.domain([0, d3.max(scope.data, function(d) { return d.frequency; })]);
@@ -72,23 +73,35 @@
 					})*/
 				;
 
-				var labels = bars
+				var valueText = bars
 					.append("text");
 
-				labels.text(function(d) {
+				valueText.text(function(d) {
 						return d.value
 					}).attr("x", function(d, i) {
 						return i * (barWidth + space);
 					})
-					.attr("y", 0)
+					.attr("y", -8)
 					.attr("width", function(d) {
 						return barWidth
-					});
+					})
+					.style('fill','#4fb0e5');
 
-				/*	scope.$watch('data', function(n, o) {
-						if (n === o) return false;
-						bars.datum(n);
-					})*/
+				var labelsText = bars
+					.append("text")
+				labelsText.text(function(d){
+						return d.label
+					})
+					.attr("x", function(d, i) {
+						return i * (barWidth + space);
+					})
+					.attr("y", height + 20)
+					.attr("width", function(d) {
+						return barWidth
+					})
+					.style('fill', function(d){
+						return d.color
+					});
 
 
 				function rounded_rect(x, y, w, h, r, tl, tr, bl, br) {

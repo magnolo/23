@@ -27,6 +27,10 @@
 				structure: [],
 				style: []
 			},
+			mapLayer: null,
+			setMap: function(map){
+				return this.mapLayer = map;
+			},
 			setLayer: function(l) {
 				return this.data.layer = l;
 			},
@@ -180,6 +184,19 @@
 					}
 					that.data.layer.redraw();
 				});
+			},
+			resetSelected: function(iso){
+				angular.forEach(this.data.layer.layers[this.data.name+'_geom'].features, function(feature, key){
+					if(key != iso)
+					feature.selected = false;
+				});
+				this.redraw();
+			},
+			setSelectedFeature:function(iso, selected){
+				this.data.layer.layers[this.data.name+'_geom'].features[iso].selected = selected;
+			},
+			redraw:function(){
+				this.data.layer.redraw();
 			},
 			//FULL TO DO
 			countriesStyle: function(feature) {

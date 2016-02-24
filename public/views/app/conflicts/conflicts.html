@@ -1,24 +1,25 @@
-<section class="header" style="padding:1em" >
-  <div layout="row" layout-align="space-between center">
-      <div layout-align="space-between center" layout="column">
+<div class="conflict">
+<section class="header" >
+  <div layout="column" layout-align="space-between ">
+      <div layout-align="space-between start" layout="column">
         <img src="/images/hiik_logo.png" />
-        <span class="title" style="font-size:1.2em;text-align:center;line-height:1em">HIIK Konfliktbarometer</span>
       </div>
-      <div>
+      <div layout-align="space-between center" layout="row">
+          <span class="title">HIIK Konfliktbarometer</span>
         <span class="info-icon">
-                <ng-md-icon icon="info_outline"></ng-md-icon>
+            <md-icon>	<i class="icon-acess-to-information"></i></md-icon>
         </span>
       </div>
     </div>
 </section>
-<section>
-  <p>Seit 1991 widmet sich das HIIK der Förderung und
-Verbreitung des Wissens um Entstehung, Verlauf
-und Beilegung inner- und zwischenstaatlicher
-politischer Konflikte. <a href="">...mehr lesen</a>
+<section class="info-text">
+  <div class="text slide-toggle">
+  <p>Das seit 1992 erscheinende Konfliktbarometer ist die jährliche Analyse des globalen Konfliktgeschehens und die zentrale Publikation des Heidelberger Institut für internationale Konfliktforschung (<a href="http://www.hiik.de" target="_blank">www.hiik.de</a>). Gewaltlose und gewaltsame Krisen, Kriege, Staatsstreiche sowie Friedensverhandlungen stehen im Mittelpunkt der Untersuchung. In der Zusammenfassung des Verlaufs der weltweiten Konflikte präsentiert das HIIK anschaulich die Entwicklungen im vergangenen Jahr, die grafisch und in Form von Texten erläutert werden.
 </p>
+</div>
+<a href="">...mehr lesen</a>
 </section>
-<section>
+<section >
   <h3>Anzahl der Konflikte
 nach Intensitäten</h3>
 <!--<div layout="row" layout-align="space-between center">
@@ -28,10 +29,26 @@ nach Intensitäten</h3>
   <span>{{vm.conflictIntensities.high}}</span>
   <span>{{vm.conflictIntensities.veryHigh}}</span>
 </div>-->
-<roundbar ng-if="vm.ready" chart-data="vm.chartData"></roundbar>
+<roundbar ng-if="vm.ready" active-type="vm.active.type" active-conflict="vm.active.conflict" chart-data="vm.chartData"></roundbar>
 </section>
 <section>
-  {{ vm.conflictTypes.interstate | percent: vm.conflictCount:true}}
-  {{ vm.conflictTypes.intrastate | percent: vm.conflictCount:true}}
-  {{ vm.conflictTypes.substate | percent: vm.conflictCount:true}}
+  <h3 style="margin-bottom:1em;">Konflikttypen</h3>
+  <div layout="row" layout-align="space-between center">
+    <div layout="column">
+        <div class="interstate info-field" layout="row">
+          <div class="value">{{ vm.conflictTypes[0].count | percent: vm.conflictCount:true}}%</div>
+          <div class="label">Interstate</div>
+        </div>
+        <div class="intrastate info-field" layout="row">
+          <div class="value">{{ vm.conflictTypes[1].count | percent: vm.conflictCount:true}}%</div>
+          <div class="label">Intrastate</div>
+        </div>
+        <div class="substate info-field" layout="row">
+          <div class="value">{{ vm.conflictTypes[2].count | percent: vm.conflictCount:true}}%</div>
+          <div class="label">Substate</div>
+        </div>
+      </div>
+      <piechart ng-if="vm.ready" active-type="vm.active.type" active-conflict="vm.active.conflict" chart-data="vm.conflictTypes"></piechart>
+  </div>
 </section>
+</div>

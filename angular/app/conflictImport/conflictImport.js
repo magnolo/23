@@ -11,8 +11,6 @@
 		vm.saveToDb = saveToDb;
 
 		function saveToDb() {
-			console.log(vm.nations);
-			console.log(vm.events);
 			var data = {
 				nations: vm.nations,
 				events: vm.events

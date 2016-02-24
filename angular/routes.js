@@ -7,7 +7,7 @@
 			return '/views/app/' + viewName + '/' + viewName + '.html';
 		};
 
-		$urlRouterProvider.otherwise('/');
+		$urlRouterProvider.otherwise('/conflict/index');
 
 		$stateProvider
 			.state('app', {
@@ -430,11 +430,48 @@
 						controller:'ConflictsCtrl',
 						controllerAs: 'vm',
 						templateUrl:getView('conflicts')
+					},
+					'items-menu@':{
+						templateUrl:getView('conflictitems'),
+						controller:'ConflictitemsCtrl',
+						controllerAs: 'vm'
 					}
+				}
+			})
+			.state('app.conflict.index.nation',{
+				url: '/nation/:iso',
+				resolve:{
+					nation:function(Restangular, $stateParams){
+						return 	Restangular.one('/conflicts/nations/', $stateParams.iso).get();
+					}
+				},
+				views:{
+					'sidebar@':{
+						controller:'ConflictnationCtrl',
+						controllerAs: 'vm',
+						templateUrl:getView('conflictnation')
+					}
+				}
+			})
+			.state('app.conflict.index.details',{
+				url: '/:id',
+				resolve:{
+					conflict:function(Restangular, $stateParams){
+						return 	Restangular.one('/conflicts/events/', $stateParams.id).get();
+					}
+				},
+				views:{
+					'sidebar@':{
+						controller:'ConflictdetailsCtrl',
+						controllerAs: 'vm',
+						templateUrl:getView('conflictdetails')
+					},
+					'items-menu@':{}
 				}
 			})
 			.state('app.conflict.import',{
 				url: '/import',
+				auth:true,
 				views: {
 					'sidebar@': {
 						controller: 'ConflictImportCtrl',

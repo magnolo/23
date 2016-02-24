@@ -65,12 +65,23 @@
 					.enter()
 					.append('text')
 					.text(function (d) {
-						return 'N°' + d;
+						if(!$scope.options.hideNumbering)
+							return 'N°' + d;
+						return d;
 					})
 					.style("fill", $scope.options.color)
 					.style('font-weight', 'bold')
+					.style('font-size', function(){
+						if(!$scope.options.hideNumbering)
+						return '1em';
+						return '1.5em';
+					})
 					.attr('text-anchor', 'middle')
-					.attr('y', '0.35em');
+					.attr('y', function(d){
+						if(!$scope.options.hideNumbering)
+							return '0.35em';
+						return '0.37em'
+					});
 
 				//Transition if selection has changed
 				function animateIt(radius) {
@@ -79,11 +90,19 @@
 							.call(arcTween, rotate(radius) * 2 * Math.PI);
 
 					text.transition().duration(750).tween('text', function (d) {
-						var data = this.textContent.split('N°');
-						var i = d3.interpolate(parseInt(data[1]), radius);
-						return function (t) {
-							this.textContent = 'N°' + (Math.round(i(t) * 1) / 1);
-						};
+						if(!$scope.options.hideNumbering){
+							var data = this.textContent.split('N°');
+							var i = d3.interpolate(parseInt(data[1]), radius);
+							return function (t) {
+								this.textContent = 'N°' + (Math.round(i(t) * 1) / 1);
+							};
+						}
+						else{
+							var i = d3.interpolate(parseInt(d), radius);
+							return function (t) {
+								this.textContent = (Math.round(i(t) * 1) / 1);
+							};
+						}
 					})
 				}
 

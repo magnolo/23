@@ -1,0 +1,71 @@
+@import (less) '../../material/colors.less';
+
+.conflict{
+  .info-icon{
+    cursor:pointer;
+    i{
+        color:@grey-light;
+    }
+
+    &:hover{
+      i{
+        color:#4fb0e5;
+      }
+    }
+  }
+  .title, h2, h3, h4, a{
+    color:#4fb0e5;
+    font-weight: normal;
+    text-decoration: none;
+    path{
+      fill:#4fb0e5 !important;
+    }
+  }
+  .title, h3{
+    font-size:1.4em;
+    margin:0.5em 0;
+  }
+  .main-title{
+    font-size:2em;
+    margin-bottom:0px;
+  }
+  h3{
+    margin-top:0px;
+  }
+  .header{
+    > div{
+      border-bottom:2px solid @grey-light;
+    }
+  }
+  section{
+    padding:1em 1.5em;
+    p{
+      margin:0;
+      font-size:0.95em;
+    }
+  }
+  .interstate{
+    color:@interstate;
+  }
+  .intrastate{
+    color:@intrastate;
+  }
+  .substate{
+    color:@substate;
+  }
+  .info-field{
+    font-size:1.2em;
+    margin-bottom:.5em;
+    .value{
+      margin-right:.5em;
+      min-width:40px;
+      //text-align:right;
+    }
+  }
+  .info-text{
+    .text{
+      height:85px;
+      overflow:hidden;
+    }
+  }
+}
