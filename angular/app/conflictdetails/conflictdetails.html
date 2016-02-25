@@ -10,7 +10,7 @@
 																<span class="title">
 																				<a ui-sref="app.conflict.index">HIIK Conflict Barometer</a>
 																</span>
-																<span class="info-icon">
+																<span class="info-icon"  ng-click="vm.showMethod()">
 																				<md-icon>
 																								<i class="icon-acess-to-information"></i>
 																				</md-icon>
@@ -25,7 +25,7 @@
           <div class="text slide-toggle">
           <p>{{vm.conflict.text}}</p>
         </div>
-        <a href="">... read more ...</a>
+        <a href="" ng-click="vm.showText()">... read more ...</a>
         </section>
 				<section >
 								<h3>conflict intensity</h3>
@@ -98,9 +98,6 @@
         <section ng-if="vm.countries.length > 1" class="slide-toggle">
           <h3 ng-click="vm.showCountries = !vm.showCountries" style="cursor:pointer;margin-bottom:1em;">countries {{vm.countries.length}} <ng-md-icon class="icon-space" icon="{{vm.showCountriesButton()}}" ></ng-md-icon></h3>
           <div layout="column" class="slide-toggle" ng-if="vm.showCountries">
-            <div layout="row" class="conflict-legend" layout-align="space-between center">
-              <div>Konfliktparteien</div>
-            </div>
             <div ui-sref="app.conflict.index.nation({iso:country.iso})" layout="row" layout-align="space-between center" class="conflict-item conflict{{vm.conflict.int2015}}" ng-repeat="country in vm.countries | orderBy:'intensity':true">
               <div>{{country.country}}</div>
             </div>

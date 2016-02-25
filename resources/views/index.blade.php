@@ -28,7 +28,7 @@
             <div ui-view="additional" class="additional doAnim-hinge md-whiteframe-z1" md-scroll-y style="overflow-y:auto" ng-if="$root.additional"></div>
         </md-content>
     </md-content>
-
+      <div ui-view="items-menu" class="doAnim-hinge" id="items-menu" ng-if="$root.itemMenu"></div>
     <div class="cssload-container doAnim-fade" ng-if="$root.stateIsLoading">
         <div class="cssload-whirlpool"></div>
         <div class="cssload-text">23°</div>

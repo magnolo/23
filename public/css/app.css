@@ -1345,6 +1345,43 @@ md-toast[md-theme=warn] {
   font-size: 2em;
 }
 
+#items-menu {
+  position: fixed;
+  right: 0px;
+  top: 7em;
+}
+#items-menu .items-head {
+  cursor: pointer;
+  background-color: #4fb0e5;
+  padding: .5em 1em;
+  border-top-left-radius: 5em;
+  border-bottom-left-radius: 5em;
+  color: #fff;
+  position: relative;
+  z-index: 1;
+  font-size: 1.2em;
+}
+#items-menu .items-head i {
+  font-size: 1.3em;
+  margin-right: .2em;
+}
+#items-menu .items-list {
+  background-color: #fff;
+  font-size: 1.8em;
+  color: #4fb0e5;
+  position: absolute;
+  right: .5em;
+}
+#items-menu .items-list > div {
+  padding: .35em;
+  transition: all .5s ease;
+}
+#items-menu .items-list > div.off {
+  opacity: 0.5;
+  -webkit-transform: scale(0.9);
+  transform: scale(0.9);
+}
+
 .conflict-legend {
   border-bottom: 1px solid #d7dddd;
   padding-bottom: 0.5em;
@@ -1449,6 +1486,10 @@ md-toast[md-theme=warn] {
 .conflict .info-text .text {
   height: 85px;
   overflow: hidden;
+  transition: all .5s ease;
+}
+.conflict .info-text .text.fullHeight {
+  height: 195px;
 }
 
 
@@ -1798,6 +1839,13 @@ md-menu-bar {
 
 
 
+.md-subheader.filled .md-subheader-inner {
+  padding: 0px;
+}
+.md-subheader.filled .md-subheader-inner md-toolbar {
+  padding-left: 1em;
+}
+
 md-list-item.md-2-line {
   min-height: 62px;
 }
@@ -2089,6 +2137,7 @@ md-list-item.active {
 
 
 
+
 div[ui-view='map'] {
   position: absolute;
   width: 100%;
@@ -2228,12 +2277,29 @@ div[ui-view='map'] {
 
 
 
-
-.md-subheader.filled .md-subheader-inner {
-  padding: 0px;
+.bar-viewer {
+  margin: 0 1em;
 }
-.md-subheader.filled .md-subheader-inner md-toolbar {
-  padding-left: 1em;
+.bar-viewer .bar {
+  width: 100%;
+  height: 7px;
+  background-color: #efefef;
+}
+.bar-viewer .bar .bar-value {
+  height: 100%;
+  background-color: #000;
+  width: 0;
+  transition: width 0.3s ease-out;
+}
+.bar-viewer .title {
+  margin: .5em 0;
+  margin-bottom: 1em;
+}
+.bar-viewer .sub-bar {
+  cursor: pointer;
+}
+.bar-viewer .sub-bar.titled {
+  margin-left: 2em;
 }
 
 .bubbles {
@@ -2305,65 +2371,10 @@ div[ui-view='map'] {
   transition: transform 0.3s ease-out;
 }
 
-.bar-viewer {
-  margin: 0 1em;
-}
-.bar-viewer .bar {
-  width: 100%;
-  height: 7px;
-  background-color: #efefef;
-}
-.bar-viewer .bar .bar-value {
-  height: 100%;
-  background-color: #000;
-  width: 0;
-  transition: width 0.3s ease-out;
-}
-.bar-viewer .title {
-  margin: .5em 0;
-  margin-bottom: 1em;
-}
-.bar-viewer .sub-bar {
-  cursor: pointer;
-}
-.bar-viewer .sub-bar.titled {
-  margin-left: 2em;
-}
 
 
 
 
-
-#items-menu {
-  position: fixed;
-  right: 0px;
-  top: 7em;
-}
-#items-menu .items-head {
-  cursor: pointer;
-  background-color: #4fb0e5;
-  padding: .5em 1em;
-  border-top-left-radius: 5em;
-  border-bottom-left-radius: 5em;
-  color: #fff;
-  position: relative;
-  z-index: 1;
-  font-size: 1.2em;
-}
-#items-menu .items-head i {
-  font-size: 1.3em;
-  margin-right: .2em;
-}
-#items-menu .items-list {
-  background-color: #fff;
-  font-size: 1.8em;
-  color: #4fb0e5;
-  position: absolute;
-  right: .5em;
-}
-#items-menu .items-list > div {
-  padding: .35em;
-}
 
 [contenteditable] {
   position: relative;
@@ -2608,6 +2619,7 @@ piechart .inner-pie {
   display: flex;
 }
 
+
 .section {
   padding: 30px;
   margin-bottom: 40px;
@@ -2733,18 +2745,6 @@ piechart .inner-pie {
   padding-right: 220px;
 }
 
-
-.trashcan ul {
-  padding: 0;
-  margin: 0;
-}
-.trashcan ul li {
-  list-style-type: none;
-}
-.trashcan ul .dndPlaceholder {
-  display: none;
-}
-
 .treeview {
   position: relative;
   margin-bottom: 2px;
@@ -2785,6 +2785,17 @@ piechart .inner-pie {
 }
 .treeview.dndDragover .meanwhile {
   opacity: 0.1;
+}
+
+.trashcan ul {
+  padding: 0;
+  margin: 0;
+}
+.trashcan ul li {
+  list-style-type: none;
+}
+.trashcan ul .dndPlaceholder {
+  display: none;
 }
 
 .weight-control {

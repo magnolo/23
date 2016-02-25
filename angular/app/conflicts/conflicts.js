@@ -1,12 +1,13 @@
 (function () {
 	"use strict";
 
-	angular.module('app.controllers').controller('ConflictsCtrl', function ($timeout, $state, $rootScope, $scope, conflicts, nations, VectorlayerService, Restangular) {
+	angular.module('app.controllers').controller('ConflictsCtrl', function ($timeout, $state, $rootScope, $scope, conflicts, nations, VectorlayerService, Restangular,DialogService) {
 		//
 
 		var vm = this;
 		vm.ready = false;
 		vm.relations = [];
+		vm.showMethod = showMethod;
 		vm.linearScale = d3.scale.linear().domain([0, 5]).range([0, 256]);
 		vm.colors = ['#d4ebf7', '#87cceb', '#36a8c6', '#268399', '#0e6377'];
 		vm.typesColors = {
@@ -25,6 +26,7 @@
 		activate();
 
 		function activate() {
+				$rootScope.greyed = true;
 			VectorlayerService.setStyle(countriesStyle);
 			VectorlayerService.countryClick(countryClick);
 			nations.getList().then(function(response){
@@ -89,6 +91,9 @@
 						color: '#ff9d27'
 					}];
 
+		}
+		function showMethod(){
+			  DialogService.fromTemplate('conflictmethode');
 		}
 		function toggleConflictFilter(type) {
 			var i = vm.active.type.indexOf(type);

@@ -1,11 +1,11 @@
 (function () {
 	"use strict";
 
-	angular.module('app.controllers').controller('ConflictnationCtrl', function ($timeout, $state, $rootScope, nations, nation, VectorlayerService, DataService) {
+	angular.module('app.controllers').controller('ConflictnationCtrl', function ($timeout, $state, $rootScope, nations, nation, VectorlayerService, DataService,DialogService) {
 		//
 		var vm = this;
 		vm.nation = nation;
-
+		vm.showMethod = showMethod;
 		vm.linearScale = d3.scale.linear().domain([0, 5]).range([0, 256]);
 		vm.colors = ['#d4ebf7', '#87cceb', '#36a8c6', '#268399', '#0e6377'];
 		vm.relations = [];
@@ -66,6 +66,10 @@
 
 		}
 
+
+		function showMethod(){
+			  DialogService.fromTemplate('conflictmethode');
+		}
 		function getTendency() {
 			if (vm.conflict == null) return "remove";
 			if (vm.conflict.int2015 == vm.conflict.int2014)

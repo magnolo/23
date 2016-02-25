@@ -6,17 +6,18 @@
       </div>
       <div layout-align="space-between center" layout="row">
           <span class="title">HIIK Conflict Barometer</span>
-        <span class="info-icon">
+        <span class="info-icon" ng-click="vm.showMethod()">
             <md-icon>	<i class="icon-acess-to-information"></i></md-icon>
         </span>
       </div>
     </div>
 </section>
 <section class="info-text">
-  <div class="text slide-toggle">
-  <p>The Conflict Barometer has been published since 1992 and is our annual analysis of the global conflict events and the main publication of the HIIK. Non-violent and violent crises, wars, coup d'etats as well as peace negotiations are observed in it. In the summary of the course of conflicts globally, the HIIK presents each year's developments in the form of texts and graphics. </p>
+  <div class="text slide-toggle" ng-class="{'fullHeight': vm.showText}">
+  <p>The Conflict Barometer has been published since 1992 and is our annual analysis of the global conflict events and the main publication of the HIIK. <br /><br />Non-violent and violent crises, wars, coup d'etats as well as peace negotiations are observed in it.<br /><br /> In the summary of the course of conflicts globally, the HIIK presents each year's developments in the form of texts and graphics. </p>
 </div>
-<a href="">... read more ...</a>
+<a href="" ng-if="!vm.showText" ng-click="vm.showText = true">... read more ...</a>
+<a href="" ng-if="vm.showText" ng-click="vm.showText = false">&times;</a>
 </section>
 <section ng-if="vm.ready" class="slide-toggle" style="padding-bottom:0">
   <h3>number of conflicts according to conflict intensities</h3>

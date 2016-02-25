@@ -1,17 +1,19 @@
 (function(){
     "use strict";
 
-    angular.module('app.controllers').controller('ConflictdetailsCtrl', function($timeout, $state, $rootScope, VectorlayerService, conflict, conflicts, nations){
+    angular.module('app.controllers').controller('ConflictdetailsCtrl', function($timeout, $state, $scope, $rootScope, VectorlayerService, conflict, conflicts, nations, DialogService){
         //
         var vm = this;
         vm.conflict = conflict;
         vm.conflicts = nations;
+        vm.showMethod = showMethod;
         vm.showCountries = false;
         vm.getTendency = getTendency;
         vm.linearScale = d3.scale.linear().domain([0, 5]).range([0, 256]);
         vm.colors = ['#d4ebf7', '#87cceb', '#36a8c6', '#268399', '#0e6377'];
         vm.relations = [];
         vm.countries = [];
+        vm.showText = showText;
         vm.showCountriesButton = showCountriesButton;
         vm.circleOptions = {
           color: '#4fb0e5',
@@ -24,6 +26,7 @@
 
     		function activate() {
         	//;
+          	$rootScope.greyed = true;
           nations.getList().then(function(response){
 
           vm.conflicts = response;
@@ -43,7 +46,7 @@
     						}
     					});
 
-    				$rootScope.greyed = true;
+
     				VectorlayerService.paintCountries(invertedStyle);
     				/*DataService.getOne('countries/bbox', vm.relations).then(function (data) {
     					var southWest = L.latLng(data.coordinates[0][0][1], data.coordinates[0][0][0]),
@@ -72,7 +75,12 @@
     				});
     			}
     		}
-
+        function showText(){
+          DialogService.fromTemplate('conflicttext', $scope);
+        }
+        function showMethod(){
+    			  DialogService.fromTemplate('conflictmethode');
+    		}
     		function invertedStyle(feature) {
     			var style = {};
     			var iso = feature.properties[VectorlayerService.data.iso2];

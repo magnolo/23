@@ -3,7 +3,7 @@
 
 	angular.module('app.routes').run(function($rootScope, $mdSidenav, $timeout, $auth, $state,$localStorage,$window, leafletData, toastr){
 		$rootScope.sidebarOpen = true;
-		$rootScope.looseLayout = $localStorage.fullView || false;
+		$rootScope.looseLayout = false; //$localStorage.fullView || false;
 		$rootScope.goBack = function(){
 		 $window.history.back();
 	 }
@@ -29,9 +29,16 @@
 				else{
 					$rootScope.additional = false;
 				}
+				if(toState.views.hasOwnProperty('items-menu@')){
+					$rootScope.itemMenu = true;
+				}
+				else{
+					$rootScope.itemMenu = false;
+				}
 			}
 			else{
 				$rootScope.additional = false;
+				$rootScope.itemMenu = false;
 			}
 			if(toState.name.indexOf('conflict') > -1 && toState.name != "app.conflict.import"){
 				$rootScope.noHeader = true;
