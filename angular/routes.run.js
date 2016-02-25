@@ -29,16 +29,9 @@
 				else{
 					$rootScope.additional = false;
 				}
-				if(toState.views.hasOwnProperty('items-menu@')){
-					$rootScope.itemMenu = true;
-				}
-				else{
-					$rootScope.itemMenu = false;
-				}
 			}
 			else{
 				$rootScope.additional = false;
-				$rootScope.itemMenu = false;
 			}
 			if(toState.name.indexOf('conflict') > -1 && toState.name != "app.conflict.import"){
 				$rootScope.noHeader = true;

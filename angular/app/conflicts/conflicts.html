@@ -5,7 +5,7 @@
         <img src="/images/hiik_logo.png" />
       </div>
       <div layout-align="space-between center" layout="row">
-          <span class="title">HIIK Konfliktbarometer</span>
+          <span class="title">HIIK Conflict Barometer</span>
         <span class="info-icon">
             <md-icon>	<i class="icon-acess-to-information"></i></md-icon>
         </span>
@@ -14,14 +14,12 @@
 </section>
 <section class="info-text">
   <div class="text slide-toggle">
-  <p>Das seit 1992 erscheinende Konfliktbarometer ist die jährliche Analyse des globalen Konfliktgeschehens und die zentrale Publikation des Heidelberger Institut für internationale Konfliktforschung (<a href="http://www.hiik.de" target="_blank">www.hiik.de</a>). Gewaltlose und gewaltsame Krisen, Kriege, Staatsstreiche sowie Friedensverhandlungen stehen im Mittelpunkt der Untersuchung. In der Zusammenfassung des Verlaufs der weltweiten Konflikte präsentiert das HIIK anschaulich die Entwicklungen im vergangenen Jahr, die grafisch und in Form von Texten erläutert werden.
-</p>
+  <p>The Conflict Barometer has been published since 1992 and is our annual analysis of the global conflict events and the main publication of the HIIK. Non-violent and violent crises, wars, coup d'etats as well as peace negotiations are observed in it. In the summary of the course of conflicts globally, the HIIK presents each year's developments in the form of texts and graphics. </p>
 </div>
-<a href="">...mehr lesen</a>
+<a href="">... read more ...</a>
 </section>
-<section >
-  <h3>Anzahl der Konflikte
-nach Intensitäten</h3>
+<section ng-if="vm.ready" class="slide-toggle" style="padding-bottom:0">
+  <h3>number of conflicts according to conflict intensities</h3>
 <!--<div layout="row" layout-align="space-between center">
   <span>{{vm.conflictIntensities.veryLow}}</span>
   <span>{{vm.conflictIntensities.low}}</span>
@@ -29,23 +27,29 @@ nach Intensitäten</h3>
   <span>{{vm.conflictIntensities.high}}</span>
   <span>{{vm.conflictIntensities.veryHigh}}</span>
 </div>-->
-<roundbar ng-if="vm.ready" active-type="vm.active.type" active-conflict="vm.active.conflict" chart-data="vm.chartData"></roundbar>
+<roundbar  active-type="vm.active.type" active-conflict="vm.active.conflict" chart-data="vm.chartData"></roundbar>
 </section>
-<section>
-  <h3 style="margin-bottom:1em;">Konflikttypen</h3>
+<section ng-if="vm.ready" class="slide-toggle">
+  <h3 style="margin-bottom:1em;">conflict types</h3>
   <div layout="row" layout-align="space-between center">
     <div layout="column">
-        <div class="interstate info-field" layout="row">
-          <div class="value">{{ vm.conflictTypes[0].count | percent: vm.conflictCount:true}}%</div>
-          <div class="label">Interstate</div>
+        <div class="interstate info-field" layout="row" ng-class="{'off': vm.active.type.indexOf(1) == -1}" ng-click="vm.toggleConflictFilter(1)">
+          <div class="value">{{ vm.conflictTypes[0].count | percent: vm.conflictFilterCount:true}}%</div>
+          <div class="label">interstate</div>
+          <md-tooltip md-direction="right">two or more states</md-tooltip>
+
         </div>
-        <div class="intrastate info-field" layout="row">
-          <div class="value">{{ vm.conflictTypes[1].count | percent: vm.conflictCount:true}}%</div>
-          <div class="label">Intrastate</div>
+        <div class="intrastate info-field" layout="row" ng-class="{'off': vm.active.type.indexOf(2) == -1}" ng-click="vm.toggleConflictFilter(2)">
+          <div class="value">{{ vm.conflictTypes[1].count | percent: vm.conflictFilterCount:true}}%</div>
+          <div class="label">intrastate</div>
+          <md-tooltip md-direction="right">non-state actors and national government</md-tooltip>
+
         </div>
-        <div class="substate info-field" layout="row">
-          <div class="value">{{ vm.conflictTypes[2].count | percent: vm.conflictCount:true}}%</div>
-          <div class="label">Substate</div>
+        <div class="substate info-field" layout="row" ng-class="{'off': vm.active.type.indexOf(3) == -1}" ng-click="vm.toggleConflictFilter(3)">
+
+          <div class="value">{{ vm.conflictTypes[2].count | percent: vm.conflictFilterCount:true}}%</div>
+          <div class="label">substate</div>
+          <md-tooltip md-direction="right">non-state actors without government involvement</md-tooltip>
         </div>
       </div>
       <piechart ng-if="vm.ready" active-type="vm.active.type" active-conflict="vm.active.conflict" chart-data="vm.conflictTypes"></piechart>

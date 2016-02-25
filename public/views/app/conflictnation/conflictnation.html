@@ -8,7 +8,7 @@
                   </div>
                   <div layout-align="space-between center" layout="row">
                           <span class="title">
-                                  <a ui-sref="app.conflict.index">HIIK Konfliktbarometer</a>
+                                  <a ui-sref="app.conflict.index">HIIK Conflict Barometer</a>
                           </span>
                           <span class="info-icon">
                                   <md-icon>
@@ -22,18 +22,22 @@
   <h3 class="main-title">{{vm.nation.country}}</h3>
 </section>
 <section >
-  <h3>Konfliktintensität <ng-md-icon class="icon-space" icon="{{vm.getTendency()}}" options='{"rotation": "none"}'></ng-md-icon>
-</h3>
+  <h3 layout="row" layout-align="start center">
+      <span>highest conflict intensity</span>
+      <div><ng-md-icon class="icon-space" icon="{{vm.getTendency()}}" options='{"rotation": "none"}'></ng-md-icon>
+      <md-tooltip md-direction="right">change in conflict intensity since 2014</md-tooltip>
+    </div>
+  </h3>
 
   <circlegraph item="vm.nation" options="vm.circleOptions"></circlegraph>
 
 </section>
 <section>
-  <h3 style="margin-bottom:1em;">Konflikte {{vm.nation.conflicts.length}}</h3>
+  <h3 style="margin-bottom:1em;">number of conflicts: {{vm.nation.conflicts.length}}</h3>
   <div layout="column">
     <div layout="row" class="conflict-legend" layout-align="space-between center">
-      <div>Konflikt</div>
-      <div>Intensität</div>
+      <div>conflict</div>
+      <div>intensity</div>
     </div>
     <div ui-sref="app.conflict.index.details({id:conflict.id})" layout="row" layout-align="space-between center" class="conflict-item conflict{{conflict.int2015}}" ng-repeat="conflict in vm.nation.conflicts | orderBy:'int2015':true">
       <div>{{conflict.title}}</div>

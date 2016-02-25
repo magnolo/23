@@ -8,7 +8,7 @@
 												</div>
 												<div layout-align="space-between center" layout="row">
 																<span class="title">
-																				<a ui-sref="app.conflict.index">HIIK Konfliktbarometer</a>
+																				<a ui-sref="app.conflict.index">HIIK Conflict Barometer</a>
 																</span>
 																<span class="info-icon">
 																				<md-icon>
@@ -25,78 +25,84 @@
           <div class="text slide-toggle">
           <p>{{vm.conflict.text}}</p>
         </div>
-        <a href="">...mehr lesen</a>
+        <a href="">... read more ...</a>
         </section>
 				<section >
-								<h3>Konfliktintensität</h3>
-								<div layout-align="start center" layout="row">
+								<h3>conflict intensity</h3>
+								<div layout-align="space-between center" layout="row">
 												<circlegraph item="vm.conflict" options="vm.circleOptions"></circlegraph>
-												<div layout-align="space-around center" layout="column" style="height:80px;margin-left:2.5em">
-																<h4 style="margin-bottom:0">Start</h4>
-																<h3>{{vm.conflict.year}}</h3>
+												<div layout-align="center center" layout="column" style="height:80px;">
+																<h4 style="margin:0;font-size:0.9em">start</h4>
+																<h3 style="margin:0">{{vm.conflict.year}}</h3>
 												</div>
-												<div layout-align="space-around center" layout="column"  style="height:80px;margin-left:2.5em">
-																<h4 style="margin-bottom:0">Change</h4>
-																<h3 style="padding-top:3px">
+												<div layout-align="center center" layout="column"  style="height:80px;">
+																<h4 style="margin:0;font-size:0.9em">change</h4>
+																<h3 style="margin:0;height:22px">
 																				<ng-md-icon icon="{{vm.getTendency()}}" options='{"rotation": "none"}'></ng-md-icon>
+																</h3>
+												</div>
+												<div layout-align="center center" layout="column"  style="height:80px;">
+																<h4 style="margin:0;font-size:0.9em">type</h4>
+																<h3 style="margin:0">
+																		<span ng-if="vm.conflict.type_id == 1">interstate<md-tooltip md-direction="right">two or more states</md-tooltip></span>
+																		<span ng-if="vm.conflict.type_id == 2">intrastate<md-tooltip md-direction="right">non-state actors and national government</md-tooltip></span>
+																		<span ng-if="vm.conflict.type_id == 3">substate<md-tooltip md-direction="right">non-state actors without government involvement</md-tooltip></span>
 																</h3>
 												</div>
 								</div>
 				</section>
 				<section>
-								<h3 style="margin-bottom:1em;">Konflikte</h3>
+								<h3 style="margin-bottom:1em;">conflict items</h3>
 								<div layout="column">
 												<div class="conflict-icon" layout-align="space-between center" layout="row" ng-if="item == 1 && key != 'restangularized' && key != 'fromServer' && key != 'type_id'" ng-repeat="(key,item) in vm.conflict">
 																<div ng-if="key == 'other'" layout="row" layout-align="start center">
 																				<i class="icon-other-resources"></i>
-																				<span>Others</span>
+																				<span>others</span>
 																</div>
 																<div ng-if="key == 'territory'"  layout="row" layout-align="start center">
 																				<i class="icon-territiry"></i>
-																				<span>Territory</span>
+																				<span>territory</span>
 																</div>
 																<div ng-if="key == 'secession'"  layout="row" layout-align="start center">
 																				<i class="icon-secession"></i>
-																				<span>Secession</span>
+																				<span>secession</span>
 																</div>
 																<div ng-if="key == 'autonomy'"  layout="row" layout-align="start center">
 																				<i class="icon-autonomy"></i>
-																				<span>Autonomy</span>
+																				<span>autonomy</span>
 																</div>
 																<div ng-if="key == 'system'"  layout="row" layout-align="start center">
 																				<i class="icon-system-ideology"></i>
-																				<span>System/Ideology</span>
+																				<span>system/ideology</span>
 																</div>
                                 <div ng-if="key == 'national_power'"  layout="row" layout-align="start center">
 																				<i class="icon-national-power"></i>
-																				<span>National Power</span>
+																				<span>national power</span>
 																</div>
 																<div ng-if="key == 'international_power'"  layout="row" layout-align="start center">
 																				<i class="icon-international-power"></i>
-																				<span>International Power</span>
+																				<span>international power</span>
 																</div>
 																<div ng-if="key == 'subnational_predominance'"  layout="row" layout-align="start center">
 																				<i class="icon-subnational-predominace"></i>
-																				<span>Subnational Predominace</span>
+																				<span>subnational predominace</span>
 																</div>
 																<div ng-if="key == 'resources'"  layout="row" layout-align="start center">
 																				<i class="icon-resources"></i>
-																				<span>Resources</span>
+																				<span>resources</span>
 																</div>
 
 												</div>
 								</div>
 				</section>
         <section ng-if="vm.countries.length > 1" class="slide-toggle">
-          <h3 ng-click="vm.showCountries = !vm.showCountries" style="cursor:pointer;margin-bottom:1em;">Länder {{vm.countries.length}} <ng-md-icon class="icon-space" icon="{{vm.showCountriesButton()}}" ></ng-md-icon></h3>
+          <h3 ng-click="vm.showCountries = !vm.showCountries" style="cursor:pointer;margin-bottom:1em;">countries {{vm.countries.length}} <ng-md-icon class="icon-space" icon="{{vm.showCountriesButton()}}" ></ng-md-icon></h3>
           <div layout="column" class="slide-toggle" ng-if="vm.showCountries">
             <div layout="row" class="conflict-legend" layout-align="space-between center">
               <div>Konfliktparteien</div>
-              <div>Intensität</div>
             </div>
-            <div ui-sref="app.conflict.index.nation({iso:country.iso})" layout="row" layout-align="space-between center" class="conflict-item conflict{{country.intensity}}" ng-repeat="country in vm.countries | orderBy:'intensity':true">
+            <div ui-sref="app.conflict.index.nation({iso:country.iso})" layout="row" layout-align="space-between center" class="conflict-item conflict{{vm.conflict.int2015}}" ng-repeat="country in vm.countries | orderBy:'intensity':true">
               <div>{{country.country}}</div>
-              <div>{{country.intensity}}</div>
             </div>
           </div>
         </section>

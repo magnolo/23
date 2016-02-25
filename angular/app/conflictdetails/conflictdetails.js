@@ -1,11 +1,11 @@
 (function(){
     "use strict";
 
-    angular.module('app.controllers').controller('ConflictdetailsCtrl', function($timeout, $state, $rootScope, VectorlayerService, conflict, conflicts){
+    angular.module('app.controllers').controller('ConflictdetailsCtrl', function($timeout, $state, $rootScope, VectorlayerService, conflict, conflicts, nations){
         //
         var vm = this;
         vm.conflict = conflict;
-        vm.conflicts = conflicts;
+        vm.conflicts = nations;
         vm.showCountries = false;
         vm.getTendency = getTendency;
         vm.linearScale = d3.scale.linear().domain([0, 5]).range([0, 256]);
@@ -24,13 +24,16 @@
 
     		function activate() {
         	//;
+          nations.getList().then(function(response){
+
+          vm.conflicts = response;
+          VectorlayerService.resetSelected();
     			VectorlayerService.setData(vm.conflicts, vm.colors, true);
     			VectorlayerService.setStyle(invertedStyle);
     			VectorlayerService.countryClick(countryClick);
           VectorlayerService.resetSelected();
-    			$timeout(function () {
-            //VectorlayerService.setSelectedFeature(vm.nation.iso, true);
 
+              //VectorlayerService.setSelectedFeature(vm.nation.iso, true);
     					angular.forEach(vm.conflict.nations, function (nation) {
     						var i = vm.relations.indexOf(nation.iso);
     						if (i == -1 ) {
@@ -40,7 +43,6 @@
     						}
     					});
 
-            console.log(vm.countries);
     				$rootScope.greyed = true;
     				VectorlayerService.paintCountries(invertedStyle);
     				/*DataService.getOne('countries/bbox', vm.relations).then(function (data) {
@@ -78,7 +80,7 @@
     			var field = 'intensity';
     			var colorPos = parseInt(vm.linearScale(parseFloat(nation[field]))) * 4; // parseInt(256 / vm.range.max * parseInt(nation[field])) * 4;
 
-    			var color = 'rgba(' + VectorlayerService.palette[colorPos] + ', ' + VectorlayerService.palette[colorPos + 1] + ', ' + VectorlayerService.palette[colorPos + 2] + ',' + VectorlayerService.palette[colorPos + 3] + ')';
+    			var color = 'rgba(' + VectorlayerService.palette[colorPos] + ', ' + VectorlayerService.palette[colorPos + 1] + ', ' + VectorlayerService.palette[colorPos + 2] + ',0.6)';
     			style.color = 'rgba(0,0,0,0)';
     			style.outline = {
     				color: 'rgba(0,0,0,0)',
@@ -87,20 +89,20 @@
     			style.selected = {
     				color: color,
     				outline: {
-    					color: 'rgba(0,0,0,0.3)',
+    					color: color,
     					size: 1
     				}
     			};
     			return style;
     		}
         function getTendency(){
-          if(vm.conflict == null) return "cached";
+          if(vm.conflict == null) return "remove";
           if(vm.conflict.int2015 == vm.conflict.int2014)
-          return "cached";
+          return "remove";
           if(vm.conflict.int2015 < vm.conflict.int2014)
-          return "arrow_drop_down";
+          return "trending_down";
 
-          return "arrow_drop_up";
+          return "trending_up";
         }
         function showCountriesButton(){
           if(vm.showCountries) return "arrow_drop_up";

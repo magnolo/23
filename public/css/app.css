@@ -1345,37 +1345,6 @@ md-toast[md-theme=warn] {
   font-size: 2em;
 }
 
-#items-menu {
-  position: fixed;
-  right: 0px;
-  top: 7em;
-}
-#items-menu .items-head {
-  cursor: pointer;
-  background-color: #4fb0e5;
-  padding: .5em 1em;
-  border-top-left-radius: 5em;
-  border-bottom-left-radius: 5em;
-  color: #fff;
-  position: relative;
-  z-index: 1;
-  font-size: 1.2em;
-}
-#items-menu .items-head i {
-  font-size: 1.3em;
-  margin-right: .2em;
-}
-#items-menu .items-list {
-  background-color: #fff;
-  font-size: 1.8em;
-  color: #4fb0e5;
-  position: absolute;
-  right: .5em;
-}
-#items-menu .items-list > div {
-  padding: .35em;
-}
-
 .conflict-legend {
   border-bottom: 1px solid #d7dddd;
   padding-bottom: 0.5em;
@@ -1429,11 +1398,14 @@ md-toast[md-theme=warn] {
 }
 .conflict .title,
 .conflict h3 {
-  font-size: 1.4em;
+  font-size: 1.3em;
   margin: 0.5em 0;
 }
+.conflict h3 {
+  font-size: 1.2em;
+}
 .conflict .main-title {
-  font-size: 2em;
+  font-size: 1.8em;
   margin-bottom: 0px;
 }
 .conflict h3 {
@@ -1459,22 +1431,26 @@ md-toast[md-theme=warn] {
   color: #ff9d27;
 }
 .conflict .info-field {
-  font-size: 1.2em;
+  font-size: 1.1em;
   margin-bottom: .5em;
+  cursor: pointer;
+  transition: all .5s ease;
 }
 .conflict .info-field .value {
   margin-right: .5em;
   min-width: 40px;
+}
+.conflict .info-field.off {
+  opacity: 0.5;
+  -webkit-transform: scale(0.9);
+  transform: scale(0.9);
+  color: #ccc !important;
 }
 .conflict .info-text .text {
   height: 85px;
   overflow: hidden;
 }
 
-
-md-list-item a.md-no-style {
-  margin: 0px;
-}
 
 .Header {
   min-height: 48px;
@@ -1504,6 +1480,10 @@ md-list-item a.md-no-style {
 }
 md-toolbar.Header .md-button.md-border {
   color: #006bb9;
+}
+
+md-list-item a.md-no-style {
+  margin: 0px;
 }
 
 md-toolbar.md-menu-toolbar {
@@ -1828,13 +1808,6 @@ md-list-item.md-2-line > .md-no-style {
   min-height: 62px;
 }
 
-.md-subheader.filled .md-subheader-inner {
-  padding: 0px;
-}
-.md-subheader.filled .md-subheader-inner md-toolbar {
-  padding-left: 1em;
-}
-
 section.module-top {
   background-color: #fff;
   width: 360px;
@@ -2116,7 +2089,6 @@ md-list-item.active {
 
 
 
-
 div[ui-view='map'] {
   position: absolute;
   width: 100%;
@@ -2256,29 +2228,12 @@ div[ui-view='map'] {
 
 
 
-.bar-viewer {
-  margin: 0 1em;
+
+.md-subheader.filled .md-subheader-inner {
+  padding: 0px;
 }
-.bar-viewer .bar {
-  width: 100%;
-  height: 7px;
-  background-color: #efefef;
-}
-.bar-viewer .bar .bar-value {
-  height: 100%;
-  background-color: #000;
-  width: 0;
-  transition: width 0.3s ease-out;
-}
-.bar-viewer .title {
-  margin: .5em 0;
-  margin-bottom: 1em;
-}
-.bar-viewer .sub-bar {
-  cursor: pointer;
-}
-.bar-viewer .sub-bar.titled {
-  margin-left: 2em;
+.md-subheader.filled .md-subheader-inner md-toolbar {
+  padding-left: 1em;
 }
 
 .bubbles {
@@ -2350,9 +2305,65 @@ div[ui-view='map'] {
   transition: transform 0.3s ease-out;
 }
 
+.bar-viewer {
+  margin: 0 1em;
+}
+.bar-viewer .bar {
+  width: 100%;
+  height: 7px;
+  background-color: #efefef;
+}
+.bar-viewer .bar .bar-value {
+  height: 100%;
+  background-color: #000;
+  width: 0;
+  transition: width 0.3s ease-out;
+}
+.bar-viewer .title {
+  margin: .5em 0;
+  margin-bottom: 1em;
+}
+.bar-viewer .sub-bar {
+  cursor: pointer;
+}
+.bar-viewer .sub-bar.titled {
+  margin-left: 2em;
+}
 
 
 
+
+
+#items-menu {
+  position: fixed;
+  right: 0px;
+  top: 7em;
+}
+#items-menu .items-head {
+  cursor: pointer;
+  background-color: #4fb0e5;
+  padding: .5em 1em;
+  border-top-left-radius: 5em;
+  border-bottom-left-radius: 5em;
+  color: #fff;
+  position: relative;
+  z-index: 1;
+  font-size: 1.2em;
+}
+#items-menu .items-head i {
+  font-size: 1.3em;
+  margin-right: .2em;
+}
+#items-menu .items-list {
+  background-color: #fff;
+  font-size: 1.8em;
+  color: #4fb0e5;
+  position: absolute;
+  right: .5em;
+}
+#items-menu .items-list > div {
+  padding: .35em;
+}
 
 [contenteditable] {
   position: relative;
@@ -2597,18 +2608,6 @@ piechart .inner-pie {
   display: flex;
 }
 
-
-.trashcan ul {
-  padding: 0;
-  margin: 0;
-}
-.trashcan ul li {
-  list-style-type: none;
-}
-.trashcan ul .dndPlaceholder {
-  display: none;
-}
-
 .section {
   padding: 30px;
   margin-bottom: 40px;
@@ -2732,6 +2731,18 @@ piechart .inner-pie {
 }
 .calculating .field-name-field-calculating-text {
   padding-right: 220px;
+}
+
+
+.trashcan ul {
+  padding: 0;
+  margin: 0;
+}
+.trashcan ul li {
+  list-style-type: none;
+}
+.trashcan ul .dndPlaceholder {
+  display: none;
 }
 
 .treeview {

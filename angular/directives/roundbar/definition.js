@@ -138,6 +138,29 @@
 					retval += "z";
 					return retval;
 				}
+				scope.$watch('data', function(n, o){
+					if(n === o) return false;
+					//scale.y.domain([0, 50]);
+
+						valueBars.transition().duration(500).attr('d', function(d, i) {
+								var borders = barWidth / 2;
+								if(scope.data[i].value <= 10){
+									borders = 0;
+								}
+								return rounded_rect((i * (barWidth + space)), (scale.y(scope.data[i].value)), barWidth, (height - scale.y(scope.data[i].value)), borders, true, true, false, false)
+						});
+						valueText.transition().duration(500).tween('text', function (d,i) {
+								var i = d3.interpolate(parseInt(d.value), parseInt(scope.data[i].value));
+								return function (t) {
+									this.textContent = (Math.round(i(t) * 1) / 1);
+								};
+
+						}).each('end', function(d, i){
+								d.value = scope.data[i].value;
+						});
+					
+
+				})
 			}
 		};
 

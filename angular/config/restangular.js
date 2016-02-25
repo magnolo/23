@@ -5,6 +5,7 @@
 		RestangularProvider
 		.setBaseUrl('/api/')
 		.setDefaultHeaders({ accept: "application/x.laravel.v1+json" })
+		.setDefaultHttpFields({cache: true})
 		.addResponseInterceptor(function(data,operation,what,url,response,deferred) {
         var extractedData;
         extractedData = data.data;
@@ -15,8 +16,8 @@
             extractedData._included = data.included;
         }
         return extractedData;
-    })
-		.setErrorInterceptor(function(response, deferred, responseHandler) {
+    });
+	/*	.setErrorInterceptor(function(response, deferred, responseHandler) {
 			console.log('errro');
 			if (response.status === 403) {
 
@@ -24,7 +25,7 @@
     	}
 
     	return true; // error not handled
-    	});
+		});*/
 	});
 
 })();

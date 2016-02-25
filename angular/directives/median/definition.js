@@ -259,7 +259,7 @@
 
 							}
 						});
-						console.log(ngModel.$modelValue);
+
 						x = d3.scale.linear()
 							.domain([min, max])
 							.range([options.margin.left, options.width - options.margin.left])

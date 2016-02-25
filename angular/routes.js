@@ -421,8 +421,11 @@
 			.state('app.conflict.index',{
 				url: '/index',
 				resolve:{
-					conflicts:function(Restangular){
-						return Restangular.all('conflicts/nations').getList();
+					nations:function(Restangular){
+						return Restangular.all('conflicts/nations');
+					},
+					conflicts: function(Restangular){
+						return Restangular.all('conflicts');
 					}
 				},
 				views:{
@@ -430,11 +433,6 @@
 						controller:'ConflictsCtrl',
 						controllerAs: 'vm',
 						templateUrl:getView('conflicts')
-					},
-					'items-menu@':{
-						templateUrl:getView('conflictitems'),
-						controller:'ConflictitemsCtrl',
-						controllerAs: 'vm'
 					}
 				}
 			})
@@ -442,7 +440,7 @@
 				url: '/nation/:iso',
 				resolve:{
 					nation:function(Restangular, $stateParams){
-						return 	Restangular.one('/conflicts/nations/', $stateParams.iso).get();
+						return Restangular.one('/conflicts/nations/', $stateParams.iso).get();
 					}
 				},
 				views:{

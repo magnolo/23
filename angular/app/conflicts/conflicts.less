@@ -22,11 +22,14 @@
     }
   }
   .title, h3{
-    font-size:1.4em;
+    font-size:1.3em;
     margin:0.5em 0;
   }
+  h3{
+    font-size:1.2em;
+  }
   .main-title{
-    font-size:2em;
+    font-size:1.8em;
     margin-bottom:0px;
   }
   h3{
@@ -54,12 +57,19 @@
     color:@substate;
   }
   .info-field{
-    font-size:1.2em;
+    font-size:1.1em;
     margin-bottom:.5em;
+    cursor:pointer;
+    transition: all .5s ease;
     .value{
       margin-right:.5em;
       min-width:40px;
       //text-align:right;
+    }
+    &.off{
+      opacity: 0.5;
+      transform:scale(0.9);
+      color:#ccc !important
     }
   }
   .info-text{

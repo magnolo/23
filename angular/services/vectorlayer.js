@@ -201,7 +201,14 @@
 
 			},
 			setSelectedFeature:function(iso, selected){
-				this.data.layer.layers[this.data.name+'_geom'].features[iso].selected = selected;
+				if(typeof this.data.layer.layers[this.data.name+'_geom'].features[iso] == 'undefined'){
+					console.log(iso);
+					//debugger;
+				}
+				else{
+					this.data.layer.layers[this.data.name+'_geom'].features[iso].selected = selected;
+				}
+
 			},
 			redraw:function(){
 				this.data.layer.redraw();
