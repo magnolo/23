@@ -31,26 +31,26 @@
 <roundbar  active-type="vm.active.type" active-conflict="vm.active.conflict" chart-data="vm.chartData"></roundbar>
 </section>
 <section ng-if="vm.ready" class="slide-toggle">
-  <h3 style="margin-bottom:1em;">conflict types</h3>
+  <h3 >conflict types</h3>
   <div layout="row" layout-align="space-between center">
     <div layout="column">
         <div class="interstate info-field" layout="row" ng-class="{'off': vm.active.type.indexOf(1) == -1}" ng-click="vm.toggleConflictFilter(1)">
           <div class="value">{{ vm.conflictTypes[0].count | percent: vm.conflictFilterCount:true}}%</div>
           <div class="label">interstate</div>
-          <md-tooltip md-direction="right">two or more states</md-tooltip>
+          <md-tooltip md-direction="right" md-delay="500">two or more states</md-tooltip>
 
         </div>
         <div class="intrastate info-field" layout="row" ng-class="{'off': vm.active.type.indexOf(2) == -1}" ng-click="vm.toggleConflictFilter(2)">
           <div class="value">{{ vm.conflictTypes[1].count | percent: vm.conflictFilterCount:true}}%</div>
           <div class="label">intrastate</div>
-          <md-tooltip md-direction="right">non-state actors and national government</md-tooltip>
+          <md-tooltip md-direction="right" md-delay="500">non-state actors and national government</md-tooltip>
 
         </div>
         <div class="substate info-field" layout="row" ng-class="{'off': vm.active.type.indexOf(3) == -1}" ng-click="vm.toggleConflictFilter(3)">
 
           <div class="value">{{ vm.conflictTypes[2].count | percent: vm.conflictFilterCount:true}}%</div>
           <div class="label">substate</div>
-          <md-tooltip md-direction="right">non-state actors without government involvement</md-tooltip>
+          <md-tooltip md-direction="right" md-delay="500">non-state actors without government involvement</md-tooltip>
         </div>
       </div>
       <piechart ng-if="vm.ready" active-type="vm.active.type" active-conflict="vm.active.conflict" chart-data="vm.conflictTypes"></piechart>

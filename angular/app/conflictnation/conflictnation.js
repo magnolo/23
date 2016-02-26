@@ -1,7 +1,7 @@
-(function () {
+(function() {
 	"use strict";
 
-	angular.module('app.controllers').controller('ConflictnationCtrl', function ($timeout, $state, $rootScope, nations, nation, VectorlayerService, DataService,DialogService) {
+	angular.module('app.controllers').controller('ConflictnationCtrl', function($timeout, $state, $rootScope, nations, nation, VectorlayerService, DataService, DialogService) {
 		//
 		var vm = this;
 		vm.nation = nation;
@@ -22,20 +22,22 @@
 		function activate() {
 
 			$rootScope.greyed = true;
-			nations.getList().then(function (response) {
+			nations.getList().then(function(response) {
 				vm.conflicts = response;
+				vm.relations.push(vm.nation.iso);
+
 				VectorlayerService.resetSelected(vm.nation.iso);
 				VectorlayerService.setData(vm.conflicts, vm.colors, true);
 				VectorlayerService.setStyle(invertedStyle);
 				VectorlayerService.countryClick(countryClick);
-				vm.relations.push(vm.nation.iso);
 				VectorlayerService.setSelectedFeature(vm.nation.iso, true);
-				angular.forEach(vm.nation.conflicts, function (conflict) {
+
+				angular.forEach(vm.nation.conflicts, function(conflict) {
 					if (!vm.conflict) vm.conflict = conflict;
 					if (conflict.int2015 > vm.conflict.int2015) {
 						vm.conflict = conflict;
 					}
-					angular.forEach(conflict.nations, function (nation) {
+					angular.forEach(conflict.nations, function(nation) {
 						var i = vm.relations.indexOf(nation.iso);
 						if (i == -1 && nation.iso != vm.nation.iso) {
 							vm.relations.push(nation.iso)
@@ -67,9 +69,10 @@
 		}
 
 
-		function showMethod(){
-			  DialogService.fromTemplate('conflictmethode');
+		function showMethod() {
+			DialogService.fromTemplate('conflictmethode');
 		}
+
 		function getTendency() {
 			if (vm.conflict == null) return "remove";
 			if (vm.conflict.int2015 == vm.conflict.int2014)
@@ -114,6 +117,7 @@
 					color: 'rgba(54,56,59,0.8)',
 					size: 2
 				};
+				color = color;
 			}
 			style.selected = {
 				color: color,

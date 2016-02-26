@@ -19,7 +19,7 @@
 								</div>
 				</section>
 				<section >
-								<h3 >{{vm.conflict.title}}</h3>
+								<h3 class="main-title">{{vm.conflict.title}}</h3>
 				</section>
         <section class="info-text slide-toggle" ng-if="vm.conflict.text" style="padding-top:0px">
           <div class="text slide-toggle">
@@ -28,7 +28,7 @@
         <a href="" ng-click="vm.showText()">... read more ...</a>
         </section>
 				<section >
-								<h3>conflict intensity</h3>
+								<!--<h3>conflict intensity</h3>-->
 								<div layout-align="space-between center" layout="row">
 												<circlegraph item="vm.conflict" options="vm.circleOptions"></circlegraph>
 												<div layout-align="center center" layout="column" style="height:80px;">
@@ -51,10 +51,10 @@
 												</div>
 								</div>
 				</section>
-				<section>
-								<h3 style="margin-bottom:1em;">conflict items</h3>
+				<section class="inset">
+								<!--<h3 style="margin-bottom:1em;">conflict items</h3>-->
 								<div layout="column">
-												<div class="conflict-icon" layout-align="space-between center" layout="row" ng-if="item == 1 && key != 'restangularized' && key != 'fromServer' && key != 'type_id'" ng-repeat="(key,item) in vm.conflict">
+												<div class="conflict-icon" layout-align="space-between center" layout="row" ng-if="item == 1 && vm.conflictItems.indexOf(key) > -1 " ng-repeat="(key,item) in vm.conflict">
 																<div ng-if="key == 'other'" layout="row" layout-align="start center">
 																				<i class="icon-other-resources"></i>
 																				<span>others</span>
@@ -62,34 +62,50 @@
 																<div ng-if="key == 'territory'"  layout="row" layout-align="start center">
 																				<i class="icon-territiry"></i>
 																				<span>territory</span>
+																				<md-tooltip md-direction="right">change in interstate borders</md-tooltip>
+
 																</div>
 																<div ng-if="key == 'secession'"  layout="row" layout-align="start center">
 																				<i class="icon-secession"></i>
 																				<span>secession</span>
+																				<md-tooltip md-direction="right">separation of a part of a state's territory</md-tooltip>
+
 																</div>
 																<div ng-if="key == 'autonomy'"  layout="row" layout-align="start center">
 																				<i class="icon-autonomy"></i>
 																				<span>autonomy</span>
+																				<md-tooltip md-direction="right">acquirement or expansion of political autonomy</md-tooltip>
+
 																</div>
 																<div ng-if="key == 'system'"  layout="row" layout-align="start center">
 																				<i class="icon-system-ideology"></i>
 																				<span>system/ideology</span>
+																				<md-tooltip md-direction="right">changes in ideological, religious, socio-economic or juridical agenda of a political system – or change of the type of a regime</md-tooltip>
+
 																</div>
                                 <div ng-if="key == 'national_power'"  layout="row" layout-align="start center">
 																				<i class="icon-national-power"></i>
 																				<span>national power</span>
+																				<md-tooltip md-direction="right">political authority in a state</md-tooltip>
+
 																</div>
 																<div ng-if="key == 'international_power'"  layout="row" layout-align="start center">
 																				<i class="icon-international-power"></i>
 																				<span>international power</span>
+																				<md-tooltip md-direction="right">change in the constellation of power in an international or regional system</md-tooltip>
+
 																</div>
 																<div ng-if="key == 'subnational_predominance'"  layout="row" layout-align="start center">
 																				<i class="icon-subnational-predominace"></i>
 																				<span>subnational predominace</span>
+																				<md-tooltip md-direction="right">de facto control of a government, a non-governmental organization, or a population over a region or a population</md-tooltip>
+
 																</div>
 																<div ng-if="key == 'resources'"  layout="row" layout-align="start center">
 																				<i class="icon-resources"></i>
 																				<span>resources</span>
+																				<md-tooltip md-direction="right">ownership of natural resources and resulting profit</md-tooltip>
+
 																</div>
 
 												</div>

@@ -1,85 +1,129 @@
 @import (less) '../../material/colors.less';
 
-.conflict{
-  .info-icon{
-    cursor:pointer;
-    i{
-        color:@grey-light;
+.conflict {
+    .info-icon {
+        cursor: pointer;
+        
+        i {
+            color: @grey-light;
+        }
+
+        &:hover {
+            i {
+                color: #4fb0e5;
+            }
+        }
     }
 
-    &:hover{
-      i{
-        color:#4fb0e5;
-      }
+    .title,
+    h2,
+    h3,
+    h4,
+    a,
+    small {
+        color: #4fb0e5;
+        font-weight: normal;
+        text-decoration: none;
+        
+        path {
+            fill: #4fb0e5 !important;
+        }
     }
-  }
-  .title, h2, h3, h4, a{
-    color:#4fb0e5;
-    font-weight: normal;
-    text-decoration: none;
-    path{
-      fill:#4fb0e5 !important;
+
+    .title,
+    h3 {
+        font-size: 1.3em;
+        margin: 0.5em 0;
     }
-  }
-  .title, h3{
-    font-size:1.3em;
-    margin:0.5em 0;
-  }
-  h3{
-    font-size:1.2em;
-  }
-  .main-title{
-    font-size:1.8em;
-    margin-bottom:0px;
-  }
-  h3{
-    margin-top:0px;
-  }
-  .header{
-    > div{
-      border-bottom:2px solid @grey-light;
+
+    h3 {
+        font-size: 1.2em;
     }
-  }
-  section{
-    padding:1em 1.5em;
-    p{
-      margin:0;
-      font-size:0.95em;
+
+    .main-title {
+        font-size: 1.5em;
+        margin-bottom: 0;
     }
-  }
-  .interstate{
-    color:@interstate;
-  }
-  .intrastate{
-    color:@intrastate;
-  }
-  .substate{
-    color:@substate;
-  }
-  .info-field{
-    font-size:1.1em;
-    margin-bottom:.5em;
-    cursor:pointer;
-    transition: all .5s ease;
-    .value{
-      margin-right:.5em;
-      min-width:40px;
-      //text-align:right;
+
+    h3 {
+        margin-top: 0;
     }
-    &.off{
-      opacity: 0.5;
-      transform:scale(0.9);
-      color:#ccc !important
+
+    .header {
+        > div {
+            border-bottom: 2px solid @grey-light;
+        }
     }
-  }
-  .info-text{
-    .text{
-      height:85px;
-      overflow:hidden;
-      transition:all .5s ease;
-      &.fullHeight{
-        height:195px;
-      }
+
+    section {
+        padding: 1em 1.5em;
+        
+        p {
+            margin: 0;
+            font-size: 0.95em;
+        }
+
+        &.inset {
+            > div {
+                margin-left: 1.5em;
+            }
+        }
     }
-  }
+
+    .interstate {
+        color: @interstate;
+    }
+
+    .intrastate {
+        color: @intrastate;
+    }
+
+    .substate {
+        color: @substate;
+    }
+
+    .info-field {
+        font-size: 1.1em;
+        margin-bottom: 0.5em;
+        cursor: pointer;
+        transition: all 0.5s ease;
+        
+        .value {
+            margin-right: 0.5em;
+            min-width: 40px;
+            //text-align:right;
+        }
+
+        &.off {
+            opacity: 0.5;
+            transform: scale(0.9);
+            color: #ccc !important;
+        }
+    }
+
+    .info-text {
+        .text {
+            height: 85px;
+            overflow: hidden;
+            transition: all 0.5s ease;
+            
+            &.fullHeight {
+                height: 195px;
+            }
+        }
+    }
+}
+
+md-dialog-content {
+    p.column {
+        line-height: 1.25em;
+        text-align: justify;
+        -webkit-column-gap: 2em;
+        margin: 1em;
+        -webkit-column-count: 2;
+        /* Chrome, Safari, Opera */
+        -moz-column-count: 2;
+        /* Firefox */
+        column-count: 2;
+    }
 }
