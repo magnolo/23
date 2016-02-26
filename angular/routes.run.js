@@ -46,6 +46,12 @@
 			else{
 				$rootScope.noHeader = false;
 			}
+			if(toState.name == 'app.conflict.index.nation'){
+				$rootScope.showItems = true;
+			}
+			else{
+				$rootScope.showItems = false;
+			}
 			$rootScope.previousPage = {state:fromState, params:fromParams};
 			$rootScope.stateIsLoading = true;
 		});

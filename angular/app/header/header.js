@@ -61,6 +61,7 @@
 			if(n == o) return false;
 			resetMapSize();
 		})
+		
 	});
 
 })();

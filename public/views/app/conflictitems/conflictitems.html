@@ -1,42 +1,42 @@
-<div class="items-head md-whiteframe-z2" layout="row" layout-align="space-around center" ng-click="vm.showList = !vm.showList">
+<div class="items-head md-whiteframe-z2" layout="row" layout-align="space-around center" ng-click="$root.itemsList = !$root.itemsList">
   <i class="icon-menu"></i>
   <span>Items</span>
 </div>
-<div class="items-list md-whiteframe-z1 slide-toggle" ng-if="vm.showList">
+<div class="items-list md-whiteframe-z1" ng-if="!$root.itemsList">
 
-<div layout="row" layout-align="start center" ng-click="vm.toggleItem('territory')" ng-class="{'off': $root.conflictItems.indexOf('territory') == -1}" >
+<div layout="row" layout-align="start center" ng-if="$root.featureItems.indexOf('territory') > -1" >
         <i class="icon-territiry"></i>
         <md-tooltip md-direction="left">territory</md-tooltip>
 </div>
-<div layout="row" layout-align="start center">
+<div layout="row" layout-align="start center" ng-if="$root.featureItems.indexOf('secession') > -1">
         <i class="icon-secession"></i>
         <md-tooltip md-direction="left">secession</md-tooltip>
 </div>
-<div layout="row" layout-align="start center">
+<div layout="row" layout-align="start center" ng-if="$root.featureItems.indexOf('autonomy') > -1">
         <i class="icon-autonomy"></i>
         <md-tooltip md-direction="left">autonomy</md-tooltip>
 </div>
-<div layout="row" layout-align="start center">
+<div layout="row" layout-align="start center"  ng-if="$root.featureItems.indexOf('system') > -1">
         <i class="icon-system-ideology"></i>
         <md-tooltip md-direction="left">system/ideology</md-tooltip>
 </div>
-<div layout="row" layout-align="start center">
+<div layout="row" layout-align="start center"  ng-if="$root.featureItems.indexOf('national_power') > -1">
         <i class="icon-national-power"></i>
         <md-tooltip md-direction="left">national power</md-tooltip>
 </div>
-<div   layout="row" layout-align="start center">
+<div   layout="row" layout-align="start center"  ng-if="$root.featureItems.indexOf('international_power') > -1">
         <i class="icon-international-power"></i>
         <md-tooltip md-direction="left">international power</md-tooltip>
 </div>
-<div  layout="row" layout-align="start center">
+<div  layout="row" layout-align="start center"  ng-if="$root.featureItems.indexOf('subnational_predominace') > -1">
         <i class="icon-subnational-predominace"></i>
         <md-tooltip md-direction="left">subnational predominace</md-tooltip>
 </div>
-<div  layout="row" layout-align="start center">
+<div  layout="row" layout-align="start center"  ng-if="$root.featureItems.indexOf('resources') > -1">
         <i class="icon-resources"></i>
         <md-tooltip md-direction="left">resources</md-tooltip>
 </div>
-<div layout="row" layout-align="start center">
+<div layout="row" layout-align="start center"  ng-if="$root.featureItems.indexOf('others') > -1">
         <i class="icon-other-resources"></i>
         <md-tooltip md-direction="left">others</md-tooltip>
 </div>

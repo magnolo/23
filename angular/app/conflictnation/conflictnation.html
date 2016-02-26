@@ -1,4 +1,8 @@
 <div class="conflict">
+  <div layout-align="start center" class="back-button" layout="row" ng-click="$root.goBack()">
+			<ng-md-icon icon="chevron_left" style="fill:#4fb0e5"></ng-md-icon>
+			back
+	</div>
   <section class="header">
           <div layout-align="space-between " layout="column">
                   <div layout-align="space-between start" layout="column">
@@ -39,7 +43,7 @@
       <div>conflict</div>
       <div>intensity</div>
     </div>
-    <div ui-sref="app.conflict.index.details({id:conflict.id})" layout="row" layout-align="space-between center" class="conflict-item conflict{{conflict.int2015}}" ng-repeat="conflict in vm.nation.conflicts | orderBy:'int2015':true">
+    <div ui-sref="app.conflict.index.details({id:conflict.id})" layout="row" layout-align="space-between center" class="conflict-item conflict{{conflict.int2015}} list-anim" ng-repeat="conflict in vm.nation.conflicts | orderBy:'int2015':true">
       <div>{{conflict.title}}</div>
       <div>{{conflict.int2015}}</div>
     </div>

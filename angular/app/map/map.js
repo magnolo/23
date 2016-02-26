@@ -5,7 +5,7 @@
 		//
 		var vm = this;
 		var apiKey = VectorlayerService.keys.mapbox;
-
+		vm.toggleLayers = toggleLayers;
 		vm.defaults = {
 			//scrollWheelZoom: false,
 			minZoom: 2
@@ -29,6 +29,11 @@
 				}
 			}
 		};
+		vm.labelsLayer = L.tileLayer('https://{s}.tiles.mapbox.com/v4/magnolo.06029a9c/{z}/{x}/{y}.png?access_token=' + apiKey, {
+			noWrap: true,
+			continuousWorld: false,
+			name:'labels'
+		});
 		vm.maxbounds = {
 			southWest: {
 				lat: 90,
@@ -40,9 +45,27 @@
 			}
 		};
 		vm.controls = {
-			fullscreen: {
-				position: 'topleft'
-			}
+			custom: []
+		};
+		vm.layercontrol= {
+                    icons: {
+                      uncheck: "fa fa-toggle-off",
+                      check: "fa fa-toggle-on"
+                    }
+                }
+		function toggleLayers(overlayName){
+				leafletData.getMap('map').then(function(map) {
+						if(	vm.noLabel){
+						 map.removeLayer(vm.labelsLayer);
+						 	vm.noLabel = false;
+						}
+						else{
+							map.addLayer(vm.labelsLayer);
+							vm.labelsLayer.bringToFront();
+							vm.noLabel = true;
+						}
+				});
+
 		}
 		leafletData.getMap('map').then(function(map) {
 			VectorlayerService.setMap(map);
@@ -70,13 +93,10 @@
 				}
 			});
 			map.addLayer(VectorlayerService.setLayer(layer));
-			/*var labelsLayer = L.tileLayer('https://{s}.tiles.mapbox.com/v4/magnolo.06029a9c/{z}/{x}/{y}.png?access_token=' + apiKey, {
-				noWrap: true,
-				continuousWorld: false,
-				name:'labels'
-			});
-			map.addLayer(labelsLayer);*/
-			labelsLayer.bringToFront();
+
+		/*	map.addLayer(vm.labelsLayer);
+			vm.labelsLayer.bringToFront();
+				vm.noLabel = true;*/
 		});
 	});
 })();

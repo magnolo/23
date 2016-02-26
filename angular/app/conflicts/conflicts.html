@@ -1,8 +1,10 @@
 <div class="conflict">
 <section class="header" >
   <div layout="column" layout-align="space-between ">
-      <div layout-align="space-between start" layout="column">
+      <div layout-align="space-between start" layout="row">
         <img src="/images/hiik_logo.png" />
+        
+
       </div>
       <div layout-align="space-between center" layout="row">
           <span class="title">HIIK Conflict Barometer</span>
@@ -53,7 +55,7 @@
           <md-tooltip md-direction="right" md-delay="500">non-state actors without government involvement</md-tooltip>
         </div>
       </div>
-      <piechart ng-if="vm.ready" active-type="vm.active.type" active-conflict="vm.active.conflict" chart-data="vm.conflictTypes"></piechart>
+      <piechart ng-if="vm.ready" active-type="vm.active.type" active-conflict="vm.active.conflict" click-it="vm.toggleConflictFilter(type_id)" chart-data="vm.conflictTypes"></piechart>
   </div>
 </section>
 </div>

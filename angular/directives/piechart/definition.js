@@ -10,7 +10,8 @@
 			scope:{
 				data: '=chartData',
 				activeType: '=',
-				activeConflict: '='
+				activeConflict: '=',
+				clickIt:'&'
 			},
 			link: function( scope, element, attrs ){
 				//
@@ -67,7 +68,8 @@
 						.attr("d", arc2)
 		        .each(function(d) { this._current = d; })
 		        .style("fill", function(d) { return d.data.color; })
-		        .on("mouseover",mouseover).on("mouseout",mouseout);
+						.style('cursor', 'pointer')
+		        .on('click', mouseclick);
         // create function to update pie-chart. This will be used by histogram.
         pC.update = function(nD){
             piesvg.selectAll("path").data(pie(nD)).transition().duration(500)
@@ -75,6 +77,9 @@
         }
         // Utility function to be called on mouseover a pie slice.
 				var typeus = angular.copy(scope.activeType);
+				function mouseclick(d){
+					scope.clickIt({type_id:d.data.type_id});
+				}
         function mouseover(d){
             // call the update function of histogram with new data.
 						typeus = angular.copy(scope.activeType);

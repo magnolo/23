@@ -10,15 +10,19 @@
   width: 100%;
 }
 .doAnim-right.ng-enter {
-  -webkit-animation: slideInLeft 0.5s;
-  animation: slideInLeft 0.5s;
-  z-index: 1;
+  -webkit-animation: slideInLeft .5s;
+  animation: slideInLeft .5s;
+  -webkit-animation-delay: 0.1s;
+  animation-delay: 0.1s;
+  z-index: 2;
 }
 .doAnim-right.ng-leave {
-  -webkit-animation: fadeOutRight 0.75s;
-  animation: fadeOutRight 0.75s;
+  -webkit-animation: slideOutRight .5s;
+  animation: slideOutRight .5s;
   position: absolute;
-  z-index: 2;
+  -webkit-animation-delay: 0.1s;
+  animation-delay: 0.1s;
+  z-index: 1;
   top: 0;
 }
 .doAnim-hinge.ng-enter {
@@ -1287,6 +1291,23 @@ p.small-info:hover {
 .noHeader .Header {
   display: none;
 }
+#main-logo {
+  position: fixed;
+  bottom: 10px;
+  right: 0px;
+}
+#main-logo:hover {
+  -webkit-animation: tada 1s;
+  animation: tada 1s;
+}
+#main-logo a {
+  cursor: crosshair;
+  color: #fff;
+  text-decoration: none;
+}
+#main-logo a span {
+  font-size: 0.8em;
+}
 
 .m0 {
   margin: 0px;
@@ -1354,7 +1375,7 @@ md-toast[md-theme=warn] {
 #items-menu {
   position: fixed;
   right: 0px;
-  top: 7em;
+  top: 9em;
 }
 #items-menu .items-head {
   cursor: pointer;
@@ -1414,6 +1435,26 @@ md-toast[md-theme=warn] {
   color: #0e6377;
 }
 
+.conflict .back-button {
+  padding-left: 1em;
+  padding-top: .5em;
+  color: #4fb0e5;
+  cursor: pointer;
+}
+.conflict .back-button ng-md-icon {
+  position: relative;
+  top: 2px;
+}
+.conflict .back-button path {
+  fill: #4fb0e5;
+}
+.conflict .back-button:hover {
+  -webkit-animation: shake 10s;
+  animation: shake 10s;
+}
+.conflict i {
+  color: #4fb0e5;
+}
 .conflict .info-icon {
   cursor: pointer;
 }
@@ -2240,6 +2281,16 @@ div[ui-view='map'] {
 }
 .label-icon-number-selected {
   box-shadow: 0px 0px 0px 7px rgba(255, 140, 0, 0.6);
+}
+.map-sub-menu {
+  position: fixed;
+  top: 6em;
+  right: 1.5em;
+  background: #fff;
+  padding: .5em 0;
+  width: 32px;
+  text-align: center;
+  cursor: pointer;
 }
 
 

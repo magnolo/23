@@ -1,13 +1,14 @@
 (function () {
 	"use strict";
 
-	angular.module('app.controllers').controller('ConflictsCtrl', function ($timeout, $state, $rootScope, $scope, conflicts, nations, VectorlayerService, Restangular,DialogService) {
+	angular.module('app.controllers').controller('ConflictsCtrl', function ($timeout, $state, $rootScope, $scope, conflicts, nations, VectorlayerService, Restangular, DialogService, Fullscreen) {
 		//
 
 		var vm = this;
 		vm.ready = false;
 		vm.relations = [];
 		vm.showMethod = showMethod;
+		vm.goFullscreen = goFullscreen;
 		vm.linearScale = d3.scale.linear().domain([0, 5]).range([0, 256]);
 		vm.colors = ['#d4ebf7', '#87cceb', '#36a8c6', '#268399', '#0e6377'];
 		vm.typesColors = {
@@ -17,7 +18,7 @@
 		};
 		vm.active = {
 			conflict: [],
-			type: [1,2,3]
+			type: [1, 2, 3]
 		};
 		vm.toggleConflictFilter = toggleConflictFilter;
 		vm.conflictFilter = null;
@@ -26,14 +27,14 @@
 		activate();
 
 		function activate() {
-				$rootScope.greyed = true;
+			$rootScope.greyed = true;
 			VectorlayerService.setStyle(countriesStyle);
 			VectorlayerService.countryClick(countryClick);
-			nations.getList().then(function(response){
+			nations.getList().then(function (response) {
 				vm.nations = response;
 				VectorlayerService.setData(vm.nations, vm.colors, true);
 			});
-			conflicts.getList().then(function(response){
+			conflicts.getList().then(function (response) {
 				vm.conflicts = response;
 				calcIntensities();
 			});
@@ -43,7 +44,19 @@
 			//});
 		}
 
-		function setValues(){
+		function goFullscreen() {
+
+		 if (Fullscreen.isEnabled())
+				Fullscreen.cancel();
+		 else
+				Fullscreen.all();
+
+		 // Set Fullscreen to a specific element (bad practice)
+		 // Fullscreen.enable( document.getElementById('img') )
+
+	}
+		function setValues() {
+			vm.relations = [];
 			vm.conflictFilterCount = 0;
 			vm.conflictIntensities = {
 				veryLow: 0,
@@ -74,41 +87,45 @@
 				color: vm.colors[4]
 			}];
 
-					vm.conflictTypes = [{
-						type: 'interstate',
-						type_id: 1,
-						color: '#69d4c3',
-						count: 0
-					}, {
-						type: 'intrastate',
-						count: 0,
-							type_id: 2,
-						color: '#b7b7b7'
-					}, {
-						type: 'substate',
-						count: 0,
-							type_id: 3,
-						color: '#ff9d27'
-					}];
+			vm.conflictTypes = [{
+				type: 'interstate',
+				type_id: 1,
+				color: '#69d4c3',
+				count: 0
+			}, {
+				type: 'intrastate',
+				count: 0,
+				type_id: 2,
+				color: '#b7b7b7'
+			}, {
+				type: 'substate',
+				count: 0,
+				type_id: 3,
+				color: '#ff9d27'
+			}];
 
 		}
-		function showMethod(){
-			  DialogService.fromTemplate('conflictmethode');
+
+		function showMethod() {
+			DialogService.fromTemplate('conflictmethode');
 		}
+
 		function toggleConflictFilter(type) {
+
 			var i = vm.active.type.indexOf(type);
 			if (i > -1) {
-				vm.active.type.splice(i,1);
+				vm.active.type.splice(i, 1);
 			} else {
 				vm.active.type.push(type);
 			}
-			if(vm.active.type.length == 0){
-				vm.active.type = [1,2,3];
+			if (vm.active.type.length == 0) {
+				vm.active.type = [1, 2, 3];
 			}
 			calcIntensities();
 		}
-		function calcConflict(conflict){
-			vm.conflictFilterCount ++;
+
+		function calcConflict(conflict) {
+			vm.conflictFilterCount++;
 			switch (conflict.type_id) {
 			case 1:
 				vm.conflictTypes[0].count++;
@@ -145,34 +162,39 @@
 				break;
 			default:
 			}
+			addCountries(conflict.nations);
+		}
+		function addCountries(nations){
+			angular.forEach(nations, function(nat){
+				if(vm.relations.indexOf(nat.iso) == -1){
+					vm.relations.push(nat.iso);
+				}
+			});
 		}
 		function calcIntensities() {
 			setValues();
 			angular.forEach(vm.conflicts, function (conflict) {
-				if(vm.active.type.length){
-					if(vm.active.type.indexOf(conflict.type_id) > -1){
+				if (vm.active.type.length) {
+					if (vm.active.type.indexOf(conflict.type_id) > -1) {
 						calcConflict(conflict);
 					}
-				}
-				else{
+				} else {
 					calcConflict(conflict);
 				}
 			});
 			vm.ready = true;
+			//VectorlayerService.redraw();
+			VectorlayerService.paintCountries();
 		}
 
 		function countryClick(evt, t) {
-
 			var country = VectorlayerService.getNationByIso(evt.feature.properties['iso_a2']);
 			if (typeof country['intensity'] != "undefined") {
-
 				$state.go('app.conflict.index.nation', {
 					iso: country.iso
 				});
 			}
 		}
-
-
 
 		function countriesStyle(feature) {
 			var style = {};
@@ -182,35 +204,45 @@
 			var field = 'intensity';
 			var type = feature.type;
 			feature.selected = false;
-
-			switch (type) {
-			case 3: //'Polygon'
-				if (typeof nation[field] != "undefined" && nation[field] != null && iso) {
-					var colorPos = parseInt(vm.linearScale(parseFloat(nation[field]))) * 4; // parseInt(256 / vm.range.max * parseInt(nation[field])) * 4;
-					var color = 'rgba(' + VectorlayerService.palette[colorPos] + ', ' + VectorlayerService.palette[colorPos + 1] + ', ' + VectorlayerService.palette[colorPos + 2] + ',' + VectorlayerService.palette[colorPos + 3] + ')';
-					style.color = 'rgba(' + VectorlayerService.palette[colorPos] + ', ' + VectorlayerService.palette[colorPos + 1] + ', ' + VectorlayerService.palette[colorPos + 2] + ',0.6)'; //color;
-					style.outline = {
-						color: color,
-						size: 1
-					};
-					style.selected = {
-						color: 'rgba(' + VectorlayerService.palette[colorPos] + ', ' + VectorlayerService.palette[colorPos + 1] + ', ' + VectorlayerService.palette[colorPos + 2] + ',' + VectorlayerService.palette[colorPos + 3] + ')',
-						outline: {
-							color: 'rgba(66,66,66,0.9)',
-							size: 2
-						}
-					};
-
-				} else {
-					style.color = 'rgba(255,255,255,0)';
-					style.outline = {
-						color: 'rgba(255,255,255,0)',
-						size: 1
-					};
-
-				}
-				break;
+			if(vm.relations.indexOf(iso) == -1){
+				style.color = 'rgba(255,255,255,0)';
+				style.outline = {
+					color: 'rgba(255,255,255,0)',
+					size: 1
+				};
 			}
+			else{
+				switch (type) {
+				case 3: //'Polygon'
+					if (typeof nation[field] != "undefined" && nation[field] != null && iso) {
+						var colorPos = parseInt(vm.linearScale(parseFloat(nation[field]))) * 4; // parseInt(256 / vm.range.max * parseInt(nation[field])) * 4;
+						var color = 'rgba(' + VectorlayerService.palette[colorPos] + ', ' + VectorlayerService.palette[colorPos + 1] + ', ' + VectorlayerService.palette[colorPos + 2] + ',' + VectorlayerService.palette[colorPos + 3] + ')';
+						style.color = 'rgba(' + VectorlayerService.palette[colorPos] + ', ' + VectorlayerService.palette[colorPos + 1] + ', ' + VectorlayerService.palette[colorPos + 2] + ',0.6)'; //color;
+						style.outline = {
+							color: color,
+							size: 1
+						};
+						style.selected = {
+							color: 'rgba(' + VectorlayerService.palette[colorPos] + ', ' + VectorlayerService.palette[colorPos + 1] + ', ' + VectorlayerService.palette[colorPos + 2] + ',' + VectorlayerService.palette[colorPos + 3] + ')',
+							outline: {
+								color: 'rgba(66,66,66,0.9)',
+								size: 2
+							}
+						};
+
+					} else {
+						style.color = 'rgba(255,255,255,0)';
+						style.outline = {
+							color: 'rgba(255,255,255,0)',
+							size: 1
+						};
+
+					}
+					break;
+				}
+			}
+
+
 			return style;
 		};
 	});
