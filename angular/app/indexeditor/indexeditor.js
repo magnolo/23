@@ -10,7 +10,10 @@
 		vm.composits = indices;
 		vm.styles = styles;
 		vm.indicators = indicators;
-
+		//INDICATOR RELATED
+		vm.selectAllGroup = selectAllGroup;
+		vm.selectedItem = selectedItem;
+		vm.toggleSelection = toggleSelection;
 		vm.selection = {
 			indices:[],
 			indicators:[],
@@ -117,8 +120,8 @@
 			});
 			return false;
 		}
-		/*function selectedItem(item) {
-			return vm.selection.indexOf(item) > -1 ? true : false;
+		function selectedItem(item) {
+			return vm.selection.indicators.indexOf(item) > -1 ? true : false;
 		}
 		function selectAll(){
 			if(vm.selection.length){
@@ -132,21 +135,23 @@
 				});
 			}
 		}
+
+		function toggleSelection(item) {
+			var index = vm.selection.indicators.indexOf(item);
+			if (index > -1) {
+				return vm.selection.indicators.splice(index, 1);
+			} else {
+				return vm.selection.indicators.push(item);
+			}
+		}
 		function selectAllGroup(group){
-			vm.selection = [];
+			vm.selection.indicators = [];
 			angular.forEach(group, function(item){
-				vm.selection.push(item);
+				vm.selection.indicators.push(item);
 			});
 
 		}
-		function toggleSelection(item) {
-			var index = vm.selection.indexOf(item);
-			if (index > -1) {
-				return vm.selection.splice(index, 1);
-			} else {
-				return vm.selection.push(item);
-			}
-		}*/
+
 
 		function checkTabContent(index){
 			switch (index) {

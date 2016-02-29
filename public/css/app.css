@@ -1089,7 +1089,7 @@ md-tooltip {
 md-tooltip .md-content {
   white-space: normal;
   text-overflow: inherit;
-  background-color: #4fb0e5;
+  background-color: #006cb9;
 }
 .noselect {
   -webkit-touch-callout: none;
@@ -1409,32 +1409,6 @@ md-toast[md-theme=warn] {
   transform: scale(0.9);
 }
 
-.conflict-legend {
-  border-bottom: 1px solid #d7dddd;
-  padding-bottom: 0.5em;
-  margin-bottom: 0.5em;
-}
-.conflict-item {
-  margin: 0.5em 0;
-  margin-right: 1.5em;
-  cursor: pointer;
-}
-.conflict1 {
-  color: #d4ebf7;
-}
-.conflict2 {
-  color: #87cceb;
-}
-.conflict3 {
-  color: #36a8c6;
-}
-.conflict4 {
-  color: #268399;
-}
-.conflict5 {
-  color: #0e6377;
-}
-
 .conflict .back-button {
   padding-left: 1em;
   padding-top: .5em;
@@ -1553,6 +1527,32 @@ md-dialog-content p.column {
   -moz-column-count: 2;
   /* Firefox */
   column-count: 2;
+}
+
+.conflict-legend {
+  border-bottom: 1px solid #d7dddd;
+  padding-bottom: 0.5em;
+  margin-bottom: 0.5em;
+}
+.conflict-item {
+  margin: 0.5em 0;
+  margin-right: 1.5em;
+  cursor: pointer;
+}
+.conflict1 {
+  color: #d4ebf7;
+}
+.conflict2 {
+  color: #87cceb;
+}
+.conflict3 {
+  color: #36a8c6;
+}
+.conflict4 {
+  color: #268399;
+}
+.conflict5 {
+  color: #0e6377;
 }
 
 
