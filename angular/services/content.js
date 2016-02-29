@@ -96,7 +96,7 @@
 					 this.content.data = searchForItem(this.content.indices, id);
 				}
 				else{*/
-					return this.content.data = DataService.getOne('index/' + id)
+					return this.content.data = DataService.getOne('index/', id)
 				//}
 			},
 			removeItem: function(id){

@@ -15,7 +15,6 @@
 		activate();
 
 		function activate(){
-			console.log(vm.selection);
 			if(typeof vm.selection == "undefined"){
 				vm.selection = [];
 			}
@@ -40,9 +39,14 @@
 			}
 		}
 		function toggleSelection(item){
-			var i = vm.selection.indexOf(item);
-			if(i > -1){
-				vm.selection.splice(i, 1);
+			var index = -1;
+			angular.forEach(vm.selection, function(selected, i){
+				if(selected.id == item.id){
+					index = i;
+				}
+			});
+			if(index > -1){
+				vm.selection.splice(index, 1);
 			}
 			else{
 				vm.selection.push(item);
@@ -55,10 +59,17 @@
 		}
 
 		function selectedItem(item) {
-			if(vm.selection.indexOf(item) > -1){
+			var found = false;
+			angular.forEach(vm.selection, function(selected){
+				if(selected.id == item.id){
+					found = true;
+				}
+			});
+			return found;
+		/*	if(vm.selection.indexOf(angular.copy(item)) > -1){
 				return true;
 			}
-			return false;
+			return false;*/
 		}
 
 		/*function childSelected(children) {

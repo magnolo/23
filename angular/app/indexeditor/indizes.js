@@ -9,7 +9,7 @@
 		vm.scale = "";
 		vm.min = 10000000;
 		vm.max = 0;
-		vm.selected = 0;
+		vm.selected = [];
 		setActive();
     vm.options = {
       indizes:{
@@ -21,6 +21,21 @@
 						title: 'I am a group... name me'
 					};
 					vm.index.children.push(item);
+				},
+				deleteClick:function(){
+					console.log(vm);
+					angular.forEach(vm.selected,function(item, key){
+						ContentService.removeItem(item.id).then(function(data){
+							removeItem(item,vm.index.children);
+							vm.selected = [];
+						});
+					});
+				},
+				deleteDrop: function(event,item,external,type){
+					ContentService.removeItem(item.id).then(function(data){
+						removeItem(item,vm.index.children);
+						vm.selection = [];
+					});
 				}
       },
       withSave: true
@@ -30,9 +45,23 @@
 
 
 		function active(){
-			console.log(vm.index);
-		}
 
+		}
+		function removeItem(item, list){
+			angular.forEach(list, function(entry, key){
+				if(entry.id == item.id){
+					list.splice(key, 1);
+					return true;
+				}
+				if(entry.children){
+					var subresult = removeItem(item, entry.children);
+					if(subresult){
+						return subresult;
+					}
+				}
+			});
+			return false;
+		}
 		/*ContentService.getIndicatorData($state.params.id).then(function(data){
 			var base_color = '#ff0000';
 			if(typeof vm.indicator.style == "undefined"){

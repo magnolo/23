@@ -82,9 +82,10 @@ $api->version('v1', ['middleware' => 'api.auth'], function ($api) {
 
     $api->put('indicators/{id}', 'App\Http\Controllers\IndicatorController@update');
 
-    $api->put('index/{name}/{id}', 'App\Http\Controllers\ItemController@update');
+    $api->put('index/{id}', 'App\Http\Controllers\ItemController@update');
     $api->post('index','App\Http\Controllers\ItemController@create');
     $api->delete('index/{id}','App\Http\Controllers\ItemController@destroy');
+    $api->delete('me/indizes/{id}','App\Http\Controllers\ItemController@destroy');
 
     $api->post('data/tables', 'App\Http\Controllers\UserdataController@createDataTable');
     $api->post('data/tables/{table}/insert', 'App\Http\Controllers\UserdataController@insertDataToTable');

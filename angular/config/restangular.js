@@ -5,7 +5,7 @@
 		RestangularProvider
 		.setBaseUrl('/api/')
 		.setDefaultHeaders({ accept: "application/x.laravel.v1+json" })
-		.setDefaultHttpFields({cache: true})
+		.setDefaultHttpFields({cache: false})
 		.addResponseInterceptor(function(data,operation,what,url,response,deferred) {
         var extractedData;
         extractedData = data.data;

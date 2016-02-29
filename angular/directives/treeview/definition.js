@@ -5,7 +5,8 @@
 		var options = {
 			editWeight:false,
 			drag: false,
-			edit: false
+			edit: false,
+			children:'children'
 		};
 		return {
 			restrict: 'E',
@@ -17,7 +18,7 @@
 				items: '=',
 				item: '=?',
 				selection: '=?',
-				options:'=',
+				options:'=?',
 				click: '&'
 			},
 			replace:true,

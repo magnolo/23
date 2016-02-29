@@ -40,6 +40,7 @@
 							vm.selection.indices = [];
 						});
 					});
+					$state.go('app.index.editor.indizes');
 				}
 			},
 			categories:{

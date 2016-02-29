@@ -23,7 +23,8 @@
 			saveClick: save,
 			addClick: vm.options.indizes.addClick,
 			addContainerClick: vm.options.indizes.addContainerClick,
-			deleteDrop: removeItems
+			deleteDrop: vm.options.indizes.deleteDrop,
+			deleteClick: vm.options.indizes.deleteClick
 		};
 		activate();
 
@@ -59,7 +60,7 @@
 						toastr.success('Data successfully updated!', 'Successfully saved');
 						vm.item.isDirty = false;
 						vm.original = angular.copy(vm.item);
-						//$state.go('app.index.editor.indizes.data',{id:vm.item.name})
+						$state.go('app.index.editor.indizes.data',{id:vm.item.id,name:response.name})
 					}
 				});
 			}
@@ -69,7 +70,7 @@
 						toastr.success('Data successfully saved!', 'Successfully saved');
 						vm.item.isDirty = false;
 						vm.original = angular.copy(vm.item);
-						$state.go('app.index.editor.indizes.data',{id:response.name})
+						$state.go('app.index.editor.indizes.data',{id:response.id, name:response.name})
 					}
 				});
 			}

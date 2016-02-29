@@ -166,10 +166,12 @@ class ItemController extends Controller
 
         $index = array();
         if(is_numeric($id)){
-            $index = Item::find($id)->with('children', 'style', 'indicator', 'type', 'parent', 'categories')->first();
+            $index = Item::find($id);
+            $index = $index->load('children', 'style', 'indicator', 'type', 'parent', 'categories');
         }
         elseif(is_string($id)){
-          $index =  Item::where('name', $id)->with('children', 'style', 'indicator', 'type', 'parent', 'categories')->first();
+          $index =  Item::where('name', $id)->first();
+          $index->load('children', 'style', 'indicator', 'type', 'parent', 'categories');
         }
         //$index->style = $index->getStyle();
         return response()->api($index);
@@ -250,7 +252,7 @@ class ItemController extends Controller
       }
       return false;
     }
-    public function update(Request $request, $name, $id)
+    public function update(Request $request, $id)
     {
         //
         $cats = array();
@@ -270,8 +272,8 @@ class ItemController extends Controller
           $item->categories()->sync($cats);
         }
         $this->saveSubIndex($request->input('children'), $item);
-
-        return response()->api($item->save());
+        $item->save();
+        return response()->api($item);
     }
     /**
      * Remove the specified resource from storage.
@@ -293,8 +295,8 @@ class ItemController extends Controller
     public function destroy($id)
     {
         //
-        $item = Item::find($id)->with('children')->first();
-        //$this->deleteChildren($item);
+        $item = Item::find($id);
+        $this->deleteChildren($item);
         $item->delete();
         return response()->api($item);
     }

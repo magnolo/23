@@ -16,7 +16,7 @@
                   <h2 class="md-headline">Choose Categories</h2>
           </div>
           <div class="indicator-fields">
-                  <treeview items="vm.categories" item="vm.item" options="{drag:false, type:'categories'}"></treeview>
+                  <treeview items="vm.categories" selection="vm.item.categories" item="vm.item" options="{drag:false, type:'categories', 'children': 'categories', expanded: true}"></treeview>
           </div>
   </md-content>
 </div>
