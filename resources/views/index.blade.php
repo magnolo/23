@@ -33,10 +33,10 @@
         <div class="cssload-whirlpool"></div>
         <div class="cssload-text">23°</div>
     </div>
-    <div id="main-logo">
+    <!--<div id="main-logo">
     <a href="http://www.23degree.org" target="_blank"><img src="/images/23logo.svg" width="100" height="80" /><br>
     </a>
-  </div>
+  </div>-->
 
     <script src="{!! asset('js/vendor.js') !!}"></script>
     <script src="{!! asset('js/app.js') !!}"></script>

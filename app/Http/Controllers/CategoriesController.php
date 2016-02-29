@@ -142,5 +142,19 @@ class CategoriesController extends Controller
     public function destroy($id)
     {
         //
+          $categorie = Categorie::find($id);
+          $this->deleteChildren($categorie);
+          $categorie->delete();
+          return response()->api($categorie);
+    }
+    public function deleteChildren($item){
+      if(count($item->children) > 0){
+        foreach ($item->children as $key => $child) {
+          if(count($child->children) > 0 ){
+            $this->deleteChildren($child);
+          }
+          Item::find($child->id)->delete();
+        }
+      }
     }
 }

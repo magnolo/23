@@ -112,6 +112,9 @@
 				} else {
 					return this.content.category = DataService.getOne('categories/' + id).$object;
 				}
+			},
+			removeCategory: function(id){
+				return DataService.remove('categories/', id);
 			}
 
 		}

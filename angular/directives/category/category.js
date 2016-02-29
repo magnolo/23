@@ -28,7 +28,7 @@
 				}
 				else{
 					DataService.post('categories', vm.item).then(function (data) {
-						vm.categories.push(data);
+						//vm.categories.push(data);
 						//vm.item.categories.push(data);
 						toastr.success('New Category has been saved', 'Success');
 						vm.options.postDone(data);

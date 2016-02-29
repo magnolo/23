@@ -46,9 +46,24 @@
 			categories:{
 				drag:false,
 				type:'categories',
+				allowAdd:true,
+				allowDelete:true,
+				addClick:function(){
+					$state.go('app.index.editor.categories.category', {id:'new'})
+				},
 				itemClick: function(id, name){
 					$state.go('app.index.editor.categories.category', {id:id})
+				},
+				deleteClick:function(){
+					angular.forEach(vm.selection.categories,function(item, key){
+						ContentService.removeCategory(item.id).then(function(data){
+							removeItem(item,vm.categories);
+							vm.selection.categories = [];
+						});
+					});
+					$state.go('app.index.editor.categories');
 				}
+
 			},
 			styles:{
 				drag:false,
@@ -173,7 +188,7 @@
 		$scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
 			if(toState.name.indexOf('app.index.editor.indicators') != -1){
 				vm.selectedTab = 1;
-				activate(toParams);
+				//activate(toParams);
 			}
 			else if(toState.name.indexOf('app.index.editor.categories') != -1){
 				vm.selectedTab = 2;
