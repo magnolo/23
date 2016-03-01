@@ -19,6 +19,7 @@
 				item: '=?',
 				selection: '=?',
 				options:'=?',
+				active: '=?',
 				click: '&'
 			},
 			replace:true,

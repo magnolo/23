@@ -366,7 +366,7 @@
 				}
 			})
 			.state('app.index.show', {
-				url: '/:index',
+				url: '/:id/:name',
 				views: {
 					'sidebar@': {
 						templateUrl: '/views/app/index/info.html',
@@ -374,7 +374,7 @@
 						controllerAs: 'vm',
 						resolve: {
 							data: function(IndizesService, $stateParams) {
-								return IndizesService.fetchData($stateParams.index);
+								return IndizesService.fetchData($stateParams.id);
 							},
 							countries: function(CountriesService) {
 								return CountriesService.getData();

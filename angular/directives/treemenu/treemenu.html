@@ -6,13 +6,6 @@
 				<md-button class="md-fab md-mini md-primary doAnim-bottom" ng-if="vm.options.allowSave && vm.item.isDirty" ng-click="vm.options.saveClick()">
 								<md-icon class="material-icons">save</md-icon>
 				</md-button>
-				<md-button class="md-fab md-mini md-primary doAnim-bottom" ng-if="vm.options.allowAdd" ng-click="vm.options.addClick()">
-								<md-icon class="material-icons">add</md-icon>
-				</md-button>
-        <md-button ng-if="vm.options.allowAddContainer" class="md-fab md-mini md-primary doAnim-bottom" ng-click="vm.options.addContainerClick()">
-                <md-icon class="material-icons">note_add</md-icon>
-        </md-button>
-
 				<md-button ng-click="vm.options.deleteClick(vm.item)" class="md-fab md-mini md-warn doAnim-bottom" ng-if="vm.options.allowDelete && !vm.options.drag && vm.selection.length > 0">
 								<md-icon class="material-icons">delete</md-icon>
 				</md-button>
@@ -28,5 +21,13 @@
 												</li>
 								</ul>
 				</div>
+				<md-button class="md-fab md-mini md-primary doAnim-bottom" ng-if="vm.options.allowAdd" ng-click="vm.options.addClick()">
+								<md-icon class="material-icons">add</md-icon>
+				</md-button>
+        <md-button ng-if="vm.options.allowAddContainer" class="md-fab md-mini md-primary doAnim-bottom" ng-click="vm.options.addContainerClick()">
+                <md-icon class="material-icons">note_add</md-icon>
+        </md-button>
+
+
 
 </div>

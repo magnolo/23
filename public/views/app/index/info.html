@@ -27,14 +27,14 @@
 								<section ng-if="vm.structure.parent_id == 0" class="header" layout-align="space-between center" layout="row" ng-style="{'color':vm.display.selectedCat.color}">
 												<span class="title">{{vm.structure.title}}</span>
 												<span class="subtitle">{{vm.structure.full_name}}</span>
-												<md-button class="md-icon-button" ui-sref="app.index.show.info({index:vm.structure.name})">
+												<md-button class="md-icon-button" ui-sref="app.index.show.info({id:vm.structure.id,name:vm.structure.name})">
 															<i class="icon-acess-to-information"></i>
 												</md-button>
 								</section>
 								<section class="header" style="padding:1em" ng-if="vm.structure.parent_id != 0 && vm.data.length">
 									<div layout="row" layout-align="space-between center">
 											<div layout="row" layout-align="center center">
-												<div class="close-box" ng-click="goBack()" ui-sref="app.index.show.selected({index:vm.structure.parent.name,item:vm.current.iso})">
+												<div class="close-box" ng-click="goBack()" ui-sref="app.index.show.selected({id:vm.structure.parent.id,index:vm.structure.parent.name,item:vm.current.iso})">
 															<ng-md-icon icon="{{closeIcon || 'close'}}"  ng-mouseleave="closeIcon = 'close'" ng-mouseover="closeIcon = 'chevron_left'" options='{"rotation": "none", "duration":375}' size="32"></ng-md-icon>
 												</div>
 											</div>
@@ -46,7 +46,7 @@
 												<span class="title" style="font-size:1.2em;text-align:center;line-height:1em">{{vm.structure.title}}</span>
 											</div>
 											<div>
-												<span class="info-icon" ui-sref="app.index.show.info({index:vm.structure.name})">
+												<span class="info-icon" ui-sref="app.index.show.info({id:vm.structure.id,name:vm.structure.name})">
 																<ng-md-icon icon="info_outline"></ng-md-icon>
 												</span>
 											</div>

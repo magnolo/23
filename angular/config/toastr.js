@@ -4,15 +4,16 @@
     angular.module('app.config').config(function(toastrConfig){
         //
         angular.extend(toastrConfig, {
-          autoDismiss: false,
+          autoDismiss: true,
           containerId: 'toast-container',
-          maxOpened: 0,
+          maxOpened: 2,
           newestOnTop: true,
           positionClass: 'toast-bottom-right',
           preventDuplicates: false,
           preventOpenDuplicates: false,
           target: 'body',
-          closeButton: true
+          closeButton: true,
+          progressBar:true
         });
     });
 

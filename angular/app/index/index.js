@@ -102,7 +102,8 @@
 		function goToIndex(item){
 			console.log(item);
 			$state.go('app.index.show.selected',{
-				index:item.name,
+				id:item.id,
+				name:item.name,
 				item:$state.params['item']
 			});
 		}
@@ -188,7 +189,7 @@
 
 		//TODO: MOVE TO SERVICE
 		function fetchNationData(iso) {
-			DataService.getOne('index/' + $state.params.index, iso).then(function(data) {
+			DataService.getOne('index/' + $state.params.id, iso).then(function(data) {
 				vm.current.data = data;
 				mapGotoCountry(iso);
 			});
@@ -231,7 +232,8 @@
 					vm.bbox = data;
 				});
 				$state.go('app.index.show.selected', {
-					index: $state.params.index,
+					id: $state.params.id,
+					name: $state.params.name,
 					item: $state.params.item
 				})
 			}
@@ -457,13 +459,15 @@
 				vm.mvtSource.layers[vm.mvtCountryLayerGeom].features[n.iso].selected = true;
 				if ($state.current.name == 'app.index.show.selected' || $state.current.name == 'app.index.show') {
 					$state.go('app.index.show.selected', {
-						index: $state.params.index,
+						id: $state.params.id,
+						name: $state.params.name,
 						item: n.iso
 					});
 				}
 			} else {
 				$state.go('app.index.show', {
-					index: $state.params.index
+					id: $state.params.id,
+					name: $state.params.id
 				});
 			}
 		});
@@ -493,19 +497,22 @@
 			if (vm.current.iso) {
 				if ($state.params.countries) {
 					$state.go('app.index.show.selected.compare', {
-						index: n.name,
+						id: n.id,
+						name: n.name,
 						item: vm.current.iso,
 						countries: $state.params.countries
 					})
 				} else {
 					$state.go('app.index.show.selected', {
-						index: n.name,
+						id: n.id,
+						name: n.name,
 						item: vm.current.iso
 					})
 				}
 			} else {
 				$state.go('app.index.show', {
-					index: n.name
+					id: n.id,
+					name: n.name
 				})
 			}
 

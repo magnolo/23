@@ -380,7 +380,23 @@ md-list {
 }
 
 md-list-item {
+    position:relative;
+    /*&::before{
+      content:'';
+      width:0px;
+      height:80%;
+      position:absolute;
+      left:0px;
+      top:10%;
+      background-color: @base;
+      transition: width .5s ease;
+    }*/
     &.active {
-        background: @grey-light;
+        color: @base;
+        //color:#fff;
+        box-shadow: 0px 2px 10px rgba(0,0,0,0.2) !important;
+        /*&::before{
+          width:5px;
+        }*/
     }
 }

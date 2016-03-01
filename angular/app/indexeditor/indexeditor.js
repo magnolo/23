@@ -1,7 +1,7 @@
 (function () {
 	"use strict";
 
-	angular.module('app.controllers').controller('IndexeditorCtrl', function ($scope, $filter, $timeout,$state, indicators, indices, styles, categories, DataService,ContentService) {
+	angular.module('app.controllers').controller('IndexeditorCtrl', function ($scope, $filter, $timeout,$state, indicators, indices, styles, categories, DataService,ContentService, toastr) {
 		//
 		var vm = this;
 
@@ -10,10 +10,13 @@
 		vm.composits = indices;
 		vm.styles = styles;
 		vm.indicators = indicators;
+
 		//INDICATOR RELATED
 		vm.selectAllGroup = selectAllGroup;
 		vm.selectedItem = selectedItem;
 		vm.toggleSelection = toggleSelection;
+
+		vm.active = 0;
 		vm.selection = {
 			indices:[],
 			indicators:[],
@@ -55,6 +58,7 @@
 					$state.go('app.index.editor.categories.category', {id:'new'})
 				},
 				itemClick: function(id, name){
+
 					$state.go('app.index.editor.categories.category', {id:id})
 				},
 				deleteClick:function(){
@@ -191,6 +195,12 @@
 			vm.indicators = ContentService.fetchIndicators(vm.query);
 		});
 		$scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
+		  if(typeof toParams.id == "undefined"){
+				vm.active = 0;
+			}
+			else{
+				vm.active = toParams.id;
+			}
 			if(toState.name.indexOf('app.index.editor.indicators') != -1){
 				vm.selectedTab = 1;
 				//activate(toParams);

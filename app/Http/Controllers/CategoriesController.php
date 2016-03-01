@@ -153,7 +153,7 @@ class CategoriesController extends Controller
           if(count($child->children) > 0 ){
             $this->deleteChildren($child);
           }
-          Item::find($child->id)->delete();
+          Categorie::find($child->id)->delete();
         }
       }
     }

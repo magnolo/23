@@ -185,11 +185,11 @@ class ItemController extends Controller
 
 
     public function showByIso($id, $iso){
-      if(is_int($id)){
+      if(is_numeric($id)){
         $item = Item::findOrFail($id)->load('type', 'children');
       }
       elseif(is_string($id)){
-        $item = Item::where('name', $id)->with('type', 'children')->firstOrFail();
+        $item = Item::where('name', $id)->firstOrFail()->load('type', 'children');
       }
 
         $response = [
@@ -200,7 +200,7 @@ class ItemController extends Controller
     }
     public function showByYear($id, $year)
     {
-        if(is_int($id)){
+        if(is_numeric($id)){
           $item = Item::find($id)->with('type','children');
         }
         elseif(is_string($id)){
@@ -213,8 +213,8 @@ class ItemController extends Controller
 
     public function showLatestYear($id)
     {
-        if(is_int($id)){
-          $item = Item::find($id)->with('type', 'children');
+        if(is_numeric($id)){
+          $item = Item::find($id)->load('type', 'children');
         }
         elseif(is_string($id)){
           $item = Item::where('name', $id)->with('type', 'children')->firstOrFail()->load('type');

@@ -1,7 +1,5 @@
 <div class="md-toolbar-tools">
-	<h2 style="margin-left:0px;cursor:pointer" ui-sref="app.home">
-			<span class="logo"><i class="icon-23"></i></span>
-	</h2>
+
 	<md-button
 			ng-click="$root.sidebarOpen = !$root.sidebarOpen"
 			class="md-icon-button"
@@ -10,7 +8,7 @@
 	</md-button>
 	<!--<h2>
 		<span>{{current_page}}</span>
-	</h2>-->
+	</h2>
 	<ul class="inline-list menu-list">
 				<li>
 						<a href="">Human</a>
@@ -22,7 +20,11 @@
 									<a href="" ui-sref="app.index.show({index:'environmental-performance-index'})">Environment</a>
 					</li>
 
-	</ul>
+	</ul>-->
+	<span flex></span>
+	<h2 style="margin-left:0px;cursor:pointer" ui-sref="app.home">
+			<span class="logo"><i class="icon-23"></i></span>
+	</h2>
 	<span flex></span>
 		<md-menu ng-if="!$root.isAuthenticated()" md-position-mode="target-right target">
 	<md-button aria-label="Open user menu" class="md-primary md-border" ng-click="vm.openMenu($mdOpenMenu, $event)">Login</md-button>
@@ -30,14 +32,17 @@
 			<md-content layout-padding>
 
 			<form name="loginForm" novalidate="" ng-submit="vm.doLogin()">
-				<md-input-container class="md-has-icon md-block">
+				<md-input-container md-no-float class="md-icon-float md-block md-has-icon">
 					<!-- Use floating label instead of placeholder -->
+					<label>Email</label>
 					<ng-md-icon icon="person" ></ng-md-icon>
-					<input ng-model="vm.user.email" name="email" placeholder="Email" required type="email" >
+
+					<input ng-model="vm.user.email" name="email"  required type="email" >
 				</md-input-container>
-				<md-input-container class="md-has-icon md-block">
-					<ng-md-icon icon="lock"></ng-md-icon>
+				<md-input-container class="md-has-icon md-icon-float md-block">
 					<label>Password</label>
+					<ng-md-icon icon="lock"></ng-md-icon>
+
 					<input type="password" required name="password" ng-model="vm.user.password">
 				</md-input-container>
 				 <md-button layout-fill type="sumbit" class="md-border md-primary" >Login</md-button>
