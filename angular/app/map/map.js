@@ -1,7 +1,7 @@
 (function() {
 	"use strict";
 
-	angular.module('app.controllers').controller('MapCtrl', function(leafletData, VectorlayerService) {
+	angular.module('app.controllers').controller('MapCtrl', function($scope,leafletData,leafletMapEvents, VectorlayerService) {
 		//
 		var vm = this;
 		var apiKey = VectorlayerService.keys.mapbox;
@@ -93,7 +93,18 @@
 				}
 			});
 			map.addLayer(VectorlayerService.setLayer(layer));
+			/*map.on('click', function(){
+				alert('hello');
+			});
 
+            var mapEvents = leafletMapEvents.getAvailableMapEvents();
+            for (var k in mapEvents){
+                var eventName = 'leafletDirectiveMap.' + mapEvents[k];
+                console.log(mapEvents[k])
+                $scope.$on(eventName, function(event){
+                    console.log(event.name);
+                });
+            }
 		/*	map.addLayer(vm.labelsLayer);
 			vm.labelsLayer.bringToFront();
 				vm.noLabel = true;*/

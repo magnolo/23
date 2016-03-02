@@ -2671,15 +2671,6 @@ median .slider text {
 
 
 
-piechart {
-  position: relative;
-}
-piechart .inner-pie {
-  position: absolute;
-  left: 0px;
-  opacity: 0.4;
-}
-
 .dropzone {
   border: 2px dashed #ddd;
   padding: 2em;
@@ -2709,6 +2700,15 @@ piechart .inner-pie {
   top: 0.5em;
 }
 
+piechart {
+  position: relative;
+}
+piechart .inner-pie {
+  position: absolute;
+  left: 0px;
+  opacity: 0.4;
+}
+
 .bars .bg {
   fill: #ebebeb;
 }
@@ -2734,6 +2734,13 @@ piechart .inner-pie {
   fill: #afafaf;
 }
 
+.slide-toggle {
+  transition: all .5s;
+}
+.slide-toggle.ng-animate {
+  overflow: hidden;
+}
+
 .md-color-container.md-color-picker-preview {
   content: '';
   width: 24px;
@@ -2757,14 +2764,6 @@ piechart .inner-pie {
   display: -ms-flexbox;
   display: flex;
 }
-
-.slide-toggle {
-  transition: all .5s;
-}
-.slide-toggle.ng-animate {
-  overflow: hidden;
-}
-
 
 .section {
   padding: 30px;
@@ -2890,6 +2889,7 @@ piechart .inner-pie {
 .calculating .field-name-field-calculating-text {
   padding-right: 220px;
 }
+
 
 .trashcan ul {
   padding: 0;
