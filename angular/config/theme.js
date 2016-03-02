@@ -1,7 +1,7 @@
 (function(){
 	"use strict";
 
-	angular.module('app.config').config(function($mdThemingProvider) {
+	angular.module('app.config').config(function($mdThemingProvider,$mdGestureProvider) {
 		/* For more info, visit https://material.angularjs.org/#/Theming/01_introduction */
 /*	var neonTealMap = $mdThemingProvider.extendPalette('teal', {
     '500': '00ccaa',
@@ -31,6 +31,8 @@
 		.primaryPalette('bluer')
 		.accentPalette('grey')
 		.warnPalette('red');
+
+		 $mdGestureProvider.skipClickHijack();
 	});
 
 })();
