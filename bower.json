@@ -37,6 +37,7 @@
     "lodash": "3.10.1",
     "angular-filter": "~0.5.8",
     "angular-drag-and-drop-lists": "dndLists#^1.3.0",
-    "angular-fullscreen": "^1.0.1"
+    "angular-fullscreen": "^1.0.1",
+    "mapbox-gl-leaflet": "git@github.com:mapbox/mapbox-gl-leaflet.git#^0.0.1"
   }
 }
