@@ -109,6 +109,9 @@ class ConflictsController extends Controller
       $nations = $request->input('nations');
       $events = $request->input('events');
       \DB::transaction(function () use ($nations, $events) {
+        \DB::table('23_conflict_events')->truncate();
+        \DB::table('23_conflict_nation_events')->truncate();
+        \DB::table('23_conflict_nations')->truncate();
       foreach($events as $key => $event){
         $ce = new Conflictevent();
         $ce->id = $event['id'];

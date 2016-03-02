@@ -5,25 +5,21 @@
 		//
 		var vm = this;
 
-
 		vm.categories = categories;
 		vm.composits = indices;
 		vm.styles = styles;
 		vm.indicators = indicators;
-
-		//INDICATOR RELATED
-		vm.selectAllGroup = selectAllGroup;
-		vm.selectedItem = selectedItem;
-		vm.toggleSelection = toggleSelection;
+		vm.checkTabContent = checkTabContent;
 
 		vm.active = 0;
+		vm.selectedTab = 0;
 		vm.selection = {
 			indices:[],
 			indicators:[],
 			styles:[],
 			categories:[]
 		};
-		vm.selectedTab = 0;
+
 
 		vm.options = {
 			composits:{
@@ -42,11 +38,13 @@
 				deleteClick:function(){
 					angular.forEach(vm.selection.indices,function(item, key){
 						ContentService.removeItem(item.id).then(function(data){
-							removeItem(item,vm.composits);
+							if($state.params.id == item.id){
+								$state.go('app.index.editor.indizes');
+							}
 							vm.selection.indices = [];
 						});
 					});
-					$state.go('app.index.editor.indizes');
+					//$state.go('app.index.editor.indizes');
 				}
 			},
 			categories:{
@@ -64,11 +62,11 @@
 				deleteClick:function(){
 					angular.forEach(vm.selection.categories,function(item, key){
 						ContentService.removeCategory(item.id).then(function(data){
-							removeItem(item,vm.categories);
+						//	removeItem(item,vm.categories);
 							vm.selection.categories = [];
 						});
 					});
-					$state.go('app.index.editor.categories');
+					//$state.go('app.index.editor.categories');
 				}
 
 			},
@@ -78,83 +76,6 @@
 				withColor:true
 			}
 		};
-		vm.filter = {
-			sort:'title',
-			reverse:false,
-			list: 0,
-			published: false,
-			types: {
-				title: true,
-				style: false,
-				categories: false,
-				infographic: false,
-				description: false,
-			}
-		};
-		vm.search = {
-			query: '',
-			show: false
-		};
-		vm.openMenu = openMenu;
-		vm.toggleList = toggleList;
-		vm.checkTabContent = checkTabContent;
-
-
-		function toggleList(key){
-			if(vm.visibleList == key){
-				vm.visibleList = '';
-			}
-			else{
-				vm.visibleList = key;
-			}
-		}
-
-		function removeItem(item, list){
-			angular.forEach(list, function(entry, key){
-				if(entry.id == item.id){
-					list.splice(key, 1);
-					return true;
-				}
-				if(entry.children){
-					var subresult = removeItem(item, entry.children);
-					if(subresult){
-						return subresult;
-					}
-				}
-			});
-			return false;
-		}
-		function selectedItem(item) {
-			return vm.selection.indicators.indexOf(item) > -1 ? true : false;
-		}
-		function selectAll(){
-			if(vm.selection.length){
-				vm.selection = [];
-			}
-			else{
-				angular.forEach(vm.indicators, function(item){
-					if(vm.selection.indexOf(item) == -1){
-						vm.selection.push(item);
-					}
-				});
-			}
-		}
-
-		function toggleSelection(item) {
-			var index = vm.selection.indicators.indexOf(item);
-			if (index > -1) {
-				return vm.selection.indicators.splice(index, 1);
-			} else {
-				return vm.selection.indicators.push(item);
-			}
-		}
-		function selectAllGroup(group){
-			vm.selection.indicators = [];
-			angular.forEach(group, function(item){
-				vm.selection.indicators.push(item);
-			});
-
-		}
 
 
 		function checkTabContent(index){
@@ -164,7 +85,6 @@
 					break;
 				case 2:
 						$state.go('app.index.editor.categories');
-
 					break;
 				case 0:
 						if(typeof $state.params.id != "undefined"){
@@ -175,7 +95,6 @@
 						else{
 								$state.go('app.index.editor.indizes');
 						}
-
 					break;
 				case 3:
 
@@ -184,16 +103,7 @@
 
 			}
 		}
-		function openMenu($mdOpenMenu, ev) {
-			$mdOpenMenu(ev);
-		}
 
-		$scope.$watch('vm.search.query', function (query, oldQuery) {
-			if(query === oldQuery) return false;
-			vm.query = vm.filter.types;
-			vm.query.q = query;
-			vm.indicators = ContentService.fetchIndicators(vm.query);
-		});
 		$scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
 		  if(typeof toParams.id == "undefined"){
 				vm.active = 0;
@@ -210,7 +120,6 @@
 			}
 			else if(toState.name.indexOf('app.index.editor.indizes') != -1){
 				vm.selectedTab = 0;
-
 			}
 		});
 	});

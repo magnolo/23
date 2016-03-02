@@ -27,7 +27,30 @@ body {
     bottom: 10px;
     }
     > md-content{
-      border-top:1px solid @base-light;
+      //border-top:1px solid @base-light;
+      position:relative;
+      &::before{
+        content:'';
+        width:100%;
+        left:0;
+        height:1px;
+        position:absolute;
+        top:-1px;
+        border-bottom:1px solid @grey-light;
+        z-index: 61;
+        transition: all .35s ease;
+        transition-delay: .1s;
+      }
+    }
+    &.loggedIn{
+      > md-content{
+
+        &::before{
+          width:calc(~"100% - 47px");
+          left:47px;
+
+        }
+      }
     }
 }
 
@@ -186,10 +209,10 @@ p{
       }
     }
   }
-  .Sidebar{
+  #sidebar{
     position:absolute !important;
     top:1em;
-    left:1em;
+    left:calc(~'48px + 1em');
     bottom:auto;
     max-height: calc(~'100% - 2em');
     overflow-x:hidden;

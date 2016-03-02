@@ -14,13 +14,16 @@
     <![endif]-->
 </head>
 
-<body ng-class="{'noHeader': $root.noHeader, 'greyed': $root.greyed, 'loose': $root.looseLayout, 'sidebar-closed': !$root.sidebarOpen, 'rowed': $root.rowed}" layout="column">
+<body ng-class="{'loggedIn': $root.isAuthenticated(), 'noHeader': $root.noHeader, 'greyed': $root.greyed, 'loose': $root.looseLayout, 'sidebar-closed': !$root.sidebarOpen, 'rowed': $root.rowed}" layout="column">
     <md-toolbar class="Header md-accent slide-toggle" tabindex="-1" ng-if="!$root.noHeader">
         <header ui-view="header"></header>
     </md-toolbar>
     <md-content layout="row" flex md-scroll-y>
-        <md-sidenav id="sidebar" class="Sidebar md-sidenav-left md-whiteframe-z1" md-component-id="left" md-is-locked-open="$root.sidebarOpen" tabindex="-1" md-scroll-y>
-            <md-content class="Sidebar-pages md-default-theme " flex  doAnim-right ui-view="sidebar"  md-scroll-y></md-content>
+      <md-sidenav id="sidemenu" class="md-sidenav-left" md-component-id="leftMenu" md-is-locked-open="$root.isAuthenticated()" tabindex="-1" md-scroll-y>
+          <md-content flex  doAnim-right ui-view="sidemenu"  md-scroll-y layout="column" class="flex" layout-fill layout-align="space-between none"></md-content>
+      </md-sidenav>
+        <md-sidenav id="sidebar" class="md-sidenav-left md-whiteframe-z1" md-component-id="left" md-is-locked-open="$root.sidebarOpen" tabindex="-1" md-scroll-y>
+            <md-content flex doAnim-right ui-view="sidebar"  md-scroll-y></md-content>
         </md-sidenav>
         <md-content layout="column" flex role="main" tabindex="-1" md-scroll-y>
             <div ui-view="map" class="Map_Container" id="map" flex></div>

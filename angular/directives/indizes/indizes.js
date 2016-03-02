@@ -60,6 +60,7 @@
 						toastr.success('Data successfully updated!', 'Successfully saved');
 						vm.item.isDirty = false;
 						vm.original = angular.copy(vm.item);
+						ContentService.updateItem(response);
 						$state.go('app.index.editor.indizes.data',{id:vm.item.id,name:response.name})
 					}
 				});
@@ -70,6 +71,7 @@
 						toastr.success('Data successfully saved!', 'Successfully saved');
 						vm.item.isDirty = false;
 						vm.original = angular.copy(vm.item);
+						ContentService.addItem(response);
 						$state.go('app.index.editor.indizes.data',{id:response.id, name:response.name})
 					}
 				});

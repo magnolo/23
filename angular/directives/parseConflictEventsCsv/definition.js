@@ -62,7 +62,12 @@
 									default:
 
 								}
-								scope.events.push(row.data[0]);
+								if(row.errors.length == 0){
+									scope.events.push(row.data[0]);
+								}
+								else{
+									console.log(row);
+								}
 							},
 							complete:function(){
 								scope.$apply();

@@ -23,12 +23,18 @@
 						templateUrl: getView('map'),
 						controller: 'MapCtrl',
 						controllerAs: 'vm'
+					},
+					'sidemenu@':{
+						templateUrl: getView('sidemenu'),
+						controller: 'SidemenuCtrl',
+						controllerAs: 'vm'
 					}
 				}
 			})
 			.state('app.home', {
 				url: '/',
 				views: {
+
 					'sidebar@': {
 						templateUrl: getView('home'),
 						controller: 'HomeCtrl',

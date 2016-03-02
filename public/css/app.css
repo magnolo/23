@@ -1046,16 +1046,47 @@ md-sidenav {
   -ms-flex-direction: column;
   flex-direction: column;
   z-index: 60;
-  width: 370px;
-  min-width: 370px;
-  max-width: 370px;
   bottom: 0;
   overflow: auto;
 }
-md-sidenav.md-locked-open {
+md-sidenav#sidebar.md-locked-open {
   width: 370px;
   min-width: 370px;
   max-width: 370px;
+}
+md-sidenav#sidemenu.md-locked-open {
+  width: 48px;
+  min-width: 48px;
+  max-width: 48px;
+}
+md-sidenav#sidemenu md-list md-list-item {
+  border: 0;
+  padding-left: 0px;
+  min-width: 48px;
+  cursor: pointer;
+  /*&.active{
+            background-color:@base;
+            color:#fff;
+            md-icon{
+              color:#fff;
+            }
+          }*/
+}
+md-sidenav#sidemenu md-list md-list-item .md-no-style.md-button {
+  padding-left: 0px;
+  min-width: 48px;
+}
+md-sidenav#sidemenu md-list md-list-item > md-icon:first-child:not(.md-avatar-icon) {
+  margin: 11px;
+}
+md-sidenav#sidemenu md-list .md-list-item-inner > md-icon:first-child:not(.md-avatar-icon) {
+  margin: 11px;
+}
+md-sidenav#sidemenu md-list .md-button {
+  margin: 0px;
+  padding: 0px;
+  min-width: 48px;
+  min-height: 48px;
 }
 .md-subheader .md-subheader-inner {
   font-size: 20px;
@@ -1134,7 +1165,23 @@ body > canvas {
   bottom: 10px;
 }
 body > md-content {
-  border-top: 1px solid rgba(0, 107, 185, 0.4);
+  position: relative;
+}
+body > md-content::before {
+  content: '';
+  width: 100%;
+  left: 0;
+  height: 1px;
+  position: absolute;
+  top: -1px;
+  border-bottom: 1px solid #d7dddd;
+  z-index: 61;
+  transition: all .35s ease;
+  transition-delay: .1s;
+}
+body.loggedIn > md-content::before {
+  width: calc(100% - 47px);
+  left: 47px;
 }
 .Page-name {
   color: #006bb9;
@@ -1256,10 +1303,10 @@ p.small-info:hover {
 .loose .Page section.table {
   height: calc(100% - 2em);
 }
-.loose .Sidebar {
+.loose #sidebar {
   position: absolute !important;
   top: 1em;
-  left: 1em;
+  left: calc(48px + 1em);
   bottom: auto;
   max-height: calc(100% - 2em);
   overflow-x: hidden;
@@ -1368,6 +1415,16 @@ md-toast[md-theme=warn] {
 }
 
 
+.conflict-icon {
+  color: #4fb0e5;
+  font-size: 1.1em;
+  margin-bottom: 1em;
+}
+.conflict-icon i {
+  margin-right: .5em;
+  font-size: 2em;
+}
+
 #items-menu {
   position: fixed;
   right: 0px;
@@ -1403,16 +1460,6 @@ md-toast[md-theme=warn] {
   opacity: 0.5;
   -webkit-transform: scale(0.9);
   transform: scale(0.9);
-}
-
-.conflict-icon {
-  color: #4fb0e5;
-  font-size: 1.1em;
-  margin-bottom: 1em;
-}
-.conflict-icon i {
-  margin-right: .5em;
-  font-size: 2em;
 }
 
 .conflict-legend {
@@ -1571,6 +1618,7 @@ md-dialog-content p.column {
 .Header md-toolbar {
   height: 48px;
   min-height: 48px;
+  padding-left: 12px;
 }
 .Header a {
   color: #006bb9;
@@ -1907,13 +1955,13 @@ md-menu-bar {
 }
 
 
+
 .md-subheader.filled .md-subheader-inner {
   padding: 0px;
 }
 .md-subheader.filled .md-subheader-inner md-toolbar {
   padding-left: 1em;
 }
-
 
 md-list-item.md-2-line {
   min-height: 62px;
@@ -2224,7 +2272,6 @@ md-list-item.active {
 
 
 
-
 div[ui-view='map'] {
   position: absolute;
   width: 100%;
@@ -2317,6 +2364,7 @@ div[ui-view='map'] {
   cursor: pointer;
 }
 
+
 /*.Sidebar {
 	position: fixed !important;
 	top: 0;
@@ -2373,6 +2421,7 @@ div[ui-view='map'] {
 
 
 
+
 .bar-viewer {
   margin: 0 1em;
 }
@@ -2397,7 +2446,6 @@ div[ui-view='map'] {
 .bar-viewer .sub-bar.titled {
   margin-left: 2em;
 }
-
 
 .bubbles {
   overflow: hidden;
@@ -2467,6 +2515,7 @@ div[ui-view='map'] {
   transition: -webkit-transform 0.3s ease-out;
   transition: transform 0.3s ease-out;
 }
+
 
 
 
@@ -2564,6 +2613,7 @@ div[ui-view='map'] {
 }
 
 
+
 median {
   overflow: hidden;
   border-radius: 20px;
@@ -2621,6 +2671,15 @@ median .slider text {
 
 
 
+piechart {
+  position: relative;
+}
+piechart .inner-pie {
+  position: absolute;
+  left: 0px;
+  opacity: 0.4;
+}
+
 .dropzone {
   border: 2px dashed #ddd;
   padding: 2em;
@@ -2650,15 +2709,6 @@ median .slider text {
   top: 0.5em;
 }
 
-piechart {
-  position: relative;
-}
-piechart .inner-pie {
-  position: absolute;
-  left: 0px;
-  opacity: 0.4;
-}
-
 .bars .bg {
   fill: #ebebeb;
 }
@@ -2684,13 +2734,6 @@ piechart .inner-pie {
   fill: #afafaf;
 }
 
-.slide-toggle {
-  transition: all .5s;
-}
-.slide-toggle.ng-animate {
-  overflow: hidden;
-}
-
 .md-color-container.md-color-picker-preview {
   content: '';
   width: 24px;
@@ -2713,6 +2756,13 @@ piechart .inner-pie {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+}
+
+.slide-toggle {
+  transition: all .5s;
+}
+.slide-toggle.ng-animate {
+  overflow: hidden;
 }
 
 

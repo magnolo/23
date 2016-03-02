@@ -1,0 +1,34 @@
+
+<md-list >
+				<md-list-item ui-sref="app.home" ui-sref-active="active">
+								<md-icon class="material-icons md-primary">home</md-icon>
+								<md-tooltip md-direction="right">Home</p>
+				</md-list-item>
+				<md-list-item ui-sref="app.index.list" ui-sref-active="active">
+								<md-icon class="material-icons md-primary">view_list</md-icon>
+								<md-tooltip md-direction="right">Browse Full List</p>
+				</md-list-item>
+				<md-list-item ng-if="$root.isAuthenticated()" ui-sref="app.index.mydata" ui-sref-active="active">
+								<md-icon class="material-icons md-rounded md-primary">fingerprint</md-icon>
+								<md-tooltip md-direction="right">Your Data</p>
+
+				</md-list-item>
+				<md-list-item ng-if="$root.isAuthenticated()" ui-sref="app.index.create" ui-sref-active="active">
+								<md-icon class="material-icons md-rounded md-primary">file_upload</md-icon>
+								<md-tooltip md-direction="right">Upload new data</p>
+
+				</md-list-item>
+				<md-list-item ng-if="$root.isAuthenticated()" ui-sref="app.index.editor" ui-sref-active="active">
+								<md-icon class="material-icons md-primary">edit</md-icon>
+								<md-tooltip md-direction="right">Edit exisiting data</md-tooltip>
+
+				</md-list-item>
+</md-list>
+<md-list >
+				<md-list-item>
+            <md-button>
+								<md-icon class="material-icons md-primary">help</md-icon>
+            </md-button>
+								<md-tooltip md-direction="right">Help</p>
+				</md-list-item>
+</md-list>

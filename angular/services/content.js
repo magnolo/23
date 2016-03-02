@@ -45,9 +45,7 @@
 			},
 			getIndices: function(filter){
 				return this.fetchIndices(filter);
-				if (this.content.indices.length == 0) {
 
-				}
 				return this.content.indices;
 			},
 			getCategories: function(filter) {
@@ -99,8 +97,49 @@
 					return this.content.data = DataService.getOne('index/', id)
 				//}
 			},
+			removeContent:function(id, list){
+				var that = this;
+				angular.forEach(list, function(entry, key){
+					if(entry.id == id){
+						list.splice(key, 1);
+						return true;
+					}
+					if(entry.children){
+						var subresult = that.removeContent(id, entry.children);
+						if(subresult){
+							return subresult;
+						}
+					}
+				});
+				return false;
+			},
+			findContent:function(id, list){
+				var found = null;
+				var that = this;
+				angular.forEach(list, function(entry, key){
+					if(entry.id == id){
+						found = entry;
+					}
+					if(entry.children && !found){
+						var subresult = that.findContent(id, entry.children);
+						if(subresult){
+							return subresult;
+						}
+					}
+				});
+				return found;
+			},
+			addItem: function(item){
+				this.content.indices.push(item)
+			},
 			removeItem: function(id){
+				this.removeContent(id, this.content.indices);
 				return DataService.remove('index/', id);
+			},
+			updateItem: function(item){
+				var entry = this.findContent(item.id, this.content.indices);
+				console.log(entry, item);
+				return entry = item;
 			},
 			getCategory: function(id) {
 				if (this.content.categories.length) {

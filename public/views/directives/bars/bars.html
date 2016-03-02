@@ -8,7 +8,7 @@
           <span>{{main.title}}</span>
       </div>
     </div>
-    <div class="sub-bar" ng-click="vm.options.onClick(item)" ng-class="{'titled': vm.options.titled}" ng-repeat="item in vm.structure | orderBy: item.name">
+    <div class="sub-bar" ng-click="vm.options.onClick(item)" ng-class="{'titled': vm.options.titled}" ng-repeat="item in vm.structure | orderBy: 'name'">
       <div class="bar">
           <div class="bar-value" ng-style="{width:vm.width(item)+'%', 'background-color' : vm.options.color}"></div>
       </div>

@@ -14,19 +14,5 @@
 								<p>Browse Full List</p>
 
 						</md-list-item>
-						<md-list-item ng-if="$root.isAuthenticated()"  ui-sref="app.index.mydata">
-							<md-icon class="material-icons md-rounded md-primary">fingerprint</md-icon>
-							<p>Your Data</p>
-
-					</md-list-item>
-					<md-list-item ng-if="$root.isAuthenticated()"  ui-sref="app.index.create">
-						<md-icon class="material-icons md-rounded md-primary">file_upload</md-icon>
-						<p>Upload new data</p>
-
-				</md-list-item>
-				<md-list-item  ng-if="$root.isAuthenticated()"  ui-sref="app.index.editor">
-					<md-icon class="material-icons md-primary">edit</md-icon>
-					<p>Edit exisiting data</p>
-
-			</md-list-item>
+					
         </md-list>
