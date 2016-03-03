@@ -1061,8 +1061,8 @@ md-sidenav#sidebar.md-locked-open {
     width: 100%;
   }
   md-sidenav#sidebar.md-closed {
-    -webkit-transform: translate3d(0, 92%, 0);
-    transform: translate3d(0, 92%, 0);
+    -webkit-transform: translate3d(0, calc(100% - 62px), 0);
+    transform: translate3d(0, calc(100% - 62px), 0);
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
@@ -1071,10 +1071,43 @@ md-sidenav#sidebar.md-locked-open {
     width: 100%;
     overflow: visible;
   }
+  md-sidenav#sidebar.md-closed > md-content {
+    overflow: visible;
+  }
   md-sidenav#sidebar.md-closed .menu-toggler {
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
+  }
+  md-sidenav#sidebar.md-closed .back-button {
+    display: none;
+  }
+  md-sidenav#sidebar.md-closed .hideOnClosed {
+    display: none;
+  }
+  md-sidenav#sidebar.md-closed .tinyOnClosed {
+    font-size: 0.7em;
+  }
+  md-sidenav#sidebar.md-closed .tinyOnClosed.title {
+    margin-top: 0.8em;
+    margin-bottom: 0;
+  }
+  md-sidenav#sidebar.md-closed .noPaddingOnClosed {
+    padding-top: 0px !important;
+    padding-bottom: 0px;
+    border: 0px;
+  }
+  md-sidenav#sidebar.md-closed .noPaddingOnClosed > div {
+    border: 0px;
+  }
+  md-sidenav#sidebar.md-closed .noPaddingOnClosed::after {
+    border: 0;
+  }
+  md-sidenav#sidebar.md-closed section.header {
+    padding-top: 1em;
+  }
+  md-sidenav#sidebar.md-closed section.header img {
+    display: none;
   }
 }
 md-sidenav#sidemenu.md-locked-open {
@@ -1172,6 +1205,9 @@ html,
 body {
   width: 100%;
   height: 100%;
+}
+html {
+  /* enough space to scroll up to get fullscreen on iOS8 */
 }
 body {
   padding-bottom: 0 !important;
@@ -1372,23 +1408,6 @@ p.small-info:hover {
 .noHeader .Header {
   display: none;
 }
-#main-logo {
-  position: fixed;
-  bottom: 10px;
-  right: 0px;
-}
-#main-logo:hover {
-  -webkit-animation: tada 1s;
-  animation: tada 1s;
-}
-#main-logo a {
-  cursor: crosshair;
-  color: #fff;
-  text-decoration: none;
-}
-#main-logo a span {
-  font-size: 0.8em;
-}
 .menu-toggler {
   position: absolute;
   width: 100%;
@@ -1405,6 +1424,26 @@ p.small-info:hover {
 }
 .mobile-window-switcher path {
   fill: #fff ;
+}
+.columned {
+  -webkit-column-count: 3;
+  /* Chrome, Safari, Opera */
+  -moz-column-count: 3;
+  /* Firefox */
+  column-count: 3;
+}
+.social-buttons {
+  margin-top: .5em;
+  color: #004288;
+  width: 100px;
+  border-top: 1px solid;
+}
+.social-buttons a {
+  text-decoration: none;
+  color: #004288;
+}
+.social-buttons a i {
+  font-size: 1.5em;
 }
 
 .m0 {
@@ -1511,6 +1550,11 @@ md-toast[md-theme=warn] {
   opacity: 0.5;
   -webkit-transform: scale(0.9);
   transform: scale(0.9);
+}
+@media screen and (max-width: 600px) {
+  #items-menu {
+    display: none;
+  }
 }
 
 .conflict-legend {
@@ -1647,7 +1691,7 @@ md-toast[md-theme=warn] {
 .conflict .info-text .text.fullHeight {
   height: 195px;
 }
-md-dialog-content p.column {
+md-dialog-content p.columned {
   line-height: 1.25em;
   text-align: justify;
   -webkit-column-gap: 2em;
@@ -1657,6 +1701,24 @@ md-dialog-content p.column {
   -moz-column-count: 2;
   /* Firefox */
   column-count: 2;
+}
+@media screen and (max-width: 800px) {
+  md-dialog-content p.columned {
+    -webkit-column-count: 1;
+    /* Chrome, Safari, Opera */
+    -moz-column-count: 1;
+    /* Firefox */
+    column-count: 1;
+  }
+}
+@media screen and (min-width: 1400px) {
+  md-dialog-content p.columned {
+    -webkit-column-count: 3;
+    /* Chrome, Safari, Opera */
+    -moz-column-count: 3;
+    /* Firefox */
+    column-count: 3;
+  }
 }
 
 
@@ -1816,7 +1878,6 @@ md-menu-bar {
 }
 .info-box .header.info {
   border: 0;
-  padding: 1em 2em;
 }
 .info-box .header.info .title {
   line-height: 1.2em;
@@ -2323,6 +2384,32 @@ md-list-item.active {
 
 
 
+#main-logo {
+  position: fixed;
+  bottom: 0px;
+  right: 0px;
+  text-align: center;
+  /*&:hover{
+    -webkit-animation: tada 1s;
+    -moz-animation: tada 1s;
+    -ms-animation: tada 1s;
+    animation: tada 1s;
+  }*/
+}
+#main-logo a {
+  cursor: pointer;
+  color: #004288;
+  text-decoration: none;
+}
+#main-logo a span {
+  font-size: 0.8em;
+}
+@media screen and (max-width: 600px) {
+  #main-logo {
+    bottom: 80px;
+  }
+}
+
 div[ui-view='map'] {
   position: absolute;
   width: 100%;
@@ -2413,6 +2500,9 @@ div[ui-view='map'] {
   width: 32px;
   text-align: center;
   cursor: pointer;
+}
+.noHeader .map-sub-menu {
+  top: 6em;
 }
 
 

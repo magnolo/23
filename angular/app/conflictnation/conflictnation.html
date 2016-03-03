@@ -3,7 +3,7 @@
 			<ng-md-icon icon="chevron_left" style="fill:#4fb0e5"></ng-md-icon>
 			back
 	</div>
-  <section class="header">
+  <section class="header noPaddingOnClosed">
           <div layout-align="space-between " layout="column">
                   <div layout-align="space-between start" layout="column">
                           <a ui-sref="app.conflict.index">
@@ -11,10 +11,10 @@
                           </a>
                   </div>
                   <div layout-align="space-between center" layout="row">
-                          <span class="title">
+                          <span class="title tinyOnClosed">
                                   <a ui-sref="app.conflict.index">HIIK Conflict Barometer</a>
                           </span>
-                          <span class="info-icon"  ng-click="vm.showMethod()">
+                          <span class="info-icon hideOnClosed"  ng-click="vm.showMethod()">
                                   <md-icon>
                                           <i class="icon-acess-to-information"></i>
                                   </md-icon>
@@ -22,7 +22,7 @@
                   </div>
           </div>
   </section>
-<section >
+<section class="noPaddingOnClosed">
   <h3 class="main-title">{{vm.nation.country}}</h3>
 </section>
 <section >

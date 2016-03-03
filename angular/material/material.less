@@ -324,14 +324,49 @@ md-sidenav {
         width:100%;
 
         &.md-closed{
-          transform:translate3d(0, 92%, 0);
+          transform:translate3d(0, calc(~'100% - 62px'), 0);
           display: flex;
           min-width:100%;
           max-width: 100%;
           width:100%;
-          overflow:visible;
+            overflow:visible;
+          > md-content{
+            overflow:visible;
+          }
           .menu-toggler{
             display:flex;
+          }
+          .back-button{
+            display:none;
+          }
+          .hideOnClosed{
+            display:none;
+          }
+          .tinyOnClosed{
+            font-size:0.7em;
+            &.title{
+              margin-top:0.8em;
+              margin-bottom:0;
+            }
+          }
+          .noPaddingOnClosed{
+            padding-top:0px !important;
+            padding-bottom:0px;
+            border:0px;
+            > div{
+              border:0px;
+            }
+            &::after{
+              border:0;
+            }
+          }
+          section{
+            &.header{
+              padding-top:1em;
+              img{
+                display:none;
+              }
+            }
           }
         }
       }

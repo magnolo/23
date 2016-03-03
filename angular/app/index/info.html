@@ -50,28 +50,28 @@ vm.structure.style.base_color || 'rgba(128, 243, 198,1)'{
 								<div class="cssload-whirlpool"></div>
 								<div class="cssload-text">23°</div>
 				</div>
-				<section class="header" layout-align="space-between center" layout="row" ng-if="vm.structure.parent_id == 0" ng-style="{'color':vm.display.selectedCat.color}">
-								<span class="title">{{vm.structure.title}}</span>
-								<span class="subtitle">{{vm.structure.full_name}}</span>
-								<md-button class="md-icon-button" ui-sref="app.index.show.info({id:vm.structure.id,name:vm.structure.name})">
+				<section class="header noPaddingOnClosed"  layout-align="space-between center" layout="row" ng-if="vm.structure.parent_id == 0" ng-style="{'color':vm.display.selectedCat.color}">
+								<span class="title " ng-class="{'tinyOnClosed': vm.current && vm.data.length }">{{vm.structure.title}}</span>
+								<span class="subtitle hideOnClosed">{{vm.structure.full_name}}</span>
+								<md-button class="md-icon-button hideOnClosed" ui-sref="app.index.show.info({id:vm.structure.id,name:vm.structure.name})">
 												<i class="icon-acess-to-information"></i>
 								</md-button>
 				</section>
-				<section class="header" ng-if="vm.structure.parent_id != 0 && vm.data.length" style="padding:1em">
+				<section class="header noPaddingOnClosed" ng-if="vm.structure.parent_id != 0 && vm.data.length">
 								<div layout-align="space-between center" layout="row">
-												<div layout-align="center center" layout="row">
+												<div layout-align="center center" class="hideOnClosed" layout="row">
 																<div class="close-box" ng-click="goBack()" ui-sref="app.index.show.selected({id:vm.structure.parent.id,index:vm.structure.parent.name,item:vm.current.iso})">
 																				<ng-md-icon icon="{{closeIcon || 'close'}}" ng-mouseleave="closeIcon = 'close'" ng-mouseover="closeIcon = 'chevron_left'" options='{"rotation": "none", "duration":375}' size="32"></ng-md-icon>
 																</div>
 												</div>
 												<div layout-align="space-between center" layout="column">
-																<span class="icon slide-toggle" style="margin-bottom:1em">
+																<span class="icon slide-toggle hideOnClosed" style="margin-bottom:1em">
 																				<i class="icon icon-bubble icon-{{vm.structure.icon || vm.structure.parent.icon}}" ng-if="vm.structure.icon || vm.structure.parent.icon" ng-style="{'background-color':vm.structure.style.base_color || 'rgba(128, 243, 198,1)'}"></i>
 																				<div class="icon-bubble" ng-if="!vm.structure.icon && !vm.structure.parent.icon" ng-style="{'background-color':vm.structure.style.base_color || 'rgba(128, 243, 198,1)','width': '1em'}">&nbsp;</div>
 																</span>
-																<span class="title" style="font-size:1.2em;text-align:center;line-height:1em">{{vm.structure.title}}</span>
+																<span class="title" ng-class="{'tinyOnClosed': vm.current && vm.data.length }" >{{vm.structure.title}}</span>
 												</div>
-												<div>
+												<div class="hideOnClosed">
 																<span class="info-icon" ui-sref="app.index.show.info({id:vm.structure.id,name:vm.structure.name})">
 																				<ng-md-icon icon="info_outline"></ng-md-icon>
 																</span>
@@ -80,13 +80,13 @@ vm.structure.style.base_color || 'rgba(128, 243, 198,1)'{
 				</section>
 				<md-content>
 
-								<section class="header info slide-toggle" layout-align="space-between center" layout="row" ng-if="vm.current">
+								<section class="header info slide-toggle noPaddingOnClosed" layout-align="space-between center" layout="row" ng-if="vm.current">
 												<span class="title">{{vm.countryList[vm.current.iso]}}</span>
-												<span class="info-icon" ng-click="vm.mapGotoCountry(vm.current.iso)">
+												<span class="info-icon hideOnClosed" ng-click="vm.mapGotoCountry(vm.current.iso)">
 																<ng-md-icon icon="chevron_right"></ng-md-icon>
 												</span>
 								</section>
-								<section class="rank module slide-toggle" layout-align="space-between center" layout="row" ng-if="vm.current  && !vm.compare.active">
+								<section class="rank module slide-toggle hideOnClosed" layout-align="space-between center" layout="row" ng-if="vm.current  && !vm.compare.active">
 												<div class="chart" layout="row">
 																<div layout-align="center center" layout="column">
 																				<div class="title" layout-align="center center" layout="row">Rank</div>
@@ -139,6 +139,7 @@ vm.structure.style.base_color || 'rgba(128, 243, 198,1)'{
 												<md-button flex="50" ng-disabled="true" hide-xs>click on a country</md-button>
 												<div flex hide-gt-xs layout="column">
 												<md-subheader class="md-primary">Select a country</md-subheader>
+												<md-input-container>
 												<md-list flex>
 
 																<md-list-item  ng-repeat="(key, nat) in vm.data | orderBy:vm.structure.name">

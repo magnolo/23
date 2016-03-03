@@ -439,6 +439,9 @@
 						controller:'ConflictsCtrl',
 						controllerAs: 'vm',
 						templateUrl:getView('conflicts')
+					},
+					'logo@':{
+						templateUrl:getView('logo')
 					}
 				}
 			})
@@ -454,6 +457,9 @@
 						controller:'ConflictnationCtrl',
 						controllerAs: 'vm',
 						templateUrl:getView('conflictnation')
+					},
+					'logo@':{
+						templateUrl:getView('logo')
 					}
 				}
 			})
@@ -470,7 +476,10 @@
 						controllerAs: 'vm',
 						templateUrl:getView('conflictdetails')
 					},
-					'items-menu@':{}
+					'items-menu@':{},
+					'logo@':{
+						templateUrl:getView('logo')
+					}
 				}
 			})
 			.state('app.conflict.import',{

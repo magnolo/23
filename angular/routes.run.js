@@ -26,6 +26,12 @@
 				$rootScope.rowed = false;
 			}
 			if(typeof toState.views != "undefined"){
+				if(toState.views.hasOwnProperty('main@')){
+					$rootScope.mainView = true;
+				}
+				else{
+					$rootScope.mainView = false;
+				}
 				if(toState.views.hasOwnProperty('additional@')){
 					$rootScope.additional = true;
 				}
@@ -38,10 +44,18 @@
 				else{
 					$rootScope.itemMenu = false;
 				}
+				if(toState.views.hasOwnProperty('logo@')){
+					$rootScope.logoView = true;
+				}
+				else{
+					$rootScope.logoView = false;
+				}
 			}
 			else{
 				$rootScope.additional = false;
 				$rootScope.itemMenu = false;
+				$rootScope.logoView = false;
+				$rootScope.mainView = false;
 			}
 			if(toState.name.indexOf('conflict') > -1 && toState.name != "app.conflict.import"){
 				$rootScope.noHeader = true;
@@ -74,5 +88,14 @@
 				})
 			}, 1000);
 		}
+		/*window.addEventListener('scroll', function(ev) {
+    // avoids scrolling when the focused element is e.g. an input
+    if (
+        !document.activeElement
+        || document.activeElement === document.body
+    ) {
+        document.body.scrollIntoViewIfNeeded(true);
+    }
+});*/
 	});
 })();

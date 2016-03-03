@@ -134,7 +134,7 @@
 }
 
 md-dialog-content {
-    p.column {
+    p.columned {
         line-height: 1.25em;
         text-align: justify;
         -webkit-column-gap: 2em;
@@ -144,5 +144,19 @@ md-dialog-content {
         -moz-column-count: 2;
         /* Firefox */
         column-count: 2;
+        @media screen and (max-width: 800px){
+          -webkit-column-count: 1;
+          /* Chrome, Safari, Opera */
+          -moz-column-count: 1;
+          /* Firefox */
+          column-count: 1;
+        }
+        @media screen and (min-width: 1400px){
+          -webkit-column-count: 3;
+          /* Chrome, Safari, Opera */
+          -moz-column-count: 3;
+          /* Firefox */
+          column-count: 3;
+        }
     }
 }

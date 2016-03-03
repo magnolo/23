@@ -5,7 +5,6 @@
 
 		return {
 			restrict: 'E',
-			scope:{},
 			templateUrl: 'views/directives/simplelinechart/simplelinechart.html',
 			controller: 'SimplelinechartCtrl',
 			controllerAs: 'vm',
@@ -16,7 +15,7 @@
 				options:'='
 			},
 			link: function( $scope, element, $attrs ){
-			
+
 
 			}
 		};
