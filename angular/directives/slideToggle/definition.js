@@ -1,7 +1,7 @@
 (function(){
 	"use strict";
 
-	angular.module('app.directives').animation('.slide-toggle', ['$animateCss', function($animateCss) {
+	angular.module('app.directives').animation('.slide-toggles', ['$animateCss', function($animateCss) {
 
 		var lastId = 0;
         var _cache = {};

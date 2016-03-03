@@ -7,6 +7,9 @@
 		$rootScope.goBack = function(){
 		 $window.history.back();
 	 }
+	 $rootScope.toggleMenu = function(menuId){
+		 $mdSidenav(menuId).toggle();
+	 }
 		$rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState,fromParams){
 			if (toState.auth && !$auth.isAuthenticated()){
 				toastr.error('Your not allowed to go there buddy!', 'Access denied');

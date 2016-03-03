@@ -18,11 +18,12 @@
     <md-toolbar class="Header md-accent slide-toggle" tabindex="-1" ng-if="!$root.noHeader">
         <header ui-view="header"></header>
     </md-toolbar>
-    <md-content layout="row" flex md-scroll-y>
+    <md-content layout="row" flex style="overflow:hidden">
       <md-sidenav id="sidemenu" class="md-sidenav-left" md-component-id="leftMenu" md-is-locked-open="$root.isAuthenticated()" tabindex="-1" md-scroll-y>
           <md-content flex  doAnim-right ui-view="sidemenu"  md-scroll-y layout="column" class="flex" layout-fill layout-align="space-between none"></md-content>
       </md-sidenav>
-        <md-sidenav id="sidebar" class="md-sidenav-left md-whiteframe-z1" md-component-id="left" md-is-locked-open="$root.sidebarOpen" tabindex="-1" md-scroll-y>
+        <md-sidenav id="sidebar" md-is-open="$root.sidebarOpen" class="md-sidenav-left md-whiteframe-z1" md-component-id="left" md-is-locked-open="$mdMedia('gt-xs')" tabindex="-1" md-scroll-y>
+            <div class="menu-toggler" flex ng-click="$root.toggleMenu('left')" layout="row" layout-align="center center" show-xs></div>
             <md-content flex doAnim-right ui-view="sidebar"  md-scroll-y></md-content>
         </md-sidenav>
         <md-content layout="column" flex role="main" tabindex="-1" md-scroll-y>
@@ -30,13 +31,19 @@
             <div ui-view="main" class="Page doAnim-hinge"  flex md-scroll-y style="overflow-y:auto"></div>
             <div ui-view="additional" class="additional doAnim-hinge md-whiteframe-z1" md-scroll-y style="overflow-y:auto" ng-if="$root.additional"></div>
         </md-content>
+
     </md-content>
+    <div class="mobile-window-switcher" hide-gt-xs>
+      <md-button class="md-fab md-primary" ng-click="$root.toggleMenu('left')" aria-label="Show Map/Info">
+         <ng-md-icon icon="@{{$root.sidebarOpen ? 'map' : 'info'}}" size="32" style="top:12px;position:relative"></ng-md-icon>
+     </md-button>
+    </div>
     <div class="doAnim-hinge" id="items-menu" ng-include="'/views/app/conflictitems/conflictitems.html'" ng-cloak ng-if="$root.featureItems.length > 0 && $root.showItems"></div>
     <div class="cssload-container doAnim-fade" ng-if="$root.stateIsLoading">
         <div class="cssload-whirlpool"></div>
         <div class="cssload-text">23°</div>
     </div>
-    
+
     <!--<div id="main-logo">
     <a href="http://www.23degree.org" target="_blank"><img src="/images/23logo.svg" width="100" height="80" /><br>
     </a>

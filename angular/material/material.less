@@ -311,12 +311,29 @@ md-sidenav {
     bottom: 0;
     overflow: auto;
     &#sidebar{
-    
+
       &.md-locked-open {
           width: 370px;
           min-width: 370px;
           max-width: 370px;
+      }
 
+      @media screen and (max-width: 600px){
+        min-width:100%;
+        max-width: 100%;
+        width:100%;
+
+        &.md-closed{
+          transform:translate3d(0, 92%, 0);
+          display: flex;
+          min-width:100%;
+          max-width: 100%;
+          width:100%;
+          overflow:visible;
+          .menu-toggler{
+            display:flex;
+          }
+        }
       }
     }
     &#sidemenu{

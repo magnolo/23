@@ -1,7 +1,7 @@
 (function() {
 	"use strict";
 
-	angular.module('app.controllers').controller('IndexCtrl', function($scope, $window, $rootScope, $filter, $state, $timeout, toastr, VectorlayerService, data, countries, leafletData, DataService) {
+	angular.module('app.controllers').controller('IndexCtrl', function($scope, $window,$mdSidenav, $rootScope, $filter, $state, $timeout, toastr, VectorlayerService, data, countries, leafletData, DataService) {
 		// Variable definitions
 		var vm = this;
 		vm.map = null;
@@ -100,7 +100,7 @@
 			$window.history.back();
 		}
 		function goToIndex(item){
-			console.log(item);
+
 			$state.go('app.index.show.selected',{
 				id:item.id,
 				name:item.name,
@@ -137,7 +137,10 @@
 
 		function setCurrent(nat) {
 			vm.current = nat;
+
 			vm.setSelectedFeature();
+
+			$mdSidenav('left').open();
 		};
 
 		function setSelectedFeature(iso) {
@@ -611,6 +614,7 @@
 					if (!vm.compare.active) {
 						var c = getNationByIso(evt.feature.properties[vm.iso_field]);
 						if (typeof c[vm.structure.name] != "undefined") {
+							$mdSidenav('left').open();
 							vm.current = getNationByIso(evt.feature.properties[vm.iso_field]);
 						} else {
 							toastr.error('No info about this location!', evt.feature.properties.admin);

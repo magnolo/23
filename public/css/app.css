@@ -1054,6 +1054,29 @@ md-sidenav#sidebar.md-locked-open {
   min-width: 370px;
   max-width: 370px;
 }
+@media screen and (max-width: 600px) {
+  md-sidenav#sidebar {
+    min-width: 100%;
+    max-width: 100%;
+    width: 100%;
+  }
+  md-sidenav#sidebar.md-closed {
+    -webkit-transform: translate3d(0, 92%, 0);
+    transform: translate3d(0, 92%, 0);
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    min-width: 100%;
+    max-width: 100%;
+    width: 100%;
+    overflow: visible;
+  }
+  md-sidenav#sidebar.md-closed .menu-toggler {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+  }
+}
 md-sidenav#sidemenu.md-locked-open {
   width: 48px;
   min-width: 48px;
@@ -1306,7 +1329,7 @@ p.small-info:hover {
 .loose #sidebar {
   position: absolute !important;
   top: 1em;
-  left: calc(48px + 1em);
+  left: 1em;
   bottom: auto;
   max-height: calc(100% - 2em);
   overflow-x: hidden;
@@ -1326,6 +1349,17 @@ p.small-info:hover {
   top: 1em;
   height: calc(100% - 2em);
   left: calc(800px + 1em);
+}
+.loose.loggedIn #sidebar {
+  left: calc(48px + 1em);
+}
+@media screen and (max-width: 600px) {
+  .loggedIn #sidebar {
+    left: 48px;
+    max-width: calc(100% - 48px);
+    min-width: calc(100% - 48px);
+    width: calc(100% - 48px);
+  }
 }
 .additional {
   position: absolute;
@@ -1354,6 +1388,23 @@ p.small-info:hover {
 }
 #main-logo a span {
   font-size: 0.8em;
+}
+.menu-toggler {
+  position: absolute;
+  width: 100%;
+  height: 68px;
+  z-index: 61;
+  cursor: pointer;
+  display: none;
+}
+.mobile-window-switcher {
+  position: fixed;
+  bottom: 1.2em;
+  right: 1em;
+  z-index: 61;
+}
+.mobile-window-switcher path {
+  fill: #fff ;
 }
 
 .m0 {
@@ -2765,6 +2816,7 @@ piechart .inner-pie {
   display: flex;
 }
 
+
 .section {
   padding: 30px;
   margin-bottom: 40px;
@@ -2889,7 +2941,6 @@ piechart .inner-pie {
 .calculating .field-name-field-calculating-text {
   padding-right: 220px;
 }
-
 
 .trashcan ul {
   padding: 0;
