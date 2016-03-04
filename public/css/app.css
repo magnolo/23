@@ -2436,7 +2436,7 @@ md-list-item.active {
 
 #main-logo {
   position: fixed;
-  top: 1em;
+  bottom: 5px;
   right: 0;
   text-align: center;
   /*&:hover{
@@ -2457,7 +2457,8 @@ md-list-item.active {
 @media screen and (max-width: 600px) {
   #main-logo {
     display: block;
-    bottom: 80px;
+    bottom: auto;
+    top: 1em;
   }
 }
 
