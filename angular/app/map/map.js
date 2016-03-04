@@ -7,7 +7,7 @@
 		var zoom = 3,
 			minZoom = 2;
 		if (window.innerWidth < 600) {
-			zoom = 1;
+			zoom = 2;
 			minZoom = 1;
 		}
 		var vm = this;
