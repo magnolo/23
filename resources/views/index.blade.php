@@ -2,17 +2,22 @@
 <html ng-app="app">
   <head>
       <base href="/" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui" />
       <link rel="stylesheet" href="{!! asset('css/vendor.css') !!}">
       <link rel="stylesheet" href="{!! asset('css/app.css') !!}">
       <link href='//fonts.googleapis.com/css?family=Roboto:500,400' rel='stylesheet' type='text/css'>
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
       <title update-title>23° | mapping data for global understanding</title>
+
+
+      <meta name="apple-mobile-web-app-capable" content="yes">
+      <meta name="apple-mobile-web-app-status-bar-style" content="black">
       <!--[if lte IE 10]>
       <script type="text/javascript">document.location.href = '/unsupported-browser'</script>
       <![endif]-->
   </head>
   <body ng-class="{'loggedIn': $root.isAuthenticated(), 'noHeader': $root.noHeader, 'greyed': $root.greyed, 'loose': $root.looseLayout, 'sidebar-closed': !$root.sidebarOpen, 'rowed': $root.rowed}" layout="column">
+      <div id="hack"></div>
       <md-toolbar class="Header md-accent slide-toggle" tabindex="-1" ng-if="!$root.noHeader">
           <header ui-view="header"></header>
       </md-toolbar>

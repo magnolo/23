@@ -16,7 +16,9 @@
 			color: '#4fb0e5',
 			field: 'intensity',
 			size: 5,
-			hideNumbering: true
+			hideNumbering: true,
+			width:65,
+			height:65
 		};
 		activate();
 
@@ -24,11 +26,11 @@
 
 			$rootScope.greyed = true;
 			$rootScope.featureItems = [];
-		
+
 			nations.getList().then(function(response) {
 				vm.conflicts = response;
 				vm.relations.push(vm.nation.iso);
-	vm.featured = [];
+				vm.featured = [];
 				VectorlayerService.resetSelected(vm.nation.iso);
 				VectorlayerService.setData(vm.conflicts, vm.colors, true);
 				VectorlayerService.setStyle(invertedStyle);

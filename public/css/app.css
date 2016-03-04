@@ -816,6 +816,12 @@
   right: 1em;
   z-index: 2;
 }
+@media screen and (max-width: 600px) {
+  .leaflet-top {
+    top: auto;
+    bottom: 3em;
+  }
+}
 .leaflet-top .leaflet-control-zoom.leaflet-bar {
   margin-right: 1em;
   margin-left: 0px;
@@ -825,7 +831,6 @@
   height: 32px;
   line-height: 32px;
   font-family: Georgia;
-  font-size: 2em;
   font-weight: normal;
 }
 .leaflet-top .leaflet-control-zoom.leaflet-bar a:first-child {
@@ -1061,8 +1066,8 @@ md-sidenav#sidebar.md-locked-open {
     width: 100%;
   }
   md-sidenav#sidebar.md-closed {
-    -webkit-transform: translate3d(0, calc(100% - 62px), 0);
-    transform: translate3d(0, calc(100% - 62px), 0);
+    -webkit-transform: translate3d(0, calc(100% - 102px), 0);
+    transform: translate3d(0, calc(100% - 102px), 0);
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
@@ -1086,7 +1091,7 @@ md-sidenav#sidebar.md-locked-open {
     display: none;
   }
   md-sidenav#sidebar.md-closed .tinyOnClosed {
-    font-size: 0.7em;
+    font-size: 0.9em;
   }
   md-sidenav#sidebar.md-closed .tinyOnClosed.title {
     margin-top: 0.8em;
@@ -1095,6 +1100,8 @@ md-sidenav#sidebar.md-locked-open {
   md-sidenav#sidebar.md-closed .noPaddingOnClosed {
     padding-top: 0px !important;
     padding-bottom: 0px;
+    padding-left: 1em;
+    padding-right: 1em;
     border: 0px;
   }
   md-sidenav#sidebar.md-closed .noPaddingOnClosed > div {
@@ -1103,11 +1110,33 @@ md-sidenav#sidebar.md-locked-open {
   md-sidenav#sidebar.md-closed .noPaddingOnClosed::after {
     border: 0;
   }
+  md-sidenav#sidebar.md-closed .pullToTopOnClosed {
+    position: fixed;
+    top: calc(-100% + 102px + 1em);
+  }
+  md-sidenav#sidebar.md-closed .scaleSmallOnClosed {
+    -webkit-transform: scale(0.7);
+    transform: scale(0.7);
+    -webkit-transform-origin: top left;
+    transform-origin: top left;
+  }
+  md-sidenav#sidebar.md-closed .scaleSmallOnClosed.scaleCenter {
+    -webkit-transform-origin: center left;
+    transform-origin: center left;
+  }
+  md-sidenav#sidebar.md-closed .scaleSmallOnClosed.scaleRight {
+    -webkit-transform-origin: center right;
+    transform-origin: center right;
+  }
+  md-sidenav#sidebar.md-closed .portUpOnClosed {
+    margin-top: -0.3em;
+    margin-left: .3em;
+  }
   md-sidenav#sidebar.md-closed section.header {
-    padding-top: 1em;
+    padding-top: .5em;
   }
   md-sidenav#sidebar.md-closed section.header img {
-    display: none;
+    max-height: 40px;
   }
 }
 md-sidenav#sidemenu.md-locked-open {
@@ -1205,6 +1234,9 @@ html,
 body {
   width: 100%;
   height: 100%;
+  /*@media screen and (max-width: 600px){
+      height: calc(~'100% + 32px');
+    }*/
 }
 html {
   /* enough space to scroll up to get fullscreen on iOS8 */
@@ -1297,6 +1329,15 @@ body.loggedIn > md-content::before {
   width: 100%;
   left: 0;
 }
+#hack {
+  z-index: 100000;
+  /* should be bigger than everything else */
+  position: fixed;
+  overflow: scroll;
+  -webkit-overflow-scrolling: touch;
+  visibility: hidden;
+  height: 0;
+}
 .icon-bubble {
   background-color: #d7dddd;
   color: #fff;
@@ -1336,6 +1377,9 @@ p.small-info {
 }
 p.small-info:hover {
   color: #006bb9;
+}
+.lower-text {
+  font-size: 0.9em;
 }
 .rowed #map {
   left: 400px;
@@ -1411,19 +1455,24 @@ p.small-info:hover {
 .menu-toggler {
   position: absolute;
   width: 100%;
-  height: 68px;
+  height: 102px;
   z-index: 61;
   cursor: pointer;
   display: none;
 }
 .mobile-window-switcher {
   position: fixed;
-  bottom: 1.2em;
-  right: 1em;
+  bottom: 0.5em;
+  right: 0.4em;
   z-index: 61;
+  transition: bottom .5s ease;
 }
 .mobile-window-switcher path {
   fill: #fff ;
+}
+.sidebar-closed .mobile-window-switcher {
+  bottom: 4.2em;
+  right: 0.4em;
 }
 .columned {
   -webkit-column-count: 3;
@@ -2406,6 +2455,7 @@ md-list-item.active {
 }
 @media screen and (max-width: 600px) {
   #main-logo {
+    display: none;
     bottom: 80px;
   }
 }
@@ -2423,6 +2473,11 @@ div[ui-view='map'] {
   left: 0px;
   height: 100%;
   transition: all .6s ease;
+}
+@media screen and (max-width: 600px) {
+  #map {
+    height: calc(100% - 102px);
+  }
 }
 .angular-leaflet-map {
   width: 100%;

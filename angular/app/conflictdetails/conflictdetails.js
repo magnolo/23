@@ -30,7 +30,9 @@
 			color: '#4fb0e5',
 			field: 'int2015',
 			size: 5,
-			hideNumbering: true
+			hideNumbering: true,
+			width:65,
+			height:65
 		};
 
 		activate();

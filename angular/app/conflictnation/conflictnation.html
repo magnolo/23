@@ -5,7 +5,7 @@
 	</div>
   <section class="header noPaddingOnClosed">
           <div layout-align="space-between " layout="column">
-                  <div layout-align="space-between start" layout="column">
+                  <div layout-align="space-between start" class="pullToTopOnClosed" layout="column">
                           <a ui-sref="app.conflict.index">
                                   <img src="/images/hiik_logo.png"/>
                           </a>
@@ -25,19 +25,23 @@
 <section class="noPaddingOnClosed">
   <h3 class="main-title">{{vm.nation.country}}</h3>
 </section>
-<section >
+<section class="noPaddingOnClosed scaleSmallOnClosed">
   <h3 layout="row" layout-align="start center">
-      <span>highest conflict intensity</span>
-      <div><ng-md-icon class="icon-space" icon="{{vm.getTendency()}}" options='{"rotation": "none"}'></ng-md-icon>
-      <md-tooltip md-direction="right">change in conflict intensity since 2014</md-tooltip>
+      <circlegraph class="scaleSmallOnClosed scaleCenter" item="vm.nation" options="vm.circleOptions" style="margin-right:.5em"></circlegraph>
+      <div layout="row" layout-align="start center">
+      <span class="lower-text">highest conflict intensity</span>
+      <div>
+        <ng-md-icon class="icon-space" icon="{{vm.getTendency()}}" options='{"rotation": "none"}'></ng-md-icon>
+        <md-tooltip md-direction="right">change in conflict intensity since 2014</md-tooltip>
+      </div>
     </div>
   </h3>
 
-  <circlegraph item="vm.nation" options="vm.circleOptions"></circlegraph>
+
 
 </section>
 <section>
-  <h3 style="margin-bottom:1em;">number of conflicts: {{vm.nation.conflicts.length}}</h3>
+  <h3 style="margin-bottom:1em;">conflicts: {{vm.nation.conflicts.length}}</h3>
   <div layout="column">
     <div layout="row" class="conflict-legend" layout-align="space-between center">
       <div>conflict</div>

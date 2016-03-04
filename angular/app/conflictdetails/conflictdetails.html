@@ -6,7 +6,7 @@
 				<section class="header noPaddingOnClosed">
 								<div layout-align="space-between " layout="column">
 
-												<div layout-align="space-between start" layout="column">
+												<div layout-align="space-between start" layout="column" class="pullToTopOnClosed">
 																<a ui-sref="app.conflict.index">
 																				<img src="/images/hiik_logo.png"/>
 																</a>
@@ -32,10 +32,10 @@
         </div>
         <a href="" ng-click="vm.showText()">... read more ...</a>
         </section>
-				<section >
+				<section class="scaleSmallOnClosed noPaddingOnClosed portUpOnClosed" >
 								<!--<h3>conflict intensity</h3>-->
 								<div layout-align="space-between center" layout="row">
-												<circlegraph item="vm.conflict" options="vm.circleOptions"></circlegraph>
+												<circlegraph class="scaleSmallOnClosed scaleCenter" item="vm.conflict" options="vm.circleOptions"></circlegraph>
 												<div layout-align="center center" layout="column" style="height:80px;">
 																<h4 style="margin:0;font-size:0.9em">start</h4>
 																<h3 style="margin:0">{{vm.conflict.year}}</h3>
