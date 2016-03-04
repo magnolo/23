@@ -67,6 +67,7 @@
 				params: fromParams
 			};
 			$rootScope.stateIsLoading = true;
+			$mdSidenav('left').close();
 		});
 		$rootScope.$on("$viewContentLoaded", function(event, toState) {
 
@@ -74,7 +75,7 @@
 
 		$rootScope.$on("$stateChangeSuccess", function(event, toState) {
 			$rootScope.stateIsLoading = false;
-			$mdSidenav('left').close();
+
 			resetMapSize();
 		});
 
