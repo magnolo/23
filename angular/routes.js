@@ -7,7 +7,7 @@
 			return '/views/app/' + viewName + '/' + viewName + '.html';
 		};
 
-		$urlRouterProvider.otherwise('/');
+		$urlRouterProvider.otherwise('/conflict/index');
 
 		$stateProvider
 			.state('app', {
@@ -24,7 +24,7 @@
 						controller: 'MapCtrl',
 						controllerAs: 'vm'
 					},
-					'sidemenu@':{
+					'sidemenu@': {
 						templateUrl: getView('sidemenu'),
 						controller: 'SidemenuCtrl',
 						controllerAs: 'vm'
@@ -86,7 +86,7 @@
 				}
 			})
 
-			.state('app.index.mydata', {
+		.state('app.index.mydata', {
 				url: '/my-data',
 				auth: true,
 				views: {
@@ -121,8 +121,8 @@
 			.state('app.index.editor', {
 				url: '/editor',
 				auth: true,
-				resolve:{
-					indices: function(ContentService){
+				resolve: {
+					indices: function(ContentService) {
 						return ContentService.getIndices();
 					},
 					indicators: function(ContentService) {
@@ -133,11 +133,14 @@
 							dir: 'ASC'
 						});
 					},
-					styles: function(ContentService){
+					styles: function(ContentService) {
 						return ContentService.getStyles();
 					},
-					categories: function(ContentService){
-						return ContentService.getCategories({indicators:true, tree:true});
+					categories: function(ContentService) {
+						return ContentService.getCategories({
+							indicators: true,
+							tree: true
+						});
 					}
 				},
 				views: {
@@ -356,18 +359,18 @@
 				url: '/:year',
 			})
 			.state('app.index.indicator.year.info', {
-				url:'/details',
-				layout:'row',
+				url: '/details',
+				layout: 'row',
 				resolve: {
 					data: function(ContentService, $stateParams) {
 						return ContentService.getIndicatorData($stateParams.id, $stateParams.year);
 					}
 				},
-				views:{
-					'main@':{
+				views: {
+					'main@': {
 						templateUrl: '/views/app/indicator/indicatorYearTable.html',
-						controller:'IndicatorYearTableCtrl',
-						controllerAs:'vm',
+						controller: 'IndicatorYearTableCtrl',
+						controllerAs: 'vm',
 					}
 				}
 			})
@@ -424,67 +427,67 @@
 				abstract: true,
 				url: '/conflict',
 			})
-			.state('app.conflict.index',{
+			.state('app.conflict.index', {
 				url: '/index',
-				resolve:{
-					nations:function(Restangular){
+				resolve: {
+					nations: function(Restangular) {
 						return Restangular.all('conflicts/nations');
 					},
-					conflicts: function(Restangular){
+					conflicts: function(Restangular) {
 						return Restangular.all('conflicts');
 					}
 				},
-				views:{
-					'sidebar@':{
-						controller:'ConflictsCtrl',
+				views: {
+					'sidebar@': {
+						controller: 'ConflictsCtrl',
 						controllerAs: 'vm',
-						templateUrl:getView('conflicts')
+						templateUrl: getView('conflicts')
 					},
-					'logo@':{
-						templateUrl:getView('logo')
+					'logo@': {
+						templateUrl: getView('logo')
 					}
 				}
 			})
-			.state('app.conflict.index.nation',{
+			.state('app.conflict.index.nation', {
 				url: '/nation/:iso',
-				resolve:{
-					nation:function(Restangular, $stateParams){
+				resolve: {
+					nation: function(Restangular, $stateParams) {
 						return Restangular.one('/conflicts/nations/', $stateParams.iso).get();
 					}
 				},
-				views:{
-					'sidebar@':{
-						controller:'ConflictnationCtrl',
+				views: {
+					'sidebar@': {
+						controller: 'ConflictnationCtrl',
 						controllerAs: 'vm',
-						templateUrl:getView('conflictnation')
+						templateUrl: getView('conflictnation')
 					},
-					'logo@':{
-						templateUrl:getView('logo')
+					'logo@': {
+						templateUrl: getView('logo')
 					}
 				}
 			})
-			.state('app.conflict.index.details',{
+			.state('app.conflict.index.details', {
 				url: '/:id',
-				resolve:{
-					conflict:function(Restangular, $stateParams){
-						return 	Restangular.one('/conflicts/events/', $stateParams.id).get();
+				resolve: {
+					conflict: function(Restangular, $stateParams) {
+						return Restangular.one('/conflicts/events/', $stateParams.id).get();
 					}
 				},
-				views:{
-					'sidebar@':{
-						controller:'ConflictdetailsCtrl',
+				views: {
+					'sidebar@': {
+						controller: 'ConflictdetailsCtrl',
 						controllerAs: 'vm',
-						templateUrl:getView('conflictdetails')
+						templateUrl: getView('conflictdetails')
 					},
-					'items-menu@':{},
-					'logo@':{
-						templateUrl:getView('logo')
+					'items-menu@': {},
+					'logo@': {
+						templateUrl: getView('logo')
 					}
 				}
 			})
-			.state('app.conflict.import',{
+			.state('app.conflict.import', {
 				url: '/import',
-				auth:true,
+				auth: true,
 				views: {
 					'sidebar@': {
 						controller: 'ConflictImportCtrl',

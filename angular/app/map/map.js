@@ -1,19 +1,24 @@
-(function () {
+(function() {
 	"use strict";
 
-	angular.module('app.controllers').controller('MapCtrl', function ($scope, leafletData, leafletMapEvents, VectorlayerService) {
+	angular.module('app.controllers').controller('MapCtrl', function($scope, leafletData, leafletMapEvents, VectorlayerService) {
 		//
+
+		var zoom = 3;
+		if (window.innerWidth >= 600) {
+			zoom = 2;
+		}
 		var vm = this;
 		var apiKey = VectorlayerService.keys.mapbox;
 		vm.toggleLayers = toggleLayers;
 		vm.defaults = {
 			//scrollWheelZoom: false,
-			minZoom: 1
+			minZoom: 2
 		};
 		vm.center = {
 			lat: 0,
 			lng: 0,
-			zoom: 3
+			zoom: zoom
 		};
 		vm.layers = {
 			baselayers: {
@@ -55,17 +60,17 @@
 		}
 
 		var MyControl = L.control();
-    MyControl.setPosition('topleft');
-		MyControl.initialize = function(){
+		MyControl.setPosition('topleft');
+		MyControl.initialize = function() {
 			L.Util.setOptions(this, options);
 		}
-    MyControl.onAdd = function () {
+		MyControl.onAdd = function() {
 			var container = L.DomUtil.create('div', 'leaflet-bar leaflet-control-zoom');
 			var span = L.DomUtil.create('a', 'leaflet-control-zoom-in cursor', container);
 			span.textContent = 'T';
 			L.DomEvent.disableClickPropagation(container);
-			L.DomEvent.addListener(container, 'click', function(){
-				leafletData.getMap('map').then(function (map) {
+			L.DomEvent.addListener(container, 'click', function() {
+				leafletData.getMap('map').then(function(map) {
 					if (vm.noLabel) {
 						map.removeLayer(vm.labelsLayer);
 						vm.noLabel = false;
@@ -77,11 +82,11 @@
 				});
 			});
 			return container;
-    }
+		}
 
 
 		function toggleLayers(overlayName) {
-			leafletData.getMap('map').then(function (map) {
+			leafletData.getMap('map').then(function(map) {
 				if (vm.noLabel) {
 					map.removeLayer(vm.labelsLayer);
 					vm.noLabel = false;
@@ -93,7 +98,7 @@
 			});
 
 		}
-		leafletData.getMap('map').then(function (map) {
+		leafletData.getMap('map').then(function(map) {
 			VectorlayerService.setMap(map);
 			var url = 'http://v22015052835825358.yourvserver.net:3001/services/postgis/' + VectorlayerService.getName() + '/geom/vector-tiles/{z}/{x}/{y}.pbf?fields=' + VectorlayerService.fields(); //
 			var layer = new L.TileLayer.MVTSource({
@@ -101,14 +106,14 @@
 				debug: false,
 				clickableLayers: [VectorlayerService.getName() + '_geom'],
 				mutexToggle: true,
-				getIDForLayerFeature: function (feature) {
+				getIDForLayerFeature: function(feature) {
 					return feature.properties.iso_a2;
 				},
-				filter: function (feature, context) {
+				filter: function(feature, context) {
 
 					return true;
 				},
-				style: function (feature) {
+				style: function(feature) {
 					var style = {};
 					style.color = 'rgba(0,0,0,0)';
 					style.outline = {

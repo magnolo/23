@@ -1247,7 +1247,7 @@ body {
   font-size: 16px;
   color: #606060;
   overflow-x: hidden;
-  background: url("/images/geometry.png");
+  background: url(/images/geometry.png);
 }
 body > canvas {
   z-index: 1000;
@@ -1267,8 +1267,8 @@ body > md-content::before {
   top: -1px;
   border-bottom: 1px solid #d7dddd;
   z-index: 61;
-  transition: all .35s ease;
-  transition-delay: .1s;
+  transition: all 0.35s ease;
+  transition-delay: 0.1s;
 }
 body.loggedIn > md-content::before {
   width: calc(100% - 47px);
@@ -1416,10 +1416,10 @@ p.small-info:hover {
 }
 .loose.sidebar-closed .Page {
   margin-left: 1em;
-  transition-delay: .1s;
+  transition-delay: 0.1s;
 }
 .loose #map {
-  left: 0px;
+  left: 0;
   width: 100%;
 }
 .loose.rowed .Page {
@@ -1465,10 +1465,10 @@ p.small-info:hover {
   bottom: 0.5em;
   right: 0.4em;
   z-index: 61;
-  transition: bottom .5s ease;
+  transition: bottom 0.5s ease;
 }
 .mobile-window-switcher path {
-  fill: #fff ;
+  fill: #fff;
 }
 .sidebar-closed .mobile-window-switcher {
   bottom: 4.2em;
@@ -1482,14 +1482,15 @@ p.small-info:hover {
   column-count: 3;
 }
 .social-buttons {
-  margin-top: .5em;
+  margin-top: 0.5em;
   color: #004288;
   width: 100px;
-  border-top: 1px solid;
+  display: none;
 }
 .social-buttons a {
   text-decoration: none;
   color: #004288;
+  margin-bottom: 5px;
 }
 .social-buttons a i {
   font-size: 1.5em;
@@ -2435,8 +2436,8 @@ md-list-item.active {
 
 #main-logo {
   position: fixed;
-  bottom: 0px;
-  right: 0px;
+  top: 1em;
+  right: 0;
   text-align: center;
   /*&:hover{
     -webkit-animation: tada 1s;
@@ -2455,7 +2456,7 @@ md-list-item.active {
 }
 @media screen and (max-width: 600px) {
   #main-logo {
-    display: none;
+    display: block;
     bottom: 80px;
   }
 }
