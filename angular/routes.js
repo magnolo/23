@@ -7,7 +7,7 @@
 			return '/views/app/' + viewName + '/' + viewName + '.html';
 		};
 
-		$urlRouterProvider.otherwise('/');
+		$urlRouterProvider.otherwise('/conflict/index');
 
 		$stateProvider
 			.state('app', {
