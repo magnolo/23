@@ -3,7 +3,7 @@
 
 	angular.module('app.routes').run(function($rootScope, $mdSidenav, $timeout, $auth, $state, $localStorage, $window, leafletData, toastr) {
 		$rootScope.sidebarOpen = true;
-		$rootScope.looseLayout = false; //$localStorage.fullView || false;
+		$rootScope.looseLayout = $localStorage.fullView || false;
 		$rootScope.goBack = function() {
 			$window.history.back();
 		}
