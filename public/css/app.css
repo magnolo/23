@@ -1745,6 +1745,7 @@ md-toast[md-theme=warn] {
   height: 2em;
   left: 0;
   bottom: 0;
+  position: absolute;
   /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,ffffff+100&0+0,1+100 */
   /* FF3.6-15 */
   /* Chrome10-25,Safari5.1-6 */
