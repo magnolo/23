@@ -4,20 +4,22 @@
 	angular.module('app.controllers').controller('MapCtrl', function($scope, leafletData, leafletMapEvents, VectorlayerService) {
 		//
 
-		var zoom = 3;
+		var zoom = 3,
+			minZoom = 2;
 		if (window.innerWidth >= 600) {
-			zoom = 2;
+			zoom = 1;
+			minZoom = 1;
 		}
 		var vm = this;
 		var apiKey = VectorlayerService.keys.mapbox;
 		vm.toggleLayers = toggleLayers;
 		vm.defaults = {
 			//scrollWheelZoom: false,
-			minZoom: 2
+			minZoom: minZoom
 		};
 		vm.center = {
-			lat: 0,
-			lng: 0,
+			lat: 48.209206,
+			lng: 16.372778,
 			zoom: zoom
 		};
 		vm.layers = {

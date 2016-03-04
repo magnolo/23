@@ -1,28 +1,33 @@
 @import (less) '../../material/colors.less';
 
 .conflict {
-    .back-button{
-      padding-left:1em;
-      padding-top:.5em;
-      color:#4fb0e5;
-      cursor:pointer;
-      ng-md-icon{
-        position:relative;
-        top:2px;
-      }
-      path{
-        fill:#4fb0e5;
-      }
-      &:hover{
-        animation: shake 10s;
-      }
+    .back-button {
+        padding-left: 1em;
+        padding-top: 0.5em;
+        color: #4fb0e5;
+        cursor: pointer;
+        
+        ng-md-icon {
+            position: relative;
+            top: 2px;
+        }
+
+        path {
+            fill: #4fb0e5;
+        }
+
+        &:hover {
+            animation: shake 10s;
+        }
     }
-    i{
-      color:#4fb0e5;
+
+    i {
+        color: #4fb0e5;
     }
+
     .info-icon {
         cursor: pointer;
-
+        
         i {
             color: @grey-light;
         }
@@ -43,7 +48,7 @@
         color: #4fb0e5;
         font-weight: normal;
         text-decoration: none;
-
+        
         path {
             fill: #4fb0e5 !important;
         }
@@ -76,7 +81,7 @@
 
     section {
         padding: 1em 1.5em;
-
+        
         p {
             margin: 0;
             font-size: 0.95em;
@@ -106,7 +111,7 @@
         margin-bottom: 0.5em;
         cursor: pointer;
         transition: all 0.5s ease;
-
+        
         .value {
             margin-right: 0.5em;
             min-width: 40px;
@@ -125,9 +130,31 @@
             height: 85px;
             overflow: hidden;
             transition: all 0.5s ease;
+            position: relative;
+            
+            &::after {
+                content:'', width: 100%;
+                height: 2em;
+                left: 0;
+                bottom: 0;
+                /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,ffffff+100&0+0,1+100 */
+                background: -moz-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
+                /* FF3.6-15 */
+                background: -webkit-linear-gradient(top, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%);
+                /* Chrome10-25,Safari5.1-6 */
+                background: linear-gradient(to bottom, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%);
+                /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+                filter:progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#ffffff',GradientType=0 );
+                /* IE6-9 */
+                display: block;
+            }
 
             &.fullHeight {
                 height: 195px;
+                
+                &::after {
+                    display: none;
+                }
             }
         }
     }
@@ -144,19 +171,21 @@ md-dialog-content {
         -moz-column-count: 2;
         /* Firefox */
         column-count: 2;
-        @media screen and (max-width: 800px){
-          -webkit-column-count: 1;
-          /* Chrome, Safari, Opera */
-          -moz-column-count: 1;
-          /* Firefox */
-          column-count: 1;
+        
+        @media screen and (max-width: 800px) {
+            -webkit-column-count: 1;
+            /* Chrome, Safari, Opera */
+            -moz-column-count: 1;
+            /* Firefox */
+            column-count: 1;
         }
-        @media screen and (min-width: 1400px){
-          -webkit-column-count: 3;
-          /* Chrome, Safari, Opera */
-          -moz-column-count: 3;
-          /* Firefox */
-          column-count: 3;
+
+        @media screen and (min-width: 1400px) {
+            -webkit-column-count: 3;
+            /* Chrome, Safari, Opera */
+            -moz-column-count: 3;
+            /* Firefox */
+            column-count: 3;
         }
     }
 }
