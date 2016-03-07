@@ -26,7 +26,7 @@
 				$rootScope.rowed = false;
 			}
 			if (typeof toState.views != "undefined") {
-				if (toState.views.hasOwnProperty('main@')) {
+				if (toState.views.hasOwnProperty('main@') || toState.views.hasOwnProperty('additional@')) {
 					$rootScope.mainView = true;
 				} else {
 					$rootScope.mainView = false;
