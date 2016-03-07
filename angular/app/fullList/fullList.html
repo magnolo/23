@@ -31,7 +31,7 @@
 </md-subheader>
 <md-subheader class="md-primary">Indices</md-subheader>
 <md-list>
-        <md-list-item ng-repeat="index in vm.indices | filter: {title:vm.query} | filter: vm.catFilter" ui-sref="app.index.show({index:index.name})">
+        <md-list-item ng-repeat="index in vm.indices | filter: {title:vm.query} | filter: vm.catFilter" ui-sref="app.index.show({id:index.id, name:index.name})">
           {{index.title}}
         </md-list>
 </md-list>
