@@ -1027,7 +1027,7 @@ md-sidenav#sidebar.md-locked-open {
   min-width: 370px;
   max-width: 370px;
 }
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 599px) {
   md-sidenav#sidebar {
     min-width: 100%;
     max-width: 100%;
@@ -1532,7 +1532,6 @@ md-toast[md-theme=warn] {
   text-align: center;
 }
 
-
 .conflict-icon {
   color: #4fb0e5;
   font-size: 1.1em;
@@ -1542,6 +1541,7 @@ md-toast[md-theme=warn] {
   margin-right: .5em;
   font-size: 2em;
 }
+
 
 #items-menu {
   position: fixed;
@@ -2689,7 +2689,6 @@ div[ui-view='map'] {
   margin-left: 2em;
 }
 
-
 .bubbles {
   overflow: hidden;
   margin: 1em 0;
@@ -2763,6 +2762,7 @@ div[ui-view='map'] {
 
 
 
+
 [contenteditable] {
   position: relative;
   white-space: pre-wrap;
@@ -2821,7 +2821,6 @@ div[ui-view='map'] {
   padding-bottom: 2px;
 }
 
-
 .indicator-menu {
   position: absolute;
   right: 2.5em;
@@ -2854,6 +2853,7 @@ div[ui-view='map'] {
 .indicator-menu ng-md-icon.greyed path {
   fill: #ddd;
 }
+
 
 
 median {
@@ -2913,6 +2913,10 @@ median .slider text {
 
 
 
+.bars .bg {
+  fill: #ebebeb;
+}
+
 .dropzone {
   border: 2px dashed #ddd;
   padding: 2em;
@@ -2949,10 +2953,6 @@ piechart .inner-pie {
   position: absolute;
   left: 0px;
   opacity: 0.4;
-}
-
-.bars .bg {
-  fill: #ebebeb;
 }
 
 .nvd3 .nv-background {
@@ -3006,7 +3006,6 @@ piechart .inner-pie {
   display: -ms-flexbox;
   display: flex;
 }
-
 
 .section {
   padding: 30px;
@@ -3132,6 +3131,7 @@ piechart .inner-pie {
 .calculating .field-name-field-calculating-text {
   padding-right: 220px;
 }
+
 
 .trashcan ul {
   padding: 0;
