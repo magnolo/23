@@ -108,6 +108,7 @@
 			var layer = new L.TileLayer.MVTSource({
 				url: url,
 				debug: false,
+				detectRetina:true,
 				clickableLayers: [VectorlayerService.getName() + '_geom'],
 				mutexToggle: true,
 				getIDForLayerFeature: function(feature) {
