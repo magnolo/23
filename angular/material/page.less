@@ -28,7 +28,7 @@ body {
     color: @main-color;
     overflow-x: hidden;
     background: url(/images/geometry.png);
-    
+
     > canvas {
         z-index: 1000;
         position: fixed;
@@ -39,7 +39,7 @@ body {
     > md-content {
         //border-top:1px solid @base-light;
         position: relative;
-        
+
         &::before {
             content: '';
             width: 100%;
@@ -59,6 +59,10 @@ body {
             &::before {
                 width: calc(~"100% - 47px");
                 left: 47px;
+                  @media screen and (max-width: 600px){
+                    left:0px;
+                    width:100%;
+                  }
             }
         }
     }
@@ -84,7 +88,7 @@ body {
 
 .info {
     color: @base;
-    
+
     path {
         fill: @base;
     }
@@ -105,7 +109,7 @@ body {
         li {
             position: relative;
             padding: 0 1em;
-            
+
             &::before {
                 content: "/";
                 position: absolute;
@@ -128,7 +132,7 @@ body {
             a {
                 position: relative;
                 color: @dark-color;
-                
+
                 &::after {
                     content: '';
                     position: absolute;
@@ -166,7 +170,7 @@ body {
     color: #fff;
     border-radius: 50%;
     font-size: 2em;
-    
+
     &.fisheries {
         background-color: @fisheries;
     }
@@ -208,7 +212,7 @@ p {
     &.small-info {
         color: #aaa;
         font-size: 0.9em;
-        
+
         &:hover {
             color: @base;
         }
@@ -246,7 +250,7 @@ p {
         position: absolute;
         max-height: calc(~'100% - 2em');
         max-width: calc(~'100% - 370px - 3em');
-        
+
         section {
             &.table {
                 height: calc(~'100% - 2em');
@@ -295,14 +299,14 @@ p {
 }
 
 &.loggedIn {
-    #sidebar {
+  /*  #sidebar {
         @media screen and (max-width: 600px) {
             left: 48px;
             max-width: calc(~'100% - 48px');
             min-width: calc(~'100% - 48px');
             width: calc(~'100% - 48px');
         }
-    }
+    }*/
 }
 
 .additional {
@@ -334,7 +338,7 @@ p {
     bottom: 0.5em;
     right: 0.4em;
     z-index: 61;
-    
+
     path {
         fill: #fff;
     }

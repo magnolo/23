@@ -394,11 +394,12 @@ md-sidenav {
       }
     }
     &#sidemenu{
-      &.md-locked-open {
+      z-index:61;
+    //  &.md-locked-open {
           width: 48px;
           min-width: 48px;
           max-width: 48px;
-      }
+    //  }
       md-list{
         md-list-item{
           border:0;
@@ -439,7 +440,9 @@ md-sidenav {
         }
 
       }
-
+      //  @media screen and (max-width: 600px){
+          border-right:1px solid @grey-light;
+      //  }
     }
 
 }

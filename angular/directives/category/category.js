@@ -92,7 +92,6 @@
 			else{
 				vm.categories.push(vm.item);
 			}
-
 		}
 		function successAction(data){
 			console.log(vm.copy.parent_id, vm.item.parent_id);

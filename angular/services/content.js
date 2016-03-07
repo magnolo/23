@@ -37,7 +37,10 @@
 			fetchIndicators: function(filter) {
 				return this.content.indicators = DataService.getAll('indicators', filter).$object
 			},
-			fetchCategories: function(filter) {
+			fetchCategories: function(filter, withoutSave) {
+				if(withoutSave){
+					return DataService.getAll('categories', filter).$object;
+				}
 				return this.content.categories = DataService.getAll('categories', filter).$object;
 			},
 			fetchStyles: function(filter) {
@@ -48,7 +51,10 @@
 
 				return this.content.indices;
 			},
-			getCategories: function(filter) {
+			getCategories: function(filter, withoutSave) {
+				if(withoutSave){
+					return this.fetchCategories(filter, withoutSave);
+				}
 				if (this.content.categories.length == 0) {
 					return this.fetchCategories(filter);
 				}

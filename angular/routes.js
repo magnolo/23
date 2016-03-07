@@ -338,6 +338,9 @@
 							},
 							indices: function(DataService) {
 								return DataService.getAll('index').$object;
+							},
+							categories: function(ContentService){
+									return ContentService.fetchCategories('', true);
 							}
 						}
 					}

@@ -68,6 +68,7 @@
 			};
 			$rootScope.stateIsLoading = true;
 			$mdSidenav('left').close();
+			$mdSidenav('leftMenu').close();
 		});
 		$rootScope.$on("$viewContentLoaded", function(event, toState) {
 

@@ -302,6 +302,7 @@ md-list {
 .chooser {
     ng-md-icon{
       transition: all .2s ease;
+      border: 1px solid rgba(255,255,255,0);
     }
     &.unchecked {
         > ng-md-icon {
@@ -310,6 +311,17 @@ md-list {
             path {
                 fill: #fff;
             }
+        }
+        &.child{
+
+          > ng-md-icon {
+              //background-color: greyscale(@base);
+                border:1px solid lighten(@base, 20%);
+              path {
+                  fill: lighten(@base, 20%);
+
+              }
+          }
         }
     }
     &.children{

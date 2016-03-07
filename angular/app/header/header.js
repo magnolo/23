@@ -1,7 +1,7 @@
 (function(){
 	"use strict";
 
-	angular.module('app.controllers').controller('HeaderCtrl', function($scope, leafletData, $state,$localStorage, $rootScope, $auth, toastr, $timeout){
+	angular.module('app.controllers').controller('HeaderCtrl', function($scope,$mdMedia, leafletData, $state,$localStorage, $rootScope, $auth, toastr, $timeout){
 
 		var vm = this;
 		$rootScope.isAuthenticated = isAuthenticated;
@@ -62,7 +62,10 @@
 		$scope.$watch('$root.sidebarOpen', function(n,o){
 			if(n == o) return false;
 			resetMapSize();
-		})
+		});
+		$scope.$watch(function() { return $mdMedia('xs') }, function(small) {
+	    vm.smallScreen = small;
+	  });
 
 	});
 

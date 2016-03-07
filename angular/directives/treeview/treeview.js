@@ -5,7 +5,7 @@
 		//
 		var vm = this;
 		vm.selectedItem = selectedItem;
-		//vm.childSelected = childSelected;
+		vm.childSelected = childSelected;
 		vm.toggleSelection = toggleSelection;
 		vm.onDragOver = onDragOver;
 		vm.onDropComplete = onDropComplete;
@@ -72,13 +72,17 @@
 			return false;*/
 		}
 
-		/*function childSelected(children) {
+		function childSelected(item) {
 			var found = false;
-			angular.forEach($filter('flatten')(children), function(child) {
-				if (selectedItem(child)) {
+			angular.forEach(item.children, function(child){
+				if(vm.selection.indexOf(child)> -1){
 					found = true;
 				}
-			});
+				if(!found){
+					found =  childSelected(child);
+
+				}
+			})
 			return found;
 		}
 

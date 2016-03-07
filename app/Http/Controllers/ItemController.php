@@ -24,7 +24,7 @@ class ItemController extends Controller
     public function index()
     {
 
-        $items = Item::where('parent_id', 0)->with('children', 'type', 'style')->orderBy('title');
+        $items = Item::where('parent_id', 0)->with('children', 'type', 'style', 'categories')->orderBy('title');
         if(Input::has('is_official')){
           $items = $items->where('is_official', true);
         }

@@ -1,11 +1,12 @@
 <div class="md-toolbar-tools">
 
-	<md-button
-			ng-click="$root.toggleMenu('left')"
+	<md-button ng-if="$root.isAuthenticated() && vm.smallScreen"
+			ng-click="$root.toggleMenu('leftMenu')"
 			class="md-icon-button"
 			aria-label="Show Menu">
 		<ng-md-icon icon="menu"></ng-md-icon>
 	</md-button>
+	<span>{{ $mdMedia('gt-xs')}}</span>
 	<!--<h2>
 		<span>{{current_page}}</span>
 	</h2>

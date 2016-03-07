@@ -1,3 +1,6 @@
+@import (less) '../../material/colors.less';
+
+
 div[ui-view='map']{
   position:absolute;
   width:100%;
@@ -106,3 +109,46 @@ div[ui-view='map']{
     top:6em;
   }
 }
+.leaflet-top{
+
+  top: 1em;
+  left:auto;
+  right:1em;
+  z-index:2;
+  @media screen and (max-width: 600px){
+    top: auto;
+    bottom:3em;
+  }
+  .leaflet-control-zoom{
+      &.leaflet-bar{
+        margin-right:1em;
+        margin-left:0px;
+        a{
+          width: 32px;
+          height: 32px;
+          line-height: 32px;
+          font-family: Georgia;
+          font-weight: normal;
+          color:@base;
+          &.leaflet-disabled{
+            color:@grey;
+          }
+          &:first-child{
+            border-radius: 0px;
+          }
+          &:last-child{
+            border-radius: 0px;
+          }
+        }
+      }
+  }
+}
+.leaflet-right{
+
+   .leaflet-control{
+      display:none;
+   }
+ }
+ .leaflet-bar{
+   box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 2px 1px -1px rgba(0, 0, 0, 0.12);
+ }

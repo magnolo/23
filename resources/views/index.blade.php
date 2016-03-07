@@ -39,7 +39,7 @@
           <header ui-view="header"></header>
       </md-toolbar>
       <md-content layout="row" flex style="overflow:hidden">
-        <md-sidenav id="sidemenu" class="md-sidenav-left" md-component-id="leftMenu" md-is-locked-open="$root.isAuthenticated()" tabindex="-1" md-scroll-y>
+        <md-sidenav id="sidemenu" class="md-sidenav-left" md-component-id="leftMenu" ng-if="$root.isAuthenticated()" md-is-locked-open="$mdMedia('gt-xs')" tabindex="-1" md-scroll-y>
             <md-content flex  doAnim-right ui-view="sidemenu"  md-scroll-y layout="column" class="flex" layout-fill layout-align="space-between none"></md-content>
         </md-sidenav>
         <md-sidenav id="sidebar" md-is-open="$root.sidebarOpen" class="md-sidenav-left md-whiteframe-z1" md-component-id="left" md-is-locked-open="$mdMedia('gt-xs')" tabindex="-1" md-scroll-y>

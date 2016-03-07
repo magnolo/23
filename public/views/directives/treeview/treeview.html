@@ -16,7 +16,7 @@
 																<span ng-if="vm.options.editable" dnd-nodrag contenteditable="true" ng-model="item.title"></span>
 																<span flex dnd-nodrag></span>
 																<weight dnd-nodrag items="vm.items" item="item" ng-if="vm.options.editWeight && vm.items.length > 1"></weight>
-																<span dnd-nodrag ng-if="item.id != 0 && !vm.options.editWeight && !vm.options.simple" class="chooser" ng-class="{'checked': vm.selectedItem(item), 'unchecked' : !vm.selectedItem(item)}" ng-click="vm.toggleSelection(item)">
+																<span dnd-nodrag ng-if="item.id != 0 && !vm.options.editWeight && !vm.options.simple" class="chooser" ng-class="{'checked': vm.selectedItem(item), 'unchecked' : !vm.selectedItem(item) , 'child': vm.childSelected(item)}" ng-click="vm.toggleSelection(item)">
 																				<ng-md-icon icon="check" layout-align="center center" layout="row" size="18"></ng-md-icon>
 																</span>
 																<md-icon class="material-icons" ng-click="vm.onMovedComplete(key)" ng-if="vm.options.edit">close</md-icon>
