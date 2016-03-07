@@ -1555,16 +1555,6 @@ md-toast[md-theme=warn] {
 }
 
 
-.conflict-icon {
-  color: #4fb0e5;
-  font-size: 1.1em;
-  margin-bottom: 1em;
-}
-.conflict-icon i {
-  margin-right: .5em;
-  font-size: 2em;
-}
-
 #items-menu {
   position: fixed;
   right: 0px;
@@ -1605,6 +1595,16 @@ md-toast[md-theme=warn] {
   #items-menu {
     display: none;
   }
+}
+
+.conflict-icon {
+  color: #4fb0e5;
+  font-size: 1.1em;
+  margin-bottom: 1em;
+}
+.conflict-icon i {
+  margin-right: .5em;
+  font-size: 2em;
 }
 
 .conflict-legend {

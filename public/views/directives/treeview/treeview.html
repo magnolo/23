@@ -1,6 +1,6 @@
 <md-list class="no-line treeview" dnd-disable-if="!vm.options.allowDrop && vm.options.drag" dnd-list="vm.items" flex  dnd-dragover="vm.onDragOver(event, index, external, type)" dnd-drop="vm.onDropComplete(event, index, item, external)">
 				<md-list-item ng-class="{'meanwhile':item.id == 0, 'active': item.id == vm.active}" dnd-draggable="item" dnd-effect-allowed="copyMove"  dnd-moved="vm.onMovedComplete($index)" flex ng-repeat="(key,item) in vm.items track by item.id">
-								<div class="md-list-item-text" flex>
+								<div class="md-list-item-text" flex >
 												<p layout-align="space-between center" layout="row">
 
 																<span class="handle" ng-if="vm.options.drag && item.id != 0">
@@ -12,7 +12,7 @@
 																<span dnd-nodrag ng-if="vm.options.withColor" class="md-color-container md-color-picker-preview md-color-picker-checkered-bg" role="button" tabindex="0">
 																				<span class="md-color-picker-result" ng-style="{background: item.base_color}"></span>
 																</span>
-																<span ng-if="!vm.options.editable" dnd-nodrag ng-click="vm.options.itemClick(item.id, item.name)">{{item.title}}</span>
+																<span ng-if="!vm.options.editable" dnd-nodrag ng-click="vm.options.itemClick(item.id, item.name)" class="cursor">{{item.title}}</span>
 																<span ng-if="vm.options.editable" dnd-nodrag contenteditable="true" ng-model="item.title"></span>
 																<span flex dnd-nodrag></span>
 																<weight dnd-nodrag items="vm.items" item="item" ng-if="vm.options.editWeight && vm.items.length > 1"></weight>

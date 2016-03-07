@@ -62,7 +62,9 @@
 				deleteClick:function(){
 					angular.forEach(vm.selection.categories,function(item, key){
 						ContentService.removeCategory(item.id).then(function(data){
-						//	removeItem(item,vm.categories);
+							if($state.params.id == item.id){
+								$state.go('app.index.editor.categories');
+							}
 							vm.selection.categories = [];
 						});
 					});

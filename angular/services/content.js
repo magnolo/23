@@ -120,10 +120,10 @@
 					if(entry.id == id){
 						found = entry;
 					}
-					if(entry.children && !found){
+					if(entry.children && entry.children.length && !found){
 						var subresult = that.findContent(id, entry.children);
 						if(subresult){
-							return subresult;
+							found = subresult;
 						}
 					}
 				});
@@ -143,16 +143,13 @@
 			},
 			getCategory: function(id) {
 				if (this.content.categories.length) {
-					for (var i = 0; i < this.content.categories.length; i++) {
-						if (this.content.categories[i].id == id) {
-							return this.content.categories[i];
-						}
-					}
+					return this.findContent(id, this.content.categories);
 				} else {
 					return this.content.category = DataService.getOne('categories/' + id).$object;
 				}
 			},
 			removeCategory: function(id){
+				this.removeContent(id, this.content.categories);
 				return DataService.remove('categories/', id);
 			}
 

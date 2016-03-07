@@ -30,7 +30,8 @@
 					type: 'xyz',
 					layerOptions: {
 						noWrap: true,
-						continuousWorld: false
+						continuousWorld: false,
+						detectRetina: true
 					}
 
 				}
@@ -39,7 +40,8 @@
 		vm.labelsLayer = L.tileLayer('https://{s}.tiles.mapbox.com/v4/magnolo.06029a9c/{z}/{x}/{y}.png?access_token=' + apiKey, {
 			noWrap: true,
 			continuousWorld: false,
-			name: 'labels'
+			name: 'labels',
+			detectRetina: true
 		});
 		vm.maxbounds = {
 			southWest: {

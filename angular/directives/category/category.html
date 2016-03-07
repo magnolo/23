@@ -24,7 +24,7 @@
                                 </div>
                         </md-input-container>
 
-                        <md-autocomplete md-item-text="cat.title" md-items="cat in vm.querySearchCategory(vm.searchTextCat)" md-min-length="0" md-no-cache="vm.noCache" md-search-text-change="vm.searchTextChange(ctrl.searchTextCat)" md-search-text="vm.searchTextCat" md-selected-item="vm.item.parent" ng-disabled="vm.isDisabled" placeholder="Select a parent category?">
+                        <md-autocomplete md-item-text="cat.title" md-items="cat in vm.querySearchCategory(vm.searchTextCat)" md-min-length="0" md-no-cache="vm.noCache" md-search-text-change="vm.searchTextChange(ctrl.searchTextCat)" md-selected-item="vm.parent" md-search-text="vm.searchTextCat" md-selected-item-change="vm.parentChanged(cat)"  ng-disabled="vm.isDisabled" placeholder="Select a parent category?">
                                 <md-item-template>
                                         <span md-highlight-text="vm.searchTextCat">{{cat.title}}</span>
                                 </md-item-template>

@@ -25,7 +25,7 @@ class CategoriesController extends Controller
         $tree = false;
         if(\Input::has('indicators')){
           if(\Input::get('indicators') == true){
-            $with = ['style', 'indicators'];
+            $with = ['style', 'indicators', ];
           }
         }
         if(\Input::has('tree')){

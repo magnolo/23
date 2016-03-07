@@ -7,7 +7,7 @@
 			return '/views/app/' + viewName + '/' + viewName + '.html';
 		};
 
-		$urlRouterProvider.otherwise('/conflict/index');
+		$urlRouterProvider.otherwise('/');
 
 		$stateProvider
 			.state('app', {
@@ -246,6 +246,9 @@
 						controllerAs: 'vm',
 						resolve: {
 							category: function(ContentService, $stateParams) {
+								if($stateParams.id == 'new'){
+									return {};
+								}
 								return ContentService.getCategory($stateParams.id);
 							}
 						}

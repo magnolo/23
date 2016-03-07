@@ -10,6 +10,7 @@
           getOne: getOne,
           post: post,
           put: put,
+          update: update,
           remove: remove
         };
 
@@ -32,6 +33,9 @@
         }
         function put(route, data){
           return Restangular.all(route).put(data);
+        }
+        function update(route, id, data){
+          return Restangular.one(route, id).put(data);
         }
         function remove(route, id){
           return Restangular.one(route, id).remove();

@@ -12,7 +12,7 @@
 			bindToController: {
 				item: '=',
 				categories: '=',
-				options:'=',
+				options:'=?',
 				save: '&'
 			},
 			replace:true,
