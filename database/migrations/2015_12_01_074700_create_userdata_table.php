@@ -12,7 +12,7 @@ class CreateUserdataTable extends Migration
      */
     public function up()
     {
-        Schema::create('23_userdata', function (Blueprint $table) {
+        Schema::create('userdata', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->string('table_name');
@@ -39,6 +39,6 @@ class CreateUserdataTable extends Migration
      */
     public function down()
     {
-        Schema::drop('23_userdata');
+        Schema::drop('userdata');
     }
 }

@@ -12,7 +12,7 @@ class CreateItemCategoreisTable extends Migration
      */
     public function up()
     {
-        Schema::create('23_items_categories', function (Blueprint $table) {
+        Schema::create('items_categories', function (Blueprint $table) {
             //
             $table->increments('id');
             $table->integer('item_id')->unsigned();

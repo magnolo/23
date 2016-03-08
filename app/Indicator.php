@@ -8,14 +8,14 @@ use Input;
 class Indicator extends Model
 {
     //
-    protected $table = "23_indicators";
+    protected $table = "indicators";
 
     protected $fillable = ['is_official', 'is_public', 'title', 'description'];
-    protected $hidden = ['userdata_id', 'iso_name', 'column_name', 'table_name', 'pivot'];
+    protected $hidden = ['userdata_id', 'iso_name', 'table_name', 'pivot'];
 
 
     public function categories(){
-      return $this->belongsToMany('App\Categorie', '23_indicator_categories', 'indicator_id', 'categorie_id')->with('style');
+      return $this->belongsToMany('App\Categorie', 'indicator_categories', 'indicator_id', 'categorie_id')->with('style');
     }
     public function userdata(){
       return $this->belongsTo('App\UserData');

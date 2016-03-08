@@ -61,8 +61,6 @@ class IndicatorController extends Controller
         }
 
         $query = $query->orderBy($order, $dir)->skip($offset)->take($limit);
-
-
         return response()->api($query->get());
     }
 
@@ -150,6 +148,17 @@ class IndicatorController extends Controller
     public function destroy($id)
     {
         //
+        $data = array();
+        //$user = Auth::user();
+        $indicator = Indicator::where('id',$id)->with('categories', 'dataprovider', 'userdata')->first();
+        //  return response()->api($indicator);
+        \DB::transaction(function () use ($indicator, &$data) {
+          $data['colum'] = \Schema::table($indicator->userdata->table_name, function($table) use ($indicator){
+            $table->dropColumn($indicator->column_name);
+          });
+          $data['indicator'] = $indicator->delete();
+        });
+        return response()->api($data);
     }
 
     public function fetchData($id){

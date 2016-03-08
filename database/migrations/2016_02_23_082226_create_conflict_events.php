@@ -13,7 +13,7 @@ class CreateConflictEvents extends Migration
     public function up()
     {
         //
-          Schema::create('23_conflict_events', function(Blueprint $table){
+          Schema::create('conflict_events', function(Blueprint $table){
             $table->increments('id');
             $table->string('title');
             $table->integer('type_id')->unsigned();
@@ -40,6 +40,6 @@ class CreateConflictEvents extends Migration
     public function down()
     {
         //
-          Schema::drop('23_conflict_events');
+          Schema::drop('conflict_events');
     }
 }

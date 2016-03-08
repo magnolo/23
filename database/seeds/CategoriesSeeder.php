@@ -14,7 +14,7 @@ class CategoriesSeeder extends Seeder
     public function run()
     {
         //
-        DB::table('23_categories')->delete();
+        DB::table('categories')->delete();
         Categorie::create([
           'name' => 'environment',
           'title' => 'Environment',

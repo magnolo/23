@@ -11,7 +11,7 @@ class CountriesTableSeeder extends CsvSeeder
      */
     public function __construct()
    {
-       $this->table = '23_countries';
+       $this->table = 'countries';
        $this->csv_delimiter = ',';
        $this->insert_chunk_size = 33;
        $this->filename = base_path().'/database/seeds/csv/country_table.csv';

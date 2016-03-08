@@ -12,7 +12,7 @@ class CreateIndicatorsTable extends Migration
      */
     public function up()
     {
-        Schema::create('23_indicators', function (Blueprint $table) {
+        Schema::create('indicators', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('userdata_id')->unsigned();
             //$table->foreign('userdata_id')->references('id')->on('23_userdata');
@@ -41,6 +41,6 @@ class CreateIndicatorsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('23_indicators');
+        Schema::drop('indicators');
     }
 }

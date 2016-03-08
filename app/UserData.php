@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class UserData extends Model
 {
     //
-    protected $table='23_userdata';
+    protected $table='userdata';
 
     public function user(){
       return $this->belongsTo('App\User', 'user_id', 'id');

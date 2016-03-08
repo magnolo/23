@@ -14,7 +14,7 @@ class ItemTypesSeeder extends Seeder
     public function run()
     {
         //
-        DB::table('23_items_types')->delete();
+        DB::table('items_types')->delete();
         ItemType::create([
           'name' => 'group',
           'title' => 'Group'

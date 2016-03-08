@@ -81,6 +81,7 @@ $api->version('v1', ['middleware' => 'api.auth'], function ($api) {
 
 
     $api->put('indicators/{id}', 'App\Http\Controllers\IndicatorController@update');
+    $api->delete('indicators/{id}', 'App\Http\Controllers\IndicatorController@destroy');
 
     $api->put('index/{id}', 'App\Http\Controllers\ItemController@update');
     $api->post('index','App\Http\Controllers\ItemController@create');

@@ -12,7 +12,7 @@ class CreateMeasuretypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('23_measure_types', function (Blueprint $table) {
+        Schema::create('measure_types', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->string('title');
@@ -29,6 +29,6 @@ class CreateMeasuretypesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('23_measure_types');
+        Schema::drop('measure_types');
     }
 }

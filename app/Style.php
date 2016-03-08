@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Style extends Model
 {
     //
-    protected $table="23_styles";
+    protected $table="styles";
 
     public function indicators(){
       return $this->hasMany('App\Indicator');

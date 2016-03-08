@@ -1,13 +1,13 @@
 (function(){
 	"use strict";
 
-	angular.module( 'app.controllers' ).controller( 'IndicatorsCtrl', function($scope){
+	angular.module( 'app.controllers' ).controller( 'IndicatorsCtrl', function(DataService){
 		//
 		var vm = this;
 		vm.selectAllGroup = selectAllGroup;
 		vm.selectedItem = selectedItem;
 		vm.toggleSelection = toggleSelection;
-
+		vm.deleteSelected = deleteSelected;
 
 		vm.filter = {
 			sort:'title',
@@ -79,6 +79,16 @@
 			$mdOpenMenu(ev);
 		}
 
+		function deleteSelected(){
+			if(vm.selection.length){
+				angular.forEach(vm.selection, function(item){
+						DataService.remove('indicators', item.id).then(function(response){
+							vm.indicators.splice(vm.indicators.indexOf(item),1);
+						})
+				})
+				vm.selection = [];
+			}
+		}
 		/*$scope.$watch('vm.search.query', function (query, oldQuery) {
 			if(query === oldQuery) return false;
 			vm.query = vm.filter.types;

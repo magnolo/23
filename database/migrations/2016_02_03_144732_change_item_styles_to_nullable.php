@@ -12,7 +12,7 @@ class ChangeItemStylesToNullable extends Migration
      */
     public function up()
     {
-        Schema::table('"23_items"', function (Blueprint $table) {
+        Schema::table('items', function (Blueprint $table) {
             //
             $table->string('style_id')->nullable()->change();
             $table->boolean('is_public')->nullable()->change();
@@ -28,7 +28,7 @@ class ChangeItemStylesToNullable extends Migration
      */
     public function down()
     {
-        Schema::table('23_items', function (Blueprint $table) {
+        Schema::table('items', function (Blueprint $table) {
             //
         });
     }
