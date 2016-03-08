@@ -1579,7 +1579,7 @@ md-toast[md-theme=warn] {
   -webkit-transform: scale(0.9);
   transform: scale(0.9);
 }
-@media screen and (max-width: 600px) {
+@media screen and (max-height: 699px) {
   #items-menu {
     display: none;
   }
@@ -2462,7 +2462,7 @@ md-list-item.active {
 #main-logo a span {
   font-size: 0.8em;
 }
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 959px) {
   #main-logo {
     display: block;
     bottom: auto;
