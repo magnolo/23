@@ -1579,7 +1579,12 @@ md-toast[md-theme=warn] {
   -webkit-transform: scale(0.9);
   transform: scale(0.9);
 }
-@media screen and (max-height: 699px) {
+@media screen and (max-height: 600px) {
+  #items-menu {
+    display: none;
+  }
+}
+@media screen and (max-width: 960px) and (max-height: 740px) {
   #items-menu {
     display: none;
   }
@@ -2945,6 +2950,10 @@ median .slider text {
   top: 0.5em;
 }
 
+.bars .bg {
+  fill: #ebebeb;
+}
+
 piechart {
   position: relative;
 }
@@ -2952,10 +2961,6 @@ piechart .inner-pie {
   position: absolute;
   left: 0px;
   opacity: 0.4;
-}
-
-.bars .bg {
-  fill: #ebebeb;
 }
 
 .nvd3 .nv-background {
@@ -3009,7 +3014,6 @@ piechart .inner-pie {
   display: -ms-flexbox;
   display: flex;
 }
-
 
 .section {
   padding: 30px;
@@ -3135,6 +3139,7 @@ piechart .inner-pie {
 .calculating .field-name-field-calculating-text {
   padding-right: 220px;
 }
+
 
 .trashcan ul {
   padding: 0;
