@@ -12,9 +12,9 @@ class CreateItemsTable extends Migration
      */
     public function up()
     {
-      Schema::create('23_items', function (Blueprint $table) {
+      Schema::create('items', function (Blueprint $table) {
           $table->increments('id');
-          $table->integer('parent_id')->default(0);
+          $table->integer('parent_id')->nullable()->undsigned()->default(null);
           $table->integer('indicator_id')->nullable();
           $table->integer('user_id');
           $table->integer('style_id')->default(0);
@@ -38,6 +38,6 @@ class CreateItemsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('23_items');
+        Schema::drop('items');
     }
 }

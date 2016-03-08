@@ -28,7 +28,7 @@
 				</section>
         <section class="info-text slide-toggle hideOnClosed" ng-if="vm.conflict.text" style="padding-top:0px">
           <div class="text slide-toggle">
-          <p>{{vm.conflict.text}}</p>
+          <p ng-bind-html="vm.conflict.text"></p>
         </div>
         <a href="" ng-click="vm.showText()">... read more ...</a>
         </section>

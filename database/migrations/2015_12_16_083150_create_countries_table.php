@@ -13,7 +13,7 @@ class CreateCountriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('23_countries', function (Blueprint $table) {
+        Schema::create('countries', function (Blueprint $table) {
             $table->increments('id');
             $table->multipolygon('geom');
             $table->integer('scalerank')->nullable();
@@ -91,6 +91,6 @@ class CreateCountriesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('23_countries');
+        Schema::drop('countries');
     }
 }

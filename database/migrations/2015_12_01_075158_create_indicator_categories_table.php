@@ -12,7 +12,7 @@ class CreateIndicatorCategoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('23_indicator_categories', function (Blueprint $table) {
+        Schema::create('indicator_categories', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('indicator_id')->unsigned();
             $table->integer('categorie_id')->unsigned();
@@ -26,6 +26,6 @@ class CreateIndicatorCategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('23_indicator_categories');
+        Schema::drop('indicator_categories');
     }
 }

@@ -7,5 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 class Image extends Model
 {
     //
-    protected $table = "23_images";
+    protected $table = "images";
 }

@@ -12,7 +12,7 @@ class CreateDataprovidersTable extends Migration
      */
     public function up()
     {
-        Schema::create('23_dataproviders', function (Blueprint $table) {
+        Schema::create('dataproviders', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->string('title');
@@ -32,6 +32,6 @@ class CreateDataprovidersTable extends Migration
      */
     public function down()
     {
-        Schema::drop('23_dataproviders');
+        Schema::drop('dataproviders');
     }
 }

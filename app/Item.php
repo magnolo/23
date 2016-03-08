@@ -8,7 +8,7 @@ use App\Style;
 class Item extends Model
 {
     //
-    protected $table="23_items";
+    protected $table="items";
 
     public function parent(){
       return $this->belongsTo('App\Item', 'parent_id');
@@ -26,7 +26,7 @@ class Item extends Model
       return $this->belongsTo('App\Style', 'style_id');
     }
     public function categories(){
-      return $this->belongsToMany('App\Categorie', '23_items_categories', 'item_id', 'categorie_id')->with('style');
+      return $this->belongsToMany('App\Categorie', 'items_categories', 'item_id', 'categorie_id')->with('style');
     }
     public function getStyle() {
       if ($this->style) {

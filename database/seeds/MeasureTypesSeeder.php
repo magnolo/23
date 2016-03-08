@@ -14,7 +14,7 @@ class MeasureTypesSeeder extends Seeder
     public function run()
     {
         //
-        DB::table('23_measure_types')->delete();
+        DB::table('measure_types')->delete();
 
         MeasureType::create([
           'name' => 'absolute',

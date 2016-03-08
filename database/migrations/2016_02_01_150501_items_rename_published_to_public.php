@@ -12,7 +12,7 @@ class ItemsRenamePublishedToPublic extends Migration
      */
     public function up()
     {
-        Schema::table('"23_items"', function (Blueprint $table) {
+        Schema::table('items', function (Blueprint $table) {
             //
             $table->renameColumn('is_published', 'is_public');
         });
@@ -25,7 +25,7 @@ class ItemsRenamePublishedToPublic extends Migration
      */
     public function down()
     {
-        Schema::table('"23_items"', function (Blueprint $table) {
+        Schema::table('items', function (Blueprint $table) {
             //
             $table->renameColumn('is_public', 'is_published');
         });

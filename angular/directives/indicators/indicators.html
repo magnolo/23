@@ -1,5 +1,11 @@
 <md-content md-scroll-y>
-        <div layout="column" style="position:relative;">
+        <div layout="row" layout="space-between center" class="doAnim-bottom" style="position:relative;" ng-if="vm.selection.length">
+          <span flex></span>
+          <md-button ng-click="vm.deleteSelected()" class="md-fab md-mini md-warn " >
+                  <md-icon class="material-icons">delete</md-icon>
+          </md-button>
+        </div>
+        <div layout="column" style="position:relative;" ng-if="!vm.selection.length" class="doAnim-bottom" >
                 <div class="p1 pr0" layout-align="space-between center" layout="row">
                         <div layout="row" layout-align="space-around center">
                           <md-button ng-class="{'md-primary':vm.filter.sort == 'title'}" ng-click="vm.filter.sort = 'title'" class="m0 small">A-Z</md-button>

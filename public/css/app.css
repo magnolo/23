@@ -747,7 +747,7 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  border: 2px solid rgba(255, 255, 255, 0.8);
+  border: 2px solid rgba(255, 255, 255, 0);
   border-left-color: #006cb9;
   border-top-color: #006cb9;
   border-radius: 774px;
@@ -1532,6 +1532,7 @@ md-toast[md-theme=warn] {
   text-align: center;
 }
 
+
 .conflict-icon {
   color: #4fb0e5;
   font-size: 1.1em;
@@ -1541,7 +1542,6 @@ md-toast[md-theme=warn] {
   margin-right: .5em;
   font-size: 2em;
 }
-
 
 #items-menu {
   position: fixed;
@@ -1780,6 +1780,9 @@ md-dialog-content p.columned {
   height: 48px;
   min-height: 48px;
   padding-left: 12px;
+}
+.Header h2 {
+  max-height: 48px;
 }
 .Header a {
   color: #006bb9;
@@ -2763,6 +2766,7 @@ div[ui-view='map'] {
 
 
 
+
 [contenteditable] {
   position: relative;
   white-space: pre-wrap;
@@ -2792,7 +2796,6 @@ div[ui-view='map'] {
 }
 
 
-
 .indicator-tabs .indicator-fields {
   padding: 0 1em;
   max-width: 500px;
@@ -2820,6 +2823,7 @@ div[ui-view='map'] {
 .indicator-tabs md-autocomplete[md-floating-label] md-input-container {
   padding-bottom: 2px;
 }
+
 
 .indicator-menu {
   position: absolute;
@@ -2853,7 +2857,6 @@ div[ui-view='map'] {
 .indicator-menu ng-md-icon.greyed path {
   fill: #ddd;
 }
-
 
 
 median {
@@ -2912,11 +2915,6 @@ median .slider text {
 }
 
 
-
-.bars .bg {
-  fill: #ebebeb;
-}
-
 .dropzone {
   border: 2px dashed #ddd;
   padding: 2em;
@@ -2946,6 +2944,7 @@ median .slider text {
   top: 0.5em;
 }
 
+
 piechart {
   position: relative;
 }
@@ -2953,6 +2952,17 @@ piechart .inner-pie {
   position: absolute;
   left: 0px;
   opacity: 0.4;
+}
+
+.bars .bg {
+  fill: #ebebeb;
+}
+
+.slide-toggle {
+  transition: all .5s;
+}
+.slide-toggle.ng-animate {
+  overflow: hidden;
 }
 
 .nvd3 .nv-background {
@@ -2974,13 +2984,6 @@ piechart .inner-pie {
 }
 .nvd3 .nv-axis text {
   fill: #afafaf;
-}
-
-.slide-toggle {
-  transition: all .5s;
-}
-.slide-toggle.ng-animate {
-  overflow: hidden;
 }
 
 .md-color-container.md-color-picker-preview {
@@ -3005,6 +3008,18 @@ piechart .inner-pie {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+}
+
+
+.trashcan ul {
+  padding: 0;
+  margin: 0;
+}
+.trashcan ul li {
+  list-style-type: none;
+}
+.trashcan ul .dndPlaceholder {
+  display: none;
 }
 
 .section {
@@ -3130,18 +3145,6 @@ piechart .inner-pie {
 }
 .calculating .field-name-field-calculating-text {
   padding-right: 220px;
-}
-
-
-.trashcan ul {
-  padding: 0;
-  margin: 0;
-}
-.trashcan ul li {
-  list-style-type: none;
-}
-.trashcan ul .dndPlaceholder {
-  display: none;
 }
 
 .treeview {

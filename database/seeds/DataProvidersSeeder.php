@@ -14,7 +14,7 @@ class DataProvidersSeeder extends Seeder
     public function run()
     {
         //
-        DB::table('23_dataproviders')->delete();
+        DB::table('dataproviders')->delete();
         DataProvider::create([
           'name' => 'worldbank',
           'title' => 'The World Bank',

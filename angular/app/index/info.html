@@ -1,63 +1,35 @@
 <style type="text/css">
-				md-tabs .md-tab.md-active,
-				md-tabs .md-tab.md-focused
-}
-};
-}
-md-tabs .md-tab.md-active,
-md-tabs .md-tab.md-focused
-}
-}
-md-tabs .md-tab.md-active,
-md-tabs .md-tab.md-focused
-};
-}
-}
-vm.structure.style.base_color || 'rgba(128, 243, 198,1)'{
-{:color{
-.info-container .info-box .module.rank .mini-list .list ul li.active
-};
-}
-background:{{
-vm.structure.style.base_color || 'rgba(128, 243, 198,1)'
-};
-
-md-tabs md-ink-bar {
-color:{{
-vm.structrue.style.base_color || 'rgba(128, 243, 198,1)'
-}
-}
-vm.structure.style.base_color || 'rgba(128, 243, 198,1)'{
-{:color{
-md-tabs .md-tab.md-active,
-md-tabs .md-tab.md-focused
-}
-
-md-tabs .md-tab .md-ripple-container {
-color:{{
-vm.structure.style.base_color || 'rgba(128, 243, 198,1)'
-}
-}
-vm.structure.style.base_color || 'rgba(128, 243, 198,1)'{
-{:color{
-.info-box .module.rank .mini-list .list ul li.active,
-.info-box .module.comparison h4 .number ;
-}
-
+	md-tabs .md-tab.md-active,
+	md-tabs .md-tab.md-focused {
+		color: {{vm.structure.style.base_color || 'rgba(128, 243, 198,1)' }}
+	}
+	md-tabs .md-tab .md-ripple-container {
+		color: {{vm.structure.style.base_color || 'rgba(128, 243, 198,1)'}};
+	}
+	md-tabs md-ink-bar {
+			color: {{vm.structrue.style.base_color || 'rgba(128, 243, 198,1)'}};
+		background:{{vm.structure.style.base_color || 'rgba(128, 243, 198,1)'}};
+	}
+	.info-container .info-box .module.rank .mini-list .list ul li.active {
+				color: {{vm.structure.style.base_color || 'rgba(128, 243, 198,1)'}};
+	}
+	.info-box .module.rank .mini-list .list ul li.active, .info-box .module.comparison h4 .number{
+		color: {{vm.structure.style.base_color || 'rgba(128, 243, 198,1)'}};
+	}
 </style>
 <div class="info-box">
 				<div class="cssload-container doAnim-fade" ng-if="!vm.data.length">
 								<div class="cssload-whirlpool"></div>
 								<div class="cssload-text">23°</div>
 				</div>
-				<section class="header noPaddingOnClosed"  layout-align="space-between center" layout="row" ng-if="vm.structure.parent_id == 0" ng-style="{'color':vm.display.selectedCat.color}">
+				<section class="header noPaddingOnClosed"  layout-align="space-between center" layout="row" ng-if="!vm.structure.parent_id" ng-style="{'color':vm.display.selectedCat.color}">
 								<span class="title " ng-class="{'tinyOnClosed': vm.current && vm.data.length }">{{vm.structure.title}}</span>
 								<span class="subtitle hideOnClosed">{{vm.structure.full_name}}</span>
 								<md-button class="md-icon-button hideOnClosed" ui-sref="app.index.show.info({id:vm.structure.id,name:vm.structure.name})">
 												<i class="icon-acess-to-information"></i>
 								</md-button>
 				</section>
-				<section class="header noPaddingOnClosed" ng-if="vm.structure.parent_id != 0 && vm.data.length">
+				<section class="header noPaddingOnClosed" ng-if="vm.structure.parent_id && vm.data.length">
 								<div layout-align="space-between center" layout="row">
 												<div layout-align="center center" class="hideOnClosed" layout="row">
 																<div class="close-box" ng-click="goBack()" ui-sref="app.index.show.selected({id:vm.structure.parent.id,index:vm.structure.parent.name,item:vm.current.iso})">

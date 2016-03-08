@@ -13,7 +13,7 @@ class CreateConflictNationsTable extends Migration
     public function up()
     {
         //
-        Schema::create('23_conflict_nations', function(Blueprint $table){
+        Schema::create('conflict_nations', function(Blueprint $table){
             $table->increments('id');
             $table->string('country');
             $table->string('iso', 3);
@@ -38,6 +38,6 @@ class CreateConflictNationsTable extends Migration
     public function down()
     {
         //
-        Schema::drop('23_conflict_nations');
+        Schema::drop('conflict_nations');
     }
 }
