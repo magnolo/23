@@ -41,7 +41,7 @@
 		}
 		function parentChanged(item){
 			if(typeof item == "undefined"){
-				vm.item.parent_id = 0;
+				vm.item.parent_id = null;
 				vm.item.parent = null;
 				return false;
 			}
@@ -96,9 +96,9 @@
 		function successAction(data){
 			console.log(vm.copy.parent_id, vm.item.parent_id);
 			if(vm.copy.parent_id != vm.item.parent_id){
-				if(vm.copy.parent_id && vm.item.parent_id){
+				//if(vm.copy.parent_id && vm.item.parent_id){
 					moveItem();
-				}
+			//	}
 			}
 			toastr.success('Category has been updated', 'Success');
 			$scope.categoryForm.$setSubmitted();
@@ -117,7 +117,7 @@
 				}
 				else{
 					DataService.post('categories', vm.item).then(function (data) {
-						if(data.parent_id != 0 ){
+						if(data.parent_id ){
 								 var parent = getParent(data, vm.categories);
 								 if(!parent.children){
 									 parent.children = [];

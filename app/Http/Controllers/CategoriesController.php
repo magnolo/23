@@ -36,7 +36,7 @@ class CategoriesController extends Controller
         }
         $categories = Categorie::with($with)->orderBy('title');
         if($tree){
-          $categories = $categories->where('parent_id', 0);
+          $categories = $categories->where('parent_id', null);
         }
         return response()->api($categories->get());
     }
@@ -67,7 +67,7 @@ class CategoriesController extends Controller
         else{
           $user = Auth::user();
           $parent = $request->input('parent');//
-          $parent_id = 0;
+          $parent_id = null;
           if($parent){
             $parent_id = $parent['id'];
           }
