@@ -165,7 +165,7 @@ class IndicatorController extends Controller
       $indicator = Indicator::find($id);
       $iso_field = $indicator->userdata->iso_type == 'iso-3166-1' ? 'adm0_a3': 'iso_a2';
       $data = \DB::table($indicator->table_name)
-        ->where('year', \DB::raw('(select MAX('.$indicator->table_name.'.year) from '.$indicator->table_name.')'))
+        ->where('year', \DB::raw('(select MAX(tt_'.$indicator->table_name.'.year) from tt_'.$indicator->table_name.')'))
         ->leftJoin('countries', $indicator->table_name.".".$indicator->iso_name, '=', 'countries.'.$iso_field)
         ->select($indicator->table_name.".".$indicator->column_name.' as score', $indicator->table_name.'.year','countries.'.$iso_field.' as iso','countries.admin as country')
         ->orderBy($indicator->table_name.".".$indicator->column_name, 'desc')->get();

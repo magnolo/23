@@ -166,7 +166,7 @@ class ItemController extends Controller
 
         $index = array();
         if(is_numeric($id)){
-            $index = Item::find($id);
+            $index = Item::where('id',$id)->first();
             $index = $index->load('children', 'style', 'indicator', 'type', 'parent', 'categories');
         }
         elseif(is_string($id)){
