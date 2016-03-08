@@ -67,18 +67,14 @@ $api->version('v1', function ($api) {
     $api->get('conflicts/events', 'App\Http\Controllers\ConflictsController@index');
     $api->get('conflicts/events/{id}', 'App\Http\Controllers\ConflictsController@conflict');
     $api->get('conflicts/{id}', 'App\Http\Controllers\ConflictsController@conflict');
-
-
 });
 
 //protected with JWT
 $api->version('v1', ['middleware' => 'api.auth'], function ($api) {
 
-
     $api->get('me', 'App\Http\Controllers\UserController@index');
     $api->get('me/data', 'App\Http\Controllers\UserController@myData');
     $api->get('me/indizes','App\Http\Controllers\ItemController@showMine');
-
 
     $api->put('indicators/{id}', 'App\Http\Controllers\IndicatorController@update');
     $api->delete('indicators/{id}', 'App\Http\Controllers\IndicatorController@destroy');
@@ -104,7 +100,4 @@ $api->version('v1', ['middleware' => 'api.auth'], function ($api) {
     $api->post('conflicts/import', 'App\Http\Controllers\ConflictsController@importNations');
 
     //$api->post('index', 'App\Http\Controllers\IndexController@create');
-
-
-
 });

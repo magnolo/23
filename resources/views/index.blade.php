@@ -39,10 +39,10 @@
           <header ui-view="header"></header>
       </md-toolbar>
       <md-content layout="row" flex style="overflow:hidden">
-        <md-sidenav id="sidemenu" class="md-sidenav-left" md-component-id="leftMenu" ng-if="$root.isAuthenticated()" md-is-locked-open="$mdMedia('gt-xs')" tabindex="-1" md-scroll-y>
+        <md-sidenav id="sidemenu" class="md-sidenav-left" md-component-id="leftMenu" ng-if="$root.isAuthenticated()" md-is-locked-open="$mdMedia('gt-sm')" tabindex="-1" md-scroll-y>
             <md-content flex  doAnim-right ui-view="sidemenu"  md-scroll-y layout="column" class="flex" layout-fill layout-align="space-between none"></md-content>
         </md-sidenav>
-        <md-sidenav id="sidebar" md-is-open="$root.sidebarOpen" class="md-sidenav-left md-whiteframe-z1" md-component-id="left" md-is-locked-open="$mdMedia('gt-xs')" tabindex="-1" md-scroll-y>
+        <md-sidenav id="sidebar" md-is-open="$root.sidebarOpen" class="md-sidenav-left md-whiteframe-z1" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')" tabindex="-1" md-scroll-y>
             <div class="menu-toggler" md-swipe-up="$root.toggleMenu('left')" flex ng-click="$root.toggleMenu('left')" layout="row" layout-align="center center" show-xs></div>
             <md-content flex doAnim-right ui-view="sidebar" md-swipe-down="$root.toggleMenu('left')"  md-scroll-y></md-content>
         </md-sidenav>
@@ -52,7 +52,7 @@
             <div ui-view="additional" class="additional doAnim-hinge md-whiteframe-z1" md-scroll-y style="overflow-y:auto" ng-if="$root.additional"></div>
         </md-content>
       </md-content>
-      <div class="mobile-window-switcher" hide-gt-xs>
+      <div class="mobile-window-switcher" hide-gt-sm>
         <md-button class="md-fab md-primary"  ng-click="$root.toggleMenu('left')" aria-label="Show Map/Info">
            <ng-md-icon icon="@{{$root.sidebarOpen ? 'map' : 'expand_less'}}" options='{"duration":300, "rotation":"none"}' size="32" style="top:12px;position:relative"></ng-md-icon>
         </md-button>

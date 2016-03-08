@@ -63,7 +63,7 @@
 			if(n == o) return false;
 			resetMapSize();
 		});
-		$scope.$watch(function() { return $mdMedia('xs') }, function(small) {
+		$scope.$watch(function() { return $mdMedia('sm') }, function(small) {
 	    vm.smallScreen = small;
 	  });
 

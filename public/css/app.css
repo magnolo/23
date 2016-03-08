@@ -1027,7 +1027,7 @@ md-sidenav#sidebar.md-locked-open {
   min-width: 370px;
   max-width: 370px;
 }
-@media screen and (max-width: 599px) {
+@media screen and (max-width: 959px) {
   md-sidenav#sidebar {
     min-width: 100%;
     max-width: 100%;
@@ -1244,7 +1244,7 @@ body.loggedIn > md-content::before {
   width: calc(100% - 47px);
   left: 47px;
 }
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 959px) {
   body.loggedIn > md-content::before {
     left: 0px;
     width: 100%;
@@ -1533,6 +1533,16 @@ md-toast[md-theme=warn] {
 }
 
 
+.conflict-icon {
+  color: #4fb0e5;
+  font-size: 1.1em;
+  margin-bottom: 1em;
+}
+.conflict-icon i {
+  margin-right: .5em;
+  font-size: 2em;
+}
+
 #items-menu {
   position: fixed;
   right: 0px;
@@ -1573,16 +1583,6 @@ md-toast[md-theme=warn] {
   #items-menu {
     display: none;
   }
-}
-
-.conflict-icon {
-  color: #4fb0e5;
-  font-size: 1.1em;
-  margin-bottom: 1em;
-}
-.conflict-icon i {
-  margin-right: .5em;
-  font-size: 2em;
 }
 
 .conflict-legend {
@@ -2484,7 +2484,7 @@ div[ui-view='map'] {
   height: 100%;
   transition: all .6s ease;
 }
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 959px) {
   #map {
     height: calc(100% - 102px);
   }
@@ -2575,7 +2575,7 @@ div[ui-view='map'] {
   right: 1em;
   z-index: 2;
 }
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 959px) {
   .leaflet-top {
     top: auto;
     bottom: 3em;
