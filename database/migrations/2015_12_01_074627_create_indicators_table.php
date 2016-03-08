@@ -18,8 +18,8 @@ class CreateIndicatorsTable extends Migration
             //$table->foreign('userdata_id')->references('id')->on('23_userdata');
             $table->integer('measure_type_id')->unsigned();
             //$table->foreign('measure_type_id')->references('id')->on('23_measure_types');
-            $table->integer('style_id')->default(0);
-            $table->integer('dataprovider_id')->unsigned()->default(0);
+            $table->integer('style_id')->unsigned()->nullable()->default(null);
+            $table->integer('dataprovider_id')->unsigned()->nullable()->default(null);
             //$table->foreign('style_id')->references('id')->on('23_styles');
             $table->string('table_name');
             $table->string('column_name');

@@ -14,7 +14,7 @@ class CreateItemsTable extends Migration
     {
       Schema::create('items', function (Blueprint $table) {
           $table->increments('id');
-          $table->integer('parent_id')->default(0);
+          $table->integer('parent_id')->nullable()->undsigned()->default(null);
           $table->integer('indicator_id')->nullable();
           $table->integer('user_id');
           $table->integer('style_id')->default(0);

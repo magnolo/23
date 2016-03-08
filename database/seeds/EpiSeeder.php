@@ -24,12 +24,12 @@ class EpiSeeder extends Seeder
 
     public function run()
     {
-        //
+
         $indicators = array (
   0 =>
   array (
     'column' => 'score',
-    'title' => 'Environment Performance Index',
+    'title' => 'Environmental Performance Index',
   ),
   1 =>
   array (
@@ -209,7 +209,7 @@ class EpiSeeder extends Seeder
             $ind->categories()->attach(1);
 
             $this->int = $ind->id;
-            if($this->range(1)) $parent = 0;
+            if($this->range(1)) $parent = null;
             else if($this->range(2)) $parent = 1;
             else if($this->range(3,4))  $parent = 2;
             else if($this->range(5))  $parent = 3;

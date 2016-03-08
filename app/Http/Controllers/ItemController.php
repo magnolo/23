@@ -24,7 +24,7 @@ class ItemController extends Controller
     public function index()
     {
 
-        $items = Item::where('parent_id', 0)->with('children', 'type', 'style', 'categories')->orderBy('title');
+        $items = Item::where('parent_id', null)->with('children', 'type', 'style', 'categories')->orderBy('title');
         if(Input::has('is_official')){
           $items = $items->where('is_official', true);
         }
@@ -108,7 +108,7 @@ class ItemController extends Controller
         $index->name = str_slug($request->input('title'));
         $index->indicator_id = $request->has('indicator_id') ? $request->input('indicator_id') : null;
         $index->item_type_id = $request->input('item_type_id');
-        $index->parent_id = $request->has('parent_id') ? $request->input('parent_id') : 0;
+        $index->parent_id = $request->has('parent_id') ? $request->input('parent_id') : null;
         $index->style_id = $request->input('style_id');
         $index->is_public = $request->has('is_public') ? $request->input('is_public') : false;
         $index->is_official = $request->has('is_official') ? $request->input('is_official') : false;
@@ -157,7 +157,7 @@ class ItemController extends Controller
     public function showMine(){
 
          //return response()->api(Item::where('parent_id', 0)->where('user_id', \Auth::user()->id)->with('children')->get());
-         return response()->api(Item::where('parent_id', 0)->with('type','categories', 'style', 'indicator','children')->get());
+         return response()->api(Item::where('parent_id', null)->with('type','categories', 'style', 'indicator','children')->get());
 
 
     }
@@ -177,7 +177,7 @@ class ItemController extends Controller
         return response()->api($index);
     }
     public function getLatestYear($index){
-      if($index->indicator_id != 0){
+      if($index->indicator_id != null){
         return \DB::table($index->indicator->table_name)->max('year');
       }
 
@@ -316,13 +316,13 @@ class ItemController extends Controller
             $item = $this->fetchData($item, $year);
           }
         }
-        if($index->indicator_id != 0){
+        if($index->indicator_id != null){
           $index->indicator->load('userdata');
           $iso_field = $index->indicator->userdata->iso_type == 'iso-3166-1' ? 'adm0_a3': 'iso_a2';
           $data = \DB::table($index->indicator->table_name)
             ->where('year', $year)
-            ->leftJoin('23_countries', $index->indicator->table_name.".".$index->indicator->iso_name, '=', '23_countries.'.$iso_field)
-            ->select($index->indicator->table_name.".".$index->indicator->column_name.' as score', $index->indicator->table_name.".year",'23_countries.'.$iso_field.' as iso','23_countries.admin as country')
+            ->leftJoin('countries', $index->indicator->table_name.".".$index->indicator->iso_name, '=', 'countries.'.$iso_field)
+            ->select($index->indicator->table_name.".".$index->indicator->column_name.' as score', $index->indicator->table_name.".year",'countries.'.$iso_field.' as iso','countries.admin as country')
             ->orderBy($index->indicator->table_name.".".$index->indicator->column_name, 'desc')->get();
           $index->data = $data;
         }
