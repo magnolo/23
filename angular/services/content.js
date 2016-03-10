@@ -33,7 +33,7 @@
 			},
 			backup:{},
 			fetchIndices: function(filter) {
-				return this.content.indices = DataService.getAll('me/indizes').$object;
+				return this.content.indices = DataService.getAll('index').$object;
 			},
 			fetchIndicators: function(filter) {
 				return this.content.indicators = DataService.getAll('indicators', filter).$object
