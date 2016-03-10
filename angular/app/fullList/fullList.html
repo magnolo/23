@@ -1,43 +1,40 @@
-<md-subheader class="md-primary md-no-sticky" >
-				<div layout-align="space-between center" layout="row">
-								<span>Browse Full List</span>
-								<!--<span flex></span>
-								<div class="chooser" ng-class="{'unchecked': vm.selection.length != vm.indicators.length, 'checked': vm.selection.length == vm.indicators.length}">
-												<ng-md-icon icon="check" layout-align="center center" layout="row" ng-click="vm.selectAll()" size="18"></ng-md-icon>
-												<md-tooltip>De/Select All</md-tooltip>
-								</div>-->
-				</div>
+<md-subheader class="md-primary md-no-sticky">
+    <div layout-align="space-between center" layout="row">
+        <span>Browse Full List</span>
+        <!--<span flex></span>
+                <div class="chooser" ng-class="{'unchecked': vm.selection.length != vm.indicators.length, 'checked': vm.selection.length == vm.indicators.length}">
+                        <ng-md-icon icon="check" layout-align="center center" layout="row" ng-click="vm.selectAll()" size="18"></ng-md-icon>
+                        <md-tooltip>De/Select All</md-tooltip>
+                </div>-->
+    </div>
 </md-subheader>
 <md-subheader class="md-primary md-no-sticky">
-  <div layout="row" layout-align="space-between center">
-  <md-input-container class="md-icon-float md-block m0">
-      <label>&nbsp;</label>
-      <md-icon class="material-icons">search</md-icon>
-      <input ng-model="vm.query" type="text" placeholder="Search...">
-    </md-input-container>
-    <md-menu>
-            <md-button aria-label="Open filter menu" class="md-fab md-mini" ng-click="vm.openMenu($mdOpenMenu, $event)">
-                    <md-icon class="material-icons">filter_list</md-icon>
-            </md-button>
-            <md-menu-content style="padding:0 1em">
-                    <md-menu-item ng-repeat="cat in vm.categories">
-                            <md-checkbox aria-label="Filter Title" ng-checked="vm.filterExists(cat.id)" class="md-primary" ng-click="vm.toggleCatFilter(cat.id)">
-                                    {{cat.title}}
-                            </md-checkbox>
-                    </md-menu-item>
-            </md-menu-content>
-    </md-menu>
-  </div>
+    <div layout="row" layout-align="space-between center">
+        <md-input-container class="md-icon-float md-block m0">
+            <label>&nbsp;</label>
+            <md-icon class="material-icons">search</md-icon>
+            <input ng-model="vm.query" type="text" placeholder="Search...">
+        </md-input-container>
+        <md-button aria-label="Open filter menu" class="md-fab md-mini" ng-click="vm.filter.toggle()">
+            <md-icon class="material-icons">filter_list</md-icon>
+        </md-button>
+    </div>
+    <!--<div layout="row" layout-align="space-around center">
+        <md-button ng-class="{'md-primary':vm.filter.sort == 'title'}" ng-click="vm.filter.sort = 'title'" class="m0 small">A-Z</md-button>
+        <span>/</span>
+        <md-button ng-class="{'md-primary':vm.filter.sort == 'categories'}" ng-click="vm.filter.sort = 'categories'" class="m0 small">Categories</md-button>
+        <span flex></span>
+    </div>-->
 </md-subheader>
 <md-subheader class="md-primary">Indices</md-subheader>
 <md-list>
-        <md-list-item ng-repeat="index in vm.indices | filter: {title:vm.query} | filter: vm.catFilter" ui-sref="app.index.show({id:index.id, name:index.name})">
-          {{index.title}}
-        </md-list>
+    <md-list-item ng-repeat="index in vm.indices | filter: {title:vm.query}" ui-sref="app.index.show({id:index.id, name:index.name})">
+        {{index.title}}
+</md-list>
 </md-list>
 <md-subheader class="md-primary">Indicators</md-subheader>
 <md-list>
-        <md-list-item ng-repeat="indicator in vm.indicators | filter: {title:vm.query} | filter: vm.catFilter" ui-sref="app.index.indicator({name:indicator.name, id:indicator.id})">
-          {{indicator.title}}
-        </md-list>
+    <md-list-item ng-repeat="indicator in vm.indicators | filter: {title:vm.query}" ui-sref="app.index.indicator({name:indicator.name, id:indicator.id})">
+        {{indicator.title}}
+</md-list>
 </md-list>

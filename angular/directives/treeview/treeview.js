@@ -51,6 +51,8 @@
 			else{
 				vm.selection.push(item);
 			}
+			if(typeof vm.options.selectionChanged == 'function' )
+				vm.options.selectionChanged();
 		}
 		function addChildren(item) {
 

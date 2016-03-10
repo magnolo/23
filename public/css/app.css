@@ -1813,53 +1813,6 @@ md-list-item a.md-no-style {
   margin: 0px;
 }
 
-md-toolbar.md-menu-toolbar {
-  background-color: #ffffff;
-  color: rgba(0, 0, 0, 0.87);
-}
-md-toolbar.md-menu-toolbar md-button {
-  color: rgba(0, 0, 0, 0.87);
-}
-md-toolbar.md-menu-toolbar md-toolbar-filler {
-  background-color: #106cc8;
-  color: rgba(255, 255, 255, 0.87);
-}
-md-toolbar.md-menu-toolbar h2.md-toolbar-tools {
-  height: auto;
-  line-height: 1rem;
-  padding: 28px 28px 12px;
-}
-md-menu-bar md-menu.md-open > button,
-md-menu-bar md-menu > button:focus {
-  background: #eeeeee none repeat scroll 0 0;
-  outline: medium none;
-}
-md-menu-bar button {
-  background-color: transparent;
-  border: 0 none;
-  font-size: 14px;
-  height: 40px;
-  margin: 0;
-  padding: 0 10px;
-}
-md-menu-bar {
-  display: block;
-  padding: 0 20px;
-  position: relative;
-  z-index: 2;
-}
-.editContent .page-container {
-  background-color: #f1f1f1;
-  padding: 32px;
-}
-.editContent .page {
-  background-color: white;
-  box-shadow: 0 1px 2px 1px rgba(0, 0, 0, 0.25);
-  margin: 0 auto;
-  max-width: 680px;
-  padding: 24px;
-}
-
 /*.info-container {
     line-height: 1em;
     top:calc(~"48px + 1em");
@@ -2120,6 +2073,53 @@ md-menu-bar {
 }
 .nvtooltip {
   border-radius: 0px;
+}
+
+md-toolbar.md-menu-toolbar {
+  background-color: #ffffff;
+  color: rgba(0, 0, 0, 0.87);
+}
+md-toolbar.md-menu-toolbar md-button {
+  color: rgba(0, 0, 0, 0.87);
+}
+md-toolbar.md-menu-toolbar md-toolbar-filler {
+  background-color: #106cc8;
+  color: rgba(255, 255, 255, 0.87);
+}
+md-toolbar.md-menu-toolbar h2.md-toolbar-tools {
+  height: auto;
+  line-height: 1rem;
+  padding: 28px 28px 12px;
+}
+md-menu-bar md-menu.md-open > button,
+md-menu-bar md-menu > button:focus {
+  background: #eeeeee none repeat scroll 0 0;
+  outline: medium none;
+}
+md-menu-bar button {
+  background-color: transparent;
+  border: 0 none;
+  font-size: 14px;
+  height: 40px;
+  margin: 0;
+  padding: 0 10px;
+}
+md-menu-bar {
+  display: block;
+  padding: 0 20px;
+  position: relative;
+  z-index: 2;
+}
+.editContent .page-container {
+  background-color: #f1f1f1;
+  padding: 32px;
+}
+.editContent .page {
+  background-color: white;
+  box-shadow: 0 1px 2px 1px rgba(0, 0, 0, 0.25);
+  margin: 0 auto;
+  max-width: 680px;
+  padding: 24px;
 }
 
 
@@ -2475,6 +2475,7 @@ md-list-item.active {
   }
 }
 
+
 div[ui-view='map'] {
   position: absolute;
   width: 100%;
@@ -2613,7 +2614,6 @@ div[ui-view='map'] {
 .leaflet-bar {
   box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 2px 1px -1px rgba(0, 0, 0, 0.12);
 }
-
 
 /*.Sidebar {
 	position: fixed !important;
@@ -2950,10 +2950,6 @@ median .slider text {
   top: 0.5em;
 }
 
-.bars .bg {
-  fill: #ebebeb;
-}
-
 piechart {
   position: relative;
 }
@@ -2961,6 +2957,10 @@ piechart .inner-pie {
   position: absolute;
   left: 0px;
   opacity: 0.4;
+}
+
+.bars .bg {
+  fill: #ebebeb;
 }
 
 .nvd3 .nv-background {
@@ -3014,6 +3014,7 @@ piechart .inner-pie {
   display: -ms-flexbox;
   display: flex;
 }
+
 
 .section {
   padding: 30px;
@@ -3140,18 +3141,6 @@ piechart .inner-pie {
   padding-right: 220px;
 }
 
-
-.trashcan ul {
-  padding: 0;
-  margin: 0;
-}
-.trashcan ul li {
-  list-style-type: none;
-}
-.trashcan ul .dndPlaceholder {
-  display: none;
-}
-
 .treeview {
   position: relative;
   margin-bottom: .5em;
@@ -3192,6 +3181,17 @@ piechart .inner-pie {
 }
 .treeview.dndDragover .meanwhile {
   opacity: 0.1;
+}
+
+.trashcan ul {
+  padding: 0;
+  margin: 0;
+}
+.trashcan ul li {
+  list-style-type: none;
+}
+.trashcan ul .dndPlaceholder {
+  display: none;
 }
 
 .weight-control {

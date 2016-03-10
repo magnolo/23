@@ -7,7 +7,7 @@
 			return '/views/app/' + viewName + '/' + viewName + '.html';
 		};
 
-		$urlRouterProvider.otherwise('/'); 
+		$urlRouterProvider.otherwise('/');
 
 		$stateProvider
 			.state('app', {
@@ -255,6 +255,7 @@
 					}
 				}
 			})
+
 			.state('app.index.create', {
 				url: '/create',
 				auth: true,
@@ -322,27 +323,42 @@
 			})
 			.state('app.index.list', {
 				url: '/list',
+				resolve: {
+					indicators: function(ContentService) {
+						return ContentService.getIndicators({
+							page: 1,
+							order: 'title',
+							limit: 1000,
+							dir: 'ASC'
+						})
+					},
+					indices: function(ContentService) {
+						return ContentService.fetchIndices();
+					},
+					categories: function(ContentService){
+							return ContentService.getCategories({
+								indicators: true,
+								tree: true
+							});
+					}
+				},
 				views: {
 					'sidebar@': {
 						templateUrl: getView('fullList'),
 						controller: 'FullListCtrl',
 						controllerAs: 'vm',
-						resolve: {
-							indicators: function(ContentService) {
-								return ContentService.fetchIndicators({
-									page: 1,
-									order: 'title',
-									limit: 1000,
-									dir: 'ASC'
-								})
-							},
-							indices: function(DataService) {
-								return DataService.getAll('index').$object;
-							},
-							categories: function(ContentService){
-									return ContentService.fetchCategories('', true);
-							}
-						}
+
+					}
+				}
+			})
+			.state('app.index.list.filter',{
+				url:'/:filter',
+				layout: 'row',
+				views:{
+					'main@':{
+						templateUrl: '/views/app/fullList/filter.html',
+						controller: 'FullListFitlerCtrl',
+						controllerAs: 'vm',
 					}
 				}
 			})

@@ -1,7 +1,7 @@
 (function() {
 	"use strict";
 
-	angular.module('app.services').factory('ContentService', function(DataService) {
+	angular.module('app.services').factory('ContentService', function(DataService, $filter) {
 		//
 		function searchForItem(list,id){
 
@@ -31,6 +31,7 @@
 				infographics: [],
 				indices:[]
 			},
+			backup:{},
 			fetchIndices: function(filter) {
 				return this.content.indices = DataService.getAll('me/indizes').$object;
 			},
@@ -60,11 +61,11 @@
 				}
 				return this.content.categories;
 			},
-			getIndicators: function() {
+			getIndicators: function(filter) {
 				if (this.content.indicators.length > 0) {
 					return this.content.indicators;
 				}
-				return this.fetchIndicators();
+				return this.fetchIndicators(filter);
 
 			},
 			getStyles: function(filter) {
@@ -144,7 +145,7 @@
 			},
 			updateItem: function(item){
 				var entry = this.findContent(item.id, this.content.indices);
-				console.log(entry, item);
+				//console.log(entry, item);
 				return entry = item;
 			},
 			getCategory: function(id) {
@@ -157,8 +158,27 @@
 			removeCategory: function(id){
 				this.removeContent(id, this.content.categories);
 				return DataService.remove('categories/', id);
+			},
+			filterList: function(type, filter, list){
+				if(list.length > 0){
+					if(!this.backup[type]){
+						this.backup[type] = angular.copy(this.content[type]);
+					}
+					else{
+						this.content[type] = angular.copy(this.backup[type]);
+					}
+					return this.content[type] = $filter('filter')(this.content[type], filter)
+				}
+				this.content[type] = angular.copy(this.backup[type]);
+				delete this.backup[type];
+				return this.content[type];
+			},
+			resetFilter: function(type){
+				if(!this.backup[type]) return this.content[type];
+				this.content[type] = angular.copy(this.backup[type]);
+				delete this.backup[type];
+				return this.content[type];
 			}
-
 		}
 	});
 
