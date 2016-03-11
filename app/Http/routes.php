@@ -67,6 +67,11 @@ $api->version('v1', function ($api) {
     $api->get('conflicts/events', 'App\Http\Controllers\ConflictsController@index');
     $api->get('conflicts/events/{id}', 'App\Http\Controllers\ConflictsController@conflict');
     $api->get('conflicts/{id}', 'App\Http\Controllers\ConflictsController@conflict');
+
+    $api->get('pois', 'App\Http\Controllers\PoiController@index');
+    $api->get('pois/{id}', 'App\Http\Controllers\PoiController@show');
+    $api->get('pois/type/{type}', 'App\Http\Controllers\PoiController@byTypes');
+    $api->post('pois', 'App\Http\Controllers\PoiController@create');
 });
 
 //protected with JWT
