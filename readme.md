@@ -45,7 +45,7 @@ the whole thing is in the middle of its starting point. so the first pre-alpha i
 
 ### Installation
 
-You need to have installed [Node.js] which includes the node package manager (npm).
+You need to have [Node.js]  installed which includes the node package manager (npm).
 Then you can install Gulp and Bower globally:
 
 ```
@@ -66,7 +66,7 @@ Now all the needed packages should be downloaded and installed. Setup the correc
 
 You also need to run a Postgresql Database Server with PostGis extension to connect to!!!
 
-Watch for the APP_KEY in the .env file. Maybe there is an error with cipher/encrypter showing. If so, provide an string with a lenght of 32 
+Watch for the APP_KEY in the .env file. Maybe there is an error with cipher/encrypter showing. If so, provide an string with a lenght of 32
 
 Now you can run:
 

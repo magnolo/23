@@ -1775,7 +1775,6 @@ md-dialog-content p.columned {
   }
 }
 
-
 .Header {
   min-height: 48px;
   max-height: 48px;
@@ -1809,6 +1808,7 @@ md-dialog-content p.columned {
 md-toolbar.Header .md-button.md-border {
   color: #006bb9;
 }
+
 
 md-list-item a.md-no-style {
   margin: 0px;
@@ -2124,21 +2124,12 @@ md-menu-bar {
 }
 
 
+
 .md-subheader.filled .md-subheader-inner {
   padding: 0px;
 }
 .md-subheader.filled .md-subheader-inner md-toolbar {
   padding-left: 1em;
-}
-
-md-list-item.md-2-line {
-  min-height: 62px;
-}
-md-list-item.md-2-line a {
-  padding-top: .5em;
-}
-md-list-item.md-2-line > .md-no-style {
-  min-height: 62px;
 }
 
 section.module-top {
@@ -2438,6 +2429,16 @@ md-list-item.active {
   /*&::before{
           width:5px;
         }*/
+}
+
+md-list-item.md-2-line {
+  min-height: 62px;
+}
+md-list-item.md-2-line a {
+  padding-top: .5em;
+}
+md-list-item.md-2-line > .md-no-style {
+  min-height: 62px;
 }
 
 .cursor {
