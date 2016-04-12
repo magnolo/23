@@ -45,11 +45,11 @@ the whole thing is in the middle of its starting point. so the first pre-alpha i
 
 ### Installation
 
-You to have installed [Node.js] which includes the node package manager (npm).
+You need to have installed [Node.js] which includes the node package manager (npm).
 Then you can install Gulp and Bower globally:
 
 ```
-$ npm i -g gulp bower
+$ npm install -g gulp bower
 ```
 
 You also need [Composer] installed. For the dependencies Laravel sticks on.
@@ -57,19 +57,21 @@ You also need [Composer] installed. For the dependencies Laravel sticks on.
 ```sh
 $ git clone [git-repo-url] 23
 $ cd 23
-$ npm i -d
+$ npm install -d
 $ bower install
 $ composer install
 ```
 
-Now all the needed packages should be download and installed. Setup the correct configuration files in the .env file, which is located in the root directory of the app. If you cant find it, there is an example file called .env.example there. Here you have to provide the information for connecting to the database.
+Now all the needed packages should be downloaded and installed. Setup the correct configuration files in the .env file, which is located in the root directory of the app. If you cant find it, there is an example file called .env.example there. Here you have to provide the information for connecting to the database.
 
 You also need to run a Postgresql Database Server with PostGis extension to connect to!!!
+
+Watch for the APP_KEY in the .env file. Maybe there is an error with cipher/encrypter showing. If so, provide an string with a lenght of 32 
 
 Now you can run:
 
 ```sh
-$ php artisan migration
+$ php artisan migrate
 ```
 and all the needed tables will be set up ind the database for you.
 
