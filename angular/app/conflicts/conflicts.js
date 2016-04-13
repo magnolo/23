@@ -10,7 +10,7 @@
 		vm.showMethod = showMethod;
 		vm.goFullscreen = goFullscreen;
 		vm.linearScale = d3.scale.linear().domain([0, 5]).range([0, 256]);
-		vm.colors = ['#d4ebf7', '#87cceb', '#36a8c6', '#268399', '#0e6377'];
+		vm.colors = ['#add9f0', '#87cceb', '#36a8c6', '#268399', '#005573'];
 		vm.typesColors = {
 			interstate: '#69d4c3',
 			intrastate: '#b7b7b7',

@@ -8,7 +8,7 @@
 				accept: "application/x.laravel.v1+json"
 			})
 			.setDefaultHttpFields({
-				cache: true
+				cache: false
 			})
 			.addResponseInterceptor(function(data, operation, what, url, response, deferred) {
 				var extractedData;

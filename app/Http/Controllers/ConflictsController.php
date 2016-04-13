@@ -120,6 +120,7 @@ class ConflictsController extends Controller
         $ce->int2014 = $event['int2014'];
         $ce->int2015 = $event['int2015'];
         $ce->territory = $event['territory'];
+        $ce->autonomy = $event['autonomy'];
         $ce->secession = $event['secession'];
         $ce->system = $event['system.ideology'];
         $ce->national_power = $event['national.power'];

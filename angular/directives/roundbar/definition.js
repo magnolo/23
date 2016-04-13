@@ -158,7 +158,7 @@
 						}).each('end', function(d, i){
 								d.value = scope.data[i].value;
 						});
-					
+
 
 				})
 			}

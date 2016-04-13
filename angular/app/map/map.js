@@ -14,7 +14,8 @@
 		vm.toggleLayers = toggleLayers;
 		vm.defaults = {
 			//scrollWheelZoom: false,
-			minZoom: minZoom
+			minZoom: minZoom,
+			maxZoom: 6
 		};
 		vm.center = {
 			lat: 48.209206,
@@ -70,6 +71,7 @@
 			var container = L.DomUtil.create('div', 'leaflet-bar leaflet-control-zoom');
 			var span = L.DomUtil.create('a', 'leaflet-control-zoom-in cursor', container);
 			span.textContent = 'T';
+			span.title = "Toggle Labels";
 			L.DomEvent.disableClickPropagation(container);
 			L.DomEvent.addListener(container, 'click', function() {
 				leafletData.getMap('map').then(function(map) {
@@ -81,6 +83,25 @@
 						vm.labelsLayer.bringToFront();
 						vm.noLabel = true;
 					}
+				});
+			});
+			return container;
+		}
+		var BackHome = L.control();
+		BackHome.setPosition('topleft');
+		BackHome.initialize = function() {
+			L.Util.setOptions(this, options);
+		}
+		BackHome.onAdd = function() {
+			var container = L.DomUtil.create('div', 'leaflet-bar leaflet-control-zoom leaflet-control-home');
+			var span = L.DomUtil.create('a', 'leaflet-control-zoom-in cursor', container);
+			var icon = L.DomUtil.create('md-icon', 'material-icons md-primary', span);
+			span.title = "Center Map";
+			icon.textContent = "home";
+			L.DomEvent.disableClickPropagation(container);
+			L.DomEvent.addListener(container, 'click', function() {
+				leafletData.getMap('map').then(function(map) {
+					map.setView([48.209206, 16.372778], zoom);
 				});
 			});
 			return container;
@@ -129,6 +150,7 @@
 
 			map.addLayer(VectorlayerService.setLayer(layer));
 			map.addControl(MyControl);
+			map.addControl(BackHome);
 			/*map.on('click', function(){
 				alert('hello');
 			});

@@ -18,7 +18,7 @@
 				iso3: 'adm0_a3',
 				iso2: 'iso_a2',
 				iso: 'iso_a2',
-				fields: "id,admin,adm0_a3,wb_a3,su_a3,iso_a3,iso_a2,name,name_long",
+				fields: "id,admin,adm0_a3,iso_a2,name,name_long", //su_a3,iso_a3,wb_a3,
 				field:'score'
 			},
 			map: {

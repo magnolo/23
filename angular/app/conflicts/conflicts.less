@@ -6,7 +6,7 @@
         padding-top: 0.5em;
         color: #4fb0e5;
         cursor: pointer;
-        
+
         ng-md-icon {
             position: relative;
             top: 2px;
@@ -27,7 +27,7 @@
 
     .info-icon {
         cursor: pointer;
-        
+
         i {
             color: @grey-light;
         }
@@ -48,7 +48,7 @@
         color: #4fb0e5;
         font-weight: normal;
         text-decoration: none;
-        
+
         path {
             fill: #4fb0e5 !important;
         }
@@ -77,11 +77,18 @@
         > div {
             border-bottom: 2px solid @grey-light;
         }
+        img{
+          height: 50px;
+        }
+        .outlink{
+          margin-top:4px;
+          font-style: italic;
+        }
     }
 
     section {
         padding: 1em 1.5em;
-        
+
         p {
             margin: 0;
             font-size: 0.95em;
@@ -111,7 +118,7 @@
         margin-bottom: 0.5em;
         cursor: pointer;
         transition: all 0.5s ease;
-        
+
         .value {
             margin-right: 0.5em;
             min-width: 40px;
@@ -131,7 +138,7 @@
             overflow: hidden;
             transition: all 0.5s ease;
             position: relative;
-            
+
             &::after {
                 content: '';
                 width: 100%;
@@ -153,7 +160,7 @@
 
             &.fullHeight {
                 height: 195px;
-                
+
                 &::after {
                     display: none;
                 }
@@ -169,24 +176,24 @@ md-dialog-content {
         -webkit-column-gap: 2em;
         margin: 1em;
         -webkit-column-count: 2;
-        /* Chrome, Safari, Opera */
+
         -moz-column-count: 2;
-        /* Firefox */
+
         column-count: 2;
-        
+
         @media screen and (max-width: 800px) {
             -webkit-column-count: 1;
-            /* Chrome, Safari, Opera */
+
             -moz-column-count: 1;
-            /* Firefox */
+
             column-count: 1;
         }
 
         @media screen and (min-width: 1400px) {
             -webkit-column-count: 3;
-            /* Chrome, Safari, Opera */
+
             -moz-column-count: 3;
-            /* Firefox */
+
             column-count: 3;
         }
     }
