@@ -13,7 +13,7 @@
 			'system',
 			'national_power',
 			'international_power',
-			'subnational_predominace',
+			'subnational_predominance',
 			'resources',
 			'other'
 		];
