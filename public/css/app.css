@@ -1547,7 +1547,7 @@ md-toast[md-theme=warn] {
 #items-menu {
   position: fixed;
   right: 0px;
-  top: 9em;
+  top: 12em;
 }
 #items-menu .items-head {
   cursor: pointer;
@@ -1862,7 +1862,6 @@ md-menu-bar {
   padding: 24px;
 }
 
-
 /*.info-container {
     line-height: 1em;
     top:calc(~"48px + 1em");
@@ -2124,6 +2123,7 @@ md-menu-bar {
 .nvtooltip {
   border-radius: 0px;
 }
+
 
 .md-subheader.filled .md-subheader-inner {
   padding: 0px;
@@ -2924,7 +2924,6 @@ median .slider text {
 }
 
 
-
 .dropzone {
   border: 2px dashed #ddd;
   padding: 2em;
@@ -2953,6 +2952,7 @@ median .slider text {
   height: 1px;
   top: 0.5em;
 }
+
 
 piechart {
   position: relative;
