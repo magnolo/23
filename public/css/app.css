@@ -2125,6 +2125,7 @@ md-menu-bar {
 }
 
 
+
 .md-subheader.filled .md-subheader-inner {
   padding: 0px;
 }
@@ -2441,10 +2442,10 @@ md-list-item.active {
         }*/
 }
 
+
 .cursor {
   cursor: pointer;
 }
-
 
 
 
@@ -2924,6 +2925,7 @@ median .slider text {
 }
 
 
+
 .dropzone {
   border: 2px dashed #ddd;
   padding: 2em;
@@ -2952,7 +2954,6 @@ median .slider text {
   height: 1px;
   top: 0.5em;
 }
-
 
 piechart {
   position: relative;
