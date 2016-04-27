@@ -1250,6 +1250,29 @@ body.loggedIn > md-content::before {
     width: 100%;
   }
 }
+body > md-content {
+  transition: all 1s ease-in-out;
+  opacity: 1;
+  -webkit-transform: translateY(0%);
+  transform: translateY(0%);
+}
+body md-toolbar.Header {
+  -webkit-transform: translateY(0px);
+  transform: translateY(0px);
+}
+body:not(.startup) {
+  overflow: hidden;
+}
+body:not(.startup) md-toolbar.Header {
+  -webkit-transform: translateY(-50px);
+  transform: translateY(-50px);
+  z-index: 10;
+}
+body:not(.startup) > md-content {
+  opacity: 0;
+  -webkit-transform: translateY(120%);
+  transform: translateY(120%);
+}
 .Page-name {
   color: #006bb9;
 }
@@ -1777,6 +1800,7 @@ md-dialog-content p.columned {
 
 
 .Header {
+  transition: all 1s ease-in-out;
   min-height: 48px;
   max-height: 48px;
   background-color: #fff !important;
@@ -1812,53 +1836,6 @@ md-toolbar.Header .md-button.md-border {
 
 md-list-item a.md-no-style {
   margin: 0px;
-}
-
-md-toolbar.md-menu-toolbar {
-  background-color: #ffffff;
-  color: rgba(0, 0, 0, 0.87);
-}
-md-toolbar.md-menu-toolbar md-button {
-  color: rgba(0, 0, 0, 0.87);
-}
-md-toolbar.md-menu-toolbar md-toolbar-filler {
-  background-color: #106cc8;
-  color: rgba(255, 255, 255, 0.87);
-}
-md-toolbar.md-menu-toolbar h2.md-toolbar-tools {
-  height: auto;
-  line-height: 1rem;
-  padding: 28px 28px 12px;
-}
-md-menu-bar md-menu.md-open > button,
-md-menu-bar md-menu > button:focus {
-  background: #eeeeee none repeat scroll 0 0;
-  outline: medium none;
-}
-md-menu-bar button {
-  background-color: transparent;
-  border: 0 none;
-  font-size: 14px;
-  height: 40px;
-  margin: 0;
-  padding: 0 10px;
-}
-md-menu-bar {
-  display: block;
-  padding: 0 20px;
-  position: relative;
-  z-index: 2;
-}
-.editContent .page-container {
-  background-color: #f1f1f1;
-  padding: 32px;
-}
-.editContent .page {
-  background-color: white;
-  box-shadow: 0 1px 2px 1px rgba(0, 0, 0, 0.25);
-  margin: 0 auto;
-  max-width: 680px;
-  padding: 24px;
 }
 
 /*.info-container {
@@ -2123,22 +2100,59 @@ md-menu-bar {
   border-radius: 0px;
 }
 
+md-toolbar.md-menu-toolbar {
+  background-color: #ffffff;
+  color: rgba(0, 0, 0, 0.87);
+}
+md-toolbar.md-menu-toolbar md-button {
+  color: rgba(0, 0, 0, 0.87);
+}
+md-toolbar.md-menu-toolbar md-toolbar-filler {
+  background-color: #106cc8;
+  color: rgba(255, 255, 255, 0.87);
+}
+md-toolbar.md-menu-toolbar h2.md-toolbar-tools {
+  height: auto;
+  line-height: 1rem;
+  padding: 28px 28px 12px;
+}
+md-menu-bar md-menu.md-open > button,
+md-menu-bar md-menu > button:focus {
+  background: #eeeeee none repeat scroll 0 0;
+  outline: medium none;
+}
+md-menu-bar button {
+  background-color: transparent;
+  border: 0 none;
+  font-size: 14px;
+  height: 40px;
+  margin: 0;
+  padding: 0 10px;
+}
+md-menu-bar {
+  display: block;
+  padding: 0 20px;
+  position: relative;
+  z-index: 2;
+}
+.editContent .page-container {
+  background-color: #f1f1f1;
+  padding: 32px;
+}
+.editContent .page {
+  background-color: white;
+  box-shadow: 0 1px 2px 1px rgba(0, 0, 0, 0.25);
+  margin: 0 auto;
+  max-width: 680px;
+  padding: 24px;
+}
+
 
 .md-subheader.filled .md-subheader-inner {
   padding: 0px;
 }
 .md-subheader.filled .md-subheader-inner md-toolbar {
   padding-left: 1em;
-}
-
-md-list-item.md-2-line {
-  min-height: 62px;
-}
-md-list-item.md-2-line a {
-  padding-top: .5em;
-}
-md-list-item.md-2-line > .md-no-style {
-  min-height: 62px;
 }
 
 section.module-top {
@@ -2440,10 +2454,19 @@ md-list-item.active {
         }*/
 }
 
+md-list-item.md-2-line {
+  min-height: 62px;
+}
+md-list-item.md-2-line a {
+  padding-top: .5em;
+}
+md-list-item.md-2-line > .md-no-style {
+  min-height: 62px;
+}
+
 .cursor {
   cursor: pointer;
 }
-
 
 
 
@@ -2474,6 +2497,7 @@ md-list-item.active {
     top: 1em;
   }
 }
+
 
 div[ui-view='map'] {
   position: absolute;
@@ -2700,7 +2724,6 @@ div[ui-view='map'] {
   margin-left: 2em;
 }
 
-
 .bubbles {
   overflow: hidden;
   margin: 1em 0;
@@ -2774,6 +2797,7 @@ div[ui-view='map'] {
 
 
 
+
 [contenteditable] {
   position: relative;
   white-space: pre-wrap;
@@ -2802,6 +2826,34 @@ div[ui-view='map'] {
   border-bottom-width: 1px;
 }
 
+
+.indicator-tabs .indicator-fields {
+  padding: 0 1em;
+  max-width: 500px;
+  margin: 0 auto;
+}
+.indicator-tabs md-tab-content md-content {
+  padding-bottom: 1em;
+  padding-top: 1em;
+}
+.indicator-tabs md-tab-item ng-md-icon:not(.valid) path {
+  fill: #f44336;
+}
+.indicator-tabs md-tabs > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item {
+  background: #efefef;
+}
+.indicator-tabs md-tabs > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item.md-active {
+  background: #fff;
+}
+.indicator-tabs .md-tab.md-disabled {
+  opacity: 1;
+}
+.indicator-tabs .md-tab.md-disabled ng-md-icon {
+  opacity: 0.3;
+}
+.indicator-tabs md-autocomplete[md-floating-label] md-input-container {
+  padding-bottom: 2px;
+}
 
 
 .indicator-menu {
@@ -2838,34 +2890,6 @@ div[ui-view='map'] {
 }
 
 
-
-.indicator-tabs .indicator-fields {
-  padding: 0 1em;
-  max-width: 500px;
-  margin: 0 auto;
-}
-.indicator-tabs md-tab-content md-content {
-  padding-bottom: 1em;
-  padding-top: 1em;
-}
-.indicator-tabs md-tab-item ng-md-icon:not(.valid) path {
-  fill: #f44336;
-}
-.indicator-tabs md-tabs > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item {
-  background: #efefef;
-}
-.indicator-tabs md-tabs > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item.md-active {
-  background: #fff;
-}
-.indicator-tabs .md-tab.md-disabled {
-  opacity: 1;
-}
-.indicator-tabs .md-tab.md-disabled ng-md-icon {
-  opacity: 0.3;
-}
-.indicator-tabs md-autocomplete[md-floating-label] md-input-container {
-  padding-bottom: 2px;
-}
 
 median {
   overflow: hidden;
@@ -3144,6 +3168,17 @@ piechart .inner-pie {
   padding-right: 220px;
 }
 
+.trashcan ul {
+  padding: 0;
+  margin: 0;
+}
+.trashcan ul li {
+  list-style-type: none;
+}
+.trashcan ul .dndPlaceholder {
+  display: none;
+}
+
 .treeview {
   position: relative;
   margin-bottom: .5em;
@@ -3184,17 +3219,6 @@ piechart .inner-pie {
 }
 .treeview.dndDragover .meanwhile {
   opacity: 0.1;
-}
-
-.trashcan ul {
-  padding: 0;
-  margin: 0;
-}
-.trashcan ul li {
-  list-style-type: none;
-}
-.trashcan ul .dndPlaceholder {
-  display: none;
 }
 
 .weight-control {
