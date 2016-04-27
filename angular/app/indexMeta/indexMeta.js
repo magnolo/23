@@ -16,8 +16,6 @@
         vm.countriesStyle = countriesStyle;
         VectorlayerService.createCanvas('#ff0000');
 
-
-        console.log(vm.indicator);
         activate();
 
         function activate(){

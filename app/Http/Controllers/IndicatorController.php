@@ -97,6 +97,10 @@ class IndicatorController extends Controller
         $indicator =  Indicator::where('id',$id)->with('type', 'categories', 'dataprovider', 'userdata')->first();
         $years = \DB::table($indicator->table_name)->select('year')->groupBy('year')->orderBy('year', 'DESC')->get();
         $indicator->years = $years;
+        if($indicator->userdata->gender != ""){
+          $gender = \DB::table($indicator->table_name)->select('gender')->groupBy('gender')->orderBy('gender', 'DESC')->get();
+          $indicator->gender = $gender;
+        }
         $indicator->styled = $indicator->getStyle();
         return response()->api($indicator);
     }
@@ -182,6 +186,28 @@ class IndicatorController extends Controller
         ->select($indicator->table_name.".".$indicator->column_name.' as score', $indicator->table_name.'.year','countries.'.$iso_field.' as iso','countries.admin as country')
         ->orderBy($indicator->table_name.".".$indicator->column_name, 'desc')->get();
 
+      return response()->api($data);
+    }
+    public function fetchDataByGender($id, $gender){
+      $indicator = Indicator::find($id);
+      $iso_field = $indicator->userdata->iso_type == 'iso-3166-1' ? 'adm0_a3': 'iso_a2';
+      $data = \DB::table($indicator->table_name)
+        ->where('gender', $gender)
+        ->whereNotNull($indicator->table_name.".".$indicator->column_name)
+        ->leftJoin('countries', $indicator->table_name.".".$indicator->iso_name, '=', 'countries.'.$iso_field)
+        ->select($indicator->table_name.".".$indicator->column_name.' as score', $indicator->table_name.'.year','countries.'.$iso_field.' as iso','countries.admin as country')
+        ->orderBy($indicator->table_name.".".$indicator->column_name, 'desc')->get();
+      return response()->api($data);
+    }
+    public function fetchDataByYearAndGender($id,$year,  $gender){
+      $indicator = Indicator::find($id);
+      $iso_field = $indicator->userdata->iso_type == 'iso-3166-1' ? 'adm0_a3': 'iso_a2';
+      $data = \DB::table($indicator->table_name)
+        ->where(['gender' =>  $gender, 'year' => $year])
+        ->whereNotNull($indicator->table_name.".".$indicator->column_name)
+        ->leftJoin('countries', $indicator->table_name.".".$indicator->iso_name, '=', 'countries.'.$iso_field)
+        ->select($indicator->table_name.".".$indicator->column_name.' as score', $indicator->table_name.'.year','countries.'.$iso_field.' as iso','countries.admin as country')
+        ->orderBy($indicator->table_name.".".$indicator->column_name, 'desc')->get();
       return response()->api($data);
     }
 }

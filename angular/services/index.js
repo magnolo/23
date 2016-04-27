@@ -11,6 +11,7 @@
               iso_field: '',
               country_field:'',
               year_field:'',
+              gender_field:'',
               table:[]
             },
             indicators:{},
@@ -42,7 +43,8 @@
                 meta:{
                   iso_field: '',
                   country_field:'',
-                  year_field:''
+                  year_field:'',
+                  gender_field:''
                 },
                 toSelect:[],
                 indicators:{}
@@ -72,6 +74,9 @@
           },
           setCountryField: function(key){
             return serviceData.meta.country_field = key;
+          },
+          setGenderField: function(key){
+            return serviceData.meta.gender_field = key;
           },
           setYearField: function(key){
             return serviceData.meta.year_field = key;

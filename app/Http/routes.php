@@ -38,6 +38,7 @@ $api->version('v1', function ($api) {
     $api->get('indicators/{id}', 'App\Http\Controllers\IndicatorController@show');
     $api->get('indicators/{id}/data', 'App\Http\Controllers\IndicatorController@fetchData');
     $api->get('indicators/{id}/data/{year}', 'App\Http\Controllers\IndicatorController@fetchDataByYear');
+    $api->get('indicators/{id}/data/{year}/gender/{gender}', 'App\Http\Controllers\IndicatorController@fetchDataByYearAndGender');
 
     //$api->get('nations', 'App\Http\Controllers\NationsController@index');
     $api->get('countries', 'App\Http\Controllers\CountriesController@index');

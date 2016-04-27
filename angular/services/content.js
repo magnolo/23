@@ -90,8 +90,11 @@
 			fetchIndicatorPromise: function(id) {
 				return DataService.getOne('indicators',id);
 			},
-			getIndicatorData: function(id, year) {
-				if (year) {
+			getIndicatorData: function(id, year, gender) {
+				if(year && gender){
+					return this.content.data = DataService.getAll('indicators/' + id + '/data/' + year + '/gender/' +gender );
+				}
+				else if (year && !gender) {
 					return this.content.data = DataService.getAll('indicators/' + id + '/data/' + year);
 				}
 				return this.content.data = DataService.getAll('indicators/' + id + '/data');

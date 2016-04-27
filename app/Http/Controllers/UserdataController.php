@@ -151,6 +151,9 @@ class UserdataController extends Controller
         if($request->input('country_field') != ''){
             $table->string($request->input('country_field'));
         }
+        if($request->input('gender_field') != ''){
+            $table->string($request->input('gender_field'));
+        }
         foreach($request->input('fields') as $field){
           if($field != 'year'){
             $table->float($field['column'])->nullable();
@@ -159,8 +162,7 @@ class UserdataController extends Controller
         $table->integer('year');
       });
 
-
-      $data['userdata_id'] = UserData::insertGetId([
+      $columns = [
         'user_id' => $user->id,
         'table_name' => 'user_table_'.$name,
         'name' => $name,
@@ -175,8 +177,13 @@ class UserdataController extends Controller
         'iso_name' => $request->input('iso_field'),
         'iso_type' =>  $request->input('iso_type'),
         'country_name' => $request->input('country_field')
-        ]
-      );
+      ];
+
+      if($request->input('gender_field') != ''){
+        $columns['gender'] = $request->input('gender_field');
+      }
+
+      $data['userdata_id'] = UserData::insertGetId($columns);
 
       foreach($request->input('fields') as $field){
         $indicator = new Indicator;

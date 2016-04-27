@@ -212,7 +212,6 @@
 					return;
 				}
 			});
-			console.log(insertData);
 			DataService.post('data/tables/' + vm.addDataTo.table_name + '/insert', insertData).then(function(res) {
 				if (res == true) {
 					toastr.success(insertData.data.length + ' items importet to ' + vm.meta.name, 'Success');

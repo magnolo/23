@@ -62,6 +62,13 @@
 			<md-option ng-repeat="(key, item) in vm.data[0].data" value="{{key}}">{{key}}</md-option>
 		</md-select>
 	</md-input-container>
+	<md-input-container class="md-block">
+		<label>Gender</label>
+		<md-select ng-model="vm.meta.gender_field">
+			<md-option value="">None</md-option>
+			<md-option ng-repeat="(key, item) in vm.data[0].data" value="{{key}}">{{key}}</md-option>
+		</md-select>
+	</md-input-container>
 	<div ng-if="vm.iso_errors.length || !vm.iso_checked" layout="row" layout-align="center center">
 		<md-button class="md-raised md-primary md-min-width" ng-click="vm.fetchIso()">
 			<ng-md-icon class="middle" icon="public"></ng-md-icon> Get Iso Values

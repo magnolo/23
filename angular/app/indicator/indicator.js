@@ -5,7 +5,7 @@
 		//
 		var vm = this;
 		vm.current = null;
-		vm.active = null;
+		vm.active = null, vm.activeGender;
 		vm.countryList = countries;
 		vm.indicator = indicator;
 		vm.data = [];
@@ -95,9 +95,11 @@
 				toastr.error('No info about this location!');
 			}
 		}
-		function getData(year) {
+
+		function getData(year, gender) {
 			vm.year = year;
-			ContentService.getIndicatorData(vm.indicator.id, year).then(function(dat) {
+			vm.gender = gender;
+			ContentService.getIndicatorData(vm.indicator.id, year, gender).then(function(dat) {
 				if($state.current.name == 'app.index.indicator.year.info'){
 					$state.go('app.index.indicator.year.info',{year:year});
 				}

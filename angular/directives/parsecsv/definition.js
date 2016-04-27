@@ -40,7 +40,7 @@
 					firstRun = true;
 					$timeout(function () {
 						IndexService.clear();
-						console.log(Papa);
+						//console.log(Papa);
 						var size = input[0].files[0].size;
 						var csv = Papa.parse(input[0].files[0], {
 							skipEmptyLines: true,
@@ -158,6 +158,9 @@
 										}
 										if (key.toLowerCase().indexOf('year') != -1 && item.toString().length == 4) {
 											IndexService.setYearField(key);
+										}
+										if (key.toLowerCase().indexOf('gender') != -1 || key.toLowerCase().indexOf('sex') != -1) {
+											IndexService.setGenderField(key);
 										}
 									});
 								} else {

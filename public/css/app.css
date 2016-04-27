@@ -1391,7 +1391,6 @@ p.small-info:hover {
   overflow-x: hidden;
 }
 .loose.sidebar-closed .Page {
-  margin-left: 1em;
   transition-delay: 0.1s;
 }
 .loose #map {
@@ -1862,7 +1861,6 @@ md-menu-bar {
   padding: 24px;
 }
 
-
 /*.info-container {
     line-height: 1em;
     top:calc(~"48px + 1em");
@@ -2124,6 +2122,7 @@ md-menu-bar {
 .nvtooltip {
   border-radius: 0px;
 }
+
 
 .md-subheader.filled .md-subheader-inner {
   padding: 0px;
@@ -2701,6 +2700,7 @@ div[ui-view='map'] {
   margin-left: 2em;
 }
 
+
 .bubbles {
   overflow: hidden;
   margin: 1em 0;
@@ -2774,7 +2774,6 @@ div[ui-view='map'] {
 
 
 
-
 [contenteditable] {
   position: relative;
   white-space: pre-wrap;
@@ -2804,34 +2803,6 @@ div[ui-view='map'] {
 }
 
 
-
-.indicator-tabs .indicator-fields {
-  padding: 0 1em;
-  max-width: 500px;
-  margin: 0 auto;
-}
-.indicator-tabs md-tab-content md-content {
-  padding-bottom: 1em;
-  padding-top: 1em;
-}
-.indicator-tabs md-tab-item ng-md-icon:not(.valid) path {
-  fill: #f44336;
-}
-.indicator-tabs md-tabs > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item {
-  background: #efefef;
-}
-.indicator-tabs md-tabs > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item.md-active {
-  background: #fff;
-}
-.indicator-tabs .md-tab.md-disabled {
-  opacity: 1;
-}
-.indicator-tabs .md-tab.md-disabled ng-md-icon {
-  opacity: 0.3;
-}
-.indicator-tabs md-autocomplete[md-floating-label] md-input-container {
-  padding-bottom: 2px;
-}
 
 .indicator-menu {
   position: absolute;
@@ -2867,6 +2838,34 @@ div[ui-view='map'] {
 }
 
 
+
+.indicator-tabs .indicator-fields {
+  padding: 0 1em;
+  max-width: 500px;
+  margin: 0 auto;
+}
+.indicator-tabs md-tab-content md-content {
+  padding-bottom: 1em;
+  padding-top: 1em;
+}
+.indicator-tabs md-tab-item ng-md-icon:not(.valid) path {
+  fill: #f44336;
+}
+.indicator-tabs md-tabs > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item {
+  background: #efefef;
+}
+.indicator-tabs md-tabs > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item.md-active {
+  background: #fff;
+}
+.indicator-tabs .md-tab.md-disabled {
+  opacity: 1;
+}
+.indicator-tabs .md-tab.md-disabled ng-md-icon {
+  opacity: 0.3;
+}
+.indicator-tabs md-autocomplete[md-floating-label] md-input-container {
+  padding-bottom: 2px;
+}
 
 median {
   overflow: hidden;
@@ -3145,17 +3144,6 @@ piechart .inner-pie {
   padding-right: 220px;
 }
 
-.trashcan ul {
-  padding: 0;
-  margin: 0;
-}
-.trashcan ul li {
-  list-style-type: none;
-}
-.trashcan ul .dndPlaceholder {
-  display: none;
-}
-
 .treeview {
   position: relative;
   margin-bottom: .5em;
@@ -3196,6 +3184,17 @@ piechart .inner-pie {
 }
 .treeview.dndDragover .meanwhile {
   opacity: 0.1;
+}
+
+.trashcan ul {
+  padding: 0;
+  margin: 0;
+}
+.trashcan ul li {
+  list-style-type: none;
+}
+.trashcan ul .dndPlaceholder {
+  display: none;
 }
 
 .weight-control {
