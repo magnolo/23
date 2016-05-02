@@ -159,16 +159,17 @@
 				url: '/:id',
 				auth: true,
 				layout: 'row',
+				resolve: {
+					indicator: function(ContentService, $stateParams) {
+						return ContentService.getIndicator($stateParams.id)
+					}
+				},
 				views: {
 					'main@': {
 						templateUrl: '/views/app/indexeditor/indexeditorindicator.html',
 						controller: 'IndexeditorindicatorCtrl',
-						controllerAs: 'vm',
-						resolve: {
-							indicator: function(ContentService, $stateParams) {
-								return ContentService.getIndicator($stateParams.id)
-							}
-						}
+						controllerAs: 'vm'
+
 					}
 				}
 				/*views:{
@@ -185,7 +186,6 @@
 			.state('app.index.editor.indizes', {
 				url: '/indizes',
 				auth: true,
-
 			})
 			.state('app.index.editor.indizes.data', {
 				url: '/:id/:name',
@@ -208,21 +208,21 @@
 			.state('app.index.editor.indizes.data.add', {
 				url: '/add',
 				layout: 'row',
+				resolve: {
+					indicators: function(ContentService, $stateParams) {
+						return ContentService.fetchIndicators({
+							page: 1,
+							order: 'title',
+							limit: 1000,
+							dir: 'ASC'
+						});
+					}
+				},
 				views: {
 					'additional@': {
 						templateUrl: '/views/app/indexeditor/indicators.html',
 						controller: 'IndexinidcatorsCtrl',
-						controllerAs: 'vm',
-						resolve: {
-							indicators: function(ContentService, $stateParams) {
-								return ContentService.fetchIndicators({
-									page: 1,
-									order: 'title',
-									limit: 1000,
-									dir: 'ASC'
-								});
-							}
-						}
+						controllerAs: 'vm'
 					}
 				}
 			})
@@ -239,19 +239,19 @@
 				url: '/:id',
 				auth: true,
 				layout: 'row',
+				resolve: {
+					category: function(ContentService, $stateParams) {
+						if($stateParams.id == 'new'){
+							return {};
+						}
+						return ContentService.getCategory($stateParams.id);
+					}
+				},
 				views: {
 					'main@': {
 						templateUrl: '/views/app/indexeditor/indexeditorcategory.html',
 						controller: 'IndexeditorcategoryCtrl',
-						controllerAs: 'vm',
-						resolve: {
-							category: function(ContentService, $stateParams) {
-								if($stateParams.id == 'new'){
-									return {};
-								}
-								return ContentService.getCategory($stateParams.id);
-							}
-						}
+						controllerAs: 'vm'
 					}
 				}
 			})
@@ -420,19 +420,19 @@
 			})
 			.state('app.index.show', {
 				url: '/:id/:name',
+				resolve: {
+					data: function(IndizesService, $stateParams) {
+						return IndizesService.fetchData($stateParams.id);
+					},
+					countries: function(CountriesService) {
+						return CountriesService.getData();
+					}
+				},
 				views: {
 					'sidebar@': {
 						templateUrl: '/views/app/index/info.html',
 						controller: 'IndexCtrl',
-						controllerAs: 'vm',
-						resolve: {
-							data: function(IndizesService, $stateParams) {
-								return IndizesService.fetchData($stateParams.id);
-							},
-							countries: function(CountriesService) {
-								return CountriesService.getData();
-							}
-						}
+						controllerAs: 'vm'
 					},
 					'selected': {
 						templateUrl: '/views/app/index/selected.html',

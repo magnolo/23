@@ -13,6 +13,7 @@
 		}
 
 		$rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams) {
+			
 			if (toState.auth && !$auth.isAuthenticated()) {
 				toastr.error('Your not allowed to go there buddy!', 'Access denied');
 				event.preventDefault();
@@ -26,6 +27,7 @@
 			} else {
 				$rootScope.rowed = false;
 			}
+
 			if (typeof toState.views != "undefined") {
 				if (toState.views.hasOwnProperty('main@') || toState.views.hasOwnProperty('additional@')) {
 					$rootScope.mainView = true;
@@ -77,6 +79,7 @@
 		});
 
 		$rootScope.$on("$stateChangeSuccess", function(event, toState) {
+
 			$rootScope.stateIsLoading = false;
 			if($auth.isAuthenticated()){
 					$mdSidenav('leftMenu').close();
