@@ -171,7 +171,6 @@
 			},
 			paintCountries: function(style, click, mutex) {
 				var that = this;
-
 				$timeout(function() {
 					if (typeof style != "undefined" && style != null) {
 						that.data.layer.setStyle(style);
@@ -181,7 +180,8 @@
 					if (typeof click != "undefined") {
 						that.data.layer.options.onClick = click
 					}
-					that.data.layer.redraw();
+
+				 	that.data.layer.redraw();
 				});
 			},
 			resetSelected: function(iso){

@@ -2514,6 +2514,9 @@ div[ui-view='map'] {
     height: calc(100% - 102px);
   }
 }
+#map .leaflet-tile-container {
+  transition: all 4s ease-in-out;
+}
 .angular-leaflet-map {
   width: 100%;
   height: 100%;

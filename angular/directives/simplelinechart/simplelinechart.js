@@ -40,7 +40,7 @@
 			vm.chart.options.chart = {
 				type: 'lineChart',
 				legendPosition: 'left',
-				duration:100,
+				duration:0,
 				margin: {
 					top: 20,
 					right: 20,
@@ -81,7 +81,7 @@
 			if (vm.options.invert == true) {
 				vm.chart.options.chart.forceY = [parseInt(vm.range.max), vm.range.min];
 			}
-			console.log(vm.chart)
+
 			return vm.chart;
 		}
 		function calculateGraph() {
@@ -121,8 +121,10 @@
 			if (!n) {
 				return;
 			}
-			calculateGraph();
-			updateChart();
+
+				calculateGraph();
+				updateChart();
+
 
 		});
 		$scope.$watch('vm.selection', function (n, o) {
