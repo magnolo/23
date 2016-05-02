@@ -98,7 +98,7 @@ class IndicatorController extends Controller
         $years = \DB::table($indicator->table_name)->select('year')->groupBy('year')->orderBy('year', 'DESC')->get();
         $indicator->years = $years;
         if($indicator->userdata->gender != ""){
-          $gender = \DB::table($indicator->table_name)->select('gender')->groupBy('gender')->orderBy('gender', 'DESC')->get();
+          $gender = \DB::table($indicator->table_name)->select($indicator->userdata->gender.' as gender')->groupBy('gender')->orderBy('gender', 'DESC')->get();
           $indicator->gender = $gender;
         }
         $indicator->styled = $indicator->getStyle();
@@ -192,7 +192,7 @@ class IndicatorController extends Controller
       $indicator = Indicator::find($id);
       $iso_field = $indicator->userdata->iso_type == 'iso-3166-1' ? 'adm0_a3': 'iso_a2';
       $data = \DB::table($indicator->table_name)
-        ->where('gender', $gender)
+        ->where($indicator->userdata->gender, $gender)
         ->whereNotNull($indicator->table_name.".".$indicator->column_name)
         ->leftJoin('countries', $indicator->table_name.".".$indicator->iso_name, '=', 'countries.'.$iso_field)
         ->select($indicator->table_name.".".$indicator->column_name.' as score', $indicator->table_name.'.year','countries.'.$iso_field.' as iso','countries.admin as country')
@@ -203,7 +203,7 @@ class IndicatorController extends Controller
       $indicator = Indicator::find($id);
       $iso_field = $indicator->userdata->iso_type == 'iso-3166-1' ? 'adm0_a3': 'iso_a2';
       $data = \DB::table($indicator->table_name)
-        ->where(['gender' =>  $gender, 'year' => $year])
+        ->where([$indicator->userdata->gender => $gender , 'year' => $year])
         ->whereNotNull($indicator->table_name.".".$indicator->column_name)
         ->leftJoin('countries', $indicator->table_name.".".$indicator->iso_name, '=', 'countries.'.$iso_field)
         ->select($indicator->table_name.".".$indicator->column_name.' as score', $indicator->table_name.'.year','countries.'.$iso_field.' as iso','countries.admin as country')
