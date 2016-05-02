@@ -5,13 +5,13 @@
 		//
 		var vm = this;
 		vm.current = null;
-		vm.active = null, vm.activeGender;
+		vm.active = null, vm.activeGender = null;
 		vm.countryList = countries;
 		vm.indicator = indicator;
 		vm.data = [];
 		vm.range = {
-			max:-100000,
-			min:100000
+			max:-100000000,
+			min:100000000
 		};
 		vm.getData = getData;
 		vm.setCurrent = setCurrent;
@@ -21,6 +21,7 @@
 		activate();
 
 		function activate(){
+			resetRange();
 			VectorlayerService.setStyle(countriesStyle);
 			VectorlayerService.countryClick(countryClick);
 			$timeout(function(){
@@ -34,11 +35,27 @@
 				else if(!vm.active){
 					vm.active = 0;
 				}
+
+				if($state.params.gender){
+					for(var i = 0; i < vm.indicator.gender.length; i++){
+						if(vm.indicator.gender[i].gender == $state.params.gender){
+							vm.activeGender =  i;
+						}
+					}
+				}
+				else if(!vm.activeGender){
+					vm.activeGender = 0;
+				}
 			});
 
 
 		}
-
+		function resetRange(){
+			vm.range = {
+				max:-100000000,
+				min:100000000
+			};
+		}
 		function setState(iso) {
 			$timeout(function(){
 				//console.log(VectorlayerService.getNationByIso(iso));
@@ -49,6 +66,7 @@
 			if($state.current.name == 'app.index.indicator.year'){
 					$state.go('app.index.indicator.year.info',{year:vm.year});
 			}
+
 			else{
 				$state.go('app.index.indicator.year',{id:vm.indicator.id, name:vm.indicator.name, year:vm.year});
 			}
@@ -100,12 +118,18 @@
 			vm.year = year;
 			vm.gender = gender;
 			ContentService.getIndicatorData(vm.indicator.id, year, gender).then(function(dat) {
+				resetRange();
+				console.log($state.current.name);
 				if($state.current.name == 'app.index.indicator.year.info'){
 					$state.go('app.index.indicator.year.info',{year:year});
+				}
+				else if($state.current.name == 'app.index.indicator.year.gender'){
+					$state.go('app.index.indicator.year.gender',{year:year, gender:gender});
 				}
 				else if($state.current.name == 'app.index.indicator.year'){
 					$state.go('app.index.indicator.year',{year:year});
 				}
+
 				else{
 					$state.go('app.index.indicator.year',{year:year});
 				}

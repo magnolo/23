@@ -380,6 +380,9 @@
 			.state('app.index.indicator.year', {
 				url: '/:year',
 			})
+			.state('app.index.indicator.year.gender', {
+				url: '/:gender',
+			})
 			.state('app.index.indicator.year.info', {
 				url: '/details',
 				layout: 'row',
