@@ -1,7 +1,7 @@
 (function() {
 	"use strict";
 
-	angular.module('app.controllers').controller('IndicatorShowCtrl', function($scope, $state, $filter,$timeout, indicator, countries, ContentService, VectorlayerService, toastr) {
+	angular.module('app.controllers').controller('IndicatorShowCtrl', function($scope, $state, $filter, $timeout, indicator, countries, ContentService, VectorlayerService, toastr) {
 		//
 		var vm = this;
 		vm.current = null;
@@ -9,9 +9,10 @@
 		vm.countryList = countries;
 		vm.indicator = indicator;
 		vm.data = [];
+		vm.year = null, vm.gender = 'all';
 		vm.range = {
-			max:-100000000,
-			min:100000000
+			max: -100000000,
+			min: 100000000
 		};
 		vm.getData = getData;
 		vm.setCurrent = setCurrent;
@@ -20,60 +21,77 @@
 		vm.goInfoState = goInfoState;
 		vm.historyData = null;
 
+		vm.setYear = setYear;
+		vm.setGender = setGender;
 
 		activate();
 
-		function activate(){
+		function activate() {
 			resetRange();
 			VectorlayerService.setStyle(countriesStyle);
 			VectorlayerService.countryClick(countryClick);
-			$timeout(function(){
-				if($state.params.year){
-					for(var i = 0; i < vm.indicator.years.length; i++){
-						if(vm.indicator.years[i].year == $state.params.year){
-							vm.active =  i;
+			$timeout(function() {
+				//	vm.year = $state.params.year;
+				//	vm.gender = $state.params.gender;
+					//getData($state.params.year, $state.params.gender);
+				if ($state.params.year) {
+					vm.year = $state.params.year;
+					for (var i = 0; i < vm.indicator.years.length; i++) {
+						if (vm.indicator.years[i].year == $state.params.year) {
+							vm.active = i;
 						}
 					}
-				}
-				else if(!vm.active){
+				} else if (!vm.active) {
 					vm.active = 0;
 				}
 
-				if($state.params.gender){
-					for(var i = 0; i < vm.indicator.gender.length; i++){
-						if(vm.indicator.gender[i].gender == $state.params.gender){
-							vm.activeGender =  i;
+				if (vm.indicator.gender) {
+					if ($state.params.gender != "all") {
+						vm.gender = $state.params.gender;
+						for (var i = 0; i < vm.indicator.gender.length; i++) {
+							if (vm.indicator.gender[i].gender == $state.params.gender) {
+								vm.activeGender = i;
+							}
 						}
+					} else if (!vm.activeGender) {
+						vm.activeGender = 0;
 					}
 				}
-				else if(!vm.activeGender){
-					vm.activeGender = 0;
-				}
+				else if (!vm.activeGender) {
+				 vm.activeGender = 0;
+			 	}
+				getData(vm.year, vm.gender);
 			});
-
-
 		}
-		function resetRange(){
+
+		function resetRange() {
 			vm.range = {
-				max:-100000000,
-				min:100000000
+				max: -100000000,
+				min: 100000000
 			};
 		}
+
 		function setState(iso) {
-			$timeout(function(){
+			$timeout(function() {
 				//console.log(VectorlayerService.getNationByIso(iso));
 				//vm.current = VectorlayerService.getNationByIso(iso);
 			})
 		};
-		function goInfoState(){
-			if($state.current.name == 'app.index.indicator.year'){
-					$state.go('app.index.indicator.year.info',{year:vm.year});
-			}
 
-			else{
-				$state.go('app.index.indicator.year',{id:vm.indicator.id, name:vm.indicator.name, year:vm.year});
-			}
+		function goInfoState() {
+			// if ($state.current.name == 'app.index.indicator.year') {
+			// 	$state.go('app.index.indicator.info', {
+			// 		year: vm.year
+			// 	});
+			// } else {
+			// 	$state.go('app.index.indicator', {
+			// 		id: vm.indicator.id,
+			// 		name: vm.indicator.name,
+			// 		year: vm.year
+			// 	});
+			// }
 		}
+
 		function getRank(country) {
 			var rank = vm.data.indexOf(country) + 1;
 			return rank;
@@ -90,71 +108,67 @@
 		function setCurrent(nat) {
 			vm.current = nat;
 			setSelectedFeature();
-				getHistory();
+
 		};
 
 		function setSelectedFeature() {
-
-			/*	$timeout(function() {
-					VectorlayerService.getLayer().layers[VectorlayerService.getName()+'_geom'].features[vm.current.iso].selected = true;
-				});*/
-				/*if($state.current.name == 'app.index.indicator.year'){
-					$state.go('app.index.indicator.year.country',{ iso:vm.current.iso})
-				}
-				else if($state.current.name == 'app.index.indicator.year.info'){
-					$state.go('app.index.indicator.year.info.country',{ iso:vm.current.iso})
-				}
-				else{
-					$state.go($state.current.name,{ iso:vm.current.iso})
-				}*/
-
+			$state.go('app.index.indicator', {
+				iso: vm.current.iso,
+			});
+			getHistory();
 		};
-		function countryClick(evt,t){
+
+		function countryClick(evt, t) {
 			var c = VectorlayerService.getNationByIso(evt.feature.properties[VectorlayerService.data.iso2]);
 			if (typeof c.score != "undefined") {
 				vm.current = c;
-				getHistory();
+				setSelectedFeature();
 			} else {
 				toastr.error('No info about this location!');
 			}
 		}
 
-		function getHistory(){
-			ContentService.getIndicatorHistory(vm.indicator.id, vm.current.iso).then(function(data){
+		function getHistory() {
+			ContentService.getIndicatorHistory(vm.indicator.id, vm.current.iso, vm.gender).then(function(data) {
 				vm.historyData = data;
 			})
 		}
-
-		function getData(year, gender) {
+		function setYear(year){
 			vm.year = year;
-			vm.gender = gender;
-			ContentService.getIndicatorData(vm.indicator.id, year, gender).then(function(dat) {
-				resetRange();
-
-				if($state.current.name == 'app.index.indicator.year.info'){
-					$state.go('app.index.indicator.year.info',{year:year});
-				}
-				else if($state.current.name == 'app.index.indicator.year.gender'){
-					$state.go('app.index.indicator.year.gender',{year:year, gender:gender});
-				}
-				else if($state.current.name == 'app.index.indicator.year'){
-					$state.go('app.index.indicator.year',{year:year});
-				}
-				else{
-					$state.go('app.index.indicator.year',{year:year});
-				}
-				vm.data = dat;
-				angular.forEach(vm.data, function(item){
-					item.rank = vm.data.indexOf(item) +1;
-					if(vm.current){
-						if(item.iso == vm.current.iso){
-							setCurrent(item);
+			$state.go('app.index.indicator', {
+				year: year,
+			});
+		}
+		function setGender(gender){
+			vm.gender = gender || 'all';
+			$state.go('app.index.indicator', {
+				gender:vm.gender
+			});
+		}
+		function getData(year, gender) {
+			ContentService.getIndicatorData(vm.indicator.id, vm.year, vm.gender).then(function(dat) {
+					resetRange();
+					vm.data = dat;
+					var iso = null;
+					if ($state.params.iso) {
+						for (var i = 0; i < vm.data.length; i++) {
+							if (vm.data[i].iso == $state.params.iso) {
+								vm.current = vm.data[i];
+								iso = vm.current.iso;
+								setSelectedFeature();
+							}
 						}
 					}
-
-					vm.range.max =  d3.max([vm.range.max, parseFloat(item.score)]);
-					vm.range.min =  d3.min([vm.range.min, parseFloat(item.score)]);
-				});
+					angular.forEach(vm.data, function(item) {
+						item.rank = vm.data.indexOf(item) + 1;
+						if (vm.current) {
+							if (item.iso == vm.current.iso) {
+								setCurrent(item);
+							}
+						}
+						vm.range.max = d3.max([vm.range.max, parseFloat(item.score)]);
+						vm.range.min = d3.min([vm.range.min, parseFloat(item.score)]);
+					});
 
 					vm.circleOptions = {
 						color: vm.indicator.styled.base_color || '#00ccaa',
@@ -162,10 +176,10 @@
 						size: vm.data.length
 					};
 
-				getOffset();
-				vm.linearScale = d3.scale.linear().domain([vm.range.min,vm.range.max]).range([0,256]);
-				VectorlayerService.setData(vm.data, vm.indicator.styled.base_color, true);
-				//VectorlayerService.paintCountries(countriesStyle, countryClick);
+					getOffset();
+					vm.linearScale = d3.scale.linear().domain([vm.range.min, vm.range.max]).range([0, 256]);
+					VectorlayerService.setData(vm.data, vm.indicator.styled.base_color, true);
+					//VectorlayerService.paintCountries(countriesStyle, countryClick);
 			});
 
 
@@ -179,9 +193,9 @@
 			var field = 'score';
 			var type = feature.type;
 			feature.selected = false;
-			if(vm.current){
-				if(vm.current.iso == iso){
-						feature.selected = true;
+			if (vm.current) {
+				if (vm.current.iso == iso) {
+					feature.selected = true;
 				}
 			}
 
@@ -189,9 +203,9 @@
 
 			switch (type) {
 				case 3: //'Polygon'
-					if (typeof nation[field] != "undefined" && nation[field] != null){
+					if (typeof nation[field] != "undefined" && nation[field] != null) {
 
-						var colorPos =  parseInt(vm.linearScale(parseFloat(nation[field]))) * 4;// parseInt(256 / vm.range.max * parseInt(nation[field])) * 4;
+						var colorPos = parseInt(vm.linearScale(parseFloat(nation[field]))) * 4; // parseInt(256 / vm.range.max * parseInt(nation[field])) * 4;
 						var color = 'rgba(' + VectorlayerService.palette[colorPos] + ', ' + VectorlayerService.palette[colorPos + 1] + ', ' + VectorlayerService.palette[colorPos + 2] + ',' + VectorlayerService.palette[colorPos + 3] + ')';
 						style.color = 'rgba(' + VectorlayerService.palette[colorPos] + ', ' + VectorlayerService.palette[colorPos + 1] + ', ' + VectorlayerService.palette[colorPos + 2] + ',0.6)'; //color;
 						style.outline = {
@@ -214,17 +228,13 @@
 						};
 
 					}
-						break;
+					break;
 			}
 			return style;
 		};
-
-		$scope.$on('$stateChangeSuccess',
-			function(event, toState, toParams, fromState, fromParams){
-				if(toState.name == 'app.index.indicator.data'){
-
-				}
-		})
+		vm.uiOnParamsChanged = function(changedParams, $transition$) {
+			getData(vm.year, vm.gender);
+		}
 
 	});
 })();

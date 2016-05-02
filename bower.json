@@ -12,7 +12,7 @@
   ],
   "dependencies": {
     "angular": "~1.5",
-    "angular-ui-router": "~0.2.15",
+    "angular-ui-router": "1.0.0-alpha.3",
     "ngstorage": "~0.3.6",
     "angular-material": "~1.*",
     "restangular": "~1.5.1",

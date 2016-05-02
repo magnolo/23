@@ -91,16 +91,17 @@
 				return DataService.getOne('indicators',id);
 			},
 			getIndicatorData: function(id, year, gender) {
-				if(year && gender){
+		
+				if(year && gender && gender != 'all'){
 					return this.content.data = DataService.getAll('indicators/' + id + '/data/' + year + '/gender/' +gender );
 				}
-				else if (year && !gender) {
+				else if (year) {
 					return this.content.data = DataService.getAll('indicators/' + id + '/data/' + year);
 				}
 				return this.content.data = DataService.getAll('indicators/' + id + '/data');
 			},
-			getIndicatorHistory: function(id, iso){
-					return DataService.getAll('indicators/' + id + '/history/' + iso);
+			getIndicatorHistory: function(id, iso, gender){
+					return DataService.getAll('indicators/' + id + '/history/' + iso, {gender: gender});
 			},
 			getItem: function(id) {
 			/*	if(this.content.indices.length > 0){

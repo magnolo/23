@@ -363,7 +363,7 @@
 				}
 			})
 			.state('app.index.indicator', {
-				url: '/indicator/:id/:name',
+				url: '/indicator/:id/:name/:year/:gender/:iso',
 				resolve: {
 					indicator: function(ContentService, $stateParams) {
 						return ContentService.fetchIndicator($stateParams.id);
@@ -373,17 +373,36 @@
 					'sidebar@': {
 						templateUrl: getView('indicator'),
 						controller: 'IndicatorShowCtrl',
-						controllerAs: 'vm',
+						controllerAs: 'vm'
+
+					}
+				},
+				params:{
+					year:{
+						squash:true,
+						value:null,
+						dynamic:true
+					},
+					gender:{
+						squash:true,
+						value:null,
+						dynamic:true
+					},
+					iso:{
+						squash:true,
+						value:null,
+						dynamic:true
+
 					}
 				}
 			})
-			.state('app.index.indicator.year', {
+			/*.state('app.index.indicator.year', {
 				url: '/:year',
 			})
 			.state('app.index.indicator.year.gender', {
 				url: '/:gender',
-			})
-			.state('app.index.indicator.year.info', {
+			})*/
+			.state('app.index.indicator.info', {
 				url: '/details',
 				layout: 'row',
 				resolve: {

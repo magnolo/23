@@ -107,7 +107,13 @@ class IndicatorController extends Controller
 
     public function history($id, $iso){
         $indicator =  Indicator::where('id',$id)->with('type', 'categories', 'dataprovider', 'userdata')->first();
-        $data = \DB::table($indicator->table_name)->select(['year',$indicator->column_name.' as score'])->where('iso', strtoupper($iso))->orderBy('year', 'DESC')->get();
+        $data = \DB::table($indicator->table_name)->select(['year',$indicator->column_name.' as score'])->where('iso', strtoupper($iso));
+        if(Input::has('gender')){
+          if(Input::get('gender') != 'all'){
+            $data = $data->where($indicator->userdata->gender, Input::get('gender'));
+          }
+        }
+        $data = $data->orderBy('year', 'DESC')->get();
         return response()->api($data);
     }
     /**

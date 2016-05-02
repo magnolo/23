@@ -19,10 +19,10 @@
 												</md-button>
 								</section>
 								<md-tabs md-selected="vm.active">
-										<md-tab md-on-select="vm.getData(year.year, vm.gender)" ng-repeat="year in vm.indicator.years | orderBy: '-year' ">{{ year.year}}</md-tab>
+										<md-tab md-on-select="vm.setYear(year.year)" ng-repeat="year in vm.indicator.years | orderBy: '-year' ">{{ year.year}}</md-tab>
 								</md-tabs>
 								<md-tabs md-selected="vm.activeGender" ng-if="vm.indicator.gender">
-										<md-tab md-on-select="vm.getData(vm.year, gender.gender )" ng-repeat="gender in vm.indicator.gender | orderBy: '-gender' ">{{ gender.gender}}</md-tab>
+										<md-tab md-on-select="vm.setGender(gender.gender )" ng-repeat="gender in vm.indicator.gender | orderBy: '-gender' ">{{ gender.gender}}</md-tab>
 								</md-tabs>
 								<div class="mtb1"></div>
 								<md-content>

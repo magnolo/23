@@ -2151,6 +2151,16 @@ md-menu-bar {
   padding-left: 1em;
 }
 
+md-list-item.md-2-line {
+  min-height: 62px;
+}
+md-list-item.md-2-line a {
+  padding-top: .5em;
+}
+md-list-item.md-2-line > .md-no-style {
+  min-height: 62px;
+}
+
 section.module-top {
   background-color: #fff;
   width: 360px;
@@ -2454,16 +2464,6 @@ md-list-item.active {
   cursor: pointer;
 }
 
-md-list-item.md-2-line {
-  min-height: 62px;
-}
-md-list-item.md-2-line a {
-  padding-top: .5em;
-}
-md-list-item.md-2-line > .md-no-style {
-  min-height: 62px;
-}
-
 
 
 
@@ -2494,7 +2494,6 @@ md-list-item.md-2-line > .md-no-style {
     top: 1em;
   }
 }
-
 
 div[ui-view='map'] {
   position: absolute;
@@ -2637,6 +2636,7 @@ div[ui-view='map'] {
 .leaflet-bar {
   box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 2px 1px -1px rgba(0, 0, 0, 0.12);
 }
+
 
 /*.Sidebar {
 	position: fixed !important;
@@ -2886,6 +2886,7 @@ div[ui-view='map'] {
 }
 
 
+
 median {
   overflow: hidden;
   border-radius: 20px;
@@ -2971,7 +2972,6 @@ median .slider text {
   height: 1px;
   top: 0.5em;
 }
-
 
 piechart {
   position: relative;
