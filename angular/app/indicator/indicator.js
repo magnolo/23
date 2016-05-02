@@ -129,7 +129,6 @@
 				else if($state.current.name == 'app.index.indicator.year'){
 					$state.go('app.index.indicator.year',{year:year});
 				}
-
 				else{
 					$state.go('app.index.indicator.year',{year:year});
 				}
