@@ -62,16 +62,16 @@
 			.state('app.user.profile', {
 				url: '/my-profile',
 				auth: true,
+				resolve: {
+					profile: function(DataService, $auth) {
+						return DataService.getOne('me').$object;
+					}
+				},
 				views: {
 					'main@': {
 						templateUrl: getView('user'),
 						controller: 'UserCtrl',
-						controllerAs: 'vm',
-						resolve: {
-							profile: function(DataService, $auth) {
-								return DataService.getOne('me').$object;
-							}
-						}
+						controllerAs: 'vm'
 					}
 				}
 
@@ -374,7 +374,6 @@
 						templateUrl: getView('indicator'),
 						controller: 'IndicatorShowCtrl',
 						controllerAs: 'vm'
-
 					}
 				},
 				params:{

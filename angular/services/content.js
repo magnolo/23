@@ -85,13 +85,16 @@
 				return this.fetchIndicator(id);
 			},
 			fetchIndicator: function(id) {
-				return this.content.indicator = DataService.getOne('indicators/' + id).$object;
+				var that = this;
+				return DataService.getOne('indicators/' + id).then(function(data){
+					return that.content.indicator = data;
+				});
 			},
 			fetchIndicatorPromise: function(id) {
 				return DataService.getOne('indicators',id);
 			},
 			getIndicatorData: function(id, year, gender) {
-		
+
 				if(year && gender && gender != 'all'){
 					return this.content.data = DataService.getAll('indicators/' + id + '/data/' + year + '/gender/' +gender );
 				}
