@@ -18,6 +18,9 @@
 		vm.getOffset = getOffset;
 		vm.getRank = getRank;
 		vm.goInfoState = goInfoState;
+		vm.historyData = null;
+
+
 		activate();
 
 		function activate(){
@@ -87,6 +90,7 @@
 		function setCurrent(nat) {
 			vm.current = nat;
 			setSelectedFeature();
+				getHistory();
 		};
 
 		function setSelectedFeature() {
@@ -109,9 +113,16 @@
 			var c = VectorlayerService.getNationByIso(evt.feature.properties[VectorlayerService.data.iso2]);
 			if (typeof c.score != "undefined") {
 				vm.current = c;
+				getHistory();
 			} else {
 				toastr.error('No info about this location!');
 			}
+		}
+
+		function getHistory(){
+			ContentService.getIndicatorHistory(vm.indicator.id, vm.current.iso).then(function(data){
+				vm.historyData = data;
+			})
 		}
 
 		function getData(year, gender) {
@@ -119,7 +130,7 @@
 			vm.gender = gender;
 			ContentService.getIndicatorData(vm.indicator.id, year, gender).then(function(dat) {
 				resetRange();
-				console.log($state.current.name);
+
 				if($state.current.name == 'app.index.indicator.year.info'){
 					$state.go('app.index.indicator.year.info',{year:year});
 				}

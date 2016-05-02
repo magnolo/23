@@ -99,6 +99,9 @@
 				}
 				return this.content.data = DataService.getAll('indicators/' + id + '/data');
 			},
+			getIndicatorHistory: function(id, iso){
+					return DataService.getAll('indicators/' + id + '/history/' + iso);
+			},
 			getItem: function(id) {
 			/*	if(this.content.indices.length > 0){
 					 this.content.data = searchForItem(this.content.indices, id);

@@ -105,6 +105,11 @@ class IndicatorController extends Controller
         return response()->api($indicator);
     }
 
+    public function history($id, $iso){
+        $indicator =  Indicator::where('id',$id)->with('type', 'categories', 'dataprovider', 'userdata')->first();
+        $data = \DB::table($indicator->table_name)->select(['year',$indicator->column_name.' as score'])->where('iso', strtoupper($iso))->orderBy('year', 'DESC')->get();
+        return response()->api($data);
+    }
     /**
      * Show the form for editing the specified resource.
      *

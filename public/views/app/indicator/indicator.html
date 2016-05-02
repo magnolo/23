@@ -86,29 +86,16 @@
 															</div>
 												</section>
 
-												<!--<section>
+												<section>
 																<md-tabs md-stretch-tabs="true" md-center-tabs="true" md-dynamic-height md-no-pagination="true" md-swipe-content="true" ng-if="vm.current" md-selected="vm.activeTab">
 
 																				<md-tab label="History" md-active="vm.activeTab == 1" md-on-select="vm.setTab(1)">
 																								<div class="module tabs no-margin" layout="column">
-																												<history chartdata="vm.current.data.data" options="{field:'score', color:vm.indicator.styled.base_color}"></history>
+																												<history chartdata="vm.historyData" options="{field:'score', color:vm.indicator.styled.base_color}"></history>
 																								</div>
 																				</md-tab>
-																				<md-tab label="Compare" md-active="vm.activeTab == 2" md-on-deselect="vm.checkComparison(false)" md-on-select="vm.checkComparison(true)">
-																								<div class="module comparison">
-																												<div layout-wrap layout="row">
-																																<div class="country anim-opacity" flex="50" ng-repeat="country in vm.compare.countries">
-																																				<h4 ng-click="vm.setCurrent(country)">
-																																								<span class="number">N°{{vm.getRank(country)}}</span>
-																																								{{vm.countryList[country.iso]}}</h4>
-																																				<median data="vm.data" height="20" info="false" options="{'color': vm.structure.style.base_color, field: vm.structure.name}" ng-model="country" width="120"></median>
-																																				<bubbles borders="false" chartdata="country" height="150" indexer="vm.structure" labels="false" ng-model="vm.display.selectedCat" sizefactor="5" width="120"></bubbles>
 
-																																</div>
-																												</div>
-																								</div>
-																				</md-tab>
 																</md-tabs>
-												</section>-->
+												</section>
 								</md-content>
 				</div>
