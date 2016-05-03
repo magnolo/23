@@ -16,7 +16,7 @@
 	.info-box .module.rank .mini-list .list ul li.active, .info-box .module.comparison h4 .number{
 		color: {{vm.structure.style.base_color || 'rgba(128, 243, 198,1)'}};
 	}
-</style>
+</style>-->
 <style type="text/css">
 	md-tabs md-ink-bar {
 		background:{{vm.structure.style.base_color || 'rgba(128, 243, 198,1)'}};
@@ -27,7 +27,7 @@
 	.info-box ng-md-icon path{
 		fill: {{vm.structure.style.base_color || 'rgba(128, 243, 198,1)'}} !important;
 	}
-</style>-->
+</style>
 <div class="info-box">
 				<div class="cssload-container doAnim-fade" ng-if="!vm.data.length">
 								<div class="cssload-whirlpool"></div>
@@ -115,10 +115,10 @@
 												</div>
 								</section>
 
-								<section class="module slide-toggle" layout-align="center center" layout="column" ng-if="vm.current  && !vm.compare.active">
+								<section class="module slide-toggle hideOnClosed" layout-align="center center" layout="column" ng-if="vm.current  && !vm.compare.active">
 												<median data="vm.data" ng-model="vm.current" options="{color: vm.structure.style.base_color,handling: true, field: vm.structure.name}" style="margin:2em 0"></median>
 								</section>
-								<section class="action module slide-toggle mb mt" layout-align="center center" layout="row" ng-if="!vm.current && vm.data.length">
+								<section class="action module slide-toggle mb mt hideOnClosed" layout-align="center center" layout="row" ng-if="!vm.current && vm.data.length">
 												<md-button flex="50" ng-disabled="true" hide-sm>click on a country</md-button>
 												<div flex hide-gt-sm layout="column">
 												<md-subheader class="md-primary">Select a country</md-subheader>
@@ -131,7 +131,7 @@
 												</md-list>
 											</div>
 								</section>
-								<section>
+								<section class="hideOnClosed">
 												<md-tabs md-center-tabs="true" md-dynamic-height md-no-pagination="true" md-selected="vm.activeTab" md-stretch-tabs="true" md-swipe-content="true" ng-if="vm.current">
 																<md-tab label="Details" md-active="vm.activeTab == 0" md-on-select="vm.setTab(0)" ng-if="vm.structure.children.length > 0">
 																				<div class="module bubbles slide-toggle mt mb" layout="column" ng-show="!vm.isPrelast()">

@@ -18,10 +18,10 @@
 																<ng-md-icon icon="info_outline" style="fill:{{vm.indicator.styled.base_color}}"></ng-md-icon>
 												</md-button>
 								</section>
-								<md-tabs md-selected="vm.active">
+								<md-tabs md-selected="vm.active" md-no-select-click>
 										<md-tab md-on-select="vm.setYear(year.year)" ng-repeat="year in vm.indicator.years | orderBy: '-year' ">{{ year.year}}</md-tab>
 								</md-tabs>
-								<md-tabs md-selected="vm.activeGender" ng-if="vm.indicator.gender">
+								<md-tabs md-selected="vm.activeGender"  md-no-select-click ng-if="vm.indicator.gender">
 										<md-tab md-on-select="vm.setGender(gender.gender )" ng-repeat="gender in vm.indicator.gender | orderBy: '-gender' ">{{ gender.gender}}</md-tab>
 								</md-tabs>
 								<div class="mtb1"></div>
@@ -48,8 +48,8 @@
 												        </div>
 												        <div class="mini-list">
 												                <div class="title">
-												                        <span ng-if="!vm.current.id">Top</span>
-												                        <span ng-if="vm.current.id">Actual</span>
+												                        <span ng-if="!vm.current.iso">Top</span>
+												                        <span ng-if="vm.current.iso">Actual</span>
 												                </div>
 												                <div class="list">
 												                        <ul style="transform:translateY(-{{vm.getOffset()}}px)">
@@ -82,7 +82,8 @@
 												<section ng-if="vm.current" class="module slide-toggle" layout-align="center center" layout="column" ng-if="!vm.compare.active">
 																<div layout-align="center center" layout="column" style="margin:2em 0">
 																<median data="vm.data" ng-model="vm.current" options="{color: vm.indicator.styled.base_color,handling: true, field: 'score'}" ></median>
-																<small style="color:#afafaf;font-style:italic;margin-top:0.5em">values in {{vm.indicator.type.ext}}</small>
+																<small style="color:#afafaf;font-style:italic;margin-top:0.5em" ng-if="vm.indicator.type.ext">values in {{vm.indicator.type.ext}}</small>
+																<small style="color:#afafaf;font-style:italic;margin-top:0.5em" ng-if="!vm.indicator.type.ext">values absolute</small>
 															</div>
 												</section>
 

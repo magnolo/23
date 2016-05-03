@@ -94,7 +94,6 @@
 				return DataService.getOne('indicators',id);
 			},
 			getIndicatorData: function(id, year, gender) {
-
 				if(year && gender && gender != 'all'){
 					return this.content.data = DataService.getAll('indicators/' + id + '/data/' + year + '/gender/' +gender );
 				}

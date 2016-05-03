@@ -1034,8 +1034,8 @@ md-sidenav#sidebar.md-locked-open {
     width: 100%;
   }
   md-sidenav#sidebar.md-closed {
-    -webkit-transform: translate3d(0, calc(100% - 102px), 0);
-    transform: translate3d(0, calc(100% - 102px), 0);
+    -webkit-transform: translate3d(0, calc(100% - 106px), 0);
+    transform: translate3d(0, calc(100% - 106px), 0);
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
@@ -1048,9 +1048,7 @@ md-sidenav#sidebar.md-locked-open {
     overflow: visible;
   }
   md-sidenav#sidebar.md-closed .menu-toggler {
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
+    display: none;
   }
   md-sidenav#sidebar.md-closed .back-button {
     display: none;
@@ -1459,7 +1457,7 @@ p.small-info:hover {
 .mobile-window-switcher {
   position: fixed;
   bottom: 0.5em;
-  right: 0.4em;
+  right: 0.2em;
   z-index: 61;
   transition: bottom 0.5s ease;
 }
@@ -1468,7 +1466,7 @@ p.small-info:hover {
 }
 .sidebar-closed .mobile-window-switcher {
   bottom: 4.2em;
-  right: 0.4em;
+  right: 0.2em;
 }
 .columned {
   -webkit-column-count: 3;
@@ -1941,7 +1939,7 @@ md-menu-bar {
   color: #006bb9;
   padding: 0;
   margin: 0;
-  line-height: 0.8em;
+  line-height: 1.7em;
   font-size: 1.5em;
 }
 .info-box .header .subtitle {
@@ -1955,6 +1953,7 @@ md-menu-bar {
 }
 .info-box .header.info {
   border: 0;
+  padding-left: 2.4em;
 }
 .info-box .header.info .title {
   line-height: 1.2em;
@@ -2514,9 +2513,6 @@ div[ui-view='map'] {
     height: calc(100% - 102px);
   }
 }
-#map .leaflet-tile-container {
-  transition: all 4s ease-in-out;
-}
 .angular-leaflet-map {
   width: 100%;
   height: 100%;
@@ -2640,7 +2636,6 @@ div[ui-view='map'] {
   box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 2px 1px -1px rgba(0, 0, 0, 0.12);
 }
 
-
 /*.Sidebar {
 	position: fixed !important;
 	top: 0;
@@ -2698,34 +2693,10 @@ div[ui-view='map'] {
 
 
 
-.bar-viewer {
-  margin: 0 1em;
-}
-.bar-viewer .bar {
-  width: 100%;
-  height: 7px;
-  background-color: #efefef;
-}
-.bar-viewer .bar .bar-value {
-  height: 100%;
-  background-color: #000;
-  width: 0;
-  transition: width 0.3s ease-out;
-}
-.bar-viewer .title {
-  margin: .5em 0;
-  margin-bottom: 1em;
-}
-.bar-viewer .sub-bar {
-  cursor: pointer;
-}
-.bar-viewer .sub-bar.titled {
-  margin-left: 2em;
-}
 
-.bubbles {
+bubbles {
   overflow: hidden;
-  margin: 1em 0;
+  margin: 1em auto;
 }
 .node {
   cursor: pointer;
@@ -2792,6 +2763,31 @@ div[ui-view='map'] {
   transition: transform 0.3s ease-out;
 }
 
+.bar-viewer {
+  margin: 0 1em;
+}
+.bar-viewer .bar {
+  width: 100%;
+  height: 7px;
+  background-color: #efefef;
+}
+.bar-viewer .bar .bar-value {
+  height: 100%;
+  background-color: #000;
+  width: 0;
+  transition: width 0.3s ease-out;
+}
+.bar-viewer .title {
+  margin: .5em 0;
+  margin-bottom: 1em;
+}
+.bar-viewer .sub-bar {
+  cursor: pointer;
+}
+.bar-viewer .sub-bar.titled {
+  margin-left: 2em;
+}
+
 
 
 
@@ -2855,6 +2851,7 @@ div[ui-view='map'] {
   padding-bottom: 2px;
 }
 
+
 .indicator-menu {
   position: absolute;
   right: 2.5em;
@@ -2888,16 +2885,16 @@ div[ui-view='map'] {
   fill: #ddd;
 }
 
-
-
 median {
-  overflow: hidden;
   border-radius: 20px;
   display: inline-block;
   height: 40px;
 }
+median > svg {
+  overflow: visible;
+}
 median .endLabel {
-  fill: #fff;
+  fill: transparent;
   stroke-width: 0;
 }
 median .endLabel text {
@@ -2906,7 +2903,7 @@ median .endLabel text {
 median .startLabel {
   fill: none;
   stroke: #fff;
-  stroke-width: 1px;
+  stroke-width: 0px;
 }
 median .startLabel text {
   fill: #fff;
@@ -2935,6 +2932,7 @@ median .axis .halo {
 median .slider .handle {
   fill: #0ca;
   stroke-width: 0;
+  stroke: #aaa;
   cursor: ew-resize;
 }
 median .slider text {
@@ -2944,6 +2942,7 @@ median .slider text {
   user-select: none;
   cursor: ew-resize;
 }
+
 
 
 

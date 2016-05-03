@@ -47,7 +47,7 @@
 							header: true,
 							dynamicTyping: true,
 							fastMode: true,
-							//worker: true,
+							worker: true,
 							//IF "step" instead of "chunk" > chunk = row and chunk.data = row.data[0]
 							chunk: function (chunk) {
 								angular.forEach(chunk.data, function (row, index) {

@@ -2,7 +2,7 @@
 	"use strict";
 
 	angular.module('app.routes').config(function($stateProvider, $urlRouterProvider, $locationProvider) {
-		//	$locationProvider.html5Mode(true);
+		//$locationProvider.html5Mode(true);
 		var getView = function(viewName) {
 			return '/views/app/' + viewName + '/' + viewName + '.html';
 		};
@@ -395,18 +395,13 @@
 					}
 				}
 			})
-			/*.state('app.index.indicator.year', {
-				url: '/:year',
-			})
-			.state('app.index.indicator.year.gender', {
-				url: '/:gender',
-			})*/
 			.state('app.index.indicator.info', {
 				url: '/details',
 				layout: 'row',
 				resolve: {
-					data: function(ContentService, $stateParams) {
-						return ContentService.getIndicatorData($stateParams.id, $stateParams.year);
+					data: function(ContentService, $state) {
+
+						return ContentService.getIndicatorData($state.params.id, $state.params.year, $state.params.gender);
 					}
 				},
 				views: {

@@ -1,7 +1,7 @@
 (function() {
 	"use strict";
 
-	angular.module('app.controllers').controller('IndicatorShowCtrl', function($scope, $state, $filter, $timeout, indicator, countries, ContentService, VectorlayerService, toastr) {
+	angular.module('app.controllers').controller('IndicatorShowCtrl', function($state, $filter, $timeout, indicator, countries, ContentService, VectorlayerService, toastr) {
 		//
 		var vm = this;
 		vm.current = null;
@@ -71,17 +71,13 @@
 		}
 
 		function goInfoState() {
-			// if ($state.current.name == 'app.index.indicator.year') {
-			// 	$state.go('app.index.indicator.info', {
-			// 		year: vm.year
-			// 	});
-			// } else {
-			// 	$state.go('app.index.indicator', {
-			// 		id: vm.indicator.id,
-			// 		name: vm.indicator.name,
-			// 		year: vm.year
-			// 	});
-			// }
+
+			if ($state.current.name == 'app.index.indicator') {
+				$state.go('app.index.indicator.info');
+			} else {
+				$state.go('app.index.indicator');
+			}
+
 		}
 
 		function getRank(country) {
@@ -237,6 +233,7 @@
 
 
 		vm.uiOnParamsChanged = function(changedParams, $transition$) {
+			//console.log(changedParams);
 			getData(vm.year, vm.gender);
 		}
 

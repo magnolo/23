@@ -1,11 +1,13 @@
 median {
-    overflow: hidden;
+  //  overflow: hidden;
     border-radius: 20px;
     display: inline-block;
     height: 40px;
-
+    > svg{
+      overflow: visible;
+    }
     .endLabel {
-        fill: #fff;
+        fill: transparent;
         stroke-width: 0;
 
         text {
@@ -16,7 +18,7 @@ median {
     .startLabel {
         fill: none;
         stroke: #fff;
-        stroke-width: 1px;
+        stroke-width: 0px;
 
         text {
             fill: #fff;
@@ -50,6 +52,7 @@ median {
         .handle {
             fill: #0ca;
             stroke-width: 0;
+            stroke:#aaa;
             cursor: ew-resize;
         }
 

@@ -3,6 +3,7 @@
 
 	angular.module('app.routes').run(function($rootScope, $mdSidenav, $timeout, $auth, $state, $localStorage, $window, leafletData, toastr) {
 		$rootScope.sidebarOpen = true;
+		$rootScope.greyed = true;
 		$rootScope.looseLayout = $localStorage.fullView || false;
 		$rootScope.started = true;
 		$rootScope.goBack = function() {
@@ -13,7 +14,7 @@
 		}
 
 		$rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams) {
-			
+
 			if (toState.auth && !$auth.isAuthenticated()) {
 				toastr.error('Your not allowed to go there buddy!', 'Access denied');
 				event.preventDefault();
