@@ -47,7 +47,7 @@
 							header: true,
 							dynamicTyping: true,
 							fastMode: true,
-							worker: true,
+							worker: false,
 							//IF "step" instead of "chunk" > chunk = row and chunk.data = row.data[0]
 							chunk: function (chunk) {
 								angular.forEach(chunk.data, function (row, index) {
@@ -105,9 +105,11 @@
 
 								for (var i = 0; i <= headings.length; i++) {
 									if (headings[i]) {
+
 										headings[i] = headings[i].replace(/[^a-z0-9]/gi, '_').toLowerCase();
 										if (headings[i].indexOf('.') > -1) {
 											headings[i] = headings[i].substr(0, headings[i].indexOf('.'));
+
 										}
 										var head = headings[i].split('_');
 										if (head.length > 1) {
@@ -193,6 +195,7 @@
 									IndexService.setIsoField('iso');
 								}
 								IndexService.setToLocalStorage();
+								
 								$timeout(function(){
 									toastr.info(IndexService.getDataSize() + ' lines importet!', 'Information');
 									$state.go('app.index.check');

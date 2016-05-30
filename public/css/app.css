@@ -1549,7 +1549,6 @@ md-toast[md-theme=warn] {
 }
 
 
-
 .conflict-icon {
   color: #4fb0e5;
   font-size: 1.1em;
@@ -2150,15 +2149,6 @@ md-menu-bar {
   padding-left: 1em;
 }
 
-md-list-item.md-2-line {
-  min-height: 62px;
-}
-md-list-item.md-2-line a {
-  padding-top: .5em;
-}
-md-list-item.md-2-line > .md-no-style {
-  min-height: 62px;
-}
 
 section.module-top {
   background-color: #fff;
@@ -2459,6 +2449,16 @@ md-list-item.active {
         }*/
 }
 
+md-list-item.md-2-line {
+  min-height: 62px;
+}
+md-list-item.md-2-line a {
+  padding-top: .5em;
+}
+md-list-item.md-2-line > .md-no-style {
+  min-height: 62px;
+}
+
 .cursor {
   cursor: pointer;
 }
@@ -2636,6 +2636,7 @@ div[ui-view='map'] {
   box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 2px 1px -1px rgba(0, 0, 0, 0.12);
 }
 
+
 /*.Sidebar {
 	position: fixed !important;
 	top: 0;
@@ -2693,6 +2694,30 @@ div[ui-view='map'] {
 
 
 
+.bar-viewer {
+  margin: 0 1em;
+}
+.bar-viewer .bar {
+  width: 100%;
+  height: 7px;
+  background-color: #efefef;
+}
+.bar-viewer .bar .bar-value {
+  height: 100%;
+  background-color: #000;
+  width: 0;
+  transition: width 0.3s ease-out;
+}
+.bar-viewer .title {
+  margin: .5em 0;
+  margin-bottom: 1em;
+}
+.bar-viewer .sub-bar {
+  cursor: pointer;
+}
+.bar-viewer .sub-bar.titled {
+  margin-left: 2em;
+}
 
 bubbles {
   overflow: hidden;
@@ -2763,31 +2788,6 @@ bubbles {
   transition: transform 0.3s ease-out;
 }
 
-.bar-viewer {
-  margin: 0 1em;
-}
-.bar-viewer .bar {
-  width: 100%;
-  height: 7px;
-  background-color: #efefef;
-}
-.bar-viewer .bar .bar-value {
-  height: 100%;
-  background-color: #000;
-  width: 0;
-  transition: width 0.3s ease-out;
-}
-.bar-viewer .title {
-  margin: .5em 0;
-  margin-bottom: 1em;
-}
-.bar-viewer .sub-bar {
-  cursor: pointer;
-}
-.bar-viewer .sub-bar.titled {
-  margin-left: 2em;
-}
-
 
 
 
@@ -2851,7 +2851,6 @@ bubbles {
   padding-bottom: 2px;
 }
 
-
 .indicator-menu {
   position: absolute;
   right: 2.5em;
@@ -2884,6 +2883,8 @@ bubbles {
 .indicator-menu ng-md-icon.greyed path {
   fill: #ddd;
 }
+
+
 
 median {
   border-radius: 20px;
@@ -2942,7 +2943,6 @@ median .slider text {
   user-select: none;
   cursor: ew-resize;
 }
-
 
 
 
