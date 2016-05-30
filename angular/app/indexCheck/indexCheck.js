@@ -22,7 +22,7 @@
 		vm.showUploadContainer = false;
 		//vm.editColumnData = editColumnData;
 		vm.editRow = editRow;
-    vm.years = [], vm.gender = [];
+    vm.years = [];
 		vm.query = {
 			filter: '',
 			order: '-errors',
@@ -35,7 +35,6 @@
 		function activate() {
 			checkData();
     	getYears();
-			getGender();
 		}
 
 		function checkData() {
@@ -55,31 +54,12 @@
 					}
 				});
 	      angular.forEach(dat[index],function(entry){
-					if(vm.years.indexOf(entry.data[vm.meta.year_field]) == -1){
-						  vm.years.push(entry.data[vm.meta.year_field])
-					}
+	        vm.years.push(entry.data[vm.meta.year_field])
 	      });
 				vm.yearfilter = vm.years[0];
 			});
-    }
-		function getGender(){
-			$timeout(function(){
-				var dat = ($filter('groupBy')(vm.data, 'data.'+vm.meta.country_field ));
-	      vm.gender = [];
-				var length = 0;
-				var index = null;
-			  angular.forEach(dat,function(entry, i){
-					if(entry.length > length){
-						index = i
-					}
-				});
-	      angular.forEach(dat[index],function(entry){
-					if(vm.gender.indexOf(entry.data[vm.meta.gender_field]) == -1){
-						  vm.gender.push(entry.data[vm.meta.gender_field])
-					}
-	      });
-				vm.genderfilter = vm.gender[0];
-			});
+
+
     }
 		function search(predicate) {
 			vm.filter = predicate;

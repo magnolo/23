@@ -20,18 +20,15 @@
 												</div>
 								</div>
 				</md-data-table-toolbar>
-				<md-tabs style="border-bottom:1px solid #efefef" ng-if="vm.meta.year_field && vm.years.length > 1">
+				<md-tabs style="border-bottom:1px solid #efefef" ng-if="vm.meta.year_field">
 						<md-tab md-on-select="vm.yearfilter = year" ng-repeat="year in vm.years ">{{year}}</md-tab>
-				</md-tabs>
-				<md-tabs style="border-bottom:1px solid #efefef" ng-if="vm.meta.gender_field && vm.gender.length > 1">
-						<md-tab md-on-select="vm.genderfilter = gender" ng-repeat="gender in vm.gender ">{{gender}}</md-tab>
-				</md-tabs>
+			</md-tabs>
 				<md-data-table-container>
 								<table md-data-table md-row-select="vm.selected">
 												<thead md-order="vm.query.order" md-trigger="vm.onOrderChange">
 																<tr >
 																				<th name="Errors" ng-if="vm.errors.length || vm.iso_errors.length" order-by="errors"></th>
-																				<th class="iconed" name="{{key}}" ng-class="{'globe': key == vm.meta.iso_field || key == vm.meta.country_field || key == vm.meta.year_field || key == vm.meta.gender_field}" ng-repeat="(key, item) in vm.data[0].data" order-by="{{key}}">
+																				<th class="iconed" name="{{key}}" ng-class="{'globe': key == vm.meta.iso_field || key == vm.meta.country_field || key == vm.meta.year_field}" ng-repeat="(key, item) in vm.data[0].data" order-by="{{key}}">
 																								<span class="icon" ng-if="key == vm.meta.iso_field">
 																												<ng-md-icon icon="public"></ng-md-icon>
 																								</span>
@@ -41,13 +38,11 @@
 																								<span class="icon" ng-if="key == vm.meta.year_field">
 																												<ng-md-icon icon="event"></ng-md-icon>
 																								</span>
-																								<span class="icon" ng-if="key == vm.meta.gender_field">
-																												<ng-md-icon icon="accessibility"></ng-md-icon>
-																								</span>
+
 																								<!--<span class="icon" ng-click="vm.editColumnData($event, key)" ng-if="key != vm.meta.iso_field && key != vm.meta.country_field">
                                                         <ng-md-icon icon="mode_edit"></ng-md-icon>
                                                 </span>-->
-																								<span class="icon" ng-click="vm.deleteColumn($event, key)" ng-if="key != vm.meta.iso_field && key != vm.meta.country_field && key != vm.meta.gender_field">
+																								<span class="icon" ng-click="vm.deleteColumn($event, key)" ng-if="key != vm.meta.iso_field && key != vm.meta.country_field">
 																												<ng-md-icon icon="delete"></ng-md-icon>
 																								</span>
 																				</th>
@@ -55,24 +50,14 @@
 												</thead>
 												<tbody>
 
-																<tr ng-if="vm.meta.year_field && vm.years.length > 1 && (!vm.meta.gender_field || vm.gender.length <= 1)" class="{{ vm.checkForErrors(item) }}" md-auto-select ng-repeat="item in vm.data | property: vm.meta.year_field : vm.yearfilter | orderBy:vm.query.order | limitTo: vm.query.limit : (vm.query.page-1)*vm.query.limit">
+																<tr ng-if="vm.meta.year_field" class="{{ vm.checkForErrors(item) }}" md-auto-select ng-repeat="item in vm.data | property: vm.meta.year_field : vm.yearfilter | orderBy:vm.query.order | limitTo: vm.query.limit : (vm.query.page-1)*vm.query.limit">
 																				<td ng-if="vm.errors.length || vm.iso_errors.length">{{item.errors.length}}</td>
 																				<td ng-class="{'md-warn': vm.meta.iso_field == k && !column}" ng-repeat="(k, column) in item.data">{{column}}</td>
 																</tr>
-																<tr ng-if="vm.meta.gender_field && vm.gender.length > 1 && vm.years.length <= 1" class="{{ vm.checkForErrors(item) }}" md-auto-select ng-repeat="item in vm.data | property: vm.meta.gender_field : vm.genderfilter | orderBy:vm.query.order | limitTo: vm.query.limit : (vm.query.page-1)*vm.query.limit">
+																<tr ng-if="!vm.meta.year_field" class="{{ vm.checkForErrors(item) }}" md-auto-select ng-repeat="item in vm.data  | orderBy:vm.query.order | limitTo: vm.query.limit : (vm.query.page-1)*vm.query.limit">
 																				<td ng-if="vm.errors.length || vm.iso_errors.length">{{item.errors.length}}</td>
 																				<td ng-class="{'md-warn': vm.meta.iso_field == k && !column}" ng-repeat="(k, column) in item.data">{{column}}</td>
 																</tr>
-																<tr ng-if="vm.meta.year_field && vm.years.length > 1 && vm.meta.gender_field && vm.gender.length > 1" class="{{ vm.checkForErrors(item) }}" md-auto-select ng-repeat="item in vm.data | property: vm.meta.year_field : vm.yearfilter | property: vm.meta.gender_field : vm.genderfilter | orderBy:vm.query.order | limitTo: vm.query.limit : (vm.query.page-1)*vm.query.limit">
-																				<td ng-if="vm.errors.length || vm.iso_errors.length">{{item.errors.length}}</td>
-																				<td ng-class="{'md-warn': vm.meta.iso_field == k && !column}" ng-repeat="(k, column) in item.data">{{column}}</td>
-																</tr>
-																<tr ng-if="(!vm.meta.year_field && !vm.meta.gender_field) || (!vm.meta.gender_field  && vm.years.length == 1)" class="{{ vm.checkForErrors(item) }}" md-auto-select ng-repeat="item in vm.data  | orderBy:vm.query.order | limitTo: vm.query.limit : (vm.query.page-1)*vm.query.limit">
-																				<td ng-if="vm.errors.length || vm.iso_errors.length">{{item.errors.length}}</td>
-																				<td ng-class="{'md-warn': vm.meta.iso_field == k && !column}" ng-repeat="(k, column) in item.data">{{column}}</td>
-																</tr>
-														
-
 												</tbody>
 								</table>
 				</md-data-table-container>

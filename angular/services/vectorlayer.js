@@ -18,7 +18,7 @@
 				iso3: 'adm0_a3',
 				iso2: 'iso_a2',
 				iso: 'iso_a2',
-				fields: "id,admin,adm0_a3,iso_a2,name,name_long", //su_a3,iso_a3,wb_a3,
+				fields: "id,admin,adm0_a3,wb_a3,su_a3,iso_a3,iso_a2,name,name_long",
 				field:'score'
 			},
 			map: {
@@ -171,6 +171,7 @@
 			},
 			paintCountries: function(style, click, mutex) {
 				var that = this;
+
 				$timeout(function() {
 					if (typeof style != "undefined" && style != null) {
 						that.data.layer.setStyle(style);
@@ -180,8 +181,7 @@
 					if (typeof click != "undefined") {
 						that.data.layer.options.onClick = click
 					}
-
-				 	that.data.layer.redraw();
+					that.data.layer.redraw();
 				});
 			},
 			resetSelected: function(iso){
