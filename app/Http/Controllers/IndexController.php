@@ -316,6 +316,8 @@ class IndexController extends Controller
       return $data;
     }
     public function showByIso($id, $iso){
+      $nation =  Nation::where('iso', strtoupper($iso))->first()->load('epi');
+      return response()->api($nation);
       if(is_int($id)){
         $index = Index::find($id);
       }

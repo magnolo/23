@@ -148,11 +148,11 @@
 
 .info-container {
   line-height: 1em;
-  top: calc(48px + 1em);
+  top: 1em;
   left: 1em;
   position: absolute;
   color: #afafaf;
-  transition: all .3s ease;
+  transition: all 0.3s ease;
   -webkit-transform: translateX(0);
   transform: translateX(0);
   padding-bottom: 2em;
@@ -183,8 +183,8 @@
 }
 .info-container .info-box .header .md-button,
 .info-container .info-box md-toolbar .md-button {
-  border: 0px;
-  padding: 0px;
+  border: 0;
+  padding: 0;
   min-width: 0;
   line-height: 1em;
   margin: 0;
@@ -205,8 +205,8 @@
   height: 1px;
   border-bottom: 1px solid #006bb9;
   position: absolute;
-  bottom: 0px;
-  left: 0px;
+  bottom: 0;
+  left: 0;
   opacity: 0.2;
 }
 .info-container .info-box .header .title {
@@ -234,11 +234,10 @@
   line-height: 1.2em;
 }
 .info-container .info-box .header.info .md-button {
-  margin: 0px;
-  margin-right: -0.5em;
+  margin: 0 -0.5em 0 0;
 }
 .info-container .info-box .header.info::after {
-  border: 0px;
+  border: 0;
 }
 .info-container .info-box .header.center .title {
   margin-top: 0.5em;
@@ -269,7 +268,7 @@
   margin: 0 2em;
 }
 .info-container .info-box .module.no-margin {
-  margin: 0px;
+  margin: 0;
 }
 .info-container .info-box .module.mt {
   margin-top: 2em;
@@ -385,7 +384,7 @@
   border-radius: 20px;
 }
 .info-container .info-box .close-box {
-  margin-bottom: 0px;
+  margin-bottom: 0;
   text-align: left;
   cursor: pointer;
 }
@@ -394,11 +393,16 @@
 }
 .info-container .info-box.sub-box {
   position: absolute;
-  top: 0px;
+  top: 0;
 }
 .info-container .info-box.sub-box#sub-info {
   width: 700px;
   left: 380px;
+}
+@media only screen and (max-width: 1111px) {
+  .info-container .info-box.sub-box#sub-info {
+    left: 0;
+  }
 }
 .info-container .md-tab {
   text-transform: none;
@@ -417,7 +421,7 @@
   top: 0.25em;
 }
 .nvtooltip {
-  border-radius: 0px;
+  border-radius: 0;
 }
 
 .cssload-container {
@@ -1059,8 +1063,8 @@ section.table md-data-table-pagination {
 #map {
   position: fixed;
   width: 100%;
-  top: 48px;
-  height: calc(100% - 48px);
+  top: 0;
+  height: 100%;
 }
 .angular-leaflet-map {
   width: 100%;
@@ -1080,11 +1084,10 @@ section.table md-data-table-pagination {
 }
 .country_info {
   background-color: #fff;
-  padding: 00px;
-  padding-right: 00px;
+  padding: 0;
   position: fixed;
   bottom: 20px;
-  right: 00px;
+  right: 0;
 }
 
 
@@ -1182,7 +1185,6 @@ section.table md-data-table-pagination {
 }
 
 
-
 median {
   overflow: hidden;
   border-radius: 20px;
@@ -1237,6 +1239,7 @@ median .slider text {
   user-select: none;
   cursor: ew-resize;
 }
+
 
 
 

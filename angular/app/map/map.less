@@ -1,36 +1,39 @@
-#Map_Container{
-  height:calc(~"100% - 165px");
+#Map_Container {
+  height: calc(~"100% - 165px");
 }
-#map{
-  position:fixed;
-  width:100%;
-  top:48px;
-  height:calc(~"100% - 48px");
+
+#map {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  height: 100%;
 }
+
 .angular-leaflet-map {
-  width:100%;
-  height:100%;
+  width: 100%;
+  height: 100%;
   background-color: #ccdddd;
 }
-.greyed{
+
+.greyed {
   .angular-leaflet-map {
     background-color: #d9d9d9;
   }
-  img.leaflet-tile{
-    transition: filter 0.5s ease-in-out;
-    filter: grayscale(1);
-  	-webkit-filter: grayscale(1);
-  	-moz-filter: grayscale(1);
-  	-o-filter: grayscale(1);
-  	-ms-filter: grayscale(1);
-  }
 
+  img.leaflet-tile {
+    transition: filter 0.5s ease-in-out;
+    filter:grayscale(1);
+    -webkit-filter: grayscale(1);
+    -moz-filter: grayscale(1);
+    -o-filter: grayscale(1);
+    -ms-filter: grayscale(1);
+  }
 }
-.country_info{
-  background-color:#fff;
-  padding:00px;
-  padding-right:00px;
-  position:fixed;
-  bottom:20px;
-  right:00px;
+
+.country_info {
+  background-color: #fff;
+  padding: 0;
+  position: fixed;
+  bottom: 20px;
+  right: 0;
 }
