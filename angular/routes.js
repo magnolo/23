@@ -321,6 +321,37 @@
 					}
 				}
 			})
+			.state('app.index.exports', {
+				url: '/exports',
+				data: {
+					pageName: 'Export Data'
+				},
+				views: {
+					'sidebar@': {
+						templateUrl: getView('export'),
+						controller: 'ExportCtrl',
+						controllerAs: 'vm'
+					}
+				}
+			})
+			.state('app.index.exports.details', {
+				url: '/:id/:name',
+				data: {
+					pageName: 'Export Data'
+				},
+				views: {
+					'sidebar@': {
+						templateUrl: getView('export'),
+						controller: 'ExportCtrl',
+						controllerAs: 'vm'
+					},
+					'main@':{
+						templateUrl: getView('export'),
+						controller: 'ExportCtrl',
+						controllerAs: 'vm'
+					}
+				}
+			})
 			.state('app.index.list', {
 				url: '/list',
 				resolve: {

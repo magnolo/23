@@ -20,7 +20,7 @@
 												</div>
 								</div>
 				</md-data-table-toolbar>
-				<md-tabs style="border-bottom:1px solid #efefef" ng-if="vm.meta.year_field">
+				<md-tabs style="border-bottom:1px solid #efefef" ng-if="vm.meta.year_field && vm.years > 1">
 						<md-tab md-on-select="vm.yearfilter = year" ng-repeat="year in vm.years ">{{year}}</md-tab>
 			</md-tabs>
 				<md-data-table-container>

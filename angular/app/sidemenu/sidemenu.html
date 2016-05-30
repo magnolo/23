@@ -23,6 +23,11 @@
 								<md-tooltip md-direction="right">Edit exisiting data</md-tooltip>
 
 				</md-list-item>
+				<md-list-item ng-if="$root.isAuthenticated()" ui-sref="app.index.exports" ui-sref-active="active">
+								<md-icon class="material-icons md-primary">flip_to_front</md-icon>
+								<md-tooltip md-direction="right">Export data to iFrame</md-tooltip>
+
+				</md-list-item>
 </md-list>
 <md-list >
 	<md-list-item ng-if="$root.isAuthenticated()" ui-sref="app.conflict.index" ui-sref-active="active">
