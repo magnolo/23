@@ -170,7 +170,7 @@
 					.attr("transform", "translate(0," + options.height / 2 + ")")
 					.on('mouseover', function(){
 							shadowIntensity.transition().duration(200).attr('stdDeviation', 2);
-						
+
 					})
 					.on('mouseout', function(){
 						shadowIntensity.transition().duration(200).attr('stdDeviation', 1);
@@ -247,7 +247,9 @@
 				}
 
 				function brushed() {
-
+					var count = 0;
+				 	var found = false;
+				 	var final = "";
 					var value = brush.extent()[0];
 					angular.forEach($scope.data, function(nat, key) {
 						if (parseInt(nat[options.field]) == parseInt(value)) {
@@ -255,23 +257,27 @@
 							found = true;
 						}
 					});
-					// 	count = 0,
-					// 	found = false;
-					// var final = "";
-					// do {
+
 					//
-					// 	angular.forEach($scope.data, function (nat, key) {
-					// 		if (parseInt(nat[options.field]) == parseInt(value)) {
-					// 			final = nat;
-					// 			found = true;
-					// 		}
-					// 	});
-					// 	count++;
-					// 	value = value > 50 ? value - 1 : value + 1;
-					// } while (!found && count < max);
-					//
-					// ngModel.$setViewValue(final);
-					// ngModel.$render();
+					// if(!final){
+					// 	do {
+					// 		angular.forEach($scope.data, function (nat, key) {
+					// 			if (parseInt(nat[options.field]) == parseInt(value)) {
+					// 				final = nat;
+					// 				found = true;
+					// 			}
+					// 		});
+					// 		count++;
+					// 		value = value > (max / 2) ? value - 1 : value + 1;
+					// 	} while (!found && count < max);
+					// }
+
+
+					if(final){
+						ngModel.$setViewValue(final);
+						ngModel.$render();
+					}
+
 				}
 
 
