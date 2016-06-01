@@ -336,18 +336,47 @@
 			})
 			.state('app.index.exports.details', {
 				url: '/:id/:name',
+				layout: 'row',
 				data: {
 					pageName: 'Export Data'
 				},
 				views: {
-					'sidebar@': {
-						templateUrl: getView('export'),
-						controller: 'ExportCtrl',
-						controllerAs: 'vm'
-					},
 					'main@':{
-						templateUrl: getView('export'),
-						controller: 'ExportCtrl',
+						templateUrl: '/views/app/export/exportDetails.html',
+						controller: 'ExportDetailsCtrl',
+						controllerAs: 'vm'
+					}
+				}
+			})
+			.state('app.index.exports.details.add', {
+				url: '/add',
+				layout: 'row',
+				resolve: {
+					indicators: function(ContentService, $stateParams) {
+						return ContentService.fetchIndicators({
+							page: 1,
+							order: 'title',
+							limit: 1000,
+							dir: 'ASC'
+						});
+					}
+				},
+				views: {
+					'additional@': {
+						templateUrl: '/views/app/indexeditor/indicators.html',
+						controller: 'IndexinidcatorsCtrl',
+						controllerAs: 'vm'
+					}
+				}
+			})
+			.state('app.index.exports.details.style', {
+				url: '/style/:styleId/:styleName',
+				layout: 'row',
+				additional:'full',
+				views: {
+					'additional@': {
+						templateUrl: getView('exportStyle'),
+						controller: 'ExportStyleCtrl',
 						controllerAs: 'vm'
 					}
 				}

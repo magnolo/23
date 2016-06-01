@@ -28,7 +28,11 @@
 			} else {
 				$rootScope.rowed = false;
 			}
-
+			if (toState.additional == "full") {
+				$rootScope.addFull = true;
+			} else {
+				$rootScope.addFull = false;
+			}
 			if (typeof toState.views != "undefined") {
 				if (toState.views.hasOwnProperty('main@') || toState.views.hasOwnProperty('additional@')) {
 					$rootScope.mainView = true;

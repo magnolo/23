@@ -1,11 +1,11 @@
 (function(){
     "use strict";
 
-    angular.module('app.controllers').controller('ExportCtrl', function(){
+    angular.module('app.controllers').controller('ExportCtrl', function($state){
         //
         var vm = this;
+        vm.exports = [];
         vm.options = {
-
             drag:false,
             type:'exports',
             allowMove:false,
@@ -13,7 +13,7 @@
             allowAdd:true,
             allowDelete:true,
             itemClick: function(id, name){
-              $state.go('app.index.editor.indizes.data', {id:id, name:name})
+              $state.go('app.index.exports.indizes.data', {id:id, name:name})
             },
             addClick:function(){
               $state.go('app.index.exports.details', {id:0, name: 'new'})

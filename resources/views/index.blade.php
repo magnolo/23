@@ -33,7 +33,7 @@
       <script type="text/javascript">document.location.href = '/unsupported-browser'</script>
       <![endif]-->
   </head>
-  <body  ng-class="{'startup': $root.started, 'loggedIn': $root.isAuthenticated(), 'noHeader': $root.noHeader, 'greyed': $root.greyed, 'loose': $root.looseLayout, 'sidebar-closed': !$root.sidebarOpen, 'rowed': $root.rowed}" layout="column">
+  <body  ng-class="{'startup': $root.started, 'loggedIn': $root.isAuthenticated(), 'noHeader': $root.noHeader, 'greyed': $root.greyed, 'loose': $root.looseLayout, 'sidebar-closed': !$root.sidebarOpen, 'rowed': $root.rowed, 'addFull': $root.addFull}" layout="column">
       <div id="hack"></div>
       <md-toolbar class="Header md-accent" tabindex="-1" ng-if="!$root.noHeader">
           <header ui-view="header"></header>
