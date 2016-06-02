@@ -74,6 +74,11 @@ $api->version('v1', function ($api) {
     $api->get('pois/{id}', 'App\Http\Controllers\PoiController@show');
     $api->get('pois/type/{type}', 'App\Http\Controllers\PoiController@byTypes');
     $api->post('pois', 'App\Http\Controllers\PoiController@create');
+
+    $api->get('exports', 'App\Http\Controllers\ExportController@index');
+    $api->get('exports/{id}', 'App\Http\Controllers\ExportController@show');
+
+    $api->get('basemaps', 'App\Http\Controllers\BasemapController@index');
 });
 
 //protected with JWT

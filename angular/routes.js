@@ -323,6 +323,7 @@
 			})
 			.state('app.index.exports', {
 				url: '/exports',
+				auth:true,
 				data: {
 					pageName: 'Export Data'
 				},
@@ -336,6 +337,15 @@
 			})
 			.state('app.index.exports.details', {
 				url: '/:id/:name',
+				auth: true,
+				resolve: {
+					exportItem: function(ContentService, $stateParams) {
+						if ($stateParams.id == 0) return {
+								items:[]
+						};
+						return ContentService.getExport($stateParams.id);
+					}
+				},
 				layout: 'row',
 				data: {
 					pageName: 'Export Data'

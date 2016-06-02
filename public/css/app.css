@@ -1832,6 +1832,10 @@ md-toolbar.Header .md-button.md-border {
   color: #006bb9;
 }
 
+md-list-item a.md-no-style {
+  margin: 0px;
+}
+
 md-toolbar.md-menu-toolbar {
   background-color: #ffffff;
   color: rgba(0, 0, 0, 0.87);
@@ -1877,10 +1881,6 @@ md-menu-bar {
   margin: 0 auto;
   max-width: 680px;
   padding: 24px;
-}
-
-md-list-item a.md-no-style {
-  margin: 0px;
 }
 
 /*.info-container {
@@ -2829,6 +2829,34 @@ bubbles {
 
 
 
+.indicator-tabs .indicator-fields {
+  padding: 0 1em;
+  max-width: 500px;
+  margin: 0 auto;
+}
+.indicator-tabs md-tab-content md-content {
+  padding-bottom: 1em;
+  padding-top: 1em;
+}
+.indicator-tabs md-tab-item ng-md-icon:not(.valid) path {
+  fill: #f44336;
+}
+.indicator-tabs md-tabs > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item {
+  background: #efefef;
+}
+.indicator-tabs md-tabs > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item.md-active {
+  background: #fff;
+}
+.indicator-tabs .md-tab.md-disabled {
+  opacity: 1;
+}
+.indicator-tabs .md-tab.md-disabled ng-md-icon {
+  opacity: 0.3;
+}
+.indicator-tabs md-autocomplete[md-floating-label] md-input-container {
+  padding-bottom: 2px;
+}
+
 .indicator-menu {
   position: absolute;
   right: 2.5em;
@@ -2860,34 +2888,6 @@ bubbles {
 }
 .indicator-menu ng-md-icon.greyed path {
   fill: #ddd;
-}
-
-.indicator-tabs .indicator-fields {
-  padding: 0 1em;
-  max-width: 500px;
-  margin: 0 auto;
-}
-.indicator-tabs md-tab-content md-content {
-  padding-bottom: 1em;
-  padding-top: 1em;
-}
-.indicator-tabs md-tab-item ng-md-icon:not(.valid) path {
-  fill: #f44336;
-}
-.indicator-tabs md-tabs > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item {
-  background: #efefef;
-}
-.indicator-tabs md-tabs > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item.md-active {
-  background: #fff;
-}
-.indicator-tabs .md-tab.md-disabled {
-  opacity: 1;
-}
-.indicator-tabs .md-tab.md-disabled ng-md-icon {
-  opacity: 0.3;
-}
-.indicator-tabs md-autocomplete[md-floating-label] md-input-container {
-  padding-bottom: 2px;
 }
 
 
@@ -2951,7 +2951,6 @@ median .slider text {
 }
 
 
-
 .dropzone {
   border: 2px dashed #ddd;
   padding: 2em;
@@ -2981,9 +2980,6 @@ median .slider text {
   top: 0.5em;
 }
 
-.bars .bg {
-  fill: #ebebeb;
-}
 
 piechart {
   position: relative;
@@ -2992,6 +2988,10 @@ piechart .inner-pie {
   position: absolute;
   left: 0px;
   opacity: 0.4;
+}
+
+.bars .bg {
+  fill: #ebebeb;
 }
 
 .nvd3 .nv-background {

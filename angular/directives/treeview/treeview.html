@@ -29,7 +29,7 @@
 												<treeview item="item" items="item.children" active="vm.active" selection="vm.selection" ng-if="item.expanded" options="vm.options"></treeview>
 								</div>
 				</md-list-item>
-				<md-list-item ng-click="vm.options.addClick()" ng-if="vm.items.length == 0 && vm.options.drag && vm.options.allowDrop" class="meanwhile doAnim-fade">
+				<md-list-item ng-click="vm.options.addClick()" ng-if="(vm.items.length == 0 || !vm.items) && vm.options.drag && vm.options.allowDrop" class="meanwhile doAnim-fade">
 						<h3 layout="column" layout-align="center center" style="width:100%;margin-right:1em;border:1px dashed #ccc;padding:1.5em;color:#ccc"><md-icon class="material-icons">vertical_align_bottom</md-icon>Drag Items here</h3>
 				</md-list-item>
 </md-list>
