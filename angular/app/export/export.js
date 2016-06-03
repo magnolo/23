@@ -1,10 +1,12 @@
 (function() {
 	"use strict";
 
-	angular.module('app.controllers').controller('ExportCtrl', function($state, ContentService) {
+	angular.module('app.controllers').controller('ExportCtrl', function($state, ExportService) {
 		//
 		var vm = this;
 		vm.exports = [];
+
+		vm.selection = [];
 		vm.options = {
 			drag: false,
 			type: 'exports',
@@ -40,7 +42,9 @@
 		activate();
 
 		function activate() {
-			vm.exports = ContentService.getExports();
+			ExportService.getExports(function(response){
+					vm.exports = response;
+			});
 		}
 	});
 

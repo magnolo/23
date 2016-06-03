@@ -21,4 +21,7 @@ class Exportitem extends Model
     public function style(){
       return $this->belongsTo('App\Style', 'style_id');
     }
+    public function export(){
+      return $this->belongsTo('App\Export', 'export_id');
+    }
 }

@@ -3,7 +3,7 @@
 								<md-icon class="material-icons">assignment</md-icon>
 				</md-button>
 				<span flex></span>
-				<md-button class="md-fab md-mini md-primary doAnim-bottom" ng-if="vm.options.allowSave && vm.item.isDirty" ng-click="vm.options.saveClick()">
+				<md-button class="md-fab md-mini md-primary doAnim-bottom" ng-if="vm.options.allowSave" ng-click="vm.options.saveClick()">
 								<md-icon class="material-icons">save</md-icon>
 				</md-button>
 				<md-button ng-click="vm.options.deleteClick(vm.item)" class="md-fab md-mini md-warn doAnim-bottom" ng-if="vm.options.allowDelete && !vm.options.drag && vm.selection.length > 0">

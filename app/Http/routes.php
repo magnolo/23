@@ -111,5 +111,8 @@ $api->version('v1', ['middleware' => 'api.auth'], function ($api) {
 
     $api->post('conflicts/import', 'App\Http\Controllers\ConflictsController@importNations');
 
+    $api->post('exports', 'App\Http\Controllers\ExportController@store');
+    $api->put('exports/{id}', 'App\Http\Controllers\ExportController@update');
+
     //$api->post('index', 'App\Http\Controllers\IndexController@create');
 });

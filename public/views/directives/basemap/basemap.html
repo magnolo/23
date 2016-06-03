@@ -1,10 +1,4 @@
 <md-content class="indicator-tabs" layout-fill>
-	<md-tabs md-dynamic-height md-no-ink-bar md-no-pagination md-stretch-tabs="always">
-		<md-tab ng-class="{'md-warn': !vm.checkBase()}">
-			<md-tab-label>
-				<ng-md-icon icon="info_outline" ng-class="{'valid': baseForm.$valid}"></ng-md-icon>
-			</md-tab-label>
-			<md-tab-body>
 				<form name="baseForm" novalidate>
 					<md-content class="md-accent" layout-padding>
 						<div class="mb25" layout-align="space-between center" layout="row" style="height:68px">
@@ -90,29 +84,4 @@
 						</div>
 					</md-content>
 				</form>
-			</md-tab-body>
-		</md-tab>
-		<md-tab >
-			<md-tab-label>
-				<ng-md-icon icon="format_list_bulleted" ng-class="{'valid': vm.item.items.length}"></ng-md-icon>
-			</md-tab-label>
-			<md-tab-body>
-				<md-content>
-					<treemenu options="vm.baseOptions" item="vm.item" selection="vm.selected"></treemenu>
-					<treeview items="vm.item.items" item="vm.item" selection="vm.selected" options="vm.baseOptions"></treeview>
-				</md-content>
-			</md-tab-body>
-		</md-tab>
-		<md-tab >
-			<md-tab-label>
-				<ng-md-icon icon="send" ng-class="{'valid': vm.item.items.length}"></ng-md-icon>
-			</md-tab-label>
-			<md-tab-body>
-				<md-content>
-
-				</md-content>
-			</md-tab-body>
-		</md-tab>
-
-	</md-tabs>
 </md-content>

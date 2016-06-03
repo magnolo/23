@@ -1,13 +1,13 @@
 (function(){
     "use strict";
 
-    angular.module('app.controllers').controller('ExportDetailsCtrl', function($state, exportItem){
+    angular.module('app.controllers').controller('ExportDetailsCtrl', function($state, ExportService){
         //
         var vm = this;
-        vm.export = exportItem;
+        vm.export = {}
         vm.selected = [];
         vm.options = {
-          indizes:{
+          exports:{
             addClick: function(){
               $state.go('app.index.exports.details.add');
             },
@@ -20,6 +20,7 @@
     				deleteClick:function(){
     					angular.forEach(vm.selected,function(item, key){
     							removeItem(item,vm.export.items);
+                  ExportService.remove(vm,item.id);
     							vm.selected = [];
     					});
     				},
@@ -36,8 +37,22 @@
           withSave: true,
           styleable: true
         };
-      
 
+        activate();
+
+        function activate(){
+          if($state.params.id != 0){
+            ExportService.getExport($state.params.id, function(response){
+              vm.export = response;
+            });
+          }
+          else{
+            vm.export = ExportService.setExport({
+              items: []
+            });
+          }
+
+        }
         function removeItem(item, list){
     			angular.forEach(list, function(entry, key){
     				if(entry.id == item.id){

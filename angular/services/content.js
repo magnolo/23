@@ -187,13 +187,8 @@
 				this.content[type] = angular.copy(this.backup[type]);
 				delete this.backup[type];
 				return this.content[type];
-			},
-			getExports: function(){
-				return DataService.getAll('exports').$object;
-			},
-			getExport: function(id){
-				return DataService.getOne('exports/'+id).$object;
 			}
+
 		}
 	});
 

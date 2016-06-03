@@ -1552,6 +1552,7 @@ md-toast[md-theme=warn] {
 }
 
 
+
 .conflict-icon {
   color: #4fb0e5;
   font-size: 1.1em;
@@ -2470,7 +2471,6 @@ md-list-item.active {
 
 
 
-
 #main-logo {
   position: fixed;
   bottom: 5px;
@@ -2498,6 +2498,7 @@ md-list-item.active {
     top: 1em;
   }
 }
+
 
 div[ui-view='map'] {
   position: absolute;
@@ -2724,6 +2725,7 @@ div[ui-view='map'] {
   margin-left: 2em;
 }
 
+
 bubbles {
   overflow: hidden;
   margin: 1em auto;
@@ -2792,7 +2794,6 @@ bubbles {
   transition: -webkit-transform 0.3s ease-out;
   transition: transform 0.3s ease-out;
 }
-
 
 
 
@@ -2951,6 +2952,7 @@ median .slider text {
 }
 
 
+
 .dropzone {
   border: 2px dashed #ddd;
   padding: 2em;
@@ -2979,7 +2981,6 @@ median .slider text {
   height: 1px;
   top: 0.5em;
 }
-
 
 piechart {
   position: relative;
@@ -3237,5 +3238,6 @@ piechart .inner-pie {
   color: #006bb9;
   cursor: pointer;
 }
+
 
 /*# sourceMappingURL=app.css.map */

@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Export;
+use Auth;
 
 class ExportController extends Controller
 {
@@ -24,16 +25,6 @@ class ExportController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -42,6 +33,23 @@ class ExportController extends Controller
     public function store(Request $request)
     {
         //
+
+
+        $export = new Export;
+        $export->title = $request->get('title');
+        $export->name = str_slug($request->get('title'));
+        $export->url = $request->get('url');
+        $export->image_id = $request->get('image_id');
+        $export->description = $request->get('description');
+        $export->business = $request->get('business');
+        $export->usage = $request->get('usage');
+        $export->user_id = Auth::user()->id;
+        $export->layout_id = 0;
+        $export->save();
+
+        
+
+        return response()->api($export);
     }
 
     /**
@@ -89,5 +97,8 @@ class ExportController extends Controller
     public function destroy($id)
     {
         //
+
+        $export = Export::findOrFail($id);
+        return response()->api($export->delete());
     }
 }

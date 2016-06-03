@@ -338,14 +338,6 @@
 			.state('app.index.exports.details', {
 				url: '/:id/:name',
 				auth: true,
-				resolve: {
-					exportItem: function(ContentService, $stateParams) {
-						if ($stateParams.id == 0) return {
-								items:[]
-						};
-						return ContentService.getExport($stateParams.id);
-					}
-				},
 				layout: 'row',
 				data: {
 					pageName: 'Export Data'
@@ -387,6 +379,35 @@
 					'additional@': {
 						templateUrl: getView('exportStyle'),
 						controller: 'ExportStyleCtrl',
+						controllerAs: 'vm'
+					}
+				}
+			})
+			.state('app.index.basemaps', {
+				url: '/basemaps',
+				auth:true,
+				data: {
+					pageName: 'Export Data'
+				},
+				views: {
+					'sidebar@': {
+						templateUrl: getView('basemaps'),
+						controller: 'BasemapsCtrl',
+						controllerAs: 'vm'
+					}
+				}
+			})
+			.state('app.index.basemaps.details', {
+				url: '/:id/:name',
+				auth: true,
+				layout: 'row',
+				data: {
+					pageName: 'Basemaps'
+				},
+				views: {
+					'main@':{
+						templateUrl: '/views/app/basemaps/basemapDetails.html',
+						controller: 'BasemapDetailsCtrl',
 						controllerAs: 'vm'
 					}
 				}

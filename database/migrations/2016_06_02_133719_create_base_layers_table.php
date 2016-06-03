@@ -12,13 +12,14 @@ class CreateBaseLayersTable extends Migration
      */
     public function up()
     {
-        Schema::create('baselayers', function (Blueprint $table) {
+        Schema::create('basemaps', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
             $table->string('name');
             $table->string('url', 500);
             $table->text('description')->nullable();
             $table->text('attribution')->nullable();
+            $table->string('provider')->nullable();
             $table->integer('image_id')->nullable();
             $table->timestamps();
         });
@@ -31,6 +32,6 @@ class CreateBaseLayersTable extends Migration
      */
     public function down()
     {
-        Schema::drop('baselayers');
+        Schema::drop('basemaps');
     }
 }
