@@ -7,7 +7,7 @@
 		vm.original = angular.copy(vm.item);
 		vm.checkBase = checkBase;
 		vm.checkFull = checkFull;
-		vm.save = save;
+
 
 		vm.baseOptions = {
 			drag: true,
@@ -20,13 +20,11 @@
 			allowAdd: true,
 			editable: true,
 			assigments: false,
-			saveClick: save,
+			saveClick: vm.options.exports.save,
 			addClick: vm.options.exports.addClick,
 			addContainerClick: vm.options.exports.addContainerClick,
 			deleteDrop: vm.options.exports.deleteDrop,
-			deleteClick: vm.options.exports.deleteClick,
-			styleable:vm.options.styleable,
-			styleClick: vm.options.style.click
+			deleteClick: vm.options.exports.deleteClick
 		};
 		activate();
 
@@ -42,18 +40,7 @@
 		function checkFull() {
 
 		}
-		function save(){
-			if(vm.item.id == 0 || ! vm.item.id){
-				DataService.post('exports', vm.item).then(function(){
 
-				});
-			}
-			else{
-				vm.item.save().then(function(response){
-
-				});
-			}
-		}
 	});
 
 })();

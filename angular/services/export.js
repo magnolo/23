@@ -27,7 +27,7 @@
           },
           save: function(success, error){
             if(this.exporter.id == 0 || !this.exporter.id){
-              DataService.post('exports', exporter).then(function(response){
+              DataService.post('exports', this.exporter).then(function(response){
                 if(typeof success === 'function')
                 success(response);
               },function(response){
