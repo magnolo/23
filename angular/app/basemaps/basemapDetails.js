@@ -7,6 +7,9 @@
         vm.basemap = {}
         vm.selected = [];
         vm.options = {
+          save: function(){
+            console.log(vm.basemap);
+          },
           withSave: true,
         };
 

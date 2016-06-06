@@ -16,7 +16,7 @@
           },
           getExport: function(id, success, error){
             var _that = this;
-            DataService.getOne('exports/'+id).then(function(response){
+            DataService.getOne('exports', id).then(function(response){
               _that.exporter = response;
               if(typeof success === 'function')
               success(_that.exporter);
@@ -36,7 +36,8 @@
               });
             }
             else{
-              this.exporter.save().then(function(response){
+              
+             this.exporter.save().then(function(response){
                 if(typeof success === 'function')
                 success(response);
               },function(response){

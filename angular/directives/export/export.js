@@ -24,7 +24,12 @@
 			addClick: vm.options.exports.addClick,
 			addContainerClick: vm.options.exports.addContainerClick,
 			deleteDrop: vm.options.exports.deleteDrop,
-			deleteClick: vm.options.exports.deleteClick
+			deleteClick: vm.options.exports.deleteClick,
+			onDrop: vm.options.exports.onDrop,
+			inserted: vm.options.exports.inserted,
+			styleable: vm.options.styleable,
+			styleClick: vm.options.style.click,
+			hideExpansionOnItem:true
 		};
 		activate();
 

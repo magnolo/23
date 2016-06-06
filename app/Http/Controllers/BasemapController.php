@@ -41,6 +41,18 @@ class BasemapController extends Controller
     public function store(Request $request)
     {
         //
+        $basemap = new Basemap;
+        $basemap->title = $request->get('title');
+        $basemap->name = str_slug($request->get('title'));
+        $basemap->url = $request->get('url');
+        $basemap->description = $request->get('description');
+        $basemap->attribution = $request->get('attribution');
+        $basemap->provider = $request->get('provider');
+        $basemap->image_id = $request->get('image_id');
+
+        $basemap->save();
+
+        return response()->api($basemap);
     }
 
     /**
@@ -52,18 +64,10 @@ class BasemapController extends Controller
     public function show($id)
     {
         //
+        $basemap = Basemap::findOrFail($id);
+        return response()->api($basemap);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
@@ -75,6 +79,18 @@ class BasemapController extends Controller
     public function update(Request $request, $id)
     {
         //
+          $basemap = Basemap::findOrFail($id);
+          $basemap->title = $request->get('title');
+          $basemap->name = str_slug($request->get('title'));
+          $basemap->url = $request->get('url');
+          $basemap->description = $request->get('description');
+          $basemap->attribution = $request->get('attribution');
+          $basemap->provider = $request->get('provider');
+          $basemap->image_id = $request->get('image_id');
+
+          $basemap->save();
+
+          return response()->api($basemap);
     }
 
     /**

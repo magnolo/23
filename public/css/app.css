@@ -2471,6 +2471,7 @@ md-list-item.active {
 
 
 
+
 #main-logo {
   position: fixed;
   bottom: 5px;
@@ -2498,7 +2499,6 @@ md-list-item.active {
     top: 1em;
   }
 }
-
 
 div[ui-view='map'] {
   position: absolute;
@@ -2700,6 +2700,7 @@ div[ui-view='map'] {
 
 
 
+
 .bar-viewer {
   margin: 0 1em;
 }
@@ -2725,6 +2726,24 @@ div[ui-view='map'] {
   margin-left: 2em;
 }
 
+.thumb-selector {
+  padding: 0;
+  margin: 0px;
+}
+.thumb-selector li {
+  display: inline-block;
+  list-style-type: none;
+}
+.thumb-selector li img {
+  border-radius: 50%;
+  cursor: pointer;
+  border: 3px solid #fff;
+  transition: all 0.2s ease-in-out;
+}
+.thumb-selector li.active img {
+  border-color: #006bb9;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+}
 
 bubbles {
   overflow: hidden;
@@ -2794,6 +2813,7 @@ bubbles {
   transition: -webkit-transform 0.3s ease-out;
   transition: transform 0.3s ease-out;
 }
+
 
 
 
@@ -3238,6 +3258,5 @@ piechart .inner-pie {
   color: #006bb9;
   cursor: pointer;
 }
-
 
 /*# sourceMappingURL=app.css.map */

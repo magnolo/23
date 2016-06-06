@@ -45,7 +45,7 @@
               });
             }
           },
-          remove: function(id, success, error){
+          removeItem: function(id, success, error){
             DataService.remove('basemaps', id).then(function(response){
               if(typeof success === 'function')
               success(response);

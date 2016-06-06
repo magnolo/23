@@ -5,14 +5,12 @@
     var vm = this;
 		vm.exporter = {};
     vm.item = {};
-    vm.style = {
 
-    };
 		activate();
 
 		function activate() {
 			$timeout(function() {
-				vm.exporter = angular.copy(ExportService.exporter);
+				vm.exporter = ExportService.exporter;
         if(!vm.exporter.items.length) $state.go('app.index.exports.details',{
           id: $state.params.id,
           name: $state.params.name

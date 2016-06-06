@@ -79,6 +79,7 @@ $api->version('v1', function ($api) {
     $api->get('exports/{id}', 'App\Http\Controllers\ExportController@show');
 
     $api->get('basemaps', 'App\Http\Controllers\BasemapController@index');
+    $api->get('basemaps/{id}', 'App\Http\Controllers\BasemapController@show');
 });
 
 //protected with JWT
@@ -113,6 +114,11 @@ $api->version('v1', ['middleware' => 'api.auth'], function ($api) {
 
     $api->post('exports', 'App\Http\Controllers\ExportController@store');
     $api->put('exports/{id}', 'App\Http\Controllers\ExportController@update');
+    $api->delete('exports/{id}', 'App\Http\Controllers\ExportController@destroy');
+
+    $api->post('basemaps/{id}', 'App\Http\Controllers\BasemapController@store');
+    $api->put('basemaps/{id}', 'App\Http\Controllers\BasemapController@update');
+    $api->delete('basemaps/{id}', 'App\Http\Controllers\BasemapController@destroy');
 
     //$api->post('index', 'App\Http\Controllers\IndexController@create');
 });

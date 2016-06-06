@@ -8,6 +8,13 @@
         vm.selected = [];
         vm.options = {
           exports:{
+            onDrop: function(event, index, item, external){
+              item.indicator_id = item.id;
+              item.type = 'indicator';
+            },
+            inserted: function(event, index, item, external){
+
+            },
             addClick: function(){
               $state.go('app.index.exports.details.add');
             },

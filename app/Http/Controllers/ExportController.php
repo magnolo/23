@@ -8,7 +8,10 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Export;
+use App\Exportitem;
 use Auth;
+use DB;
+
 
 class ExportController extends Controller
 {
@@ -47,7 +50,7 @@ class ExportController extends Controller
         $export->layout_id = 0;
         $export->save();
 
-        
+
 
         return response()->api($export);
     }
@@ -86,6 +89,28 @@ class ExportController extends Controller
     public function update(Request $request, $id)
     {
         //
+        DB::beginTransaction();
+
+        $export = Export::findOrFail($id);
+        $export->title = $request->get('title');
+        $export->description = $request->get('description');
+        $export->save();
+
+        $export->items()->delete();
+
+        foreach($request->get('items') as $item){
+            $exportitem = new Exportitem;
+            $exportitem->type = $item['type'];
+            $exportitem->title = $item['title'];
+            if($item['type'] == "indicator"){
+              $exportitem->indicator_id = $item['indicator_id'];
+            }
+            $export->items()->save($exportitem);
+        }
+
+        DB::commit();
+        $export->load('items');
+        return response()->api($export);
     }
 
     /**

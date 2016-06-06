@@ -1,0 +1,5 @@
+<ul class="thumb-selector">
+  <li ng-repeat="map in vm.basemaps" ng-class="{'active' : map == vm.selected}">
+    <img src="http://placehold.it/96?text={{map.title}}" ng-click="vm.setMap(map)" />
+  </li>
+</ul>

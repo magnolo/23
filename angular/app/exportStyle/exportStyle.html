@@ -7,8 +7,12 @@
     <span>Indicator Style</span>
 </div>
 </md-subheader>
-<md-content layout-padding>
+<md-content layout-padding flex="40" layout="column" layout-align="center center" flex-offset="15">
   <h2>{{vm.item.title}}</h2>
-  <div label="Main Color" md-color-picker ng-model="vm.item.style.base_color" required></div>
+  <div label="Main Color" md-color-picker ng-model="vm.item.exportStyle.base_color" required></div>
+  <div>
+    <h3>Choose Basemap</h3>
+    <basemap-selector ng-model="vm.item.exportStyle"></basemap-selector>
+  </div>
 </md-content>
 </md-content>

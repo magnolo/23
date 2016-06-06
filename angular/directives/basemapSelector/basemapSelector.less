@@ -1,0 +1,21 @@
+.thumb-selector{
+  padding:0;
+  margin:0px;
+  li{
+    display: inline-block;
+    list-style-type: none;
+
+    img{
+      border-radius: 50%;
+      cursor:pointer;
+      border:3px solid #fff;
+      transition: all .2s ease-in-out;
+    }
+    &.active{
+      img{
+          border-color:rgb(0,107,185);
+          box-shadow:0 2px 5px 0 rgba(0, 0, 0, 0.26);
+      }
+    }
+  }
+}

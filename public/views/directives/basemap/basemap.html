@@ -25,57 +25,33 @@
 									<div ng-message="maxlength">The name has to be less than 56 characters long.</div>
 								</div>
 							</md-input-container>
-							<!-- <md-content style="margin:0 2em;padding-top:0px 0.5em;">
-
-																																<md-autocomplete class="md-block" flex md-floating-label="Units of measure*" md-input-maxlength="56" md-input-name="unitField" md-item-text="type.title" md-items="type in vm.queryUnit(vm.searchUnit)" md-min-length="0" md-no-cache="vm.noCache" md-search-text="vm.searchUnit" md-selected-item="vm.item.type" required>
-																																				<md-item-template>
-																																								<span md-highlight-flags="^i" md-highlight-text="vm.searchUnit">{{type.title}}</span>
-																																				</md-item-template>
-																																				<md-not-found>
-																																								<a class="md-button md-primary" ng-mousedown="vm.createUnit(vm.searchUnit)">
-																																								<ng-md-icon icon="add"></ng-md-icon>&nbsp;&nbsp;Create a new one</a>
-																																				</md-not-found>
-																																				<div ng-if="baseForm.unitField.$touched" ng-messages="baseForm.unitField.$error">
-																																								<div ng-message="required">You
-																																												<b>must</b>
-																																												enter a data provider.</div>
-																																								<div ng-message="md-minlength">Your entry is not long enough. At least 3 characters!</div>
-																																								<div ng-message="md-maxlength">Your entry is too long.</div>
-																																				</div>
-																																</md-autocomplete>
-
-																																<md-autocomplete class="md-block" flex md-floating-label="Data Provider*" md-input-maxlength="56" md-input-name="providerField" md-item-text="item.title" md-items="item in vm.querySearch(vm.searchText)" md-min-length="0" md-no-cache="vm.noCache" md-search-text="vm.searchText" md-selected-item="vm.item.dataprovider" required>
-																																				<md-item-template>
-																																								<span md-highlight-flags="^i" md-highlight-text="vm.searchText">{{item.title}}</span>
-																																				</md-item-template>
-																																				<md-not-found>
-																																								<a class="md-button md-primary" ng-mousedown="vm.createProvider(vm.searchText)">
-																																								<ng-md-icon icon="add"></ng-md-icon>&nbsp;&nbsp;Create a new one</a>
-																																				</md-not-found>
-																																				<div ng-if="baseForm.providerField.$touched" ng-messages="baseForm.providerField.$error">
-																																								<div ng-message="required">You
-																																												<b>must</b>
-																																												enter a data provider.</div>
-																																								<div ng-message="md-minlength">Your entry is not long enough. At least 3 characters!</div>
-																																								<div ng-message="md-maxlength">Your entry is too long.</div>
-																																				</div>
-
-																																</md-autocomplete>
-																																<md-input-container class="md-block">
-																																				<label>Url</label>
-																																				<input disabled maxlength="56" minlength="5" name="url" ng-model="vm.item.dataprovider.url" type="url"/>
-																																				<div ng-messages="baseForm.url.$error">
-																																								<div ng-message="minlength">The url is not long enough. At least 5 characters!</div>
-																																								<div ng-message="pattern">This is not a valid url!</div>
-																																								<div ng-message="maxlength">The name has to be less than 30 characters long.</div>
-																																				</div>
-																																</md-input-container>
-
-																												</md-content> -->
+							<md-input-container class="md-block">
+											<label>Url*</label>
+											<input maxlength="56" minlength="5" required name="url" ng-model="vm.item.url" type="url"/>
+											<div ng-messages="baseForm.url.$error">
+												<div ng-message="required">You <b>must</b> enter an url.</div>
+															<div ng-message="minlength">The url is not long enough. At least 5 characters!</div>
+															<div ng-message="pattern">This is not a valid url!</div>
+															<div ng-message="maxlength">The name has to be less than 30 characters long.</div>
+											</div>
+							</md-input-container>
+							<md-input-container class="md-block">
+								<label>Attribution</label>
+								<input maxlength="56" minlength="3" name="attribution" ng-model="vm.item.attribution"  type="text" />
+								<div ng-messages="baseForm.title.$error" ng-show="baseForm.attribution.$error">
+									<div ng-message="minlength">The title is not long enough. At least 3 characters!</div>
+									<div ng-message="maxlength">The attribution has to be less than 56 characters long.</div>
+								</div>
+							</md-input-container>
 							<md-input-container class="md-block">
 								<label>Description</label>
 								<textarea ng-model="vm.item.description" md-select-on-focus></textarea>
 							</md-input-container>
+							<div layout-align="center center" layout="row">
+											<md-switch aria-label="Public" class="md-primary" ng-model="vm.item.is_public">
+															Public
+											</md-switch>
+							</div>
 							<!-- <div layout-align="center center" layout="row">
 																																<md-switch aria-label="Public" class="md-primary" ng-model="vm.item.is_public">
 																																				Public
