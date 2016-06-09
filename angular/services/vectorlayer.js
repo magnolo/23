@@ -63,6 +63,9 @@
 			setMap: function(map){
 				return this.mapLayer = map;
 			},
+			getMap: function(){
+				return this.mapLayer;
+			},
 			setBaseLayer: function(basemap){
 				this.layers.baselayers['xyz'] = {
 					name: basemap.name,

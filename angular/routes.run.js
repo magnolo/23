@@ -1,7 +1,7 @@
 (function() {
 	"use strict";
 
-	angular.module('app.routes').run(function($rootScope, $mdSidenav, $timeout, $auth, $state, $localStorage, $window, leafletData, toastr) {
+	angular.module('app.routes').run(function($rootScope, $mdSidenav, $timeout, $auth, $state, $localStorage, $window, leafletData, toastr, VectorlayerService) {
 		$rootScope.sidebarOpen = true;
 		$rootScope.greyed = false;
 		$rootScope.looseLayout = $localStorage.fullView || false;
@@ -94,10 +94,7 @@
 
 		function resetMapSize() {
 			$timeout(function() {
-				leafletData.getMap('map').then(function(map) {
-					console.log(map);
-					map.invalidateSize();
-				})
+				VectorlayerService.getMap().invalidateSize();
 			}, 1000);
 		}
 		/*window.addEventListener('scroll', function(ev) {
