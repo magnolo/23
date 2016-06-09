@@ -117,6 +117,8 @@
 				//document.getElementsByTagName('body')[0].appendChild(this.canvas);
 			},
 			updateCanvas: function(color) {
+				console.log(this);
+				console.log(this.ctx);
 				var gradient = this.ctx.createLinearGradient(0, 0, 280, 10);
 				gradient.addColorStop(1, 'rgba(255,255,255,0)');
 				gradient.addColorStop(0.53, color || 'rgba(128, 243, 198,1)');
@@ -173,6 +175,7 @@
 			},
 			setData: function(data, color, drawIt) {
 				this.map.data = data;
+				console.log(data);
 				if (typeof color != "undefined") {
 					this.data.baseColor = color;
 				}
@@ -226,7 +229,8 @@
 					if (typeof style != "undefined" && style != null) {
 						that.data.layer.setStyle(style);
 					} else {
-						that.data.layer.setStyle(that.map.style);
+						//that.data.layer.setStyle(that.map.style);
+						that.data.layer.setStyle(that.countriesStyle);
 					}
 					if (typeof click != "undefined") {
 						that.data.layer.options.onClick = click
@@ -266,9 +270,18 @@
 			//FULL TO DO
 			countriesStyle: function(feature) {
 				debugger;
+				function getNationByName(name) {
+					var nation = {};
+					angular.forEach(vm.data, function(nat) {
+						if (nat.country == name) {
+							nation = nat;
+						}
+					});
+					return nation;
+				};
 				var style = {};
-				var iso = feature.properties[that.data.iso2];
-				var nation = that.getNationByIso(iso);
+				var iso = feature.properties['iso_a2'];
+				var nation = getNationByIso(iso);
 				var field = that.data.field;
 				var type = feature.type;
 				feature.selected = false;

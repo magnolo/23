@@ -72,7 +72,7 @@
 			span.title = "Toggle Labels";
 			L.DomEvent.disableClickPropagation(container);
 			L.DomEvent.addListener(container, 'click', function() {
-						var map = VectorlayerService.getMap();
+					var map = VectorlayerService.getMap();
 					if (vm.noLabel) {
 						map.removeLayer(vm.labelsLayer);
 						vm.noLabel = false;

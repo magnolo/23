@@ -1,10 +1,11 @@
 (function() {
 	"use strict";
 
-	angular.module('app.controllers').controller('ExportStyleCtrl', function($scope, $state, $timeout, ExportService,  leafletData, leafletMapEvents, VectorlayerService) {
+	angular.module('app.controllers').controller('ExportStyleCtrl', function($scope, $state, $timeout, ExportService,IndizesService,  leafletData, leafletMapEvents, VectorlayerService) {
     var vm = this;
 		vm.exporter = {};
     vm.item = {};
+		vm.index = IndizesService.fetchData($state.params.styleId);
 
 		activate();
 
@@ -16,7 +17,6 @@
         //   name: $state.params.name
         // })
 				vm.item = getActiveItem(vm.exporter.items, $state.params.styleId);
-				console.log(vm.item);
 				if(typeof vm.item == "undefined") $state.go('app.index.exports.details',{
           id: $state.params.id,
           name: $state.params.name
@@ -35,7 +35,14 @@
 						full_screen: false
 					};
 				}
-				
+
+				vm.index.promises.data.then(function(structure) {
+					vm.index.promises.structure.then(function(data) {
+						vm.data = data;
+						vm.structure = structure;
+						//VectorlayerService.setData(structure,vm.item.style.baseColor, true);
+					});
+				});
 			});
 		}
 
@@ -56,7 +63,8 @@
 		$scope.$watch('vm.item.style', function(n, o){
 			if(n === o || !n.basemap) return;
 			VectorlayerService.setBaseLayer(n.basemap);
-			// VectorlayerService.layers.baselayers['xyz'].url = n.basemap.url;
+			VectorlayerService.setBaseColor(n.base_color);
+
 		}, true);
 	});
 

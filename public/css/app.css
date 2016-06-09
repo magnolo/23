@@ -2504,7 +2504,6 @@ md-list-item.active {
 
 
 
-
 #main-logo {
   position: fixed;
   bottom: 5px;
@@ -2532,6 +2531,7 @@ md-list-item.active {
     top: 1em;
   }
 }
+
 
 div[ui-view='map'] {
   position: absolute;
@@ -2676,6 +2676,8 @@ div[ui-view='map'] {
 }
 
 
+
+
 /*.Sidebar {
 	position: fixed !important;
 	top: 0;
@@ -2727,8 +2729,6 @@ div[ui-view='map'] {
 .Sidebar-version a {
   color: white;
 }
-
-
 
 
 
@@ -2853,7 +2853,6 @@ bubbles {
 
 
 
-
 [contenteditable] {
   position: relative;
   white-space: pre-wrap;
@@ -2881,6 +2880,7 @@ bubbles {
   left: 0px;
   border-bottom-width: 1px;
 }
+
 
 
 

@@ -588,7 +588,7 @@
 
 		//TODO: MOVE TO SERVICE MAP
 		function drawCountries() {
-			leafletData.getMap('map').then(function(map) {
+			var map = VectorlayerService.getMap();
 				vm.map = map;
 				vm.mvtSource = VectorlayerService.getLayer();
 				$timeout(function() {
@@ -628,7 +628,7 @@
 						}
 					}
 				}
-			});
+
 		}
 	});
 })();
