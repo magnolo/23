@@ -95,9 +95,10 @@
 		function resetMapSize() {
 			$timeout(function() {
 				leafletData.getMap('map').then(function(map) {
+					console.log(map);
 					map.invalidateSize();
 				})
-			}, 1500);
+			}, 1000);
 		}
 		/*window.addEventListener('scroll', function(ev) {
     // avoids scrolling when the focused element is e.g. an input
