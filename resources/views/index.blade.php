@@ -46,10 +46,13 @@
             <div class="menu-toggler" md-swipe-up="$root.toggleMenu('left')" flex ng-click="$root.toggleMenu('left')" layout="row" layout-align="center center" show-xs></div>
             <md-content flex doAnim-right ui-view="sidebar" md-swipe-down="$root.toggleMenu('left')"  md-scroll-y></md-content>
         </md-sidenav>
-        <md-content layout="column" flex role="main" tabindex="-1" md-scroll-y>
-            <div ui-view="map" class="Map_Container" id="map" flex></div>
+        <md-content layout="row" flex role="main" tabindex="-1" md-scroll-y>
+
             <div ui-view="main" class="Page doAnim-hinge" ng-if="$root.mainView" flex md-scroll-y style="overflow-y:auto"></div>
-            <div ui-view="additional" class="additional doAnim-hinge md-whiteframe-z1" md-scroll-y style="overflow-y:auto" ng-if="$root.additional"></div>
+            <div layout-fill layout="column" flex>
+              <div ui-view="additional" class="additional doAnim-hinge" md-scroll-y style="overflow-y:auto" ng-if="$root.additional"></div>
+              <div ui-view="map" class="Map_Container" id="map" flex></div>
+          </div>
         </md-content>
       </md-content>
       <div class="mobile-window-switcher" hide-gt-sm>

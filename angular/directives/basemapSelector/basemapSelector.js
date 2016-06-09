@@ -7,6 +7,18 @@
 			vm.basemaps = [];
 			vm.selected = {};
 			vm.setMap = setMap;
+			vm.viewTiles = viewTiles;
+			vm.defaults = {
+				scrollWheelZoom: false,
+				minZoom: 2,
+				maxZoom: 6,
+				zoomControl: false,
+			};
+			vm.center = {
+				lat: 48.209206,
+				lng: 16.372778,
+				zoom: 1
+			};
 
 			activate();
 
@@ -31,6 +43,14 @@
 			function setMap(map){
 				vm.selected = map;
 				vm.style.basemap_id = map.id;
+				vm.style.basemap = map;
+			}
+			function viewTiles(map){
+				return {
+					url:map.url,
+					attribution:map.attribution,
+					type:'xyz'
+				}
 			}
 
     });

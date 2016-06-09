@@ -3,7 +3,7 @@
 
 	angular.module('app.routes').run(function($rootScope, $mdSidenav, $timeout, $auth, $state, $localStorage, $window, leafletData, toastr) {
 		$rootScope.sidebarOpen = true;
-		$rootScope.greyed = true;
+		$rootScope.greyed = false;
 		$rootScope.looseLayout = $localStorage.fullView || false;
 		$rootScope.started = true;
 		$rootScope.goBack = function() {
@@ -97,7 +97,7 @@
 				leafletData.getMap('map').then(function(map) {
 					map.invalidateSize();
 				})
-			}, 1000);
+			}, 1500);
 		}
 		/*window.addEventListener('scroll', function(ev) {
     // avoids scrolling when the focused element is e.g. an input

@@ -251,6 +251,7 @@ p {
 
     .Page {
         width: 400px;
+        max-width: 400px;
         height: 100%;
     }
 }
@@ -330,16 +331,24 @@ p {
 }
 
 .additional {
-    position: absolute;
-    top: 0;
-    width: 400px;
-    height: 100%;
-    left: 400px;
-    background-color: #fff;
+  position: relative;;
+  z-index: 1;
+  width:400px;
+  pointer-events: none;
+  border-left:1px solid #ddd;
+  > div, md-content{
+    &:first-child{
+      pointer-events: auto;
+    }
+  }
 }
 .addFull{
   .additional{
     width:100%;
+  }
+  #map{
+    top:355px;
+    height:calc(~'100% - 355px');
   }
 }
 .noHeader {

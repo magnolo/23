@@ -49,6 +49,7 @@ class BasemapController extends Controller
         $basemap->attribution = $request->get('attribution');
         $basemap->provider = $request->get('provider');
         $basemap->image_id = $request->get('image_id');
+        $basemap->is_public = $request->get('is_public');
 
         $basemap->save();
 
@@ -87,7 +88,7 @@ class BasemapController extends Controller
           $basemap->attribution = $request->get('attribution');
           $basemap->provider = $request->get('provider');
           $basemap->image_id = $request->get('image_id');
-
+          $basemap->is_public = $request->get('is_public');
           $basemap->save();
 
           return response()->api($basemap);

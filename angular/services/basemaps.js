@@ -16,7 +16,7 @@
           },
           getBasemap: function(id, success, error){
             var _that = this;
-            DataService.getOne('basemaps/'+id).then(function(response){
+            DataService.getOne('basemaps',id).then(function(response){
               _that.basemap = response;
               if(typeof success === 'function')
               success(_that.basemap);
@@ -25,7 +25,7 @@
           setBasemap: function(data){
             return this.basemap = data;
           },
-          save: function(success, error){
+          save: function(basemap, success, error){
             if(this.basemap.id == 0 || !this.basemap.id){
               DataService.post('basemaps', basemap).then(function(response){
                 if(typeof success === 'function')

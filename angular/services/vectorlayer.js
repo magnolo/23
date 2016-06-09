@@ -3,7 +3,19 @@
 
 	angular.module('app.services').factory('VectorlayerService', function($timeout) {
 		var that = this, _self = this;
+		_self.basemap = {
+			name: 'Outdoor',
+			url: 'https://{s}.tiles.mapbox.com/v4/valderrama.d86114b6/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFnbm9sbyIsImEiOiJuSFdUYkg4In0.5HOykKk0pNP1N3isfPQGTQ',
+			type: 'xyz',
+			layerOptions: {
+				noWrap: true,
+				continuousWorld: false,
+				detectRetina: true
+			}
+		};
+
 		return {
+
 			canvas: false,
 			palette: [],
 			ctx: '',
@@ -28,8 +40,33 @@
 				style: []
 			},
 			mapLayer: null,
+			layers:{
+				baselayers: {
+					xyz: this.basemap
+				}
+			},
+			center: {
+				lat: 48.209206,
+				lng: 16.372778,
+				zoom: 3
+			},
 			setMap: function(map){
 				return this.mapLayer = map;
+			},
+			setBaseLayer: function(basemap){
+				this.layers.baselayers['xyz'] = {
+					name: basemap.name,
+					url: basemap.url,
+					type: 'xyz',
+					layerOptions: {
+						noWrap: true,
+						continuousWorld: false,
+						detectRetina: true
+					}
+				}
+			},
+			resetBaseLayer: function(){
+				this.layers.baselayers['xyz'] = this.baselayer;
 			},
 			setLayer: function(l) {
 				return this.data.layer = l;

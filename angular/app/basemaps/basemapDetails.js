@@ -1,7 +1,7 @@
 (function(){
     "use strict";
 
-    angular.module('app.controllers').controller('BasemapDetailsCtrl', function($state, BasemapsService){
+    angular.module('app.controllers').controller('BasemapDetailsCtrl', function($state, BasemapsService, VectorlayerService){
         //
         var vm = this;
         vm.basemap = {}
@@ -9,6 +9,8 @@
         vm.options = {
           save: function(){
             console.log(vm.basemap);
+            BasemapsService.save(vm.basemap);
+
           },
           withSave: true,
         };
@@ -19,6 +21,7 @@
           if($state.params.id != 0){
             BasemapsService.getBasemap($state.params.id, function(response){
               vm.basemap = response;
+              VectorlayerService.setBaseLayer(vm.basemap);
             });
           }
         }

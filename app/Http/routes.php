@@ -116,7 +116,7 @@ $api->version('v1', ['middleware' => 'api.auth'], function ($api) {
     $api->put('exports/{id}', 'App\Http\Controllers\ExportController@update');
     $api->delete('exports/{id}', 'App\Http\Controllers\ExportController@destroy');
 
-    $api->post('basemaps/{id}', 'App\Http\Controllers\BasemapController@store');
+    $api->post('basemaps', 'App\Http\Controllers\BasemapController@store');
     $api->put('basemaps/{id}', 'App\Http\Controllers\BasemapController@update');
     $api->delete('basemaps/{id}', 'App\Http\Controllers\BasemapController@destroy');
 

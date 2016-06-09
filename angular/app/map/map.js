@@ -11,31 +11,28 @@
 		}
 		var vm = this;
 		var apiKey = VectorlayerService.keys.mapbox;
+		vm.VectorlayerService = VectorlayerService;
 		vm.toggleLayers = toggleLayers;
 		vm.defaults = {
 			//scrollWheelZoom: false,
 			minZoom: minZoom,
 			maxZoom: 6
 		};
-		vm.center = {
-			lat: 48.209206,
-			lng: 16.372778,
-			zoom: zoom
-		};
-		vm.layers = {
-			baselayers: {
-				xyz: {
-					name: 'Outdoor',
-					url: 'https://{s}.tiles.mapbox.com/v4/valderrama.d86114b6/{z}/{x}/{y}.png?access_token=' + apiKey,
-					type: 'xyz',
-					layerOptions: {
-						noWrap: true,
-						continuousWorld: false,
-						detectRetina: true
-					}
-				}
-			}
-		};
+
+		// vm.layers = {
+		// 	baselayers: {
+		// 		xyz: {
+		// 			name: 'Outdoor',
+		// 			url: VectorlayerService.baselayer.url,
+		// 			type: 'xyz',
+		// 			layerOptions: {
+		// 				noWrap: true,
+		// 				continuousWorld: false,
+		// 				detectRetina: true
+		// 			}
+		// 		}
+		// 	}
+		// };
 		vm.labelsLayer = L.tileLayer('https://{s}.tiles.mapbox.com/v4/magnolo.06029a9c/{z}/{x}/{y}.png?access_token=' + apiKey, {
 			noWrap: true,
 			continuousWorld: false,
@@ -110,6 +107,7 @@
 
 		function toggleLayers(overlayName) {
 			leafletData.getMap('map').then(function(map) {
+				console.log(map);
 				if (vm.noLabel) {
 					map.removeLayer(vm.labelsLayer);
 					vm.noLabel = false;

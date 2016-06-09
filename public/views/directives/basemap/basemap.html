@@ -9,7 +9,7 @@
 																																<div ng-if="!vm.checkBase()">&nbsp;Uncompleted</div>
 																												</span> -->
 							<span flex></span>
-							<md-button class="md-primary md-fab md-mini doAnim-bottom" ng-click="vm.save()" ng-disabled="baseForm.$invalid" ng-if="vm.baseOptions.allowSave">
+							<md-button class="md-primary md-fab md-mini doAnim-bottom" ng-click="vm.baseOptions.saveClick()" ng-disabled="baseForm.$invalid" ng-if="vm.baseOptions.allowSave">
 								<md-icon class="material-icons">save</md-icon>
 								<md-tooltip md-delay="500">Save changes</md-tooltip>
 							</md-button>
@@ -27,7 +27,7 @@
 							</md-input-container>
 							<md-input-container class="md-block">
 											<label>Url*</label>
-											<input maxlength="56" minlength="5" required name="url" ng-model="vm.item.url" type="url"/>
+											<input maxlength="255" minlength="5" required name="url" ng-model="vm.item.url" type="url"/>
 											<div ng-messages="baseForm.url.$error">
 												<div ng-message="required">You <b>must</b> enter an url.</div>
 															<div ng-message="minlength">The url is not long enough. At least 5 characters!</div>
