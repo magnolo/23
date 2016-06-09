@@ -10,7 +10,7 @@
 </md-subheader>
 <md-content flex="70" layout="column" layout-align="center center" flex-offset="15">
   <h2 class="md-headline mt0">{{vm.item.title}}</h2>
-  <div label="Main Color" md-color-picker ng-model="vm.item.exportStyle.base_color" required></div>
+  <div label="Main Color" md-color-picker ng-model="vm.item.style.base_color" required></div>
 
 </md-content>
 <div layout="column" layout-align="center center">
@@ -50,10 +50,10 @@
           <p>Share Options</p>
           <md-switch ng-model="vm.item.style.share_options" aria-label="Share Options"  ng-true-value="true" ng-false-value="false" class="md-primary md-secondary" ></md-switch>
         </md-list-item>
-        <md-list-item  ng-class="{'enabled' : vm.item.style.zoom_contorls}">
+        <md-list-item  ng-class="{'enabled' : vm.item.style.zoom_controls}">
           <md-icon aria-label="Zoom Control">zoom_out_map</md-icon>
           <p>Zoom Control</p>
-          <md-switch ng-model="vm.item.style.zoom_contorls" aria-label="Zoom Control"  ng-true-value="true" ng-false-value="false" class="md-primary md-secondary" ></md-switch>
+          <md-switch ng-model="vm.item.style.zoom_controls" aria-label="Zoom Control"  ng-true-value="true" ng-false-value="false" class="md-primary md-secondary" ></md-switch>
         </md-list-item>
         <md-list-item ng-class="{'enabled' : vm.item.style.scroll_wheel_zoom}">
           <md-icon aria-label="Scroll Wheel Zoom">transform</md-icon>
@@ -70,10 +70,10 @@
           <p>Legends</p>
           <md-switch ng-model="vm.item.style.legends" aria-label="Legends"  ng-true-value="true" ng-false-value="false" class="md-primary md-secondary" ></md-switch>
         </md-list-item>
-        <md-list-item  ng-class="{'enabled' : vm.item.style.fullscreen}">
+        <md-list-item  ng-class="{'enabled' : vm.item.style.full_screen}">
           <md-icon aria-label="Fullscreen">fullscreen</md-icon>
           <p>Fullscreen</p>
-          <md-switch ng-model="vm.item.style.fullscreen" aria-label="Fullscreen"  ng-true-value="true" ng-false-value="false" class="md-primary md-secondary" ></md-switch>
+          <md-switch ng-model="vm.item.style.full_screen" aria-label="Fullscreen"  ng-true-value="true" ng-false-value="false" class="md-primary md-secondary" ></md-switch>
         </md-list-item>
 
       </md-list>

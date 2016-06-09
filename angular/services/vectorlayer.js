@@ -50,6 +50,16 @@
 				lng: 16.372778,
 				zoom: 3
 			},
+			maxbounds: {
+				southWest: {
+					lat: 90,
+					lng: 180
+				},
+				northEast: {
+					lat: -90,
+					lng: -180
+				}
+			},
 			setMap: function(map){
 				return this.mapLayer = map;
 			},

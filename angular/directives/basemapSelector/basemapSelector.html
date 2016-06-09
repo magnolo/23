@@ -1,6 +1,6 @@
 <ul class="thumb-selector">
   <li ng-repeat="map in vm.basemaps" ng-class="{'active md-whiteframe-z2' : map == vm.selected}" ng-click="vm.setMap(map)">
-    <leaflet class="mini-map" tiles="{url:map.url, type:'xyz'}" style="width:80px;height:80px" default="vm.defaults" center="vm.center"></leaflet>
+    <leaflet class="mini-map" tiles="{url:map.url, type:'xyz'}" style="width:80px;height:80px" max-bounds="vm.maxbounds" default="vm.defaults" center="vm.center"></leaflet>
     <md-tooltip md-direction="top">{{map.title}}</md-tooltip>
   </li>
 </ul>

@@ -28,13 +28,14 @@
 						fixed_description:false,
 						search_box: true,
 						share_options: true,
-						zoom_contorls: true,
+						zoom_controls: true,
 						scroll_wheel_zoom: false,
 						layer_selection: false,
 						legends:true,
-						fullscreen: false
+						full_screen: false
 					};
 				}
+				
 			});
 		}
 

@@ -24,6 +24,8 @@ class CreateExportItemsTable extends Migration
             $table->text('description')->nullable();
             $table->string('type');
             $table->timestamps();
+
+            $table->foreign('style_id')->references('id')->on('styles')->onDelete('cascade');
         });
     }
 
@@ -34,6 +36,10 @@ class CreateExportItemsTable extends Migration
      */
     public function down()
     {
+          Schema::table('export_items', function (Blueprint $table) {
+              $table->dropForeign(['style_id']);
+          });
+
         Schema::drop('export_items');
     }
 }

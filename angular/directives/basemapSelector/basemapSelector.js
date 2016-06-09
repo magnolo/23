@@ -1,7 +1,7 @@
 (function(){
 	"use strict";
 
-	angular.module( 'app.controllers' ).controller( 'BasemapSelectorCtrl', function(BasemapsService){
+	angular.module( 'app.controllers' ).controller( 'BasemapSelectorCtrl', function(BasemapsService, VectorlayerService){
 		//
 			var vm = this;
 			vm.basemaps = [];
@@ -10,15 +10,12 @@
 			vm.viewTiles = viewTiles;
 			vm.defaults = {
 				scrollWheelZoom: false,
-				minZoom: 2,
-				maxZoom: 6,
+				minZoom: 1,
+				maxZoom: 8,
 				zoomControl: false,
 			};
-			vm.center = {
-				lat: 48.209206,
-				lng: 16.372778,
-				zoom: 1
-			};
+			vm.center = VectorlayerService.center;
+			vm.maxbounds = VectorlayerService.maxbounds;
 
 			activate();
 

@@ -15,4 +15,7 @@ class Style extends Model
     public function categories(){
       return $this->hasMany('App\Categorie');
     }
+    public function basemap(){
+      return $this->belongsTo('App\Basemap');
+    }
 }
