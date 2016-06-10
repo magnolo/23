@@ -40,7 +40,8 @@
 					vm.index.promises.structure.then(function(data) {
 						vm.data = data;
 						vm.structure = structure;
-						//VectorlayerService.setData(structure,vm.item.style.baseColor, true);
+						VectorlayerService.setData(vm.structure,vm.data,vm.item.style.baseColor, true);
+
 					});
 				});
 			});
@@ -63,8 +64,7 @@
 		$scope.$watch('vm.item.style', function(n, o){
 			if(n === o || !n.basemap) return;
 			VectorlayerService.setBaseLayer(n.basemap);
-			VectorlayerService.setBaseColor(n.base_color);
-
+			VectorlayerService.paint(n.base_color);
 		}, true);
 	});
 

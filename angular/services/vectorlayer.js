@@ -1,9 +1,9 @@
 (function() {
 	"use strict";
 
-	angular.module('app.services').factory('VectorlayerService', function($timeout) {
+	angular.module('app.services').service('VectorlayerService', function($timeout) {
 		var that = this, _self = this;
-		_self.basemap = {
+		this.basemap = {
 			name: 'Outdoor',
 			url: 'https://{s}.tiles.mapbox.com/v4/valderrama.d86114b6/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFnbm9sbyIsImEiOiJuSFdUYkg4In0.5HOykKk0pNP1N3isfPQGTQ',
 			type: 'xyz',
@@ -14,16 +14,16 @@
 			}
 		};
 
-		return {
 
-			canvas: false,
-			palette: [],
-			ctx: '',
-			keys: {
+			this.iso_field = 'iso_a2';
+			this.canvas =  false;
+			this.palette = [];
+			this.ctx = null;
+			this.keys =  {
 				mazpen: 'vector-tiles-Q3_Os5w',
 				mapbox: 'pk.eyJ1IjoibWFnbm9sbyIsImEiOiJuSFdUYkg4In0.5HOykKk0pNP1N3isfPQGTQ'
-			},
-			data: {
+			};
+			this.data = {
 				layer: '',
 				name: 'countries_big',
 				baseColor: '#06a99c',
@@ -32,25 +32,25 @@
 				iso: 'iso_a2',
 				fields: "id,admin,adm0_a3,wb_a3,su_a3,iso_a3,iso_a2,name,name_long",
 				field:'score'
-			},
-			map: {
+			};
+			this.map = {
 				data: [],
 				current: [],
 				structure: [],
 				style: []
-			},
-			mapLayer: null,
-			layers:{
+			};
+			this.mapLayer = null;
+			this.layers = {
 				baselayers: {
 					xyz: this.basemap
 				}
-			},
-			center: {
+			};
+			this.center = {
 				lat: 48.209206,
 				lng: 16.372778,
 				zoom: 3
-			},
-			maxbounds: {
+			};
+			this.maxbounds = {
 				southWest: {
 					lat: 90,
 					lng: 180
@@ -59,14 +59,15 @@
 					lat: -90,
 					lng: -180
 				}
-			},
-			setMap: function(map){
+			};
+
+			this.setMap = function(map){
 				return this.mapLayer = map;
-			},
-			getMap: function(){
+			}
+			this.getMap = function(){
 				return this.mapLayer;
-			},
-			setBaseLayer: function(basemap){
+			}
+			this.setBaseLayer = function(basemap){
 				this.layers.baselayers['xyz'] = {
 					name: basemap.name,
 					url: basemap.url,
@@ -77,32 +78,32 @@
 						detectRetina: true
 					}
 				}
-			},
-			resetBaseLayer: function(){
+			}
+			this.resetBaseLayer = function(){
 				this.layers.baselayers['xyz'] = this.baselayer;
-			},
-			setLayer: function(l) {
+			}
+			this.setLayer = function(l) {
 				return this.data.layer = l;
-			},
-			getLayer: function() {
+			}
+			this.getLayer = function() {
 				return this.data.layer;
-			},
-			getName: function() {
+			}
+			this.getName = function() {
 				return this.data.name;
-			},
-			fields: function() {
+			}
+			this.fields = function() {
 				return this.data.fields;
-			},
-			iso: function() {
+			}
+			this.iso = function() {
 				return this.data.iso;
-			},
-			iso3: function() {
+			}
+			this.iso3 = function () {
 				return this.data.iso3;
-			},
-			iso2: function() {
+			}
+			this.iso2 = function() {
 				return this.data.iso2;
-			},
-			createCanvas: function(color) {
+			}
+			this.createCanvas = function(color) {
 				this.canvas = document.createElement('canvas');
 				this.canvas.width = 280;
 				this.canvas.height = 10;
@@ -114,68 +115,68 @@
 				this.ctx.fillStyle = gradient;
 				this.ctx.fillRect(0, 0, 280, 10);
 				this.palette = this.ctx.getImageData(0, 0, 257, 1).data;
-				//document.getElementsByTagName('body')[0].appendChild(this.canvas);
-			},
-			updateCanvas: function(color) {
-				console.log(this);
-				console.log(this.ctx);
-				var gradient = this.ctx.createLinearGradient(0, 0, 280, 10);
-				gradient.addColorStop(1, 'rgba(255,255,255,0)');
+				document.getElementsByTagName('body')[0].appendChild(this.canvas);
+			}
+			this.updateCanvas = function(color) {
+				console.log(color);
+				this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+				var gradient = this.ctx.createLinearGradient(0, 0, 257, 10);
+				gradient.addColorStop(1, 'rgba(255,255,255,1)');
 				gradient.addColorStop(0.53, color || 'rgba(128, 243, 198,1)');
 				gradient.addColorStop(0, 'rgba(102,102,102,1)');
 				this.ctx.fillStyle = gradient;
-				this.ctx.fillRect(0, 0, 280, 10);
+				this.ctx.fillRect(0, 0, 257, 10);
 				this.palette = this.ctx.getImageData(0, 0, 257, 1).data;
 				//document.getElementsByTagName('body')[0].appendChild(this.canvas);
-			},
-			createFixedCanvas: function(colorRange){
+			}
+			this.createFixedCanvas = function(colorRange){
 
 				this.canvas = document.createElement('canvas');
 				this.canvas.width = 280;
 				this.canvas.height = 10;
 				this.ctx = this.canvas.getContext('2d');
-				var gradient = this.ctx.createLinearGradient(0, 0, 280, 10);
+				var gradient = this.ctx.createLinearGradient(0, 0, 257, 10);
 
 				for(var i = 0; i < colorRange.length; i++){
 					gradient.addColorStop(1 / (colorRange.length -1) * i, colorRange[i]);
 				}
 				this.ctx.fillStyle = gradient;
-				this.ctx.fillRect(0, 0, 280, 10);
+				this.ctx.fillRect(0, 0, 257, 10);
 				this.palette = this.ctx.getImageData(0, 0, 257, 1).data;
 
-			},
-			updateFixedCanvas: function(colorRange) {
-				var gradient = this.ctx.createLinearGradient(0, 0, 280, 10);
+			}
+			this.updateFixedCanvas = function(colorRange) {
+				var gradient = this.ctx.createLinearGradient(0, 0, 257, 10);
 				for(var i = 0; i < colorRange.length; i++){
 					gradient.addColorStop(1 / (colorRange.length -1) * i, colorRange[i]);
 				}
 				this.ctx.fillStyle = gradient;
-				this.ctx.fillRect(0, 0, 280, 10);
+				this.ctx.fillRect(0, 0, 257, 10);
 				this.palette = this.ctx.getImageData(0, 0, 257, 1).data;
 				//document.getElementsByTagName('body')[0].appendChild(this.canvas);
-			},
-			setBaseColor: function(color) {
+			}
+			this.setBaseColor = function(color) {
 				return this.data.baseColor = color;
-			},
+			}
 		/*	setStyle: function(style) {
 				this.data.layer.setStyle(style)
 			},*/
-			countryClick: function(clickFunction) {
+			this.countryClick = function(clickFunction) {
 				var that = this;
 				$timeout(function(){
 						that.data.layer.options.onClick = clickFunction;
 				})
 
-			},
-			getColor: function(value) {
+			}
+			this.getColor = function (value) {
 				return this.palette[value];
-			},
-			setStyle: function(style){
+			}
+			this.setStyle = function(style){
 				return this.map.style = style;
-			},
-			setData: function(data, color, drawIt) {
+			}
+			this.setData = function (data, structure, color, drawIt) {
 				this.map.data = data;
-				console.log(data);
+				this.map.structure = structure;
 				if (typeof color != "undefined") {
 					this.data.baseColor = color;
 				}
@@ -197,8 +198,8 @@
 				if (drawIt) {
 					this.paintCountries();
 				}
-			},
-			getNationByIso: function(iso, list) {
+			}
+			this.getNationByIso = function(iso, list) {
 				if(typeof list !== "undefined"){
 					if (list.length == 0) return false;
 					var nation = {};
@@ -218,11 +219,11 @@
 					});
 				}
 				return nation;
-			},
-			getNationByName: function(name) {
+			}
+			this.getNationByName = function (name) {
 				if (this.map.data.length == 0) return false;
-			},
-			paintCountries: function(style, click, mutex) {
+			}
+			this.paintCountries = function(style, click, mutex) {
 				var that = this;
 
 				$timeout(function() {
@@ -237,8 +238,8 @@
 					}
 					that.data.layer.redraw();
 				});
-			},
-			resetSelected: function(iso){
+			}
+			this.resetSelected = function(iso){
 				if(typeof this.data.layer.layers != "undefined"){
 					angular.forEach(this.data.layer.layers[this.data.name+'_geom'].features, function(feature, key){
 						if(iso){
@@ -253,8 +254,8 @@
 					this.redraw();
 				}
 
-			},
-			setSelectedFeature:function(iso, selected){
+			}
+			this.setSelectedFeature = function(iso, selected){
 				if(typeof this.data.layer.layers[this.data.name+'_geom'].features[iso] == 'undefined'){
 					console.log(iso);
 					//debugger;
@@ -263,37 +264,38 @@
 					this.data.layer.layers[this.data.name+'_geom'].features[iso].selected = selected;
 				}
 
-			},
-			redraw:function(){
+			}
+			this.redraw = function (){
 				this.data.layer.redraw();
-			},
+			}
+			this.paint = function(color){
+				this.setBaseColor(color);
+				if(this.ctx){
+					this.updateCanvas(color);
+				}
+				else{
+					this.createCanvas(color)
+				}
+				this.paintCountries();
+			}
 			//FULL TO DO
-			countriesStyle: function(feature) {
-				debugger;
-				function getNationByName(name) {
-					var nation = {};
-					angular.forEach(vm.data, function(nat) {
-						if (nat.country == name) {
-							nation = nat;
-						}
-					});
-					return nation;
-				};
+			this.countriesStyle = function(feature) {
+
 				var style = {};
-				var iso = feature.properties['iso_a2'];
-				var nation = getNationByIso(iso);
-				var field = that.data.field;
+				var iso = feature.properties[that.iso_field];
+				var nation = that.getNationByIso(iso);
+				var field = that.map.structure.name || 'score';
 				var type = feature.type;
 				feature.selected = false;
-
 				switch (type) {
 					case 3: //'Polygon'
 						if (typeof nation[field] != "undefined" && nation[field] != null){
-							var linearScale = d3.scale.linear().domain([vm.range.min,vm.range.max]).range([0,256]);
+						//	var linearScale = d3.scale.linear().domain([vm.range.min,vm.range.max]).range([0,256]);
 
-							var colorPos =  parseInt(linearScale(parseFloat(nation[field]))) * 4;// parseInt(256 / vm.range.max * parseInt(nation[field])) * 4;
-							console.log(colorPos, iso,nation);
+							//var colorPos =   parseInt(256 / vm.range.max * parseInt(nation[field])) * 4 //parseInt(linearScale(parseFloat(nation[field]))) * 4;//;
+							var colorPos = parseInt(256 / 100 * parseInt(nation[field])) * 4;
 							var color = 'rgba(' + that.palette[colorPos] + ', ' + that.palette[colorPos + 1] + ', ' + that.palette[colorPos + 2] + ',' + that.palette[colorPos + 3] + ')';
+				
 							style.color = 'rgba(' + that.palette[colorPos] + ', ' + that.palette[colorPos + 1] + ', ' + that.palette[colorPos + 2] + ',0.6)'; //color;
 							style.outline = {
 								color: color,
@@ -320,7 +322,7 @@
 				return style;
 			}
 
-		}
+
 	});
 
 })();
