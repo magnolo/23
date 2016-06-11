@@ -1450,7 +1450,6 @@ p.small-info:hover {
   position: relative;
   z-index: 1;
   width: 400px;
-  pointer-events: none;
   border-left: 1px solid #ddd;
 }
 .additional > div:first-child,
@@ -1459,6 +1458,7 @@ p.small-info:hover {
 }
 .addFull .additional {
   width: 100%;
+  pointer-events: none;
 }
 .addFull #map {
   top: 355px;
@@ -2189,20 +2189,6 @@ md-menu-bar {
   padding-left: 1em;
 }
 
-md-list-item.md-2-line {
-  min-height: 62px;
-}
-md-list-item.md-2-line a {
-  padding-top: .5em;
-}
-md-list-item.md-2-line > .md-no-style {
-  min-height: 62px;
-}
-
-.cursor {
-  cursor: pointer;
-}
-
 section.module-top {
   background-color: #fff;
   width: 360px;
@@ -2502,6 +2488,20 @@ md-list-item.active {
         }*/
 }
 
+md-list-item.md-2-line {
+  min-height: 62px;
+}
+md-list-item.md-2-line a {
+  padding-top: .5em;
+}
+md-list-item.md-2-line > .md-no-style {
+  min-height: 62px;
+}
+
+.cursor {
+  cursor: pointer;
+}
+
 
 
 
@@ -2759,27 +2759,6 @@ div[ui-view='map'] {
 }
 
 
-.thumb-selector {
-  padding: 0;
-  margin: 0px;
-  text-align: center;
-  white-space: nowrap;
-  overflow: auto;
-}
-.thumb-selector li {
-  display: inline-block;
-  list-style-type: none;
-  margin: .5em;
-  transition: all 0.2s ease-in;
-  outline: 2px solid #fff;
-}
-.thumb-selector li.active {
-  outline: 2px solid #006bb9;
-}
-.mini-map .leaflet-control-container {
-  display: none !important;
-}
-
 bubbles {
   overflow: hidden;
   margin: 1em auto;
@@ -2849,7 +2828,26 @@ bubbles {
   transition: transform 0.3s ease-out;
 }
 
-
+.thumb-selector {
+  padding: 0;
+  margin: 0px;
+  text-align: center;
+  white-space: nowrap;
+  overflow: auto;
+}
+.thumb-selector li {
+  display: inline-block;
+  list-style-type: none;
+  margin: .5em;
+  transition: all 0.2s ease-in;
+  outline: 2px solid #fff;
+}
+.thumb-selector li.active {
+  outline: 2px solid #006bb9;
+}
+.mini-map .leaflet-control-container {
+  display: none !important;
+}
 
 
 
@@ -2882,6 +2880,8 @@ bubbles {
   left: 0px;
   border-bottom-width: 1px;
 }
+
+
 
 
 
@@ -2948,7 +2948,6 @@ bubbles {
 
 
 
-
 median {
   border-radius: 20px;
   display: inline-block;
@@ -3006,6 +3005,7 @@ median .slider text {
   user-select: none;
   cursor: ew-resize;
 }
+
 
 
 .dropzone {
@@ -3071,13 +3071,6 @@ piechart .inner-pie {
   fill: #afafaf;
 }
 
-.slide-toggle {
-  transition: all .5s;
-}
-.slide-toggle.ng-animate {
-  overflow: hidden;
-}
-
 .md-color-container.md-color-picker-preview {
   content: '';
   width: 24px;
@@ -3100,6 +3093,13 @@ piechart .inner-pie {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+}
+
+.slide-toggle {
+  transition: all .5s;
+}
+.slide-toggle.ng-animate {
+  overflow: hidden;
 }
 
 

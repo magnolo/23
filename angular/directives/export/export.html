@@ -103,12 +103,13 @@
 				</md-content>
 			</md-tab-body>
 		</md-tab>
-		<md-tab  ng-disabled="vm.item.id == 0 || !vm.item.id" >
+		<md-tab ng-disabled="(vm.item.id == 0 || !vm.item.id) || !vm.item.items.length " >
 			<md-tab-label>
 				<ng-md-icon icon="send" ng-class="{'valid': vm.item.items.length}"></ng-md-icon>
 			</md-tab-label>
 			<md-tab-body>
-				<md-content>
+				<md-content layout="row" layout-align="center center">
+						<md-subheader>Choose your Layout</md-subheader>
 
 				</md-content>
 			</md-tab-body>

@@ -98,9 +98,9 @@
 			icon.textContent = "home";
 			L.DomEvent.disableClickPropagation(container);
 			L.DomEvent.addListener(container, 'click', function() {
-				leafletData.getMap('map').then(function(map) {
+					var map = VectorlayerService.getMap();
 					map.setView([48.209206, 16.372778], zoom);
-				});
+				
 			});
 			return container;
 		}
