@@ -8,9 +8,10 @@
         vm.selected = [];
         vm.options = {
           save: function(){
-            console.log(vm.basemap);
-            BasemapsService.save(vm.basemap);
-
+            BasemapsService.save(vm.basemap, function(response){
+              VectorlayerService.setBaseLayer(vm.basemap);
+              $state.go('app.index.basemaps.details',{id: response.id, name: response.name});
+            });
           },
           withSave: true,
         };
@@ -23,6 +24,9 @@
               vm.basemap = response;
               VectorlayerService.setBaseLayer(vm.basemap);
             });
+          }
+          else {
+            console.log(vm.basemap);
           }
         }
         function removeItem(item, list){

@@ -36,17 +36,45 @@
 											</div>
 							</md-input-container>
 							<md-input-container class="md-block">
-								<label>Attribution</label>
-								<input maxlength="56" minlength="3" name="attribution" ng-model="vm.item.attribution"  type="text" />
-								<div ng-messages="baseForm.title.$error" ng-show="baseForm.attribution.$error">
-									<div ng-message="minlength">The title is not long enough. At least 3 characters!</div>
-									<div ng-message="maxlength">The attribution has to be less than 56 characters long.</div>
-								</div>
-							</md-input-container>
-							<md-input-container class="md-block">
 								<label>Description</label>
 								<textarea ng-model="vm.item.description" md-select-on-focus></textarea>
 							</md-input-container>
+							<md-input-container class="md-block">
+								<label>Attribution</label>
+								<input maxlength="56" minlength="3" name="attribution" ng-model="vm.item.attribution"  type="text" />
+								<div ng-messages="baseForm.attribution.$error" ng-show="baseForm.attribution.$error">
+									<div ng-message="minlength">The attribution is not long enough. At least 3 characters!</div>
+									<div ng-message="maxlength">The attribution has to be less than 56 characters long.</div>
+								</div>
+							</md-input-container>
+							<div ng-if="vm.containsSpecial(['{ext}', '{s}'])">
+							<md-input-container ng-if="vm.containsSpecial('{ext}')">
+								<label>Extension</label>
+								<md-select ng-model="vm.item.ext">
+				          <md-option value="">None</md-option>
+				          <md-option value="png">PNG</md-option>
+				          <md-option value="jpg">JPG</md-option>
+				        </md-select>
+
+							</md-input-container>
+							<md-input-container ng-if="vm.containsSpecial('{s}')"><label>
+	Subdomains</label>
+								<input maxlength="5" minlength="3" name="subdomains" ng-model="vm.item.subdomains"  type="text" />
+								<div ng-messages="baseForm.subdomains.$error" ng-show="baseForm.subdomains.$error">
+									<div ng-message="minlength">The subdomains is not long enough. At least 3 characters!</div>
+									<div ng-message="maxlength">The subdomains as to be less than 5 characters long!</div>
+								</div>
+							</md-input-container>
+						</div>
+						<md-input-container class="md-block">
+							<label>API Key</label>
+							<input maxlength="255" minlength="3" name="title" ng-model="vm.item.key" type="text" />
+							<div ng-messages="baseForm.key.$error" ng-show="baseForm.key.$error">
+								<div ng-message="minlength">The title is not long enough. At least 3 characters!</div>
+								<div ng-message="maxlength">The name has to be less than 255 characters long.</div>
+							</div>
+						</md-input-container>
+
 							<div layout-align="center center" layout="row">
 											<md-switch aria-label="Public" class="md-primary" ng-model="vm.item.is_public">
 															Public

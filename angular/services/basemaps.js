@@ -1,7 +1,7 @@
 (function(){
     "use strict";
 
-    angular.module('app.services').factory('BasemapsService', function(DataService){
+    angular.module('app.services').factory('BasemapsService', function(DataService, toastr){
         //
         return {
           basemaps:[],
@@ -26,20 +26,24 @@
             return this.basemap = data;
           },
           save: function(basemap, success, error){
-            if(this.basemap.id == 0 || !this.basemap.id){
+            if(basemap.id == 0 || !basemap.id){
               DataService.post('basemaps', basemap).then(function(response){
+                toastr.success('New Basemap successfully created');
                 if(typeof success === 'function')
                 success(response);
               },function(response){
+                toastr.error('Saving error');
                 if(typeof error === 'function')
                 error(response);
               });
             }
             else{
-              this.basemap.save().then(function(response){
+              basemap.save().then(function(response){
+                toastr.success('Save successful');
                 if(typeof success === 'function')
                 success(response);
               },function(response){
+                toastr.error('Saving error');
                 if(typeof error === 'function')
                 error(response);
               });
@@ -47,6 +51,7 @@
           },
           removeItem: function(id, success, error){
             DataService.remove('basemaps', id).then(function(response){
+              toastr.success('Deletion successful');
               if(typeof success === 'function')
               success(response);
             }, function(response){

@@ -27,11 +27,13 @@
     			},
     			deleteClick: function() {
     				angular.forEach(vm.selection, function(item, key) {
-    					BasemapsService.removeItem(item.id).then(function(data) {
+    					BasemapsService.removeItem(item.id, function(data) {
     						if ($state.params.id == item.id) {
     							$state.go('app.index.basemaps');
     						}
-    						vm.selection = [];
+                var idx = vm.basemaps.indexOf(item);
+                vm.basemaps.splice(idx,1);
+                vm.selection = [];
     					});
     				});
 

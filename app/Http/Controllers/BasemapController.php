@@ -50,6 +50,12 @@ class BasemapController extends Controller
         $basemap->provider = $request->get('provider');
         $basemap->image_id = $request->get('image_id');
         $basemap->is_public = $request->get('is_public');
+        $basemap->ext = $request->get('ext');
+        $basemap->key = $request->get('key');
+        $basemap->bounds = $request->get('bounds');
+        $basemap->maxZoom = $request->get('maxZoom');
+        $basemap->minZoom = $request->get('minZoom');
+        $basemap->subdomains = $request->get('subdomains');
 
         $basemap->save();
 
@@ -89,6 +95,12 @@ class BasemapController extends Controller
           $basemap->provider = $request->get('provider');
           $basemap->image_id = $request->get('image_id');
           $basemap->is_public = $request->get('is_public');
+          $basemap->ext = $request->get('ext');
+          $basemap->key = $request->get('key');
+          $basemap->bounds = $request->get('bounds');
+          $basemap->maxZoom = $request->get('maxZoom');
+          $basemap->minZoom = $request->get('minZoom');
+          $basemap->subdomains = $request->get('subdomains');
           $basemap->save();
 
           return response()->api($basemap);
@@ -103,5 +115,7 @@ class BasemapController extends Controller
     public function destroy($id)
     {
         //
+        $basemap = Basemap::findOrFail($id);
+        return response()->api($basemap->delete());
     }
 }
