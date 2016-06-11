@@ -61,7 +61,8 @@
             }
           },
           withSave: true,
-          styleable: true
+          styleable: true,
+          expandJustGroups: true
         };
 
         activate();

@@ -29,7 +29,8 @@
 			inserted: vm.options.exports.inserted,
 			styleable: vm.options.styleable,
 			styleClick: vm.options.style.click,
-			hideExpansionOnItem:true
+			hideExpansionOnItem:true,
+			expandJustGroups: vm.options.expandJustGroups
 		};
 		activate();
 

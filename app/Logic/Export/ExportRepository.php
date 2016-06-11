@@ -9,8 +9,6 @@ namespace App\Logic\Export{
   class ExportRepository{
 
       public function saveItems(Export $export, $items, $parent = null){
-
-
         foreach($items as $item){
           $exportitem = new Exportitem;
           $exportitem->type = $item['type'];
@@ -24,7 +22,12 @@ namespace App\Logic\Export{
               $style->title = "Export: ".$export->title;
               $style->name = str_slug($style->title);
               $style->basemap_id = $item['style']['basemap_id'];
-              $style->base_color = $item['style']['base_color'];
+              if(isset($item['style']['base_color'])){
+                $style->base_color = $item['style']['base_color'];
+              }
+              else{
+                $style->base_color = "rgba(128, 243, 198,1)";
+              }
               $style->fixed_title = $item['style']['fixed_title'];
               $style->fixed_description = $item['style']['fixed_description'];
               $style->search_box = $item['style']['search_box'];
@@ -46,18 +49,16 @@ namespace App\Logic\Export{
               }
             }
           }
-
           if(!is_null($parent)){
-            //dd($parent);
             $exportitem->parent_id = $parent->id;
             $exportitem->save();
           }
           else{
             $export->items()->save($exportitem);
-            //return $export;
           }
 
         }
+        return $export;
       }
   }
 }
