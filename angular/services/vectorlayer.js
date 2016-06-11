@@ -115,7 +115,7 @@
 				this.ctx.fillStyle = gradient;
 				this.ctx.fillRect(0, 0, 280, 10);
 				this.palette = this.ctx.getImageData(0, 0, 257, 1).data;
-				document.getElementsByTagName('body')[0].appendChild(this.canvas);
+				//document.getElementsByTagName('body')[0].appendChild(this.canvas);
 			}
 			this.updateCanvas = function(color) {
 				console.log(color);
@@ -295,7 +295,7 @@
 							//var colorPos =   parseInt(256 / vm.range.max * parseInt(nation[field])) * 4 //parseInt(linearScale(parseFloat(nation[field]))) * 4;//;
 							var colorPos = parseInt(256 / 100 * parseInt(nation[field])) * 4;
 							var color = 'rgba(' + that.palette[colorPos] + ', ' + that.palette[colorPos + 1] + ', ' + that.palette[colorPos + 2] + ',' + that.palette[colorPos + 3] + ')';
-				
+
 							style.color = 'rgba(' + that.palette[colorPos] + ', ' + that.palette[colorPos + 1] + ', ' + that.palette[colorPos + 2] + ',0.6)'; //color;
 							style.outline = {
 								color: color,

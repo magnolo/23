@@ -13,7 +13,7 @@ class Exportitem extends Model
       return $this->belongsTo('App\Exportitem', 'parent_id');
     }
     public function children(){
-      return $this->hasMany('App\Exportitem', 'parent_id')->with('children','type','style');
+      return $this->hasMany('App\Exportitem', 'parent_id')->with('children','style');
     }
     public function indicator(){
       return $this->belongsTo('App\Indicator', 'indicator_id');

@@ -27,12 +27,14 @@
 				})
 			},
 			deleteClick: function() {
-				angular.forEach(vm.selection.indices, function(item, key) {
-					ContentService.removeItem(item.id).then(function(data) {
+				angular.forEach(vm.selection, function(item, key) {
+					ExportService.removeItem(item.id, function(data) {
 						if ($state.params.id == item.id) {
-							$state.go('app.index.editor.indizes');
+							$state.go('app.index.exports');
 						}
-						vm.selection.indices = [];
+						var idx = vm.exports.indexOf(item);
+						vm.exports.splice(idx, 1);
+						vm.selection = [];
 					});
 				});
 				//$state.go('app.index.editor.indizes');

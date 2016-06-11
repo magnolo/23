@@ -92,7 +92,7 @@
 				</form>
 			</md-tab-body>
 		</md-tab>
-		<md-tab >
+		<md-tab ng-disabled="vm.item.id == 0 || !vm.item.id" >
 			<md-tab-label>
 				<ng-md-icon icon="format_list_bulleted" ng-class="{'valid': vm.item.items.length}"></ng-md-icon>
 			</md-tab-label>
@@ -103,7 +103,7 @@
 				</md-content>
 			</md-tab-body>
 		</md-tab>
-		<md-tab >
+		<md-tab  ng-disabled="vm.item.id == 0 || !vm.item.id" >
 			<md-tab-label>
 				<ng-md-icon icon="send" ng-class="{'valid': vm.item.items.length}"></ng-md-icon>
 			</md-tab-label>

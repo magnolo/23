@@ -1,7 +1,7 @@
 (function(){
     "use strict";
 
-    angular.module('app.services').factory('ExportService', function(DataService){
+    angular.module('app.services').factory('ExportService', function(DataService, toastr){
 
         return {
           exports:[],
@@ -28,27 +28,32 @@
           save: function(success, error){
             if(this.exporter.id == 0 || !this.exporter.id){
               DataService.post('exports', this.exporter).then(function(response){
+                toastr.success('Successfully created');
                 if(typeof success === 'function')
                 success(response);
               },function(response){
+                toastr.error('Something went wrong!');
                 if(typeof error === 'function')
                 error(response);
               });
             }
             else{
-              
+
              this.exporter.save().then(function(response){
                 if(typeof success === 'function')
+                toastr.success('Save successfully');
                 success(response);
               },function(response){
+                  toastr.error('Something went wrong!');
                 if(typeof error === 'function')
                 error(response);
               });
             }
           },
-          remove: function(id, success, error){
+          removeItem: function(id, success, error){
             DataService.remove('exports', id).then(function(response){
               if(typeof success === 'function')
+              toastr.success('Successfully deleted');
               success(response);
             }, function(response){
               if(typeof error === 'function')

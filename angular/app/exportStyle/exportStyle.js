@@ -5,7 +5,6 @@
     var vm = this;
 		vm.exporter = {};
     vm.item = {};
-		vm.index = IndizesService.fetchData($state.params.styleId);
 
 		activate();
 
@@ -20,7 +19,7 @@
 				if(typeof vm.item == "undefined") $state.go('app.index.exports.details',{
           id: $state.params.id,
           name: $state.params.name
-        })
+        });
 				if(!vm.item.style){
 					vm.item.style = {
 						basemap_id:0,
@@ -35,7 +34,7 @@
 						full_screen: false
 					};
 				}
-
+				vm.index = IndizesService.fetchData(vm.item.indicator_id);
 				vm.index.promises.data.then(function(structure) {
 					vm.index.promises.structure.then(function(data) {
 						vm.data = data;

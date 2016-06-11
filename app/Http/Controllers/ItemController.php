@@ -214,7 +214,7 @@ class ItemController extends Controller
     public function showLatestYear($id)
     {
         if(is_numeric($id)){
-          $item = Item::find($id)->load('type', 'children');
+          $item = Item::findOrFail($id)->load('type', 'children');
         }
         elseif(is_string($id)){
           $item = Item::where('name', $id)->with('type', 'children')->firstOrFail()->load('type');
@@ -539,6 +539,7 @@ class ItemController extends Controller
       return $data;
     }
     public function searchForYear($data){
+
       if($data->type->name == 'group'){
         foreach($data->children as $child){
           if($child->type->name != 'group'){

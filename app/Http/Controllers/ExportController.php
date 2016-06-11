@@ -3,19 +3,22 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Auth, DB;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
 use App\Export;
 use App\Exportitem;
-use Auth;
-use DB;
 use App\Style;
-
+use App\Logic\Export\ExportRepository;
 
 class ExportController extends Controller
 {
+    protected $exportRepository;
+
+    public function __construct(ExportRepository $exportRepository){
+
+      $this->exportRepository = $exportRepository;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -102,37 +105,7 @@ class ExportController extends Controller
           Style::find($item->style_id)->delete();
         }
         $export->items()->delete();
-
-        foreach($request->get('items') as $item){
-            $exportitem = new Exportitem;
-            $exportitem->type = $item['type'];
-            $exportitem->title = $item['title'];
-            if($item['type'] == "indicator"){
-              $exportitem->indicator_id = $item['indicator_id'];
-            }
-            if($item['style']){
-
-              $style = new Style;
-              $style->title = "Export: ".$request->get('title');
-              $style->name = str_slug($style->title);
-              $style->basemap_id = $item['style']['basemap_id'];
-              $style->base_color = $item['style']['base_color'];
-              $style->fixed_title = $item['style']['fixed_title'];
-              $style->fixed_description = $item['style']['fixed_description'];
-              $style->search_box = $item['style']['search_box'];
-              $style->share_options = $item['style']['share_options'];
-              $style->zoom_controls = $item['style']['zoom_controls'];
-              $style->scroll_wheel_zoom = $item['style']['scroll_wheel_zoom'];
-              $style->legends = $item['style']['legends'];
-              $style->layer_selection = $item['style']['layer_selection'];
-              $style->full_screen = $item['style']['full_screen'];
-
-              $style->save();
-
-              $exportitem->style_id = $style->id;
-            }
-            $export->items()->save($exportitem);
-        }
+        $this->exportRepository->saveItems($export, $request->get('items'));
 
         DB::commit();
         $export->load('items');

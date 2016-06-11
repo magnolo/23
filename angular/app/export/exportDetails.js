@@ -20,14 +20,16 @@
             },
     				addContainerClick:function(){
     					var item = {
-    						title: 'I am a group... name me'
+                id:  Date.now(),
+    						title: 'I am a group... name me',
+                type:'group'
     					};
     					vm.export.items.push(item);
     				},
     				deleteClick:function(){
     					angular.forEach(vm.selected,function(item, key){
     							removeItem(item,vm.export.items);
-                  ExportService.remove(vm,item.id);
+                  //ExportService.removeItem(vm,item.id);
     							vm.selected = [];
     					});
     				},
@@ -36,9 +38,7 @@
     						vm.selection = [];
     				},
             save: function(){
-              console.log('saving');
               ExportService.save(function(response){
-                console.log('done saving', vm.export);
                 if(vm.export.id == 0 || !vm.export.id){
                   $state.go('app.index.exports.details',{id:response.id, name:response.name});
                 }
