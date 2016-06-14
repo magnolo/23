@@ -14,6 +14,7 @@ namespace App\Logic\Export{
           $exportitem->type = $item['type'];
           $exportitem->title = $item['title'];
           $exportitem->name = str_slug($exportitem->title);
+          $exportitem->description = $item['description'];
 
           if($item['type'] == "indicator"){
             $exportitem->indicator_id = $item['indicator_id'];

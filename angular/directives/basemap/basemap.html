@@ -41,10 +41,10 @@
 							</md-input-container>
 							<md-input-container class="md-block">
 								<label>Attribution</label>
-								<input maxlength="56" minlength="3" name="attribution" ng-model="vm.item.attribution"  type="text" />
+								<input maxlength="250" minlength="3" name="attribution" ng-model="vm.item.attribution"  type="text" />
 								<div ng-messages="baseForm.attribution.$error" ng-show="baseForm.attribution.$error">
 									<div ng-message="minlength">The attribution is not long enough. At least 3 characters!</div>
-									<div ng-message="maxlength">The attribution has to be less than 56 characters long.</div>
+									<div ng-message="maxlength">The attribution has to be less than 250 characters long.</div>
 								</div>
 							</md-input-container>
 							<div ng-if="vm.containsSpecial(['{ext}', '{s}'])">

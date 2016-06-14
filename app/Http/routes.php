@@ -80,6 +80,8 @@ $api->version('v1', function ($api) {
 
     $api->get('basemaps', 'App\Http\Controllers\BasemapController@index');
     $api->get('basemaps/{id}', 'App\Http\Controllers\BasemapController@show');
+
+    $api->post('images/upload', 'App\Http\Controllers\ImageController@upload');
 });
 
 //protected with JWT

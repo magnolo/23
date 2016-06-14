@@ -24,4 +24,7 @@ class Exportitem extends Model
     public function export(){
       return $this->belongsTo('App\Export', 'export_id');
     }
+    public function image(){
+      return $this->belongsTo('App\Image');
+    }
 }

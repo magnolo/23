@@ -321,6 +321,23 @@
 					}
 				}
 			})
+			.state('app.export', {
+				abstract: true,
+				url: '/export',
+			})
+			.state('app.export.detail', {
+				url: '/:id/:name',
+				data: {
+					pageName: 'Export Data'
+				},
+				views: {
+					'sidebar@': {
+						templateUrl: getView('exported'),
+						controller: 'ExportedCtrl',
+						controllerAs: 'vm'
+					}
+				}
+			})
 			.state('app.index.exports', {
 				url: '/exports',
 				auth:true,
@@ -379,6 +396,17 @@
 					'additional@': {
 						templateUrl: getView('exportStyle'),
 						controller: 'ExportStyleCtrl',
+						controllerAs: 'vm'
+					}
+				}
+			})
+			.state('app.index.exports.details.layout', {
+				url: '/layout',
+				layout: 'row',
+				views: {
+					'additional@': {
+						templateUrl: getView('exportLayout'),
+						controller: 'ExportLayoutCtrl',
 						controllerAs: 'vm'
 					}
 				}

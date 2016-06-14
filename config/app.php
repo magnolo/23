@@ -138,7 +138,7 @@ return [
         'Illuminate\Translation\TranslationServiceProvider',
         'Illuminate\Validation\ValidationServiceProvider',
         'Illuminate\View\ViewServiceProvider',
-        'Phaza\LaravelPostgis\DatabaseServiceProvider',
+        //'Phaza\LaravelPostgis\DatabaseServiceProvider',
 
         /*
          * Application Service Providers...

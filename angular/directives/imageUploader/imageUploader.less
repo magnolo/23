@@ -1,0 +1,42 @@
+image-uploader{
+  display: inherit;
+  padding: 1em 0;
+  .solo-label{
+    color: rgba(0,0,0,0.54);
+    font-size:.75em;
+    text-align: left;
+    position: absolute;
+    top:-2em;
+    left:3px;;
+  }
+}
+.upload-container{
+  position:relative;
+  width:100%;
+  text-align: center;
+  color:#fff;
+  .material-icons{
+    color:#fff;
+  }
+  .image-prev{
+
+    min-height: 200px;
+    border: 1px dashed #ccc;
+    &.no-image{
+      background-color:#efefef;
+    }
+    .material-icons{
+      font-size:4em;
+      width:auto;
+      height:auto;
+    }
+  }
+  img{
+    max-width: 100%;
+  }
+  .actions{
+    position:absolute;
+    top:1em;
+    right:1em;
+  }
+}

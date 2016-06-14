@@ -1,33 +1,39 @@
 (function(){
     "use strict";
 
-    angular.module('app.services').factory('ExportService', function(DataService, toastr){
+    angular.module('app.services').service('ExportService', function(DataService, toastr){
+          var vm = this;
+          this.exports = [],
+          this.exporter = {},
+          this.getExports = function(success, error){
 
-        return {
-          exports:[],
-          exporter:{},
-          getExports: function(success, error){
-            var _that = this;
             DataService.getAll('exports').then(function(response){
-              _that.exports = response;
+              vm.exports = response;
               if(typeof success === 'function')
-              success(_that.exports);
+              success(vm.exports);
             }, error);
           },
-          getExport: function(id, success, error){
-            var _that = this;
-            DataService.getOne('exports', id).then(function(response){
-              _that.exporter = response;
+          this.getExport = function(id, success, error){
+            if(vm.exporter.id == id){
               if(typeof success === 'function')
-              success(_that.exporter);
-            });
+              success(vm.exporter);
+            }
+            else{
+              DataService.getOne('exports', id).then(function(response){
+                vm.exporter = response;
+                if(typeof success === 'function')
+                success(vm.exporter);
+    
+              });
+            }
+
           },
-          setExport: function(data){
-            return this.exporter = data;
+          this.setExport = function(data){
+            return vm.exporter = data;
           },
-          save: function(success, error){
-            if(this.exporter.id == 0 || !this.exporter.id){
-              DataService.post('exports', this.exporter).then(function(response){
+          this.save = function(success, error){
+            if(vm.exporter.id == 0 || !vm.exporter.id){
+              DataService.post('exports', vm.exporter).then(function(response){
                 toastr.success('Successfully created');
                 if(typeof success === 'function')
                 success(response);
@@ -39,7 +45,7 @@
             }
             else{
 
-             this.exporter.save().then(function(response){
+             vm.exporter.save().then(function(response){
                 if(typeof success === 'function')
                 toastr.success('Save successfully');
                 success(response);
@@ -50,7 +56,7 @@
               });
             }
           },
-          removeItem: function(id, success, error){
+          this.removeItem = function(id, success, error){
             DataService.remove('exports', id).then(function(response){
               if(typeof success === 'function')
               toastr.success('Successfully deleted');
@@ -60,7 +66,7 @@
               error(response);
             })
           }
-        }
+
     });
 
 })();

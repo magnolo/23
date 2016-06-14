@@ -52,6 +52,7 @@ class ExportController extends Controller
         $export->usage = $request->get('usage');
         $export->user_id = Auth::user()->id;
         $export->layout_id = 0;
+
         $export->save();
 
 
@@ -98,6 +99,7 @@ class ExportController extends Controller
         $export = Export::findOrFail($id);
         $export->title = $request->get('title');
         $export->description = $request->get('description');
+        $export->image_id = $request->get('image_id');
         $export->save();
 
         foreach($export->items() as $item){

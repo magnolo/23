@@ -1,10 +1,11 @@
 (function(){
     "use strict";
 
-    angular.module('app.controllers').controller('ExportDetailsCtrl', function($state, ExportService){
+    angular.module('app.controllers').controller('ExportDetailsCtrl', function($scope, $state, ExportService){
         //
         var vm = this;
-        vm.export = {}
+        vm.export = ExportService.exporter;
+
         vm.selected = [];
         vm.options = {
           exports:{
@@ -25,6 +26,7 @@
                 type:'group'
     					};
     					vm.export.items.push(item);
+
     				},
     				deleteClick:function(){
     					angular.forEach(vm.selected,function(item, key){
@@ -69,8 +71,8 @@
 
         function activate(){
           if($state.params.id != 0){
-            ExportService.getExport($state.params.id, function(response){
-              vm.export = response;
+            ExportService.getExport($state.params.id, function(exporter) {
+              vm.export = exporter;
             });
           }
           else{
