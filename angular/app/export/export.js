@@ -46,6 +46,7 @@
 		function activate() {
 			ExportService.getExports(function(response){
 					vm.exports = response;
+					console.log(response);
 			});
 		}
 	});

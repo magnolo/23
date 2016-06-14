@@ -4,6 +4,7 @@
 	angular.module('app.routes').run(function($rootScope, $mdSidenav, $timeout, $auth, $state, $localStorage, $window, leafletData, toastr, VectorlayerService) {
 		$rootScope.sidebarOpen = true;
 		$rootScope.greyed = false;
+		$rootScope.fixLayout = false;
 		$rootScope.looseLayout = $localStorage.fullView || false;
 		$rootScope.started = true;
 		$rootScope.goBack = function() {
@@ -28,12 +29,27 @@
 			} else {
 				$rootScope.rowed = false;
 			}
+			if (toState.layout == "loose") {
+				$rootScope.looseLayout = true;
+			} else {
+				$rootScope.looseLayout = false;
+			}
 			if (toState.additional == "full") {
 				$rootScope.addFull = true;
 			} else {
 				$rootScope.addFull = false;
 			}
+			if (toState.fixLayout == true) {
+				$rootScope.fixLayout = true;
+			} else {
+				$rootScope.fixLayout = false;
+			}
 			if (typeof toState.views != "undefined") {
+				if (toState.views.hasOwnProperty('sidebar@') || toState.views.hasOwnProperty('main@'))  {
+					$rootScope.sidebar = true;
+				} else {
+					$rootScope.sidebar = false;
+				}
 				if (toState.views.hasOwnProperty('main@') || toState.views.hasOwnProperty('additional@')) {
 					$rootScope.mainView = true;
 				} else {
@@ -54,13 +70,18 @@
 				} else {
 					$rootScope.logoView = false;
 				}
+				if (toState.views.hasOwnProperty('fullscreen@')) {
+					$rootScope.fullscreenView = true;
+				} else {
+					$rootScope.fullscreenView = false;
+				}
 			} else {
 				$rootScope.additional = false;
 				$rootScope.itemMenu = false;
 				$rootScope.logoView = false;
 				$rootScope.mainView = false;
 			}
-			if (toState.name.indexOf('conflict') > -1 && toState.name != "app.conflict.import") {
+			if ((toState.name.indexOf('conflict') > -1 && toState.name != "app.conflict.import" )) {
 				$rootScope.noHeader = true;
 			} else {
 				$rootScope.noHeader = false;

@@ -317,6 +317,17 @@ p {
             left: calc(~'48px + 1em');
         }
     }
+
+    &.fixed{
+      #sidebar {
+
+          top: 0em;
+          left: 0em;
+          bottom: auto;
+          max-height: 100%;
+          overflow-x: hidden;
+      }
+    }
 }
 
 &.loggedIn {

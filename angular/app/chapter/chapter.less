@@ -1,0 +1,48 @@
+.chapter {
+    font-weight: bold;
+    margin-right: 1em;
+}
+a.md-button {
+    &.rounded {
+        border: 1px solid;
+        position: relative;
+        margin: 0;
+        overflow: visible;
+        transition: all .3s ease-in-out;
+        span {
+            margin: 0;
+        }
+        &.active {
+            > span {
+                font-size: 1.2em;
+                font-weight: bold;
+                margin-top: -2px;
+                display: block;
+            }
+            margin: 0 6px 0 5px;
+
+        }
+        &:not(.active) {
+            transform: scale(0.8);
+        }
+        &::after {
+            content: ' ';
+            position: absolute;
+            left: 100%;
+            top: 50%;
+            border-top: 1px solid;
+            height: 1px;
+            width: 12px;
+        }
+        &:last-child {
+            &::after {
+                border: 0;
+            }
+        }
+        &:first-child {
+            &.active {
+                margin-left: 0;
+            }
+        }
+    }
+}

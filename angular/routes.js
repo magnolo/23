@@ -328,15 +328,45 @@
 			.state('app.export.detail', {
 				url: '/:id/:name',
 				data: {
-					pageName: 'Export Data'
+					pageName: 'Export Data',
 				},
 				views: {
-					'sidebar@': {
+					'header@': {
+						templateUrl: getView('chapter'),
+						controller: 'ChapterCtrl',
+						controllerAs: 'vm'
+					},
+					'fullscreen@': {
 						templateUrl: getView('exported'),
 						controller: 'ExportedCtrl',
 						controllerAs: 'vm'
 					}
 				}
+			})
+			.state('app.export.detail.chapter', {
+				url: '/chapter/:chapter',
+				data: {
+					pageName: 'Export Data',
+				},
+				layout:'loose',
+				fixLayout: true,
+				views: {
+					'sidebar@': {
+						templateUrl: getView('chapterContent'),
+						controller: 'ChapterContentCtrl',
+						controllerAs: 'vm'
+					}
+				}
+			})
+			.state('app.export.detail.chapter.indicator', {
+				url: '/:indicator/:indiname',
+				layout:'loose',
+				fixLayout: true,
+			})
+			.state('app.export.detail.chapter.indicator.country', {
+				url: '/:iso',
+				layout:'loose',
+				fixLayout: true,
 			})
 			.state('app.index.exports', {
 				url: '/exports',

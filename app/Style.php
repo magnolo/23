@@ -18,4 +18,7 @@ class Style extends Model
     public function basemap(){
       return $this->belongsTo('App\Basemap');
     }
+    public function image(){
+      return $this->belongsTo('App\Image');
+    }
 }

@@ -100,6 +100,7 @@ class ExportController extends Controller
         $export->title = $request->get('title');
         $export->description = $request->get('description');
         $export->image_id = $request->get('image_id');
+        $export->base_color = $request->get('base_color');
         $export->save();
 
         foreach($export->items() as $item){

@@ -1,0 +1,21 @@
+<style>
+  a.md-button span{
+    color:{{vm.exporter.base_color}} !important;
+  }
+</style>
+<div class="md-toolbar-tools" flex ng-style="{'color': vm.exporter.base_color}">
+	<div layout="row" layout-align="start center">
+		<div class="chapter">Chapter</div>
+		<div layout="row" layout-align="start center">
+			<md-button ui-sref="app.export.detail.chapter({chapter: (key + 1)})" class="md-icon-button md-mini rounded" ng-repeat="(key,item) in vm.exporter.items" ng-class="{'active': (key +1) == vm.chapter}" ng-style="{'color': vm.exporter.base_color}">
+				{{key + 1}}
+			</md-button>
+			</ul>
+
+		</div>
+	</div>
+	<span flex></span>
+	<div class="chapter">
+		{{vm.exporter.title}}
+	</div>
+</div>

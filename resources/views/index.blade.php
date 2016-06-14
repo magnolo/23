@@ -33,7 +33,7 @@
       <script type="text/javascript">document.location.href = '/unsupported-browser'</script>
       <![endif]-->
   </head>
-  <body  ng-class="{'startup': $root.started, 'loggedIn': $root.isAuthenticated(), 'noHeader': $root.noHeader, 'greyed': $root.greyed, 'loose': $root.looseLayout, 'sidebar-closed': !$root.sidebarOpen, 'rowed': $root.rowed, 'addFull': $root.addFull}" layout="column">
+  <body flow-prevent-drop ng-class="{'startup': $root.started, 'loggedIn': $root.isAuthenticated(), 'noHeader': $root.noHeader, 'greyed': $root.greyed, 'loose': $root.looseLayout,  'fixed': $root.fixLayout,'sidebar-closed': !$root.sidebarOpen, 'rowed': $root.rowed, 'addFull': $root.addFull}" layout="column">
       <div id="hack"></div>
       <md-toolbar class="Header md-accent" tabindex="-1" ng-if="!$root.noHeader">
           <header ui-view="header"></header>
@@ -42,12 +42,11 @@
         <md-sidenav id="sidemenu" class="md-sidenav-left" md-component-id="leftMenu" ng-if="$root.isAuthenticated()" md-is-locked-open="$mdMedia('gt-sm')" tabindex="-1" md-scroll-y>
             <md-content flex  doAnim-right ui-view="sidemenu"  md-scroll-y layout="column" class="flex" layout-fill layout-align="space-between none"></md-content>
         </md-sidenav>
-        <md-sidenav id="sidebar" md-is-open="$root.sidebarOpen" class="md-sidenav-left md-whiteframe-z1" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')" tabindex="-1" md-scroll-y>
+        <md-sidenav id="sidebar" md-is-open="$root.sidebarOpen" ng-if="$root.sidebar" class="md-sidenav-left md-whiteframe-z1" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')" tabindex="-1" md-scroll-y>
             <div class="menu-toggler" md-swipe-up="$root.toggleMenu('left')" flex ng-click="$root.toggleMenu('left')" layout="row" layout-align="center center" show-xs></div>
             <md-content flex doAnim-right ui-view="sidebar" md-swipe-down="$root.toggleMenu('left')"  md-scroll-y></md-content>
         </md-sidenav>
         <md-content layout="row" flex role="main" tabindex="-1" md-scroll-y>
-
             <div ui-view="main" class="Page doAnim-hinge" ng-if="$root.mainView" flex md-scroll-y style="overflow-y:auto"></div>
             <div layout-fill layout="column" flex>
               <div ui-view="additional" class="additional doAnim-hinge" md-scroll-y style="overflow-y:auto" ng-if="$root.additional"></div>
@@ -62,6 +61,7 @@
       </div>
       <div class="doAnim-hinge" id="items-menu" ng-include="'/views/app/conflictitems/conflictitems.html'" ng-cloak ng-if="$root.featureItems.length > 0 && $root.showItems"></div>
       <div id="main-logo" ui-view="logo" ng-if="$root.logoView" ></div>
+      <div id="fullscreen-view" ui-view="fullscreen" ng-if="$root.fullscreenView"></div>
       <div class="cssload-container doAnim-fade" ng-if="$root.stateIsLoading">
           <div class="cssload-whirlpool"></div>
           <div class="cssload-text">23°</div>

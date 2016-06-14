@@ -1,0 +1,65 @@
+<!-- <md-toolbar md-scroll-shrink ng-style="{'background-color':'#fff', 'color': vm.chapter.style.base_color}">
+   <div class="md-toolbar-tools">
+     <span>Chapter {{vm.chapterId}}: {{ vm.chapter.title}}</span>
+     <span flex></span>
+     <md-button class="md-icon-button" ng-click="vm.showInfo()">
+       <md-icon>info</md-icon>
+     </md-button>
+   </div>
+ </md-toolbar> -->
+<md-subheader class="md-primary selector">
+  <div>
+  <md-input-container class="md-block">
+    <md-select ng-model="vm.item">
+      <md-optgroup label="{{chapter.title}}" ng-repeat="chapter in vm.exporter.items" ng-style="{'color': vm.exporter.base_color}">
+            <md-option ng-value="item" ng-repeat="item in chapter.children">{{ item.title}}</md-option>
+        </md-optgroup>
+    </md-select>
+  </md-input-container>
+  </div>
+</md-subheader>
+<div class="chapter-image">
+<img ng-src="{{vm.chapter.style.image.src}}" />
+</div>
+<section class="hideOnClosed">
+        <md-tabs md-center-tabs="true" md-dynamic-height md-no-pagination="true" md-selected="vm.activeTab" md-stretch-tabs="true" md-swipe-content="true" ng-if="vm.item">
+                <md-tab label="Details" md-active="vm.activeTab == 0" md-on-select="vm.setTab(0)">
+
+                </md-tab>
+                <md-tab label="History" md-active="vm.activeTab == 1" md-on-select="vm.setTab(1)" ng-disabled="!vm.current.data">
+                        <div class="module tabs no-margin" layout="column">
+                                <history chartdata="vm.current.data" options="{field:vm.item.name, color:vm.item.style.base_color || 'rgba(128, 243, 198,1)'}"></history>
+                        </div>
+                </md-tab>
+                <md-tab label="Compare" md-active="vm.activeTab == 2" md-on-deselect="vm.checkComparison(false)" md-on-select="vm.checkComparison(true)" ng-disabled="!vm.country">
+                        <div class="module comparison">
+                                <div layout-wrap layout="row">
+                                        <div class="country anim-opacity" flex="50" ng-repeat="country in vm.compare.countries">
+                                                <h4 ng-click="vm.setCurrent(country)">
+                                                        <span class="number">N°{{vm.getRank(country)}}</span>
+                                                        {{vm.countryList[country.iso]}}</h4>
+                                                <median data="vm.data" height="20" info="false" ng-model="country" options="{'color': vm.structure.style.base_color, field: vm.structure.name}" width="120"></median>
+                                                <bubbles borders="false" chartdata="country" height="150" indexer="vm.structure" labels="false" ng-if="vm.structure.children.length" ng-model="vm.display.selectedCat" sizefactor="5" width="120"></bubbles>
+
+                                        </div>
+                                </div>
+                        </div>
+                </md-tab>
+        </md-tabs>
+</section>
+<style>
+.chapter-image,  md-tabs md-ink-bar{
+  background-color: {{ vm.item.style.base_color}};
+}
+.chapter-image img{
+  opacity: 0.8;
+}
+.md-subheader.md-primary, md-tabs .md-tab.md-active{
+  color:{{vm.item.style.base_color}} !important;
+}
+  md-select-menu.md-default-theme md-option[selected], md-select-menu md-option[selected]{
+    background-color:{{ vm.exporter.base_color}} !important;
+    color:#fff !important;
+    border:1px solid;
+  }
+</style>

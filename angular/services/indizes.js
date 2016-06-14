@@ -32,6 +32,12 @@
 			},
 			getStructurePromise: function () {
 				return this.index.promises.structure;
+			},
+			fetchNationData:function(index, iso, success){
+				DataService.getOne('index/' + index, iso).then(function(data) {
+					success(data);
+
+				});
 			}
 		}
 	});

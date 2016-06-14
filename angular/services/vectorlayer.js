@@ -3,7 +3,7 @@
 
 	angular.module('app.services').service('VectorlayerService', function($timeout) {
 		var that = this, _self = this;
-		this.basemap = {
+		this.fallbackBasemap = {
 			name: 'Outdoor',
 			url: 'https://{s}.tiles.mapbox.com/v4/valderrama.d86114b6/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFnbm9sbyIsImEiOiJuSFdUYkg4In0.5HOykKk0pNP1N3isfPQGTQ',
 			type: 'xyz',
@@ -12,7 +12,8 @@
 				continuousWorld: false,
 				detectRetina: true
 			}
-		};
+		}
+		this.basemap = this.fallbackBasemap;
 
 
 			this.iso_field = 'iso_a2';
@@ -68,6 +69,8 @@
 				return this.mapLayer;
 			}
 			this.setBaseLayer = function(basemap){
+				if(!basemap)
+				this.basemap = basemap = this.fallbackBasemap;
 				this.layers.baselayers['xyz'] = {
 					name: basemap.name,
 					url: basemap.url,
@@ -165,7 +168,7 @@
 				var that = this;
 				$timeout(function(){
 						that.data.layer.options.onClick = clickFunction;
-				})
+				});
 
 			}
 			this.getColor = function (value) {
