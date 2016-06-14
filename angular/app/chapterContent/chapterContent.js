@@ -7,11 +7,10 @@
         vm.showInfo = showInfo;
         vm.chapterId = $state.params.chapter;
         vm.current = {};
-      //  vm.activeTab = 0;
+
         VectorlayerService.countryClick(function(data, bla){
-          console.log(vm.item)
-          IndizesService.fetchNationData(vm.item.indicator_id, data.feature.id, function(data){
-            vm.current.data = data;
+          $state.go('app.export.detail.chapter.indicator.country',{
+            iso:data.feature.id
           });
         });
         ExportService.getExport($state.params.id, function(exporter){
@@ -21,6 +20,11 @@
     				renderIndicator(vm.item);
         });
 
+        function fetchNationData(iso){
+          IndizesService.fetchNationData(vm.item.indicator_id, iso, function(data){
+            vm.current = data;
+          });
+        }
         function renderIndicator(item){
           vm.index = IndizesService.fetchData(item.indicator_id);
           vm.index.promises.data.then(function(structure) {
@@ -29,11 +33,23 @@
               vm.structure = structure;
               VectorlayerService.setBaseLayer(vm.item.style.basemap);
               VectorlayerService.setData(vm.structure,vm.data,vm.item.style.base_color, true);
+              $timeout(function(){
+                if($state.params.iso){
+                  $state.go('app.export.detail.chapter.indicator.country',{
+                    indicator:item.indicator_id,
+                    indiname: item.indicator.name,
+                    iso:vm.current.iso
+                  });
+                }
+                else{
+                  $state.go('app.export.detail.chapter.indicator',{
+                    indicator:item.indicator_id,
+                    indiname: item.indicator.name
+                  });
+                }
 
-              $state.go('app.export.detail.chapter.indicator',{
-                indicator:item.indicator_id,
-                indiname: item.indicator.name
               })
+
             });
           });
         }
@@ -61,7 +77,9 @@
             if(n === o) return false;
             console.log(n);
             renderIndicator(n);
-
+        });
+        $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
+          fetchNationData(toParams.iso);
         });
     });
 

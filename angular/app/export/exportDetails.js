@@ -73,6 +73,7 @@
           if($state.params.id != 0){
             ExportService.getExport($state.params.id, function(exporter) {
               vm.export = exporter;
+              console.log(vm.export);
             });
           }
           else{
