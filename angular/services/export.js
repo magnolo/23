@@ -3,85 +3,129 @@
 
 	angular.module('app.services').service('ExportService', function(DataService, toastr) {
 		var vm = this;
-		this._promise, this._promiseOne;
-		this._callbacks = new Array();
-		this._callbacksOne = new Array();
-		this.exports;
-			this.exporter = {};
+		vm._promise, vm._promiseOne;
+		vm._callbacks = new Array();
+		vm._callbacksOne = new Array();
+		vm.exports;
+		vm.chapter;
+		vm.indicator;
+		vm.exporter = {};
 
-		this.getExports = function(success, error, force) {
-				if (angular.isDefined(vm.exports) && !force) {
-						success(this.exports);
-				} else if (angular.isDefined(vm._promise)) {
-						vm._callbacks.push(success);
-				} else {
-          vm._callbacks.push(success);
-					vm._promise = DataService.getAll('exports').then(function(response) {
-						vm.exports = response;
-            console.log(vm._callbacks);
-						angular.forEach(vm._callbacks, function(callback) {
-							callback(vm.exports);
-						});
-						vm._promise = null;
-					}, error);
-				}
-			},
+		vm.getExports = function(success, error, force) {
+			if (angular.isDefined(vm.exports) && !force) {
+				if (typeof success === 'function')
+					success(vm.exports);
+			} else if (angular.isDefined(vm._promise) && !force) {
+				if (typeof success === 'function')
+					vm._callbacks.push(success);
+			} else {
+				vm._callbacks.push(success);
+				vm._promise = DataService.getAll('exports').then(function(response) {
+					vm.exports = response;
+					angular.forEach(vm._callbacks, function(callback) {
+						if(typeof callback != "undefined")
+						callback(vm.exports);
+					});
+					vm._promise = null;
+				}, error);
+			}
+		}
 
-			this.getExport = function(id, success, error, force) {
-				if (angular.isDefined(vm.exporter) && vm.exporter.id == id && !force) {
+		vm.getExport = function(id, success, error, force) {
+			if (angular.isDefined(vm.exporter) && vm.exporter.id == id && !force) {
+				if (typeof success === 'function')
 					success(vm.exporter);
-				} else if (angular.isDefined(vm._promiseOne)) {
-					if (typeof success === 'function')
-						vm._callbacksOne.push(success);
-				} else {
-          	vm._callbacksOne.push(success);
-					this._promiseOne = DataService.getOne('exports', id).then(function(response) {
-						vm.exporter = response;
-						angular.forEach(vm._callbacksOne,  function(callback) {
+			} else{
+				vm._callbacksOne.push(success);
+				vm._promiseOne = DataService.getOne('exports', id).then(function(response) {
+					vm.exporter = response;
+					if(!vm.exporter.items){
+						vm.exporter.items = new Array();
+					}
+					angular.forEach(vm._callbacksOne, function(callback) {
+						if(typeof callback != "undefined")
 							callback(vm.exporter);
-						});
-						vm._promiseOne = null;
-					}, error);
-				}
-
-			},
-			this.setExport = function(data) {
-				return vm.exporter = data;
-			},
-			this.save = function(success, error) {
-				if (vm.exporter.id == 0 || !vm.exporter.id) {
-					DataService.post('exports', vm.exporter).then(function(response) {
-						toastr.success('Successfully created');
-						if (typeof success === 'function')
-							success(response);
-					}, function(response) {
-						toastr.error('Something went wrong!');
-						if (typeof error === 'function')
-							error(response);
 					});
-				} else {
+					vm._promiseOne = null;
+				}, error);
+			}
 
-					vm.exporter.save().then(function(response) {
-						if (typeof success === 'function')
-							toastr.success('Save successfully');
-						success(response);
-					}, function(response) {
-						toastr.error('Something went wrong!');
-						if (typeof error === 'function')
-							error(response);
-					});
-				}
-			},
-			this.removeItem = function(id, success, error) {
-				DataService.remove('exports', id).then(function(response) {
+		}
+		vm.setExport = function(data) {
+
+			return vm.exporter = data;
+		}
+		vm.getChapter = function(id, chapter, success) {
+			if (angular.isDefined(vm.exporter) && vm.exporter.id == id) {
+				vm.chapter = vm.exporter.items[chapter - 1];
+				vm.indicator = vm.getFirstIndicator(vm.chapter.children);
+				if (typeof success === 'function')
+					success(vm.chapter, vm.indicator);
+			} else {
+				this.getExport(id, function(data) {
+					vm.chapter = vm.exporter.items[chapter - 1];
+					vm.indicator = vm.getFirstIndicator(vm.chapter.children);
 					if (typeof success === 'function')
-						toastr.success('Successfully deleted');
-					success(response);
+						success(vm.chapter, vm.indicator);
+				});
+			}
+		}
+		vm.getIndicator = function(id, chapter, indicator, success) {
+			vm.getChapter(id, chapter, function(c, i) {
+				console.log(c, i);
+				console.log(chapter, indicator);
+			});
+		}
+		vm.getFirstIndicator = function(list) {
+			var found = null;
+			angular.forEach(list, function(item) {
+				if (item.type == 'indicator' && !found) {
+					found = item;
+				} else {
+					if (!found) {
+						found = vm.getFirstIndicator(item.children);
+					}
+				}
+			});
+			return found;
+		}
+		vm.save = function(success, error) {
+			if (vm.exporter.id == 0 || !vm.exporter.id) {
+				DataService.post('exports', vm.exporter).then(function(response) {
+					vm.exporter = response;
+					console.log(vm.exporter);
+					vm.exports.push(vm.exporter);
+					toastr.success('Successfully created');
+					if (typeof success === 'function')
+						success(response);
 				}, function(response) {
+					toastr.error('Something went wrong!');
 					if (typeof error === 'function')
 						error(response);
-				})
+				});
+			} else {
+				vm.exporter.save().then(function(response) {
+					if (typeof success === 'function')
+						toastr.success('Save successfully');
+					success(response);
+					vm.getExports(function(){},function(){}, true);
+				}, function(response) {
+					toastr.error('Something went wrong!');
+					if (typeof error === 'function')
+						error(response);
+				});
 			}
+		}
+		vm.removeItem = function(id, success, error) {
+			DataService.remove('exports', id).then(function(response) {
+				if (typeof success === 'function')
+					toastr.success('Successfully deleted');
+				success(response);
+			}, function(response) {
+				if (typeof error === 'function')
+					error(response);
+			})
+		}
 
 	});
 

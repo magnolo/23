@@ -4,8 +4,7 @@
     angular.module('app.controllers').controller('ExportDetailsCtrl', function($scope, $state, ExportService){
         //
         var vm = this;
-        vm.export = ExportService.exporter;
-
+        vm.ExportService = ExportService;
         vm.selected = [];
         vm.options = {
           exports:{
@@ -25,12 +24,12 @@
     						title: 'I am a group... name me',
                 type:'group'
     					};
-    					vm.export.items.push(item);
+    					vm.ExportService.exporter.items.push(item);
 
     				},
     				deleteClick:function(){
     					angular.forEach(vm.selected,function(item, key){
-    							removeItem(item,vm.export.items);
+    							removeItem(item,vm.ExportService.exporter.items);
                   //ExportService.removeItem(vm,item.id);
     							vm.selected = [];
     					});
@@ -40,10 +39,10 @@
     						vm.selection = [];
     				},
             save: function(){
-              ExportService.save(function(response){
-                if(vm.export.id == 0 || !vm.export.id){
+              vm.ExportService.save(function(response){
+
                   $state.go('app.index.exports.details',{id:response.id, name:response.name});
-                }
+
               });
               // if(vm.export.id == 0 || ! vm.export.id){
               //   DataService.post('exports', vm.export).then(function(){
@@ -67,22 +66,16 @@
           expandJustGroups: true
         };
 
-        activate();
-
-        function activate(){
           if($state.params.id != 0){
-            ExportService.getExport($state.params.id, function(exporter) {
-              vm.export = exporter;
-              console.log(vm.export);
-            });
+            vm.ExportService.getExport($state.params.id);
           }
           else{
-            vm.export = ExportService.setExport({
+            vm.ExportService.setExport({
               items: []
             });
           }
 
-        }
+
         function removeItem(item, list){
     			angular.forEach(list, function(entry, key){
     				if(entry.id == item.id){

@@ -1,0 +1,23 @@
+<div layout-fill ng-style="{'color':vm.ExportService.exporter.base_color}">
+	<div style="background-color:{{vm.ExportService.exporter.base_color}}" class="split-header" ng-style="{'color':vm.ExportService.exporter.base_color}">
+    <div class="exporter-background" style="background-image:url('{{vm.ExportService.exporter.style.image.src}}')"></div>
+    <p>{{ vm.ExportService.exporter.description | truncateCharacters: 120}}</p>
+		<div class="exporter-image" style="background-image:url('{{vm.ExportService.exporter.image.src}}')"></div>
+
+	</div>
+	<div layout="row" layout-sm="column" layout-xs="column" class="chapter-container">
+		<div ui-sref="app.export.detail.chapter({chapter:key+1})" class="chapter-preview" flex-sm="100" flex="{{ 100 / vm.ExportService.exporter.items}}" layout-fill layout-sm="row" layout="column" layout-align="center center" ng-repeat="(key,item) in vm.ExportService.exporter.items">
+
+			<div class="chapter-image" style="background-image:url('{{item.style.image.src}}')"></div>
+			<div class="chapter-info" layout="column" layout-align="center center" ng-style="{'background-color': vm.ExportService.exporter.base_color}">
+				<div class="chapter-number" layout="row" layout-align="center center" >
+					<div>Chapter: {{key+1}}</div>
+
+				</div>
+				<div class="chapter-title">
+					<h2>{{item.title}}</h2>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

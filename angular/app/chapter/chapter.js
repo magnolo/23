@@ -3,19 +3,20 @@
 
     angular.module('app.controllers').controller('ChapterCtrl', function($scope,$state, ExportService){
         var vm = this;
+        vm.gotoChapter = gotoChapter;
+        vm.ExportService = ExportService;
+        vm.ExportService.getChapter($state.params.id, $state.params.chapter || 1);
 
+        function gotoChapter(chapter){
+          vm.ExportService.getChapter($state.params.id, chapter, function(c, i){
+            $state.go('app.export.detail.chapter.indicator',{
+              chapter:chapter,
+              indicator:i.indicator_id,
+              indiname:i.name
+            })
+          });
 
-        vm.chapter = $state.params.chapter;
-    
-         ExportService.getExport($state.params.id, function(exporter){
-            vm.exporter = exporter;
-        });
-
-        $scope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams) {
-          vm.chapter = toParams.chapter;
-        });
-
-
+        }
     });
 
 })();

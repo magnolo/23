@@ -19,8 +19,8 @@
 					<textarea ng-model="vm.exporter.description"></textarea>
 				</md-input-container>
 			</div>
-			<div label="Color" md-color-picker ng-model="vm.exporter.base_color"></div>
-			<image-uploader ng-model="vm.exporter"></image-uploader>
+			<div label="Color" md-color-picker ng-model="vm.exporter.style.base_color"></div>
+			<image-uploader ng-model="vm.exporter.style"></image-uploader>
 		</md-content>
 		<md-divider></md-divider>
 		<md-content class="thumb-color" ng-repeat="item in vm.exporter.items" ng-if="item.type == 'group'" >

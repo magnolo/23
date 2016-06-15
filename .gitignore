@@ -6,7 +6,7 @@ npm-debug.log
 .idea/
 .elasticbeanstalk
 /public/bower_components
-
+/public/uploads/images
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml

@@ -1,0 +1,137 @@
+.split-header {
+    position: relative;
+    z-index: 1;
+    height: 55%;
+
+    p {
+        position: absolute;
+        bottom:0em;
+        right:1em;
+        margin: 0;
+        padding: 2em;
+        font-size:1.8em;
+        color:#fff;
+        text-shadow:1px 1px 1px rgba(0,0,0,0.3);
+        text-align: right;
+    }
+
+    .exporter-image{
+      width:200px;
+      height:200px;
+      position: absolute;
+      top:0px;
+      left:0px;
+      background-size: contain;
+      background-repeat: no-repeat;
+      @media screen and (max-width: 959px){
+        left:50%;
+        margin-left: -100px;
+      }
+    }
+    .exporter-background{
+      background-size: cover;
+      background-position: center center;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top:0;
+      left:0px;
+      opacity: 0.8;
+      background-blend-mode: hard-light;
+    }
+}
+.chapter-container {
+    height: 45%;
+    box-shadow: 0 0 35px rgba(0,0,0,.2);
+    .chapter-preview {
+        color: #fff;
+        text-align: center;
+        position: relative;
+        cursor: pointer;
+        overflow: hidden;
+        h2 {
+            font-size: 1.8em;
+            margin-top:5px;
+            //text-shadow:1px 1px 1px rgba(0,0,0,0.3);
+            @media screen and (max-width: 959px){
+              margin:0;
+              margin-bottom: 5px;
+              font-size:1.2em;
+            }
+        }
+        p {
+            text-align: justify;
+            font-weight: 100;
+        }
+        .chapter-info{
+          background-color: rgb(255, 128, 0);
+          padding: .5em 1em;
+          position: relative;
+          box-shadow: 0px 0px 35px rgba(0,0,0,0.2);
+          transition: all 1s ease-in-out;
+          .chapter-number{
+            position: relative;
+            z-index: 1;
+            margin:.5em;
+            transition: all 2s ease-in-out;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            @media screen and (max-width: 959px){
+
+              letter-spacing: 1px;
+              font-size:0.8em;
+            }
+          }
+          .chapter-title {
+              position: relative;
+              z-index: 1;
+              transition: all 3s ease-in-out;
+              &::before{
+                content: '';
+                width: 0px;
+                position: absolute;
+                top: 0px;
+                left:50%;
+                margin-left: 0px;
+                border-top:1px solid;
+                transition: all 1s ease-in-out;
+              }
+          }
+          @media screen and (max-width: 959px){
+            width:80%;
+            //background: none !important;
+            //box-shadow: 0px 0px 55px rgba(0,0,0,0) !important;
+          }
+        }
+
+        .chapter-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            transition: all 5s ease-in-out;
+            background-position: center center;
+        }
+        &:hover {
+            .chapter-info{
+              background-color: transparent !important;
+                box-shadow: 0px 0px 55px rgba(0,0,0,0);
+            }
+            .chapter-title {
+                //transform: scale(1.1);
+                  @media screen and (min-width: 960px){
+                letter-spacing: 2px;
+                &::before{
+                  margin-left:-50px;
+                  width:100px;
+                }
+              }
+            }
+            .chapter-image {
+                transform: scale(1.2);
+            }
+        }
+    }
+}

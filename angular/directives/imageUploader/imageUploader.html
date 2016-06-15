@@ -10,7 +10,7 @@
     <div class="image-prev" ng-show="$flow.files.length" layout="column" layout-align="center center">
         <img flow-img="$flow.files[0]">
     </div>
-    <div class="image-prev" ng-show="!$flow.files.length && vm.item.image">
+    <div class="image-prev" ng-show="!$flow.files.length && vm.item.image" layout="column" layout-align="center center">
         <img ng-src="{{vm.item.image.dir+'/'+vm.item.image.filename}}">
     </div>
     <div class="actions">

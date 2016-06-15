@@ -42,7 +42,7 @@
         <md-sidenav id="sidemenu" class="md-sidenav-left" md-component-id="leftMenu" ng-if="$root.isAuthenticated()" md-is-locked-open="$mdMedia('gt-sm')" tabindex="-1" md-scroll-y>
             <md-content flex  doAnim-right ui-view="sidemenu"  md-scroll-y layout="column" class="flex" layout-fill layout-align="space-between none"></md-content>
         </md-sidenav>
-        <md-sidenav id="sidebar" md-is-open="$root.sidebarOpen" ng-if="$root.sidebar" class="md-sidenav-left md-whiteframe-z1" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')" tabindex="-1" md-scroll-y>
+        <md-sidenav id="sidebar" md-is-open="$root.sidebarOpen" ng-if="$root.sidebar" class="md-sidenav-left md-whiteframe-z1 doAnim-hinge" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')" tabindex="-1" md-scroll-y>
             <div class="menu-toggler" md-swipe-up="$root.toggleMenu('left')" flex ng-click="$root.toggleMenu('left')" layout="row" layout-align="center center" show-xs></div>
             <md-content flex doAnim-right ui-view="sidebar" md-swipe-down="$root.toggleMenu('left')"  md-scroll-y></md-content>
         </md-sidenav>
@@ -61,7 +61,7 @@
       </div>
       <div class="doAnim-hinge" id="items-menu" ng-include="'/views/app/conflictitems/conflictitems.html'" ng-cloak ng-if="$root.featureItems.length > 0 && $root.showItems"></div>
       <div id="main-logo" ui-view="logo" ng-if="$root.logoView" ></div>
-      <div id="fullscreen-view" ui-view="fullscreen" ng-if="$root.fullscreenView"></div>
+      <div id="fullscreen-view" ui-view="fullscreen" class="doAnim-fade-long" layout-fill ng-if="$root.fullscreenView" flex layout="row" layout-align="center center"></div>
       <div class="cssload-container doAnim-fade" ng-if="$root.stateIsLoading">
           <div class="cssload-whirlpool"></div>
           <div class="cssload-text">23°</div>

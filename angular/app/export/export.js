@@ -5,7 +5,7 @@
 		//
 		var vm = this;
 		vm.exports = [];
-
+		vm.ExportService = ExportService;
 		vm.selection = [];
 		vm.options = {
 			drag: false,
@@ -28,12 +28,12 @@
 			},
 			deleteClick: function() {
 				angular.forEach(vm.selection, function(item, key) {
-					ExportService.removeItem(item.id, function(data) {
+					vm.ExportService.removeItem(item.id, function(data) {
 						if ($state.params.id == item.id) {
 							$state.go('app.index.exports');
 						}
 						var idx = vm.exports.indexOf(item);
-						vm.exports.splice(idx, 1);
+						vm.ExportService.exports.splice(idx, 1);
 						vm.selection = [];
 					});
 				});
@@ -41,14 +41,11 @@
 			}
 		};
 
-		activate();
 
-		function activate() {
-			ExportService.getExports(function(response){
-					vm.exports = response;
-					console.log(response);
-			});
-		}
+
+
+			vm.ExportService.getExports(function(data){});
+
 	});
 
 })();

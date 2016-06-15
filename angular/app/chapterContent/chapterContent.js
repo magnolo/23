@@ -7,21 +7,19 @@
         vm.showInfo = showInfo;
         vm.chapterId = $state.params.chapter;
         vm.current = {};
+        vm.ExportService = ExportService;
 
+
+        vm.ExportService.getIndicator($state.params.id, $state.params.chapter, $state.params.indicator, function(chapter, indicator){
+    				renderIndicator(indicator);
+        });
         VectorlayerService.countryClick(function(data, bla){
           $state.go('app.export.detail.chapter.indicator.country',{
             iso:data.feature.id
           });
         });
-        ExportService.getExport($state.params.id, function(exporter){
-            vm.exporter = exporter;
-            vm.chapter = getChapter(vm.chapterId);
-            vm.item = getFirstIndicator(vm.chapter.children);
-    				renderIndicator(vm.item);
-        });
-
         function fetchNationData(iso){
-          IndizesService.fetchNationData(vm.item.indicator_id, iso, function(data){
+          IndizesService.fetchNationData(vm.ExportService.indicator.indicator_id, iso, function(data){
             vm.current = data;
           });
         }
@@ -31,8 +29,8 @@
             vm.index.promises.structure.then(function(data) {
               vm.data = data;
               vm.structure = structure;
-              VectorlayerService.setBaseLayer(vm.item.style.basemap);
-              VectorlayerService.setData(vm.structure,vm.data,vm.item.style.base_color, true);
+              VectorlayerService.setBaseLayer(item.style.basemap);
+              VectorlayerService.setData(vm.structure,vm.data,item.style.base_color, true);
               $timeout(function(){
                 if($state.params.iso){
                   $state.go('app.export.detail.chapter.indicator.country',{
@@ -55,23 +53,6 @@
         }
         function showInfo(){
             DialogService.fromTemplate('export', $scope);
-        }
-        function getChapter(id){
-            return vm.exporter.items[id-1];
-        }
-        function getFirstIndicator(list){
-          var found = null;
-          angular.forEach(list, function(item){
-            if(item.type == 'indicator'){
-              found =  item;
-            }
-            else{
-              if(!found){
-                found = getFirstIndicator(item.children);
-              }
-            }
-          });
-          return found;
         }
         $scope.$watch('vm.item', function(n,o){
             if(n === o) return false;

@@ -80,6 +80,14 @@
   -webkit-animation: fadeOut 0.1s;
   animation: fadeOut 0.1s;
 }
+.doAnim-fade-long.ng-enter {
+  -webkit-animation: fadeIn 0.5s;
+  animation: fadeIn 0.5s;
+}
+.doAnim-fade-long.ng-leave {
+  -webkit-animation: fadeOut 1s;
+  animation: fadeOut 1s;
+}
 .list-anim.ng-enter-stagger,
 .list-anim.ng-leave-stagger,
 .list-anim.ng-move-stagger {
@@ -1523,6 +1531,16 @@ p.small-info:hover {
 .social-buttons a i {
   font-size: 1.5em;
 }
+#fullscreen-view {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  height: 100%;
+  width: 100%;
+  z-index: 61;
+  background: #fff;
+  min-height: 400px;
+}
 
 .m0 {
   margin: 0px;
@@ -1582,34 +1600,35 @@ md-toast[md-theme=warn] {
   text-align: center;
 }
 
+
 .chapter {
   font-weight: bold;
   margin-right: 1em;
 }
-a.md-button.rounded {
+.md-button.rounded {
   border: 1px solid;
   position: relative;
   margin: 0;
   overflow: visible;
+}
+.md-button.rounded span {
+  margin: 0;
   transition: all 0.3s ease-in-out;
 }
-a.md-button.rounded span {
-  margin: 0;
-}
-a.md-button.rounded.active {
+.md-button.rounded.active {
   margin: 0 6px 0 5px;
 }
-a.md-button.rounded.active > span {
+.md-button.rounded.active > span {
   font-size: 1.2em;
   font-weight: bold;
   margin-top: -2px;
   display: block;
 }
-a.md-button.rounded:not(.active) {
+.md-button.rounded:not(.active) {
   -webkit-transform: scale(0.8);
   transform: scale(0.8);
 }
-a.md-button.rounded::after {
+.md-button.rounded::after {
   content: ' ';
   position: absolute;
   left: 100%;
@@ -1618,10 +1637,10 @@ a.md-button.rounded::after {
   height: 1px;
   width: 12px;
 }
-a.md-button.rounded:last-child::after {
+.md-button.rounded:last-child::after {
   border: 0;
 }
-a.md-button.rounded:first-child.active {
+.md-button.rounded:first-child.active {
   margin-left: 0;
 }
 
@@ -1637,7 +1656,6 @@ a.md-button.rounded:first-child.active {
 .md-subheader.selector .md-subheader-inner md-input-container {
   margin-top: 12px;
 }
-
 
 
 .conflict-icon {
@@ -1891,8 +1909,6 @@ md-dialog-content p.columned {
   font-size: em;
 }
 
-
-
 .adjust-container {
   margin: 1.5em;
   margin-right: 5em;
@@ -1908,6 +1924,144 @@ md-dialog-content p.columned {
 .adjust-container .adjust-box md-list-item:not(.enabled) md-icon {
   color: #ccc;
 }
+
+.split-header {
+  position: relative;
+  z-index: 1;
+  height: 55%;
+}
+.split-header p {
+  position: absolute;
+  bottom: 0em;
+  right: 1em;
+  margin: 0;
+  padding: 2em;
+  font-size: 1.8em;
+  color: #fff;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+  text-align: right;
+}
+.split-header .exporter-image {
+  width: 200px;
+  height: 200px;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+@media screen and (max-width: 959px) {
+  .split-header .exporter-image {
+    left: 50%;
+    margin-left: -100px;
+  }
+}
+.split-header .exporter-background {
+  background-size: cover;
+  background-position: center center;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0px;
+  opacity: 0.8;
+  background-blend-mode: hard-light;
+}
+.chapter-container {
+  height: 45%;
+  box-shadow: 0 0 35px rgba(0, 0, 0, 0.2);
+}
+.chapter-container .chapter-preview {
+  color: #fff;
+  text-align: center;
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+}
+.chapter-container .chapter-preview h2 {
+  font-size: 1.8em;
+  margin-top: 5px;
+}
+@media screen and (max-width: 959px) {
+  .chapter-container .chapter-preview h2 {
+    margin: 0;
+    margin-bottom: 5px;
+    font-size: 1.2em;
+  }
+}
+.chapter-container .chapter-preview p {
+  text-align: justify;
+  font-weight: 100;
+}
+.chapter-container .chapter-preview .chapter-info {
+  background-color: #ff8000;
+  padding: .5em 1em;
+  position: relative;
+  box-shadow: 0px 0px 35px rgba(0, 0, 0, 0.2);
+  transition: all 1s ease-in-out;
+}
+.chapter-container .chapter-preview .chapter-info .chapter-number {
+  position: relative;
+  z-index: 1;
+  margin: .5em;
+  transition: all 2s ease-in-out;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+@media screen and (max-width: 959px) {
+  .chapter-container .chapter-preview .chapter-info .chapter-number {
+    letter-spacing: 1px;
+    font-size: 0.8em;
+  }
+}
+.chapter-container .chapter-preview .chapter-info .chapter-title {
+  position: relative;
+  z-index: 1;
+  transition: all 3s ease-in-out;
+}
+.chapter-container .chapter-preview .chapter-info .chapter-title::before {
+  content: '';
+  width: 0px;
+  position: absolute;
+  top: 0px;
+  left: 50%;
+  margin-left: 0px;
+  border-top: 1px solid;
+  transition: all 1s ease-in-out;
+}
+@media screen and (max-width: 959px) {
+  .chapter-container .chapter-preview .chapter-info {
+    width: 80%;
+  }
+}
+.chapter-container .chapter-preview .chapter-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  transition: all 5s ease-in-out;
+  background-position: center center;
+}
+.chapter-container .chapter-preview:hover .chapter-info {
+  background-color: transparent !important;
+  box-shadow: 0px 0px 55px rgba(0, 0, 0, 0);
+}
+@media screen and (min-width: 960px) {
+  .chapter-container .chapter-preview:hover .chapter-title {
+    letter-spacing: 2px;
+  }
+  .chapter-container .chapter-preview:hover .chapter-title::before {
+    margin-left: -50px;
+    width: 100px;
+  }
+}
+.chapter-container .chapter-preview:hover .chapter-image {
+  -webkit-transform: scale(1.2);
+  transform: scale(1.2);
+}
+
 
 .Header {
   transition: all 1s ease-in-out;
@@ -2259,13 +2413,13 @@ md-menu-bar {
 }
 
 
+
 .md-subheader.filled .md-subheader-inner {
   padding: 0px;
 }
 .md-subheader.filled .md-subheader-inner md-toolbar {
   padding-left: 1em;
 }
-
 
 md-list-item.md-2-line {
   min-height: 62px;
@@ -2276,11 +2430,6 @@ md-list-item.md-2-line a {
 md-list-item.md-2-line > .md-no-style {
   min-height: 62px;
 }
-
-.cursor {
-  cursor: pointer;
-}
-
 
 section.module-top {
   background-color: #fff;
@@ -2580,6 +2729,11 @@ md-list-item.active {
           width:5px;
         }*/
 }
+
+.cursor {
+  cursor: pointer;
+}
+
 
 
 
@@ -3155,7 +3309,6 @@ median .slider text {
   user-select: none;
   cursor: ew-resize;
 }
-
 
 panels {
   box-sizing: border-box;
@@ -3749,6 +3902,7 @@ JavaScript Disabled
 }
 
 
+
 .dropzone {
   border: 2px dashed #ddd;
   padding: 2em;
@@ -3819,6 +3973,7 @@ piechart .inner-pie {
   overflow: hidden;
 }
 
+
 .md-color-container.md-color-picker-preview {
   content: '';
   width: 24px;
@@ -3842,7 +3997,6 @@ piechart .inner-pie {
   display: -ms-flexbox;
   display: flex;
 }
-
 
 .section {
   padding: 30px;

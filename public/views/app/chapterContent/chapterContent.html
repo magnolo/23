@@ -10,8 +10,8 @@
 <md-subheader class="md-primary selector">
   <div>
   <md-input-container class="md-block">
-    <md-select ng-model="vm.item">
-      <md-optgroup label="{{chapter.title}}" ng-repeat="chapter in vm.exporter.items" ng-style="{'color': vm.exporter.base_color}">
+    <md-select ng-model="vm.ExportService.indicator" aria-label="Select Indidicator">
+      <md-optgroup label="{{chapter.title}}" ng-repeat="chapter in vm.ExportService.exporter.items" ng-style="{'color': vm.ExportService.exporter.base_color}">
             <md-option ng-value="item" ng-repeat="item in chapter.children">{{ item.title}}</md-option>
         </md-optgroup>
     </md-select>
@@ -19,10 +19,10 @@
   </div>
 </md-subheader>
 <div class="chapter-image">
-<img ng-src="{{vm.chapter.style.image.src}}" />
+<img ng-src="{{vm.ExportService.chapter.style.image.src}}" />
 </div>
 <section class="hideOnClosed">
-        <md-tabs md-center-tabs="true" md-dynamic-height md-no-pagination="true" md-selected="vm.activeTab" md-stretch-tabs="true" md-swipe-content="true" ng-if="vm.item">
+        <md-tabs md-center-tabs="true" md-dynamic-height md-no-pagination="true" md-selected="vm.activeTab" md-stretch-tabs="true" md-swipe-content="true" ng-if="vm.ExportService.indicator">
                 <md-tab label="Details" md-active="vm.activeTab == 0" md-on-select="vm.setTab(0)">
 
                 </md-tab>
@@ -49,16 +49,16 @@
 </section>
 <style>
 .chapter-image,  md-tabs md-ink-bar{
-  background-color: {{ vm.item.style.base_color}};
+  background-color: {{ vm.ExportService.indicator.style.base_color}};
 }
 .chapter-image img{
   opacity: 0.8;
 }
 .md-subheader.md-primary, md-tabs .md-tab.md-active{
-  color:{{vm.item.style.base_color}} !important;
+  color:{{vm.ExportService.indicator.style.base_color}} !important;
 }
   md-select-menu.md-default-theme md-option[selected], md-select-menu md-option[selected]{
-    background-color:{{ vm.exporter.base_color}} !important;
+    background-color:{{ vm.ExportService.exporter.base_color}} !important;
     color:#fff !important;
     border:1px solid;
   }

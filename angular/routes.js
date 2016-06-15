@@ -331,11 +331,6 @@
 					pageName: 'Export Data',
 				},
 				views: {
-					'header@': {
-						templateUrl: getView('chapter'),
-						controller: 'ChapterCtrl',
-						controllerAs: 'vm'
-					},
 					'fullscreen@': {
 						templateUrl: getView('exported'),
 						controller: 'ExportedCtrl',
@@ -351,6 +346,11 @@
 				layout:'loose',
 				fixLayout: true,
 				views: {
+					'header@': {
+						templateUrl: getView('chapter'),
+						controller: 'ChapterCtrl',
+						controllerAs: 'vm'
+					},
 					'sidebar@': {
 						templateUrl: getView('chapterContent'),
 						controller: 'ChapterContentCtrl',

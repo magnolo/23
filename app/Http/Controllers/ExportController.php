@@ -27,7 +27,7 @@ class ExportController extends Controller
     public function index()
     {
         //
-        return response()->api(Export::with(['items', 'image'])->get());
+        return response()->api(Export::with(['items', 'image', 'style'])->get());
 
     }
 
@@ -55,7 +55,7 @@ class ExportController extends Controller
 
         $export->save();
 
-
+        $export->load('items');
 
         return response()->api($export);
     }
@@ -69,7 +69,7 @@ class ExportController extends Controller
     public function show($id)
     {
         //
-        $export = Export::with(['items', 'image'])->where('id', $id)->firstOrFail();
+        $export = Export::with(['items', 'image','style'])->where('id', $id)->firstOrFail();
         return response()->api($export);
     }
 
@@ -101,6 +101,30 @@ class ExportController extends Controller
         $export->description = $request->get('description');
         $export->image_id = $request->get('image_id');
         $export->base_color = $request->get('base_color');
+        if($request->has('style')){
+          $styles = $request->get('style');
+          $style = new Style;
+          $style->title = "Export: ".$export->title;
+          $style->name = str_slug($style->title);
+
+          if(isset($styles['basemap_id'])) $style->basemap_id = $styles['basemap_id'];
+          if(isset($styles['base_color'])) $style->base_color = $styles['base_color'];
+          if(isset($styles['fixed_title'])) $style->fixed_title = $styles['fixed_title'];
+          if(isset($styles['fixed_description']))$style->fixed_description = $styles['fixed_description'];
+          if(isset($styles['search_box']))$style->search_box = $styles['search_box'];
+          if(isset($styles['share_options']))$style->share_options = $styles['share_options'];
+          if(isset($styles['zoom_controls']))$style->zoom_controls = $styles['zoom_controls'];
+          if(isset($styles['scroll_wheel_zoom']))$style->scroll_wheel_zoom = $styles['scroll_wheel_zoom'];
+          if(isset($styles['legends']))$style->legends = $styles['legends'];
+          if(isset($styles['layer_selection']))$style->layer_selection = $styles['layer_selection'];
+          if(isset($styles['full_screen']))$style->full_screen = $styles['full_screen'];
+          if(isset($styles['image_id']))$style->image_id = $styles['image_id'];
+
+          $style->save();
+
+          $export->style_id = $style->id;
+        }
+
         $export->save();
 
         foreach($export->items() as $item){
