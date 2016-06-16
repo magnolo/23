@@ -26,7 +26,6 @@
 		<md-content class="thumb-color" ng-repeat="item in vm.exporter.items" ng-if="item.type == 'group'" >
 			<md-subheader class="md-primary rowed" >
 				<span>{{item.title}}</span>
-				<span flex></span>
 				<md-button class="md-icon-button md-primary" ng-click="item.showContent = !item.showContent">
 					<md-icon>{{ item.showContent ? 'expand_less' : 'expand_more' }}</md-icon>
 				</md-button>

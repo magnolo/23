@@ -252,6 +252,7 @@
 				 	var final = "";
 					var value = brush.extent()[0];
 					angular.forEach($scope.data, function(nat, key) {
+						console.log(nat);
 						if (parseInt(nat[options.field]) == parseInt(value)) {
 							final = nat;
 							found = true;
@@ -303,12 +304,12 @@
 					rect.style('fill', 'url(#' + options.field + '_' + n.color + ')');
 					handle.style('fill', n.color);
 					if (ngModel.$modelValue) {
-						handleLabel.text(labeling(ngModel.$modelValue[n.field]));
-						handleCont.transition().duration(500).ease('quad').attr("transform", 'translate(' + x(ngModel.$modelValue[n.field]) + ',' + options.height / 2 + ')');
+						handleLabel.text(labeling(ngModel.$modelValue.data[0][n.field]));
+						handleCont.transition().duration(500).ease('quad').attr("transform", 'translate(' + x(ngModel.$modelValue.data[0][n.field]) + ',' + options.height / 2 + ')');
 					} else {
 						handleLabel.text(0);
 					}
-				});
+				}, true);
 				$scope.$watch(
 					function() {
 						return ngModel.$modelValue;
@@ -320,11 +321,11 @@
 							return;
 						}
 
-							handleLabel.text(labeling(newValue[options.field]));
+							handleLabel.text(labeling(newValue.data[0][options.field]));
 							if (newValue == oldValue) {
-								handleCont.attr("transform", 'translate(' + x(newValue[options.field]) + ',' + options.height / 2 + ')');
+								handleCont.attr("transform", 'translate(' + x(newValue.data[0][options.field]) + ',' + options.height / 2 + ')');
 							} else {
-								handleCont.transition().duration(500).ease('quad').attr("transform", 'translate(' + x(newValue[options.field]) + ',' + options.height / 2 + ')');
+								handleCont.transition().duration(500).ease('quad').attr("transform", 'translate(' + x(newValue.data[0][options.field]) + ',' + options.height / 2 + ')');
 
 							}
 
@@ -339,8 +340,8 @@
 						max = d3.max([max, parseInt(nat[options.field])]);
 						min = d3.min([min, parseInt(nat[options.field])]);
 						if (nat.iso == ngModel.$modelValue.iso) {
-							handleLabel.text(labeling(nat[options.field]));
-							handleCont.transition().duration(500).ease('quad').attr("transform", 'translate(' + x(nat[options.field]) + ',' + options.height / 2 + ')');
+							handleLabel.text(labeling(nat.data[0][options.field]));
+							handleCont.transition().duration(500).ease('quad').attr("transform", 'translate(' + x(nat.data[0][options.field]) + ',' + options.height / 2 + ')');
 
 						}
 					});
@@ -364,8 +365,8 @@
 					});
 					angular.forEach($scope.data, function(nat, key) {
 						if (nat.iso == ngModel.$modelValue.iso) {
-							handleLabel.text(labeling(nat[options.field]));
-							handleCont.transition().duration(500).ease('quad').attr("transform", 'translate(' + x(nat[options.field]) + ',' + options.height / 2 + ')');
+							handleLabel.text(labeling(nat.data[0][options.field]));
+							handleCont.transition().duration(500).ease('quad').attr("transform", 'translate(' + x(nat.data[0][options.field]) + ',' + options.height / 2 + ')');
 						}
 					});
 

@@ -67,27 +67,33 @@
 					.text(function (d) {
 						if(!$scope.options.hideNumbering)
 							return 'N°' + d;
-						return d;
+						return d + '/' +$scope.options.size;
 					})
 					.style("fill", $scope.options.color)
 					.style('font-weight', 'bold')
 					.style('font-size', function(){
-						if(!$scope.options.hideNumbering)
+						//if(!$scope.options.hideNumbering)
 						return '1em';
-						return '1.5em';
+						//return '1.5em';
 					})
 					.attr('text-anchor', 'middle')
 					.attr('y', function(d){
-						if(!$scope.options.hideNumbering)
+						//if(!$scope.options.hideNumbering)
 							return '0.35em';
-						return '0.37em'
+						//return '0.37em'
 					});
 
 				//Transition if selection has changed
 				function animateIt(radius) {
+					circleBack.transition()
+							.duration(750)
+							.attr('stroke', $scope.options.color);
+
+							console.log(rotate(radius));
 					circleGraph.transition()
 							.duration(750)
-							.call(arcTween, rotate(radius) * 2 * Math.PI);
+							.style("fill", $scope.options.color)
+							.call(arcTween, Math.random()/*rotate(radius)*/ * 2 * Math.PI);
 
 					text.transition().duration(750).tween('text', function (d) {
 						if(!$scope.options.hideNumbering){
@@ -98,17 +104,20 @@
 							};
 						}
 						else{
-							var i = d3.interpolate(parseInt(d), radius);
+							var data = this.textContent.split('/');
+							var i = d3.interpolate(parseInt(data[0]), radius);
 							return function (t) {
-								this.textContent = (Math.round(i(t) * 1) / 1);
+								this.textContent = (Math.round(i(t) * 1) / 1) + "/" + $scope.options.size;
 							};
 						}
-					})
+					}).style("fill", $scope.options.color)
 				}
 
 				//Tween animation for the Arc
 				function arcTween(transition, newAngle) {
 					transition.attrTween("d", function (d) {
+						console.log(d.endAngle);
+						console.log(newAngle);
 						var interpolate = d3.interpolate(d.endAngle, newAngle);
 						return function (t) {
 							d.endAngle = interpolate(t);
@@ -142,6 +151,7 @@
 				$scope.$watch('options', function(n,o){
 					if(n === o || !n) return;
 					$timeout(function () {
+
 							animateIt($scope.item[$scope.options.field]);
 					});
 				},true);

@@ -90,8 +90,6 @@
 				max: 0,
 				min: 1000
 			};
-			console.log(vm.selection);
-			console.log(vm.data);
 			angular.forEach(vm.selection, function (item, key) {
 				var graph = {
 					id: key,
