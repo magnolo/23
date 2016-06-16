@@ -24,10 +24,14 @@
 		</md-content>
 		<md-divider></md-divider>
 		<md-content class="thumb-color" ng-repeat="item in vm.exporter.items" ng-if="item.type == 'group'" >
-			<md-subheader class="md-primary" >
-				{{item.title}}
+			<md-subheader class="md-primary rowed" >
+				<span>{{item.title}}</span>
+				<span flex></span>
+				<md-button class="md-icon-button md-primary" ng-click="item.showContent = !item.showContent">
+					<md-icon>{{ item.showContent ? 'expand_less' : 'expand_more' }}</md-icon>
+				</md-button>
 			</md-subheader>
-			<md-content layout-padding>
+			<md-content layout-padding class="toggled" ng-class="{'closed':item.showContent}">
 				<div>
 					<md-input-container class="md-block">
 						<label>Description</label>

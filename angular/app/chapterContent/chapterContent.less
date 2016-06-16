@@ -1,8 +1,46 @@
 .chapter-image{
-  img{
+  position:relative;
+  min-height: 200px;
+  .image{
     max-width: 100%;
-    width:100%;
+    width: 100%;
     display: inherit;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    background-size: cover;
+    background-position: center center;
+  }
+  h1, h2, h3, h4, span, p{
+    position: relative;
+    z-index: 1;
+    color:#fff;
+  }
+  h2{
+    margin:0px;
+    margin-top:.8em;
+    margin-bottom:.8em;
+    font-size: 1.2em;
+    &::before{
+      content:'';
+      width:26px;
+      border-top:1px solid;
+      position: absolute;
+      top:-5px;
+      left:50%;
+      margin-left: -13px;
+    }
+  }
+  md-input-container{
+    margin:0px;
+    font-size:1.3em;
+    .md-select-icon{
+      font-size:12px;
+    }
+    .md-select-value{
+      border-bottom-color:rgba(255,255,255,0.12);
+    }
   }
 }
 .md-subheader{
@@ -15,5 +53,13 @@
       }
     }
 
+  }
+}
+.mobile-container{
+  @media screen and (max-width: 959px) {
+    position: fixed;
+    background: #fff;
+    transform: translateY(calc(~'100vh - 290px'));
+    width:100%;
   }
 }

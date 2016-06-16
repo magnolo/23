@@ -15,8 +15,11 @@
               indiname:i.name
             })
           });
-
         }
+
+        // $scope.$on('$stateChangeSuccess', function(event, toState, toParams){
+        //     vm.ExportService.getChapter(toParams.id, toParams.chapter);
+        // });
     });
 
 })();

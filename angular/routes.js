@@ -324,6 +324,11 @@
 			.state('app.export', {
 				abstract: true,
 				url: '/export',
+				resolve: {
+					countries: function(CountriesService) {
+						return CountriesService.getData();
+					}
+				}
 			})
 			.state('app.export.detail', {
 				url: '/:id/:name',

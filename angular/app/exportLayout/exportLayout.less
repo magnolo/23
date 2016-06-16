@@ -1,9 +1,31 @@
 .split-layout{
-  .md-subheader-content{
-    text-align: center;
-    h4{
-      margin:0px;
-      font-size:em;
+    .md-subheader-content{
+      text-align: center;
+      h4{
+        margin:0px;
+
+      }
     }
+
+  .rowed{
+    .md-subheader-content{
+      text-align: left;
+      display: flex;
+      text-align: center;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      align-content: center;
+
+    }
+  }
+
+}
+.toggled{
+
+  &.closed{
+    overflow: hidden;
+    height:0px;
+    padding:0;
   }
 }

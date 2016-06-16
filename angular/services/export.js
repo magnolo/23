@@ -62,7 +62,7 @@
 				if (typeof success === 'function')
 					success(vm.chapter, vm.indicator);
 			} else {
-				this.getExport(id, function(data) {
+				vm.getExport(id, function(data) {
 					vm.chapter = vm.exporter.items[chapter - 1];
 					vm.indicator = vm.getFirstIndicator(vm.chapter.children);
 					if (typeof success === 'function')
@@ -72,8 +72,7 @@
 		}
 		vm.getIndicator = function(id, chapter, indicator, success) {
 			vm.getChapter(id, chapter, function(c, i) {
-				console.log(c, i);
-				console.log(chapter, indicator);
+				success(c,i);
 			});
 		}
 		vm.getFirstIndicator = function(list) {

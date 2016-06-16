@@ -326,6 +326,23 @@ p {
           bottom: auto;
           max-height: 100%;
           overflow-x: hidden;
+            @media screen and (max-width: 959px) {
+              top:42px;
+              overflow-x:visible;
+            }
+      }
+      #map{
+        @media screen and (max-width: 959px) {
+          height: calc(~'100% - 180px');
+        }
+      }
+      &.loggedIn{
+        #sidebar{
+          left:48px;
+          @media screen and (max-width: 959px) {
+              left:0px;
+          }
+        }
       }
     }
 }

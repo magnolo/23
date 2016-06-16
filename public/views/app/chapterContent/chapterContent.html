@@ -7,59 +7,94 @@
      </md-button>
    </div>
  </md-toolbar> -->
-<md-subheader class="md-primary selector">
-  <div>
-  <md-input-container class="md-block">
-    <md-select ng-model="vm.ExportService.indicator" aria-label="Select Indidicator">
-      <md-optgroup label="{{chapter.title}}" ng-repeat="chapter in vm.ExportService.exporter.items" ng-style="{'color': vm.ExportService.exporter.base_color}">
-            <md-option ng-value="item" ng-repeat="item in chapter.children">{{ item.title}}</md-option>
-        </md-optgroup>
-    </md-select>
-  </md-input-container>
-  </div>
-</md-subheader>
-<div class="chapter-image">
-<img ng-src="{{vm.ExportService.chapter.style.image.src}}" />
-</div>
-<section class="hideOnClosed">
-        <md-tabs md-center-tabs="true" md-dynamic-height md-no-pagination="true" md-selected="vm.activeTab" md-stretch-tabs="true" md-swipe-content="true" ng-if="vm.ExportService.indicator">
-                <md-tab label="Details" md-active="vm.activeTab == 0" md-on-select="vm.setTab(0)">
 
-                </md-tab>
-                <md-tab label="History" md-active="vm.activeTab == 1" md-on-select="vm.setTab(1)" ng-disabled="!vm.current.data">
-                        <div class="module tabs no-margin" layout="column">
-                                <history chartdata="vm.current.data" options="{field:vm.item.name, color:vm.item.style.base_color || 'rgba(128, 243, 198,1)'}"></history>
-                        </div>
-                </md-tab>
-                <md-tab label="Compare" md-active="vm.activeTab == 2" md-on-deselect="vm.checkComparison(false)" md-on-select="vm.checkComparison(true)" ng-disabled="!vm.country">
-                        <div class="module comparison">
-                                <div layout-wrap layout="row">
-                                        <div class="country anim-opacity" flex="50" ng-repeat="country in vm.compare.countries">
-                                                <h4 ng-click="vm.setCurrent(country)">
+<div class="chapter-image" hide-xs hide-sm layout="column" layout-align="center center">
+  <span>{{ vm.ExportService.chapter.title}}</span>
+  <h2 class="doAnim-right">
+    <div>
+      <md-input-container class="md-block">
+        <label ng-if="!vm.nation">Choose from countries list</label>
+        <md-select ng-model="vm.nation" aria-label="Choose Country from List" ng-change="vm.selectCountry(nation)">
+          <md-option ng-value="nation" ng-repeat="(key, nation) in vm.countries">{{ nation }}</md-option>
+        </md-select>
+    </md-input-container>
+  </div></h2>
+	<div style="background-image:url('{{vm.ExportService.chapter.style.image.src}}')" class="image"></div>
+  <div>
+		<md-input-container class="md-block">
+			<md-select ng-model="vm.ExportService.indicator" aria-label="Select Indidicator">
+				<md-optgroup label="{{chapter.title}}" ng-repeat="chapter in vm.ExportService.exporter.items" ng-style="{'color': vm.ExportService.exporter.base_color}">
+					<md-option ng-value="item" ng-repeat="item in chapter.children">{{ item.title}}</md-option>
+				</md-optgroup>
+			</md-select>
+		</md-input-container>
+	</div>
+</div>
+<md-subheader class="md-primary selector" hide-gt-sm>
+	<div>
+		<md-input-container class="md-block">
+			<md-select ng-model="vm.ExportService.indicator" aria-label="Select Indidicator">
+				<md-optgroup label="{{chapter.title}}" ng-repeat="chapter in vm.ExportService.exporter.items" ng-style="{'color': vm.ExportService.exporter.base_color}">
+					<md-option ng-value="item" ng-repeat="item in chapter.children">{{ item.title}}</md-option>
+				</md-optgroup>
+			</md-select>
+		</md-input-container>
+	</div>
+</md-subheader>
+<section class="mobile-container" ng-if="vm.nation">
+	<md-tabs md-center-tabs="true" md-dynamic-height md-no-pagination="true" md-selected="vm.activeTab" md-stretch-tabs="always" md-swipe-content="true" ng-if="vm.ExportService.indicator">
+		<md-tab label="Details" md-active="vm.activeTab == 0" md-on-select="vm.setTab(0)">
+			<md-content layout-padding>
+				<div hide-gt-sm>
+					<md-input-container class="md-block">
+						<label>Choose from countries list</label>
+						<md-select ng-model="vm.nation" aria-label="Choose Country from List" ng-change="vm.selectCountry(nation)">
+							<md-option ng-value="nation" ng-repeat="(key, nation) in vm.countries">{{ nation }}</md-option>
+						</md-select>
+					</md-input-container>
+				</div>
+			</md-content>
+		</md-tab>
+		<md-tab label="History" md-active="vm.activeTab == 1" md-on-select="vm.setTab(1)" ng-disabled="!vm.current.data">
+			<div class="module tabs no-margin" layout="column">
+				<history chartdata="vm.current.data" options="{field:vm.ExportService.indicator.name, color:vm.ExportService.indicator.style.base_color || 'rgba(128, 243, 198,1)'}"></history>
+			</div>
+		</md-tab>
+		<md-tab label="Compare" md-active="vm.activeTab == 2" md-on-deselect="vm.checkComparison(false)" md-on-select="vm.checkComparison(true)" ng-disabled="!vm.country">
+			<div class="module comparison">
+				<div layout-wrap layout="row">
+					<div class="country anim-opacity" flex="50" ng-repeat="country in vm.compare.countries">
+						<h4 ng-click="vm.setCurrent(country)">
                                                         <span class="number">N°{{vm.getRank(country)}}</span>
                                                         {{vm.countryList[country.iso]}}</h4>
-                                                <median data="vm.data" height="20" info="false" ng-model="country" options="{'color': vm.structure.style.base_color, field: vm.structure.name}" width="120"></median>
-                                                <bubbles borders="false" chartdata="country" height="150" indexer="vm.structure" labels="false" ng-if="vm.structure.children.length" ng-model="vm.display.selectedCat" sizefactor="5" width="120"></bubbles>
+						<median data="vm.data" height="20" info="false" ng-model="country" options="{'color': vm.structure.style.base_color, field: vm.structure.name}" width="120"></median>
+						<bubbles borders="false" chartdata="country" height="150" indexer="vm.structure" labels="false" ng-if="vm.structure.children.length" ng-model="vm.display.selectedCat" sizefactor="5" width="120"></bubbles>
 
-                                        </div>
-                                </div>
-                        </div>
-                </md-tab>
-        </md-tabs>
+					</div>
+				</div>
+			</div>
+		</md-tab>
+	</md-tabs>
 </section>
 <style>
-.chapter-image,  md-tabs md-ink-bar{
-  background-color: {{ vm.ExportService.indicator.style.base_color}};
-}
-.chapter-image img{
-  opacity: 0.8;
-}
-.md-subheader.md-primary, md-tabs .md-tab.md-active{
-  color:{{vm.ExportService.indicator.style.base_color}} !important;
-}
-  md-select-menu.md-default-theme md-option[selected], md-select-menu md-option[selected]{
-    background-color:{{ vm.ExportService.exporter.base_color}} !important;
-    color:#fff !important;
-    border:1px solid;
-  }
+	.chapter-image,
+	md-tabs md-ink-bar {
+		background-color: {{ vm.ExportService.indicator.style.base_color }} ;
+	}
+
+	.chapter-image img {
+		opacity: 0.8;
+	}
+
+	.md-subheader.md-primary,
+	md-tabs .md-tab.md-active {
+		color: {{ vm.ExportService.indicator.style.base_color }} !important;
+	}
+
+	md-select-menu.md-default-theme md-option[selected],
+	md-select-menu md-option[selected] {
+		background-color: {{ vm.ExportService.exporter.base_color }} !important;
+		color:#fff !important;
+		border:1px solid;
+	}
 </style>

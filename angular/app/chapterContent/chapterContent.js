@@ -1,15 +1,15 @@
 (function(){
     "use strict";
 
-    angular.module('app.controllers').controller('ChapterContentCtrl', function($scope, $timeout, $state,DataService, ExportService,IndizesService, DialogService,VectorlayerService){
+    angular.module('app.controllers').controller('ChapterContentCtrl', function($scope, $timeout, $state,DataService,countries, ExportService,IndizesService, DialogService,VectorlayerService){
         //
         var vm = this;
         vm.showInfo = showInfo;
         vm.chapterId = $state.params.chapter;
         vm.current = {};
         vm.ExportService = ExportService;
-
-
+        vm.countries = countries.plain();
+        vm.selectCountry = selectCountry;
         vm.ExportService.getIndicator($state.params.id, $state.params.chapter, $state.params.indicator, function(chapter, indicator){
     				renderIndicator(indicator);
         });
@@ -18,8 +18,22 @@
             iso:data.feature.id
           });
         });
+        function selectCountry(){
+          var iso = getCountryByName(vm.nation);
+          fetchNationData(iso);
+        }
+        function getCountryByName(name){
+          var iso = null;
+          angular.forEach(vm.countries, function(nat,key){
+            if(nat == name){
+              iso = key;
+            }
+          });
+          return iso;
+        }
         function fetchNationData(iso){
           IndizesService.fetchNationData(vm.ExportService.indicator.indicator_id, iso, function(data){
+            vm.nation = vm.countries[iso];
             vm.current = data;
           });
         }
@@ -54,7 +68,7 @@
         function showInfo(){
             DialogService.fromTemplate('export', $scope);
         }
-        $scope.$watch('vm.item', function(n,o){
+        $scope.$watch('vm.ExportService.indicator', function(n,o){
             if(n === o) return false;
             console.log(n);
             renderIndicator(n);
