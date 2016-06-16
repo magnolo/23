@@ -8,7 +8,7 @@
    </div>
  </md-toolbar> -->
 
-<div class="chapter-image" hide-xs hide-sm layout="column" layout-align="center center">
+<div class="chapter-image" hide-xs hide-sm layout="column" layout-align="center center" ng-class="{'dark': !vm.isDark}">
   <span>{{ vm.ExportService.chapter.title}}</span>
   <h2 class="doAnim-right">
     <div>
@@ -19,7 +19,10 @@
         </md-select>
     </md-input-container>
   </div></h2>
-	<div style="background-image:url('{{vm.ExportService.chapter.style.image.src}}')" class="image"></div>
+	<div style="background-image:url('{{vm.ExportService.chapter.style.image.src}}')" class="image">
+    <div class="tint"></div>
+    <img color="vm.isDark" image-color src="{{vm.ExportService.chapter.style.image.src}}" style="display:none"  />
+  </div>
   <div>
 		<md-input-container class="md-block">
 			<md-select ng-model="vm.ExportService.indicator" aria-label="Select Indidicator">
@@ -53,6 +56,9 @@
 						</md-select>
 					</md-input-container>
 				</div>
+        <div layout="row">
+              <circlegraph item="vm.current" options="vm.circleOptions"></circlegraph>
+        </div>
 			</md-content>
 		</md-tab>
 		<md-tab label="History" md-active="vm.activeTab == 1" md-on-select="vm.setTab(1)" ng-disabled="!vm.current.data">
@@ -78,7 +84,7 @@
 </section>
 <style>
 	.chapter-image,
-	md-tabs md-ink-bar {
+	md-tabs md-ink-bar, .tint {
 		background-color: {{ vm.ExportService.indicator.style.base_color }} ;
 	}
 

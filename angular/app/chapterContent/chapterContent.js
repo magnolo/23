@@ -10,6 +10,7 @@
         vm.ExportService = ExportService;
         vm.countries = countries.plain();
         vm.selectCountry = selectCountry;
+        vm.circleOptions = {};
         vm.ExportService.getIndicator($state.params.id, $state.params.chapter, $state.params.indicator, function(chapter, indicator){
     				renderIndicator(indicator);
         });
@@ -46,6 +47,11 @@
               VectorlayerService.setBaseLayer(item.style.basemap);
               VectorlayerService.setData(vm.structure,vm.data,item.style.base_color, true);
               $timeout(function(){
+                vm.circleOptions = {
+          				color: vm.ExportService.indicator.style.base_color || '#00ccaa',
+          				field: vm.structure.name + '_rank',
+          				size: vm.data.length
+          			};
                 if($state.params.iso){
                   $state.go('app.export.detail.chapter.indicator.country',{
                     indicator:item.indicator_id,
@@ -72,6 +78,10 @@
             if(n === o) return false;
             console.log(n);
             renderIndicator(n);
+        });
+        $scope.$watch('vm.color', function(n,o){
+            if(n === o) return false;
+            console.log(n);
         });
         $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
           fetchNationData(toParams.iso);

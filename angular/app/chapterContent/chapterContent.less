@@ -1,6 +1,7 @@
 .chapter-image{
   position:relative;
   min-height: 200px;
+  overflow: hidden;
   .image{
     max-width: 100%;
     width: 100%;
@@ -11,11 +12,23 @@
     height: 100%;
     background-size: cover;
     background-position: center center;
+
+  filter: blur(3px);
+  transform:scale(1.1);
+    .tint{
+      position: absolute;
+      top:0px;
+      left:0px;
+      width:100%;
+      height:100%;
+      opacity: 0.3;
+    }
   }
   h1, h2, h3, h4, span, p{
     position: relative;
     z-index: 1;
     color:#fff;
+    text-shadow: 0px 0px 3px rgba(0,0,0,1);
   }
   h2{
     margin:0px;
@@ -35,12 +48,26 @@
   md-input-container{
     margin:0px;
     font-size:1.3em;
+    text-shadow: 0px 0px 3px rgba(0,0,0,1);
     .md-select-icon{
       font-size:12px;
     }
     .md-select-value{
       border-bottom-color:rgba(255,255,255,0.12);
     }
+  }
+  &.dark{
+    h1, h2, h3, h4, span, p{
+      color:#333;
+      text-shadow: 1px 0px 0px rgba(255,255,255,0.5);
+    }
+      md-input-container{
+        text-shadow: 0px 0px 3px rgba(255,255,255,1);
+        .md-select-value{
+          border-bottom-color:rgba(0,0,0,0.12);
+        }
+
+      }
   }
 }
 .md-subheader{
