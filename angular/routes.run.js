@@ -45,6 +45,7 @@
 				$rootScope.fixLayout = false;
 			}
 			if (typeof toState.views != "undefined") {
+				console.log(toState)
 				if (toState.views.hasOwnProperty('sidebar@') || toState.views.hasOwnProperty('main@'))  {
 					$rootScope.sidebar = true;
 				} else {
@@ -80,6 +81,7 @@
 				$rootScope.itemMenu = false;
 				$rootScope.logoView = false;
 				$rootScope.mainView = false;
+				$rootScope.sidebar = true;
 			}
 			if ((toState.name.indexOf('conflict') > -1 && toState.name != "app.conflict.import" )) {
 				$rootScope.noHeader = true;

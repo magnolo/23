@@ -25,7 +25,7 @@
   </div>
   <div>
 		<md-input-container class="md-block">
-			<md-select ng-model="vm.ExportService.indicator" aria-label="Select Indidicator">
+			<md-select ng-model="vm.selectedIndicator" aria-label="Select Indidicator" ng-change="vm.gotoIndicator()">
 				<md-optgroup label="{{chapter.title}}" ng-repeat="chapter in vm.ExportService.exporter.items" ng-style="{'color': vm.ExportService.exporter.base_color}">
 					<md-option ng-value="item" ng-repeat="item in chapter.children">{{ item.title}}</md-option>
 				</md-optgroup>

@@ -325,8 +325,10 @@
 				abstract: true,
 				url: '/export',
 				resolve: {
-					countries: function(CountriesService) {
-						return CountriesService.getData();
+					countries: function(DataService) {
+						return DataService.getOne('countries/isos').then(function(countries){
+							return countries;
+						});
 					}
 				}
 			})
@@ -367,6 +369,7 @@
 				url: '/:indicator/:indiname',
 				layout:'loose',
 				fixLayout: true,
+
 			})
 			.state('app.export.detail.chapter.indicator.country', {
 				url: '/:iso',
