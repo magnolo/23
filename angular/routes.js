@@ -376,6 +376,11 @@
 				layout:'loose',
 				fixLayout: true,
 			})
+			.state('app.export.detail.chapter.indicator.country.compare', {
+				url: '/compare/:countries',
+				layout:'loose',
+				fixLayout: true,
+			})
 			.state('app.index.exports', {
 				url: '/exports',
 				auth:true,

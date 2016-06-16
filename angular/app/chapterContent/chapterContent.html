@@ -72,7 +72,7 @@
 				<history chartdata="vm.current.data" options="{field:vm.ExportService.indicator.name, color:vm.ExportService.indicator.style.base_color || 'rgba(128, 243, 198,1)'}"></history>
 			</div>
 		</md-tab>
-		<md-tab label="Compare" md-active="vm.activeTab == 2" md-on-deselect="vm.compare = false" md-on-select="vm.compare = true" ng-disabled="!vm.nation">
+		<md-tab label="Compare" md-active="vm.activeTab == 2" md-on-deselect="vm.setCompare(false)" md-on-select="vm.setCompare(true)" ng-disabled="!vm.nation">
 			<div class="module comparison">
 				<div layout-wrap layout="row" ng-if="vm.current && vm.structure" >
           <compare-countries country="vm.current" countries="vm.countriesList" options="{field: vm.structure.name, height: 25, margin:5}"></compare-countries>

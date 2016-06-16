@@ -63,7 +63,7 @@
 				var chart = container.append('g')
 					.attr('id', 'bars')
 					.attr("transform", "translate(100,0)");
-		
+
 				function updateData() {
 					svg.transition()
 						.duration(500)
@@ -91,7 +91,10 @@
 						})
 						.attr('width', function(d) {
 							return 0;
-						});
+						})
+						.exit()
+						.remove();
+						
 					var circles = chart.selectAll('circle')
 						.data(scope.countries)
 						.enter()
@@ -133,7 +136,9 @@
 								 this.textContent = Math.round(i(t));
 							};
 
-						});
+						})
+						.exit()
+						.remove();
 				}
 
 

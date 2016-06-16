@@ -1,7 +1,7 @@
 (function() {
 	"use strict";
 
-	angular.module('app.services').service('VectorlayerService', function($timeout) {
+	angular.module('app.services').service('VectorlayerService', function($timeout, DataService) {
 		var that = this, _self = this;
 		this.fallbackBasemap = {
 			name: 'Outdoor',
@@ -177,6 +177,16 @@
 			this.setStyle = function(style){
 				return this.map.style = style;
 			}
+			this.invertStyle = function(){
+				this.data.layer.setStyle(that.invertedStyle);
+				that.data.layer.options.mutexToggle = false;
+				that.data.layer.redraw();
+			}
+			this.localStyle = function(){
+				this.data.layer.setStyle(that.countriesStyle);
+				that.data.layer.options.mutexToggle = true;
+				that.data.layer.redraw();
+			}
 			this.setData = function (data, structure, color, drawIt) {
 				this.map.data = data;
 				this.map.structure = structure;
@@ -259,6 +269,7 @@
 
 			}
 			this.setSelectedFeature = function(iso, selected){
+
 				if(typeof this.data.layer.layers[this.data.name+'_geom'].features[iso] == 'undefined'){
 					console.log(iso);
 					//debugger;
@@ -280,6 +291,51 @@
 					this.createCanvas(color)
 				}
 				this.paintCountries();
+			}
+			this.gotoCountry = function(iso){
+						DataService.getOne('countries/bbox', [iso]).then(function(data) {
+							var southWest = L.latLng(data.coordinates[0][0][1], data.coordinates[0][0][0]),
+								northEast = L.latLng(data.coordinates[0][2][1], data.coordinates[0][2][0]),
+								bounds = L.latLngBounds(southWest, northEast);
+
+							var pad = [
+								[0, 0],
+								[100, 100]
+							];
+							// if (vm.compare.active) {
+							// 	pad = [
+							// 		[0, 0],
+							// 		[0, 0]
+							// 	];
+							// }
+							that.mapLayer.fitBounds(bounds, {
+								padding: pad[1],
+								maxZoom: 6
+							});
+						});
+			}
+			this.gotoCountries = function(main, isos){
+					//	isos.push(main);
+						DataService.getOne('countries/bbox', isos).then(function(data) {
+							var southWest = L.latLng(data.coordinates[0][0][1], data.coordinates[0][0][0]),
+								northEast = L.latLng(data.coordinates[0][2][1], data.coordinates[0][2][0]),
+								bounds = L.latLngBounds(southWest, northEast);
+
+							var pad = [
+								[100, 100],
+								[100, 100]
+							];
+							// if (vm.compare.active) {
+							// 	pad = [
+							// 		[0, 0],
+							// 		[0, 0]
+							// 	];
+							// }
+							that.mapLayer.fitBounds(bounds, {
+								padding: pad[1],
+								maxZoom: 6
+							});
+						});
 			}
 			//FULL TO DO
 			this.countriesStyle = function(feature) {
@@ -324,7 +380,30 @@
 				}
 				return style;
 			}
+			this.invertedStyle = function(feature) {
+				var style = {};
+				var iso = feature.properties[that.iso_field];
+				var nation = that.getNationByIso(iso);
+				var field = that.map.structure.name || 'score';
 
+				//TODO: MAX VALUE INSTEAD OF 100
+				var colorPos = parseInt(256 / 100 * nation[field]) * 4;
+
+				var color = 'rgba(' + that.palette[colorPos] + ', ' + that.palette[colorPos + 1] + ', ' + that.palette[colorPos + 2] + ',' + that.palette[colorPos + 3] + ')';
+				style.color = 'rgba(0,0,0,0)';
+				style.outline = {
+					color: 'rgba(0,0,0,0)',
+					size: 0
+				};
+				style.selected = {
+					color: color,
+					outline: {
+						color: 'rgba(0,0,0,0.3)',
+						size: 2
+					}
+				};
+				return style;
+			}
 
 	});
 
