@@ -77,6 +77,10 @@
             VectorlayerService.localStyle();
             $state.go('app.export.detail.chapter.indicator.country');
             VectorlayerService.setSelectedFeature($state.params.iso, true);
+
+            //muss nicht sein
+            vm.compareList = [];
+            vm.countriesList = [];
           }
 
         }

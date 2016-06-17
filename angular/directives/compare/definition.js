@@ -91,10 +91,8 @@
 						})
 						.attr('width', function(d) {
 							return 0;
-						})
-						.exit()
-						.remove();
-						
+						});
+
 					var circles = chart.selectAll('circle')
 						.data(scope.countries)
 						.enter()
@@ -136,9 +134,7 @@
 								 this.textContent = Math.round(i(t));
 							};
 
-						})
-						.exit()
-						.remove();
+						});
 				}
 
 
