@@ -3209,8 +3209,10 @@ bubbles {
 
 
 
-.yaxis.dashed .minor {
+
+.yaxis.dashed .domain {
   stroke-width: 0.4px;
+  fill: #aaa;
 }
 
 
@@ -4318,6 +4320,5 @@ piechart .inner-pie {
   color: #006bb9;
   cursor: pointer;
 }
-
 
 /*# sourceMappingURL=app.css.map */

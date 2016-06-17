@@ -5,9 +5,10 @@
 
 		var defaults = function() {
 			return {
-				width: 370,
+				width: 350,
 				height: 25,
 				margin: 5,
+				color: '#ff0000',
 				field: 'score'
 			}
 		};
@@ -23,22 +24,23 @@
 			},
 			link: function(scope, element, attrs) {
 				scope.options = angular.extend(defaults(), scope.options);
-				console.log(scope.options);
+				var fontColor = '#333', bgColor = '#ddd';
 
 				var xscale = d3.scale.linear()
 					.domain([0, 100])
-					.range([0, (scope.options.width - 150)]);
+					.range([0, (scope.options.width - 100)]);
 
 				var yscale = d3.scale.linear()
-					.domain([0, scope.countries.length + 1])
+					.domain([0, scope.countries.length])
 					.range([0, scope.options.height]);
 
 				var svg = d3.select(element[0]).append('svg');
 				svg.attr('width', scope.options.width)
-					.attr('height', scope.options.height * scope.countries.length + 1);
+					.attr('height', scope.options.height * scope.countries.length);
 
 				var container = svg.append('g')
-					.attr('id', 'compare-chart');
+					.attr('id', 'compare-chart')
+					.attr('y', scope.options.height);
 
 
 				var yAxis = d3.svg.axis();
@@ -63,55 +65,61 @@
 				var chart = container.append('g')
 					.attr('id', 'bars')
 					.attr("transform", "translate(100,0)");
+				var labels = container.append('g')
+					.attr('id', 'labels')
+					.attr('width' , 100);
 
+					var y_xis_end= container.append('g')
+							.attr("transform", "translate(" + scope.options.width + ",0)")
+							.attr('class', 'yaxis')
+							.style("stroke-dasharray", ("3, 3"))
+							.call(yAxis);
 				function updateData() {
 					svg.transition()
 						.duration(500)
-						.attr('height', scope.options.height * (scope.countries.length + 1));
-					yscale.domain([0, scope.countries.length + 1]).range([0, scope.options.height * (scope.countries.length + 1)]);
+						.attr('height', (scope.options.height * (scope.countries.length))+ (scope.options.height *2));
+					yscale.domain([0, scope.countries.length]).range([0, scope.options.height * (scope.countries.length)]);
 					y_xis.transition()
 						.duration(500)
 						.call(yAxis);
 					y_xis_center.transition()
 						.duration(500)
 						.call(yAxis);
-					var bars = chart.selectAll('rect')
-						.data(scope.countries)
-						.enter()
+					y_xis_end.transition()
+							.duration(500)
+							.call(yAxis);
+					var barsData = chart.selectAll('g')
+						.data(scope.countries);
+
+					var barsContainer = barsData.enter().append('g');
+					var bars = barsContainer
 						.append('rect')
 						.attr('height', (scope.options.height - scope.options.margin))
 						.attr({
 							'x': 0,
 							'y': function(d, i) {
-								return yscale(i);
+								return yscale(i)+(scope.options.margin/2);
 							}
 						})
-						.style('fill', function(d, i) {
-							return '#ccc';
-						})
+						.style('fill', bgColor)
 						.attr('width', function(d) {
 							return 0;
 						});
 
-					var circles = chart.selectAll('circle')
-						.data(scope.countries)
-						.enter()
+					var circles = barsContainer
 						.append('cirlce')
 						.attr('r', 20)
 						.attr('cx', 20)
 						.attr('cy', 20)
-						.style("fill", "purple");
+						.attr("fill", scope.options.color);
 
-					var transit = chart.selectAll('rect')
-						.data(scope.countries)
+					bars
 						.transition()
 						.duration(500)
 						.attr('width', function(d) {
 							return xscale(d[scope.options.field]);
 						});
-					chart.selectAll('text')
-						.data(scope.countries)
-						.enter()
+					var valuesText = barsContainer
 						.append('text')
 						.attr({
 							'x': function(d, i) {
@@ -122,11 +130,18 @@
 							}
 						})
 						.text(0)
+						.style('fill', scope.options.color)
+						.style('font-size', '12px')
+					valuesText
 						.transition()
 						.duration(500)
 						.attr({
 							'x': function(d, i) {
-								return xscale(d[scope.options.field] + 5);
+
+								if(d[scope.options.field] > 50){
+									return xscale(d[scope.options.field]) - this.getBoundingClientRect().width - 15;
+								}
+								return xscale(d[scope.options.field] ) + 5;
 							}
 						}).tween('text', function(d) {
 							var i = d3.interpolate(this.textContent, parseInt(d[scope.options.field]));
@@ -135,6 +150,52 @@
 							};
 
 						});
+						var labelsData = labels.selectAll('g')
+							.data(scope.countries);
+						var labelsContainer = labelsData.enter().append('g');
+						var countryLabels = labelsContainer
+							.append('rect')
+							.attr('width', 20)
+							.attr('height', scope.options.height - scope.options.margin)
+							.attr({
+								'x': function(d, i) {
+								return (100 - (scope.options.height - scope.options.margin) - ((scope.options.height - scope.options.margin)/2));
+								},
+								'y': function(d, i) {
+									return yscale(i) + (scope.options.margin/2);
+								}
+							})
+							.attr('fill', function(d){
+								if(d.iso == scope.country.iso){
+									return scope.options.color
+								}
+								return bgColor
+							});
+						var countryIso =	labelsContainer.append('text')
+							.text(function(d){
+								return d.iso
+							})
+							.style('font-size', '12px')
+							.attr('width', scope.options.height - scope.options.margin)
+							.attr('height', scope.options.height - scope.options.margin)
+							.attr({
+								'x': function(d, i) {
+									return (100 - (scope.options.height - scope.options.margin) - 8);
+								},
+								'y': function(d, i) {
+									return yscale(i)+ 14 +(scope.options.margin/2);
+								}
+							})
+							.attr('fill', function(d){
+								if(d.iso == scope.country.iso){
+									return fontColor
+								}
+
+								return scope.options.color
+							});
+						barsData.exit().remove();
+						labelsData.exit().remove();
+
 				}
 
 
@@ -144,7 +205,7 @@
 					return scope.countries;
 				}, function(n, o) {
 					updateData();
-					console.log(n);
+
 				}, true)
 			}
 		};
