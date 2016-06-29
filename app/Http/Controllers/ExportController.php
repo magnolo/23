@@ -47,6 +47,7 @@ class ExportController extends Controller
         $export->name = str_slug($request->get('title'));
         $export->url = $request->get('url');
         $export->image_id = $request->get('image_id');
+        $export->base_color = $request->get('base_color');
         $export->description = $request->get('description');
         $export->business = $request->get('business');
         $export->usage = $request->get('usage');

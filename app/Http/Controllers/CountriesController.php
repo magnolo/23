@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
+use DB;
 use App\Countrie;
 
 class CountriesController extends Controller
@@ -175,5 +175,17 @@ class CountriesController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getContinents(){
+      $continents = DB::table('countries')
+        ->select('continent as name')
+        ->groupBy('continent')
+        ->get();
+
+      foreach($continents as &$continent){
+        $continent->countries = Countrie::select('id', 'admin', 'iso_a2', 'iso_a3')->where('continent', $continent->name)->where('iso_a2', '<>', 99)->orderBy('iso_a2')->get();
+      }
+      return response()->api($continents);
     }
 }

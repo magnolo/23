@@ -48,7 +48,7 @@ $api->version('v1', function ($api) {
     $api->get('countries/bbox/{countries}', 'App\Http\Controllers\CountriesController@getBBox');
     $api->post('countries/byIsoNames', 'App\Http\Controllers\CountriesController@getByIsoNames');
     $api->get('countries/byName/{name}', 'App\Http\Controllers\CountriesController@getByName');
-
+    $api->get('continents', 'App\Http\Controllers\CountriesController@getContinents');
 
     $api->get('data/tables', 'App\Http\Controllers\UserdataController@index');
 
