@@ -324,6 +324,7 @@ class ItemController extends Controller
             ->where('year', $year)
             ->leftJoin('countries', $index->indicator->table_name.".".$index->indicator->iso_name, '=', 'countries.'.$iso_field)
             ->select($index->indicator->table_name.".".$index->indicator->column_name.' as score', $index->indicator->table_name.".year",'countries.'.$iso_field.' as iso','countries.admin as country')
+          //  ->select($index->indicator->table_name.".".$index->indicator->column_name.' as score', $index->indicator->table_name.".year",'countries.'.$iso_field.' as iso','countries.admin as country',\DB::raw('row_number() over (order by '.$index->indicator->column_name.' desc) as rank'))
             ->orderBy($index->indicator->table_name.".".$index->indicator->column_name, 'desc')->get();
           $index->data = $data;
         }
@@ -331,6 +332,7 @@ class ItemController extends Controller
         return $index;
     }
     public function fetchDataForCountry($index, $iso){
+
       if(isset($index->children)){
         if(count($index->children)){
           foreach($index->children as $key => &$item){
@@ -338,6 +340,7 @@ class ItemController extends Controller
               $item->load('indicator');
               $data = \DB::table($item->indicator->table_name)
                 ->where($item->indicator->iso_name, $iso)
+                // ->select($item->indicator->column_name.' as score', $item->indicator->table_name.".year", \DB::raw('row_number() over (order by '.$item->indicator->column_name.' desc) as rank'))
                 ->select($item->indicator->column_name.' as score', $item->indicator->table_name.".year")
                 ->orderBy('year', 'desc')->get();
               $item->data = $data;
@@ -350,6 +353,7 @@ class ItemController extends Controller
         else{
           $data = \DB::table($index->indicator->table_name)
             ->where($index->indicator->iso_name, $iso)
+            // ->select($index->indicator->column_name.' as score', $index->indicator->table_name.".year", \DB::raw('row_number() over (order by '.$index->indicator->column_name.' desc) as rank'))
             ->select($index->indicator->column_name.' as score', $index->indicator->table_name.".year")
             ->orderBy('year', 'desc')->get();
           $index->data = $data;
@@ -384,6 +388,7 @@ class ItemController extends Controller
                   $sum[$data->year][$child->name]['value'] = 0;
                   $sum[$data->year][$child->name]['year'] = $data->year;
                   $sum[$data->year][$child->name]['calc'] = true;
+                  // $sum[$data->year][$child->name]['rank'] = $data->rank;
                 }
                 $sum[$data->year][$child->name]['value'] += $data->score;
               }
@@ -410,6 +415,7 @@ class ItemController extends Controller
             $sum[$data->year][$item->name]['value'] = 0;
             $sum[$data->year][$item->name]['year'] = $data->year;
             $sum[$data->year][$item->name]['calc'] = true;
+            // $sum[$data->year][$item->name]['rank'] = $data->rank;
           }
           $sum[$data->year][$item->name]['value'] += $data->score;
         }
@@ -422,6 +428,7 @@ class ItemController extends Controller
         $this->sum[$data->iso][$item->name]['value'] = $data->score;
         $this->sum[$data->iso][$item->name]['year'] = $data->year;
         $this->sum[$data->iso][$item->name]['calc'] = false;
+        // $this->sum[$data->iso][$item->name]['rank'] = $data->rank;
       }
       foreach($item->children as $child){
           $this->rawData($child);
@@ -503,7 +510,6 @@ class ItemController extends Controller
     public function calcValuesForStatistic($index){
       $scores = $this->averageDataForCountry($index);
       $data = array();
-      //dd($scores);
       $scores = $this->calcAverage($scores, $this->fieldCount($scores), $index->name);
       foreach ($scores as $key => $value) {
         foreach($value as $k => $column){
