@@ -22,11 +22,11 @@
 																</span>
 																<md-icon class="material-icons" ng-click="vm.onMovedComplete(key)" ng-if="vm.options.edit">close</md-icon>
 																<md-icon dnd-nodrag class="material-icons toggler cursor " ng-if="!vm.options.simple" >
-																				<i class="material-icons" ng-if="item.children.length" ng-click="item.expanded = !item.expanded" ng-show="(vm.options.expandJustGroups && item.type == 'group') || !vm.options.expandJustGroups">{{ item.expanded ? 'expand_less' : 'expand_more' }}</i>
-																				<i class="material-icons" ng-if="!item.children.length && item.id != 0 && vm.options.drag " ng-click="vm.addChildren(item)" ng-show="(vm.options.expandJustGroups && item.type == 'group') || !vm.options.expandJustGroups">add</i>
+																				<i class="material-icons" ng-if="item[vm.options.children].length" ng-click="item.expanded = !item.expanded" ng-show="(vm.options.expandJustGroups && item.type == 'group') || !vm.options.expandJustGroups">{{ item.expanded ? 'expand_less' : 'expand_more' }}</i>
+																				<i class="material-icons" ng-if="!item[vm.options.children].length && item.id != 0 && vm.options.drag " ng-click="vm.addChildren(item)" ng-show="(vm.options.expandJustGroups && item.type == 'group') || !vm.options.expandJustGroups">add</i>
 																</md-icon>
 												</p>
-												<treeview item="item" items="item.children" active="vm.active" selection="vm.selection" ng-if="item.expanded" options="vm.options"></treeview>
+												<treeview item="item" items="item[vm.options.children]" active="vm.active" selection="vm.selection" ng-if="item.expanded" options="vm.options"></treeview>
 								</div>
 				</md-list-item>
 				<md-list-item ng-click="vm.options.addClick()" ng-if="(vm.items.length == 0 || !vm.items) && vm.options.drag && vm.options.allowDrop" class="meanwhile doAnim-fade">

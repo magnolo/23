@@ -11,11 +11,22 @@
 		vm.onDropComplete = onDropComplete;
 		vm.onMovedComplete = onMovedComplete;
 		vm.addChildren = addChildren;
-
+		console.log(vm);
 		activate();
 
-		function activate(){
-			if(typeof vm.selection == "undefined"){
+		function activate() {
+			if (typeof vm.options == "undefined") {
+				vm.options = {
+					editWeight: false,
+					drag: false,
+					edit: false,
+					children: 'children'
+				}
+			}
+			if (typeof vm.options.children == "undefined") {
+				vm.options.children = "children";
+			}
+			if (typeof vm.selection == "undefined") {
 				vm.selection = [];
 			}
 		}
@@ -25,8 +36,8 @@
 		}
 
 		function onDropComplete(event, index, item, external) {
-			angular.forEach(vm.items, function(entry, key){
-				if(entry.id == 0){
+			angular.forEach(vm.items, function(entry, key) {
+				if (entry.id == 0) {
 					vm.items.splice(key, 1);
 				}
 			})
@@ -34,54 +45,55 @@
 		}
 
 		function onMovedComplete(index, data, evt) {
-			if(vm.options.allowMove){
+			if (vm.options.allowMove) {
 				return vm.items.splice(index, 1);
 			}
 		}
-		function toggleSelection(item){
+
+		function toggleSelection(item) {
 			var index = -1;
-			angular.forEach(vm.selection, function(selected, i){
-				if(selected.id == item.id){
+			angular.forEach(vm.selection, function(selected, i) {
+				if (selected.id == item.id) {
 					index = i;
 				}
 			});
-			if(index > -1){
+			if (index > -1) {
 				vm.selection.splice(index, 1);
-			}
-			else{
+			} else {
 				vm.selection.push(item);
 			}
-			if(typeof vm.options.selectionChanged == 'function' )
+			if (typeof vm.options.selectionChanged == 'function')
 				vm.options.selectionChanged();
 		}
+
 		function addChildren(item) {
 
-			item.children = [];
+			item[vm.options.children] = [];
 			item.expanded = true;
 		}
 
 		function selectedItem(item) {
 			var found = false;
-			angular.forEach(vm.selection, function(selected){
-				if(selected.id == item.id){
+			angular.forEach(vm.selection, function(selected) {
+				if (selected.id == item.id) {
 					found = true;
 				}
 			});
 			return found;
-		/*	if(vm.selection.indexOf(angular.copy(item)) > -1){
-				return true;
-			}
-			return false;*/
+			/*	if(vm.selection.indexOf(angular.copy(item)) > -1){
+					return true;
+				}
+				return false;*/
 		}
 
 		function childSelected(item) {
 			var found = false;
-			angular.forEach(item.children, function(child){
-				if(vm.selection.indexOf(child)> -1){
+			angular.forEach(item.children, function(child) {
+				if (vm.selection.indexOf(child) > -1) {
 					found = true;
 				}
-				if(!found){
-					found =  childSelected(child);
+				if (!found) {
+					found = childSelected(child);
 
 				}
 			})

@@ -44,7 +44,7 @@
 
 
 
-			vm.ExportService.getExports(function(data){});
+		vm.ExportService.getExports(function(data) {});
 
 	});
 

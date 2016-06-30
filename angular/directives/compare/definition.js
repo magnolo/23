@@ -9,7 +9,8 @@
 				height: 25,
 				margin: 5,
 				color: '#ff0000',
-				field: 'score'
+				field: 'score',
+				duration: 500
 			}
 		};
 
@@ -24,177 +25,249 @@
 			},
 			link: function(scope, element, attrs) {
 				scope.options = angular.extend(defaults(), scope.options);
-				var fontColor = '#333', bgColor = '#ddd';
+				var fontColor = '#333',
+					bgColor = '#ddd';
 
 				var xscale = d3.scale.linear()
 					.domain([0, 100])
-					.range([0, (scope.options.width - 100)]);
+					.range([0, (scope.options.width - 100 - (scope.options.margin * 2))]);
 
-				var yscale = d3.scale.linear()
-					.domain([0, scope.countries.length])
-					.range([0, scope.options.height]);
+				var yscale = d3.scale.ordinal()
+					.range([0, scope.options.height])
+					.domain([0, scope.countries.length]);
 
-				var svg = d3.select(element[0]).append('svg');
-				svg.attr('width', scope.options.width)
+				var svg = d3.select(element[0]).append('svg')
+					.attr('width', scope.options.width)
 					.attr('height', scope.options.height * scope.countries.length);
 
 				var container = svg.append('g')
 					.attr('id', 'compare-chart')
-					.attr('y', scope.options.height);
+					.attr('y', scope.options.height)
+					.attr('x', scope.options.margin);
 
+				var xAxis = d3.svg.axis()
+					.scale(xscale)
+					.orient("top")
+					.tickValues([0, 100]);
 
-				var yAxis = d3.svg.axis();
-				yAxis
-					.orient('left')
-					.ticks(0)
-					.tickSize(1)
-					.scale(yscale);
+				var lines = svg.append("g")
+					.attr("class", "x axis")
+				var nullLine = lines.append("line")
+					.attr("class", "domain")
+					.attr("y2", scope.options.height * scope.countries.length)
 
-				var y_xis = container.append('g')
-					.attr("transform", "translate(100,0)")
-					.attr('class', 'yaxis')
-					.call(yAxis);
+				var midLine = lines.append("line")
+					.attr("class", "domain dashed")
+					.attr('transform', function() {
+						return "translate(" + (xscale(50)) + ",0)";
+					})
+					.attr("y2", scope.options.height * scope.countries.length)
 
-				var y_xis_center = container.append('g')
-					.attr("transform", "translate(" + (((scope.options.width - 100) / 2) + 100) + ",0)")
-					.attr('class', 'yaxis dashed')
-					.style("stroke-dasharray", ("3, 3"))
-					.call(yAxis);
+				var endLine = lines.append("line")
+					.attr("class", "domain")
+					.attr('transform', function() {
+						return "translate(" + (xscale(100)) + ",0)";
+					})
+					.attr("y2", scope.options.height * scope.countries.length);
+				var rankLabel = lines.append('text')
+					.attr('class', 'header')
+					.text('Rank')
+					.attr('transform', function() {
+						return "translate(-85,-10)";
+					});
 
+				var medianLabel = lines.append('text')
+					.attr('class', 'header')
+					.text('Median')
+					.attr('transform', function() {
+						return "translate(100,-10)";
+					});
 
 				var chart = container.append('g')
 					.attr('id', 'bars')
 					.attr("transform", "translate(100,0)");
 				var labels = container.append('g')
 					.attr('id', 'labels')
-					.attr('width' , 100);
+					.attr('width', 100);
 
-					var y_xis_end= container.append('g')
-							.attr("transform", "translate(" + scope.options.width + ",0)")
-							.attr('class', 'yaxis')
-							.style("stroke-dasharray", ("3, 3"))
-							.call(yAxis);
 				function updateData() {
+					//var max = d3.max(data, function(d) { return +d.field_goal_attempts;} );
 					svg.transition()
-						.duration(500)
-						.attr('height', (scope.options.height * (scope.countries.length))+ (scope.options.height *2));
+						.duration(scope.options.duration)
+						.attr('height', (scope.options.height * (scope.countries.length)) + (scope.options.height * 2));
 					yscale.domain([0, scope.countries.length]).range([0, scope.options.height * (scope.countries.length)]);
-					y_xis.transition()
-						.duration(500)
-						.call(yAxis);
-					y_xis_center.transition()
-						.duration(500)
-						.call(yAxis);
-					y_xis_end.transition()
-							.duration(500)
-							.call(yAxis);
-					var barsData = chart.selectAll('g')
-						.data(scope.countries);
 
-					var barsContainer = barsData.enter().append('g');
-					var bars = barsContainer
-						.append('rect')
+
+
+					d3.transition(svg).select(".x.axis")
+						.call(xAxis)
+						.attr("transform", "translate(100,20)");
+
+					var bar = chart.selectAll('.bar')
+						.data(scope.countries, function(d) {
+							return "id_" + d.iso
+						});
+
+					var barsContainer = bar.enter().insert('g', '.axis')
+						.attr('class', "bar");
+
+					var rects = barsContainer.append('rect')
 						.attr('height', (scope.options.height - scope.options.margin))
-						.attr({
-							'x': 0,
-							'y': function(d, i) {
-								return yscale(i)+(scope.options.margin/2);
-							}
-						})
 						.style('fill', bgColor)
 						.attr('width', function(d) {
 							return 0;
 						});
-
-					var circles = barsContainer
-						.append('cirlce')
-						.attr('r', 20)
-						.attr('cx', 20)
-						.attr('cy', 20)
-						.attr("fill", scope.options.color);
-
-					bars
-						.transition()
-						.duration(500)
+					var ranks = barsContainer.append('text')
+						.attr('class', 'ranks')
+						.attr('transform', 'translate(-70, 0)')
+						.text(function(d) {
+							if (d.rank == 1) {
+								return "1st";
+							} else if (d.rank == 2) {
+								return "2nd";
+							}
+							return d.rank + "th";
+						})
+						.attr('fill', scope.options.color)
+						.attr('y', function(d) {
+							return scope.options.margin * 3;
+						})
+					var labelsBg = barsContainer.append('rect')
+						.attr('height', (scope.options.height - scope.options.margin))
+						.style('fill', function(d) {
+							if (d.iso == scope.country.iso) {
+								return scope.options.color
+							}
+							return bgColor
+						})
 						.attr('width', function(d) {
-							return xscale(d[scope.options.field]);
-						});
-					var valuesText = barsContainer
-						.append('text')
+							return scope.options.height;
+						})
+						.attr('x', -(scope.options.height + scope.options.margin));
+
+					var labels = barsContainer.append('text')
+						.attr('class', "label")
 						.attr({
 							'x': function(d, i) {
-								return 0;
+								return -17;
 							},
 							'y': function(d, i) {
-								return yscale(i) + 15;
+								return scope.options.margin * 2;
 							}
+						})
+						.style('font-size', '13px')
+						.attr('dy', ".35em")
+						.attr('text-anchor', 'middle')
+						.text(function(d) {
+							return d.iso
+						}).attr('fill', function(d) {
+							if (d.iso == scope.country.iso) {
+								return "#fff"
+							}
+							return scope.options.color
+						});
+
+					var values = barsContainer.append("text")
+						.attr("class", "value")
+						.attr({
+							'x': 0,
+							'y': (scope.options.margin * 2)
 						})
 						.text(0)
 						.style('fill', scope.options.color)
-						.style('font-size', '12px')
-					valuesText
-						.transition()
-						.duration(500)
+						.attr("dy", ".35em")
+						.attr("text-anchor", "end");
+
+					var circles = barsContainer.append('circle')
+						.attr('r', 3)
+						.attr('cx', 0)
+						.attr('cy', ((scope.options.height / 2) - (scope.options.margin / 2)))
+						.attr("fill", scope.options.color);
+
+					var barUpdate = d3.transition(bar)
+						.attr("transform", function(d, i) {
+							return "translate(0," + (i * scope.options.height + (scope.options.margin / 2) + 20) + ")";
+						});
+					nullLine.transition()
+						.duration(scope.options.duration)
+						.attr('y2', scope.options.height * scope.countries.length)
+					midLine.transition()
+						.duration(scope.options.duration)
+						.attr('y2', scope.options.height * scope.countries.length)
+					endLine.transition()
+						.duration(scope.options.duration)
+						.attr('y2', scope.options.height * scope.countries.length)
+					rects.transition()
+						.duration(scope.options.duration)
+						.attr('width', function(d) {
+							return xscale(d[scope.options.field]);
+						});
+
+					circles.transition()
+						.duration(scope.options.duration)
+						.attr('cx', function(d) {
+							return xscale(d[scope.options.field]);
+						});
+
+					values.transition()
+						.duration(scope.options.duration)
 						.attr({
 							'x': function(d, i) {
-
-								if(d[scope.options.field] > 50){
-									return xscale(d[scope.options.field]) - this.getBoundingClientRect().width - 15;
+								if (d[scope.options.field] > 50) {
+									return xscale(d[scope.options.field]) - this.getBoundingClientRect().width;
 								}
-								return xscale(d[scope.options.field] ) + 5;
+								return xscale(d[scope.options.field]) + scope.options.height;
 							}
-						}).tween('text', function(d) {
+						})
+						.tween('text', function(d) {
 							var i = d3.interpolate(this.textContent, parseInt(d[scope.options.field]));
 							return function(t) {
-								 this.textContent = Math.round(i(t));
+								this.textContent = Math.round(i(t));
 							};
 
 						});
-						var labelsData = labels.selectAll('g')
-							.data(scope.countries);
-						var labelsContainer = labelsData.enter().append('g');
-						var countryLabels = labelsContainer
-							.append('rect')
-							.attr('width', 20)
-							.attr('height', scope.options.height - scope.options.margin)
-							.attr({
-								'x': function(d, i) {
-								return (100 - (scope.options.height - scope.options.margin) - ((scope.options.height - scope.options.margin)/2));
-								},
-								'y': function(d, i) {
-									return yscale(i) + (scope.options.margin/2);
-								}
-							})
-							.attr('fill', function(d){
-								if(d.iso == scope.country.iso){
-									return scope.options.color
-								}
-								return bgColor
-							});
-						var countryIso =	labelsContainer.append('text')
-							.text(function(d){
-								return d.iso
-							})
-							.style('font-size', '12px')
-							.attr('width', scope.options.height - scope.options.margin)
-							.attr('height', scope.options.height - scope.options.margin)
-							.attr({
-								'x': function(d, i) {
-									return (100 - (scope.options.height - scope.options.margin) - 8);
-								},
-								'y': function(d, i) {
-									return yscale(i)+ 14 +(scope.options.margin/2);
-								}
-							})
-							.attr('fill', function(d){
-								if(d.iso == scope.country.iso){
-									return fontColor
-								}
 
-								return scope.options.color
-							});
-						barsData.exit().remove();
-						labelsData.exit().remove();
+
+					// bar.exit()
+					// 	.select("circle")
+					// 	.transition()
+					// 	.duration(scope.options.duration)
+					// 	.attr("r", 0)
+					// 	.attr("cx", 0);
+					// bar.exit()
+					// 	.select("text")
+					// 	.transition()
+					// 	.duration(scope.options.duration)
+					// 	.attr("transform", "scale(0)");
+					//
+					// bar.exit()
+					// 	.select("rect")
+					// 	.transition()
+					// 	.duration(scope.options.duration)
+					// 	.attr('transform', "rotate(90)scale(0)")
+					// 	.attr('opacity', 0)
+
+					bar.exit()
+						.transition()
+						.duration(scope.options.duration)
+						.attr("opacity", "0")
+						.remove();
+					//
+					// barExit.select("rect")
+					// 	.attr("width", function(d) {
+					// 		return xAxis(d[scope.options.field]);
+					// 	});
+					//
+					// barExit.select(".value")
+					// 	.attr("x", function(d) {
+					// 		return xAxis(d[scope.options.field]) - 3;
+					// 	})
+					// 	.text(function(d) {
+					// 		return format(d[scope.options.field]);
+					// 	});
+
+
+					//	labelsData.exit().remove();
 
 				}
 
@@ -205,7 +278,7 @@
 					return scope.countries;
 				}, function(n, o) {
 					updateData();
-
+					console.log(scope.countries);
 				}, true)
 			}
 		};

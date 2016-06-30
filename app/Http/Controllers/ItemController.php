@@ -527,14 +527,16 @@ class ItemController extends Controller
       else{
         $score = $this->averageData($index);
       }
-
+      $rank = 1;
       foreach ($score as $key => $value) {
         $entry = [
-          'iso' => $key
+          'iso' => $key,
+          'rank' => $rank
         ];
         foreach($value as $k => $column){
           $entry[$k] = $column['value'];
         }
+        $rank++;
         $data[] = $entry;
       }
       return $data;

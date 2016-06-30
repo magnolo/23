@@ -1,37 +1,35 @@
-(function(){
+(function() {
 	"use strict";
 
-	angular.module('app.directives').directive( 'treeview', function(RecursionHelper) {
+	angular.module('app.directives').directive('treeview', function(RecursionHelper) {
 		var options = {
-			editWeight:false,
+			editWeight: false,
 			drag: false,
 			edit: false,
-			children:'children'
+			children: 'children'
 		};
 		return {
 			restrict: 'E',
 			templateUrl: 'views/directives/treeview/treeview.html',
 			controller: 'TreeviewCtrl',
 			controllerAs: 'vm',
-			scope:{},
+			scope: {},
 			bindToController: {
 				items: '=',
 				item: '=?',
 				selection: '=?',
-				options:'=?',
+				options: '=?',
 				active: '=?',
 				click: '&'
 			},
-			replace:true,
+			replace: true,
 			compile: function(element) {
-            return RecursionHelper.compile(element, function(scope, iElement, iAttrs, controller, transcludeFn){
-								angular.extend(options, scope.vm.options)
-								// Define your normal link function here.
-                // Alternative: instead of passing a function,
-                // you can also pass an object with
-                // a 'pre'- and 'post'-link function.
-            });
-        }
+				return RecursionHelper.compile(element, function(scope, iElement, iAttrs, controller, transcludeFn) {
+					console.log(options);
+					angular.extend(options, scope.vm.options)
+
+				});
+			}
 		};
 
 	});

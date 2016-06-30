@@ -1,8 +1,59 @@
-.yaxis {
-    &.dashed {
-        .domain {
-            stroke-width: 0.4px;
-            fill:#aaa;
+compare-countries {
+    svg {
+        overflow: visible;
+    }
+
+    .bar rect {
+        fill: steelblue;
+    }
+
+    .bar:hover rect {
+        fill: brown;
+    }
+
+    .value {
+        fill: white;
+    }
+
+    .axis {
+        shape-rendering: crispEdges;
+
+        .tick {
+            text {
+                fill: #888;
+                font-size: 13px;
+            }
         }
     }
-  }
+
+    .axis path {
+        stroke: none;
+        display: none;
+    }
+
+    .x.axis line {
+        stroke: #888;
+        stroke-opacity: 0.8;
+
+        &.dashed {
+            stroke-dasharray: 3,3;
+        }
+    }
+
+    .y.axis path {
+        stroke: black;
+    }
+
+    .axis {
+        .header {
+            font-size: 13px;
+            fill: #888;
+        }
+    }
+
+    .ranks {
+        font-style: italic;
+        // fill: #888;
+        text-anchor: middle;
+    }
+}

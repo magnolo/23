@@ -2132,6 +2132,41 @@ md-dialog-content p.columned {
 }
 
 
+.Header {
+  transition: all 1s ease-in-out;
+  min-height: 48px;
+  max-height: 48px;
+  background-color: #fff !important;
+}
+.Header .md-toolbar-tools,
+.Header md-toolbar {
+  height: 48px;
+  min-height: 48px;
+  padding-left: 12px;
+}
+.Header h2 {
+  max-height: 48px;
+}
+.Header a {
+  color: #006bb9;
+}
+.Header a.md-button span {
+  color: #006bb9;
+}
+.Header .md-menu {
+  padding: 0px;
+}
+.Header .inline-list.menu-list li a,
+.Header .inline-list.menu-list li::before {
+  color: #006bb9;
+}
+.Header .logo {
+  font-size: 3em;
+}
+md-toolbar.Header .md-button.md-border {
+  color: #006bb9;
+}
+
 md-list-item a.md-no-style {
   margin: 0px;
 }
@@ -2765,7 +2800,6 @@ md-list-item.active {
 
 
 
-
 #main-logo {
   position: fixed;
   bottom: 5px;
@@ -2937,40 +2971,58 @@ div[ui-view='map'] {
 }
 
 
-.Header {
-  transition: all 1s ease-in-out;
-  min-height: 48px;
-  max-height: 48px;
-  background-color: #fff !important;
+/*.Sidebar {
+	position: fixed !important;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	width: 250px !important;
+	min-width: 250px !important;
+	max-width: 250px !important;
+	background-color: rgb(63, 81, 181);
+}*/
+.Sidebar md-toolbar path {
+  fill: #fff;
 }
-.Header .md-toolbar-tools,
-.Header md-toolbar {
+.Sidebar-title {
+  font-size: 25px;
+  height: 100px;
+  max-height: 100px;
+  text-align: center;
+  font-weight: 500;
+}
+.Sidebar-pages {
+  background-color: #3f51b5;
+  color: white;
+}
+.Sidebar-pages > div {
+  min-width: 350px;
+}
+.Sidebar-pages:empty {
+  display: none;
+}
+.Sidebar-pages md-list md-list-item button.md-button:not([disabled]):hover {
+  background-color: rgba(158, 158, 158, 0.2) !important;
+}
+.Sidebar-page {
+  cursor: pointer;
+}
+.Sidebar-page md-list-item {
+  /*IE centering fix*/
   height: 48px;
-  min-height: 48px;
-  padding-left: 12px;
 }
-.Header h2 {
-  max-height: 48px;
+.Sidebar-page.active {
+  background-color: rgba(158, 158, 158, 0.3) !important;
 }
-.Header a {
-  color: #006bb9;
+.Sidebar-version {
+  margin: 0 0 20px 0;
+  text-align: center;
+  font-weight: normal;
 }
-.Header a.md-button span {
-  color: #006bb9;
+.Sidebar-version a {
+  color: white;
 }
-.Header .md-menu {
-  padding: 0px;
-}
-.Header .inline-list.menu-list li a,
-.Header .inline-list.menu-list li::before {
-  color: #006bb9;
-}
-.Header .logo {
-  font-size: 3em;
-}
-md-toolbar.Header .md-button.md-border {
-  color: #006bb9;
-}
+
 
 
 
@@ -3094,9 +3146,46 @@ bubbles {
 
 
 
-.yaxis.dashed .domain {
-  stroke-width: 0.4px;
-  fill: #aaa;
+compare-countries svg {
+  overflow: visible;
+}
+compare-countries .bar rect {
+  fill: steelblue;
+}
+compare-countries .bar:hover rect {
+  fill: brown;
+}
+compare-countries .value {
+  fill: white;
+}
+compare-countries .axis {
+  shape-rendering: crispEdges;
+}
+compare-countries .axis .tick text {
+  fill: #888;
+  font-size: 13px;
+}
+compare-countries .axis path {
+  stroke: none;
+  display: none;
+}
+compare-countries .x.axis line {
+  stroke: #888;
+  stroke-opacity: 0.8;
+}
+compare-countries .x.axis line.dashed {
+  stroke-dasharray: 3,3;
+}
+compare-countries .y.axis path {
+  stroke: black;
+}
+compare-countries .axis .header {
+  font-size: 13px;
+  fill: #888;
+}
+compare-countries .ranks {
+  font-style: italic;
+  text-anchor: middle;
 }
 
 
@@ -4128,58 +4217,6 @@ piechart .inner-pie {
 .weight-control md-icon {
   color: #006bb9;
   cursor: pointer;
-}
-
-/*.Sidebar {
-	position: fixed !important;
-	top: 0;
-	bottom: 0;
-	left: 0;
-	width: 250px !important;
-	min-width: 250px !important;
-	max-width: 250px !important;
-	background-color: rgb(63, 81, 181);
-}*/
-.Sidebar md-toolbar path {
-  fill: #fff;
-}
-.Sidebar-title {
-  font-size: 25px;
-  height: 100px;
-  max-height: 100px;
-  text-align: center;
-  font-weight: 500;
-}
-.Sidebar-pages {
-  background-color: #3f51b5;
-  color: white;
-}
-.Sidebar-pages > div {
-  min-width: 350px;
-}
-.Sidebar-pages:empty {
-  display: none;
-}
-.Sidebar-pages md-list md-list-item button.md-button:not([disabled]):hover {
-  background-color: rgba(158, 158, 158, 0.2) !important;
-}
-.Sidebar-page {
-  cursor: pointer;
-}
-.Sidebar-page md-list-item {
-  /*IE centering fix*/
-  height: 48px;
-}
-.Sidebar-page.active {
-  background-color: rgba(158, 158, 158, 0.3) !important;
-}
-.Sidebar-version {
-  margin: 0 0 20px 0;
-  text-align: center;
-  font-weight: normal;
-}
-.Sidebar-version a {
-  color: white;
 }
 
 /*# sourceMappingURL=app.css.map */

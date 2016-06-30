@@ -75,7 +75,7 @@
 		<md-tab label="Compare" md-active="vm.activeTab == 2" md-on-deselect="vm.setCompare(false)" md-on-select="vm.setCompare(true)" ng-disabled="!vm.nation">
 			<div class="module comparison">
 				<div layout-wrap layout="row" ng-if="vm.current && vm.structure" >
-          <compare-countries style="margin-top:2em" country="vm.current" countries="vm.countriesList" options="{field: vm.structure.name, height: 25, margin:5, color:vm.ExportService.indicator.style.base_color}"></compare-countries>
+          <compare-countries style="margin-top:2em" country="vm.current" countries="vm.countriesList" options="{field: vm.structure.name, height: 25, margin:5, color:vm.ExportService.indicator.style.base_color, duration:500}"></compare-countries>
 					<div class="country anim-opacity" flex="50" ng-repeat="country in vm.compare.countries">
 						<!-- <h4 ng-click="vm.setCurrent(country)">
                                                         <span class="number">N°{{vm.getRank(country)}}</span>
@@ -110,4 +110,5 @@
 		color:#fff !important;
 		border:1px solid;
 	}
+
 </style>
