@@ -1,0 +1,13 @@
+<md-content layout-padding>
+  <div>
+     <md-input-container class="md-block no-margin-bottom">
+      <label>Choose from countries list</label>
+      <md-select ng-model="vm.nation" aria-label="Choose Country from List" ng-change="vm.selectCountry(nation)">
+        <md-option ng-value="nation" ng-repeat="(key, nation) in vm.countries">{{ nation }}</md-option>
+      </md-select>
+    </md-input-container>
+  </div>
+  <div class="sub-title">
+    {{vm.selected.title}}
+  </div>
+</md-content>

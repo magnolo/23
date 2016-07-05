@@ -23,8 +23,8 @@
 				vm._promise = DataService.getAll('exports').then(function(response) {
 					vm.exports = response;
 					angular.forEach(vm._callbacks, function(callback) {
-						if(typeof callback != "undefined")
-						callback(vm.exports);
+						if (typeof callback != "undefined")
+							callback(vm.exports);
 					});
 					vm._promise = null;
 				}, error);
@@ -35,15 +35,15 @@
 			if (angular.isDefined(vm.exporter) && vm.exporter.id == id && !force) {
 				if (typeof success === 'function')
 					success(vm.exporter);
-			} else{
+			} else {
 				vm._callbacksOne.push(success);
 				vm._promiseOne = DataService.getOne('exports', id).then(function(response) {
 					vm.exporter = response;
-					if(!vm.exporter.items){
+					if (!vm.exporter.items) {
 						vm.exporter.items = new Array();
 					}
 					angular.forEach(vm._callbacksOne, function(callback) {
-						if(typeof callback != "undefined")
+						if (typeof callback != "undefined")
 							callback(vm.exporter);
 					});
 					vm._promiseOne = null;
@@ -58,14 +58,14 @@
 		vm.getChapter = function(id, chapter, success, ignoreFirst) {
 			if (angular.isDefined(vm.exporter) && vm.exporter.id == id) {
 				vm.chapter = vm.exporter.items[chapter - 1];
-				if(!ignoreFirst)
-				vm.indicator = vm.getFirstIndicator(vm.chapter.children);
+				if (!ignoreFirst)
+					vm.indicator = vm.getFirstIndicator(vm.chapter.children);
 				if (typeof success === 'function')
 					success(vm.chapter, vm.indicator);
 			} else {
 				vm.getExport(id, function(data) {
 					vm.chapter = vm.exporter.items[chapter - 1];
-					if(!ignoreFirst)
+					if (!ignoreFirst)
 						vm.indicator = vm.getFirstIndicator(vm.chapter.children);
 					if (typeof success === 'function')
 						success(vm.chapter, vm.indicator);
@@ -74,12 +74,12 @@
 		}
 		vm.getIndicator = function(id, chapter, indicator, success) {
 			vm.getChapter(id, chapter, function(c, i) {
-				angular.forEach(c.children, function(indi){
-					if(indi.indicator_id == indicator){
-							vm.indicator = indi;
+				angular.forEach(c.children, function(indi) {
+					if (indi.indicator_id == indicator) {
+						vm.indicator = indi;
 					}
 				})
-				success(c,vm.indicator);
+				success(c, vm.indicator);
 			}, true);
 		}
 		vm.getFirstIndicator = function(list) {
@@ -95,12 +95,12 @@
 			});
 			return found;
 		}
-		vm.findIndicator = function(indicator_id){
+		vm.findIndicator = function(indicator_id) {
 			var item = null;
 			var chapter_idx = 0;
-			angular.forEach(vm.exporter.items, function(chapter, key){
-				angular.forEach(chapter.children, function(indicator){
-					if(indicator.indicator_id == indicator_id){
+			angular.forEach(vm.exporter.items, function(chapter, key) {
+				angular.forEach(chapter.children, function(indicator) {
+					if (indicator.indicator_id == indicator_id) {
 						chapter_idx = key + 1;
 						item = indicator;
 					}
@@ -130,7 +130,7 @@
 					if (typeof success === 'function')
 						toastr.success('Save successfully');
 					success(response);
-					vm.getExports(function(){},function(){}, true);
+					vm.getExports(function() {}, function() {}, true);
 				}, function(response) {
 					toastr.error('Something went wrong!');
 					if (typeof error === 'function')

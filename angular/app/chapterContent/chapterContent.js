@@ -1,7 +1,7 @@
 (function() {
 	"use strict";
 
-	angular.module('app.controllers').controller('ChapterContentCtrl', function($scope, $timeout, $state, DataService, countries, ExportService, IndizesService, DialogService, VectorlayerService) {
+	angular.module('app.controllers').controller('ChapterContentCtrl', function($scope, $timeout, $state, DataService, ContentService, countries, ExportService, IndizesService, DialogService, VectorlayerService) {
 		//
 		var vm = this;
 		vm.activeTab = 0;
@@ -18,6 +18,7 @@
 		vm.circleOptions = {};
 		vm.calcRank = calcRank;
 		vm.gotoIndicator = gotoIndicator;
+
 		VectorlayerService.countryClick(function(data) {
 			if (vm.compare) {
 				addCompareCountry(data.feature.id, true)
@@ -27,7 +28,6 @@
 					iso: data.feature.id
 				});
 				fetchNationData(data.feature.id);
-
 			}
 
 		});
@@ -96,14 +96,14 @@
 				});
 			});
 		}
-
+		//URL PROBLEM LIES HERE AND ON EXPORT SERVICE
 		function gotoIndicator() {
 			$state.go('app.export.detail.chapter.indicator', {
 				indicator: vm.selectedIndicator.indicator_id,
 				indiname: vm.selectedIndicator.name
 			});
 
-			getIndicator();
+			//getIndicator();
 		}
 
 		function selectCountry() {
@@ -132,15 +132,15 @@
 			IndizesService.fetchNationData(vm.ExportService.indicator.indicator_id, iso, function(data) {
 				vm.nation = vm.countries[iso];
 				vm.current = data;
-				console.log(vm.current, vm.nation)
+				console.log(vm.current, vm.nation);
 				calcRank();
 			});
 		}
 
 		function renderIndicator(item, done) {
-			vm.index = IndizesService.fetchData(item.indicator_id);
-			vm.index.promises.data.then(function(structure) {
-				vm.index.promises.structure.then(function(data) {
+
+			ContentService.getIndicatorData(item.indicator_id).then(function(structure) {
+				ContentService.fetchIndicatorPromise(item.indicator_id).then(function(data) {
 					vm.data = structure;
 					vm.structure = data;
 					VectorlayerService.setBaseLayer(item.style.basemap);

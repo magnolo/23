@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html ng-app="app">
   <head>
       <base href="/" />
@@ -72,6 +72,7 @@
       <script src="js/pbf.min.js"></script>
       <script src="js/MapBoxVectorTile/dist/Leaflet.MapboxVectorTile.js"></script>
       <script src="js/papaparse/papaparse.js"></script>
+    
       {{--livereload--}} @if ( Config::get('app.debug') )
       <script type="text/javascript">
           document.write('<script src="' + location.protocol + '//' + ('localhost') + ':35729/livereload.js?snipver=1" type="text/javascript"><\/script>')

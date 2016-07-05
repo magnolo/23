@@ -1,7 +1,7 @@
 (function() {
 	"use strict";
 
-	angular.module('app.controllers').controller('ExportStyleCtrl', function($scope, $state, $timeout, ExportService, IndizesService, leafletData, leafletMapEvents, VectorlayerService, CountriesService) {
+	angular.module('app.controllers').controller('ExportStyleCtrl', function($scope, $state, $timeout, ContentService, ExportService, IndizesService, leafletData, leafletMapEvents, VectorlayerService, CountriesService) {
 		var vm = this;
 		vm.exporter = {};
 		vm.item = {};
@@ -39,11 +39,11 @@
 						full_screen: false
 					};
 				}
-				vm.index = IndizesService.fetchData(vm.item.indicator_id);
-				vm.index.promises.data.then(function(structure) {
-					vm.index.promises.structure.then(function(data) {
+				ContentService.getIndicatorData(vm.item.indicator_id).then(function(structure) {
+					ContentService.fetchIndicatorPromise(vm.item.indicator_id).then(function(data) {
 						vm.data = data;
 						vm.structure = structure;
+						console.log(vm.structure, vm.data)
 						VectorlayerService.setData(vm.structure, vm.data, vm.item.style.baseColor, true);
 
 					});

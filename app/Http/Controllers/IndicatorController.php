@@ -177,15 +177,26 @@ class IndicatorController extends Controller
     }
 
     public function fetchData($id){
-      $indicator = Indicator::find($id);
+      $indicator =  Indicator::where('id',$id)->with('type', 'categories', 'dataprovider', 'userdata')->first();
       $iso_field = $indicator->userdata->iso_type == 'iso-3166-1' ? 'adm0_a3': 'iso_a2';
       $data = \DB::table($indicator->table_name)
         ->where('year', \DB::raw('(select MAX(tt_'.$indicator->table_name.'.year) from tt_'.$indicator->table_name.')'))
         ->leftJoin('countries', $indicator->table_name.".".$indicator->iso_name, '=', 'countries.'.$iso_field)
         ->select($indicator->table_name.".".$indicator->column_name.' as score', $indicator->table_name.'.year','countries.'.$iso_field.' as iso','countries.admin as country')
         ->orderBy($indicator->table_name.".".$indicator->column_name, 'desc')->get();
+      $response = [];
+      $rank = 1;
+      foreach($data as $item){
 
-      return response()->api($data);
+        if(!is_null($item->score)){
+          $item->score = floatval($item->score);
+          $item->rank = $rank;
+          $response[] = $item;
+          $rank++;
+        }
+      }
+
+      return response()->api($response);
     }
     public function fetchDataByYear($id, $year){
       $indicator = Indicator::find($id);

@@ -7,24 +7,9 @@
      </md-button>
    </div>
  </md-toolbar> -->
-
-<div class="chapter-image" hide-xs hide-sm layout="column" layout-align="center center" ng-class="{'dark': !vm.isDark}">
-  <span>{{ vm.ExportService.chapter.title}}</span>
-  <h2 class="doAnim-right">
-    <div>
-      <md-input-container class="md-block">
-        <label ng-if="!vm.nation">Choose from countries list</label>
-        <md-select ng-model="vm.nation" aria-label="Choose Country from List" ng-change="vm.selectCountry(nation)">
-          <md-option ng-value="nation" ng-repeat="(key, nation) in vm.countries">{{ nation }}</md-option>
-        </md-select>
-    </md-input-container>
-  </div></h2>
-	<div style="background-image:url('{{vm.ExportService.chapter.style.image.src}}')" class="image">
-    <div class="tint"></div>
-    <img color="vm.isDark" image-color src="{{vm.ExportService.chapter.style.image.src}}" style="display:none"  />
-  </div>
-  <div>
-		<md-input-container class="md-block">
+<md-content layout-padding>
+	<div style="padding: 0 8px">
+		<md-input-container class="md-block no-margin">
 			<md-select ng-model="vm.selectedIndicator" aria-label="Select Indidicator" ng-change="vm.gotoIndicator()">
 				<md-optgroup label="{{chapter.title}}" ng-repeat="chapter in vm.ExportService.exporter.items" ng-style="{'color': vm.ExportService.exporter.base_color}">
 					<md-option ng-value="item" ng-repeat="item in chapter.children">{{ item.title}}</md-option>
@@ -32,6 +17,24 @@
 			</md-select>
 		</md-input-container>
 	</div>
+</md-content>
+<!-- <div class="chapter-image" hide-xs hide-sm layout="column" layout-align="center center" ng-class="{'dark': !vm.isDark}"> -->
+<div class="chapter-image" hide-xs hide-sm layout="column" layout-align="center center" ng-class="{'dark': !vm.isDark}">
+
+	<!-- <h2 class="doAnim-right">
+    <div>
+      <md-input-container class="md-block">
+        <label ng-if="!vm.nation">Choose from countries list</label>
+        <md-select ng-model="vm.nation" aria-label="Choose Country from List" ng-change="vm.selectCountry(nation)">
+          <md-option ng-value="nation" ng-repeat="(key, nation) in vm.countries">{{ nation }}</md-option>
+        </md-select>
+    </md-input-container>
+  </div></h2> -->
+	<div style="background-image:url('{{vm.ExportService.chapter.style.image.src}}')" class="image">
+		<div class="tint"></div>
+		<img color="vm.isDark" image-color src="{{vm.ExportService.chapter.style.image.src}}" style="display:none" />
+	</div>
+
 </div>
 <md-subheader class="md-primary selector" hide-gt-sm>
 	<div>
@@ -44,38 +47,34 @@
 		</md-input-container>
 	</div>
 </md-subheader>
-<section class="mobile-container" ng-if="vm.nation">
-	<md-tabs md-center-tabs="true" md-dynamic-height md-no-pagination="true" md-selected="vm.activeTab" md-stretch-tabs="always" md-swipe-content="true" ng-if="vm.ExportService.indicator">
+<section class="mobile-container">
+	<div ng-if="!vm.nation">
+		<export-chooser countries="vm.countries" nation="vm.nation" selected="vm.selectedIndicator" on-change="vm.selectCountry(nation)"></export-chooser>
+	</div>
+	<md-tabs md-center-tabs="true" ng-if="vm.nation" md-dynamic-height md-no-pagination="true" md-selected="vm.activeTab" md-stretch-tabs="always" md-swipe-content="true" ng-if="vm.ExportService.indicator">
 		<md-tab label="Details" md-active="vm.activeTab == 0" md-on-select="vm.setTab(0)">
-			<md-content layout-padding>
-				<div hide-gt-sm>
-					<md-input-container class="md-block">
-						<label>Choose from countries list</label>
-						<md-select ng-model="vm.nation" aria-label="Choose Country from List" ng-change="vm.selectCountry(nation)">
-							<md-option ng-value="nation" ng-repeat="(key, nation) in vm.countries">{{ nation }}</md-option>
-						</md-select>
-					</md-input-container>
+			  <export-chooser countries="vm.countries" nation="vm.nation" selected="vm.selectedIndicator" on-change="vm.selectCountry(nation)"></export-chooser>
+				<div layout="column">
+					<div layout="row" layout-align="start center" style="padding-left:18px">
+						<span class="colored">Rank&nbsp;&nbsp;</span>
+						<circlegraph item="vm.current" options="vm.circleOptions"></circlegraph>
+					</div>
+					<section class="module slide-toggle hideOnClosed" layout-align="center center" layout="column" ng-if="vm.current  && !vm.compare.active">
+						<median data="vm.data" ng-model="vm.current" options="{color: vm.ExportService.indicator.style.base_color,handling: true, field: vm.structure.name}" style="margin:2em 0"></median>
+					</section>
 				</div>
-        <div layout="column">
-              <div layout="row" layout-align="start center" style="padding-left:1em;">
-                <span class="colored">Rank&nbsp;&nbsp;</span>
-                <circlegraph item="vm.current" options="vm.circleOptions"></circlegraph>
-              </div>
-              <section class="module slide-toggle hideOnClosed" layout-align="center center" layout="column" ng-if="vm.current  && !vm.compare.active">
-                <median data="vm.data" ng-model="vm.current" options="{color: vm.ExportService.indicator.style.base_color,handling: true, field: vm.structure.name}" style="margin:2em 0"></median>
-              </section>
-        </div>
-			</md-content>
 		</md-tab>
 		<md-tab label="History" ng-if="vm.current.data.length > 1" md-active="vm.activeTab == 1" md-on-select="vm.setTab(1)" ng-disabled="!vm.current.data">
+      <export-chooser countries="vm.countries" nation="vm.nation" selected="vm.selectedIndicator" on-change="vm.selectCountry(nation)"></export-chooser>
 			<div class="module tabs mb1" layout="column">
 				<history chartdata="vm.current.data" options="{field:vm.ExportService.indicator.name, color:vm.ExportService.indicator.style.base_color || 'rgba(128, 243, 198,1)'}"></history>
 			</div>
 		</md-tab>
 		<md-tab label="Compare" md-active="vm.activeTab == 2" md-on-deselect="vm.setCompare(false)" md-on-select="vm.setCompare(true)" ng-disabled="!vm.nation">
+      <export-chooser countries="vm.countries" nation="vm.nation" selected="vm.selectedIndicator" on-change="vm.selectCountry(nation)"></export-chooser>
 			<div class="module comparison">
-				<div layout-wrap layout="row" ng-if="vm.current && vm.structure" >
-          <compare-countries style="margin-top:2em" country="vm.current" countries="vm.countriesList" options="{field: vm.structure.name, height: 25, margin:5, color:vm.ExportService.indicator.style.base_color, duration:500}"></compare-countries>
+				<div layout-wrap layout="row" ng-if="vm.current && vm.structure">
+					<compare-countries style="margin-top:2em;margin-left:8px;" country="vm.current" countries="vm.countriesList" options="{field: vm.structure.name, height: 25, margin:5, color:vm.ExportService.indicator.style.base_color, duration:500}"></compare-countries>
 					<div class="country anim-opacity" flex="50" ng-repeat="country in vm.compare.countries">
 						<!-- <h4 ng-click="vm.setCurrent(country)">
                                                         <span class="number">N°{{vm.getRank(country)}}</span>
@@ -91,8 +90,9 @@
 </section>
 <style>
 	.chapter-image,
-	md-tabs md-ink-bar, .tint {
-		background-color: {{ vm.ExportService.indicator.style.base_color }} ;
+	md-tabs md-ink-bar,
+	.tint {
+		background-color: {{vm.ExportService.indicator.style.base_color	}};
 	}
 
 	.chapter-image img {
@@ -100,15 +100,15 @@
 	}
 
 	.md-subheader.md-primary,
-	md-tabs .md-tab.md-active, .colored {
-		color: {{ vm.ExportService.indicator.style.base_color }} !important;
+	md-tabs .md-tab.md-active,
+	.colored {
+		color: {{	vm.ExportService.indicator.style.base_color	}} !important;
 	}
 
 	md-select-menu.md-default-theme md-option[selected],
 	md-select-menu md-option[selected] {
-		background-color: {{ vm.ExportService.exporter.base_color }} !important;
+		background-color: {{vm.ExportService.exporter.base_color}}	!important;
 		color:#fff !important;
 		border:1px solid;
 	}
-
 </style>

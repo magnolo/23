@@ -1,45 +1,38 @@
 @import (less) 'colors.less';
-
 * {
     &:focus {
         border: 0;
         outline: 0;
     }
 }
-
-html,
-body {
+body,
+html {
     width: 100%;
     height: 100%;
     /*@media screen and (max-width: 600px){
       height: calc(~'100% + 32px');
     }*/
 }
-
 html {
     /* enough space to scroll up to get fullscreen on iOS8 */
     //  padding-bottom: 80px;
 }
-
 body {
     padding-bottom: 0 !important;
     font-family: 'Gorgia';
     font-size: 16px;
     color: @main-color;
     overflow-x: hidden;
-    background: url(/images/geometry.png);
-
+    background: url("/images/geometry.png");
     > canvas {
         z-index: 1000;
         position: fixed;
         right: 10px;
         bottom: 10px;
     }
-
     > md-content {
         //border-top:1px solid @base-light;
         position: relative;
-
         &::before {
             content: '';
             width: 100%;
@@ -53,41 +46,38 @@ body {
             transition-delay: 0.1s;
         }
     }
-
     &.loggedIn {
         > md-content {
             &::before {
                 width: calc(~"100% - 47px");
                 left: 47px;
-                  @media screen and (max-width: 959px){
-                    left:0px;
-                    width:100%;
-                  }
+                @media screen and (max-width: 959px) {
+                    left: 0;
+                    width: 100%;
+                }
             }
         }
     }
-    > md-content{
+    > md-content {
         transition: all 1s ease-in-out;
         opacity: 1;
         //transform:translateY(0%);
     }
-    md-toolbar.Header{
-      transform:translateY(0px);
+    md-toolbar.Header {
+        transform: translateY(0px);
     }
-
-    &:not(.startup){
-      overflow: hidden;
-      md-toolbar.Header{
-        transform:translateY(-50px);
-        z-index: 10;
-      }
-      > md-content{
-        opacity: 0;
-        //transform:translateY(-120%);
-      }
+    &:not(.startup) {
+        overflow: hidden;
+        md-toolbar.Header {
+            transform: translateY(-50px);
+            z-index: 10;
+        }
+        > md-content {
+            opacity: 0;
+            //transform:translateY(-120%);
+        }
     }
 }
-
 .Page {
     //margin-top: 64px;
     //  height:calc(~"100% - 64px");
@@ -96,63 +86,51 @@ body {
     //  margin-top:48px;
     //  z-index:1;
 }
-
 .Page-name {
     color: @base;
 }
-
 .logo {
     color: @base;
     font-size: 1.5em;
 }
-
 .info {
     color: @base;
-
     path {
         fill: @base;
     }
 }
-
 .icon-space {
     position: relative;
     top: 4px;
     left: 5px;
 }
-
 .inline-list {
     li {
         display: inline;
     }
-
     &.menu-list {
         li {
             position: relative;
             padding: 0 1em;
-
             &::before {
                 content: "/";
                 position: absolute;
                 right: 0;
                 top: 0;
             }
-
             &:last-child {
                 &::before {
                     content: "";
                 }
             }
-
             &.active {
                 a {
                     color: @base;
                 }
             }
-
             a {
                 position: relative;
                 color: @dark-color;
-
                 &::after {
                     content: '';
                     position: absolute;
@@ -163,7 +141,6 @@ body {
                     border-bottom: 1px solid @base;
                     transition: all 0.2s ease;
                 }
-
                 &:hover {
                     &::after {
                         width: 100%;
@@ -174,7 +151,6 @@ body {
         }
     }
 }
-
 #hack {
     z-index: 100000;
     /* should be bigger than everything else */
@@ -184,83 +160,66 @@ body {
     visibility: hidden;
     height: 0;
 }
-
 .icon-bubble {
     background-color: @grey-light;
     color: #fff;
     border-radius: 50%;
     font-size: 2em;
-
     &.fisheries {
         background-color: @fisheries;
     }
-
     &.healthimpact {
         background-color: @healthimpact;
     }
-
     &.airquality {
         background-color: @airquality;
     }
-
     &.watersanitation {
         background-color: @watersanitation;
     }
-
     &.waterresources {
         background-color: @waterresources;
     }
-
     &.agriculture {
         background-color: @agriculture;
     }
-
     &.forest {
         background-color: @forest;
     }
-
     &.biodiversity {
         background-color: @biodiversity;
     }
-
     &.climate {
         background-color: @climate;
     }
 }
-
 p {
     &.small-info {
         color: #aaa;
         font-size: 0.9em;
-
         &:hover {
             color: @base;
         }
     }
 }
-
 .lower-text {
     font-size: 0.9em;
 }
-
 &.rowed {
     #map {
         left: 400px;
         width: calc(~'100% - 400px');
     }
-
     .Page {
         width: 400px;
         max-width: 400px;
         height: 100%;
     }
 }
-
 &.loose {
     .Header {
         background: #fff !important;
     }
-
     .Page {
         margin-left: calc(~'370px + 2em');
         margin-top: 1em;
@@ -271,14 +230,13 @@ p {
         position: absolute;
         max-height: calc(~'100% - 2em');
         max-width: calc(~'100% - 370px - 3em');
-
+        z-index: 2;
         section {
             &.table {
                 height: calc(~'100% - 2em');
             }
         }
     }
-
     #sidebar {
         position: absolute !important;
         top: 1em;
@@ -287,68 +245,60 @@ p {
         max-height: calc(~'100% - 2em');
         overflow-x: hidden;
     }
-
     &.sidebar-closed {
         .Page {
             //margin-left: 1em;
             transition-delay: 0.1s;
         }
     }
-
     #map {
         left: 0;
         width: 100%;
     }
-
     &.rowed {
         .Page {
             width: 400px;
         }
     }
-
     .additional {
         top: 1em;
         height: calc(~'100% - 2em');
         left: calc(~'800px + 1em');
     }
-
     &.loggedIn {
         #sidebar {
             left: calc(~'48px + 1em');
         }
     }
-
-    &.fixed{
-      #sidebar {
-
-          top: 0em;
-          left: 0em;
-          bottom: auto;
-          max-height: 100%;
-          overflow-x: hidden;
+    &.fixed {
+        #sidebar {
+            top: 0;
+            left: 0;
+            bottom: auto;
+            max-height: 100%;
+            overflow-x: hidden;
             @media screen and (max-width: 959px) {
-              top:42px;
-              overflow-x:visible;
+                top: 42px;
+                overflow-x: visible;
             }
-      }
-      #map{
-        @media screen and (max-width: 959px) {
-          height: calc(~'100% - 180px');
         }
-      }
-      &.loggedIn{
-        #sidebar{
-          left:48px;
-          @media screen and (max-width: 959px) {
-              left:0px;
-          }
+        #map {
+            @media screen and (max-width: 959px) {
+                height: calc(~'100% - 180px');
+            }
         }
-      }
+        &.loggedIn {
+            #sidebar {
+                left: 48px;
+                @media screen and (max-width: 959px) {
+                    left: 0;
+                }
+            }
+        }
     }
 }
-
 &.loggedIn {
-  /*  #sidebar {
+    /*  #sidebar {
         @media screen and (max-width: 600px) {
             left: 48px;
             max-width: calc(~'100% - 48px');
@@ -357,37 +307,35 @@ p {
         }
     }*/
 }
-
 .additional {
-  position: relative;;
-  z-index: 1;
-  width:400px;
-  height:100%;
-  border-left:1px solid #ddd;
-  > div, md-content{
-    &:first-child{
-      pointer-events: auto;
+    position: relative;
+    z-index: 1;
+    width: 400px;
+    height: 100%;
+    border-left: 1px solid #ddd;
+    > div,
+    md-content {
+        &:first-child {
+            pointer-events: auto;
+        }
     }
-  }
 }
-.addFull{
-  .additional{
-    width:100%;
-    height:auto;
-    pointer-events: none;
-
-  }
-  #map{
-    top:355px;
-    height:calc(~'100% - 355px');
-  }
+.addFull {
+    .additional {
+        width: 100%;
+        height: auto;
+        pointer-events: none;
+    }
+    #map {
+        top: 355px;
+        height: calc(~'100% - 355px');
+    }
 }
 .noHeader {
     .Header {
         display: none;
     }
 }
-
 .menu-toggler {
     position: absolute;
     width: 100%;
@@ -396,26 +344,22 @@ p {
     cursor: pointer;
     display: none;
 }
-
 .mobile-window-switcher {
     position: fixed;
     bottom: 0.5em;
     right: 0.2em;
     z-index: 61;
-
     path {
         fill: #fff;
     }
-transition: bottom 0.5s ease;
+    transition: bottom 0.5s ease;
 }
-
 .sidebar-closed {
     .mobile-window-switcher {
         bottom: 4.2em;
         right: 0.2em;
     }
 }
-
 .columned {
     -webkit-column-count: 3;
     /* Chrome, Safari, Opera */
@@ -423,7 +367,6 @@ transition: bottom 0.5s ease;
     /* Firefox */
     column-count: 3;
 }
-
 .social-buttons {
     margin-top: 0.5em;
     color: #004288;
@@ -431,24 +374,22 @@ transition: bottom 0.5s ease;
     display: none;
     //border-top:1px solid;
 }
-
 .social-buttons a {
     text-decoration: none;
     color: #004288;
     margin-bottom: 5px;
     //background-color: #fff;
 }
-
 .social-buttons a i {
     font-size: 1.5em;
 }
-#fullscreen-view{
-  position:fixed;
-  top:0px;
-  left:0px;
-  height:100%;
-  width:100%;
-  z-index: 61;
-  background: #fff;
-  min-height:400px;
+#fullscreen-view {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 61;
+    background: #fff;
+    min-height: 400px;
 }

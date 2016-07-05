@@ -95,6 +95,12 @@
 			} else {
 				this.mapLayer.scrollWheelZoom.disable()
 			}
+			if (style.legends) {
+				this.legend = {
+					colors: [],
+
+				}
+			}
 
 		}
 		this.resetBaseLayer = function() {
@@ -352,7 +358,7 @@
 			var style = {};
 			var iso = feature.properties[that.iso_field];
 			var nation = that.getNationByIso(iso);
-			var field = that.map.structure.name || 'score';
+			var field = 'score';
 			var type = feature.type;
 			feature.selected = false;
 			switch (type) {
