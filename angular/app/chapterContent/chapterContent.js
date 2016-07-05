@@ -1,7 +1,7 @@
 (function() {
 	"use strict";
 
-	angular.module('app.controllers').controller('ChapterContentCtrl', function($scope, $timeout, $state, DataService, ContentService, countries, ExportService, IndizesService, DialogService, VectorlayerService) {
+	angular.module('app.controllers').controller('ChapterContentCtrl', function($scope, $timeout, $state, DataService, ContentService, countries, ExportService, IndizesService, IndexService, DialogService, VectorlayerService) {
 		//
 		var vm = this;
 		vm.activeTab = 0;
@@ -129,7 +129,7 @@
 				VectorlayerService.gotoCountry(iso);
 			}
 			VectorlayerService.setSelectedFeature(iso, true);
-			IndizesService.fetchNationData(vm.ExportService.indicator.indicator_id, iso, function(data) {
+			IndexService.fetchNationData(vm.ExportService.indicator.indicator_id, iso, function(data) {
 				vm.nation = vm.countries[iso];
 				vm.current = data;
 				console.log(vm.current, vm.nation);

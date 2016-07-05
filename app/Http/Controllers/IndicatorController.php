@@ -198,6 +198,19 @@ class IndicatorController extends Controller
 
       return response()->api($response);
     }
+
+    public function fetchDataByIso($id, $iso){
+      $indicator =  Indicator::where('id',$id)->with('type', 'categories', 'dataprovider', 'userdata')->first();
+      $iso_field = $indicator->userdata->iso_type == 'iso-3166-1' ? 'adm0_a3': 'iso_a2';
+      $data = \DB::table($indicator->table_name)
+        ->where($indicator->iso_name, $iso)
+        ->whereNotNull($indicator->table_name.".".$indicator->column_name)
+        ->leftJoin('countries', $indicator->table_name.".".$indicator->iso_name, '=', 'countries.'.$iso_field)
+        ->select($indicator->table_name.".".$indicator->column_name.' as score', $indicator->table_name.'.year')
+        ->orderBy($indicator->table_name.".".$indicator->column_name, 'desc')->get();
+      return response()->api($data);
+    }
+
     public function fetchDataByYear($id, $year){
       $indicator = Indicator::find($id);
       $iso_field = $indicator->userdata->iso_type == 'iso-3166-1' ? 'adm0_a3': 'iso_a2';
