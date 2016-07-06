@@ -114,7 +114,15 @@ class IndicatorController extends Controller
           }
         }
         $data = $data->orderBy('year', 'DESC')->get();
-        return response()->api($data);
+        $response = [];
+        foreach($data as $item){
+          if(!is_null($item->score)){
+            $item->score = floatval($item->score);
+            $response[] = $item;
+          }
+        }
+
+        return response()->api($response);
     }
     /**
      * Show the form for editing the specified resource.
@@ -187,11 +195,12 @@ class IndicatorController extends Controller
       $response = [];
       $rank = 1;
       foreach($data as $item){
-
         if(!is_null($item->score)){
           $item->score = floatval($item->score);
+          $item->{$indicator->column_name} = $item->score;
           $item->rank = $rank;
           $response[] = $item;
+
           $rank++;
         }
       }

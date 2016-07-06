@@ -19,7 +19,7 @@
 	</div>
 </md-content>
 <!-- <div class="chapter-image" hide-xs hide-sm layout="column" layout-align="center center" ng-class="{'dark': !vm.isDark}"> -->
-<div class="chapter-image" hide-xs hide-sm layout="column" layout-align="center center" ng-class="{'dark': !vm.isDark}">
+<div class="chapter-image" hide-xs hide-sm layout="column" layout-align="center center" ng-if="vm.ExportService.chapter.style.image.src" ng-class="{'dark': !vm.isDark}">
 
 	<!-- <h2 class="doAnim-right">
     <div>
@@ -60,7 +60,7 @@
 						<circlegraph item="vm.current" options="vm.circleOptions"></circlegraph>
 					</div>
 					<section class="module slide-toggle hideOnClosed" layout-align="center center" layout="column" ng-if="vm.current  && !vm.compare.active">
-						<median data="vm.data" ng-model="vm.current" options="{color: vm.ExportService.indicator.style.base_color,handling: true, field: vm.structure.name}" style="margin:2em 0"></median>
+						<median data="vm.data" ng-model="vm.current" options="{color: vm.ExportService.indicator.style.base_color,handling: true, field: 'score'}" style="margin:2em 0"></median>
 					</section>
 				</div>
 		</md-tab>

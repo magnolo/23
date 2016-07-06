@@ -1,7 +1,7 @@
-(function () {
+(function() {
 	"use strict";
 
-	angular.module('app.services').factory('IndizesService', function (DataService) {
+	angular.module('app.services').factory('IndizesService', function(DataService) {
 		//
 		return {
 			index: {
@@ -21,22 +21,21 @@
 				this.index.data.structure = this.index.promises.structure.$object;
 				return this.index;
 			},
-			getData: function () {
+			getData: function() {
 				return this.index.data.data;
 			},
-			getStructure: function () {
+			getStructure: function() {
 				return this.index.data.structure;
 			},
-			getDataPromise: function () {
+			getDataPromise: function() {
 				return this.index.promises.data;
 			},
-			getStructurePromise: function () {
+			getStructurePromise: function() {
 				return this.index.promises.structure;
 			},
-			fetchNationData:function(index, iso, success){
+			fetchNationData: function(index, iso, success) {
 				DataService.getOne('index/' + index, iso).then(function(data) {
 					success(data);
-
 				});
 			}
 		}

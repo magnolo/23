@@ -1,7 +1,7 @@
 (function() {
 	"use strict";
 
-	angular.module('app.services').factory('IndexService', function(CacheFactory, $state) {
+	angular.module('app.services').factory('IndexService', function(CacheFactory, DataService, $state) {
 		//
 		var serviceData = {
 				data: [],

@@ -106,8 +106,8 @@
 			//getIndicator();
 		}
 
-		function selectCountry() {
-			var iso = getCountryByName(vm.nation);
+		function selectCountry(nation) {
+			var iso = getCountryByName(nation);
 			$state.go('app.export.detail.chapter.indicator.country', {
 				iso: iso
 			});

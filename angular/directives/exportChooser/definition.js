@@ -11,7 +11,8 @@
 			scope: {
 				countries: '=',
 				nation: '=',
-				selected: '='
+				selected: '=',
+				onChange: '&='
 			},
 			bindToController: true,
 			replace: true,
