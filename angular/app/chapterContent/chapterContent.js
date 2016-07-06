@@ -10,13 +10,14 @@
 		vm.setCompare = setCompare;
 		vm.chapterId = $state.params.chapter;
 		vm.selectedIndicator = 0;
+		vm.selectedCountry = {};
 		vm.current = {};
 		vm.countriesList = [], vm.compareList = [];
 		vm.ExportService = ExportService;
 		vm.countries = countries.plain();
 		vm.selectCountry = selectCountry;
 		vm.circleOptions = {};
-		vm.calcRank = calcRank;
+
 		vm.gotoIndicator = gotoIndicator;
 
 		VectorlayerService.countryClick(function(data) {
@@ -27,6 +28,7 @@
 				$state.go('app.export.detail.chapter.indicator.country', {
 					iso: data.feature.id
 				});
+				getCountryByIso(data.feature.id);
 				fetchNationData(data.feature.id);
 			}
 
@@ -86,6 +88,7 @@
 		function getIndicator(finished) {
 			vm.ExportService.getIndicator($state.params.id, $state.params.chapter, $state.params.indicator, function(chapter, indicator) {
 				vm.selectedIndicator = indicator;
+
 				renderIndicator(indicator, function() {
 					if ($state.params.iso) {
 						fetchNationData($state.params.iso);
@@ -103,15 +106,16 @@
 				indiname: vm.selectedIndicator.name
 			});
 
-			//getIndicator();
+			getIndicator();
+
 		}
 
 		function selectCountry(nation) {
-			var iso = getCountryByName(nation);
+			console.log(nation);
 			$state.go('app.export.detail.chapter.indicator.country', {
-				iso: iso
+				iso: nation.iso
 			});
-			fetchNationData(iso);
+			fetchNationData(nation.iso);
 		}
 
 		function getCountryByName(name) {
@@ -121,6 +125,16 @@
 					iso = key;
 				}
 			});
+			getCountryByIso(iso);
+			return iso;
+		}
+
+		function getCountryByIso(iso) {
+			angular.forEach(vm.data, function(item) {
+				if (item.iso == iso) {
+					vm.selectedCountry = item;
+				}
+			})
 			return iso;
 		}
 
@@ -132,61 +146,45 @@
 			IndexService.fetchNationData(vm.ExportService.indicator.indicator_id, iso, function(data) {
 				vm.nation = vm.countries[iso];
 				vm.current = data;
-				console.log(vm.current, vm.nation);
-				calcRank();
+				//calcRank();
 			});
 		}
 
 		function renderIndicator(item, done) {
 
-			ContentService.getIndicatorData(item.indicator_id).then(function(structure) {
-				ContentService.fetchIndicatorPromise(item.indicator_id).then(function(data) {
-					vm.data = structure;
-					vm.structure = data;
-					VectorlayerService.setBaseLayer(item.style.basemap);
-					VectorlayerService.setMapDefaults(item.style);
-					VectorlayerService.setData(vm.data, vm.structure, item.style.base_color, true);
-					$timeout(function() {
-						if ($state.params.iso) {
-							$state.go('app.export.detail.chapter.indicator.country', {
-								indicator: item.indicator_id,
-								indiname: item.indicator.name,
-								iso: vm.current.iso
-							});
-						} else {
-							$state.go('app.export.detail.chapter.indicator', {
-								indicator: item.indicator_id,
-								indiname: item.indicator.name
-							});
-						}
-						if (typeof done == "function") {
-							done();
-						}
-					})
-				});
-			});
-		}
+			ContentService.fetchIndicatorWithData(item.indicator_id, function(indicator) {
+				vm.data = indicator.data;
+				vm.structure = indicator;
+				vm.circleOptions = {
+					color: vm.ExportService.indicator.style.base_color || '#00ccaa',
+					field: 'rank',
+					size: vm.structure.count,
+					hideNumbering: true
+				};
 
-		function calcRank() {
-			var rank = 0;
-			var kack = [];
-			angular.forEach(vm.data, function(item, key) {
-				item[vm.structure.name] = parseFloat(item[vm.structure.name]);
-				item['score'] = parseFloat(item[vm.structure.name]);
-				if (item.iso == vm.current.iso) {
-					rank = key + 1;
+				VectorlayerService.setBaseLayer(item.style.basemap);
+				VectorlayerService.setMapDefaults(item.style);
+				VectorlayerService.setData(indicator.data, indicator, item.style.base_color, true);
+
+				if ($state.params.iso) {
+					$state.go('app.export.detail.chapter.indicator.country', {
+						indicator: item.indicator_id,
+						indiname: item.indicator.name,
+						iso: $state.params.iso
+					});
+				} else {
+					$state.go('app.export.detail.chapter.indicator', {
+						indicator: item.indicator_id,
+						indiname: item.indicator.name
+					});
 				}
+				if (typeof done == "function") {
+					done();
+				}
+			}, {
+				data: true
 			});
-			//vm.data = $filter('orderBy')(vm.data, 'score', 'iso', true);
-			//rank = vm.data.indexOf(vm.current) + 1;
-			vm.current[vm.structure.name + '_rank'] = rank;
-			vm.circleOptions = {
-				color: vm.ExportService.indicator.style.base_color || '#00ccaa',
-				field: vm.structure.name + '_rank',
-				size: vm.data.length,
-				hideNumbering: true
-			};
-			return rank;
+
 		}
 
 		function showInfo() {
@@ -197,20 +195,22 @@
 		function activate() {
 			$timeout(function() {
 				getIndicator(function() {
-					if ($state.params.countries) {
-						var countries = $state.params.countries.split('-vs-');
-						angular.forEach(countries, function(country) {
-							addCompareCountry(country);
-						});
-						vm.activeTab = 2;
-						VectorlayerService.gotoCountries($state.params.iso, vm.compareList);
+
+					if ($state.params.iso) {
+						getCountryByIso($state.params.iso);
+						if ($state.params.countries) {
+							var countries = $state.params.countries.split('-vs-');
+							angular.forEach(countries, function(country) {
+								addCompareCountry(country);
+							});
+							vm.activeTab = 2;
+							VectorlayerService.gotoCountries($state.params.iso, vm.compareList);
+						}
 					}
 				});
 
 			});
 		}
-
-
 	});
 
 })();

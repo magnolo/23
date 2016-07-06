@@ -1,8 +1,8 @@
-(function () {
+(function() {
 	"use strict";
 
-	angular.module('app.directives').directive('circlegraph', function ($timeout) {
-		var defaults = function () {
+	angular.module('app.directives').directive('circlegraph', function($timeout) {
+		var defaults = function() {
 			return {
 				width: 80,
 				height: 80,
@@ -18,11 +18,11 @@
 				options: '=',
 				item: '='
 			},
-			link: function ($scope, element, $attrs) {
+			link: function($scope, element, $attrs) {
 				//Fetching Options
 
 				$scope.options = angular.extend(defaults(), $scope.options);
-				var  τ = 2 * Math.PI;
+				var τ = 2 * Math.PI;
 				//Creating the Scale
 				var rotate = d3.scale.linear()
 					.domain([1, $scope.options.size])
@@ -47,10 +47,10 @@
 
 				var arc = d3.svg.arc()
 					.startAngle(0)
-					.innerRadius(function (d) {
+					.innerRadius(function(d) {
 						return $scope.options.width / 2 - 4;
 					})
-					.outerRadius(function (d) {
+					.outerRadius(function(d) {
 						return $scope.options.width / 2;
 					});
 
@@ -64,49 +64,48 @@
 					.data([0])
 					.enter()
 					.append('text')
-					.text(function (d) {
-						if(!$scope.options.hideNumbering)
+					.text(function(d) {
+						if (!$scope.options.hideNumbering)
 							return 'N°' + d;
-						return d + '/' +$scope.options.size;
+						return d + '/' + $scope.options.size;
 					})
 					.style("fill", $scope.options.color)
 					.style('font-weight', 'bold')
-					.style('font-size', function(){
+					.style('font-size', function() {
 						//if(!$scope.options.hideNumbering)
 						return '1em';
 						//return '1.5em';
 					})
 					.attr('text-anchor', 'middle')
-					.attr('y', function(d){
+					.attr('y', function(d) {
 						//if(!$scope.options.hideNumbering)
-							return '0.35em';
+						return '0.35em';
 						//return '0.37em'
 					});
 
 				//Transition if selection has changed
 				function animateIt(radius) {
 					circleBack.transition()
-							.duration(750)
-							.attr('stroke', $scope.options.color);
+						.duration(750)
+						.attr('stroke', $scope.options.color);
 
-							console.log(rotate(radius));
+
 					circleGraph.transition()
-							.duration(750)
-							.style("fill", $scope.options.color)
-							.call(arcTween, Math.random()/*rotate(radius)*/ * 2 * Math.PI);
+						.duration(750)
+						.style("fill", $scope.options.color)
+						.call(arcTween, rotate(radius) * 2 * Math.PI);
 
-					text.transition().duration(750).tween('text', function (d) {
-						if(!$scope.options.hideNumbering){
+					text.transition().duration(750).tween('text', function(d) {
+						if (!$scope.options.hideNumbering) {
 							var data = this.textContent.split('N°');
 							var i = d3.interpolate(parseInt(data[1]), radius);
-							return function (t) {
+							return function(t) {
 								this.textContent = 'N°' + (Math.round(i(t) * 1) / 1);
 							};
-						}
-						else{
+						} else {
 							var data = this.textContent.split('/');
 							var i = d3.interpolate(parseInt(data[0]), radius);
-							return function (t) {
+							return function(t) {
 								this.textContent = (Math.round(i(t) * 1) / 1) + "/" + $scope.options.size;
 							};
 						}
@@ -115,11 +114,10 @@
 
 				//Tween animation for the Arc
 				function arcTween(transition, newAngle) {
-					transition.attrTween("d", function (d) {
-						console.log(d.endAngle);
-						console.log(newAngle);
+					transition.attrTween("d", function(d) {
+
 						var interpolate = d3.interpolate(d.endAngle, newAngle);
-						return function (t) {
+						return function(t) {
 							d.endAngle = interpolate(t);
 							return arc(d);
 						};
@@ -139,22 +137,24 @@
 				});*/
 
 				//Watching if selection has changed from another UI element
-				$scope.$watch('item',	function (n, o) {
-						//if(n === o) return;
-						if (!n) {
-							n[$scope.options.field] = $scope.options.size;
-						}
-						$timeout(function () {
-								animateIt(n[$scope.options.field]);
-						});
-					});
-				$scope.$watch('options', function(n,o){
-					if(n === o || !n) return;
-					$timeout(function () {
+				$scope.$watch('item', function(n, o) {
+					//if(n === o) return;
 
-							animateIt($scope.item[$scope.options.field]);
+					if (!n) {
+						n[$scope.options.field] = $scope.options.size;
+					}
+					$timeout(function() {
+						animateIt(n[$scope.options.field]);
 					});
-				},true);
+				});
+				$scope.$watch('options', function(n, o) {
+					if (n === o || !n) return;
+
+					$timeout(function() {
+
+						animateIt($scope.item[$scope.options.field]);
+					});
+				}, true);
 			}
 		};
 

@@ -10,6 +10,8 @@
 				info: true,
 				field: 'score',
 				handling: true,
+				min: 0,
+				max: 100,
 				margin: {
 					left: 20,
 					right: 20,
@@ -41,8 +43,7 @@
 			link: function($scope, element, $attrs, ngModel) {
 
 				var options = angular.extend(defaults(), $attrs);
-				var max = 0,
-					min = 0;
+
 				options = angular.extend(options, $scope.options);
 
 				options.unique = new Date().getTime();
@@ -51,14 +52,16 @@
 				}
 				element.css('height', options.height + 'px').css('border-radius', options.height / 2 + 'px');
 
+				if (!$scope.options.max) {
+					angular.forEach($scope.data, function(nat, key) {
+						options.max = d3.max([options.max, parseInt(nat[options.field])]);
+						options.min = d3.min([options.min, parseInt(nat[options.field])]);
+					});
+				}
 
-				angular.forEach($scope.data, function(nat, key) {
-					max = d3.max([max, parseInt(nat[options.field])]);
-					min = d3.min([min, parseInt(nat[options.field])]);
-				});
 
 				var x = d3.scale.linear()
-					.domain([min, max])
+					.domain([options.min, options.max])
 					.range([options.margin.left, options.width - options.margin.left])
 					.clamp(true);
 
@@ -124,7 +127,7 @@
 					legend.append('circle')
 						.attr('r', options.height / 2);
 					legend.append('text')
-						.text(min)
+						.text(options.min)
 						.style('font-size', options.height / 2.5)
 						.attr('text-anchor', 'middle')
 						.attr('y', '.35em')
@@ -136,11 +139,11 @@
 					legend2.append('text')
 						.text(function() {
 							//TDODO: CHckick if no comma there
-							if (max > 1000) {
-								var v = (parseInt(max) / 1000).toString();
+							if (options.max > 1000) {
+								var v = (parseInt(options.max) / 1000).toString();
 								return v.substr(0, v.indexOf('.')) + "k";
 							}
-							return max
+							return options.max
 						})
 						.style('font-size', options.height / 2.5)
 						.attr('text-anchor', 'middle')
@@ -168,11 +171,11 @@
 				}
 				var handleCont = slider.append('g')
 					.attr("transform", "translate(0," + options.height / 2 + ")")
-					.on('mouseover', function(){
-							shadowIntensity.transition().duration(200).attr('stdDeviation', 2);
+					.on('mouseover', function() {
+						shadowIntensity.transition().duration(200).attr('stdDeviation', 2);
 
 					})
-					.on('mouseout', function(){
+					.on('mouseout', function() {
 						shadowIntensity.transition().duration(200).attr('stdDeviation', 1);
 
 					});
@@ -248,8 +251,8 @@
 
 				function brushed() {
 					var count = 0;
-				 	var found = false;
-				 	var final = "";
+					var found = false;
+					var final = "";
 					var value = brush.extent()[0];
 					angular.forEach($scope.data, function(nat, key) {
 						console.log(nat);
@@ -274,7 +277,7 @@
 					// }
 
 
-					if(final){
+					if (final) {
 						ngModel.$setViewValue(final);
 						ngModel.$render();
 					}
@@ -304,7 +307,7 @@
 					rect.style('fill', 'url(#' + options.field + '_' + n.color + ')');
 					handle.style('fill', n.color);
 					if (ngModel.$modelValue) {
-						handleLabel.text(labeling(ngModel.$modelValue.data[0][n.field]));
+						handleLabel.text(labeling(ngModel.$modelValue[0][n.field]));
 						handleCont.transition().duration(500).ease('quad').attr("transform", 'translate(' + x(ngModel.$modelValue.data[0][n.field]) + ',' + options.height / 2 + ')');
 					} else {
 						handleLabel.text(0);
@@ -315,30 +318,33 @@
 						return ngModel.$modelValue;
 					},
 					function(newValue, oldValue) {
+						console.log(options.max, options.min);
 						if (!newValue) {
 							handleLabel.text(parseInt(0));
 							handleCont.attr("transform", 'translate(' + x(0) + ',' + options.height / 2 + ')');
 							return;
 						}
 
-							handleLabel.text(labeling(newValue.data[0][options.field]));
-							if (newValue == oldValue) {
-								handleCont.attr("transform", 'translate(' + x(newValue.data[0][options.field]) + ',' + options.height / 2 + ')');
-							} else {
-								handleCont.transition().duration(500).ease('quad').attr("transform", 'translate(' + x(newValue.data[0][options.field]) + ',' + options.height / 2 + ')');
+						handleLabel.text(labeling(newValue[options.field]));
+						if (newValue == oldValue) {
+							handleCont.attr("transform", 'translate(' + x(newValue[options.field]) + ',' + options.height / 2 + ')');
+						} else {
+							handleCont.transition().duration(500).ease('quad').attr("transform", 'translate(' + x(newValue[options.field]) + ',' + options.height / 2 + ')');
 
-							}
+						}
 
 
 					});
 				$scope.$watch('data', function(n, o) {
 					if (n === o) return false;
-					//	console.log(n);
-					min = 0;
-					max = 0;
+
+					options.min = 0;
+					options.max = 0;
 					angular.forEach($scope.data, function(nat, key) {
-						max = d3.max([max, parseInt(nat[options.field])]);
-						min = d3.min([min, parseInt(nat[options.field])]);
+						if (!$scope.options.max) {
+							options.max = d3.max([options.max, parseInt(nat[options.field])]);
+							options.min = d3.min([options.min, parseInt(nat[options.field])]);
+						}
 						if (nat.iso == ngModel.$modelValue.iso) {
 							handleLabel.text(labeling(nat.data[0][options.field]));
 							handleCont.transition().duration(500).ease('quad').attr("transform", 'translate(' + x(nat.data[0][options.field]) + ',' + options.height / 2 + ')');
@@ -347,7 +353,7 @@
 					});
 
 					x = d3.scale.linear()
-						.domain([min, max])
+						.domain([options.min, options.max])
 						.range([options.margin.left, options.width - options.margin.left])
 						.clamp(true);
 					brush.x(x)
@@ -357,11 +363,11 @@
 					legend.select('#lowerValue').text(min);
 					legend2.select('#upperValue').text(function() {
 						//TDODO: CHckick if no comma there
-						if (max > 1000) {
-							var v = (parseInt(max) / 1000).toString();
+						if (options.max > 1000) {
+							var v = (parseInt(options.max) / 1000).toString();
 							return v.substr(0, v.indexOf('.')) + "k";
 						}
-						return max
+						return options.max
 					});
 					angular.forEach($scope.data, function(nat, key) {
 						if (nat.iso == ngModel.$modelValue.iso) {

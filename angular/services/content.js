@@ -93,6 +93,13 @@
 					return that.content.indicator = data;
 				});
 			},
+			fetchIndicatorWithData: function(id, success, query) {
+				DataService.getOne('indicators/', id, query).then(function(data) {
+					if (typeof success == "function") {
+						success(data);
+					}
+				});
+			},
 			fetchIndicatorPromise: function(id) {
 				return DataService.getOne('indicators', id);
 			},

@@ -91,17 +91,53 @@ class IndicatorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
         //
         $indicator =  Indicator::where('id',$id)->with('type', 'categories', 'dataprovider', 'userdata')->first();
         $years = \DB::table($indicator->table_name)->select('year')->groupBy('year')->orderBy('year', 'DESC')->get();
         $indicator->years = $years;
+        $indicator->max = \DB::table($indicator->table_name)->where('year', $years[0]->year)->max($indicator->column_name);
+        $indicator->min = \DB::table($indicator->table_name)->where('year', $years[0]->year)->min($indicator->column_name);
+        $indicator->count = \DB::table($indicator->table_name)->where('year', $years[0]->year)->whereNotNull($indicator->column_name)->count($indicator->column_name);
+
+        if($indicator->type->name == "percentage"){
+          if($indicator->min > 0 && $indicator->max < 100){
+            $indicator->max = 100;
+            $indicator->min = 0;
+          }
+        }
+
         if($indicator->userdata->gender != ""){
           $gender = \DB::table($indicator->table_name)->select($indicator->userdata->gender.' as gender')->groupBy('gender')->orderBy('gender', 'DESC')->get();
           $indicator->gender = $gender;
         }
         $indicator->styled = $indicator->getStyle();
+
+        if($request->has('data')){
+          if($request->get('data')){
+            $iso_field = $indicator->userdata->iso_type == 'iso-3166-1' ? 'adm0_a3': 'iso_a2';
+            $data = \DB::table($indicator->table_name)
+              ->where('year', \DB::raw('(select MAX(tt_'.$indicator->table_name.'.year) from tt_'.$indicator->table_name.')'))
+              ->leftJoin('countries', $indicator->table_name.".".$indicator->iso_name, '=', 'countries.'.$iso_field)
+              ->select($indicator->table_name.".".$indicator->column_name.' as score', $indicator->table_name.'.year','countries.'.$iso_field.' as iso','countries.admin as country')
+              ->orderBy($indicator->table_name.".".$indicator->column_name, 'desc')->get();
+            $response = [];
+            $rank = 1;
+            foreach($data as $item){
+              if(!is_null($item->score)){
+                $item->score = floatval($item->score);
+                $item->{$indicator->column_name} = $item->score;
+                $item->rank = $rank;
+                $response[] = $item;
+
+                $rank++;
+              }
+            }
+            $indicator->data = $response;
+          }
+        }
+
         return response()->api($indicator);
     }
 
@@ -118,6 +154,7 @@ class IndicatorController extends Controller
         foreach($data as $item){
           if(!is_null($item->score)){
             $item->score = floatval($item->score);
+            $item->{$indicator->column_name} = $item->score;
             $response[] = $item;
           }
         }

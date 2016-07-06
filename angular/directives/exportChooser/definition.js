@@ -12,7 +12,7 @@
 				countries: '=',
 				nation: '=',
 				selected: '=',
-				onChange: '&='
+				onChange: '&'
 			},
 			bindToController: true,
 			replace: true,
