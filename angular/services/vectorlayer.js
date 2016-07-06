@@ -325,7 +325,7 @@
 				// }
 				that.mapLayer.fitBounds(bounds, {
 					padding: pad[1],
-					maxZoom: 6
+					maxZoom: 4
 				});
 			});
 		}
@@ -348,7 +348,7 @@
 					// }
 					that.mapLayer.fitBounds(bounds, {
 						padding: pad[1],
-						maxZoom: 6
+						maxZoom: 4
 					});
 				});
 			}
@@ -364,10 +364,10 @@
 			switch (type) {
 				case 3: //'Polygon'
 					if (typeof nation[field] != "undefined" && nation[field] != null) {
-						//	var linearScale = d3.scale.linear().domain([vm.range.min,vm.range.max]).range([0,256]);
+						var linearScale = d3.scale.linear().domain([that.map.structure.min, that.map.structure.max]).range([0, 256]);
 
-						//var colorPos =   parseInt(256 / vm.range.max * parseInt(nation[field])) * 4 //parseInt(linearScale(parseFloat(nation[field]))) * 4;//;
-						var colorPos = parseInt(256 / 100 * parseInt(nation[field])) * 4;
+						var colorPos = parseInt(linearScale(parseFloat(nation[field]))) * 4; //;
+						//var colorPos = parseInt(256 / 100 * parseInt(nation[field])) * 4;
 						var color = 'rgba(' + that.palette[colorPos] + ', ' + that.palette[colorPos + 1] + ', ' + that.palette[colorPos + 2] + ',' + that.palette[colorPos + 3] + ')';
 
 						style.color = 'rgba(' + that.palette[colorPos] + ', ' + that.palette[colorPos + 1] + ', ' + that.palette[colorPos + 2] + ',0.6)'; //color;
@@ -378,7 +378,8 @@
 						style.selected = {
 							color: 'rgba(' + that.palette[colorPos] + ', ' + that.palette[colorPos + 1] + ', ' + that.palette[colorPos + 2] + ',0.3)',
 							outline: {
-								color: 'rgba(66,66,66,0.9)',
+								color: 'rgba(' + that.palette[colorPos] + ', ' + that.palette[colorPos + 1] + ', ' + that.palette[colorPos + 2] + ',1)',
+								// color: 'rgba(66,66,66,0.9)',
 								size: 2
 							}
 						};
@@ -399,13 +400,18 @@
 			var style = {};
 			var iso = feature.properties[that.iso_field];
 			var nation = that.getNationByIso(iso);
-			var field = that.map.structure.name || 'score';
+			// var field = that.map.structure.name || 'score';
+			var field = 'score';
 
-			//TODO: MAX VALUE INSTEAD OF 100
-			var colorPos = parseInt(256 / 100 * nation[field]) * 4;
-
+			var linearScale = d3.scale.linear().domain([that.map.structure.min, that.map.structure.max]).range([0, 256]);
+			var colorPos = parseInt(linearScale(parseFloat(nation[field]))) * 4; //;
 			var color = 'rgba(' + that.palette[colorPos] + ', ' + that.palette[colorPos + 1] + ', ' + that.palette[colorPos + 2] + ',' + that.palette[colorPos + 3] + ')';
+
 			style.color = 'rgba(0,0,0,0)';
+			if (typeof nation[field] != "undefined" && nation[field] != null) {
+				style.color = 'rgba(' + that.palette[colorPos] + ', ' + that.palette[colorPos + 1] + ', ' + that.palette[colorPos + 2] + ',0.1)';
+			}
+
 			style.outline = {
 				color: 'rgba(0,0,0,0)',
 				size: 0

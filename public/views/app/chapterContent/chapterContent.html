@@ -48,12 +48,12 @@
 	</div>
 </md-subheader>
 <section class="mobile-container">
-	<div ng-if="!vm.nation">
-		<export-chooser countries="vm.data" nation="vm.selectedCountry" selected="vm.selectedIndicator" on-change="vm.selectCountry(nation)"></export-chooser>
+	<div ng-if="!vm.selectedCountry.iso">
+		<export-chooser countries="vm.data" nation="vm.selectedCountry" selected="vm.selectedIndicator" changed="vm.selectCountry(nation)"></export-chooser>
 	</div>
-	<md-tabs md-center-tabs="true" ng-if="vm.nation" md-dynamic-height md-no-pagination="true" md-selected="vm.activeTab" md-stretch-tabs="always" md-swipe-content="true" ng-if="vm.ExportService.indicator">
+	<md-tabs md-center-tabs="true" ng-if="vm.selectedCountry.iso" md-dynamic-height md-no-pagination="true" md-selected="vm.activeTab" md-stretch-tabs="always" md-swipe-content="true" ng-if="vm.ExportService.indicator">
 		<md-tab label="Details" md-active="vm.activeTab == 0" md-on-select="vm.setTab(0)">
-			  <export-chooser countries="vm.data" nation="vm.selectedCountry" selected="vm.selectedIndicator" on-change="vm.selectCountry(nation)"></export-chooser>
+			  <export-chooser countries="vm.data" nation="vm.selectedCountry" selected="vm.selectedIndicator" changed="vm.selectCountry(nation)"></export-chooser>
 				<div layout="column">
 					<div layout="row" layout-align="start center" style="padding-left:18px">
 						<span class="colored">Rank&nbsp;&nbsp;</span>
@@ -65,16 +65,16 @@
 				</div>
 		</md-tab>
 		<md-tab label="History" ng-if="vm.current.length > 1" md-active="vm.activeTab == 1" md-on-select="vm.setTab(1)" ng-disabled="!vm.current">
-      <export-chooser countries="vm.countries" nation="vm.nation" selected="vm.selectedIndicator" on-change="vm.selectCountry(nation)"></export-chooser>
+      <export-chooser countries="vm.data" nation="vm.selectedCountry" selected="vm.selectedIndicator" changed="vm.selectCountry(nation)"></export-chooser>
 			<div class="module tabs mb1" layout="column">
 				<history chartdata="vm.current" options="{field:'score', color:vm.ExportService.indicator.style.base_color || 'rgba(128, 243, 198,1)'}"></history>
 			</div>
 		</md-tab>
-		<md-tab label="Compare" md-active="vm.activeTab == 2" md-on-deselect="vm.setCompare(false)" md-on-select="vm.setCompare(true)" ng-disabled="!vm.nation">
-      <export-chooser countries="vm.data" nation="vm.selectedCountry" selected="vm.selectedIndicator" on-change="vm.selectCountry(nation)"></export-chooser>
+		<md-tab label="Compare" md-active="vm.activeTab == 2" md-on-deselect="vm.setCompare(false)" md-on-select="vm.setCompare(true)" ng-disabled="!vm.selectedCountry.iso">
+      <export-chooser countries="vm.data" nation="vm.selectedCountry" selected="vm.selectedIndicator" changed="vm.selectCountry(nation)"></export-chooser>
 			<div class="module comparison">
 				<div layout-wrap layout="row" ng-if="vm.current && vm.structure">
-					<compare-countries style="margin-top:2em;margin-left:8px;" country="vm.current" countries="vm.countriesList" options="{field: vm.structure.name, height: 25, margin:5, color:vm.ExportService.indicator.style.base_color, duration:500, min:vm.structure.min, max:vm.structure.max}"></compare-countries>
+					<compare-countries style="margin-top:2em;margin-left:8px;" country="vm.selectedCountry" countries="vm.countriesList" options="{field: 'score', height: 25, margin:5, color:vm.ExportService.indicator.style.base_color, duration:500, min:vm.structure.min, max:vm.structure.max}"></compare-countries>
 					<div class="country anim-opacity" flex="50" ng-repeat="country in vm.compare.countries">
 						<!-- <h4 ng-click="vm.setCurrent(country)">
                                                         <span class="number">N°{{vm.getRank(country)}}</span>

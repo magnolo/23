@@ -4,21 +4,20 @@
 	angular.module('app.controllers').controller('ChapterContentCtrl', function($scope, $timeout, $state, DataService, ContentService, countries, ExportService, IndizesService, IndexService, DialogService, VectorlayerService) {
 		//
 		var vm = this;
-		vm.activeTab = 0;
-		vm.showInfo = showInfo;
-		vm.compare = false;
-		vm.setCompare = setCompare;
-		vm.chapterId = $state.params.chapter;
-		vm.selectedIndicator = 0;
-		vm.selectedCountry = {};
-		vm.current = {};
-		vm.countriesList = [], vm.compareList = [];
-		vm.ExportService = ExportService;
-		vm.countries = countries.plain();
-		vm.selectCountry = selectCountry;
-		vm.circleOptions = {};
 
+		vm.compare = false;
+		vm.activeTab = 0, vm.selectedIndicator = 0;
+		vm.selectedCountry = {}, vm.current = {}, vm.circleOptions = {};
+		vm.countriesList = [], vm.compareList = [];
+		vm.chapterId = $state.params.chapter;
+		vm.ExportService = ExportService;
+		vm.setCompare = setCompare;
+		vm.selectCountry = selectCountry;
+		vm.showInfo = showInfo;
 		vm.gotoIndicator = gotoIndicator;
+		//vm.countries = countries.plain();
+
+		activate();
 
 		VectorlayerService.countryClick(function(data) {
 			if (vm.compare) {
@@ -34,9 +33,9 @@
 
 		});
 
-		activate();
-
 		function addCompareCountry(iso, withRemove) {
+			if (iso == vm.selectedCountry.iso)
+				return false;
 			var cl = null;
 			var idx = vm.compareList.indexOf(iso);
 			angular.forEach(vm.data, function(nat) {
@@ -68,6 +67,8 @@
 		function setCompare(activate) {
 			if (activate) {
 				vm.compare = true;
+				vm.countriesList[0] = vm.selectedCountry;
+				console.log(vm.selectedCountry);
 				VectorlayerService.invertStyle();
 				$state.go('app.export.detail.chapter.indicator.country.compare', {
 					countries: vm.compareList.join('-vs-')
@@ -111,10 +112,11 @@
 		}
 
 		function selectCountry(nation) {
-			console.log(nation);
 			$state.go('app.export.detail.chapter.indicator.country', {
 				iso: nation.iso
 			});
+			VectorlayerService.setSelectedFeature(nation.iso, true);
+			getCountryByIso(nation.iso);
 			fetchNationData(nation.iso);
 		}
 
@@ -144,7 +146,7 @@
 			}
 			VectorlayerService.setSelectedFeature(iso, true);
 			IndexService.fetchNationData(vm.ExportService.indicator.indicator_id, iso, function(data) {
-				vm.nation = vm.countries[iso];
+				//	vm.nation = vm.countries[iso];
 				vm.current = data;
 				//calcRank();
 			});
@@ -172,6 +174,9 @@
 						indiname: item.indicator.name,
 						iso: $state.params.iso
 					});
+					getCountryByIso($state.params.iso);
+					fetchNationData($state.params.iso);
+
 				} else {
 					$state.go('app.export.detail.chapter.indicator', {
 						indicator: item.indicator_id,

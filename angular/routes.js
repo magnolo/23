@@ -362,7 +362,11 @@
 						templateUrl: getView('chapterContent'),
 						controller: 'ChapterContentCtrl',
 						controllerAs: 'vm'
+					},
+					'logo@': {
+						template: '<img src="http://localhost:8000/uploads/images/1467732207-basf-logo.png" />'
 					}
+
 				}
 			})
 			.state('app.export.detail.chapter.indicator', {

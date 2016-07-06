@@ -12,12 +12,13 @@
 				countries: '=',
 				nation: '=',
 				selected: '=',
-				onChange: '&'
+				changed: '&'
 			},
 			bindToController: true,
 			replace: true,
 			link: function(scope, element, attrs) {
 				//
+				console.log(scope)
 			}
 		};
 

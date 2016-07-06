@@ -31,7 +31,7 @@
 					bgColor = '#ddd';
 
 				var xscale = d3.scale.linear()
-					.domain([0, 100])
+					.domain([scope.options.min, scope.options.max])
 					.range([0, (scope.options.width - 100 - (scope.options.margin * 2))]);
 
 				var yscale = d3.scale.ordinal()
@@ -215,6 +215,7 @@
 						.duration(scope.options.duration)
 						.attr({
 							'x': function(d, i) {
+
 								if (d[scope.options.field] > scope.options.max / 2) {
 									return xscale(d[scope.options.field]) - this.getBoundingClientRect().width;
 								}
@@ -279,7 +280,7 @@
 				scope.$watch(function() {
 					return scope.countries;
 				}, function(n, o) {
-					console.log(n);
+					scope.countries = angular.extend(scope.countries, scope.country);
 					updateData();
 
 				}, true)
