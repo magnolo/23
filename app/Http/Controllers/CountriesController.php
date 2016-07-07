@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use DB;
 use App\Countrie;
+use App\Indicator;
 
 class CountriesController extends Controller
 {
@@ -177,15 +178,46 @@ class CountriesController extends Controller
         //
     }
 
-    public function getContinents(){
+    public function getContinents(Request $request){
       $continents = DB::table('countries')
-        ->select('continent as name')
+        ->select('continent as title')
         ->groupBy('continent')
         ->get();
 
-      foreach($continents as &$continent){
-        $continent->countries = Countrie::select('id', 'admin', 'iso_a2', 'iso_a3')->where('continent', $continent->name)->where('iso_a2', '<>', 99)->orderBy('iso_a2')->get();
+      if($request->has('indicator')){
+        $indicator = Indicator::find($request->get('indicator'));
+        $iso_field = $indicator->userdata->iso_type == 'iso-3166-1' ? 'adm0_a3': 'iso_a2';
+        $data = \DB::table($indicator->table_name)
+          ->where('year', \DB::raw('(select MAX(tt_'.$indicator->table_name.'.year) from tt_'.$indicator->table_name.')'))
+          ->where($indicator->table_name.".".$indicator->column_name, '<>', null)
+          ->select($indicator->iso_name.' as iso')
+          ->get();
+
+        $isos = array();
+        foreach($data as $country){
+          $isos[] = $country->iso;
+        }
       }
-      return response()->api($continents);
+      $conts = array();
+      foreach($continents as $key => &$continent){
+        $continent->id = ($key+1) *1000;
+        if($request->has('indicator')){
+          $continent->children = Countrie::select('id', 'admin as title', 'iso_a2', 'iso_a3')
+            ->where('continent', $continent->title)
+            ->where('iso_a2', '<>', 99)
+            ->where('iso_a2', '<>', -99)
+            ->whereIn('iso_a2', $isos)
+            ->orderBy('title')
+            ->get();
+
+        }
+        else{
+          $continent->children = Countrie::select('id', 'admin as title', 'iso_a2', 'iso_a3')->where('continent', $continent->title)->where('iso_a2', '<>', 99)->where('iso_a2', '<>', -99)->orderBy('title')->get();
+        }
+        if(count($continent->children) > 0){
+          $conts[] = $continent;
+        }
+      }
+      return response()->api($conts);
     }
 }

@@ -6,14 +6,12 @@
 		vm.exporter = {};
 		vm.item = {};
 		vm.continentOptions = {
-			children: 'countries'
+			onlyWithChildren: true
 		};
 		activate();
 
 		function activate() {
-			CountriesService.getContinents(function(continents) {
-				vm.continents = continents
-			});
+
 			$timeout(function() {
 				vm.exporter = ExportService.exporter;
 				// if(!vm.exporter.items.length) $state.go('app.index.exports.details',{
@@ -36,16 +34,18 @@
 						scroll_wheel_zoom: false,
 						layer_selection: false,
 						legends: true,
-						full_screen: false
+						full_screen: false,
+						countries: []
 					};
 				}
 				ContentService.getIndicatorData(vm.item.indicator_id).then(function(structure) {
 					ContentService.fetchIndicatorPromise(vm.item.indicator_id).then(function(data) {
 						vm.data = data;
 						vm.structure = structure;
-						console.log(vm.structure, vm.data)
 						VectorlayerService.setData(vm.structure, vm.data, vm.item.style.baseColor, true);
-
+						CountriesService.getContinents(function(continents) {
+							vm.continents = continents
+						}, vm.item.indicator_id);
 					});
 				});
 			});

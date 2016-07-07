@@ -1,5 +1,5 @@
 <md-list class="no-line treeview" dnd-disable-if="!vm.options.allowDrop && vm.options.drag" dnd-list="vm.items" flex  dnd-dragover="vm.onDragOver(event, index, external, type)" dnd-inserted="vm.options.inserted(event, index, item, external)" dnd-drop="vm.options.onDrop(event, index, item, external) || vm.onDropComplete(event, index, item, external)">
-				<md-list-item ng-class="{'meanwhile':item.id == 0, 'active': item.id == vm.active}" dnd-draggable="item" dnd-effect-allowed="copyMove"  dnd-moved="vm.onMovedComplete($index)" flex ng-repeat="(key,item) in vm.items">
+				<md-list-item ng-class="{'meanwhile':item.id == 0, 'active': item.id == vm.active}" dnd-draggable="item" dnd-effect-allowed="copyMove"  dnd-moved="vm.onMovedComplete($index)" flex ng-repeat="(key,item) in vm.items" >
 								<div class="md-list-item-text" flex >
 												<p layout-align="space-between center" layout="row">
 
@@ -17,7 +17,7 @@
 																<span flex dnd-nodrag></span>
 																<ng-md-icon icon="format_paint" ng-if="vm.options.styleable && item.id && item.type != 'group'" dnd-nodrag ng-click="vm.options.styleClick(item)" class="cursor styleIcon"></ng-md-icon>
 																<weight dnd-nodrag items="vm.items" item="item" ng-if="vm.options.editWeight && vm.items.length > 1"></weight>
-																<span dnd-nodrag ng-if="item.id != 0 && !vm.options.editWeight && !vm.options.simple" class="chooser" ng-class="{'checked': vm.selectedItem(item), 'unchecked' : !vm.selectedItem(item) , 'child': vm.childSelected(item)}" ng-click="vm.toggleSelection(item)">
+																<span dnd-nodrag ng-if="item.id != 0 && !vm.options.editWeight && !vm.options.simple"  class="chooser" ng-class="{'checked': vm.selectedItem(item), 'unchecked' : !vm.selectedItem(item) , 'child': vm.childSelected(item)}" ng-click="vm.toggleSelection(item)">
 																		<ng-md-icon icon="check" layout-align="center center" layout="row" size="18"></ng-md-icon>
 																</span>
 																<md-icon class="material-icons" ng-click="vm.onMovedComplete(key)" ng-if="vm.options.edit">close</md-icon>
