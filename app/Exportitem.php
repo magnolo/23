@@ -19,7 +19,7 @@ class Exportitem extends Model
       return $this->belongsTo('App\Indicator', 'indicator_id');
     }
     public function style(){
-      return $this->belongsTo('App\Style', 'style_id')->with('basemap', 'image');
+      return $this->belongsTo('App\Style', 'style_id')->with('basemap', 'image', 'countries');
     }
     public function export(){
       return $this->belongsTo('App\Export', 'export_id');
