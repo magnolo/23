@@ -20,12 +20,12 @@
 		activate();
 
 		VectorlayerService.countryClick(function(data) {
+			if (!countryExistsInData(data.feature.id)) return false;
 			if (vm.compare) {
 				addCompareCountry(data.feature.id, true)
 				showComparison();
 			} else {
 				$state.go('app.export.detail.chapter.indicator.country', {
-
 					indicator: vm.ExportService.indicator.indicator_id,
 					indiname: vm.ExportService.indicator.name,
 					iso: data.feature.id
@@ -146,6 +146,16 @@
 			});
 			getCountryByIso(iso);
 			return iso;
+		}
+
+		function countryExistsInData(iso) {
+			var found = false;
+			angular.forEach(vm.data, function(item) {
+				if (item.iso == iso) {
+					found = true;
+				}
+			});
+			return found;
 		}
 
 		function getCountryByIso(iso) {
