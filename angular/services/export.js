@@ -58,8 +58,12 @@
 		vm.getChapter = function(id, chapter, success, ignoreFirst) {
 			if (angular.isDefined(vm.exporter) && vm.exporter.id == id) {
 				vm.chapter = vm.exporter.items[chapter - 1];
-				if (!ignoreFirst)
+
+				if (!ignoreFirst) {
 					vm.indicator = vm.getFirstIndicator(vm.chapter.children);
+					console.log(vm.indicator);
+				}
+
 				if (typeof success === 'function')
 					success(vm.chapter, vm.indicator);
 			} else {
@@ -73,11 +77,15 @@
 			}
 		}
 		vm.getIndicator = function(id, chapter, indicator, success) {
+			var fetch = typeof indicator == 'undefined' ? true : false;
+
 			vm.getExport(id, function(exporter) {
-				vm.getChapter(id, chapter, function(ex, ch) {
-					vm.indicator = vm.findIndicator(indicator);
+				vm.getChapter(id, chapter, function(ch, ind) {
+					console.log(vm.indicator);
+					if (!fetch) vm.indicator = vm.findIndicator(indicator);
+					console.log(vm.indicator);
 					success(vm.indicator, vm.chapter, vm.exporter);
-				}, true)
+				}, !fetch)
 			});
 			// vm.getChapter(id, chapter, function(c, i) {
 			// 	angular.forEach(c.children, function(indi) {
@@ -103,11 +111,9 @@
 		}
 		vm.findIndicator = function(indicator_id) {
 			var item = null;
-			var chapter_idx = 0;
 			angular.forEach(vm.exporter.items, function(chapter, key) {
 				angular.forEach(chapter.children, function(indicator) {
 					if (indicator.indicator_id == indicator_id) {
-						chapter_idx = key + 1;
 						item = indicator;
 					}
 				})

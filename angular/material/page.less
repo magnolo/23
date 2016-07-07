@@ -271,6 +271,9 @@ p {
         }
     }
     &.fixed {
+        .md-sidenav-backdrop {
+            display: none;
+        }
         #sidebar {
             top: 0;
             left: 0;
@@ -278,13 +281,17 @@ p {
             max-height: 100%;
             overflow-x: hidden;
             @media screen and (max-width: 959px) {
-                top: 42px;
+                top: 0;
+                overflow-y: visible;
                 overflow-x: visible;
             }
         }
         #map {
             @media screen and (max-width: 959px) {
                 height: calc(~'100% - 180px');
+                .leaflet-top.leaflet-left {
+                    display: none;
+                }
             }
         }
         &.loggedIn {
@@ -293,6 +300,23 @@ p {
                 @media screen and (max-width: 959px) {
                     left: 0;
                 }
+            }
+        }
+        .mobile-window-switcher {
+            bottom: 12em;
+        }
+        &.sidebar-closed {
+            #sidebar {
+                @media screen and (max-width: 959px) {
+                    top: 42px;
+                    height: 64px;
+                }
+            }
+            .mobile-window-switcher {
+                bottom: 0.5em;
+            }
+            .mobile-container {
+                transform: translateY(0);
             }
         }
     }

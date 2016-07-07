@@ -8,10 +8,9 @@
         position: relative;
         margin: 0;
         overflow: visible;
-
         span {
             margin: 0;
-            transition: all .3s ease-in-out;
+            transition: all 0.3s ease-in-out;
         }
         &.active {
             > span {
@@ -21,7 +20,6 @@
                 display: block;
             }
             margin: 0 6px 0 5px;
-
         }
         &:not(.active) {
             transform: scale(0.8);
@@ -46,4 +44,15 @@
             }
         }
     }
+}
+.customer-logo {
+    position: fixed;
+    right: 1em;
+    z-index: 100;
+    width: 100px;
+    height: 100px;
+    top: calc(~'48px + 1.1em');
+    background-size: contain;
+    background-repeat: no-repeat;
+    pointer-events: none;
 }

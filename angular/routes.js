@@ -352,6 +352,7 @@
 				},
 				layout: 'loose',
 				fixLayout: true,
+				avoidRoots: true,
 				views: {
 					'header@': {
 						templateUrl: getView('chapter'),
@@ -362,28 +363,26 @@
 						templateUrl: getView('chapterContent'),
 						controller: 'ChapterContentCtrl',
 						controllerAs: 'vm'
-					},
-					'logo@': {
-						template: '<img src="http://localhost:8000/uploads/images/1467732207-basf-logo.png" />'
 					}
-
 				}
 			})
 			.state('app.export.detail.chapter.indicator', {
 				url: '/:indicator/:indiname',
 				layout: 'loose',
 				fixLayout: true,
-
+				avoidRoots: true
 			})
 			.state('app.export.detail.chapter.indicator.country', {
 				url: '/:iso',
 				layout: 'loose',
 				fixLayout: true,
+				avoidRoots: true
 			})
 			.state('app.export.detail.chapter.indicator.country.compare', {
 				url: '/compare/:countries',
 				layout: 'loose',
 				fixLayout: true,
+				avoidRoots: true
 			})
 			.state('app.index.exports', {
 				url: '/exports',

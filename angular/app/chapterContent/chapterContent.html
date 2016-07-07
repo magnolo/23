@@ -7,7 +7,7 @@
      </md-button>
    </div>
  </md-toolbar> -->
-<md-content layout-padding>
+<md-content layout-padding hide-xs hide-sm>
 	<div style="padding: 0 8px">
 		<md-input-container class="md-block no-margin">
 			<md-select ng-model="vm.selectedIndicator" aria-label="Select Indidicator" ng-change="vm.gotoIndicator()">
@@ -39,8 +39,8 @@
 <md-subheader class="md-primary selector" hide-gt-sm>
 	<div>
 		<md-input-container class="md-block">
-			<md-select ng-model="vm.ExportService.indicator" aria-label="Select Indidicator">
-				<md-optgroup label="{{chapter.title}}" ng-repeat="chapter in vm.ExportService.exporter.items" ng-style="{'color': vm.ExportService.exporter.base_color}">
+			<md-select ng-model="vm.selectedIndicator" aria-label="Select Indidicator" ng-change="vm.gotoIndicator()">
+				<md-optgroup label="{{chapter.title}}" ng-repeat="chapter in vm.ExportService.exporter.items" ng-style="{'color': vm.ExportService.indicator.style.base_color}">
 					<md-option ng-value="item" ng-repeat="item in chapter.children">{{ item.title}}</md-option>
 				</md-optgroup>
 			</md-select>
@@ -49,7 +49,11 @@
 </md-subheader>
 <section class="mobile-container">
 	<div ng-if="!vm.selectedCountry.iso">
-		<export-chooser countries="vm.data" nation="vm.selectedCountry" selected="vm.selectedIndicator" changed="vm.selectCountry(nation)"></export-chooser>
+		<div layout="column" layout-align="center center">
+		<div class="hint" >Click on a Country</div>
+		<div> or </div>
+	</div>
+		<export-chooser countries="vm.data" nation="vm.selectedCountry"  changed="vm.selectCountry(nation)"></export-chooser>
 	</div>
 	<md-tabs md-center-tabs="true" ng-if="vm.selectedCountry.iso" md-dynamic-height md-no-pagination="true" md-selected="vm.activeTab" md-stretch-tabs="always" md-swipe-content="true" ng-if="vm.ExportService.indicator">
 		<md-tab label="Details" md-active="vm.activeTab == 0" md-on-select="vm.setTab(0)">
@@ -104,7 +108,7 @@
 	.colored {
 		color: {{	vm.ExportService.indicator.style.base_color	}} !important;
 	}
-
+	.hint,
 	md-select-menu.md-default-theme md-option[selected],
 	md-select-menu md-option[selected] {
 		background-color: {{vm.ExportService.indicator.style.base_color}}	!important;
