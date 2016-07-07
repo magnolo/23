@@ -11,7 +11,7 @@
 	<div style="padding: 0 8px">
 		<md-input-container class="md-block no-margin">
 			<md-select ng-model="vm.selectedIndicator" aria-label="Select Indidicator" ng-change="vm.gotoIndicator()">
-				<md-optgroup label="{{chapter.title}}" ng-repeat="chapter in vm.ExportService.exporter.items" ng-style="{'color': vm.ExportService.exporter.base_color}">
+				<md-optgroup label="{{chapter.title}}" ng-repeat="chapter in vm.ExportService.exporter.items" ng-style="{'color': vm.ExportService.indicator.style.base_color}">
 					<md-option ng-value="item" ng-repeat="item in chapter.children">{{ item.title}}</md-option>
 				</md-optgroup>
 			</md-select>
@@ -98,7 +98,7 @@
 	.chapter-image img {
 		opacity: 0.8;
 	}
-
+	md-input-container:not(.md-input-invalid).md-input-focused label,
 	.md-subheader.md-primary,
 	md-tabs .md-tab.md-active,
 	.colored {
@@ -107,8 +107,11 @@
 
 	md-select-menu.md-default-theme md-option[selected],
 	md-select-menu md-option[selected] {
-		background-color: {{vm.ExportService.exporter.base_color}}	!important;
+		background-color: {{vm.ExportService.indicator.style.base_color}}	!important;
 		color:#fff !important;
 		border:1px solid;
+	}
+	md-select:not([disabled]):focus .md-select-value{
+		border-bottom-color:{{vm.ExportService.indicator.style.base_color}};
 	}
 </style>

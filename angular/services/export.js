@@ -73,14 +73,20 @@
 			}
 		}
 		vm.getIndicator = function(id, chapter, indicator, success) {
-			vm.getChapter(id, chapter, function(c, i) {
-				angular.forEach(c.children, function(indi) {
-					if (indi.indicator_id == indicator) {
-						vm.indicator = indi;
-					}
-				})
-				success(c, vm.indicator);
-			}, true);
+			vm.getExport(id, function(exporter) {
+				vm.getChapter(id, chapter, function(ex, ch) {
+					vm.indicator = vm.findIndicator(indicator);
+					success(vm.indicator, vm.chapter, vm.exporter);
+				}, true)
+			});
+			// vm.getChapter(id, chapter, function(c, i) {
+			// 	angular.forEach(c.children, function(indi) {
+			// 		if (indi.indicator_id == indicator) {
+			// 			vm.indicator = indi;
+			// 		}
+			// 	})
+			// 	success(vm.chapter, vm.indicator);
+			// }, true);
 		}
 		vm.getFirstIndicator = function(list) {
 			var found = null;
@@ -106,10 +112,7 @@
 					}
 				})
 			});
-			return {
-				chapter: chapter_idx,
-				indicator: item
-			}
+			return item;
 		}
 		vm.save = function(success, error) {
 			if (vm.exporter.id == 0 || !vm.exporter.id) {

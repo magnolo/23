@@ -1,13 +1,13 @@
 
-<div class="md-toolbar-tools" flex ng-style="{'color': vm.ExportService.exporter.base_color}">
+<div class="md-toolbar-tools" flex ng-style="{'color': vm.ExportService.indicator.style.base_color || vm.ExportService.exporter.base_color}">
 	<div layout="row" layout-align="start center" hide-xs hide-sm>
-    <md-button ui-sref="app.export.detail({id:vm.ExportService.exporter.id, name: vm.ExportService.exporter.name})" class="md-icon-button md-mini" ng-style="{'color': vm.ExportService.exporter.base_color}">
-      <md-icon ng-style="{'color': vm.ExportService.exporter.base_color}">home<md-icon>
+    <md-button ui-sref="app.export.detail({id:vm.ExportService.exporter.id, name: vm.ExportService.exporter.name})" class="md-icon-button md-mini" ng-style="{'color': vm.ExportService.indicator.style.base_color || vm.ExportService.exporter.base_color}">
+      <md-icon ng-style="{'color': vm.ExportService.indicator.style.base_color || vm.ExportService.exporter.base_color}">home<md-icon>
     </md-button>
 		<div class="chapter">Chapter</div>
 		<div layout="row" layout-align="start center">
 
-			<md-button ng-click="vm.gotoChapter(key+1)" class="md-icon-button md-mini rounded" ng-repeat="(key,item) in vm.ExportService.exporter.items" ng-class="{'active': (key) == vm.ExportService.exporter.items.indexOf(vm.ExportService.chapter)}" ng-style="{'color': vm.ExportService.exporter.base_color}">
+			<md-button ng-click="vm.gotoChapter(key+1)" class="md-icon-button md-mini rounded" ng-repeat="(key,item) in vm.ExportService.exporter.items" ng-class="{'active': (key) == vm.ExportService.exporter.items.indexOf(vm.ExportService.chapter)}" ng-style="{'color': vm.ExportService.indicator.style.base_color || vm.ExportService.exporter.base_color}">
 				{{key + 1}}
 			</md-button>
 
@@ -15,12 +15,12 @@
 		</div>
 	</div>
 	<span flex hide-xs hide-sm></span>
-	<div class="chapter">
+	<div class="chapter" ng-style="{'color' : vm.ExportService.exporter.base_color}">
 		{{vm.ExportService.exporter.title}}
 	</div>
 </div>
 <style>
   a.md-button span{
-    color:{{vm.ExportService.exporter.base_color}} !important;
+    color:{{vm.ExportService.indicator.style.base_color || vm.ExportService.exporter.base_color}} !important;
   }
 </style>

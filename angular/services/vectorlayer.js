@@ -142,7 +142,7 @@
 			//document.getElementsByTagName('body')[0].appendChild(this.canvas);
 		}
 		this.updateCanvas = function(color) {
-			console.log(color);
+
 			this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 			var gradient = this.ctx.createLinearGradient(0, 0, 257, 10);
 			gradient.addColorStop(1, 'rgba(255,255,255,1)');
