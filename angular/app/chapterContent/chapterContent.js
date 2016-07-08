@@ -1,7 +1,7 @@
 (function() {
 	"use strict";
 
-	angular.module('app.controllers').controller('ChapterContentCtrl', function($scope, $timeout, $state, DataService, ContentService, countries, ExportService, IndizesService, IndexService, DialogService, VectorlayerService) {
+	angular.module('app.controllers').controller('ChapterContentCtrl', function($scope, $rootScope, $timeout, $state, DataService, ContentService, countries, ExportService, IndizesService, IndexService, DialogService, VectorlayerService) {
 		//
 		var vm = this;
 
@@ -187,9 +187,11 @@
 				VectorlayerService.gotoCountry(iso);
 			}
 			VectorlayerService.setSelectedFeature(iso, true);
+			$rootScope.sidebarOpen = true;
 			IndexService.fetchNationData(vm.ExportService.indicator.indicator_id, iso, function(data) {
 				//	vm.nation = vm.countries[iso];
 				vm.current = data;
+
 				//calcRank();
 			});
 		}

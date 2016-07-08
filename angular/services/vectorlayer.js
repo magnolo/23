@@ -96,10 +96,12 @@
 				this.mapLayer.scrollWheelZoom.disable()
 			}
 			if (style.legends) {
-				this.legend = {
-					colors: [],
-
-				}
+				// this.legend = {
+	// 	colors: ['#fff', style.base_color, 'rgba(102,102,102,1)'],
+	// 	labels: ['high', 'Ø', 'low']
+	// }
+			} else {
+				this.legend = {}
 			}
 
 		}

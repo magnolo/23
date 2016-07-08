@@ -27,13 +27,16 @@
 	body{
 		border:1px solid #ddd;
 	}
+	/*body,button, select, html, textarea, input {
+    font-family: Roboto, "Helvetica Neue", sans-serif !important;
+	}*/
   a.md-button span{
     color:{{vm.ExportService.indicator.style.base_color || vm.ExportService.exporter.base_color}} !important;
   }
 	.leaflet-top.leaflet-left{
 		top: auto;
 	  bottom: 2em;
-
+		/*display:none;*/
 	}
 	.leaflet-top .leaflet-control-zoom.leaflet-bar a, .leaflet-top md-icon.md-primary{
 			color:{{vm.ExportService.exporter.base_color}} !important;
@@ -41,4 +44,5 @@
 	.mobile-window-switcher	.md-button.md-primary.md-fab{
 			background-color: {{vm.ExportService.indicator.style.base_color || vm.ExportService.exporter.base_color}};
 	}
+
 </style>
