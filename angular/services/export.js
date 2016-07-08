@@ -58,9 +58,14 @@
 		vm.getChapter = function(id, chapter, success, ignoreFirst) {
 			if (angular.isDefined(vm.exporter) && vm.exporter.id == id) {
 				vm.chapter = vm.exporter.items[chapter - 1];
-
+				console.log(vm.chapter);
 				if (!ignoreFirst) {
-					vm.indicator = vm.getFirstIndicator(vm.chapter.children);
+					if (vm.chapter.type == "indicator") {
+						vm.indicator = vm.chapter;
+					} else {
+						vm.indicator = vm.getFirstIndicator(vm.chapter.children);
+					}
+
 					console.log(vm.indicator);
 				}
 
@@ -112,6 +117,11 @@
 		vm.findIndicator = function(indicator_id) {
 			var item = null;
 			angular.forEach(vm.exporter.items, function(chapter, key) {
+				if (typeof chapter.indicator_id != "undefined") {
+					if (chapter.indicator_id == indicator_id) {
+						item = chapter;
+					}
+				}
 				angular.forEach(chapter.children, function(indicator) {
 					if (indicator.indicator_id == indicator_id) {
 						item = indicator;

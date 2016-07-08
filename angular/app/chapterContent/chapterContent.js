@@ -106,11 +106,10 @@
 		}
 		//URL PROBLEM LIES HERE AND ON EXPORT SERVICE
 		function gotoIndicator() {
-
-			if (vm.ExportService.chapter.id != vm.selectedIndicator.parent.id) {
+			if (vm.ExportService.chapter.type == "indicator") {
 				var idx = 0;
 				angular.forEach(vm.ExportService.exporter.items, function(item, key) {
-					if (item.id == vm.selectedIndicator.parent.id) {
+					if (item.id == vm.selectedIndicator.id) {
 						idx = key;
 					}
 				})
@@ -120,10 +119,26 @@
 					indiname: vm.selectedIndicator.name
 				});
 			} else {
-				$state.go('app.export.detail.chapter.indicator', {
-					indicator: vm.selectedIndicator.indicator_id,
-					indiname: vm.selectedIndicator.name
-				});
+
+
+				if (vm.ExportService.chapter.id != vm.selectedIndicator.parent.id) {
+					var idx = 0;
+					angular.forEach(vm.ExportService.exporter.items, function(item, key) {
+						if (item.id == vm.selectedIndicator.parent.id) {
+							idx = key;
+						}
+					})
+					$state.go('app.export.detail.chapter.indicator', {
+						chapter: idx + 1,
+						indicator: vm.selectedIndicator.indicator_id,
+						indiname: vm.selectedIndicator.name
+					});
+				} else {
+					$state.go('app.export.detail.chapter.indicator', {
+						indicator: vm.selectedIndicator.indicator_id,
+						indiname: vm.selectedIndicator.name
+					});
+				}
 			}
 			getIndicator();
 		}
