@@ -254,6 +254,9 @@
 						}
 					}
 				});
+				if (vm.ExportService.chapter.description) {
+					showInfo()
+				}
 
 			});
 		}

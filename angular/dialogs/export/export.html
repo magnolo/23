@@ -2,13 +2,13 @@
 	<form ng-submit="save()">
 		<md-dialog-content>
 			<div style="padding:0;font-size:1em;color:#4fb0e5" layout="row">
-				<h2 style="font-weight:normal;font-size:1.4em">{{vm.chapter.title}}</h2>
+				<h2 style="font-weight:normal;font-size:1.4em" ng-style="{'color': vm.ExportService.chapter.style.base_color || vm.ExportService.style.base_color || vm.ExportService.base_color }">{{vm.ExportService.chapter.title}}</h2>
 				<span flex></span>
 				<md-button class="md-icon-button" ng-click="hide()">
 					<md-icon class="material_icons">close</md-icon>
 				</md-button>
 			</div>
-			<p class="columned" ng-bind-html="vm.chapter.description | newline"></p>
+			<p class="columned" ng-bind-html="vm.ExportService.chapter.description | newline"></p>
 		</md-dialog-content>
 
 		<div class="md-actions" layout="row">
