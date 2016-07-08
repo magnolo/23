@@ -27,6 +27,7 @@
 			},
 			link: function(scope, element, attrs) {
 				scope.options = angular.extend(defaults(), scope.options);
+				scope.options.width = element[0].clientWidth - 20;
 				var fontColor = '#333',
 					bgColor = '#ddd';
 
@@ -82,7 +83,7 @@
 					.attr('class', 'header')
 					.text('Median')
 					.attr('transform', function() {
-						return "translate(100,-10)";
+						return "translate(" + (scope.options.width / 2 - 75) + ",-10)";
 					});
 
 				var chart = container.append('g')

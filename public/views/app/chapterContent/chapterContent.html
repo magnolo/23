@@ -84,7 +84,7 @@
       <export-chooser hide-xs hide-sm countries="vm.data" nation="vm.selectedCountry" selected="vm.selectedIndicator" changed="vm.selectCountry(nation)"></export-chooser>
 			<div class="module comparison">
 				<div layout-wrap layout="row" ng-if="vm.current && vm.structure">
-					<compare-countries style="margin-top:2em;margin-left:8px;" country="vm.selectedCountry" countries="vm.countriesList" options="{field: 'score', height: 25, margin:5, color:vm.ExportService.indicator.style.base_color, duration:500, min:vm.structure.min, max:vm.structure.max}"></compare-countries>
+					<compare-countries flex style="margin-top:2em;margin-left:8px;" country="vm.selectedCountry" countries="vm.countriesList" options="{field: 'score', height: 25, margin:5, color:vm.ExportService.indicator.style.base_color, duration:500, min:vm.structure.min, max:vm.structure.max}"></compare-countries>
 					<div class="country anim-opacity" flex="50" ng-repeat="country in vm.compare.countries">
 						<!-- <h4 ng-click="vm.setCurrent(country)">
                                                         <span class="number">N°{{vm.getRank(country)}}</span>

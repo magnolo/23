@@ -339,13 +339,16 @@ p {
                         height: 64px;
                     }
                     .mobile-container {
-                        transition: all 0.3s ease-in-out;
                         transform: translateY(calc(~"100vh - 255px"));
                     }
                 }
             }
             .mobile-window-switcher {
                 bottom: 9em;
+            }
+            .mobile-container {
+                transition: all 0.3s ease-in-out;
+                box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);
             }
         }
     }

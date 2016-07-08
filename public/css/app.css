@@ -1486,12 +1486,15 @@ p.small-info:hover {
     height: 64px;
   }
   .loose.fixed.sidebar-closed #sidebar .mobile-container {
-    transition: all 0.3s ease-in-out;
     transform: translateY(calc(100vh - 255px));
   }
 }
 .loose.fixed.sidebar-closed .mobile-window-switcher {
   bottom: 9em;
+}
+.loose.fixed.sidebar-closed .mobile-container {
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);
 }
 .loggedIn {
   /*  #sidebar {
@@ -1639,59 +1642,6 @@ md-toast[md-theme=warn] {
 
 
 
-.chapter {
-  font-weight: bold;
-  margin-right: 1em;
-}
-.md-button.rounded {
-  border: 1px solid;
-  position: relative;
-  margin: 0;
-  overflow: visible;
-}
-.md-button.rounded span {
-  margin: 0;
-  transition: all 0.3s ease-in-out;
-}
-.md-button.rounded.active {
-  margin: 0 6px 0 5px;
-}
-.md-button.rounded.active > span {
-  font-size: 1.2em;
-  font-weight: bold;
-  margin-top: -2px;
-  display: block;
-}
-.md-button.rounded:not(.active) {
-  transform: scale(0.8);
-}
-.md-button.rounded::after {
-  content: ' ';
-  position: absolute;
-  left: 100%;
-  top: 50%;
-  border-top: 1px solid;
-  height: 1px;
-  width: 12px;
-}
-.md-button.rounded:last-child::after {
-  border: 0;
-}
-.md-button.rounded:first-child.active {
-  margin-left: 0;
-}
-.customer-logo {
-  position: fixed;
-  right: 1em;
-  z-index: 100;
-  width: 100px;
-  height: 100px;
-  top: calc(48px + 1.1em);
-  background-size: contain;
-  background-repeat: no-repeat;
-  pointer-events: none;
-}
-
 .chapter-image {
   position: relative;
   min-height: 200px;
@@ -1774,6 +1724,59 @@ md-toast[md-theme=warn] {
   margin: 1em 0;
 }
 
+
+.chapter {
+  font-weight: bold;
+  margin-right: 1em;
+}
+.md-button.rounded {
+  border: 1px solid;
+  position: relative;
+  margin: 0;
+  overflow: visible;
+}
+.md-button.rounded span {
+  margin: 0;
+  transition: all 0.3s ease-in-out;
+}
+.md-button.rounded.active {
+  margin: 0 6px 0 5px;
+}
+.md-button.rounded.active > span {
+  font-size: 1.2em;
+  font-weight: bold;
+  margin-top: -2px;
+  display: block;
+}
+.md-button.rounded:not(.active) {
+  transform: scale(0.8);
+}
+.md-button.rounded::after {
+  content: ' ';
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  border-top: 1px solid;
+  height: 1px;
+  width: 12px;
+}
+.md-button.rounded:last-child::after {
+  border: 0;
+}
+.md-button.rounded:first-child.active {
+  margin-left: 0;
+}
+.customer-logo {
+  position: fixed;
+  right: 1em;
+  z-index: 100;
+  width: 100px;
+  height: 100px;
+  top: calc(48px + 1.1em);
+  background-size: contain;
+  background-repeat: no-repeat;
+  pointer-events: none;
+}
 
 .conflict-icon {
   color: #4fb0e5;
@@ -2861,7 +2864,6 @@ md-list-item.active {
 
 
 
-
 #main-logo {
   position: fixed;
   bottom: 5px;
@@ -3045,6 +3047,7 @@ div[ui-view='map'] {
 .leaflet-bar {
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);
 }
+
 
 
 /*.Sidebar {
