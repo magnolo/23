@@ -15,7 +15,7 @@
 					<md-option ng-value="item" ng-repeat="item in chapter.children">{{ item.title}}</md-option>
 				</md-optgroup>
 				<md-optgroup ng-if="chapter.type != 'group'" label="{{vm.ExportService.exporter.title}}"  ng-style="{'color': vm.ExportService.indicator.style.base_color}">
-					<md-option ng-value="item" ng-repeat="item in vm.ExportService.exporter.items">{{ item.title}}</md-option>
+					<md-option ng-value="item" ng-if="item.type == 'indicator'" ng-repeat="item in vm.ExportService.exporter.items">{{ item.title}}</md-option>
 				</md-optgroup>
 			</md-select>
 		</md-input-container>
