@@ -7,7 +7,7 @@
       </md-select>
     </md-input-container>
   </div>
-  <div class="sub-title" ng-if="vm.selected">
+  <div class="sub-title" ng-if="vm.selected && vm.nation.iso">
     {{vm.selected.title}}
   </div>
 </md-content>

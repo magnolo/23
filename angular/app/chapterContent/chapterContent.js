@@ -203,7 +203,9 @@
 					color: vm.ExportService.indicator.style.base_color || '#00ccaa',
 					field: 'rank',
 					size: vm.structure.count,
-					hideNumbering: true
+					hideNumbering: true,
+					width: 65,
+					height: 65
 				};
 
 				VectorlayerService.setBaseLayer(item.style.basemap);

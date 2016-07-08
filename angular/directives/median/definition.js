@@ -5,7 +5,7 @@
 		var defaults = function() {
 			return {
 				id: 'gradient',
-				width: 300,
+				width: 340,
 				height: 40,
 				info: true,
 				field: 'score',
@@ -45,7 +45,7 @@
 				var options = angular.extend(defaults(), $attrs);
 
 				options = angular.extend(options, $scope.options);
-
+				//options.width = element[0].clientWidth - 20;
 				options.unique = new Date().getTime();
 				if (options.color) {
 					options.colors[1].color = options.color;
