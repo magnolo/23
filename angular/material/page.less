@@ -282,15 +282,18 @@ p {
             overflow-x: hidden;
             @media screen and (max-width: 959px) {
                 top: 0;
+                height: 64px;
+                transform: translate3d(0, 0, 0);
                 overflow-y: visible;
                 overflow-x: visible;
-            }
-        }
-        #map {
-            @media screen and (max-width: 959px) {
-                height: calc(~'100% - 180px');
-                .leaflet-top.leaflet-left {
-                    display: none;
+                md-content[ui-view='sidebar'] {
+                    background: transparent;
+                    overflow: visible;
+                }
+                .mobile-container {
+                    transition: all 0.3s ease-in-out;
+                    transform: translateY(calc(~"100vh - 445px"));
+                    background: #fff;
                 }
             }
         }
@@ -303,20 +306,41 @@ p {
             }
         }
         .mobile-window-switcher {
-            bottom: 12em;
+            bottom: 21em;
+        }
+        #map {
+            @media screen and (max-width: 959px) {
+                top: 64px;
+                height: calc(~'100% - 230px');
+                .leaflet-top.leaflet-left {
+                    display: none;
+                }
+            }
         }
         &.sidebar-closed {
+            #map {
+                @media screen and (max-width: 959px) {
+                    height: calc(~'100% - 205px');
+                }
+            }
             #sidebar {
                 @media screen and (max-width: 959px) {
-                    top: 42px;
+                    top: 0;
                     height: 64px;
+                    transform: translate3d(0, 0, 0);
+                    overflow-y: visible;
+                    overflow-x: visible;
+                    md-content[ui-view='sidebar'] {
+                        height: 64px;
+                    }
+                    .mobile-container {
+                        transition: all 0.3s ease-in-out;
+                        transform: translateY(calc(~"100vh - 255px"));
+                    }
                 }
             }
             .mobile-window-switcher {
-                bottom: 0.5em;
-            }
-            .mobile-container {
-                transform: translateY(0);
+                bottom: 9em;
             }
         }
     }
