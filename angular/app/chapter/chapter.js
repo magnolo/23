@@ -1,7 +1,7 @@
 (function() {
 	"use strict";
 
-	angular.module('app.controllers').controller('ChapterCtrl', function($scope, $state, ExportService) {
+	angular.module('app.controllers').controller('ChapterCtrl', function($rootScope, $scope, $state, ExportService) {
 		var vm = this;
 		vm.gotoChapter = gotoChapter;
 		vm.ExportService = ExportService;
@@ -27,7 +27,7 @@
 
 			});
 		}
-
+		$rootScope.sidebarOpen = false;
 		// $scope.$on('$stateChangeSuccess', function(event, toState, toParams){
 		//     vm.ExportService.getChapter(toParams.id, toParams.chapter);
 		// });
