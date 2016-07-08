@@ -47,11 +47,11 @@
 }
 .customer-logo {
     position: fixed;
-    right: 1em;
+    right: 0.5em;
     z-index: 100;
     width: 100px;
     height: 100px;
-    top: calc(~'48px + 1.1em');
+    top: calc(~'48px + 0.5em');
     background-size: contain;
     background-repeat: no-repeat;
     pointer-events: none;
@@ -63,5 +63,11 @@
     .md-button.md-raised,
     .md-button.md-raised:not([disabled]):hover {
         color: #fff;
+    }
+    @media screen and (max-width: 959px) {
+        z-index: 1;
+        left: auto;
+        right: 0;
+        top: 0;
     }
 }

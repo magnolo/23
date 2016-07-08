@@ -4,8 +4,8 @@
     <md-button ui-sref="app.export.detail({id:vm.ExportService.exporter.id, name: vm.ExportService.exporter.name})" class="md-icon-button md-mini" ng-style="{'color': vm.ExportService.indicator.style.base_color || vm.ExportService.exporter.base_color}">
       <md-icon ng-style="{'color': vm.ExportService.indicator.style.base_color || vm.ExportService.exporter.base_color}">home<md-icon>
     </md-button>
-		<div class="chapter">Chapter</div>
-		<div layout="row" layout-align="start center">
+		<div class="chapter" ng-if="vm.ExportService.exporter.items.length > 1">Chapter</div>
+		<div layout="row" layout-align="start center" ng-if="vm.ExportService.exporter.items.length > 1">
 
 			<md-button ng-click="vm.gotoChapter(key+1)" class="md-icon-button md-mini rounded" ng-repeat="(key,item) in vm.ExportService.exporter.items" ng-class="{'active': (key) == vm.ExportService.exporter.items.indexOf(vm.ExportService.chapter)}" ng-style="{'color': vm.ExportService.indicator.style.base_color || vm.ExportService.exporter.base_color}">
 				{{key + 1}}

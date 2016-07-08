@@ -199,13 +199,14 @@
 			ContentService.fetchIndicatorWithData(item.indicator_id, function(indicator) {
 				vm.data = indicator.data;
 				vm.structure = indicator;
+				vm.ExportService.data = indicator;
 				vm.circleOptions = {
 					color: vm.ExportService.indicator.style.base_color || '#00ccaa',
 					field: 'rank',
 					size: vm.structure.count,
 					hideNumbering: true,
-					width: 65,
-					height: 65
+					width: 70,
+					height: 70
 				};
 
 				VectorlayerService.setBaseLayer(item.style.basemap);
