@@ -38,15 +38,17 @@
 						countries: []
 					};
 				}
-				ContentService.getIndicatorData(vm.item.indicator_id).then(function(structure) {
-					ContentService.fetchIndicatorPromise(vm.item.indicator_id).then(function(data) {
-						vm.data = data;
-						vm.structure = structure;
-						VectorlayerService.setData(vm.structure, vm.data, vm.item.style.baseColor, true);
-						CountriesService.getContinents(function(continents) {
-							vm.continents = continents
-						}, vm.item.indicator_id);
-					});
+				ContentService.fetchIndicatorWithData(vm.item.indicator_id, function(indicator) {
+					vm.data = indicator.data;
+					vm.structure = indicator;
+
+					VectorlayerService.setData(indicator.data, indicator, vm.item.style.base_color, true);
+					CountriesService.getContinents(function(continents) {
+						vm.continents = continents
+					}, vm.item.indicator_id);
+
+				}, {
+					data: true
 				});
 			});
 		}
