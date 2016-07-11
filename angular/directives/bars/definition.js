@@ -8,7 +8,9 @@
  *		{titled:boolean, color:csscolor, onClick:function}
  *	@param {object} structure object with index and its children (as found in api/index/:id)
  *
- *	@description Builds horizontal bar charts out of passed data
+ * 	@example <bars data="vm.current.data.data[0]" options="{'titled': false, color:vm.structure.style.base_color, onClick: vm.goToIndex}" structure="vm.structure.children"></bars>
+ *	@description
+ *	Builds horizontal bar charts out of passed data
  */
 
 (function(){
