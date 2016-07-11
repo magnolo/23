@@ -1,3 +1,16 @@
+/**
+ *	@ngdoc directive
+ *	@name app.directive:Bars
+ *	@restrict 'EA'
+ *
+ *	@param {object} data object which comprises of specific indicator data (as found in api/indicator/:id) (TODO FIND BETTER DECLARATION!)
+ *	@param {object} options object with bar specific options, should look like
+ *		{titled:boolean, color:csscolor, onClick:function}
+ *	@param {object} structure object with index and its children (as found in api/index/:id)
+ *
+ *	@description Builds horizontal bar charts out of passed data
+ */
+
 (function(){
 	"use strict";
 
