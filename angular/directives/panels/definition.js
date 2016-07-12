@@ -1,3 +1,13 @@
+/**
+ * @ngdoc directive
+ * @name app.directive:panels
+ * @scope
+ * @restrict EA
+ * @description
+ * TESTDIRECTIVE, INCOMPLETE or UNUSED
+ * 
+ */
+
 (function() {
 	"use strict";
 

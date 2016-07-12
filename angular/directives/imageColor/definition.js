@@ -1,3 +1,14 @@
+/**
+ * @ngdoc directive
+ * @name app.directive:imageColor
+ * @scope
+ * @restrict EA
+ * @description
+ * Select an image color
+ *
+ * @param {string} color color returned by tinyColor
+ */
+
 (function() {
 	"use strict";
 

@@ -6,14 +6,11 @@
  * @description
  * Creates a bubble chart from a provided data object
  *
- *	param {object} chardata Data to be charted as bubbles
- *	param {?} direction direction to where bubbles are attreacted to
- *	param {function} gravity d3 specific force function for
- *	param {integer} height
- *	param {integer} width
- *	param {integer} sizefactor sizefactor of bubbles
- *	param {object} indexer Indicator structure
- *	param {boolean} borders
+ * @param {object} chardata Data to be charted as bubbles
+ * @param {number} direction direction to where bubbles are attreacted to
+ * @param {function} gravity d3 specific force function for
+ * @param {number} sizefactor sizefactor of bubbles
+ * @param {object} indexer Indicator structure
  **/
 
 (function () {

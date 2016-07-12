@@ -1,3 +1,13 @@
+/**
+ * @ngdoc directive
+ * @name app.directive:median
+ * @scope
+ * @restrict E
+ * @description
+ * Handlebar showing current score and provides a handle to switch between countries (scorebased navigation)
+ * 
+ */
+
 (function() {
 	"use strict";
 
