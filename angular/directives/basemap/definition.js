@@ -1,14 +1,13 @@
 /**
  * @ngdoc directive
  * @name app.directive:basemap
- * @restrict 'EA'
- *
- * @param {object} item basemap item to be added, {title:,url:,description:,attribution:,ext:extension,subdomains:,key}
- * @param {object} options options for basemap
- *
+ * @scope
+ * @restrict EA
  * @description
  * Provides a form/user-interface so basemaps can be added via url
- * TODO needs better documentation
+ * 
+ * @param {object} item basemap item to be added, {title:,url:,description:,attribution:,ext:extension,subdomains:,key}
+ * @param {object} options options for basemap
  */
 
 (function(){

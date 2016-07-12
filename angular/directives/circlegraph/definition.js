@@ -1,3 +1,15 @@
+/**
+ * @ngdoc directive
+ * @name app.directive:circlegraph
+ * @scope
+ * @restrict E
+ * @description
+ * Creates a d3 circle graph
+ *
+ * @param {object} options Option object for the graph
+ * @param {object} item Item to be graphed
+ */
+
 (function () {
 	"use strict";
 

@@ -1,3 +1,21 @@
+/**
+ * @ngdoc directive
+ * @name app.directive:bubbles
+ * @scope
+ * @restrict E
+ * @description
+ * Creates a bubble chart from a provided data object
+ *
+ *	param {object} chardata Data to be charted as bubbles
+ *	param {?} direction direction to where bubbles are attreacted to
+ *	param {function} gravity d3 specific force function for
+ *	param {integer} height
+ *	param {integer} width
+ *	param {integer} sizefactor sizefactor of bubbles
+ *	param {object} indexer Indicator structure
+ *	param {boolean} borders
+ **/
+
 (function () {
 	"use strict";
 
