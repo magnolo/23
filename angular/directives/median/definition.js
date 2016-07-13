@@ -5,7 +5,9 @@
  * @restrict E
  * @description
  * Handlebar showing current score and provides a handle to switch between countries (scorebased navigation)
- * 
+ *
+ * @param {object} data data to be mapped at handlebar
+ * @param {object} options object with options for handlebar (color, etc)
  */
 
 (function() {

@@ -4,7 +4,7 @@
  * @scope
  * @restrict EA
  * @description
- * TESTDIRECTIVE, INCOMPLETE or UNUSED
+ * SEEMS TO BE A TESTDIRECTIVE, INCOMPLETE or UNUSED
  * 
  */
 

@@ -1,3 +1,12 @@
+/**
+ * @ngdoc directive
+ * @name app.directive:parsecsv
+ * @scope
+ * @restrict EA
+ * @description
+ * CSV upload and parsing
+ */
+
 (function () {
 	"use strict";
 

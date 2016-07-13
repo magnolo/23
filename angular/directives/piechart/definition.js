@@ -1,3 +1,14 @@
+/**
+ * @ngdoc directive
+ * @name app.directive:piechart
+ * @scope
+ * @restrict EA
+ * @description
+ * Provides a d3 piechart
+ *
+ * @param {object} chartData Data to be charted as pie chart
+ * @param {object} activeType Active type in chart
+ */
 (function(){
 	"use strict";
 

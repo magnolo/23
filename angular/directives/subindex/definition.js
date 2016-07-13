@@ -1,3 +1,12 @@
+/**
+ * @ngdoc directive
+ * @name app.directive:subindex
+ * @restrict E
+ * @description
+ * UI Element, shows information about current index/composite measurement and compare fields etc.
+ * PROBABLY UNUSED
+ *
+ */
 (function () {
 	"use strict";
 
