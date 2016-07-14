@@ -1,3 +1,14 @@
+/**
+ * @ngdoc service
+ * @name app.IndexService
+ * @requires CacheFactory
+ * @requires $state
+ *
+ * @description
+ * Service for indexes, set and getting errors, iso, country and meta data
+ * STILL NEEDS METHOD DOCUMENTATION
+ */
+
 (function(){
     "use strict";
 
@@ -31,6 +42,16 @@
           storage = importCache.get('dataToImport');
         }
         return {
+            /**
+             * @ngdoc method
+             * @name app.IndexService#clear
+             * @methodOf app.IndexService
+             *
+             * @description
+             * Clears out data in IndexService instance to standard format
+             *
+             * @returns {object} Emptied service data object
+             */
           clear:function(){
             $state.go('app.index.create');
             if(CacheFactory.get('importData')){
@@ -50,22 +71,71 @@
                 indicators:{}
             };
           },
+
+            /**
+             * @ngdoc method
+             * @name app.IndexService#addData
+             * @methodOf app.IndexService
+             *
+             * @param {object} item item to be added to data array
+             * @returns {object} pushed item
+             */
           addData:function(item){
             return serviceData.data.push(item);
           },
+            /**
+             * @ngdoc method
+             * @name app.IndexService#addIndicator
+             * @methodOf app.IndexService
+             *
+             * @param {object} item item to be added to indicators array
+             * @returns {object} pushed item
+             */
           addIndicator: function(item){
             return serviceData.indicators.push(item);
           },
+            /**
+             * @ngdoc method
+             * @name app.IndexService#addToSelect
+             * @methodOf app.IndexService
+             *
+             * @param {object} item item to be added to toSelect array
+             * @returns {object} pushed item
+             */
           addToSelect: function(item){
             return serviceData.toSelect.push(item);
           },
+            /**
+             * @ngdoc method
+             * @name app.IndexService#addIsoError
+             * @methodOf app.IndexService
+             *
+             * @param {object} item item to be added to iso_errors array
+             * @returns {object} pushed item
+             */
           addIsoError: function(error){
             return serviceData.iso_errors.push(error);
           },
+            /**
+             * @ngdoc method
+             * @name app.IndexService#removeToSelect
+             * @methodOf app.IndexService
+             *
+             * @param {object} item item to be removed from toSelect array
+             * @returns {boolean} if remove successful
+             */
           removeToSelect: function(item){
             var index = serviceData.toSelect.indexOf(item);
             return index > -1 ? serviceData.toSelect.splice(index, 1) : false;
           },
+            /**
+             * @ngdoc method
+             * @name app.IndexService#addData
+             * @methodOf app.IndexService
+             *
+             * @param {object} item item to be added to data array
+             * @returns {object} pushed item
+             */
           setData: function(data){
             return serviceData.data = data;
           },

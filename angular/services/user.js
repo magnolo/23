@@ -1,3 +1,13 @@
+/**
+ * @ngdoc service
+ * @name app.UserService
+ * @requires app.DataService
+ *
+ * @description
+ * Service for getting current user data
+ *
+ */
+
 (function(){
     "use strict";
 

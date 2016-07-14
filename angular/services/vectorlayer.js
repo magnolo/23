@@ -1,3 +1,14 @@
+/**
+ * @ngdoc service
+ * @name app.VectorlayerService
+ * @requires $timeout
+ * @requires app.DataService
+ *
+ * @description
+ * Provides a service for getting setting vactorlayers to the specific regions/countries
+ *
+ */
+
 (function() {
 	"use strict";
 

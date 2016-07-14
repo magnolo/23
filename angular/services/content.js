@@ -1,3 +1,13 @@
+/**
+ * @ngdoc service
+ * @name app.ContentService
+ * @requires $filter
+ * @requires app.DataService
+ *
+ * @description
+ * CRUD factory for different categories of content e.g. indices, indicators, categories, styles etc.
+ */
+
 (function() {
 	"use strict";
 
