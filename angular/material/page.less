@@ -324,17 +324,20 @@ p {
                 }
 
             }
-            @media only screen and (max-device-width: 667px) and (-webkit-device-pixel-ratio: 2) {
-              .mobile-container {
-                      transform: translateY(calc(~"100vh - 475px + 53px"));
-              }
+
+        }
+        &:not(.iframed){
+          @media only screen and (max-device-width: 667px) and (-webkit-device-pixel-ratio: 2) {
+            .mobile-container {
+                    transform: translateY(calc(~"100vh - 475px + 53px"));
             }
-            // ihpone 6
-            @media screen and (min-device-width : 414px)  and (-webkit-device-pixel-ratio: 3){
-              .mobile-container {
-                      transform: translateY(calc(~"100vh - 475px + 53px"));
-              }
+          }
+          // ihpone 6
+          @media screen and (min-device-width : 414px)  and (-webkit-device-pixel-ratio: 3){
+            .mobile-container {
+                    transform: translateY(calc(~"100vh - 475px + 53px"));
             }
+          }
         }
         &.loggedIn {
             #sidebar {
@@ -395,6 +398,10 @@ p {
 
                     }
                 }
+
+            }
+            &:not(.iframed){
+                #sidebar {
                 // ihpone 5
                 @media only screen and (max-device-width: 667px) and (-webkit-device-pixel-ratio: 2) {
                   .mobile-container {
@@ -407,6 +414,7 @@ p {
                           transform: translateY(calc(~"100vh - 285px"));
                   }
                 }
+              }
             }
             .mobile-window-switcher {
                 bottom: 9em;

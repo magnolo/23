@@ -7,6 +7,8 @@
 		$rootScope.fixLayout = false;
 		$rootScope.looseLayout = $localStorage.fullView || false;
 		$rootScope.started = true;
+		$rootScope.iframed = $window.self !== $window.top;
+		console.log($rootScope.iframed);
 		$rootScope.goBack = function() {
 			$window.history.back();
 		}
