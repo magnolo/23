@@ -1,0 +1,473 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/bin/node', '/usr/local/bin/npm', 'install' ]
+2 info using npm@2.15.8
+3 info using node@v4.4.7
+4 verbose readDependencies loading dependencies from /Users/Magnolo/Code/23/package.json
+5 warn package.json @ No repository field.
+6 warn package.json @ No license field.
+7 verbose install where, deps [ '/Users/Magnolo/Code/23',
+7 verbose install   [ 'gulp-concat',
+7 verbose install     'gulp-concat-sourcemap',
+7 verbose install     'gulp-filter',
+7 verbose install     'gulp-if',
+7 verbose install     'gulp-jshint',
+7 verbose install     'gulp-minify-css',
+7 verbose install     'gulp-ng-annotate',
+7 verbose install     'gulp-notify',
+7 verbose install     'gulp-sourcemaps',
+7 verbose install     'gulp-uglify',
+7 verbose install     'jshint-stylish',
+7 verbose install     'laravel-elixir',
+7 verbose install     'laravel-elixir-livereload',
+7 verbose install     'main-bower-files',
+7 verbose install     'gulp' ] ]
+8 verbose install where, peers [ '/Users/Magnolo/Code/23', [] ]
+9 verbose installManyTop reading for lifecycle /Users/Magnolo/Code/23/package.json
+10 info preinstall @
+11 verbose installManyTop reading scoped package data from /Users/Magnolo/Code/23/node_modules/gulp/package.json
+12 verbose installManyTop reading scoped package data from /Users/Magnolo/Code/23/node_modules/gulp-concat/package.json
+13 verbose installManyTop reading scoped package data from /Users/Magnolo/Code/23/node_modules/gulp-concat-sourcemap/package.json
+14 verbose installManyTop reading scoped package data from /Users/Magnolo/Code/23/node_modules/gulp-filter/package.json
+15 verbose installManyTop reading scoped package data from /Users/Magnolo/Code/23/node_modules/gulp-if/package.json
+16 verbose installManyTop reading scoped package data from /Users/Magnolo/Code/23/node_modules/gulp-jshint/package.json
+17 verbose installManyTop reading scoped package data from /Users/Magnolo/Code/23/node_modules/gulp-minify-css/package.json
+18 verbose installManyTop reading scoped package data from /Users/Magnolo/Code/23/node_modules/gulp-ng-annotate/package.json
+19 verbose installManyTop reading scoped package data from /Users/Magnolo/Code/23/node_modules/gulp-notify/package.json
+20 verbose installManyTop reading scoped package data from /Users/Magnolo/Code/23/node_modules/gulp-sourcemaps/package.json
+21 verbose installManyTop reading scoped package data from /Users/Magnolo/Code/23/node_modules/gulp-uglify/package.json
+22 verbose installManyTop reading scoped package data from /Users/Magnolo/Code/23/node_modules/jshint-stylish/package.json
+23 verbose installManyTop reading scoped package data from /Users/Magnolo/Code/23/node_modules/laravel-elixir/package.json
+24 verbose installManyTop reading scoped package data from /Users/Magnolo/Code/23/node_modules/laravel-elixir-livereload/package.json
+25 verbose installManyTop reading scoped package data from /Users/Magnolo/Code/23/node_modules/main-bower-files/package.json
+26 info package.json gulp-if@1.2.5 No license field.
+27 info package.json gulp-minify-css@0.3.13 No license field.
+28 info package.json gulp-notify@2.2.0 No license field.
+29 verbose readDependencies loading dependencies from /Users/Magnolo/Code/23/package.json
+30 verbose targetResolver reading package data from /Users/Magnolo/Code/23/node_modules/gulp/package.json
+31 verbose targetResolver reading package data from /Users/Magnolo/Code/23/node_modules/gulp-concat/package.json
+32 verbose targetResolver reading package data from /Users/Magnolo/Code/23/node_modules/gulp-concat-sourcemap/package.json
+33 verbose targetResolver reading package data from /Users/Magnolo/Code/23/node_modules/gulp-filter/package.json
+34 verbose targetResolver reading package data from /Users/Magnolo/Code/23/node_modules/gulp-if/package.json
+35 verbose targetResolver reading package data from /Users/Magnolo/Code/23/node_modules/gulp-jshint/package.json
+36 verbose targetResolver reading package data from /Users/Magnolo/Code/23/node_modules/gulp-minify-css/package.json
+37 verbose targetResolver reading package data from /Users/Magnolo/Code/23/node_modules/gulp-ng-annotate/package.json
+38 verbose targetResolver reading package data from /Users/Magnolo/Code/23/node_modules/gulp-notify/package.json
+39 verbose targetResolver reading package data from /Users/Magnolo/Code/23/node_modules/gulp-sourcemaps/package.json
+40 verbose targetResolver reading package data from /Users/Magnolo/Code/23/node_modules/gulp-uglify/package.json
+41 verbose targetResolver reading package data from /Users/Magnolo/Code/23/node_modules/jshint-stylish/package.json
+42 verbose targetResolver reading package data from /Users/Magnolo/Code/23/node_modules/laravel-elixir/package.json
+43 verbose targetResolver reading package data from /Users/Magnolo/Code/23/node_modules/laravel-elixir-livereload/package.json
+44 verbose targetResolver reading package data from /Users/Magnolo/Code/23/node_modules/main-bower-files/package.json
+45 verbose targetResolver reading package data from /Users/Magnolo/Code/23/node_modules/.bin/gulp/package.json
+46 verbose already installed skipping gulp-if@^1.2.5 /Users/Magnolo/Code/23
+47 verbose already installed skipping gulp-jshint@^1.9.0 /Users/Magnolo/Code/23
+48 verbose already installed skipping gulp-minify-css@^0.3.11 /Users/Magnolo/Code/23
+49 verbose already installed skipping gulp-ng-annotate@^1 /Users/Magnolo/Code/23
+50 verbose already installed skipping gulp-notify@^2.0.0 /Users/Magnolo/Code/23
+51 verbose already installed skipping gulp-sourcemaps@^1 /Users/Magnolo/Code/23
+52 verbose already installed skipping gulp-uglify@^1 /Users/Magnolo/Code/23
+53 verbose already installed skipping jshint-stylish@^2 /Users/Magnolo/Code/23
+54 silly cache add args [ 'laravel-elixir@^5.0', null ]
+55 verbose cache add spec laravel-elixir@^5.0
+56 silly cache add parsed spec Result {
+56 silly cache add   raw: 'laravel-elixir@^5.0',
+56 silly cache add   scope: null,
+56 silly cache add   name: 'laravel-elixir',
+56 silly cache add   rawSpec: '^5.0',
+56 silly cache add   spec: '>=5.0.0 <6.0.0',
+56 silly cache add   type: 'range' }
+57 silly addNamed laravel-elixir@>=5.0.0 <6.0.0
+58 verbose addNamed ">=5.0.0 <6.0.0" is a valid semver range for laravel-elixir
+59 silly addNameRange { name: 'laravel-elixir',
+59 silly addNameRange   range: '>=5.0.0 <6.0.0',
+59 silly addNameRange   hasData: false }
+60 silly mapToRegistry name laravel-elixir
+61 silly mapToRegistry using default registry
+62 silly mapToRegistry registry https://registry.npmjs.org/
+63 silly mapToRegistry data Result {
+63 silly mapToRegistry   raw: 'laravel-elixir',
+63 silly mapToRegistry   scope: null,
+63 silly mapToRegistry   name: 'laravel-elixir',
+63 silly mapToRegistry   rawSpec: '',
+63 silly mapToRegistry   spec: 'latest',
+63 silly mapToRegistry   type: 'tag' }
+64 silly mapToRegistry uri https://registry.npmjs.org/laravel-elixir
+65 verbose addNameRange registry:https://registry.npmjs.org/laravel-elixir not in flight; fetching
+66 verbose already installed skipping laravel-elixir-livereload@^1.1.3 /Users/Magnolo/Code/23
+67 verbose already installed skipping main-bower-files@^2.1.0 /Users/Magnolo/Code/23
+68 verbose already installed skipping gulp@^3.9.0 /Users/Magnolo/Code/23
+69 verbose already installed skipping gulp-concat@^2.6.0 /Users/Magnolo/Code/23
+70 verbose already installed skipping gulp-filter@^1.0.2 /Users/Magnolo/Code/23
+71 verbose already installed skipping gulp-concat-sourcemap@^1.3.1 /Users/Magnolo/Code/23
+72 verbose request uri https://registry.npmjs.org/laravel-elixir
+73 verbose request no auth needed
+74 info attempt registry request try #1 at 15:54:33
+75 verbose request id b7b767adb3180341
+76 verbose etag "3OMQVBRFW3WH08VTK8UXJ1CD0"
+77 http request GET https://registry.npmjs.org/laravel-elixir
+78 http 304 https://registry.npmjs.org/laravel-elixir
+79 verbose headers { date: 'Tue, 12 Jul 2016 13:54:33 GMT',
+79 verbose headers   via: '1.1 varnish',
+79 verbose headers   'cache-control': 'max-age=300',
+79 verbose headers   etag: '"3OMQVBRFW3WH08VTK8UXJ1CD0"',
+79 verbose headers   age: '10',
+79 verbose headers   connection: 'keep-alive',
+79 verbose headers   'x-served-by': 'cache-fra1227-FRA',
+79 verbose headers   'x-cache': 'HIT',
+79 verbose headers   'x-cache-hits': '1',
+79 verbose headers   'x-timer': 'S1468331673.724465,VS0,VE0',
+79 verbose headers   vary: 'Accept-Encoding' }
+80 silly get cb [ 304,
+80 silly get   { date: 'Tue, 12 Jul 2016 13:54:33 GMT',
+80 silly get     via: '1.1 varnish',
+80 silly get     'cache-control': 'max-age=300',
+80 silly get     etag: '"3OMQVBRFW3WH08VTK8UXJ1CD0"',
+80 silly get     age: '10',
+80 silly get     connection: 'keep-alive',
+80 silly get     'x-served-by': 'cache-fra1227-FRA',
+80 silly get     'x-cache': 'HIT',
+80 silly get     'x-cache-hits': '1',
+80 silly get     'x-timer': 'S1468331673.724465,VS0,VE0',
+80 silly get     vary: 'Accept-Encoding' } ]
+81 verbose etag https://registry.npmjs.org/laravel-elixir from cache
+82 verbose get saving laravel-elixir to /Users/Magnolo/.npm/registry.npmjs.org/laravel-elixir/.cache.json
+83 verbose correctMkdir /Users/Magnolo/.npm correctMkdir not in flight; initializing
+84 silly addNameRange number 2 { name: 'laravel-elixir',
+84 silly addNameRange   range: '>=5.0.0 <6.0.0',
+84 silly addNameRange   hasData: true }
+85 silly addNameRange versions [ 'laravel-elixir',
+85 silly addNameRange   [ '0.1.0',
+85 silly addNameRange     '0.1.1',
+85 silly addNameRange     '0.1.2',
+85 silly addNameRange     '0.1.3',
+85 silly addNameRange     '0.1.4',
+85 silly addNameRange     '0.1.5',
+85 silly addNameRange     '0.1.6',
+85 silly addNameRange     '0.1.7',
+85 silly addNameRange     '0.1.8',
+85 silly addNameRange     '0.1.9',
+85 silly addNameRange     '0.2.0',
+85 silly addNameRange     '0.2.1',
+85 silly addNameRange     '0.2.2',
+85 silly addNameRange     '0.3.0',
+85 silly addNameRange     '0.3.1',
+85 silly addNameRange     '0.3.2',
+85 silly addNameRange     '0.3.3',
+85 silly addNameRange     '0.3.4',
+85 silly addNameRange     '0.3.5',
+85 silly addNameRange     '0.3.7',
+85 silly addNameRange     '0.3.8',
+85 silly addNameRange     '0.3.9',
+85 silly addNameRange     '0.3.10',
+85 silly addNameRange     '0.3.11',
+85 silly addNameRange     '0.4.0',
+85 silly addNameRange     '0.4.1',
+85 silly addNameRange     '0.4.3',
+85 silly addNameRange     '0.4.4',
+85 silly addNameRange     '0.4.5',
+85 silly addNameRange     '0.4.6',
+85 silly addNameRange     '0.4.7',
+85 silly addNameRange     '0.4.8',
+85 silly addNameRange     '0.4.9',
+85 silly addNameRange     '0.4.10',
+85 silly addNameRange     '0.4.11',
+85 silly addNameRange     '0.4.12',
+85 silly addNameRange     '0.4.13',
+85 silly addNameRange     '0.4.14',
+85 silly addNameRange     '0.4.15',
+85 silly addNameRange     '0.4.16',
+85 silly addNameRange     '0.4.17',
+85 silly addNameRange     '0.5.0',
+85 silly addNameRange     '0.5.1',
+85 silly addNameRange     '0.5.2',
+85 silly addNameRange     '0.5.3',
+85 silly addNameRange     '0.5.4',
+85 silly addNameRange     '0.5.5',
+85 silly addNameRange     '0.5.6',
+85 silly addNameRange     '0.5.7',
+85 silly addNameRange     '0.5.8',
+85 silly addNameRange     '0.6.0',
+85 silly addNameRange     '0.6.1',
+85 silly addNameRange     '0.6.2',
+85 silly addNameRange     '0.6.3',
+85 silly addNameRange     '0.6.4',
+85 silly addNameRange     '0.6.5',
+85 silly addNameRange     '0.6.6',
+85 silly addNameRange     '0.7.0',
+85 silly addNameRange     '0.6.7',
+85 silly addNameRange     '0.6.8',
+85 silly addNameRange     '0.7.1',
+85 silly addNameRange     '0.7.3',
+85 silly addNameRange     '0.7.4',
+85 silly addNameRange     '0.7.5',
+85 silly addNameRange     '0.7.6',
+85 silly addNameRange     '0.7.7',
+85 silly addNameRange     '0.7.8',
+85 silly addNameRange     '0.7.9',
+85 silly addNameRange     '0.7.10',
+85 silly addNameRange     '0.7.11',
+85 silly addNameRange     '0.8.0',
+85 silly addNameRange     '0.8.1',
+85 silly addNameRange     '0.9.1',
+85 silly addNameRange     '0.10.0',
+85 silly addNameRange     '0.10.1',
+85 silly addNameRange     '0.10.2',
+85 silly addNameRange     '0.10.3',
+85 silly addNameRange     '0.10.4',
+85 silly addNameRange     '0.10.5',
+85 silly addNameRange     '0.10.6',
+85 silly addNameRange     '0.10.7',
+85 silly addNameRange     '0.11.0',
+85 silly addNameRange     '0.12.0',
+85 silly addNameRange     '0.12.2',
+85 silly addNameRange     '0.12.3',
+85 silly addNameRange     '0.13.0',
+85 silly addNameRange     '0.13.1',
+85 silly addNameRange     '0.13.2',
+85 silly addNameRange     '0.13.3',
+85 silly addNameRange     '0.14.0',
+85 silly addNameRange     '0.14.2',
+85 silly addNameRange     '0.14.3',
+85 silly addNameRange     '0.14.4',
+85 silly addNameRange     '0.15.0',
+85 silly addNameRange     '0.15.1',
+85 silly addNameRange     '0.15.2',
+85 silly addNameRange     '0.15.3',
+85 silly addNameRange     '0.15.4',
+85 silly addNameRange     '0.15.5',
+85 silly addNameRange     '0.16.0',
+85 silly addNameRange     '0.16.1',
+85 silly addNameRange     '0.16.2',
+85 silly addNameRange     '0.16.3',
+85 silly addNameRange     '0.18.0',
+85 silly addNameRange     '0.18.1',
+85 silly addNameRange     '0.18.2',
+85 silly addNameRange     '0.18.3',
+85 silly addNameRange     '0.18.4',
+85 silly addNameRange     '0.18.5',
+85 silly addNameRange     '0.18.6',
+85 silly addNameRange     '0.18.7',
+85 silly addNameRange     '1.0.1',
+85 silly addNameRange     '1.0.2',
+85 silly addNameRange     '1.0.3',
+85 silly addNameRange     '2.0.0',
+85 silly addNameRange     '2.0.1',
+85 silly addNameRange     '2.1.0',
+85 silly addNameRange     '2.1.1',
+85 silly addNameRange     '2.1.2',
+85 silly addNameRange     '2.2.0',
+85 silly addNameRange     '2.2.1',
+85 silly addNameRange     '2.2.2',
+85 silly addNameRange     '2.2.3',
+85 silly addNameRange     '2.2.4',
+85 silly addNameRange     '2.3.0',
+85 silly addNameRange     '2.3.1',
+85 silly addNameRange     '2.3.2',
+85 silly addNameRange     '2.3.3',
+85 silly addNameRange     '2.3.4',
+85 silly addNameRange     '2.3.5',
+85 silly addNameRange     '2.3.6',
+85 silly addNameRange     '2.3.8',
+85 silly addNameRange     '2.3.9',
+85 silly addNameRange     '2.3.10',
+85 silly addNameRange     '2.3.11',
+85 silly addNameRange     '2.3.12',
+85 silly addNameRange     '2.3.13',
+85 silly addNameRange     '3.0.0-beta1',
+85 silly addNameRange     '3.0.0-beta2',
+85 silly addNameRange     '3.0.0',
+85 silly addNameRange     '3.0.1',
+85 silly addNameRange     '3.0.3',
+85 silly addNameRange     '3.0.4',
+85 silly addNameRange     '3.0.5',
+85 silly addNameRange     '3.0.6',
+85 silly addNameRange     '3.0.7',
+85 silly addNameRange     '3.1.0',
+85 silly addNameRange     '3.1.1',
+85 silly addNameRange     '3.1.2',
+85 silly addNameRange     '3.2.1',
+85 silly addNameRange     '3.2.2',
+85 silly addNameRange     '3.2.3',
+85 silly addNameRange     '3.2.4',
+85 silly addNameRange     '3.2.5',
+85 silly addNameRange     '3.2.6',
+85 silly addNameRange     '3.2.7',
+85 silly addNameRange     '3.2.8',
+85 silly addNameRange     '3.3.0',
+85 silly addNameRange     '3.3.1',
+85 silly addNameRange     '3.3.2',
+85 silly addNameRange     '3.3.3',
+85 silly addNameRange     '3.3.4',
+85 silly addNameRange     '3.3.5',
+85 silly addNameRange     '3.4.0',
+85 silly addNameRange     '3.4.1',
+85 silly addNameRange     '3.4.2',
+85 silly addNameRange     '4.0.0',
+85 silly addNameRange     '3.4.3',
+85 silly addNameRange     '4.0.1',
+85 silly addNameRange     '4.0.3',
+85 silly addNameRange     '4.0.4',
+85 silly addNameRange     '4.1.0',
+85 silly addNameRange     '4.1.1',
+85 silly addNameRange     '4.1.2',
+85 silly addNameRange     '4.2.0',
+85 silly addNameRange     '4.2.1',
+85 silly addNameRange     '5.0.0',
+85 silly addNameRange     '6.0.0-0',
+85 silly addNameRange     '6.0.0-1',
+85 silly addNameRange     '6.0.0-2',
+85 silly addNameRange     '6.0.0-3',
+85 silly addNameRange     '6.0.0-4',
+85 silly addNameRange     '6.0.0-5',
+85 silly addNameRange     '6.0.0-6',
+85 silly addNameRange     '6.0.0-7',
+85 silly addNameRange     '6.0.0-8',
+85 silly addNameRange     '6.0.0-9' ] ]
+86 silly addNamed laravel-elixir@5.0.0
+87 verbose addNamed "5.0.0" is a plain semver version for laravel-elixir
+88 silly mapToRegistry name laravel-elixir
+89 silly mapToRegistry using default registry
+90 silly mapToRegistry registry https://registry.npmjs.org/
+91 silly mapToRegistry data Result {
+91 silly mapToRegistry   raw: 'laravel-elixir',
+91 silly mapToRegistry   scope: null,
+91 silly mapToRegistry   name: 'laravel-elixir',
+91 silly mapToRegistry   rawSpec: '',
+91 silly mapToRegistry   spec: 'latest',
+91 silly mapToRegistry   type: 'tag' }
+92 silly mapToRegistry uri https://registry.npmjs.org/laravel-elixir
+93 verbose addRemoteTarball https://registry.npmjs.org/laravel-elixir/-/laravel-elixir-5.0.0.tgz not in flight; adding
+94 verbose addRemoteTarball [ 'https://registry.npmjs.org/laravel-elixir/-/laravel-elixir-5.0.0.tgz',
+94 verbose addRemoteTarball   '742f0d8676ef0db3d853f0620c996a5f6330e265' ]
+95 info retry fetch attempt 1 at 15:54:33
+96 info attempt registry request try #1 at 15:54:33
+97 http fetch GET https://registry.npmjs.org/laravel-elixir/-/laravel-elixir-5.0.0.tgz
+98 http fetch 200 https://registry.npmjs.org/laravel-elixir/-/laravel-elixir-5.0.0.tgz
+99 silly fetchAndShaCheck shasum 742f0d8676ef0db3d853f0620c996a5f6330e265
+100 verbose addTmpTarball /var/folders/l1/6_vjncn55_bbx7d_c96vlr5c0000gn/T/npm-1883-e44aa857/registry.npmjs.org/laravel-elixir/-/laravel-elixir-5.0.0.tgz not in flight; adding
+101 verbose addTmpTarball already have metadata; skipping unpack for laravel-elixir@5.0.0
+102 verbose correctMkdir /Users/Magnolo/.npm correctMkdir not in flight; initializing
+103 silly cache afterAdd laravel-elixir@5.0.0
+104 verbose afterAdd /Users/Magnolo/.npm/laravel-elixir/5.0.0/package/package.json not in flight; writing
+105 verbose correctMkdir /Users/Magnolo/.npm correctMkdir not in flight; initializing
+106 verbose afterAdd /Users/Magnolo/.npm/laravel-elixir/5.0.0/package/package.json written
+107 silly install resolved [ { name: 'laravel-elixir',
+107 silly install resolved     version: '5.0.0',
+107 silly install resolved     description: 'Laravel Elixir Core',
+107 silly install resolved     main: 'index.js',
+107 silly install resolved     scripts: { test: 'echo "Error: no test specified" && exit 1' },
+107 silly install resolved     repository:
+107 silly install resolved      { type: 'git',
+107 silly install resolved        url: 'git+https://github.com/laravel/elixir.git' },
+107 silly install resolved     keywords: [ 'laravel', 'elixir', 'gulp' ],
+107 silly install resolved     author: { name: 'Taylor Otwell, Jeffrey Way' },
+107 silly install resolved     license: 'MIT',
+107 silly install resolved     homepage: 'https://github.com/laravel/elixir',
+107 silly install resolved     dependencies:
+107 silly install resolved      { babelify: '^7.2.0',
+107 silly install resolved        'browser-sync': '^2.7.10',
+107 silly install resolved        browserify: '^11.2.0',
+107 silly install resolved        del: '^1.2.0',
+107 silly install resolved        glob: '^5.0.14',
+107 silly install resolved        'gulp-autoprefixer': '^2.3.1',
+107 silly install resolved        'gulp-babel': '^6.1.0',
+107 silly install resolved        'babel-preset-es2015': '^6.1.0',
+107 silly install resolved        'babel-preset-react': '^6.1.18',
+107 silly install resolved        'gulp-batch': '^1.0.5',
+107 silly install resolved        'gulp-coffee': '^2.3.1',
+107 silly install resolved        'gulp-concat': '^2.6.0',
+107 silly install resolved        'gulp-cssnano': '^2.0.0',
+107 silly install resolved        'gulp-if': '^1.2.5',
+107 silly install resolved        'gulp-less': '^3.0.3',
+107 silly install resolved        'gulp-load-plugins': '^1.0.0-rc.1',
+107 silly install resolved        'gulp-notify': '^2.2.0',
+107 silly install resolved        'gulp-rename': '^1.2.2',
+107 silly install resolved        'gulp-rev': '^5.1.0',
+107 silly install resolved        'gulp-rev-replace': '^0.4.2',
+107 silly install resolved        'gulp-sass': '^2.0.3',
+107 silly install resolved        'gulp-sourcemaps': '^1.5.2',
+107 silly install resolved        'gulp-shell': '^0.5.0',
+107 silly install resolved        'gulp-uglify': '^1.5.1',
+107 silly install resolved        'gulp-util': '^3.0.6',
+107 silly install resolved        'gulp-watch': '^4.2.4',
+107 silly install resolved        'insert-css': '^0.2.0',
+107 silly install resolved        'merge-stream': '^0.1.8',
+107 silly install resolved        'parse-filepath': '^0.5.0',
+107 silly install resolved        partialify: '^3.1.3',
+107 silly install resolved        path: '^0.11.14',
+107 silly install resolved        'require-dir': '^0.3.0',
+107 silly install resolved        'run-sequence': '^1.1.1',
+107 silly install resolved        underscore: '^1.8.3',
+107 silly install resolved        'underscore-deep-extend': '0.0.5',
+107 silly install resolved        'vinyl-buffer': '^1.0.0',
+107 silly install resolved        'vinyl-paths': '^1.0.0',
+107 silly install resolved        'vinyl-source-stream': '^1.1.0',
+107 silly install resolved        watchify: '^3.2.3' },
+107 silly install resolved     devDependencies:
+107 silly install resolved      { gulp: '^3.8.8',
+107 silly install resolved        chai: '^3.2.0',
+107 silly install resolved        mocha: '^2.2.5',
+107 silly install resolved        rimraf: '^2.4.2' },
+107 silly install resolved     gitHead: '2def8c99ddc4aef42de981b175198e550ee8a9d2',
+107 silly install resolved     bugs: { url: 'https://github.com/laravel/elixir/issues' },
+107 silly install resolved     _id: 'laravel-elixir@5.0.0',
+107 silly install resolved     _shasum: '742f0d8676ef0db3d853f0620c996a5f6330e265',
+107 silly install resolved     _from: 'laravel-elixir@>=5.0.0 <6.0.0',
+107 silly install resolved     _npmVersion: '3.3.12',
+107 silly install resolved     _nodeVersion: '5.1.0',
+107 silly install resolved     _npmUser: { name: 'jeffreyway', email: 'jeffrey@laracasts.com' },
+107 silly install resolved     maintainers: [ [Object] ],
+107 silly install resolved     dist:
+107 silly install resolved      { shasum: '742f0d8676ef0db3d853f0620c996a5f6330e265',
+107 silly install resolved        tarball: 'https://registry.npmjs.org/laravel-elixir/-/laravel-elixir-5.0.0.tgz' },
+107 silly install resolved     _npmOperationalInternal:
+107 silly install resolved      { host: 'packages-9-west.internal.npmjs.com',
+107 silly install resolved        tmp: 'tmp/laravel-elixir-5.0.0.tgz_1455035735597_0.15580009040422738' },
+107 silly install resolved     directories: {},
+107 silly install resolved     _resolved: 'https://registry.npmjs.org/laravel-elixir/-/laravel-elixir-5.0.0.tgz' } ]
+108 info install laravel-elixir@5.0.0 into /Users/Magnolo/Code/23
+109 info installOne laravel-elixir@5.0.0
+110 verbose installOne of laravel-elixir to /Users/Magnolo/Code/23 not in flight; installing
+111 verbose correctMkdir /Users/Magnolo/.npm/_locks correctMkdir not in flight; initializing
+112 verbose lock using /Users/Magnolo/.npm/_locks/laravel-elixir-2aaa23929db3e287.lock for /Users/Magnolo/Code/23/node_modules/laravel-elixir
+113 silly install write writing laravel-elixir 5.0.0 to /Users/Magnolo/Code/23/node_modules/laravel-elixir
+114 verbose unbuild node_modules/laravel-elixir
+115 info preuninstall laravel-elixir@4.2.1
+116 info uninstall laravel-elixir@4.2.1
+117 verbose unbuild rmStuff laravel-elixir@4.2.1 from /Users/Magnolo/Code/23/node_modules
+118 info postuninstall laravel-elixir@4.2.1
+119 silly gentlyRm /Users/Magnolo/Code/23/node_modules/laravel-elixir is being purged from base /Users/Magnolo/Code/23
+120 verbose gentlyRm don't care about contents; nuking /Users/Magnolo/Code/23/node_modules/laravel-elixir
+121 silly vacuum-fs purging /Users/Magnolo/Code/23/node_modules/laravel-elixir
+122 verbose unlock done using /Users/Magnolo/.npm/_locks/laravel-elixir-2aaa23929db3e287.lock for /Users/Magnolo/Code/23/node_modules/laravel-elixir
+123 verbose stack Error: EACCES: permission denied, unlink '/Users/Magnolo/Code/23/node_modules/laravel-elixir/node_modules/.bin/browser-sync'
+123 verbose stack     at Error (native)
+124 verbose cwd /Users/Magnolo/Code/23
+125 error Darwin 15.5.0
+126 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "install"
+127 error node v4.4.7
+128 error npm  v2.15.8
+129 error path /Users/Magnolo/Code/23/node_modules/laravel-elixir/node_modules/.bin/browser-sync
+130 error code EACCES
+131 error errno -13
+132 error syscall unlink
+133 error Error: EACCES: permission denied, unlink '/Users/Magnolo/Code/23/node_modules/laravel-elixir/node_modules/.bin/browser-sync'
+133 error     at Error (native)
+133 error  { [Error: EACCES: permission denied, unlink '/Users/Magnolo/Code/23/node_modules/laravel-elixir/node_modules/.bin/browser-sync']
+133 error   errno: -13,
+133 error   code: 'EACCES',
+133 error   syscall: 'unlink',
+133 error   path: '/Users/Magnolo/Code/23/node_modules/laravel-elixir/node_modules/.bin/browser-sync' }
+134 error Please try running this command again as root/Administrator.
+135 verbose exit [ -13, true ]
+136 verbose unbuild node_modules/laravel-elixir
+137 silly gentlyRm /Users/Magnolo/Code/23/node_modules/laravel-elixir is being purged from base /Users/Magnolo/Code/23
+138 verbose gentlyRm don't care about contents; nuking /Users/Magnolo/Code/23/node_modules/laravel-elixir
+139 silly vacuum-fs purging /Users/Magnolo/Code/23/node_modules/laravel-elixir
+140 error error rolling back Error: EACCES: permission denied, unlink '/Users/Magnolo/Code/23/node_modules/laravel-elixir/node_modules/.bin/browser-sync'
+140 error error rolling back     at Error (native)
+140 error error rolling back  { [Error: EACCES: permission denied, unlink '/Users/Magnolo/Code/23/node_modules/laravel-elixir/node_modules/.bin/browser-sync']
+140 error error rolling back   errno: -13,
+140 error error rolling back   code: 'EACCES',
+140 error error rolling back   syscall: 'unlink',
+140 error error rolling back   path: '/Users/Magnolo/Code/23/node_modules/laravel-elixir/node_modules/.bin/browser-sync' }

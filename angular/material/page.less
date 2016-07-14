@@ -282,24 +282,44 @@ p {
             overflow-x: hidden;
             @media screen and (max-width: 959px) {
                 top: 0;
-                height: 64px;
+                height: 36px;
                 transform: translate3d(0, 0, 0);
                 overflow-y: visible;
                 overflow-x: visible;
                 md-content[ui-view='sidebar'] {
                     background: transparent;
                     overflow: visible;
+                    height: 36px;
+                    > .selector{
+                      md-input-container{
+                        margin:0px;
+                      }
+                    }
                 }
                 .mobile-container {
                     transition: all 0.3s ease-in-out;
-                    transform: translateY(calc(~"100vh - 445px"));
+                    transform: translateY(calc(~"100vh - 405px"));
                     background: #fff;
                     .comparison {
                         min-height: 200px;
                         max-height: 285px;
                         overflow-y: auto;
                     }
+                    .country-chooser{
+                      padding:0 8px;
+                    }
                 }
+            }
+            @media only screen and (max-device-width: 667px) and (-webkit-device-pixel-ratio: 2) {
+              .mobile-container {
+                      transform: translateY(calc(~"100vh - 475px"));
+              }
+            }
+            // ihpone 6
+            @media screen and (min-device-width : 414px)  and (-webkit-device-pixel-ratio: 3){
+              .mobile-container {
+                      transform: translateY(calc(~"100vh - 475px"));
+              }
             }
         }
         &.loggedIn {
@@ -315,7 +335,7 @@ p {
         }
         #map {
             @media screen and (max-width: 959px) {
-                top: 64px;
+                top: 36px;
                 height: calc(~'100% - 230px');
                 .leaflet-top.leaflet-left {
                     display: none;
@@ -325,22 +345,41 @@ p {
         &.sidebar-closed {
             #map {
                 @media screen and (max-width: 959px) {
-                    height: calc(~'100% - 205px');
+                    height: calc(~'100% - 167px');
                 }
             }
             #sidebar {
-                @media screen and (max-width: 959px) {
+                @media only screen and (max-width: 959px) {
                     top: 0;
-                    height: 64px;
+                    height: 36px;
                     transform: translate3d(0, 0, 0);
                     overflow-y: visible;
                     overflow-x: visible;
                     md-content[ui-view='sidebar'] {
-                        height: 64px;
+                        height: 36px;
+                        > .selector{
+                          md-input-container{
+                            margin:0px;
+                          }
+                        }
+
                     }
                     .mobile-container {
-                        transform: translateY(calc(~"100vh - 255px"));
+                        transform: translateY(calc(~"100vh - 215px"));
+
                     }
+                }
+                // ihpone 5
+                @media only screen and (max-device-width: 667px) and (-webkit-device-pixel-ratio: 2) {
+                  .mobile-container {
+                          transform: translateY(calc(~"100vh - 285px"));
+                  }
+                }
+                // ihpone 6
+                @media screen and (min-device-width : 414px)  and (-webkit-device-pixel-ratio: 3){
+                  .mobile-container {
+                          transform: translateY(calc(~"100vh - 285px"));
+                  }
                 }
             }
             .mobile-window-switcher {
