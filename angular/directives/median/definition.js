@@ -65,11 +65,11 @@
 					.range([options.margin.left, options.width - options.margin.left])
 					.clamp(true);
 
-				var brush = d3.svg.brush()
-					.x(x)
-					.extent([0, 0])
-					.on("brush", brush)
-					.on("brushend", brushed);
+				// var brush = d3.svg.brush()
+				// 	.x(x)
+				// 	.extent([0, 0])
+				// 	.on("brush", brush)
+				// 	.on("brushend", brushed);
 
 				var svg = d3.select(element[0]).append("svg")
 					.attr("width", options.width)
@@ -152,9 +152,9 @@
 				}
 				var slider = svg.append("g")
 					.attr("class", "slider");
-				if (options.handling == true) {
-					slider.call(brush);
-				}
+				// if (options.handling == true) {
+				// 	slider.call(brush);
+				// }
 
 				slider.select(".background")
 					.attr("height", options.height);
@@ -356,10 +356,10 @@
 						.domain([options.min, options.max])
 						.range([options.margin.left, options.width - options.margin.left])
 						.clamp(true);
-					brush.x(x)
-						.extent([0, 0])
-						.on("brush", brush)
-						.on("brushend", brushed);
+					// brush.x(x)
+					// 	.extent([0, 0])
+					// 	.on("brush", brush)
+					// 	.on("brushend", brushed);
 					legend.select('#lowerValue').text(min);
 					legend2.select('#upperValue').text(function() {
 						//TDODO: CHckick if no comma there
