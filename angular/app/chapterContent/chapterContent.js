@@ -30,6 +30,7 @@
 					indiname: vm.ExportService.indicator.name,
 					iso: data.feature.id
 				});
+				$rootScope.sidebarOpen = false;
 				getCountryByIso(data.feature.id);
 				fetchNationData(data.feature.id);
 			}

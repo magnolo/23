@@ -274,6 +274,14 @@ p {
         .md-sidenav-backdrop {
             display: none;
         }
+          @media screen and (max-width: 959px) {
+        .Header{
+          min-height: 0px;
+          height:0px;
+          overflow: hidden;
+          transition: all .2s ease;
+        }
+      }
         #sidebar {
             top: 0;
             left: 0;
@@ -289,16 +297,21 @@ p {
                 md-content[ui-view='sidebar'] {
                     background: transparent;
                     overflow: visible;
-                    height: 36px;
+                    height: 0px;
                     > .selector{
+//                     height: 0;
+// overflow: visible;
+// min-height: 0;
                       md-input-container{
                         margin:0px;
+
                       }
+
                     }
                 }
                 .mobile-container {
                     transition: all 0.3s ease-in-out;
-                    transform: translateY(calc(~"100vh - 405px"));
+                    transform: translateY(calc(~"100vh - 405px + 53px"));
                     background: #fff;
                     .comparison {
                         min-height: 200px;
@@ -309,16 +322,17 @@ p {
                       padding:0 8px;
                     }
                 }
+
             }
             @media only screen and (max-device-width: 667px) and (-webkit-device-pixel-ratio: 2) {
               .mobile-container {
-                      transform: translateY(calc(~"100vh - 475px"));
+                      transform: translateY(calc(~"100vh - 475px + 53px"));
               }
             }
             // ihpone 6
             @media screen and (min-device-width : 414px)  and (-webkit-device-pixel-ratio: 3){
               .mobile-container {
-                      transform: translateY(calc(~"100vh - 475px"));
+                      transform: translateY(calc(~"100vh - 475px + 53px"));
               }
             }
         }
@@ -337,12 +351,20 @@ p {
             @media screen and (max-width: 959px) {
                 top: 36px;
                 height: calc(~'100% - 230px');
+                transition: all .2s ease;
                 .leaflet-top.leaflet-left {
                     display: none;
                 }
             }
         }
         &.sidebar-closed {
+          @media screen and (max-width: 959px) {
+              .Header{
+                min-height: 48px;
+                height:48px;
+                overflow: auto;
+              }
+            }
             #map {
                 @media screen and (max-width: 959px) {
                     height: calc(~'100% - 167px');
@@ -358,6 +380,10 @@ p {
                     md-content[ui-view='sidebar'] {
                         height: 36px;
                         > .selector{
+                          // transition: all .2s ease;
+                          // height: 36px;
+                          // overflow: hidden;
+                          // min-height: 36px;
                           md-input-container{
                             margin:0px;
                           }
