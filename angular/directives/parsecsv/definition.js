@@ -206,7 +206,7 @@
 								IndexService.setToLocalStorage();
 								
 								$timeout(function(){
-									toastr.info(IndexService.getDataSize() + ' lines importet!', 'Information');
+									toastr.info(IndexService.getDataSize() + ' lines imported!', 'Information');
 									$state.go('app.index.check');
 								});
 

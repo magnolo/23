@@ -10,6 +10,7 @@
 		vm.parentChanged = parentChanged;
 		vm.checkBase = checkBase;
 		vm.styles = ContentService.getStyles();
+		vm.newParent = false;
 		vm.flattened = [];
 		vm.copy = {};
 		activate();
@@ -40,6 +41,7 @@
 			return false;
 		}
 		function parentChanged(item){
+			vm.newParent = true;
 			if(typeof item == "undefined"){
 				vm.item.parent_id = null;
 				vm.item.parent = null;

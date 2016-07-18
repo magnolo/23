@@ -99,7 +99,7 @@
 						}
 					break;
 				case 3:
-
+					$state.go('app.index.editor.categories');
 					break;
 				default:
 
