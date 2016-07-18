@@ -8,6 +8,23 @@
 		vm.continentOptions = {
 			onlyWithChildren: true
 		};
+		vm.gradient = [
+			{
+				color:'rgba(255,12,17,0.5)',
+				pos: 2,
+				alpha:1
+			},
+			{
+				color:'#00ff00',
+				pos: 50,
+				alpha:1
+			},
+			{
+				color:'#0000ff',
+				pos: 75,
+				alpha:1
+			},
+		]
 		activate();
 
 		function activate() {

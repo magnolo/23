@@ -13,7 +13,7 @@
 (function() {
 	"use strict";
 
-	angular.module('app.directives').directive('median', function($timeout) {
+	angular.module('app.directives').directive('median', function($timeout, $window) {
 		var defaults = function() {
 			return {
 				id: 'gradient',
@@ -55,15 +55,14 @@
 			link: function($scope, element, $attrs, ngModel) {
 
 				var options = angular.extend(defaults(), $attrs);
-
 				options = angular.extend(options, $scope.options);
-				//options.width = element[0].clientWidth - 20;
+				options.width = element.parent()[0].clientWidth - options.margin.left - options.margin.right;
 				options.unique = new Date().getTime();
+				element.css('height', options.height + 'px').css('border-radius', options.height / 2 + 'px');
+
 				if (options.color) {
 					options.colors[1].color = options.color;
 				}
-				element.css('height', options.height + 'px').css('border-radius', options.height / 2 + 'px');
-
 				if (!$scope.options.max) {
 					angular.forEach($scope.data, function(nat, key) {
 						options.max = d3.max([options.max, parseInt(nat[options.field])]);
@@ -71,25 +70,8 @@
 					});
 				}
 
-
-				var x = d3.scale.linear()
-					.domain([options.min, options.max])
-					.range([options.margin.left, options.width - options.margin.left])
-					.clamp(true);
-
-				// var brush = d3.svg.brush()
-				// 	.x(x)
-				// 	.extent([0, 0])
-				// 	.on("brush", brush)
-				// 	.on("brushend", brushed);
-
-				var svg = d3.select(element[0]).append("svg")
-					.attr("width", options.width)
-					.attr("height", options.height)
-					.append("g");
-				//.attr("transform", "translate(0," + options.margin.top / 2 + ")");
-
-
+				var container = d3.select(element[0]).append("svg");
+				var svg = container.append("g");
 				var effects = svg.append('svg:defs')
 				var gradient = effects.append("svg:linearGradient")
 					.attr('id', options.field + options.unique)
@@ -98,14 +80,6 @@
 					.attr('x2', '100%')
 					.attr('y2', '0%')
 					.attr('spreadMethod', 'pad');
-
-				angular.forEach(options.colors, function(color) {
-					gradient.append('svg:stop')
-						.attr('offset', color.position + '%')
-						.attr('stop-color', color.color)
-						.attr('stop-opacity', color.opacity);
-				});
-
 				var shadow = effects.append("filter")
 					.attr("id", "drop-shadow")
 					.attr("height", "150%");
@@ -125,30 +99,48 @@
 				feMerge.append("feMergeNode")
 					.attr("in", "SourceGraphic");
 
-				var bckgrnd = svg.append('g');
-				var rect = bckgrnd.append('path')
-					.attr('d', rounded_rect(0, 0, options.width, options.height, options.height / 2, true, true, true, true))
-					.attr('width', options.width)
-					.attr('height', options.height)
-					.style('fill', 'url(#' + (options.field + options.unique) + ')');
-				var legend = svg.append('g').attr('transform', 'translate(' + options.height / 2 + ', ' + options.height / 2 + ')')
-					.attr('class', 'startLabel')
+				var bckgrnd = svg.append('g').attr('transform', "translate(0, "+(options.height /4)+")");
+				var rect = bckgrnd.append('path');
+				var legend = svg.append('g');
+				var legend2 = svg.append('g');
+				var slider = svg.append("g")
+					.attr("class", "slider");
+				// if (options.handling == true) {
+				// 	slider.call(brush);
+				// }
+
+				slider.select(".background")
+					.attr("height", options.height);
+
+				var x = d3.scale.linear()
+				x.domain([options.min, options.max])
+					.range([options.margin.left, options.width - options.margin.left])
+					.clamp(true);
+
+
+				angular.forEach(options.colors, function(color) {
+					gradient.append('svg:stop')
+						.attr('offset', color.position + '%')
+						.attr('stop-color', color.color)
+						.attr('stop-opacity', color.opacity);
+				});
+
 
 				if (options.info === true) {
-
 					legend.append('circle')
 						.attr('r', options.height / 2);
-					legend.append('text')
+					var legendText = legend.append('text')
 						.text(options.min)
 						.style('font-size', options.height / 2.5)
 						.attr('text-anchor', 'middle')
 						.attr('y', '.35em')
 						.attr('id', 'lowerValue');
-					var legend2 = svg.append('g').attr('transform', 'translate(' + (options.width - (options.height / 2)) + ', ' + options.height / 2 + ')')
+
+					legend2.attr('transform', 'translate(' + (options.width - (options.height / 2)) + ', ' + options.height / 2 + ')')
 						.attr('class', 'endLabel')
 					legend2.append('circle')
 						.attr('r', options.height / 2)
-					legend2.append('text')
+					var legend2Text = legend2.append('text')
 						.text(function() {
 							//TDODO: CHckick if no comma there
 							if (options.max > 1000) {
@@ -162,17 +154,10 @@
 						.attr('y', '.35em')
 						.attr('id', 'upperValue');
 				}
-				var slider = svg.append("g")
-					.attr("class", "slider");
-				// if (options.handling == true) {
-				// 	slider.call(brush);
-				// }
 
-				slider.select(".background")
-					.attr("height", options.height);
 
 				if (options.info === true) {
-					slider.append('line')
+					var line = slider.append('line')
 						.attr('x1', options.width / 2)
 						.attr('y1', 0)
 						.attr('x2', options.width / 2)
@@ -181,28 +166,104 @@
 						.attr('stroke-width', 1)
 						.attr('stroke', 'rgba(0,0,0,87)');
 				}
-				var handleCont = slider.append('g')
-					.attr("transform", "translate(0," + options.height / 2 + ")")
-					.on('mouseover', function() {
-						shadowIntensity.transition().duration(200).attr('stdDeviation', 2);
-
-					})
-					.on('mouseout', function() {
-						shadowIntensity.transition().duration(200).attr('stdDeviation', 1);
-
-					});
+				var handleCont = slider.append('g');
 				var handle = handleCont.append("circle")
 					.attr("class", "handle")
-					.style("filter", "url(#drop-shadow)")
-					.attr("r", ((options.height / 2) + options.height / 10));
-				if (options.color) {
-					handle.style('fill', '#fff' /*options.color*/ );
-				}
+					.style("filter", "url(#drop-shadow)");
 				var handleLabel = handleCont.append('text')
 					.text(0)
-					.style('font-size', options.height / 2.5)
-					.attr("text-anchor", "middle").attr('y', '0.35em');
 
+				function draw() {
+					x.range([options.margin.left, options.width - options.margin.right])
+						.clamp(true);
+
+
+					// var brush = d3.svg.brush()
+					// 	.x(x)
+					// 	.extent([0, 0])
+					// 	.on("brush", brush)
+					// 	.on("brushend", brushed);
+
+					container
+						.attr("width", options.width)
+						.attr("height", options.height)
+						.style('margin-left', options.margin.left)
+
+
+					//.attr("transform", "translate(0," + options.margin.top / 2 + ")");
+
+
+
+					rect
+						.attr('d', rounded_rect(0, 0, options.width, options.height / 2, options.height / 4, true, true, true, true))
+						.attr('y', options.height /2)
+						.attr('width', options.width)
+						.attr('height', options.height /2)
+						.style('fill', 'url(#' + (options.field + options.unique) + ')');
+					legend.attr('transform', 'translate(' + options.height / 2 + ', ' + options.height / 2 + ')')
+						.attr('class', 'startLabel')
+
+					if (options.info === true) {
+						legend.attr('r', options.height / 2);
+						legendText.text(options.min)
+							.style('font-size', options.height / 2.5)
+							.attr('text-anchor', 'middle')
+							.attr('y', '.35em')
+							.attr('id', 'lowerValue');
+						legend2.attr('transform', 'translate(' + (options.width - (options.height / 4)) + ', ' + options.height / 2 + ')')
+							.attr('class', 'endLabel')
+						legend2.append('circle')
+							.attr('r', options.height / 2)
+
+						legend2Text.text(function() {
+								//TDODO: CHckick if no comma there
+								if (options.max > 1000) {
+									var v = (parseInt(options.max) / 1000).toString();
+									return v.substr(0, v.indexOf('.')) + "k";
+								}
+								console.log('max', options.max);
+								return options.max
+							})
+							.style('font-size', options.height / 2.5)
+							.attr('text-anchor', 'middle')
+							.attr('y', '.35em')
+							.attr('id', 'upperValue');
+
+						line.attr('x1', options.width / 2)
+							.attr('y1', 0)
+							.attr('x2', options.width / 2)
+							.attr('y2', options.height)
+							.attr('stroke-dasharray', '3,3')
+							.attr('stroke-width', 1)
+							.attr('stroke', 'rgba(0,0,0,87)');
+					}
+
+					handleCont
+					//.attr("transform", "translate(0," + options.height / 2 + ")")
+						.on('mouseover', function() {
+							shadowIntensity.transition().duration(200).attr('stdDeviation', 2);
+
+						})
+						.on('mouseout', function() {
+							shadowIntensity.transition().duration(200).attr('stdDeviation', 1);
+
+						});
+					handle
+						.attr("r", ((options.height / 2) + options.height / 10));
+					if (options.color) {
+						handle.style('fill', '#fff' /*options.color*/ );
+					}
+					handleLabel
+						.style('font-size', options.height / 2.5)
+						.attr("text-anchor", "middle").attr('y', '0.35em');
+
+					if (ngModel.$modelValue) {
+						handleLabel.text(labeling(ngModel.$modelValue[options.field]));
+						handleCont.transition().duration(500).ease('quad').attr("transform", 'translate(' + x(ngModel.$modelValue[options.field]) + ',' + options.height / 2 + ')');
+					} else {
+						handleLabel.text(0);
+					}
+				}
 				//slider
 				//.call(brush.extent([0, 0]))
 				//.call(brush.event);
@@ -389,6 +450,15 @@
 					});
 
 				});
+				$window.onresize = function() {
+					options.width = element.parent()[0].clientWidth - options.margin.left - options.margin.right;
+					//options.height = options.width / 20;
+					draw();
+				}
+				 $scope.$watch($attrs.ngIf, function() {
+					 draw();
+				 })
+				draw();
 			}
 		};
 

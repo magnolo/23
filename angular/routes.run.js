@@ -8,7 +8,7 @@
 		$rootScope.looseLayout = $localStorage.fullView || false;
 		$rootScope.started = true;
 		$rootScope.iframed = $window.self !== $window.top;
-		console.log($rootScope.iframed);
+
 		$rootScope.goBack = function() {
 			$window.history.back();
 		}
@@ -46,7 +46,7 @@
 			} else {
 				$rootScope.fixLayout = false;
 			}
-			console.log(toState)
+
 			if (typeof toState.views != "undefined") {
 
 				if (toState.views.hasOwnProperty('sidebar@') || toState.views.hasOwnProperty('main@')) {
