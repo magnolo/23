@@ -208,8 +208,9 @@
 					field: 'rank',
 					size: vm.structure.count,
 					hideNumbering: true,
-					width: 70,
-					height: 70
+					width: 60,
+					height: 60,
+					fontSize:12
 				};
 
 				VectorlayerService.setBaseLayer(item.style.basemap);

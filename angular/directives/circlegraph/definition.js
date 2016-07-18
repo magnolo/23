@@ -36,7 +36,13 @@
 					.append('g');
 
 				var container = svg.append('g')
-					.attr('transform', 'translate(' + $scope.options.width / 2 + ',' + $scope.options.height / 2 + ')');
+					.attr('transform', 'translate(' + $scope.options.width / 2 + ',' + $scope.options.height / 2 + ')')
+					.style('font-size', function(){
+						if($scope.options.fontSize){
+							return $scope.options.fontSize+'px';
+						}
+						return "1em"
+					})
 
 				var circleBack = container.append('circle')
 					.attr('r', $scope.options.width / 2 - 2)

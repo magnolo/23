@@ -63,17 +63,18 @@
 				</div>
 				</div>
 				<export-chooser countries="vm.data" nation="vm.selectedCountry" selected="vm.selectedIndicator" changed="vm.selectCountry(nation)"></export-chooser>
-				<div layout="column" ng-if="vm.selectedCountry.iso">
+				<div layout-gt-sm="column" layout="row" layout-align="space-between center" layout-align-gt-sm="start" ng-if="vm.selectedCountry.iso">
 					<div layout="row" layout-align="start center" style="padding-left:18px">
 						<span class="colored">Rank&nbsp;&nbsp;</span>
 						<circlegraph item="vm.selectedCountry" options="vm.circleOptions"></circlegraph>
 					</div>
-					<section class="module slide-toggle hideOnClosed" layout-align="center center" layout="column" ng-if="vm.current  && !vm.compare.active">
-						<median flex data="vm.data" ng-model="vm.selectedCountry" options="{color: vm.ExportService.indicator.style.base_color,handling: true, field: 'score', max:	vm.structure.max, min:	vm.structure.min}" style="margin:2em 0"></median>
+					<span hide-gt-sm style="margin-left:20px;margin-right: -10px;" class="colored">Score</span>
+					<section flex class="module slide-toggle" layout-align="center center" layout="column" ng-if="vm.current  && !vm.compare.active">
+						<median flex data="vm.data" ng-model="vm.selectedCountry" options="{color: vm.ExportService.indicator.style.base_color,handling: true, field: 'score', max:	vm.structure.max, min:	vm.structure.min, info:true}" style="margin:1em 0"></median>
 					</section>
 				</div>
 		</md-tab>
-		<md-tab label="History" ng-disabled="!vm.selectedCountry.iso || vm.current.length == 0" md-active="vm.activeTab == 1" md-on-select="vm.setTab(1)" ng-disabled="!vm.current">
+		<md-tab label="History" ng-disabled="!vm.selectedCountry.iso || vm.current.length < 2" md-active="vm.activeTab == 1" md-on-select="vm.setTab(1)" ng-disabled="!vm.current">
       <export-chooser countries="vm.data" nation="vm.selectedCountry" selected="vm.selectedIndicator" changed="vm.selectCountry(nation)"></export-chooser>
 			<div class="module tabs mb1" layout="column">
 				<history chartdata="vm.current" options="{field:'score', color:vm.ExportService.indicator.style.base_color || 'rgba(128, 243, 198,1)'}"></history>

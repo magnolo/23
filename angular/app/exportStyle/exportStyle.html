@@ -11,7 +11,7 @@
 <md-content flex="70" layout="column" layout-align="center center" flex-offset="15">
   <h2 class="md-headline mt0">{{vm.item.title}}</h2>
   <div label="Main Color" md-color-picker ng-model="vm.item.style.base_color" required></div>
-
+  <color-gradient gradient="vm.gradient"></color-gradient>
 </md-content>
 <div layout="column" layout-align="center center">
   <h3 class="md-subhead">Choose Basemap</h3>
