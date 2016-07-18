@@ -15,6 +15,7 @@
 		return {
 			countries: [],
 			continents: [],
+			indicator: null,
 
 			/**
 			 * @ngdoc method
@@ -57,12 +58,15 @@
 			 *
 			 * @param {function} success callback function if fetch of continents from db was successful
              */
-			getContinents: function(success) {
+			getContinents: function(success, indicator) {
 				var _that = this;
-				if (this.continents.length) {
+				if (this.continents.length && indicator == this.indicator) {
 					success(this.continents);
 				} else {
-					return DataService.getAll('continents').then(function(continents) {
+					this.indicator = indicator;
+					return DataService.getAll('continents', {
+						indicator: indicator
+					}).then(function(continents) {
 						_that.continents = continents;
 						success(continents);
 					});

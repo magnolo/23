@@ -7,10 +7,24 @@
      </md-button>
    </div>
  </md-toolbar> -->
+<md-content layout-padding hide-xs hide-sm>
+	<div style="padding: 0 8px">
+		<md-input-container class="md-block no-margin">
+			<md-select ng-model="vm.selectedIndicator" aria-label="Select Indidicator" ng-change="vm.gotoIndicator()">
+				<md-optgroup ng-if="chapter.type == 'group'" label="{{chapter.title}}" ng-repeat="chapter in vm.ExportService.exporter.items" ng-style="{'color': vm.ExportService.indicator.style.base_color}">
+					<md-option ng-value="item" ng-repeat="item in chapter.children">{{ item.title}}</md-option>
+				</md-optgroup>
+				<md-optgroup ng-if="chapter.type != 'group'" label="{{vm.ExportService.exporter.title}}"  ng-style="{'color': vm.ExportService.indicator.style.base_color}">
+					<md-option ng-value="item" ng-if="item.type == 'indicator'" ng-repeat="item in vm.ExportService.exporter.items">{{ item.title}}</md-option>
+				</md-optgroup>
+			</md-select>
+		</md-input-container>
+	</div>
+</md-content>
+<!-- <div class="chapter-image" hide-xs hide-sm layout="column" layout-align="center center" ng-class="{'dark': !vm.isDark}"> -->
+<div class="chapter-image" hide-xs hide-sm layout="column" layout-align="center center" ng-if="vm.ExportService.chapter.style.image.src" ng-class="{'dark': !vm.isDark}">
 
-<div class="chapter-image" hide-xs hide-sm layout="column" layout-align="center center" ng-class="{'dark': !vm.isDark}">
-  <span>{{ vm.ExportService.chapter.title}}</span>
-  <h2 class="doAnim-right">
+	<!-- <h2 class="doAnim-right">
     <div>
       <md-input-container class="md-block">
         <label ng-if="!vm.nation">Choose from countries list</label>
@@ -18,72 +32,68 @@
           <md-option ng-value="nation" ng-repeat="(key, nation) in vm.countries">{{ nation }}</md-option>
         </md-select>
     </md-input-container>
-  </div></h2>
+  </div></h2> -->
 	<div style="background-image:url('{{vm.ExportService.chapter.style.image.src}}')" class="image">
-    <div class="tint"></div>
-    <img color="vm.isDark" image-color src="{{vm.ExportService.chapter.style.image.src}}" style="display:none"  />
-  </div>
-  <div>
-		<md-input-container class="md-block">
-			<md-select ng-model="vm.selectedIndicator" aria-label="Select Indidicator" ng-change="vm.gotoIndicator()">
-				<md-optgroup label="{{chapter.title}}" ng-repeat="chapter in vm.ExportService.exporter.items" ng-style="{'color': vm.ExportService.exporter.base_color}">
-					<md-option ng-value="item" ng-repeat="item in chapter.children">{{ item.title}}</md-option>
-				</md-optgroup>
-			</md-select>
-		</md-input-container>
+		<div class="tint"></div>
+		<img color="vm.isDark" image-color src="{{vm.ExportService.chapter.style.image.src}}" style="display:none" />
 	</div>
+
 </div>
 <md-subheader class="md-primary selector" hide-gt-sm>
 	<div>
 		<md-input-container class="md-block">
-			<md-select ng-model="vm.ExportService.indicator" aria-label="Select Indidicator">
-				<md-optgroup label="{{chapter.title}}" ng-repeat="chapter in vm.ExportService.exporter.items" ng-style="{'color': vm.ExportService.exporter.base_color}">
+			<md-select ng-model="vm.selectedIndicator" aria-label="Select Indidicator" ng-change="vm.gotoIndicator()">
+				<md-optgroup ng-if="chapter.type == 'group'" label="{{chapter.title}}" ng-repeat="chapter in vm.ExportService.exporter.items" ng-style="{'color': vm.ExportService.indicator.style.base_color}">
 					<md-option ng-value="item" ng-repeat="item in chapter.children">{{ item.title}}</md-option>
+				</md-optgroup>
+				<md-optgroup ng-if="chapter.type != 'group'" label="{{vm.ExportService.exporter.title}}"  ng-style="{'color': vm.ExportService.indicator.style.base_color}">
+					<md-option ng-value="item" ng-if="item.type == 'indicator'" ng-repeat="item in vm.ExportService.exporter.items">{{ item.title}}</md-option>
 				</md-optgroup>
 			</md-select>
 		</md-input-container>
 	</div>
 </md-subheader>
-<section class="mobile-container" ng-if="vm.nation">
-	<md-tabs md-center-tabs="true" md-dynamic-height md-no-pagination="true" md-selected="vm.activeTab" md-stretch-tabs="always" md-swipe-content="true" ng-if="vm.ExportService.indicator">
+<section class="mobile-container">
+
+	<md-tabs md-center-tabs="true"  md-dynamic-height md-no-pagination="true" md-selected="vm.activeTab" md-stretch-tabs="always" md-swipe-content="true" ng-if="vm.ExportService.indicator">
 		<md-tab label="Details" md-active="vm.activeTab == 0" md-on-select="vm.setTab(0)">
-			<md-content layout-padding>
-				<div hide-gt-sm>
-					<md-input-container class="md-block">
-						<label>Choose from countries list</label>
-						<md-select ng-model="vm.nation" aria-label="Choose Country from List" ng-change="vm.selectCountry(nation)">
-							<md-option ng-value="nation" ng-repeat="(key, nation) in vm.countries">{{ nation }}</md-option>
-						</md-select>
-					</md-input-container>
+				<div ng-if="!vm.selectedCountry.iso" layout="column" layout-align="center start">
+						<div layout="column" layout-align="start center">
+					<div class="hint" >Click on a Country</div>
 				</div>
-        <div layout="column">
-              <div layout="row" layout-align="start center" style="padding-left:1em;">
-                <span class="colored">Rank&nbsp;&nbsp;</span>
-                <circlegraph item="vm.current" options="vm.circleOptions"></circlegraph>
-              </div>
-              <section class="module slide-toggle hideOnClosed" layout-align="center center" layout="column" ng-if="vm.current  && !vm.compare.active">
-                <median data="vm.data" ng-model="vm.current" options="{color: vm.ExportService.indicator.style.base_color,handling: true, field: vm.structure.name}" style="margin:2em 0"></median>
-              </section>
-        </div>
-			</md-content>
+				</div>
+				<export-chooser countries="vm.data" nation="vm.selectedCountry" selected="vm.selectedIndicator" changed="vm.selectCountry(nation)"></export-chooser>
+				<div layout="column" ng-if="vm.selectedCountry.iso">
+					<div layout="row" layout-align="start center" style="padding-left:18px">
+						<span class="colored">Rank&nbsp;&nbsp;</span>
+						<circlegraph item="vm.selectedCountry" options="vm.circleOptions"></circlegraph>
+					</div>
+					<section class="module slide-toggle hideOnClosed" layout-align="center center" layout="column" ng-if="vm.current  && !vm.compare.active">
+						<median flex data="vm.data" ng-model="vm.selectedCountry" options="{color: vm.ExportService.indicator.style.base_color,handling: true, field: 'score', max:	vm.structure.max, min:	vm.structure.min}" style="margin:2em 0"></median>
+					</section>
+				</div>
 		</md-tab>
-		<md-tab label="History" ng-if="vm.current.data.length > 1" md-active="vm.activeTab == 1" md-on-select="vm.setTab(1)" ng-disabled="!vm.current.data">
+		<md-tab label="History" ng-disabled="!vm.selectedCountry.iso || vm.current.length == 0" md-active="vm.activeTab == 1" md-on-select="vm.setTab(1)" ng-disabled="!vm.current">
+      <export-chooser countries="vm.data" nation="vm.selectedCountry" selected="vm.selectedIndicator" changed="vm.selectCountry(nation)"></export-chooser>
 			<div class="module tabs mb1" layout="column">
-				<history chartdata="vm.current.data" options="{field:vm.ExportService.indicator.name, color:vm.ExportService.indicator.style.base_color || 'rgba(128, 243, 198,1)'}"></history>
+				<history chartdata="vm.current" options="{field:'score', color:vm.ExportService.indicator.style.base_color || 'rgba(128, 243, 198,1)'}"></history>
 			</div>
 		</md-tab>
-		<md-tab label="Compare" md-active="vm.activeTab == 2" md-on-deselect="vm.setCompare(false)" md-on-select="vm.setCompare(true)" ng-disabled="!vm.nation">
+		<md-tab label="Compare" ng-disabled="!vm.selectedCountry.iso" md-active="vm.activeTab == 2" md-on-deselect="vm.setCompare(false)" md-on-select="vm.setCompare(true)" ng-disabled="!vm.selectedCountry.iso">
+      <export-chooser hide-xs hide-sm countries="vm.data" nation="vm.selectedCountry" selected="vm.selectedIndicator" changed="vm.selectCountry(nation)"></export-chooser>
 			<div class="module comparison">
-				<div layout-wrap layout="row" ng-if="vm.current && vm.structure" >
-          <compare-countries style="margin-top:2em" country="vm.current" countries="vm.countriesList" options="{field: vm.structure.name, height: 25, margin:5, color:vm.ExportService.indicator.style.base_color, duration:500}"></compare-countries>
-					<div class="country anim-opacity" flex="50" ng-repeat="country in vm.compare.countries">
-						<!-- <h4 ng-click="vm.setCurrent(country)">
+				<div flex style="text-align:right;font-style: italic;font-size: 0.8em;margin-right: 20px;opacity: 0.7;margin-bottom: 1em;margin-top: -1em;">{{ vm.selectedIndicator.title }} ({{vm.selectedIndicator.indicator.type.ext}})</div>
+				<div layout-wrap layout="row" ng-if="vm.current && vm.structure">
+
+					<compare-countries flex style="margin-left:8px;" country="vm.selectedCountry" countries="vm.countriesList" options="{field: 'score', height: 25, margin:5, color:vm.ExportService.indicator.style.base_color, duration:500, min:vm.structure.min, max:vm.structure.max}"></compare-countries>
+					<!-- <div class="country anim-opacity" flex="50" ng-repeat="country in vm.compare.countries">
+						<h4 ng-click="vm.setCurrent(country)">
                                                         <span class="number">N°{{vm.getRank(country)}}</span>
                                                         {{vm.countryList[country.iso]}}</h4>
 						<median data="vm.data" height="20" info="false" ng-model="country" options="{'color': vm.structure.style.base_color, field: vm.structure.name}" width="120"></median>
-						<bubbles borders="false" chartdata="country" height="150" indexer="vm.structure" labels="false" ng-if="vm.structure.children.length" ng-model="vm.display.selectedCat" sizefactor="5" width="120"></bubbles> -->
+						<bubbles borders="false" chartdata="country" height="150" indexer="vm.structure" labels="false" ng-if="vm.structure.children.length" ng-model="vm.display.selectedCat" sizefactor="5" width="120"></bubbles>
 
-					</div>
+					</div> -->
 				</div>
 			</div>
 		</md-tab>
@@ -91,24 +101,32 @@
 </section>
 <style>
 	.chapter-image,
-	md-tabs md-ink-bar, .tint {
-		background-color: {{ vm.ExportService.indicator.style.base_color }} ;
+	md-tabs md-ink-bar,
+	.md-button.md-raised,
+	.md-button.md-raised:not([disabled]):hover,
+	.tint {
+		background-color: {{vm.ExportService.indicator.style.base_color	}};
 	}
 
 	.chapter-image img {
 		opacity: 0.8;
 	}
-
+	md-input-container:not(.md-input-invalid).md-input-focused label,
 	.md-subheader.md-primary,
-	md-tabs .md-tab.md-active, .colored {
-		color: {{ vm.ExportService.indicator.style.base_color }} !important;
-	}
+	md-tabs .md-tab.md-active,
+	.md-select-value *:first-child,
 
+	.colored {
+		color: {{	vm.ExportService.indicator.style.base_color	}} !important;
+	}
+	.hint,
 	md-select-menu.md-default-theme md-option[selected],
 	md-select-menu md-option[selected] {
-		background-color: {{ vm.ExportService.exporter.base_color }} !important;
+		background-color: {{vm.ExportService.indicator.style.base_color}}	!important;
 		color:#fff !important;
 		border:1px solid;
 	}
-
+	md-select:not([disabled]):focus .md-select-value{
+		border-bottom-color:{{vm.ExportService.indicator.style.base_color}};
+	}
 </style>

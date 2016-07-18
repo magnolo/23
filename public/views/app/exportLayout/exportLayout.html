@@ -23,7 +23,7 @@
 			<image-uploader ng-model="vm.exporter.style"></image-uploader>
 		</md-content>
 		<md-divider></md-divider>
-		<md-content class="thumb-color" ng-repeat="item in vm.exporter.items" ng-if="item.type == 'group'" >
+		<md-content class="thumb-color" ng-repeat="item in vm.exporter.items" >
 			<md-subheader class="md-primary rowed" >
 				<span>{{item.title}}</span>
 				<md-button class="md-icon-button md-primary" ng-click="item.showContent = !item.showContent">

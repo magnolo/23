@@ -34,8 +34,8 @@
 				vm._promise = DataService.getAll('exports').then(function(response) {
 					vm.exports = response;
 					angular.forEach(vm._callbacks, function(callback) {
-						if(typeof callback != "undefined")
-						callback(vm.exports);
+						if (typeof callback != "undefined")
+							callback(vm.exports);
 					});
 					vm._promise = null;
 				}, error);
@@ -46,15 +46,15 @@
 			if (angular.isDefined(vm.exporter) && vm.exporter.id == id && !force) {
 				if (typeof success === 'function')
 					success(vm.exporter);
-			} else{
+			} else {
 				vm._callbacksOne.push(success);
 				vm._promiseOne = DataService.getOne('exports', id).then(function(response) {
 					vm.exporter = response;
-					if(!vm.exporter.items){
+					if (!vm.exporter.items) {
 						vm.exporter.items = new Array();
 					}
 					angular.forEach(vm._callbacksOne, function(callback) {
-						if(typeof callback != "undefined")
+						if (typeof callback != "undefined")
 							callback(vm.exporter);
 					});
 					vm._promiseOne = null;
@@ -69,14 +69,23 @@
 		vm.getChapter = function(id, chapter, success, ignoreFirst) {
 			if (angular.isDefined(vm.exporter) && vm.exporter.id == id) {
 				vm.chapter = vm.exporter.items[chapter - 1];
-				if(!ignoreFirst)
-				vm.indicator = vm.getFirstIndicator(vm.chapter.children);
+				console.log(vm.chapter);
+				if (!ignoreFirst) {
+					if (vm.chapter.type == "indicator") {
+						vm.indicator = vm.chapter;
+					} else {
+						vm.indicator = vm.getFirstIndicator(vm.chapter.children);
+					}
+
+					console.log(vm.indicator);
+				}
+
 				if (typeof success === 'function')
 					success(vm.chapter, vm.indicator);
 			} else {
 				vm.getExport(id, function(data) {
 					vm.chapter = vm.exporter.items[chapter - 1];
-					if(!ignoreFirst)
+					if (!ignoreFirst)
 						vm.indicator = vm.getFirstIndicator(vm.chapter.children);
 					if (typeof success === 'function')
 						success(vm.chapter, vm.indicator);
@@ -84,14 +93,24 @@
 			}
 		}
 		vm.getIndicator = function(id, chapter, indicator, success) {
-			vm.getChapter(id, chapter, function(c, i) {
-				angular.forEach(c.children, function(indi){
-					if(indi.indicator_id == indicator){
-							vm.indicator = indi;
-					}
-				})
-				success(c,vm.indicator);
-			}, true);
+			var fetch = typeof indicator == 'undefined' ? true : false;
+
+			vm.getExport(id, function(exporter) {
+				vm.getChapter(id, chapter, function(ch, ind) {
+					console.log(vm.indicator);
+					if (!fetch) vm.indicator = vm.findIndicator(indicator);
+					console.log(vm.indicator);
+					success(vm.indicator, vm.chapter, vm.exporter);
+				}, !fetch)
+			});
+			// vm.getChapter(id, chapter, function(c, i) {
+			// 	angular.forEach(c.children, function(indi) {
+			// 		if (indi.indicator_id == indicator) {
+			// 			vm.indicator = indi;
+			// 		}
+			// 	})
+			// 	success(vm.chapter, vm.indicator);
+			// }, true);
 		}
 		vm.getFirstIndicator = function(list) {
 			var found = null;
@@ -106,21 +125,21 @@
 			});
 			return found;
 		}
-		vm.findIndicator = function(indicator_id){
+		vm.findIndicator = function(indicator_id) {
 			var item = null;
-			var chapter_idx = 0;
-			angular.forEach(vm.exporter.items, function(chapter, key){
-				angular.forEach(chapter.children, function(indicator){
-					if(indicator.indicator_id == indicator_id){
-						chapter_idx = key + 1;
+			angular.forEach(vm.exporter.items, function(chapter, key) {
+				if (typeof chapter.indicator_id != "undefined") {
+					if (chapter.indicator_id == indicator_id) {
+						item = chapter;
+					}
+				}
+				angular.forEach(chapter.children, function(indicator) {
+					if (indicator.indicator_id == indicator_id) {
 						item = indicator;
 					}
 				})
 			});
-			return {
-				chapter: chapter_idx,
-				indicator: item
-			}
+			return item;
 		}
 		vm.save = function(success, error) {
 			if (vm.exporter.id == 0 || !vm.exporter.id) {
@@ -141,7 +160,7 @@
 					if (typeof success === 'function')
 						toastr.success('Save successfully');
 					success(response);
-					vm.getExports(function(){},function(){}, true);
+					vm.getExports(function() {}, function() {}, true);
 				}, function(response) {
 					toastr.error('Something went wrong!');
 					if (typeof error === 'function')

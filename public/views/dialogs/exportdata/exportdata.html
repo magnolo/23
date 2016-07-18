@@ -1,0 +1,20 @@
+<md-dialog style="padding-bottom:0px; " ng-controller="ExportdataCtrl">
+	<form ng-submit="save()">
+		<md-dialog-content>
+			<h2 class="md-title">Data Table</h2>
+			<h3>{{vm.ExportService.data.title}}</h3>
+			<div class="export-table-data">
+				<div layout="row" layout-align="space-between center" ng-repeat="data in vm.ExportService.data.data" style="padding:.3em 0;padding-bottom:0px">
+					<div style="width: 200px;background: #eee;padding: 5px; margin-right: 3px;">{{data.country}}</div>
+					<div style="background: #efefef;padding: 5px;font-weight:bold;width:80px;text-align:right" flex>{{data.score}}</div>
+				</div>
+			</div>
+
+		</md-dialog-content>
+
+		<div class="md-actions" layout="row">
+			<md-button type="button" ng-click="hide()">Close</md-button>
+
+		</div>
+	</form>
+</md-dialog>

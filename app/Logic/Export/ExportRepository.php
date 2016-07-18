@@ -4,6 +4,7 @@ namespace App\Logic\Export{
   use App\Export;
   use App\Exportitem;
   use App\Style;
+  use App\Countrie;
 
 
   class ExportRepository{
@@ -37,6 +38,13 @@ namespace App\Logic\Export{
             if(isset($item['style']['image_id']))$style->image_id = $item['style']['image_id'];
 
             $style->save();
+
+            if(isset($item['style']['countries'])){
+              foreach($item['style']['countries'] as $country){
+
+                $style->countries()->save(Countrie::find($country['id']));
+              }
+            }
 
             $exportitem->style_id = $style->id;
           }

@@ -9,21 +9,21 @@
  *
  */
 
-(function(){
-    "use strict";
+(function() {
+	"use strict";
 
-    angular.module('app.services').factory('DataService', DataService);
-    DataService.$inject = ['Restangular','toastr'];
+	angular.module('app.services').factory('DataService', DataService);
+	DataService.$inject = ['Restangular', 'toastr'];
 
-    function DataService(Restangular, toastr){
-        return {
-          getAll: getAll,
-          getOne: getOne,
-          post: post,
-          put: put,
-          update: update,
-          remove: remove
-        };
+	function DataService(Restangular, toastr) {
+		return {
+			getAll: getAll,
+			getOne: getOne,
+			post: post,
+			put: put,
+			update: update,
+			remove: remove
+		};
 
         /**
          * @ngdoc method
@@ -37,14 +37,13 @@
          * @param {object} filter filter by which the pulled data will be filtered
          * @returns {object} data json object with pulled data
          */
-        function getAll(route, filter){
-          var data = Restangular.all(route).getList(filter);
-            data.then(function(){}, function(data){
-              toastr.error(data.statusText, 'Connection Error');
-            });
-            return data;
-        }
-
+        function getAll(route, filter) {
+			var data = Restangular.all(route).getList(filter);
+			data.then(function() {}, function(data) {
+				toastr.error(data.statusText, 'Connection Error');
+			});
+			return data;
+		}
         /**
          * @ngdoc method
          * @name app.DataService#getOne
@@ -57,10 +56,9 @@
          * @param {string} id datum id
          * @returns {object} data json with pulled data
          */
-        function getOne(route, id){
-          return Restangular.one(route, id).get();
-        }
-
+		function getOne(route, id, query) {
+			return Restangular.one(route, id).get(query);
+		}
         /**
          * @ngdoc method
          * @name app.DataService#post
@@ -73,14 +71,13 @@
          * @param {object} data object to be created
          * @returns {object} saved data
          */
-        function post(route, data){
-          var data = Restangular.all(route).post(data);
-          data.then(function(){}, function(data){
-            toastr.error(data.data.error, 'Saving failed');
-          });
-          return data;
-        }
-
+		function post(route, data) {
+			var data = Restangular.all(route).post(data);
+			data.then(function() {}, function(data) {
+				toastr.error(data.data.error, 'Saving failed');
+			});
+			return data;
+		}
         /**
          * @ngdoc method
          * @name app.DataService#put
@@ -92,10 +89,9 @@
          * @param {string} route route where to put at
          * @param {object} data data object to be created or updated data object
          */
-        function put(route, data){
-          return Restangular.all(route).put(data);
-        }
-
+		function put(route, data) {
+			return Restangular.all(route).put(data);
+		}
         /**
          * @ngdoc method
          * @name app.DataService#update
@@ -109,10 +105,9 @@
          * @param {object} data updated datum
          *
          */
-        function update(route, id, data){
-          return Restangular.one(route, id).put(data);
-        }
-
+		function update(route, id, data) {
+			return Restangular.one(route, id).put(data);
+		}
         /**
          * @ngdoc method
          * @name app.DataService#remove
@@ -124,9 +119,9 @@
          * @param {string} route where to delete at
          * @param {string} id datum id
          */
-        function remove(route, id){
-          return Restangular.one(route, id).remove();
-        }
-    }
+		function remove(route, id) {
+			return Restangular.one(route, id).remove();
+		}
+	}
 
 })();

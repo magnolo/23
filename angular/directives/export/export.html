@@ -76,7 +76,20 @@
 			</md-tab-label>
 			<md-tab-body>
 				<md-content>
+					<md-content md-padding layout="row" style="padding:1em .5em">
+
+						<md-button class="md-primary md-fab md-mini doAnim-bottom" ng-click="vm.baseOptions.saveClick()" ng-disabled="baseForm.$invalid" ng-if="vm.baseOptions.allowSave">
+							<md-icon class="material-icons">save</md-icon>
+							<md-tooltip md-delay="500">Save changes</md-tooltip>
+						</md-button>
+							<span flex></span>
+						<md-button class="md-primary md-fab md-mini doAnim-bottom" ng-click="vm.getCode()" >
+							<md-icon class="material-icons">send</md-icon>
+							<md-tooltip md-delay="500">Get embed code</md-tooltip>
+						</md-button>
+					</md-content>
 					<md-subheader>Choose your Layout</md-subheader>
+
 					<div class="p1">
 						<md-button class="thumb-chooser md-primary" md-whiteframe="1" layout="column" layout-align="center center">
 							<h3 class="colored">Standard</h3>

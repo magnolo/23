@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html ng-app="app">
   <head>
       <base href="/" />
@@ -33,7 +33,7 @@
       <script type="text/javascript">document.location.href = '/unsupported-browser'</script>
       <![endif]-->
   </head>
-  <body flow-prevent-drop ng-class="{'startup': $root.started, 'loggedIn': $root.isAuthenticated(), 'noHeader': $root.noHeader, 'greyed': $root.greyed, 'loose': $root.looseLayout,  'fixed': $root.fixLayout,'sidebar-closed': !$root.sidebarOpen, 'rowed': $root.rowed, 'addFull': $root.addFull}" layout="column">
+  <body flow-prevent-drop ng-class="{'iframed': $root.iframed, 'startup': $root.started, 'loggedIn': $root.isAuthenticated(), 'noHeader': $root.noHeader, 'greyed': $root.greyed, 'loose': $root.looseLayout,  'fixed': $root.fixLayout,'sidebar-closed': !$root.sidebarOpen, 'rowed': $root.rowed, 'addFull': $root.addFull}" layout="column">
       <div id="hack"></div>
       <md-toolbar class="Header md-accent" tabindex="-1" ng-if="!$root.noHeader">
           <header ui-view="header"></header>
@@ -72,6 +72,7 @@
       <script src="js/pbf.min.js"></script>
       <script src="js/MapBoxVectorTile/dist/Leaflet.MapboxVectorTile.js"></script>
       <script src="js/papaparse/papaparse.js"></script>
+
       {{--livereload--}} @if ( Config::get('app.debug') )
       <script type="text/javascript">
           document.write('<script src="' + location.protocol + '//' + ('localhost') + ':35729/livereload.js?snipver=1" type="text/javascript"><\/script>')

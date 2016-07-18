@@ -10,7 +10,7 @@
 (function () {
 	"use strict";
 
-	angular.module('app.services').factory('IndizesService', function (DataService) {
+	angular.module('app.services').factory('IndizesService', function(DataService) {
 		//
 		return {
 			index: {

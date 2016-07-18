@@ -241,7 +241,7 @@
 				layout: 'row',
 				resolve: {
 					category: function(ContentService, $stateParams) {
-						if($stateParams.id == 'new'){
+						if ($stateParams.id == 'new') {
 							return {};
 						}
 						return ContentService.getCategory($stateParams.id);
@@ -256,7 +256,7 @@
 				}
 			})
 
-			.state('app.index.create', {
+		.state('app.index.create', {
 				url: '/create',
 				auth: true,
 				views: {
@@ -326,7 +326,7 @@
 				url: '/export',
 				resolve: {
 					countries: function(DataService) {
-						return DataService.getOne('countries/isos').then(function(countries){
+						return DataService.getOne('countries/isos').then(function(countries) {
 							return countries;
 						});
 					}
@@ -350,8 +350,9 @@
 				data: {
 					pageName: 'Export Data',
 				},
-				layout:'loose',
+				layout: 'loose',
 				fixLayout: true,
+				avoidRoots: true,
 				views: {
 					'header@': {
 						templateUrl: getView('chapter'),
@@ -367,23 +368,25 @@
 			})
 			.state('app.export.detail.chapter.indicator', {
 				url: '/:indicator/:indiname',
-				layout:'loose',
+				layout: 'loose',
 				fixLayout: true,
-
+				avoidRoots: true
 			})
 			.state('app.export.detail.chapter.indicator.country', {
 				url: '/:iso',
-				layout:'loose',
+				layout: 'loose',
 				fixLayout: true,
+				avoidRoots: true
 			})
 			.state('app.export.detail.chapter.indicator.country.compare', {
 				url: '/compare/:countries',
-				layout:'loose',
+				layout: 'loose',
 				fixLayout: true,
+				avoidRoots: true
 			})
 			.state('app.index.exports', {
 				url: '/exports',
-				auth:true,
+				auth: true,
 				data: {
 					pageName: 'Export Data'
 				},
@@ -403,7 +406,7 @@
 					pageName: 'Export Data'
 				},
 				views: {
-					'main@':{
+					'main@': {
 						templateUrl: '/views/app/export/exportDetails.html',
 						controller: 'ExportDetailsCtrl',
 						controllerAs: 'vm'
@@ -434,7 +437,7 @@
 			.state('app.index.exports.details.style', {
 				url: '/style/:styleId/:styleName',
 				layout: 'row',
-				additional:'full',
+				additional: 'full',
 				views: {
 					'additional@': {
 						templateUrl: getView('exportStyle'),
@@ -456,7 +459,7 @@
 			})
 			.state('app.index.basemaps', {
 				url: '/basemaps',
-				auth:true,
+				auth: true,
 				data: {
 					pageName: 'Export Data'
 				},
@@ -476,7 +479,7 @@
 					pageName: 'Basemaps'
 				},
 				views: {
-					'main@':{
+					'main@': {
 						templateUrl: '/views/app/basemaps/basemapDetails.html',
 						controller: 'BasemapDetailsCtrl',
 						controllerAs: 'vm'
@@ -497,11 +500,11 @@
 					indices: function(ContentService) {
 						return ContentService.fetchIndices();
 					},
-					categories: function(ContentService){
-							return ContentService.getCategories({
-								indicators: true,
-								tree: true
-							});
+					categories: function(ContentService) {
+						return ContentService.getCategories({
+							indicators: true,
+							tree: true
+						});
 					}
 				},
 				views: {
@@ -513,11 +516,11 @@
 					}
 				}
 			})
-			.state('app.index.list.filter',{
-				url:'/:filter',
+			.state('app.index.list.filter', {
+				url: '/:filter',
 				layout: 'row',
-				views:{
-					'main@':{
+				views: {
+					'main@': {
 						templateUrl: '/views/app/fullList/filter.html',
 						controller: 'FullListFitlerCtrl',
 						controllerAs: 'vm',
@@ -538,21 +541,21 @@
 						controllerAs: 'vm'
 					}
 				},
-				params:{
-					year:{
-						squash:true,
-						value:null,
-						dynamic:true
+				params: {
+					year: {
+						squash: true,
+						value: null,
+						dynamic: true
 					},
-					gender:{
-						squash:true,
-						value:null,
-						dynamic:true
+					gender: {
+						squash: true,
+						value: null,
+						dynamic: true
 					},
-					iso:{
-						squash:true,
-						value:null,
-						dynamic:true
+					iso: {
+						squash: true,
+						value: null,
+						dynamic: true
 
 					}
 				}

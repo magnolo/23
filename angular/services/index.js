@@ -12,22 +12,23 @@
 (function(){
     "use strict";
 
-    angular.module('app.services').factory('IndexService', function(CacheFactory,$state){
-        //
-        var serviceData = {
-            data: [],
-            errors: [],
-            iso_errors:[],
-            meta:{
-              iso_field: '',
-              country_field:'',
-              year_field:'',
-              gender_field:'',
-              table:[]
-            },
-            indicators:{},
-            toSelect:[]
-        }, storage, importCache, indicator;
+	angular.module('app.services').factory('IndexService', function(CacheFactory, DataService, $state) {
+		//
+		var serviceData = {
+				data: [],
+				errors: [],
+				iso_errors: [],
+				meta: {
+					iso_field: '',
+					country_field: '',
+					year_field: '',
+					gender_field: '',
+					table: []
+				},
+				indicators: {},
+				toSelect: []
+			},
+			storage, importCache, indicator;
 
         if (!CacheFactory.get('importData')) {
           importCache = CacheFactory('importData', {
@@ -239,7 +240,12 @@
                 toSelect:[],
                 indicators:{}
             };
-          }
+          },
+			fetchNationData: function(indicator, iso, success) {
+				return DataService.getOne('indicators/' + indicator + "/history", iso).then(function(data) {
+					success(data);
+				});
+			}
         }
     });
 

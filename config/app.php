@@ -139,7 +139,7 @@ return [
       Illuminate\Translation\TranslationServiceProvider::class,
       Illuminate\Validation\ValidationServiceProvider::class,
       Illuminate\View\ViewServiceProvider::class,
-    //  'Phaza\LaravelPostgis\DatabaseServiceProvider',
+     'Phaza\LaravelPostgis\DatabaseServiceProvider',
 
         /*
          * Application Service Providers...
