@@ -12,12 +12,15 @@
 				countries: '=',
 				nation: '=',
 				selected: '=?',
-				changed: '&'
+				chapters: '=?',
+				changed: '&',
+				indicatorChange: '&?'
 			},
 			bindToController: true,
 			replace: true,
 			link: function(scope, element, attrs) {
 				//
+		
 			}
 		};
 

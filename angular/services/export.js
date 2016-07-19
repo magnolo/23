@@ -58,15 +58,13 @@
 		vm.getChapter = function(id, chapter, success, ignoreFirst) {
 			if (angular.isDefined(vm.exporter) && vm.exporter.id == id) {
 				vm.chapter = vm.exporter.items[chapter - 1];
-				console.log(vm.chapter);
+
 				if (!ignoreFirst) {
 					if (vm.chapter.type == "indicator") {
 						vm.indicator = vm.chapter;
 					} else {
 						vm.indicator = vm.getFirstIndicator(vm.chapter.children);
 					}
-
-					console.log(vm.indicator);
 				}
 
 				if (typeof success === 'function')
@@ -86,9 +84,7 @@
 
 			vm.getExport(id, function(exporter) {
 				vm.getChapter(id, chapter, function(ch, ind) {
-					console.log(vm.indicator);
 					if (!fetch) vm.indicator = vm.findIndicator(indicator);
-					console.log(vm.indicator);
 					success(vm.indicator, vm.chapter, vm.exporter);
 				}, !fetch)
 			});

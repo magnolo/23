@@ -106,7 +106,7 @@
 				params: fromParams
 			};
 			$rootScope.stateIsLoading = true;
-			$mdSidenav('left').close();
+			//$mdSidenav('left').close();
 
 
 		});

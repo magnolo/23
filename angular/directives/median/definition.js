@@ -198,7 +198,7 @@
 							.attr('text-anchor', 'middle')
 							.attr('y', '.35em')
 							.attr('id', 'lowerValue');
-						legend2.attr('transform', 'translate(' + (options.width - (options.height / 4)) + ', ' + options.height / 2 + ')')
+						legend2.attr('transform', 'translate(' + (options.width - (options.height / 2)) + ', ' + options.height / 2 + ')')
 							.attr('class', 'endLabel')
 						legend2.append('circle')
 							.attr('r', options.height / 2)

@@ -1483,12 +1483,12 @@ p.small-info:hover {
   }
 }
 .loose.fixed .mobile-window-switcher {
-  bottom: 21em;
+  bottom: 16em;
 }
 @media screen and (max-width: 959px) {
   .loose.fixed #map {
     top: 36px;
-    height: calc(100% - 230px);
+    height: calc(100% - 267px);
     transition: all .2s ease;
   }
   .loose.fixed #map .leaflet-top.leaflet-left {
@@ -1536,7 +1536,7 @@ p.small-info:hover {
   }
 }
 .loose.fixed.sidebar-closed .mobile-window-switcher {
-  bottom: 9em;
+  bottom: 9.5em;
 }
 .loose.fixed.sidebar-closed .mobile-container {
   transition: all 0.3s ease-in-out;
@@ -1685,7 +1685,6 @@ md-toast[md-theme=warn] {
 .u-center {
   text-align: center;
 }
-
 
 
 .chapter {
@@ -2066,6 +2065,24 @@ md-dialog-content p.columned {
 }
 
 
+.adjust-container {
+  margin: 1.5em 5em 1.5em 1.5em;
+}
+.adjust-container .adjust-box {
+  max-height: 485px;
+  width: 300px;
+  pointer-events: auto;
+}
+.adjust-container .adjust-box md-list-item:not(.enabled) {
+  color: #ccc;
+}
+.adjust-container .adjust-box md-list-item:not(.enabled) md-icon {
+  color: #ccc;
+}
+.adjust-container .adjust-box:first-child md-list-item {
+  color: #333;
+}
+
 .split-layout .md-subheader-content {
   text-align: center;
 }
@@ -2091,25 +2108,6 @@ md-dialog-content p.columned {
   height: 0px;
   padding: 0;
 }
-
-.adjust-container {
-  margin: 1.5em 5em 1.5em 1.5em;
-}
-.adjust-container .adjust-box {
-  max-height: 485px;
-  width: 300px;
-  pointer-events: auto;
-}
-.adjust-container .adjust-box md-list-item:not(.enabled) {
-  color: #ccc;
-}
-.adjust-container .adjust-box md-list-item:not(.enabled) md-icon {
-  color: #ccc;
-}
-.adjust-container .adjust-box:first-child md-list-item {
-  color: #333;
-}
-
 
 .split-header {
   position: relative;
@@ -2246,6 +2244,7 @@ md-dialog-content p.columned {
 .chapter-container .chapter-preview:hover .chapter-image {
   transform: scale(1.2);
 }
+
 
 .Header {
   transition: all 1s ease-in-out;
@@ -2594,6 +2593,7 @@ md-menu-bar {
 .nvtooltip {
   border-radius: 0px;
 }
+
 
 
 .md-subheader.filled .md-subheader-inner {
@@ -3093,9 +3093,6 @@ div[ui-view='map'] {
 .leaflet-top .leaflet-control-home md-icon {
   font-size: 20px;
 }
-.leaflet-right .leaflet-control.leaflet-control-attribution {
-  display: none;
-}
 .leaflet-bar {
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);
 }
@@ -3286,6 +3283,10 @@ color-gradient .picker-wrapper {
 color-gradient .picker-wrapper .picker-container {
   position: absolute;
 }
+color-gradient .picker-wrapper .picker-container .gradient-color-picker {
+  position: relative;
+  left: -12px;
+}
 color-gradient .picker-wrapper .picker-container .gradient-color-picker .md-color-picker-clear {
   display: none;
 }
@@ -3293,15 +3294,16 @@ color-gradient .picker-wrapper .picker-container .close {
   opacity: 0;
   position: absolute;
   transition: all 0.3s ease;
-  top: 0;
-  left: 1em;
+  top: 40px;
+  left: 10px;
   cursor: pointer;
+  font-size: 18px;
 }
 color-gradient .picker-wrapper .picker-container .drag-handle {
   opacity: 0;
   position: absolute;
   top: 9px;
-  left: 1px;
+  left: -12px;
   cursor: ew-resize;
 }
 color-gradient .picker-wrapper .picker-container .drag-handle md-icon {
@@ -3426,7 +3428,16 @@ compare-countries .ranks {
 .country-chooser md-input-container.md-input-has-value label {
   display: none;
 }
+.country-chooser ul[rn-carousel] {
+  height: 1.5em;
+  margin: 0 1.5em;
+}
+.country-chooser .rn-carousel-control {
+  font-size: 1.3rem;
+  top: .1em;
+}
 .country-chooser .sub-title {
+  position: relative;
   font-size: 1em;
   margin-top: 0px;
 }
@@ -3541,63 +3552,6 @@ image-uploader .solo-label {
 }
 
 
-
-median {
-  border-radius: 20px;
-  display: inline-block;
-  height: 40px;
-  width: 100%;
-}
-median > svg {
-  overflow: visible;
-}
-median .endLabel {
-  fill: transparent;
-  stroke-width: 0;
-}
-median .endLabel text {
-  fill: #606060;
-}
-median .startLabel {
-  fill: none;
-  stroke: #fff;
-  stroke-width: 0px;
-}
-median .startLabel text {
-  fill: #fff;
-  stroke-width: 0;
-}
-median .axis {
-  font: 10px sans-serif;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-median .axis .domain {
-  fill: none;
-  stroke: #000;
-  stroke-opacity: 0.3;
-  stroke-width: 10px;
-  stroke-linecap: round;
-}
-median .axis .halo {
-  fill: none;
-  stroke: #ddd;
-  stroke-width: 40px;
-  stroke-linecap: round;
-}
-median .slider .handle {
-  fill: #0ca;
-  stroke-width: 0;
-  stroke: #aaa;
-}
-median .slider text {
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
 
 panels {
   box-sizing: border-box;
@@ -4118,6 +4072,63 @@ JavaScript Disabled
   display: inline-block;
 }
 
+median {
+  border-radius: 20px;
+  display: inline-block;
+  height: 40px;
+  width: 100%;
+}
+median > svg {
+  overflow: visible;
+}
+median .endLabel {
+  fill: transparent;
+  stroke-width: 0;
+}
+median .endLabel text {
+  fill: #606060;
+}
+median .startLabel {
+  fill: none;
+  stroke: #fff;
+  stroke-width: 0px;
+}
+median .startLabel text {
+  fill: #fff;
+  stroke-width: 0;
+}
+median .axis {
+  font: 10px sans-serif;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+median .axis .domain {
+  fill: none;
+  stroke: #000;
+  stroke-opacity: 0.3;
+  stroke-width: 10px;
+  stroke-linecap: round;
+}
+median .axis .halo {
+  fill: none;
+  stroke: #ddd;
+  stroke-width: 40px;
+  stroke-linecap: round;
+}
+median .slider .handle {
+  fill: #0ca;
+  stroke-width: 0;
+  stroke: #aaa;
+}
+median .slider text {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
 
 
 .dropzone {
@@ -4149,15 +4160,6 @@ JavaScript Disabled
   top: 0.5em;
 }
 
-piechart {
-  position: relative;
-}
-piechart .inner-pie {
-  position: absolute;
-  left: 0px;
-  opacity: 0.4;
-}
-
 .bars .bg {
   fill: #ebebeb;
 }
@@ -4181,6 +4183,15 @@ piechart .inner-pie {
 }
 .nvd3 .nv-axis text {
   fill: #afafaf;
+}
+
+piechart {
+  position: relative;
+}
+piechart .inner-pie {
+  position: absolute;
+  left: 0px;
+  opacity: 0.4;
 }
 
 .slide-toggle {
@@ -4350,16 +4361,6 @@ piechart .inner-pie {
   display: none;
 }
 
-.weight-control {
-  min-width: 85px;
-  width: 85px;
-  color: #006bb9;
-}
-.weight-control md-icon {
-  color: #006bb9;
-  cursor: pointer;
-}
-
 .treeview {
   position: relative;
   margin-bottom: .5em;
@@ -4403,6 +4404,17 @@ piechart .inner-pie {
 }
 .treeview .styleIcon {
   margin-right: .5em;
+}
+
+
+.weight-control {
+  min-width: 85px;
+  width: 85px;
+  color: #006bb9;
+}
+.weight-control md-icon {
+  color: #006bb9;
+  cursor: pointer;
 }
 
 /*# sourceMappingURL=app.css.map */

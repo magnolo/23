@@ -74,6 +74,7 @@
 		this.setBaseLayer = function(basemap) {
 			if (!basemap)
 				this.basemap = basemap = this.fallbackBasemap;
+
 			this.layers.baselayers['xyz'] = {
 				name: basemap.name,
 				url: basemap.url,
@@ -81,8 +82,11 @@
 				layerOptions: {
 					noWrap: true,
 					continuousWorld: false,
-					detectRetina: true
+					detectRetina: true,
+					// attribution:basemap.attribution || basemap.provider,
+					attribution: "Copyright:© 2014 Esri, DeLorme, HERE, TomTom"
 				}
+
 			}
 		}
 		this.setMapDefaults = function(style) {
@@ -287,13 +291,21 @@
 			}
 
 		}
-		this.setSelectedFeature = function(iso, selected) {
+		this.setSelectedFeature = function(iso, selected, deselectedAll) {
 
 			if (typeof this.data.layer.layers[this.data.name + '_geom'].features[iso] == 'undefined') {
 				console.log(iso);
 				//debugger;
 			} else {
+				if(deselectedAll){
+					angular.forEach(this.data.layer.layers[this.data.name + '_geom'].features, function(feature, key) {
+							feature.selected = false;
+
+					});
+				}
+
 				this.data.layer.layers[this.data.name + '_geom'].features[iso].selected = selected;
+				this.redraw();
 			}
 
 		}
