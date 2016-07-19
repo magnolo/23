@@ -233,7 +233,7 @@
 			})
 			.state('app.index.editor.categories', {
 				url: '/categories',
-				auth: true,
+				auth: true
 			})
 			.state('app.index.editor.categories.category', {
 				url: '/:id',
@@ -251,6 +251,30 @@
 					'main@': {
 						templateUrl: '/views/app/indexeditor/indexeditorcategory.html',
 						controller: 'IndexeditorcategoryCtrl',
+						controllerAs: 'vm'
+					}
+				}
+			})
+			.state('app.index.editor.styles', {
+				url:'/styles',
+				auth: true
+			})
+			.state('app.index.editor.styles.style', {
+				url: '/:id',
+				auth: true,
+				layout: 'row',
+				resolve: {
+					style: function (ContentService, $stateParams) {
+						if ($stateParams.id == 'new') {
+							return {}
+						}
+						return ContentService.getStyle($stateParams.id);
+					}
+				},
+				views: {
+					'main@' : {
+						templateUrl: '/views/app/indexeditor/indexeditorstyle.html',
+						controller: 'IndexeditorstyleCtrl',
 						controllerAs: 'vm'
 					}
 				}

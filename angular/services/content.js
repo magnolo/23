@@ -189,6 +189,13 @@
 				this.removeContent(id, this.content.categories);
 				return DataService.remove('categories/', id);
 			},
+			getStyle: function (id) {
+				if(this.content.styles.length) {
+					return this.findContent(id, this.content.styles);
+				} else {
+					return this.content.style = DataService.getOne('styles/' + id).$object;
+				}
+			},
 			filterList: function(type, filter, list) {
 				if (list.length > 0) {
 					if (!this.backup[type]) {
