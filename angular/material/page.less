@@ -274,14 +274,14 @@ p {
         .md-sidenav-backdrop {
             display: none;
         }
-          @media screen and (max-width: 959px) {
-        .Header{
-          min-height: 0px;
-          height:0px;
-          overflow: hidden;
-          transition: all .2s ease;
+        @media screen and (max-width: 959px) {
+            .Header {
+                min-height: 0;
+                height: 0;
+                overflow: hidden;
+                transition: all 0.2s ease;
+            }
         }
-      }
         #sidebar {
             top: 0;
             left: 0;
@@ -297,16 +297,14 @@ p {
                 md-content[ui-view='sidebar'] {
                     background: transparent;
                     overflow: visible;
-                    height: 0px;
-                    > .selector{
-//                     height: 0;
-// overflow: visible;
-// min-height: 0;
-                      md-input-container{
-                        margin:0px;
-
-                      }
-
+                    height: 0;
+                    > .selector {
+                        //                     height: 0;
+                        // overflow: visible;
+                        // min-height: 0;
+                        md-input-container {
+                            margin: 0;
+                        }
                     }
                 }
                 .mobile-container {
@@ -315,29 +313,27 @@ p {
                     background: #fff;
                     .comparison {
                         min-height: 200px;
-                        max-height: 285px;
+                        max-height: calc(~'100vh - 330px');
                         overflow-y: auto;
                     }
-                    .country-chooser{
-                      padding:0 8px;
+                    .country-chooser {
+                        padding: 0 8px;
                     }
                 }
-
             }
-
         }
-        &:not(.iframed){
-          @media only screen and (max-device-width: 667px) and (-webkit-device-pixel-ratio: 2) {
-            .mobile-container {
+        &:not(.iframed) {
+            @media only screen and (max-device-width: 667px) and (-webkit-device-pixel-ratio: 2) {
+                .mobile-container {
                     transform: translateY(calc(~"100vh - 395px + 53px"));
+                }
             }
-          }
-          // ihpone 6
-          @media screen and (min-device-width : 414px)  and (-webkit-device-pixel-ratio: 3){
-            .mobile-container {
+            // ihpone 6
+            @media screen and (min-device-width : 414px) and (-webkit-device-pixel-ratio: 3) {
+                .mobile-container {
                     transform: translateY(calc(~"100vh - 395px + 53px"));
+                }
             }
-          }
         }
         &.loggedIn {
             #sidebar {
@@ -349,28 +345,70 @@ p {
         }
         .mobile-window-switcher {
             bottom: 16em;
+            display: none;
         }
         #map {
+            .leaflet-control-home {
+                position: fixed;
+                top: 58px;
+                left: 380px;
+
+            }
             @media screen and (max-width: 959px) {
                 top: 36px;
                 height: calc(~'100% - 267px');
-                transition: all .2s ease;
+                transition: all 0.2s ease;
                 .leaflet-top.leaflet-left {
                     display: none;
+                }
+                .legend {
+                    display: none;
+                }
+                .leaflet-control-zoom,
+                .leaflet-toggle-label {
+                    display: none;
+                }
+                .leaflet-control-home {
+                    position: fixed;
+                    top: auto;
+                    left: 10px;
+                    bottom: 235px;
+                    z-index: 4;
+                    display: block;
+                    border-radius: 50%;
+                    transition: all .3s ease;
+                    a {
+                        border-radius: 50%;
+                        width: 48px;
+                        height: 48px;
+                        line-height: 48px;
+                        md-icon {
+                            font-size: 32px;
+                            width: 32px;
+                            height: 32px;
+                            line-height: 28px;
+                        }
+                    }
                 }
             }
         }
         &.sidebar-closed {
-          @media screen and (max-width: 959px) {
-              .Header{
-                min-height: 48px;
-                height:48px;
-                overflow: auto;
-              }
+            @media screen and (max-width: 959px) {
+                .Header {
+                    min-height: 48px;
+                    height: 48px;
+                    overflow: auto;
+                }
             }
             #map {
                 @media screen and (max-width: 959px) {
                     height: calc(~'100% - 167px');
+                    .legend {
+                        display: block;
+                    }
+                    .leaflet-control-home {
+                      bottom:135px
+                    }
                 }
             }
             #sidebar {
@@ -382,39 +420,36 @@ p {
                     overflow-x: visible;
                     md-content[ui-view='sidebar'] {
                         height: 36px;
-                        > .selector{
-                          // transition: all .2s ease;
-                          // height: 36px;
-                          // overflow: hidden;
-                          // min-height: 36px;
-                          md-input-container{
-                            margin:0px;
-                          }
+                        > .selector {
+                            // transition: all .2s ease;
+                            // height: 36px;
+                            // overflow: hidden;
+                            // min-height: 36px;
+                            md-input-container {
+                                margin: 0;
+                            }
                         }
-
                     }
                     .mobile-container {
                         transform: translateY(calc(~"100vh - 215px"));
-
                     }
                 }
-
             }
-            &:not(.iframed){
+            &:not(.iframed) {
                 #sidebar {
-                // ihpone 5
-                @media only screen and (max-device-width: 667px) and (-webkit-device-pixel-ratio: 2) {
-                  .mobile-container {
-                          transform: translateY(calc(~"100vh - 285px"));
-                  }
+                    // ihpone 5
+                    @media only screen and (max-device-width: 667px) and (-webkit-device-pixel-ratio: 2) {
+                        .mobile-container {
+                            transform: translateY(calc(~"100vh - 285px"));
+                        }
+                    }
+                    // ihpone 6
+                    @media screen and (min-device-width : 414px) and (-webkit-device-pixel-ratio: 3) {
+                        .mobile-container {
+                            transform: translateY(calc(~"100vh - 285px"));
+                        }
+                    }
                 }
-                // ihpone 6
-                @media screen and (min-device-width : 414px)  and (-webkit-device-pixel-ratio: 3){
-                  .mobile-container {
-                          transform: translateY(calc(~"100vh - 285px"));
-                  }
-                }
-              }
             }
             .mobile-window-switcher {
                 bottom: 9.5em;
@@ -425,6 +460,9 @@ p {
             }
         }
     }
+}
+.mobile-container {
+    padding-bottom: 1em;
 }
 &.loggedIn {
     /*  #sidebar {

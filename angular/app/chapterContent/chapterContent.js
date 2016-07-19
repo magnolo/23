@@ -6,7 +6,7 @@
 		var vm = this;
 
 		vm.compare = false;
-		vm.activeTab = 0, vm.selectedIndicator = 0;
+		vm.activeTab = 0, vm.selectedIndicator;
 		vm.selectedCountry = {}, vm.current = {}, vm.circleOptions = {};
 		vm.countriesList = [], vm.compareList = [];
 		vm.chapterId = $state.params.chapter;
@@ -90,24 +90,14 @@
 		}
 
 		function getIndicator(finished) {
-
 			vm.ExportService.getIndicator($state.params.id, $state.params.chapter, $state.params.indicator, function(indicator, chapter, exporter) {
 				vm.selectedIndicator = indicator;
-
-				// renderIndicator(indicator, function() {
-				// 	if ($state.params.iso) {
-				// 		fetchNationData($state.params.iso);
-				// 	}
-				// 	if (typeof finished == "function") {
-				// 		finished();
-				// 	}
-				// });
 				renderIndicator(indicator, finished);
 			});
+
 		}
-		//URL PROBLEM LIES HERE AND ON EXPORT SERVICE
+
 		function gotoIndicator() {
-			console.log(vm.selectedCountry);
 			if (vm.ExportService.chapter.type == "indicator") {
 				var idx = 0;
 				angular.forEach(vm.ExportService.exporter.items, function(item, key) {
@@ -115,7 +105,6 @@
 						idx = key;
 					}
 				})
-					console.log(vm.selectedCountry);
 				if(typeof vm.selectedCountry.iso != "undefined"){
 					$state.go('app.export.detail.chapter.indicator.country', {
 						chapter: idx + 1,
@@ -131,10 +120,7 @@
 						indiname: vm.selectedIndicator.name
 					});
 				}
-
 			} else {
-
-
 				if (vm.ExportService.chapter.id != vm.selectedIndicator.parent.id) {
 					var idx = 0;
 					angular.forEach(vm.ExportService.exporter.items, function(item, key) {
@@ -263,8 +249,8 @@
 			$timeout(function() {
 				getIndicator(function() {
 					if ($state.params.iso) {
-						console.log($state.params.iso);
 						getCountryByIso($state.params.iso);
+						fetchNationData($state.params.iso);
 						if ($state.params.countries) {
 							var countries = $state.params.countries.split('-vs-');
 							angular.forEach(countries, function(country) {
@@ -274,10 +260,17 @@
 							VectorlayerService.gotoCountries($state.params.iso, vm.compareList);
 						}
 					}
+					else{
+						vm.selectCountry = {};
+					}
+					if (typeof vm.ExportService.chapter != "undefined") {
+						if(vm.ExportService.chapter.description){
+								showInfo()
+						}
+
+					}
 				});
-				if (vm.ExportService.chapter.description) {
-					showInfo()
-				}
+
 
 			});
 		}

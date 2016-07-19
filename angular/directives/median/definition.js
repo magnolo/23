@@ -209,7 +209,6 @@
 									var v = (parseInt(options.max) / 1000).toString();
 									return v.substr(0, v.indexOf('.')) + "k";
 								}
-								console.log('max', options.max);
 								return options.max
 							})
 							.style('font-size', options.height / 2.5)

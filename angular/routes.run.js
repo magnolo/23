@@ -118,7 +118,8 @@
 
 			$rootScope.stateIsLoading = false;
 			if ($auth.isAuthenticated()) {
-				$mdSidenav('leftMenu').close();
+
+				//$mdSidenav('leftMenu').close();
 			}
 			resetMapSize();
 		});

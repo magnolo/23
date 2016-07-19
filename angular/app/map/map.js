@@ -1,7 +1,7 @@
 (function() {
 	"use strict";
 
-	angular.module('app.controllers').controller('MapCtrl', function($scope, leafletData, leafletMapEvents, VectorlayerService) {
+	angular.module('app.controllers').controller('MapCtrl', function($scope, $rootScope, $state, leafletData, leafletMapEvents, VectorlayerService) {
 		//
 
 		var zoom = 3,
@@ -60,13 +60,13 @@
 		}
 
 		var MyControl = L.control();
-		MyControl.setPosition('topleft');
+		MyControl.setPosition('bottomright');
 		MyControl.initialize = function() {
 			L.Util.setOptions(this, options);
 		}
 		MyControl.onAdd = function() {
 
-			var container = L.DomUtil.create('div', 'leaflet-bar leaflet-control-zoom');
+			var container = L.DomUtil.create('div', 'leaflet-bar leaflet-control-zoom leaflet-toggle-label');
 			var span = L.DomUtil.create('a', 'leaflet-control-zoom-in cursor', container);
 			span.textContent = 'T';
 			span.title = "Toggle Labels";
@@ -86,7 +86,7 @@
 			return container;
 		}
 		var BackHome = L.control();
-		BackHome.setPosition('topleft');
+		BackHome.setPosition('bottomleft');
 		BackHome.initialize = function() {
 			L.Util.setOptions(this, options);
 		}
@@ -99,8 +99,20 @@
 			L.DomEvent.disableClickPropagation(container);
 			L.DomEvent.addListener(container, 'click', function() {
 					var map = VectorlayerService.getMap();
-					map.setView([48.209206, 16.372778], zoom);
-				
+					map.setView([48.209206, 16.372778], 2);
+
+					if($state.$current.name.indexOf('app.export.detail.chapter.indicator') > -1){
+							$state.go('app.export.detail.chapter.indicator',{
+								id: $state.params.id,
+								name: $state.params.name,
+								chapter: $state.params.chapter,
+								indicator: $state.params.indicator,
+								indiname:$state.params.indiname
+							},{
+								reload:true
+							});
+							$rootScope.sidebarOpen = false;
+					}
 			});
 			return container;
 		}
@@ -121,6 +133,7 @@
 
 		}
 		leafletData.getMap('map').then(function(map) {
+			 map.zoomControl.setPosition('bottomright');
 			VectorlayerService.setMap(map);
 			//var url = 'http://v22015052835825358.yourvserver.net:3001/services/postgis/' + VectorlayerService.getName() + '/geom/vector-tiles/{z}/{x}/{y}.pbf?fields=' + VectorlayerService.fields(); //
 			var url = 'https://www.23degree.org:3001/services/postgis/' + VectorlayerService.getName() + '/geom/vector-tiles/{z}/{x}/{y}.pbf?fields=' + VectorlayerService.fields(); //

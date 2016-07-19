@@ -35,7 +35,7 @@
   </div></h2> -->
 	<div style="background-image:url('{{vm.ExportService.chapter.style.image.src}}')" class="image">
 		<div class="tint"></div>
-		<img color="vm.isDark" image-color src="{{vm.ExportService.chapter.style.image.src}}" style="display:none" />
+		<img color="vm.isDark" image-color ng-src="{{vm.ExportService.chapter.style.image.src}}" style="display:none" />
 	</div>
 
 </div>
@@ -76,15 +76,15 @@
 				</div>
 		</md-tab>
 		<md-tab label="History" ng-disabled="!vm.selectedCountry.iso || vm.current.length < 2" md-active="vm.activeTab == 1" md-on-select="vm.setTab(1)" ng-disabled="!vm.current">
-      <export-chooser countries="vm.data" nation="vm.selectedCountry" selected="vm.selectedIndicator" changed="vm.selectCountry(nation)"></export-chooser>
+			<export-chooser chapters="vm.ExportService.exporter.items" countries="vm.data" nation="vm.selectedCountry" selected="vm.selectedIndicator" changed="vm.selectCountry(nation)"></export-chooser>
 			<div class="module tabs mb1" layout="column">
 				<history chartdata="vm.current" options="{field:'score', color:vm.ExportService.indicator.style.base_color || 'rgba(128, 243, 198,1)'}"></history>
 			</div>
 		</md-tab>
 		<md-tab label="Compare" ng-disabled="!vm.selectedCountry.iso" md-active="vm.activeTab == 2" md-on-deselect="vm.setCompare(false)" md-on-select="vm.setCompare(true)" ng-disabled="!vm.selectedCountry.iso">
-      <export-chooser hide-xs hide-sm countries="vm.data" nation="vm.selectedCountry" selected="vm.selectedIndicator" changed="vm.selectCountry(nation)"></export-chooser>
+			<export-chooser chapters="vm.ExportService.exporter.items" countries="vm.data" nation="vm.selectedCountry" selected="vm.selectedIndicator" changed="vm.selectCountry(nation)"></export-chooser>
 			<div class="module comparison">
-				<div flex style="text-align:right;font-style: italic;font-size: 0.8em;margin-right: 20px;opacity: 0.7;margin-bottom: 1em;margin-top: -1em;">{{ vm.selectedIndicator.title }} ({{vm.selectedIndicator.indicator.type.ext}})</div>
+				<div flex style="text-align:right;font-style: italic;font-size: 0.8em;margin-right: 20px;opacity: 0.7;margin-bottom: 1em;">{{ vm.selectedIndicator.title }} ({{vm.selectedIndicator.indicator.type.ext}})</div>
 				<div layout-wrap layout="row" ng-if="vm.current && vm.structure">
 
 					<compare-countries flex style="margin-left:8px;" country="vm.selectedCountry" countries="vm.countriesList" options="{field: 'score', height: 25, margin:5, color:vm.ExportService.indicator.style.base_color, duration:500, min:vm.structure.min, max:vm.structure.max}"></compare-countries>
