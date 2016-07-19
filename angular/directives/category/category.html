@@ -2,7 +2,7 @@
         <form name="categoryForm" novalidate>
                 <div class="mb25" layout-align="space-between center" layout="row">
                       <span flex></span>
-                        <md-button class="md-primary md-fab md-mini doAnim-bottom" ng-if="vm.newParent" ng-click="vm.saveCategory(categoryForm.$valid)" ng-disabled="categoryForm.$invalid">
+                        <md-button class="md-primary md-fab md-mini doAnim-bottom" ng-if="categoryForm.$valid" ng-click="vm.saveCategory(categoryForm.$valid)" ng-disabled="categoryForm.$invalid">
                           <md-icon class="material-icons">save</md-icon>
                           <md-tooltip md-delay="500">Save changes</md-tooltip>
                         </md-button>

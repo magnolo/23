@@ -70,6 +70,8 @@ class StyleController extends Controller
      */
     public function show($id)
     {
+        $style = Style::findOrFail($id);
+        return response()->api($style);
         //
     }
 

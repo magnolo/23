@@ -62,6 +62,7 @@ $api->version('v1', function ($api) {
     $api->get('measure_types', 'App\Http\Controllers\MeasureTypesController@index');
 
     $api->get('styles', 'App\Http\Controllers\StyleController@index');
+    $api->get('styles/{id}', 'App\Http\Controllers\StyleController@show');
 
     $api->get('conflicts', 'App\Http\Controllers\ConflictsController@index');
 

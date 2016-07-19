@@ -75,7 +75,15 @@
 			styles:{
 				drag:false,
 				type:'styles',
-				withColor:true
+				withColor:true,
+				allowAdd:true,
+				allowDelete:true,
+				addClick:function() {
+					$state.go('app.index.editor.styles.style', {id: 'new'});
+				},
+				itemClick: function (id, name) {
+					$state.go('app.index.editor.styles.style', {id:id});
+				}
 			}
 		};
 
@@ -99,7 +107,7 @@
 						}
 					break;
 				case 3:
-					$state.go('app.index.editor.categories');
+						$state.go('app.index.editor.styles');
 					break;
 				default:
 

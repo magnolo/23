@@ -27,7 +27,8 @@
 												</md-list>
 								</div>
 				</md-content>
-				<md-content class="md-accent doAnim" layout-padding ng-if="vm.createStyle">
+				<style-single ng-if="vm.createStyle" item="vm.style" options="vm.options" close="vm.createStyle"></style-single>
+				<!--md-content class="md-accent doAnim" layout-padding ng-if="vm.createStyle">
 								<form name="styleForm" novalidate>
 												<div class="mb25" layout-align="space-between center" layout="row">
 																<span flex></span>
@@ -58,5 +59,5 @@
 																</div>
 												</div>
 								</form>
-				</md-content>
+				</md-content-->
 </div>
