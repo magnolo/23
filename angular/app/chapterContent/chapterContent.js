@@ -209,7 +209,7 @@
 
 			IndexService.fetchNationData(vm.ExportService.indicator.indicator_id, iso, function(data) {
 				vm.current = data;
-					VectorlayerService.setSelectedFeature(iso, true, true);
+				VectorlayerService.setSelectedFeature(iso, true, true);
 				$rootScope.sidebarOpen = true;
 
 			});

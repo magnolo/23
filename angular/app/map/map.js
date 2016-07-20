@@ -1,7 +1,7 @@
 (function() {
 	"use strict";
 
-	angular.module('app.controllers').controller('MapCtrl', function($scope, $rootScope, $state, leafletData, leafletMapEvents, VectorlayerService) {
+	angular.module('app.controllers').controller('MapCtrl', function($scope, $rootScope, $mdMenu, $state, leafletData, leafletMapEvents, VectorlayerService) {
 		//
 
 		var zoom = 3,
@@ -13,26 +13,6 @@
 		var apiKey = VectorlayerService.keys.mapbox;
 		vm.VectorlayerService = VectorlayerService;
 		vm.toggleLayers = toggleLayers;
-		vm.defaults = {
-			//scrollWheelZoom: false,
-			minZoom: minZoom,
-			maxZoom: 6
-		};
-
-		// vm.layers = {
-		// 	baselayers: {
-		// 		xyz: {
-		// 			name: 'Outdoor',
-		// 			url: VectorlayerService.baselayer.url,
-		// 			type: 'xyz',
-		// 			layerOptions: {
-		// 				noWrap: true,
-		// 				continuousWorld: false,
-		// 				detectRetina: true
-		// 			}
-		// 		}
-		// 	}
-		// };
 		vm.labelsLayer = L.tileLayer('https://{s}.tiles.mapbox.com/v4/magnolo.06029a9c/{z}/{x}/{y}.png?access_token=' + apiKey, {
 			noWrap: true,
 			continuousWorld: false,
@@ -133,7 +113,7 @@
 
 		}
 		leafletData.getMap('map').then(function(map) {
-			 map.zoomControl.setPosition('bottomright');
+
 			VectorlayerService.setMap(map);
 			//var url = 'http://v22015052835825358.yourvserver.net:3001/services/postgis/' + VectorlayerService.getName() + '/geom/vector-tiles/{z}/{x}/{y}.pbf?fields=' + VectorlayerService.fields(); //
 			var url = 'https://www.23degree.org:3001/services/postgis/' + VectorlayerService.getName() + '/geom/vector-tiles/{z}/{x}/{y}.pbf?fields=' + VectorlayerService.fields(); //

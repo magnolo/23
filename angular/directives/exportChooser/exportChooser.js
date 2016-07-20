@@ -6,6 +6,9 @@
 		var vm = this;
 		vm.index = 0;
 		vm.activeList = [];
+	
+
+
 		$timeout(function() {
 			if (vm.chapters) {
 				if (vm.selected.parent_id) {

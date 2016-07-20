@@ -1,17 +1,29 @@
 <md-content layout-padding class="country-chooser">
-  <div>
-     <md-input-container class="md-block no-margin-bottom">
-      <label>Choose from countries list</label>
-      <md-select ng-model="vm.nation" aria-label="Choose Country from List" ng-change="vm.changed({nation:vm.nation})">
-        <md-option ng-value="nation" ng-repeat="(key, nation) in vm.countries | orderBy:'country' ">{{ nation.country }}</md-option>
-      </md-select>
-    </md-input-container>
-  </div>
-  <div class="sub-title" ng-if="vm.selected && vm.nation.iso">
-    <ul rn-carousel rn-carousel-controls rn-carousel-controls-allow-loop rn-carousel-index="vm.index">
-    <li ng-repeat="chapter in vm.activeList">
-      <div class="layer">{{ chapter.title }}</div>
-    </li>
-  </ul>
-  </div>
+	<div class="mobile-space">
+		<md-input-container class="md-block no-margin-bottom">
+			<label>Choose country</label>
+			<md-select ng-model="vm.nation" aria-label="Choose Country from List" ng-change="vm.changed({nation:vm.nation})">
+				<md-option ng-value="nation" ng-repeat="(key, nation) in vm.countries | orderBy:'country' ">{{ nation.country }}</md-option>
+			</md-select>
+		</md-input-container>
+	</div>
+	<!-- <md-menu ng-if="!vm.nation.iso">
+
+		<md-button ng-click="$mdOpenMenu($event)" class="md-icon-button" aria-label="Choose Country">
+			<md-icon>flag</md-icon>
+		</md-button>
+		<md-menu-content>
+			<md-menu-item ng-repeat="(key, nation) in vm.countries | orderBy:'country' ">
+				<md-button ng-click="vm.changed({nation:nation})">{{nation.country}}</md-button>
+			</md-menu-item>
+		</md-menu-content>
+	</md-menu> -->
+	<!-- <div flex layout="row" layout-align="center center" ><div class="colored">{{ vm.nation.country }}</div></div> -->
+	<div class="sub-title" ng-if="vm.selected && vm.nation.iso">
+		<ul rn-carousel rn-carousel-controls rn-carousel-controls-allow-loop rn-carousel-index="vm.index">
+			<li ng-repeat="chapter in vm.activeList">
+				<div class="colored">{{ chapter.title }}</div>
+			</li>
+		</ul>
+	</div>
 </md-content>

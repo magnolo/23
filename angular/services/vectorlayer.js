@@ -62,7 +62,8 @@
 		};
 		this.defaults = {
 			minZoom: 2,
-			maxZoom: 6
+			maxZoom: 6,
+			zoomControlPosition:'bottomright'
 		};
 		this.legend = {};
 		this.setMap = function(map) {
