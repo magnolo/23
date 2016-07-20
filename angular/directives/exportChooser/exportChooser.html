@@ -9,7 +9,7 @@
   </div>
   <div class="sub-title" ng-if="vm.selected && vm.nation.iso">
     <ul rn-carousel rn-carousel-controls rn-carousel-controls-allow-loop rn-carousel-index="vm.index">
-    <li ng-repeat="chapter in vm.chapters">
+    <li ng-repeat="chapter in vm.activeList">
       <div class="layer">{{ chapter.title }}</div>
     </li>
   </ul>

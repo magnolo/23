@@ -94,9 +94,9 @@
 				vm.selectedIndicator = indicator;
 				renderIndicator(indicator, finished);
 			});
-
 		}
 
+		// DRY in you face. REDUCE THIS MULTIPLE KOT
 		function gotoIndicator() {
 			if (vm.ExportService.chapter.type == "indicator") {
 				var idx = 0;
@@ -128,19 +128,36 @@
 							idx = key;
 						}
 					})
-					$state.go('app.export.detail.chapter.indicator', {
-						chapter: idx + 1,
-						indicator: vm.selectedIndicator.indicator_id,
-						indiname: vm.selectedIndicator.name
-					});
+					if(typeof vm.selectedCountry.iso != "undefined"){
+						$state.go('app.export.detail.chapter.indicator.country', {
+							chapter: idx + 1,
+							indicator: vm.selectedIndicator.indicator_id,
+							indiname: vm.selectedIndicator.name,
+							iso:vm.selectedCountry.iso
+						});
+					}
+					else{
+						$state.go('app.export.detail.chapter.indicator', {
+							chapter: idx + 1,
+							indicator: vm.selectedIndicator.indicator_id,
+							indiname: vm.selectedIndicator.name
+						});
+					}
 				} else {
-					$state.go('app.export.detail.chapter.indicator', {
-						indicator: vm.selectedIndicator.indicator_id,
-						indiname: vm.selectedIndicator.name
-					});
-					$timeout(function(){
-						getIndicator();
-					});
+					if(typeof vm.selectedCountry.iso != "undefined"){
+						$state.go('app.export.detail.chapter.indicator.country', {
+							indicator: vm.selectedIndicator.indicator_id,
+							indiname: vm.selectedIndicator.name,
+							iso:vm.selectedCountry.iso
+						});
+					}
+					else{
+						$state.go('app.export.detail.chapter.indicator', {
+							indicator: vm.selectedIndicator.indicator_id,
+							indiname: vm.selectedIndicator.name
+						});
+					}
+					loadStateData();
 				}
 			}
 		}
@@ -188,18 +205,17 @@
 			if (!$state.params.countries) {
 				VectorlayerService.gotoCountry(iso);
 			}
-			VectorlayerService.setSelectedFeature(iso, true, true);
+
 
 			IndexService.fetchNationData(vm.ExportService.indicator.indicator_id, iso, function(data) {
-				//	vm.nation = vm.countries[iso];
 				vm.current = data;
+					VectorlayerService.setSelectedFeature(iso, true, true);
 				$rootScope.sidebarOpen = true;
-				//calcRank();
+
 			});
 		}
 
 		function renderIndicator(item, done) {
-
 			ContentService.fetchIndicatorWithData(item.indicator_id, function(indicator) {
 				vm.data = indicator.data;
 				vm.structure = indicator;
@@ -213,26 +229,10 @@
 					height: 60,
 					fontSize:12
 				};
-
 				VectorlayerService.setBaseLayer(item.style.basemap);
 				VectorlayerService.setMapDefaults(item.style);
 				VectorlayerService.setData(indicator.data, indicator, item.style.base_color, true);
 
-				// if ($state.params.iso) {
-				// 	$state.go('app.export.detail.chapter.indicator.country', {
-				// 		indicator: item.indicator_id,
-				// 		indiname: item.indicator.name,
-				// 		iso: $state.params.iso
-				// 	});
-				// 	getCountryByIso($state.params.iso);
-				// 	fetchNationData($state.params.iso);
-				//
-				// } else {
-				// 	$state.go('app.export.detail.chapter.indicator', {
-				// 		indicator: item.indicator_id,
-				// 		indiname: item.indicator.name
-				// 	});
-				// }
 				if (typeof done == "function") {
 					done();
 				}
@@ -246,13 +246,15 @@
 			DialogService.fromTemplate('export', $scope);
 		}
 
-
-		function activate() {
+		function loadStateData(){
 			$timeout(function() {
+				//RESET COUNTRY FOR CORRECT VIEW, IF NOT: View would stay active
+				vm.selectedCountry = {};
 				getIndicator(function() {
 					if ($state.params.iso) {
 						getCountryByIso($state.params.iso);
 						fetchNationData($state.params.iso);
+
 						if ($state.params.countries) {
 							var countries = $state.params.countries.split('-vs-');
 							angular.forEach(countries, function(country) {
@@ -263,13 +265,12 @@
 						}
 					}
 					else{
-						vm.selectCountry = {};
+						vm.selectedCountry = {};
 					}
 					if (typeof vm.ExportService.chapter != "undefined") {
 						if(vm.ExportService.chapter.description){
 								showInfo()
 						}
-
 					}
 				});
 
@@ -277,10 +278,15 @@
 			});
 		}
 
-		$scope.$watch('vm.selectedIndicator', function(n, o){
-			if(n === o) return false;
-			if(n.id == o.id) return false;
+		function activate() {
+			loadStateData();
+		}
 
+		$scope.$watch('vm.selectedIndicator', function(n, o){
+			if(n === o || typeof n.id == "undefined") return false;
+			if(typeof o != "undefined"){
+				if(n.id == o.id) return false;
+			}
 			vm.gotoIndicator();
 		})
 	});
