@@ -130,7 +130,6 @@
 			if (vm.exporter.id == 0 || !vm.exporter.id) {
 				DataService.post('exports', vm.exporter).then(function(response) {
 					vm.exporter = response;
-					console.log(vm.exporter);
 					vm.exports.push(vm.exporter);
 					toastr.success('Successfully created');
 					if (typeof success === 'function')

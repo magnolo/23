@@ -8,14 +8,15 @@
 
 		$timeout(function(){
 				if(vm.chapters){
-					vm.index = vm.chapters.indexOf(vm.selected);
+					// console.log(vm.chapters);
+					// vm.index = vm.chapters.indexOf(vm.selected);
 				}
 
 		});
 
 		$scope.$watch('vm.index', function(n, o){
 			if(n === o) return false;
-			vm.selected = vm.chapters[vm.index];
+			// vm.selected = vm.chapters[vm.index];
 		})
 	});
 })();

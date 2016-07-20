@@ -21,23 +21,11 @@
 		</md-input-container>
 	</div>
 </md-content>
-<!-- <div class="chapter-image" hide-xs hide-sm layout="column" layout-align="center center" ng-class="{'dark': !vm.isDark}"> -->
 <div class="chapter-image" hide-xs hide-sm layout="column" layout-align="center center" ng-if="vm.ExportService.chapter.style.image.src" ng-class="{'dark': !vm.isDark}">
-
-	<!-- <h2 class="doAnim-right">
-    <div>
-      <md-input-container class="md-block">
-        <label ng-if="!vm.nation">Choose from countries list</label>
-        <md-select ng-model="vm.nation" aria-label="Choose Country from List" ng-change="vm.selectCountry(nation)">
-          <md-option ng-value="nation" ng-repeat="(key, nation) in vm.countries">{{ nation }}</md-option>
-        </md-select>
-    </md-input-container>
-  </div></h2> -->
 	<div style="background-image:url('{{vm.ExportService.chapter.style.image.src}}')" class="image">
 		<div class="tint"></div>
 		<img color="vm.isDark" image-color ng-src="{{vm.ExportService.chapter.style.image.src}}" style="display:none" />
 	</div>
-
 </div>
 <md-subheader class="md-primary selector" hide-gt-sm>
 	<div>
@@ -54,7 +42,6 @@
 	</div>
 </md-subheader>
 <section class="mobile-container">
-
 	<md-tabs md-center-tabs="true" md-swipe-content="false"  md-dynamic-height md-no-pagination="true" md-selected="vm.activeTab" md-stretch-tabs="always" md-swipe-content="true" ng-if="vm.ExportService.indicator">
 		<md-tab label="Details" md-active="vm.activeTab == 0" md-on-select="vm.setTab(0)">
 				<div ng-if="!vm.selectedCountry.iso" layout="column" layout-align="center start">
@@ -86,16 +73,7 @@
 			<div class="module comparison">
 				<div flex style="text-align:right;font-style: italic;font-size: 0.8em;margin-right: 20px;opacity: 0.7;margin-bottom: 1em;">{{ vm.selectedIndicator.title }} ({{vm.selectedIndicator.indicator.type.ext}})</div>
 				<div layout-wrap layout="row" ng-if="vm.current && vm.structure">
-
 					<compare-countries flex style="margin-left:8px;" country="vm.selectedCountry" countries="vm.countriesList" options="{field: 'score', height: 25, margin:5, color:vm.ExportService.indicator.style.base_color, duration:500, min:vm.structure.min, max:vm.structure.max}"></compare-countries>
-					<!-- <div class="country anim-opacity" flex="50" ng-repeat="country in vm.compare.countries">
-						<h4 ng-click="vm.setCurrent(country)">
-                                                        <span class="number">N°{{vm.getRank(country)}}</span>
-                                                        {{vm.countryList[country.iso]}}</h4>
-						<median data="vm.data" height="20" info="false" ng-model="country" options="{'color': vm.structure.style.base_color, field: vm.structure.name}" width="120"></median>
-						<bubbles borders="false" chartdata="country" height="150" indexer="vm.structure" labels="false" ng-if="vm.structure.children.length" ng-model="vm.display.selectedCat" sizefactor="5" width="120"></bubbles>
-
-					</div> -->
 				</div>
 			</div>
 		</md-tab>

@@ -2289,6 +2289,7 @@ md-dialog-content p.columned {
   transform: scale(1.2);
 }
 
+
 .Header {
   transition: all 1s ease-in-out;
   min-height: 48px;
@@ -2322,11 +2323,6 @@ md-dialog-content p.columned {
 }
 md-toolbar.Header .md-button.md-border {
   color: #006bb9;
-}
-
-
-md-list-item a.md-no-style {
-  margin: 0px;
 }
 
 md-toolbar.md-menu-toolbar {
@@ -2374,6 +2370,10 @@ md-menu-bar {
   margin: 0 auto;
   max-width: 680px;
   padding: 24px;
+}
+
+md-list-item a.md-no-style {
+  margin: 0px;
 }
 
 /*.info-container {
@@ -2655,6 +2655,10 @@ md-list-item.md-2-line a {
 }
 md-list-item.md-2-line > .md-no-style {
   min-height: 62px;
+}
+
+.cursor {
+  cursor: pointer;
 }
 
 section.module-top {
@@ -2953,10 +2957,6 @@ md-list-item.active {
         }*/
 }
 
-.cursor {
-  cursor: pointer;
-}
-
 
 
 
@@ -3146,6 +3146,7 @@ div[ui-view='map'] {
 }
 
 
+
 /*.Sidebar {
 	position: fixed !important;
 	top: 0;
@@ -3202,7 +3203,6 @@ div[ui-view='map'] {
 
 
 
-
 .bar-viewer {
   margin: 0 1em;
 }
@@ -3228,7 +3228,6 @@ div[ui-view='map'] {
   margin-left: 2em;
 }
 
-
 .thumb-selector {
   padding: 0;
   margin: 0px;
@@ -3249,6 +3248,7 @@ div[ui-view='map'] {
 .mini-map .leaflet-control-container {
   display: none !important;
 }
+
 
 bubbles {
   overflow: hidden;
@@ -3319,7 +3319,6 @@ bubbles {
 
 
 
-
 color-gradient md-input-container {
   display: none;
 }
@@ -3364,6 +3363,7 @@ color-gradient .picker-wrapper .picker-container:hover .drag-handle {
   opacity: 1;
 }
 
+
 compare-countries svg {
   overflow: visible;
 }
@@ -3407,7 +3407,6 @@ compare-countries .ranks {
 }
 
 
-
 [contenteditable] {
   position: relative;
   white-space: pre-wrap;
@@ -3435,6 +3434,7 @@ compare-countries .ranks {
   left: 0px;
   border-bottom-width: 1px;
 }
+
 
 .thumb-chooser {
   border-radius: 0px;
@@ -3568,6 +3568,7 @@ image-uploader .solo-label {
   padding-bottom: 2px;
 }
 
+
 .indicator-menu {
   position: absolute;
   right: 2.5em;
@@ -3598,7 +3599,6 @@ image-uploader .solo-label {
 .indicator-menu ng-md-icon.greyed path {
   fill: #ddd;
 }
-
 
 
 panels {

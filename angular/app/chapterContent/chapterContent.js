@@ -138,9 +138,11 @@
 						indicator: vm.selectedIndicator.indicator_id,
 						indiname: vm.selectedIndicator.name
 					});
+					$timeout(function(){
+						getIndicator();
+					});
 				}
 			}
-			//getIndicator();
 		}
 
 		function selectCountry(nation) {
