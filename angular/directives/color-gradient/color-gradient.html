@@ -1,5 +1,5 @@
-<div class="picker-wrapper">
-  <div dndDraggable ng-repeat="(key, color) in vm.gradient" class="picker-container" ng-style="{'left':color.pos+'%'}">
+<div class="picker-wrapper" flex>
+  <div ng-mousedown="vm.active = color" ng-draggabilly options="{axis:'x',containment:true}" events="vm.dragEvents" ng-repeat="(key, color) in vm.gradient" class="picker-container" ng-style="{'left':color.pos+'%'}">
       <div class="gradient-color-picker" label="Main Color" ng-if="color.color" md-color-picker ng-model="color.color" ></div>
       <md-icon class="close" ng-click="vm.removeColor(key)">close</md-icon>
       <div class="drag-handle">

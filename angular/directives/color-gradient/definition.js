@@ -15,7 +15,7 @@
 			link: function(scope, element, attrs) {
 				//
 
-				var width = element.parent()[0].clientWidth;
+				var width = element.parent()[0].clientWidth - 48;
 				var height = 20;
 				var svg = d3.select(element[0]).append('svg');
 				svg.attr("width", width)
@@ -31,37 +31,35 @@
 				var rect = svg.append("rect")
 					.attr("width", width)
 					.attr("height", height)
-					.style("fill", "url(#gradient)")
-					.on("mouseover", function(d) {
-	          console.log(d);
-	        })
+					.style("fill", "url(#gradient)");
+
 
 				function drawGradient() {
 
 					var gradient = gradCol.selectAll('stop')
 						.data(scope.vm.gradient, function(d){
-							return "id_" + d.pos
+							return d.id
 						});
 
 					gradient
 						.enter()
 						.append("stop")
 						.attr("offset", function(d) {
+							console.log(d.pos);
 							return d.pos + "%";
 						})
 						.style("stop-color", function(d) {
 							return d.color
-						})
-						.style("stop-opacity", function(d) {
-							d.alpha
 						});
 
 					gradient.exit().remove();
+				
+
 				}
 
 				scope.$watch('vm.gradient', function(n, o) {
-					console.log(n);
 					if (n === 0) return false;
+
 					drawGradient();
 				}, true);
 

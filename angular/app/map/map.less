@@ -21,19 +21,29 @@ div[ui-view='map'] {
     height: 100%;
     background-color: #fff;
     .legend {
-        background: rgba(255,255,255, 0.8);
-        box-shadow: 0 0 15px rgba(0,0,0,0.2);
+        background: rgba(255,255,255, 0.9);
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);
         padding: 6px 8px;
-        width: 80px;
+        min-width: 55px;
         line-height: 18px;
         color: #555;
+        font-family: 'Georgia';
+        text-align: right;
+        position: absolute;
+        right: 4em;
+        bottom: 15px;
+        transition: all .3s ease;
+        @media screen and (max-width: 959px) {
+            right: 0px;
+        }
     }
     .legend i {
-        width: 16px;
-        height: 16px;
+        width: 12px;
+        height: 12px;
         float: right;
-        margin-left: 8px;
+        margin-left: 12px;
         opacity: 1;
+        border: 2px solid rgba(0,0,0,0.2);
     }
 }
 .greyed {
@@ -114,15 +124,15 @@ div[ui-view='map'] {
         top: 6em;
     }
 }
-.leaflet-top {
-    top: 1em;
-    left: auto;
-    right: 1em;
-    z-index: 2;
-    @media screen and (max-width: 959px) {
-        top: auto;
-        bottom: 3em;
-    }
+.leaflet-bottom {
+    // top: 1em;
+    // left: auto;
+    // right: 1em;
+    // z-index: 2;
+    // @media screen and (max-width: 959px) {
+    //     top: auto;
+    //     bottom: 3em;
+    // }
     .leaflet-control-zoom {
         &.leaflet-bar {
             margin-right: 1em;
@@ -155,10 +165,14 @@ div[ui-view='map'] {
 .leaflet-right {
     .leaflet-control {
         &.leaflet-control-attribution {
-            display: none;
+            //display: none;
         }
     }
 }
 .leaflet-bar {
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);
+}
+.leaflet-bottom,
+.leaflet-top {
+    z-index: 2;
 }

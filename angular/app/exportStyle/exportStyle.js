@@ -11,18 +11,21 @@
 		vm.gradient = [
 			{
 				color:'rgba(255,12,17,0.5)',
-				pos: 2,
-				alpha:1
+				pos: 0,
+				alpha:1,
+				id: Math.random()
 			},
 			{
 				color:'#00ff00',
 				pos: 50,
-				alpha:1
+				alpha:1,
+				id: Math.random()
 			},
 			{
 				color:'#0000ff',
-				pos: 75,
-				alpha:1
+				pos: 100,
+				alpha:1,
+				id: Math.random()
 			},
 		]
 		activate();

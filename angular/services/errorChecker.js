@@ -190,7 +190,6 @@
     									};
     									var errorFound = false;
     									angular.forEach(vm.data[k].errors, function(error, i) {
-    										console.log(error);
     										if (error.type == 3) {
     											errorFound = true;
     										}

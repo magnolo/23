@@ -1,4 +1,5 @@
 color-gradient {
+
     md-input-container {
         display: none;
     }
@@ -9,7 +10,8 @@ color-gradient {
         .picker-container {
             position: absolute;
             .gradient-color-picker {
-
+                position: relative;
+                left:-12px;
                 .md-color-picker-clear {
                     display: none;
                 }
@@ -18,15 +20,16 @@ color-gradient {
                 opacity: 0;
                 position: absolute;
                 transition: all 0.3s ease;
-                top: 0;
-                left: 1em;
+                top: 40px;
+                left: 10px;
                 cursor: pointer;
+                font-size: 18px;
             }
             .drag-handle{
               opacity: 0;
               position: absolute;
               top: 9px;
-              left: 1px;
+              left: -12px;
               cursor: ew-resize;
               md-icon{
                 font-size:18px;

@@ -22,6 +22,7 @@
 				info: true,
 				field: 'score',
 				handling: true,
+				showValue: true,
 				min: 0,
 				max: 100,
 				margin: {
@@ -99,7 +100,7 @@
 				feMerge.append("feMergeNode")
 					.attr("in", "SourceGraphic");
 
-				var bckgrnd = svg.append('g').attr('transform', "translate(0, "+(options.height /4)+")");
+				var bckgrnd = svg.append('g').attr('transform', "translate(0, " + (options.height / 4) + ")");
 				var rect = bckgrnd.append('path');
 				var legend = svg.append('g');
 				var legend2 = svg.append('g');
@@ -170,8 +171,11 @@
 				var handle = handleCont.append("circle")
 					.attr("class", "handle")
 					.style("filter", "url(#drop-shadow)");
-				var handleLabel = handleCont.append('text')
-					.text(0)
+				if (options.showValue) {
+					var handleLabel = handleCont.append('text')
+						.text(0)
+				}
+
 
 				function draw() {
 					x.range([options.margin.left, options.width - options.margin.right])
@@ -196,9 +200,9 @@
 
 					rect
 						.attr('d', rounded_rect(0, 0, options.width, options.height / 2, options.height / 4, true, true, true, true))
-						.attr('y', options.height /2)
+						.attr('y', options.height / 2)
 						.attr('width', options.width)
-						.attr('height', options.height /2)
+						.attr('height', options.height / 2)
 						.style('fill', 'url(#' + (options.field + options.unique) + ')');
 					legend.attr('transform', 'translate(' + options.height / 2 + ', ' + options.height / 2 + ')')
 						.attr('class', 'startLabel')
@@ -210,7 +214,7 @@
 							.attr('text-anchor', 'middle')
 							.attr('y', '.35em')
 							.attr('id', 'lowerValue');
-						legend2.attr('transform', 'translate(' + (options.width - (options.height / 4)) + ', ' + options.height / 2 + ')')
+						legend2.attr('transform', 'translate(' + (options.width - (options.height / 2)) + ', ' + options.height / 2 + ')')
 							.attr('class', 'endLabel')
 						legend2.append('circle')
 							.attr('r', options.height / 2)
@@ -221,7 +225,6 @@
 									var v = (parseInt(options.max) / 1000).toString();
 									return v.substr(0, v.indexOf('.')) + "k";
 								}
-								console.log('max', options.max);
 								return options.max
 							})
 							.style('font-size', options.height / 2.5)
@@ -248,20 +251,33 @@
 							shadowIntensity.transition().duration(200).attr('stdDeviation', 1);
 
 						});
+
 					handle
-						.attr("r", ((options.height / 2) + options.height / 10));
+						.attr("r", function() {
+							if (options.showValue) {
+								return ((options.height / 2) + options.height / 10);
+							}
+							return options.height / 4;
+						});
+
 					if (options.color) {
 						handle.style('fill', '#fff' /*options.color*/ );
 					}
-					handleLabel
-						.style('font-size', options.height / 2.5)
-						.attr("text-anchor", "middle").attr('y', '0.35em');
-
+					if (options.showValue) {
+						handleLabel
+							.style('font-size', options.height / 2.5)
+							.attr("text-anchor", "middle").attr('y', '0.35em');
+					}
 					if (ngModel.$modelValue) {
-						handleLabel.text(labeling(ngModel.$modelValue[options.field]));
+						if (options.showValue) {
+							handleLabel.text(labeling(ngModel.$modelValue[options.field]));
+						}
 						handleCont.transition().duration(500).ease('quad').attr("transform", 'translate(' + x(ngModel.$modelValue[options.field]) + ',' + options.height / 2 + ')');
 					} else {
-						handleLabel.text(0);
+						if (options.showValue) {
+							handleLabel.text(0);
+						}
+
 					}
 				}
 				//slider
@@ -318,7 +334,9 @@
 						value = x.invert(d3.mouse(this)[0]);
 						brush.extent([value, value]);
 					}
-					handleLabel.text(labeling(value));
+					if (options.showValue) {
+						handleLabel.text(labeling(value));
+					}
 					handleCont.attr("transform", 'translate(' + x(value) + ',' + options.height / 2 + ')');
 				}
 
@@ -328,7 +346,7 @@
 					var final = "";
 					var value = brush.extent()[0];
 					angular.forEach($scope.data, function(nat, key) {
-						console.log(nat);
+
 						if (parseInt(nat[options.field]) == parseInt(value)) {
 							final = nat;
 							found = true;
@@ -379,12 +397,18 @@
 					});
 					rect.style('fill', 'url(#' + options.field + '_' + n.color + ')');
 					handle.style('fill', n.color);
+
 					if (ngModel.$modelValue) {
-						handleLabel.text(labeling(ngModel.$modelValue[0][n.field]));
+						if (options.showValue) {
+							handleLabel.text(labeling(ngModel.$modelValue[0][n.field]));
+						}
 						handleCont.transition().duration(500).ease('quad').attr("transform", 'translate(' + x(ngModel.$modelValue.data[0][n.field]) + ',' + options.height / 2 + ')');
 					} else {
-						handleLabel.text(0);
+						if (options.showValue) {
+							handleLabel.text(0);
+						}
 					}
+
 				}, true);
 				$scope.$watch(
 					function() {
@@ -393,12 +417,15 @@
 					function(newValue, oldValue) {
 
 						if (!newValue) {
-							handleLabel.text(parseInt(0));
+							if (options.showValue) {
+								handleLabel.text(parseInt(0));
+							}
 							handleCont.attr("transform", 'translate(' + x(0) + ',' + options.height / 2 + ')');
 							return;
 						}
-
-						handleLabel.text(labeling(newValue[options.field]));
+						if (options.showValue) {
+							handleLabel.text(labeling(newValue[options.field]));
+						}
 						if (newValue == oldValue) {
 							handleCont.attr("transform", 'translate(' + x(newValue[options.field]) + ',' + options.height / 2 + ')');
 						} else {
@@ -419,7 +446,9 @@
 							options.min = d3.min([options.min, parseInt(nat[options.field])]);
 						}
 						if (nat.iso == ngModel.$modelValue.iso) {
-							handleLabel.text(labeling(nat.data[0][options.field]));
+							if (options.showValue) {
+								handleLabel.text(labeling(nat.data[0][options.field]));
+							}
 							handleCont.transition().duration(500).ease('quad').attr("transform", 'translate(' + x(nat.data[0][options.field]) + ',' + options.height / 2 + ')');
 
 						}
@@ -444,20 +473,31 @@
 					});
 					angular.forEach($scope.data, function(nat, key) {
 						if (nat.iso == ngModel.$modelValue.iso) {
-							handleLabel.text(labeling(nat.data[0][options.field]));
+							if (options.showValue) {
+								handleLabel.text(labeling(nat.data[0][options.field]));
+							}
 							handleCont.transition().duration(500).ease('quad').attr("transform", 'translate(' + x(nat.data[0][options.field]) + ',' + options.height / 2 + ')');
 						}
 					});
 
 				});
 				$window.onresize = function() {
-					options.width = element.parent()[0].clientWidth - options.margin.left - options.margin.right;
-					//options.height = options.width / 20;
-					draw();
-				}
-				 $scope.$watch($attrs.ngIf, function() {
-					 draw();
-				 })
+						options.width = element.parent()[0].clientWidth - options.margin.left - options.margin.right;
+						//options.height = options.width / 20;
+						draw();
+					}
+					// $timeout(function() {
+					// 	options.width = element.parent()[0].clientWidth - options.margin.left - options.margin.right;
+					// 	//options.height = options.width / 20;
+					// 	draw();
+					// }, 250)
+				$scope.$watch($attrs.ngIf, function() {
+					$timeout(function() {
+						options.width = element.parent()[0].clientWidth - options.margin.left - options.margin.right;
+
+						draw();
+					});
+				});
 				draw();
 			}
 		};

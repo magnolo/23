@@ -1,12 +1,12 @@
 (function(){
     "use strict";
-
+// remove app/login view
     angular.module('app.controllers').controller('LoginCtrl', function($rootScope, $state, $auth, toastr){
         var vm = this;
         vm.prevState = null;
         vm.doLogin = doLogin;
         vm.checkLoggedIn = checkLoggedIn;
-      
+
         vm.user = {
           email:'',
           password:''

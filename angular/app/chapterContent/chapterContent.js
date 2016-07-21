@@ -6,7 +6,7 @@
 		var vm = this;
 
 		vm.compare = false;
-		vm.activeTab = 0, vm.selectedIndicator = 0;
+		vm.activeTab = 0, vm.selectedIndicator;
 		vm.selectedCountry = {}, vm.current = {}, vm.circleOptions = {};
 		vm.countriesList = [], vm.compareList = [];
 		vm.chapterId = $state.params.chapter;
@@ -30,7 +30,7 @@
 					indiname: vm.ExportService.indicator.name,
 					iso: data.feature.id
 				});
-				$rootScope.sidebarOpen = false;
+				//$rootScope.sidebarOpen = false;
 				getCountryByIso(data.feature.id);
 				fetchNationData(data.feature.id);
 			}
@@ -90,22 +90,13 @@
 		}
 
 		function getIndicator(finished) {
-
 			vm.ExportService.getIndicator($state.params.id, $state.params.chapter, $state.params.indicator, function(indicator, chapter, exporter) {
 				vm.selectedIndicator = indicator;
-
-				// renderIndicator(indicator, function() {
-				// 	if ($state.params.iso) {
-				// 		fetchNationData($state.params.iso);
-				// 	}
-				// 	if (typeof finished == "function") {
-				// 		finished();
-				// 	}
-				// });
 				renderIndicator(indicator, finished);
 			});
 		}
-		//URL PROBLEM LIES HERE AND ON EXPORT SERVICE
+
+		// DRY in you face. REDUCE THIS MULTIPLE KOT
 		function gotoIndicator() {
 			if (vm.ExportService.chapter.type == "indicator") {
 				var idx = 0;
@@ -114,14 +105,22 @@
 						idx = key;
 					}
 				})
-				$state.go('app.export.detail.chapter.indicator', {
-					chapter: idx + 1,
-					indicator: vm.selectedIndicator.indicator_id,
-					indiname: vm.selectedIndicator.name
-				});
+				if(typeof vm.selectedCountry.iso != "undefined"){
+					$state.go('app.export.detail.chapter.indicator.country', {
+						chapter: idx + 1,
+						indicator: vm.selectedIndicator.indicator_id,
+						indiname: vm.selectedIndicator.name,
+						iso:vm.selectedCountry.iso
+					});
+				}
+				else{
+					$state.go('app.export.detail.chapter.indicator', {
+						chapter: idx + 1,
+						indicator: vm.selectedIndicator.indicator_id,
+						indiname: vm.selectedIndicator.name
+					});
+				}
 			} else {
-
-
 				if (vm.ExportService.chapter.id != vm.selectedIndicator.parent.id) {
 					var idx = 0;
 					angular.forEach(vm.ExportService.exporter.items, function(item, key) {
@@ -129,26 +128,45 @@
 							idx = key;
 						}
 					})
-					$state.go('app.export.detail.chapter.indicator', {
-						chapter: idx + 1,
-						indicator: vm.selectedIndicator.indicator_id,
-						indiname: vm.selectedIndicator.name
-					});
+					if(typeof vm.selectedCountry.iso != "undefined"){
+						$state.go('app.export.detail.chapter.indicator.country', {
+							chapter: idx + 1,
+							indicator: vm.selectedIndicator.indicator_id,
+							indiname: vm.selectedIndicator.name,
+							iso:vm.selectedCountry.iso
+						});
+					}
+					else{
+						$state.go('app.export.detail.chapter.indicator', {
+							chapter: idx + 1,
+							indicator: vm.selectedIndicator.indicator_id,
+							indiname: vm.selectedIndicator.name
+						});
+					}
 				} else {
-					$state.go('app.export.detail.chapter.indicator', {
-						indicator: vm.selectedIndicator.indicator_id,
-						indiname: vm.selectedIndicator.name
-					});
+					if(typeof vm.selectedCountry.iso != "undefined"){
+						$state.go('app.export.detail.chapter.indicator.country', {
+							indicator: vm.selectedIndicator.indicator_id,
+							indiname: vm.selectedIndicator.name,
+							iso:vm.selectedCountry.iso
+						});
+					}
+					else{
+						$state.go('app.export.detail.chapter.indicator', {
+							indicator: vm.selectedIndicator.indicator_id,
+							indiname: vm.selectedIndicator.name
+						});
+					}
+					loadStateData();
 				}
 			}
-			getIndicator();
 		}
 
 		function selectCountry(nation) {
 			$state.go('app.export.detail.chapter.indicator.country', {
 				iso: nation.iso
 			});
-			VectorlayerService.setSelectedFeature(nation.iso, true);
+			VectorlayerService.setSelectedFeature(nation.iso, true, true);
 			getCountryByIso(nation.iso);
 			fetchNationData(nation.iso);
 		}
@@ -187,18 +205,17 @@
 			if (!$state.params.countries) {
 				VectorlayerService.gotoCountry(iso);
 			}
-			VectorlayerService.setSelectedFeature(iso, true);
-			$rootScope.sidebarOpen = true;
-			IndexService.fetchNationData(vm.ExportService.indicator.indicator_id, iso, function(data) {
-				//	vm.nation = vm.countries[iso];
-				vm.current = data;
 
-				//calcRank();
+
+			IndexService.fetchNationData(vm.ExportService.indicator.indicator_id, iso, function(data) {
+				vm.current = data;
+				VectorlayerService.setSelectedFeature(iso, true, true);
+				$rootScope.sidebarOpen = true;
+
 			});
 		}
 
 		function renderIndicator(item, done) {
-
 			ContentService.fetchIndicatorWithData(item.indicator_id, function(indicator) {
 				vm.data = indicator.data;
 				vm.structure = indicator;
@@ -212,26 +229,10 @@
 					height: 60,
 					fontSize:12
 				};
-
 				VectorlayerService.setBaseLayer(item.style.basemap);
 				VectorlayerService.setMapDefaults(item.style);
 				VectorlayerService.setData(indicator.data, indicator, item.style.base_color, true);
 
-				// if ($state.params.iso) {
-				// 	$state.go('app.export.detail.chapter.indicator.country', {
-				// 		indicator: item.indicator_id,
-				// 		indiname: item.indicator.name,
-				// 		iso: $state.params.iso
-				// 	});
-				// 	getCountryByIso($state.params.iso);
-				// 	fetchNationData($state.params.iso);
-				//
-				// } else {
-				// 	$state.go('app.export.detail.chapter.indicator', {
-				// 		indicator: item.indicator_id,
-				// 		indiname: item.indicator.name
-				// 	});
-				// }
 				if (typeof done == "function") {
 					done();
 				}
@@ -245,12 +246,15 @@
 			DialogService.fromTemplate('export', $scope);
 		}
 
-
-		function activate() {
+		function loadStateData(){
 			$timeout(function() {
+				//RESET COUNTRY FOR CORRECT VIEW, IF NOT: View would stay active
+				vm.selectedCountry = {};
 				getIndicator(function() {
 					if ($state.params.iso) {
 						getCountryByIso($state.params.iso);
+						fetchNationData($state.params.iso);
+
 						if ($state.params.countries) {
 							var countries = $state.params.countries.split('-vs-');
 							angular.forEach(countries, function(country) {
@@ -260,13 +264,31 @@
 							VectorlayerService.gotoCountries($state.params.iso, vm.compareList);
 						}
 					}
+					else{
+						vm.selectedCountry = {};
+					}
+					if (typeof vm.ExportService.chapter != "undefined") {
+						if(vm.ExportService.chapter.description){
+								showInfo()
+						}
+					}
 				});
-				if (vm.ExportService.chapter.description) {
-					showInfo()
-				}
+
 
 			});
 		}
+
+		function activate() {
+			loadStateData();
+		}
+
+		$scope.$watch('vm.selectedIndicator', function(n, o){
+			if(n === o || typeof n.id == "undefined") return false;
+			if(typeof o != "undefined"){
+				if(n.id == o.id) return false;
+			}
+			vm.gotoIndicator();
+		})
 	});
 
 })();

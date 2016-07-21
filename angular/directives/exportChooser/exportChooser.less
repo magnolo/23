@@ -1,6 +1,7 @@
 .country-chooser {
     .md-select-value *:first-child {
         font-size: 1.1em;
+        font-weight: bold;
     }
     md-input-container {
         margin-top: 0;
@@ -10,12 +11,29 @@
             }
         }
     }
+    ul[rn-carousel]{
+      height: 1.5em;
+      margin: 0 1.5em;
+
+    }
+    .rn-carousel-control{
+      font-size: 1.3rem;
+      top:.1em;
+    }
     .sub-title {
+        position:relative;
         font-size: 1em;
         margin-top:0px;
+              text-align: center;
         @media screen and (max-width: 959px) {
-          text-align: center;
+
         }
+    }
+    .mobile-space{
+      @media screen and (max-width: 959px) {
+        padding:0 8px;
+        padding-top:8px;
+      }
     }
     @media screen and (max-width: 959px) {}
 }

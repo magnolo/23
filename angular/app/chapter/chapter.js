@@ -32,10 +32,8 @@
 		function showData() {
 			DialogService.fromTemplate('exportdata', $scope);
 		}
-		$rootScope.sidebarOpen = false;
-		// $scope.$on('$stateChangeSuccess', function(event, toState, toParams){
-		//     vm.ExportService.getChapter(toParams.id, toParams.chapter);
-		// });
+
+	
 	});
 
 })();

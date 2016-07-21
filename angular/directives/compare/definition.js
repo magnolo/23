@@ -14,7 +14,7 @@
 (function() {
 	"use strict";
 
-	angular.module('app.directives').directive('compareCountries', function() {
+	angular.module('app.directives').directive('compareCountries', function($document, $timeout) {
 
 		var defaults = function() {
 			return {
@@ -244,48 +244,11 @@
 
 						});
 
-
-					// bar.exit()
-					// 	.select("circle")
-					// 	.transition()
-					// 	.duration(scope.options.duration)
-					// 	.attr("r", 0)
-					// 	.attr("cx", 0);
-					// bar.exit()
-					// 	.select("text")
-					// 	.transition()
-					// 	.duration(scope.options.duration)
-					// 	.attr("transform", "scale(0)");
-					//
-					// bar.exit()
-					// 	.select("rect")
-					// 	.transition()
-					// 	.duration(scope.options.duration)
-					// 	.attr('transform', "rotate(90)scale(0)")
-					// 	.attr('opacity', 0)
-
 					bar.exit()
 						.transition()
 						.duration(scope.options.duration)
 						.attr("opacity", "0")
 						.remove();
-					//
-					// barExit.select("rect")
-					// 	.attr("width", function(d) {
-					// 		return xAxis(d[scope.options.field]);
-					// 	});
-					//
-					// barExit.select(".value")
-					// 	.attr("x", function(d) {
-					// 		return xAxis(d[scope.options.field]) - 3;
-					// 	})
-					// 	.text(function(d) {
-					// 		return format(d[scope.options.field]);
-					// 	});
-
-
-					//	labelsData.exit().remove();
-
 				}
 
 
@@ -296,7 +259,25 @@
 				}, function(n, o) {
 					scope.countries = angular.extend(scope.countries, scope.country);
 					updateData();
+					$timeout(function(){
+						var container = angular.element(document).find('md-sidenav').find('section');
+						var map = angular.element(document.getElementById("map"));
 
+						if (scope.countries.length  && window.innerWidth < 960) {
+							var h = container[0].clientHeight;
+
+							if(h < window.innerHeight - 194){
+								container.attr('style', 'transform:translateY(calc(100vh - ' + (parseInt(scope.countries.length * 24)) + 'px - 260px))')
+								// map.attr('style', 'height:calc(100vh - '+(parseInt(scope.countries.length * 24))+'px + 260px)');
+							}
+							else{
+								container.attr('style', 'transform:translateY(calc(100vh - ' + (parseInt(window.innerHeight - 200)) + 'px - 40px))')
+							}
+						} else {
+							container.attr('style', '');
+							// map.attr('style', '');
+						}
+					})
 				}, true)
 			}
 		};
