@@ -15,6 +15,8 @@ class CreateCountriesTable extends Migration
     {
         Schema::create('countries', function (Blueprint $table) {
             $table->increments('id');
+
+            // phaza/laravel-postgis creates geography field instead of geometry
             $table->multipolygon('geom');
             $table->integer('scalerank')->nullable();
             $table->string('featurecla',30);

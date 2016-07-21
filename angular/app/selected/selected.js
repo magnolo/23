@@ -1,3 +1,4 @@
+// remove app/selected view
 (function(){
     "use strict";
 
