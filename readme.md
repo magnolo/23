@@ -98,6 +98,10 @@ $ gulp && gulp watch
 
  - endless list should follow here....
 
+Supporters
+----
+[browserstack]
+
 License
 ----
 
@@ -134,7 +138,7 @@ MIT
    [Node.js]: https://nodejs.org/en/
    [Gulp]: <http://gulpjs.com>
    [Bower]: http://bower.io/
-
+   [browserstack]: https://www.browserstack.com/
 
 
 =======
