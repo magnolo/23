@@ -1,3 +1,9 @@
+/**
+ * @ngdoc service
+ * @name app.RecursionHelper
+ * @requires $compile
+ */
+
 (function () {
 		"use strict";
 
@@ -5,10 +11,16 @@
 				//
 				return {
 					/**
+					 * @ngdoc method
+					 * @name app.RecursionHelper#compile
+					 * @methodOf app.RecursionHelper
+					 *
+					 * @description
 					 * Manually compiles the element, fixing the recursion loop.
-					 * @param element
-					 * @param [link] A post-link function, or an object with function(s) registered via pre and post properties.
-					 * @returns An object containing the linking functions.
+					 *
+					 * @param {object} element element to be compiled
+					 * @param {function} link A post-link function, or an object with function(s) registered via pre and post properties.
+					 * @returns {object} An object containing the linking functions.
 					 */
 					compile: function (element, link) {
 						// Normalize the link parameter

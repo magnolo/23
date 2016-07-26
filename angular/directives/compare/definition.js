@@ -1,3 +1,16 @@
+/**
+ * @ngdoc directive
+ * @name app.directive:compare
+ * @scope
+ * @restrict EA
+ * @description
+ * Returns a comparison bar chart
+ *
+ * @param {object} countries Countries to be compared
+ * @param {object} country	Current country
+ * @param {object} options	Options for comparison
+ */
+
 (function() {
 	"use strict";
 

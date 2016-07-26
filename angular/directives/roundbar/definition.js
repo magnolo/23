@@ -1,3 +1,13 @@
+/**
+ * @ngdoc directive
+ * @name app.directive:roundbar
+ * @scope
+ * @restrict EA
+ * @description
+ * Provides a d3 roundchart with given data
+ *
+ * @param {object} chartData data to be charted in roundbar
+ */
 (function() {
 	"use strict";
 

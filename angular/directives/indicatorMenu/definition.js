@@ -1,3 +1,17 @@
+/**
+ * @ngdoc directive
+ * @name app.directive:indicatorMenu
+ * @scope
+ * @restrict EA
+ * @description
+ * Quicklinks in indicator list for configurationsteps: info/infographic/idizes/style/categories/ispublic
+ * Shows status of configurationstep
+ * Links directly to configstep <- NOT WORKING!
+ *
+ * @param {object} item indicator item on which menu is shown
+ *
+ */
+
 (function(){
 	"use strict";
 

@@ -1,3 +1,17 @@
+/**
+ * @ngdoc directive
+ * @name app.directive:indicator
+ * @scope
+ * @restrict EA
+ * @description
+ * Provides UI for indicator edit/creation
+ *
+ * @param {object} item indicator, empty at initialisation if new indicator is created
+ * @param {object} options options for indicator creation
+ * @param {object} selected which item in creation is selected
+ *
+ */
+
 (function(){
 	"use strict";
 

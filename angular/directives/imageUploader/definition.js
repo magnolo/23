@@ -1,3 +1,16 @@
+/**
+ * @ngdoc directive
+ * @name app.directive:imageUploader
+ * @scope
+ * @restrict EA
+ * @description
+ * Image Upload
+ * 
+ * @param {object} item object containing the image
+ * @param {string} label label for the uploaded image
+ *
+ */
+
 (function(){
 	"use strict";
 
@@ -10,7 +23,7 @@
 			controllerAs: 'vm',
 			scope:{
 				item: '=ngModel',
-      	label: '@'
+      			label: '@'
 			},
 			bindToController: true,
 			//replace:true,

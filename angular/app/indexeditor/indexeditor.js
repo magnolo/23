@@ -1,7 +1,7 @@
 (function () {
 	"use strict";
 
-	angular.module('app.controllers').controller('IndexeditorCtrl', function ($scope, $filter, $timeout,$state, indicators, indices, styles, categories, DataService,ContentService, toastr) {
+	angular.module('app.controllers').controller('IndexeditorCtrl', function ($scope, $filter, $timeout,$state, indicators, indices, styles, categories, DataService,ContentService, StyleService,toastr) {
 		//
 		var vm = this;
 
@@ -75,7 +75,27 @@
 			styles:{
 				drag:false,
 				type:'styles',
-				withColor:true
+				withColor:true,
+				allowAdd:true,
+				allowDelete:true,
+				addClick:function() {
+					$state.go('app.index.editor.styles.style', {id: 'new'});
+				},
+				itemClick: function (id, name) {
+					$state.go('app.index.editor.styles.style', {id:id});
+				},
+				deleteClick:function(){
+					angular.forEach(vm.selection.styles,function(item, key){
+						StyleService.removeStyle(item.id).then(function(data){
+							ContentService.removeStyle(item.id);
+							if($state.params.id == item.id){
+								$state.go('app.index.editor.styles');
+							}
+							vm.selection.styles = [];
+						});
+					});
+					//$state.go('app.index.editor.categories');
+				}
 			}
 		};
 
@@ -99,7 +119,7 @@
 						}
 					break;
 				case 3:
-
+						$state.go('app.index.editor.styles');
 					break;
 				default:
 
@@ -119,6 +139,9 @@
 			}
 			else if(toState.name.indexOf('app.index.editor.categories') != -1){
 				vm.selectedTab = 2;
+			}
+			else if (toState.name.indexOf('app.index.editor.styles') != -1) {
+				vm.selectedTab = 3;
 			}
 			else if(toState.name.indexOf('app.index.editor.indizes') != -1){
 				vm.selectedTab = 0;

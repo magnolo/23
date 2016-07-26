@@ -1,3 +1,14 @@
+/**
+ * @ngdoc directive
+ * @name app.directive:parseConflictEventsCsv
+ * @scope
+ * @restrict EA
+ * @description
+ * CSV Upload for conflict events
+ * 
+ * @param {object[]} events Object array with event data
+ */
+
 (function(){
 	"use strict";
 
@@ -8,7 +19,7 @@
 			templateUrl: 'views/directives/parseConflictEventsCsv/parseConflictEventsCsv.html',
 			controller: 'ParseConflictEventsCsvCtrl',
 			scope: {
-				events: '=',
+				events: '='
 			},
 			link: function( scope, element, attrs ){
 				//

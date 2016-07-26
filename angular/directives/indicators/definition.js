@@ -1,3 +1,14 @@
+/**
+ * @ngdoc directive
+ * @name app.directive:indicators
+ * @scope
+ * @restrict EA
+ * @description
+ * Shows list of indicators, sortable
+ *
+ *
+ */
+
 (function(){
 	"use strict";
 

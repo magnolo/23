@@ -1,7 +1,17 @@
+/**
+ * @ngdoc service
+ * @name app.ContentService
+ * @requires $filter
+ * @requires app.DataService
+ *
+ * @description
+ * CRUD factory for different categories of content e.g. indices, indicators, categories, styles etc.
+ */
+
 (function() {
 	"use strict";
 
-	angular.module('app.services').factory('ContentService', function(DataService, $filter) {
+	angular.module('app.services').factory('ContentService', function(StyleService, DataService, $filter) {
 		//
 		function searchForItem(list, id) {
 
@@ -178,6 +188,16 @@
 			removeCategory: function(id) {
 				this.removeContent(id, this.content.categories);
 				return DataService.remove('categories/', id);
+			},
+			getStyle: function (id) {
+				if(this.content.styles.length) {
+					return this.findContent(id, this.content.styles);
+				} else {
+					return this.content.style = DataService.getOne('styles/' + id).$object;
+				}
+			},
+			removeStyle: function (id) {
+				this.removeContent(id, this.content.styles);
 			},
 			filterList: function(type, filter, list) {
 				if (list.length > 0) {

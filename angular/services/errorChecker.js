@@ -1,3 +1,15 @@
+/**
+ * @ngdoc service
+ * @name app.ErrorCheckerService
+ * @requires app.DataService
+ * @requires app.DialogService
+ * @requires app.IndexService
+ * 
+ * @description
+ * Checks data, provides a way to correct errors and error messages
+ * 
+ */
+
 (function(){
     "use strict";
 
@@ -5,6 +17,14 @@
         //
         var vm = this;
 
+		/**
+		 * @ngdoc method
+		 * @name app.ErrorCheckerService#checkMyData
+		 * @methodOf app.ErrorCheckerService
+		 *
+		 * @param {object} data data to be checked
+         * @returns {Array} named extendedChoices may wrong?
+         */
         function checkMyData(data) {
     			vm.extendingChoices = [];
     			if (vm.data.length) {
@@ -34,6 +54,15 @@
           return extendedChoices;
     		}
 
+			/**
+			 * @ngdoc method
+			 * @name app.ErrorCheckerService#clearErrors
+			 * @methodOf app.ErrorCheckerService
+			 *
+			 * @description
+			 * Crawls a given data field and checks for errors, if errors are found a error object containing error taype and a messega are pushed
+			 *
+			 */
     		function clearErrors() {
     			angular.forEach(vm.data, function(row, key) {
     				angular.forEach(row.data[0], function(item, k) {
@@ -67,6 +96,15 @@
     			});
     		}
 
+			/**
+			 * @ngdoc method
+			 * @name app.ErrorCheckerService#fetchIso
+			 * @methodOf app.ErrorCheckerService
+			 * 
+			 * @description
+			 * Checks iso/country fields for errors, removes common errors, provides error object with error type and message
+			 * 
+			 */
     		function fetchIso() {
     			if (!vm.meta.iso_field) {
     				toastr.error('Check your selection for the ISO field', 'Column not specified!');

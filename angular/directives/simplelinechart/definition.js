@@ -1,3 +1,12 @@
+/**
+ * @ngdoc directive
+ * @name app.directive:simplelinechart
+ * @scope
+ * @restrict E
+ * @description
+ * Provides a d3 line chart build with nvd3
+ */
+
 (function(){
 	"use strict";
 

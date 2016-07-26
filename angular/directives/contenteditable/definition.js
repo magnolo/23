@@ -1,3 +1,13 @@
+/**
+ * @ngdoc directive
+ * @name app.directive:contenteditable
+ * @restrict A
+ * @description
+ * Makes content editable
+ * PROBABLY UNUSED AND EDITABLE
+ *
+ */
+
 (function () {
 	"use strict";
 
