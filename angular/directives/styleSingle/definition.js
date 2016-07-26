@@ -5,7 +5,6 @@
  * @restrict E
  * @description
  * Single style creation and editing User Interface
- * TODO editing
  *
  */
 

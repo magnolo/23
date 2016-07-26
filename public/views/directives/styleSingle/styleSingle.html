@@ -1,0 +1,34 @@
+<div>
+  <md-content class="md-accent doAnim" layout-padding>
+    <form name="styleForm" novalidate>
+      <div class="mb25" layout-align="space-between center" layout="row">
+        <span flex></span>
+        <md-button class="md-primary md-fab md-mini" ng-click="vm.saveStyle(styleForm.$valid)" ng-disabled="styleForm.$invalid" ng-if="styleForm.$dirty">
+          <md-icon class="material-icons">save</md-icon>
+          <md-tooltip md-delay="500">Save changes</md-tooltip>
+        </md-button>
+        <md-button ng-if="vm.close" class="md-warn md-fab md-mini" ng-click="vm.close = false">
+          <md-icon class="material-icons">close</md-icon>
+          <md-tooltip md-delay="500">Abort</md-tooltip>
+        </md-button>
+      </div>
+      <div class="indicator-fields">
+        <md-input-container class="md-block big">
+          <label>Name*</label>
+          <input maxlength="56" minlength="3" name="styleTitle" ng-model="vm.item.title" required type="text"/>
+
+        </md-input-container>
+        <div label="Main Color" md-color-picker ng-model="vm.item.base_color" required></div>
+        <md-input-container class="md-block mt2">
+          <label>Description</label>
+          <textarea ng-model="vm.item.description"></textarea>
+        </md-input-container>
+        <div layout-align="center center" layout="row">
+          <md-switch aria-label="Public" class="md-primary" ng-model="vm.item.is_public">
+            Public
+          </md-switch>
+        </div>
+      </div>
+    </form>
+  </md-content>
+</div>

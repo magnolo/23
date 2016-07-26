@@ -819,7 +819,7 @@ textarea {
 .sub-title {
   margin-left: 3px;
   font-size: 1.3em;
-  margin-bottom: 1em;
+  margin-bottom: 0em;
   margin-top: -10px;
 }
 .md-button {
@@ -1452,7 +1452,7 @@ p.small-info:hover {
   }
   .loose.fixed #sidebar .mobile-container {
     transition: all 0.3s ease-in-out;
-    transform: translateY(calc(100vh - 405px + 53px));
+    transform: translateY(calc(100vh - 320px + 53px));
     background: #fff;
   }
   .loose.fixed #sidebar .mobile-container .comparison {
@@ -1466,12 +1466,12 @@ p.small-info:hover {
 }
 @media only screen and (max-device-width: 667px) and (-webkit-device-pixel-ratio: 2) {
   .loose.fixed:not(.iframed) .mobile-container {
-    transform: translateY(calc(100vh - 475px + 53px));
+    transform: translateY(calc(100vh - 395px + 53px));
   }
 }
 @media screen and (min-device-width: 414px) and (-webkit-device-pixel-ratio: 3) {
   .loose.fixed:not(.iframed) .mobile-container {
-    transform: translateY(calc(100vh - 475px + 53px));
+    transform: translateY(calc(100vh - 395px + 53px));
   }
 }
 .loose.fixed.loggedIn #sidebar {
@@ -2643,7 +2643,6 @@ md-menu-bar {
 }
 
 
-
 .md-subheader.filled .md-subheader-inner {
   padding: 0px;
 }
@@ -3150,59 +3149,6 @@ div[ui-view='map'] {
 }
 
 
-/*.Sidebar {
-	position: fixed !important;
-	top: 0;
-	bottom: 0;
-	left: 0;
-	width: 250px !important;
-	min-width: 250px !important;
-	max-width: 250px !important;
-	background-color: rgb(63, 81, 181);
-}*/
-.Sidebar md-toolbar path {
-  fill: #fff;
-}
-.Sidebar-title {
-  font-size: 25px;
-  height: 100px;
-  max-height: 100px;
-  text-align: center;
-  font-weight: 500;
-}
-.Sidebar-pages {
-  background-color: #3f51b5;
-  color: white;
-}
-.Sidebar-pages > div {
-  min-width: 350px;
-}
-.Sidebar-pages:empty {
-  display: none;
-}
-.Sidebar-pages md-list md-list-item button.md-button:not([disabled]):hover {
-  background-color: rgba(158, 158, 158, 0.2) !important;
-}
-.Sidebar-page {
-  cursor: pointer;
-}
-.Sidebar-page md-list-item {
-  /*IE centering fix*/
-  height: 48px;
-}
-.Sidebar-page.active {
-  background-color: rgba(158, 158, 158, 0.3) !important;
-}
-.Sidebar-version {
-  margin: 0 0 20px 0;
-  text-align: center;
-  font-weight: normal;
-}
-.Sidebar-version a {
-  color: white;
-}
-
-
 
 
 
@@ -3324,8 +3270,6 @@ bubbles {
 
 
 
-<<<<<<< HEAD
-=======
 color-gradient md-input-container {
   display: none;
 }
@@ -3370,8 +3314,6 @@ color-gradient .picker-wrapper .picker-container:hover .drag-handle {
   opacity: 1;
 }
 
-
->>>>>>> master
 compare-countries svg {
   overflow: visible;
 }
@@ -3413,6 +3355,7 @@ compare-countries .ranks {
   font-style: italic;
   text-anchor: middle;
 }
+
 
 
 [contenteditable] {
@@ -3495,8 +3438,6 @@ compare-countries .ranks {
 .country-chooser .sub-title {
   position: relative;
   font-size: 1em;
-<<<<<<< HEAD
-=======
   margin-top: 0px;
   text-align: center;
 }
@@ -3505,7 +3446,6 @@ compare-countries .ranks {
     padding: 0 8px;
     padding-top: 8px;
   }
->>>>>>> master
 }
 
 
@@ -3581,7 +3521,6 @@ image-uploader .solo-label {
   padding-bottom: 2px;
 }
 
-
 .indicator-menu {
   position: absolute;
   right: 2.5em;
@@ -3614,10 +3553,12 @@ image-uploader .solo-label {
 }
 
 
+
 median {
   border-radius: 20px;
   display: inline-block;
   height: 40px;
+  width: 100%;
 }
 median > svg {
   overflow: visible;
@@ -3662,14 +3603,12 @@ median .slider .handle {
   fill: #0ca;
   stroke-width: 0;
   stroke: #aaa;
-  cursor: ew-resize;
 }
 median .slider text {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  cursor: ew-resize;
 }
 
 panels {
@@ -4263,6 +4202,7 @@ piechart .inner-pie {
   overflow: hidden;
 }
 
+
 .md-color-container.md-color-picker-preview {
   content: '';
   width: 24px;
@@ -4468,10 +4408,7 @@ piechart .inner-pie {
   margin-right: .5em;
 }
 
-<<<<<<< HEAD
-=======
 
->>>>>>> master
 .weight-control {
   min-width: 85px;
   width: 85px;

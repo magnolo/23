@@ -109,6 +109,8 @@ $api->version('v1', ['middleware' => 'api.auth'], function ($api) {
     $api->delete('categories/{id}', 'App\Http\Controllers\CategoriesController@destroy');
 
     $api->post('styles', 'App\Http\Controllers\StyleController@store');
+    $api->put('styles/{id}', 'App\Http\Controllers\StyleController@update');
+    $api->delete('styles/{id}', 'App\Http\Controllers\StyleController@destroy');
 
     $api->post('dataproviders', 'App\Http\Controllers\DataprovidersController@store');
 

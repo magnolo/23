@@ -11,7 +11,7 @@
 (function() {
 	"use strict";
 
-	angular.module('app.services').factory('ContentService', function(DataService, $filter) {
+	angular.module('app.services').factory('ContentService', function(StyleService, DataService, $filter) {
 		//
 		function searchForItem(list, id) {
 
@@ -195,6 +195,9 @@
 				} else {
 					return this.content.style = DataService.getOne('styles/' + id).$object;
 				}
+			},
+			removeStyle: function (id) {
+				this.removeContent(id, this.content.styles);
 			},
 			filterList: function(type, filter, list) {
 				if (list.length > 0) {

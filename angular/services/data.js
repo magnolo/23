@@ -106,7 +106,7 @@
          *
          */
 		function update(route, id, data) {
-			return Restangular.one(route, id).put(data);
+			return Restangular.one(route, id).customPUT(data);
 		}
         /**
          * @ngdoc method
