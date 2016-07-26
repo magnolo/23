@@ -2293,6 +2293,9 @@ md-dialog-content p.columned {
   transform: scale(1.2);
 }
 
+#indicator-container {
+  height: 60vh;
+}
 
 .Header {
   transition: all 1s ease-in-out;

@@ -30,14 +30,15 @@
 <md-list>
     <md-list-item ng-repeat="index in vm.indices | filter: {title:vm.query}" ui-sref="app.index.show({id:index.id, name:index.name})">
         {{index.title}}
+    </md-list-item>
 </md-list>
-</md-list>
+<md-list>
 <md-subheader class="md-primary">Indicators</md-subheader>
-<md-virtual-repeat-container md-auto-shrink>
-  <md-list-item md-virtual-repeat="indicator in vm.indicators" ui-sref="app.index.indicator({name:indicator.name, id:indicator.id})">  {{indicator.title}}</md-list-item>
+<md-virtual-repeat-container id="indicator-container" md-auto-shrink>
+  <md-list-item md-virtual-repeat="indicator in vm.indicators | filter: {title: vm.query}" ui-sref="app.index.indicator({name:indicator.name, id:indicator.id})">  {{indicator.title}}</md-list-item>
 </md-virtual-repeat-container>
-<!--<md-list>
-    <md-list-item ng-repeat="indicator in vm.indicators | filter: {title:vm.query}" ui-sref="app.index.indicator({name:indicator.name, id:indicator.id})">
+
+    <!--md-list-item ng-repeat="indicator in vm.indicators | filter: {title:vm.query}" ui-sref="app.index.indicator({name:indicator.name, id:indicator.id})">
         {{indicator.title}}
-</md-list>-->
+    </md-list-item-->
 </md-list>
