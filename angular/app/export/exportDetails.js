@@ -40,12 +40,13 @@
 				},
 				save: function() {
 					vm.ExportService.save(function(response) {
-
+						//Caused image to be removed on initial save
+						/*
 						$state.go('app.index.exports.details', {
 							id: response.id,
 							name: response.name
 						});
-
+						*/
 					});
 					// if(vm.export.id == 0 || ! vm.export.id){
 					//   DataService.post('exports', vm.export).then(function(){

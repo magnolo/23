@@ -1,3 +1,14 @@
+/**
+ * @ngdoc service
+ * @name app.StyleService
+ * @requires DataService
+ * @requires $filter
+ *
+ * @description
+ * CRUD for Styles, uses DataService.
+ * TODO Move content into this service ,away from the content service
+ */
+
 (function(){
     "use strict";
 
