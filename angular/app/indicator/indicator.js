@@ -1,7 +1,7 @@
 (function() {
 	"use strict";
 
-	angular.module('app.controllers').controller('IndicatorShowCtrl', function($state, $filter, $timeout, indicator, countries, ContentService, VectorlayerService, toastr) {
+	angular.module('app.controllers').controller('IndicatorShowCtrl', function($state, $filter, $timeout, indicator, countries, ContentService, VectorlayerService, CountriesService, toastr) {
 		//
 		var vm = this;
 		vm.current = null;
@@ -143,7 +143,7 @@
 			}, 250);
 		}
 
-		function getData(year, gender) {
+		function oldGetData(year, gender) {
 			ContentService.getIndicatorData(vm.indicator.id, vm.year, vm.gender).then(function(dat) {
 				resetRange();
 				vm.data = dat;
@@ -176,11 +176,59 @@
 
 				getOffset();
 				vm.linearScale = d3.scale.linear().domain([vm.range.min, vm.range.max]).range([0, 256]);
-				VectorlayerService.setData(vm.data, vm.indicator.styled.base_color, true);
+
+				VectorlayerService.setData(vm.data,vm.indicator.styled.base_color, true);
 				//VectorlayerService.paintCountries(countriesStyle, countryClick);
 			});
+			
+		}
+
+		function getData(year, gender) {
+			ContentService.fetchIndicatorWithData(vm.indicator.id, function(indicator) {
+				resetRange();
+
+				vm.data = indicator.data;
+				vm.structure = indicator;
+				var iso = null;
+
+				if ($state.params.iso) {
+					for (var i = 0; i < vm.data.length; i++) {
+						if (vm.data[i].iso == $state.params.iso) {
+							vm.current = vm.data[i];
+							iso = vm.current.iso;
+							//setSelectedFeature();
+						}
+					}
+				}
+				angular.forEach(vm.data, function(item) {
+					item.rank = vm.data.indexOf(item) + 1;
+					if (vm.current) {
+						if (item.iso == vm.current.iso) {
+							setCurrent(item);
+						}
+					}
+					vm.range.max = d3.max([vm.range.max, parseFloat(item.score)]);
+					vm.range.min = d3.min([vm.range.min, parseFloat(item.score)]);
+				});
+
+				vm.circleOptions = {
+					color: vm.indicator.styled.base_color || '#00ccaa',
+					field: 'rank',
+					size: vm.data.length
+				};
+
+				getOffset();
+				vm.linearScale = d3.scale.linear().domain([vm.range.min, vm.range.max]).range([0, 256]);
 
 
+				VectorlayerService.setData(indicator.data, indicator, vm.indicator.styled.base_color, true);
+				CountriesService.getContinents(function(continents) {
+					vm.continents = continents
+				}, vm.indicator.id);
+
+			}, {
+				data: true
+			});
 		}
 
 		function countriesStyle(feature) {
