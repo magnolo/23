@@ -1,3 +1,11 @@
+/**
+ * @ngdoc directive
+ * @name app.directive:autoFocus
+ * @restrict AC
+ *
+ * @description Provides an attribute or class to focus an element in the DOM automatically
+ */
+
 (function(){
 	"use strict";
 

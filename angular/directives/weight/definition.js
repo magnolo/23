@@ -1,3 +1,16 @@
+/**
+ * @ngdoc directive
+ * @name app.directive:weight
+ * @scope
+ * @restrict EA
+ *
+ * @description
+ * UI element for setting weights
+ *
+ * @param {object[]} items Object array with items to add weight to
+ * @param {object} item current item
+ * @param {object} options options object
+ */
 (function() {
 	"use strict";
 

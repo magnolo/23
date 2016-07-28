@@ -1,3 +1,15 @@
+/**
+ * @ngdoc directive
+ * @name app.directive:basemapSelector
+ * @scope
+ * @restrict EA
+ * @description
+ * Provides an interface for the selection of the basemap for the current chapter
+ *
+ * @param {object} ngModel Basemap Style
+ *
+ */
+
 (function(){
 	"use strict";
 

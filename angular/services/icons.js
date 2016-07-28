@@ -1,3 +1,12 @@
+/**
+ * @ngdoc service
+ * @name app.IconService
+ *
+ * @description
+ * Service for retrieving icon unicode by name
+ *
+ */
+
 (function(){
     "use strict";
 

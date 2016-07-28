@@ -2643,7 +2643,6 @@ md-menu-bar {
 }
 
 
-
 .md-subheader.filled .md-subheader-inner {
   padding: 0px;
 }
@@ -3150,59 +3149,6 @@ div[ui-view='map'] {
 }
 
 
-/*.Sidebar {
-	position: fixed !important;
-	top: 0;
-	bottom: 0;
-	left: 0;
-	width: 250px !important;
-	min-width: 250px !important;
-	max-width: 250px !important;
-	background-color: rgb(63, 81, 181);
-}*/
-.Sidebar md-toolbar path {
-  fill: #fff;
-}
-.Sidebar-title {
-  font-size: 25px;
-  height: 100px;
-  max-height: 100px;
-  text-align: center;
-  font-weight: 500;
-}
-.Sidebar-pages {
-  background-color: #3f51b5;
-  color: white;
-}
-.Sidebar-pages > div {
-  min-width: 350px;
-}
-.Sidebar-pages:empty {
-  display: none;
-}
-.Sidebar-pages md-list md-list-item button.md-button:not([disabled]):hover {
-  background-color: rgba(158, 158, 158, 0.2) !important;
-}
-.Sidebar-page {
-  cursor: pointer;
-}
-.Sidebar-page md-list-item {
-  /*IE centering fix*/
-  height: 48px;
-}
-.Sidebar-page.active {
-  background-color: rgba(158, 158, 158, 0.3) !important;
-}
-.Sidebar-version {
-  margin: 0 0 20px 0;
-  text-align: center;
-  font-weight: normal;
-}
-.Sidebar-version a {
-  color: white;
-}
-
-
 
 
 
@@ -3368,7 +3314,6 @@ color-gradient .picker-wrapper .picker-container:hover .drag-handle {
   opacity: 1;
 }
 
-
 compare-countries svg {
   overflow: visible;
 }
@@ -3410,6 +3355,7 @@ compare-countries .ranks {
   font-style: italic;
   text-anchor: middle;
 }
+
 
 
 [contenteditable] {
@@ -3575,7 +3521,6 @@ image-uploader .solo-label {
   padding-bottom: 2px;
 }
 
-
 .indicator-menu {
   position: absolute;
   right: 2.5em;
@@ -3606,6 +3551,7 @@ image-uploader .solo-label {
 .indicator-menu ng-md-icon.greyed path {
   fill: #ddd;
 }
+
 
 
 median {
@@ -4255,6 +4201,7 @@ piechart .inner-pie {
 .slide-toggle.ng-animate {
   overflow: hidden;
 }
+
 
 .md-color-container.md-color-picker-preview {
   content: '';

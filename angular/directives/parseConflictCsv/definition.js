@@ -1,3 +1,15 @@
+/**
+ * @ngdoc directive
+ * @name app.directive:parseConflictCsv
+ * @scope
+ * @restrict EA
+ * @description
+ * CSV upload for confict data, probably used in HIIK
+ *
+ * @param {object[]} nations conflict nations
+ * @param {object} sum sum of some sort
+ */
+
 (function(){
 	"use strict";
 

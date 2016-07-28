@@ -1,3 +1,15 @@
+/**
+ * @ngdoc directive
+ * @name app.directive:fileDropzone
+ * @scope
+ * @restrict EA
+ * @description
+ * Provides a file dropzone, checks if it a valid mimetype and if the file isn't too big
+ *
+ * @param {object} file file that will be processed
+ * @param {string} fileName filename of processed file
+ */
+
 (function () {
 	"use strict";
 

@@ -1,3 +1,15 @@
+/**
+ * @ngdoc directive
+ * @name app.directive:basemap
+ * @scope
+ * @restrict EA
+ * @description
+ * Provides a form/user-interface so basemaps can be added via url
+ * 
+ * @param {object} item basemap item to be added, {title:,url:,description:,attribution:,ext:extension,subdomains:,key}
+ * @param {object} options options for basemap
+ */
+
 (function(){
 	"use strict";
 

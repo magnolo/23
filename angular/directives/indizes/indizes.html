@@ -11,8 +11,8 @@
 
 							<span class="info" layout-align="space-between center" layout="row" ng-class="{'warning':!vm.checkBase(), 'info': vm.checkBase()}">
 																																<ng-md-icon icon="{{vm.checkBase() ? 'check_circle': 'error'}}"></ng-md-icon>
-																																<div ng-if="vm.checkBase()">&nbsp;Completed</div>
-																																<div ng-if="!vm.checkBase()">&nbsp;Uncompleted</div>
+																																<div ng-if="vm.checkBase()">&nbsp;Complete</div>
+																																<div ng-if="!vm.checkBase()">&nbsp;Incomplete</div>
 																												</span>
 							<span flex></span>
 							<md-button class="md-primary md-fab md-mini doAnim-bottom" ng-click="vm.save()" ng-disabled="baseForm.$invalid || !vm.checkBase()" ng-if="vm.options.withSave && vm.item.isDirty">

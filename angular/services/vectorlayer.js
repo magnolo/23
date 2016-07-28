@@ -187,11 +187,11 @@
 			//document.getElementsByTagName('body')[0].appendChild(this.canvas);
 		}
 		this.setBaseColor = function(color) {
-				return this.data.baseColor = color;
-			}
-			/*	setStyle: function(style) {
-					this.data.layer.setStyle(style)
-				},*/
+			return this.data.baseColor = color;
+		}
+		/*	setStyle: function(style) {
+		 this.data.layer.setStyle(style)
+		 },*/
 		this.countryClick = function(clickFunction) {
 			var that = this;
 			$timeout(function() {
@@ -300,7 +300,7 @@
 			} else {
 				if(deselectedAll){
 					angular.forEach(this.data.layer.layers[this.data.name + '_geom'].features, function(feature, key) {
-							feature.selected = false;
+						feature.selected = false;
 
 					});
 				}
@@ -345,29 +345,29 @@
 			});
 		}
 		this.gotoCountries = function(main, isos) {
-				//	isos.push(main);
-				DataService.getOne('countries/bbox', isos).then(function(data) {
-					var southWest = L.latLng(data.coordinates[0][0][1], data.coordinates[0][0][0]),
-						northEast = L.latLng(data.coordinates[0][2][1], data.coordinates[0][2][0]),
-						bounds = L.latLngBounds(southWest, northEast);
+			//	isos.push(main);
+			DataService.getOne('countries/bbox', isos).then(function(data) {
+				var southWest = L.latLng(data.coordinates[0][0][1], data.coordinates[0][0][0]),
+					northEast = L.latLng(data.coordinates[0][2][1], data.coordinates[0][2][0]),
+					bounds = L.latLngBounds(southWest, northEast);
 
-					var pad = [
-						[100, 100],
-						[100, 100]
-					];
-					// if (vm.compare.active) {
-					// 	pad = [
-					// 		[0, 0],
-					// 		[0, 0]
-					// 	];
-					// }
-					that.mapLayer.fitBounds(bounds, {
-						padding: pad[1],
-						maxZoom: 4
-					});
+				var pad = [
+					[100, 100],
+					[100, 100]
+				];
+				// if (vm.compare.active) {
+				// 	pad = [
+				// 		[0, 0],
+				// 		[0, 0]
+				// 	];
+				// }
+				that.mapLayer.fitBounds(bounds, {
+					padding: pad[1],
+					maxZoom: 4
 				});
-			}
-			//FULL TO DO
+			});
+		}
+		//FULL TO DO
 		this.countriesStyle = function(feature) {
 
 			var style = {};

@@ -1,3 +1,12 @@
+/**
+ * @ngdoc directive
+ * @name app.directive:parsecsv
+ * @scope
+ * @restrict EA
+ * @description
+ * CSV upload and parsing
+ */
+
 (function () {
 	"use strict";
 
@@ -197,7 +206,7 @@
 								IndexService.setToLocalStorage();
 								
 								$timeout(function(){
-									toastr.info(IndexService.getDataSize() + ' lines importet!', 'Information');
+									toastr.info(IndexService.getDataSize() + ' lines imported!', 'Information');
 									$state.go('app.index.check');
 								});
 

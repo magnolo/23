@@ -1,3 +1,14 @@
+/**
+ * @ngdoc service
+ * @name app.ExportService
+ * @requires app.DataService
+ * @requires toastr
+ *
+ * @description
+ * Provides services used to export custom maps with chapters
+ *
+ */
+
 (function() {
 	"use strict";
 

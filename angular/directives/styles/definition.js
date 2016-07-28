@@ -1,3 +1,17 @@
+/**
+ * @ngdoc directive
+ * @name app.directive:styles
+ * @scope
+ * @restrict E
+ * @description
+ * Provides a UI for creating and editing styles
+ *
+ * @param {object} item current style
+ * @param {object[]} object array with all styles
+ * @param {option} options for style directive
+ *
+ */
+
 (function(){
 	"use strict";
 

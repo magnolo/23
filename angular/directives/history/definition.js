@@ -1,3 +1,15 @@
+/**
+ * @ngdoc directive
+ * @name app.directive:history
+ * @scope
+ * @restrict E
+ * @description
+ * Timeline chart of provided chart data
+ *
+ * @param {object} options options for history chart
+ * @param {object} chartdata data that will be charted
+ */
+
 (function(){
 	"use strict";
 

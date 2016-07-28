@@ -1,3 +1,13 @@
+/**
+ * @ngdoc directive
+ * @name app.directive:sunburst
+ * @scope
+ * @restrict E
+ * @description
+ * Creates a d3 sunburst chart with provided data
+ *
+ * @param {object} data data to be charted
+ */
 (function () {
 	"use strict";
 

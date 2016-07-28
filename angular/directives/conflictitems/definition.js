@@ -1,3 +1,11 @@
+/**
+ * @ngdoc directive
+ * @name app.directive:conflictitems
+ * @restrict EA
+ * @description
+ * PROBABLY UNUSED AND DELETABLE
+ */
+
 (function(){
 	"use strict";
 
