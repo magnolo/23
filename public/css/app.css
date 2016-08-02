@@ -1898,6 +1898,32 @@ md-toast[md-theme=warn] {
   font-size: 2em;
 }
 
+.conflict-legend {
+  border-bottom: 1px solid #d7dddd;
+  padding-bottom: 0.5em;
+  margin-bottom: 0.5em;
+}
+.conflict-item {
+  margin: 0.5em 0;
+  margin-right: 1.5em;
+  cursor: pointer;
+}
+.conflict1 {
+  color: #add9f0;
+}
+.conflict2 {
+  color: #87cceb;
+}
+.conflict3 {
+  color: #36a8c6;
+}
+.conflict4 {
+  color: #268399;
+}
+.conflict5 {
+  color: #005573;
+}
+
 #items-menu {
   position: fixed;
   right: 0px;
@@ -1942,32 +1968,6 @@ md-toast[md-theme=warn] {
   #items-menu {
     display: none;
   }
-}
-
-.conflict-legend {
-  border-bottom: 1px solid #d7dddd;
-  padding-bottom: 0.5em;
-  margin-bottom: 0.5em;
-}
-.conflict-item {
-  margin: 0.5em 0;
-  margin-right: 1.5em;
-  cursor: pointer;
-}
-.conflict1 {
-  color: #add9f0;
-}
-.conflict2 {
-  color: #87cceb;
-}
-.conflict3 {
-  color: #36a8c6;
-}
-.conflict4 {
-  color: #268399;
-}
-.conflict5 {
-  color: #005573;
 }
 
 .conflict .back-button {
@@ -3150,59 +3150,6 @@ div[ui-view='map'] {
 }
 
 
-/*.Sidebar {
-	position: fixed !important;
-	top: 0;
-	bottom: 0;
-	left: 0;
-	width: 250px !important;
-	min-width: 250px !important;
-	max-width: 250px !important;
-	background-color: rgb(63, 81, 181);
-}*/
-.Sidebar md-toolbar path {
-  fill: #fff;
-}
-.Sidebar-title {
-  font-size: 25px;
-  height: 100px;
-  max-height: 100px;
-  text-align: center;
-  font-weight: 500;
-}
-.Sidebar-pages {
-  background-color: #3f51b5;
-  color: white;
-}
-.Sidebar-pages > div {
-  min-width: 350px;
-}
-.Sidebar-pages:empty {
-  display: none;
-}
-.Sidebar-pages md-list md-list-item button.md-button:not([disabled]):hover {
-  background-color: rgba(158, 158, 158, 0.2) !important;
-}
-.Sidebar-page {
-  cursor: pointer;
-}
-.Sidebar-page md-list-item {
-  /*IE centering fix*/
-  height: 48px;
-}
-.Sidebar-page.active {
-  background-color: rgba(158, 158, 158, 0.3) !important;
-}
-.Sidebar-version {
-  margin: 0 0 20px 0;
-  text-align: center;
-  font-weight: normal;
-}
-.Sidebar-version a {
-  color: white;
-}
-
-
 
 
 
@@ -3253,6 +3200,7 @@ div[ui-view='map'] {
 .mini-map .leaflet-control-container {
   display: none !important;
 }
+
 
 bubbles {
   overflow: hidden;
@@ -3323,7 +3271,6 @@ bubbles {
 
 
 
-
 color-gradient md-input-container {
   display: none;
 }
@@ -3367,7 +3314,6 @@ color-gradient .picker-wrapper .picker-container:hover .close {
 color-gradient .picker-wrapper .picker-container:hover .drag-handle {
   opacity: 1;
 }
-
 
 compare-countries svg {
   overflow: visible;
@@ -3439,6 +3385,7 @@ compare-countries .ranks {
   left: 0px;
   border-bottom-width: 1px;
 }
+
 
 .thumb-chooser {
   border-radius: 0px;
@@ -3575,7 +3522,6 @@ image-uploader .solo-label {
   padding-bottom: 2px;
 }
 
-
 .indicator-menu {
   position: absolute;
   right: 2.5em;
@@ -3606,6 +3552,7 @@ image-uploader .solo-label {
 .indicator-menu ng-md-icon.greyed path {
   fill: #ddd;
 }
+
 
 
 median {
