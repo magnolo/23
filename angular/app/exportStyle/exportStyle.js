@@ -5,6 +5,7 @@
 		var vm = this;
 		vm.ColorHandle = ColorHandleService;
 		vm.addColorRange = addColorRange;
+		vm.removeColorRange = removeColorRange;
 		vm.exporter = {};
 		vm.item = {};
 		vm.colorHandles = [];
@@ -41,7 +42,7 @@
 						legends: true,
 						full_screen: false,
 						countries: [],
-						color_range: [new vm.ColorHandle('rgba(0, 0, 0, 1.00)', 0.00), new vm.ColorHandle('rgba(0, 0, 0, 0.00)', 1.00)]
+						color_range: [new vm.ColorHandle('rgba(0, 0, 0, 1.00)', 0.00), new vm.ColorHandle('rgba(255, 255, 255, 1.00)', 1.00)]
 					};
 				}
 				else{
@@ -87,6 +88,10 @@
 				new vm.ColorHandle('rgba(255,255,255,1)', 1.00)];
 				VectorlayerService.paint(	vm.item.style.color_range);
 		}
+		function removeColorRange(){
+			vm.item.style.color_range = undefined;
+			VectorlayerService.paint(	vm.item.style.base_color);
+		}
 
 		$scope.$watch('vm.item.style', function(n, o) {
 			if (n === o || !n.basemap) return;
@@ -102,7 +107,7 @@
 		vm.deleteColorHandle = deleteColorHandle;
 
 		function addColorHandle(stop) {
-			vm.item.style.color_range.push(new vm.ColorHandle('rgba(0,0,0,0)', stop));
+			vm.item.style.color_range.push(new vm.ColorHandle('rgba(255,255,255,1)', stop));
 		}
 
 		function deleteColorHandle(colorHandle) {

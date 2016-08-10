@@ -11,8 +11,8 @@
 	<md-content flex="70" layout="column" layout-align="center center" flex-offset="15">
 		<h2 class="md-headline mt0">{{vm.item.title}}</h2>
 		<div label="Main Color" md-color-picker ng-model="vm.item.style.base_color" required></div>
-    <md-button ng-if="!vm.item.style.color_range.length" class="md-primary md-raised" ng-click="vm.addColorRange()">Add Gradient Color</md-button>
-		<!-- <color-gradient gradient="vm.gradient"></color-gradient> -->
+    <md-button ng-if="!vm.item.style.color_range.length" class="md-primary md-raised" ng-click="vm.addColorRange()">Edit Gradient</md-button>
+    <!-- <color-gradient gradient="vm.gradient"></color-gradient> -->
 		<div class="gradientEditorWrapper" ng-if="vm.item.style.color_range.length">
 			<div class="colorHandlesWorkAreaWrapper" kill-context-menu>
 				<div class="colorHandlesWorkArea">
@@ -24,6 +24,8 @@
 				</div>
 			</div>
 		</div>
+    <md-button ng-if="vm.item.style.color_range.length" class="md-primary md-raised" ng-click="vm.removeColorRange()">Remove Gradient</md-button>
+
 	</md-content>
 	<div layout="column" layout-align="center center">
 		<h3 class="md-subhead">Choose Basemap</h3>

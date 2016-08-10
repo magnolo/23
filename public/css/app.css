@@ -2174,7 +2174,7 @@ md-dialog-content p.columned {
 .gradientEditorWrapper,
 .bigPreviewCanvasWrapper,
 .gradientCodeWrapper {
-  margin: 0 50px 50px 0;
+  margin: 0 50px 10px 0;
   float: left;
 }
 .gradientEditorWrapper,
@@ -3608,7 +3608,6 @@ image-uploader .solo-label {
   padding-bottom: 2px;
 }
 
-
 .indicator-menu {
   position: absolute;
   right: 2.5em;
@@ -3639,6 +3638,7 @@ image-uploader .solo-label {
 .indicator-menu ng-md-icon.greyed path {
   fill: #ddd;
 }
+
 
 
 
