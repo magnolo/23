@@ -19,3 +19,60 @@
         }
     }
 }
+.colorHandlesWorkAreaWrapper {
+    padding: 0 25px;
+    margin: 0 -25px;
+}
+.colorHandlesWorkArea {
+    height: 55px;
+    position: relative;
+}
+.smallPreviewCanvas {
+    border: 1px solid #000;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+}
+.gradientEditorWrapper, .bigPreviewCanvasWrapper, .gradientCodeWrapper {
+    margin: 0 50px 50px 0;
+    float: left;
+}
+.gradientEditorWrapper, .bigPreviewCanvasWrapper {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.gradientEditorWrapper, .colorHandlesWorkArea {
+    width: 543px;
+
+}
+.gradientEditorWrapper.hasActiveColorHandle {
+    margin-right: 48px;
+}
+[color-handle]{
+  padding: 0 10px;
+font-size: 2em;
+position: absolute;
+bottom: 0;
+z-index:10;
+cursor: pointer;
+transition: 0.1s bottom linear;
+-webkit-transition: 0.1s bottom linear;
+-moz-transition: 0.1s bottom linear;
+-o-transition: 0.1s bottom linear;
+text-shadow: 0 1px 3px #000;
+filter: DropShadow(Color=#000000, OffX=0, OffY=1);
+.gradient-color-picker {
+    position: relative;
+
+    .md-color-picker-clear, md-input-container {
+        display: none;
+    }
+    .md-color-picker-input-container .md-color-picker-preview, md-color-picker .md-color-picker-input-container .md-color-picker-preview{
+      top:0px;
+
+    }
+}
+}

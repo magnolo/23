@@ -1,10 +1,12 @@
 (function() {
 	"use strict";
 
-	angular.module('app.controllers').controller('ExportStyleCtrl', function($scope, $state, $timeout, ContentService, ExportService, IndizesService, leafletData, leafletMapEvents, VectorlayerService, CountriesService) {
+	angular.module('app.controllers').controller('ExportStyleCtrl', function($scope, $state, $timeout, ContentService, ExportService, IndizesService, leafletData, leafletMapEvents, VectorlayerService, CountriesService, ColorHandleService) {
 		var vm = this;
+		vm.ColorHandle = ColorHandleService;
 		vm.exporter = {};
 		vm.item = {};
+		vm.colorHandles = [new vm.ColorHandle('rgba(0, 0, 0, 1.00)', 0.00), new vm.ColorHandle('rgba(0, 0, 0, 0.00)', 1.00)]
 		vm.continentOptions = {
 			onlyWithChildren: true
 		};

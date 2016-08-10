@@ -12,8 +12,24 @@
   <h2 class="md-headline mt0">{{vm.item.title}}</h2>
   <div label="Main Color" md-color-picker ng-model="vm.item.style.base_color" required></div>
 
-    <color-gradient gradient="vm.gradient"></color-gradient>
-
+    <!-- <color-gradient gradient="vm.gradient"></color-gradient> -->
+    <div class="gradientEditorWrapper">
+    <div class="colorHandlesWorkAreaWrapper">
+      <div class="colorHandlesWorkArea">
+    <canvas class="smallPreviewCanvas" preview-canvas
+                gradient-type="'linear'"
+                color-handles="vm.colorHandles"
+                width="543"
+                height="40"
+                rotate="0"
+                ></canvas>
+    <div gradient-click-area></div>
+    <div ng-repeat="ColorHandle in vm.colorHandles" color-handle="ColorHandle" class="ng-scope iconic arrow_up" style="left: -3.4%; color: rgb(0, 0, 0);">
+        <div class="gradient-color-picker" label="Main Color"  md-color-picker ng-model="ColorHandle.color" ></div>
+    </div>
+  </div>
+</div>
+</div>
 </md-content>
 <div layout="column" layout-align="center center">
   <h3 class="md-subhead">Choose Basemap</h3>
