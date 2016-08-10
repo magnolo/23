@@ -9,6 +9,9 @@ class Style extends Model
     //
     protected $table="styles";
 
+    protected $casts = [
+        'color_range' => 'array',
+    ];
     public function indicators(){
       return $this->hasMany('App\Indicator');
     }

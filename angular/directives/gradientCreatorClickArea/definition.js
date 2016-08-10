@@ -6,36 +6,36 @@
       template: '<span class="addHandleIcon iconic brush"></span>',
       link: function(scope, elem) {
         var addHandleIcon, mouseIsDown;
-        addHandleIcon = elem.find('span').hide();
+        addHandleIcon = elem.find('span').css('opacity',0);
         mouseIsDown = false;
-        $document.mousedown(function() {
+        $document.bind('mousedown', function() {
           return mouseIsDown = true;
         });
-        $document.mouseup(function() {
+        $document.bind('mouseup',function() {
           return mouseIsDown = false;
         });
-        elem.mouseover(function() {
+        elem.bind('mouseover',function() {
           if (!mouseIsDown) {
-            return addHandleIcon.show();
+            return addHandleIcon.css('opacity',1);
           }
         });
-        elem.mouseout(function() {
-          return addHandleIcon.hide();
+        elem.bind('mouseout',function() {
+          return addHandleIcon.css('opacity',0);
         });
-        elem.mousemove(function(event) {
+        elem.bind('mousemove',function(event) {
           return addHandleIcon.css({
             left: event.offsetX,
             top: event.offsetY - 5
           });
         });
-        return elem.mousedown(function(event) {
+        return elem.bind('mousedown',function(event) {
           var leftClicked;
           leftClicked = event.which === 1;
           if (leftClicked) {
             scope.$apply(function() {
-              return scope.addColorHandle((event.pageX - elem.offset().left) / elem.width());
+						  return scope.vm.addColorHandle((event.pageX -  elem[0].getBoundingClientRect().left) / elem[0].clientWidth);
             });
-            return addHandleIcon.hide();
+            return addHandleIcon.css('opacity',0);
           }
         });
       }

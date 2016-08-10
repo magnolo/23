@@ -2196,7 +2196,7 @@ md-dialog-content p.columned {
   font-size: 2em;
   position: absolute;
   bottom: 0;
-  z-index: 10;
+  z-index: 12;
   cursor: pointer;
   transition: 0.1s bottom linear;
   -webkit-transition: 0.1s bottom linear;
@@ -2704,6 +2704,7 @@ md-menu-bar {
 }
 
 
+
 .md-subheader.filled .md-subheader-inner {
   padding: 0px;
 }
@@ -2711,6 +2712,15 @@ md-menu-bar {
   padding-left: 1em;
 }
 
+md-list-item.md-2-line {
+  min-height: 62px;
+}
+md-list-item.md-2-line a {
+  padding-top: .5em;
+}
+md-list-item.md-2-line > .md-no-style {
+  min-height: 62px;
+}
 
 section.module-top {
   background-color: #fff;
@@ -3006,16 +3016,6 @@ md-list-item.active {
   /*&::before{
           width:5px;
         }*/
-}
-
-md-list-item.md-2-line {
-  min-height: 62px;
-}
-md-list-item.md-2-line a {
-  padding-top: .5em;
-}
-md-list-item.md-2-line > .md-no-style {
-  min-height: 62px;
 }
 
 .cursor {
@@ -3527,6 +3527,14 @@ compare-countries .ranks {
 
 
 
+[gradient-click-area] {
+  cursor: crosshair;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  z-index: 11;
+}
 
 
 
@@ -3599,6 +3607,7 @@ image-uploader .solo-label {
 .indicator-tabs md-autocomplete[md-floating-label] md-input-container {
   padding-bottom: 2px;
 }
+
 
 .indicator-menu {
   position: absolute;

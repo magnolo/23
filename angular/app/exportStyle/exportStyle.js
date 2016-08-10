@@ -4,32 +4,15 @@
 	angular.module('app.controllers').controller('ExportStyleCtrl', function($scope, $state, $timeout, ContentService, ExportService, IndizesService, leafletData, leafletMapEvents, VectorlayerService, CountriesService, ColorHandleService) {
 		var vm = this;
 		vm.ColorHandle = ColorHandleService;
+		vm.addColorRange = addColorRange;
 		vm.exporter = {};
 		vm.item = {};
-		vm.colorHandles = [new vm.ColorHandle('rgba(0, 0, 0, 1.00)', 0.00), new vm.ColorHandle('rgba(0, 0, 0, 0.00)', 1.00)]
+		vm.colorHandles = [];
 		vm.continentOptions = {
 			onlyWithChildren: true
 		};
-		vm.gradient = [
-			{
-				color:'rgba(255,12,17,0.5)',
-				pos: 0,
-				alpha:1,
-				id: Math.random()
-			},
-			{
-				color:'#00ff00',
-				pos: 50,
-				alpha:1,
-				id: Math.random()
-			},
-			{
-				color:'#0000ff',
-				pos: 100,
-				alpha:1,
-				id: Math.random()
-			},
-		]
+
+
 		activate();
 
 		function activate() {
@@ -57,14 +40,23 @@
 						layer_selection: false,
 						legends: true,
 						full_screen: false,
-						countries: []
+						countries: [],
+						color_range: [new vm.ColorHandle('rgba(0, 0, 0, 1.00)', 0.00), new vm.ColorHandle('rgba(0, 0, 0, 0.00)', 1.00)]
 					};
 				}
+				else{
+					if(typeof vm.item.style.color_range == "string"){
+						vm.item.style.color_range = JSON.parse(vm.item.style.color_range);
+					}
+
+				//	vm.item.style.color_range  = [new vm.ColorHandle('rgba(0, 0, 0, 1.00)', 0.00), new vm.ColorHandle('rgba(0, 0, 0, 0.00)', 1.00)]
+				}
+
 				ContentService.fetchIndicatorWithData(vm.item.indicator_id, function(indicator) {
 					vm.data = indicator.data;
 					vm.structure = indicator;
 
-					VectorlayerService.setData(indicator.data, indicator, vm.item.style.base_color, true);
+					VectorlayerService.setData(indicator.data, indicator, vm.item.style.color_range || vm.item.style.base_color, true);
 					CountriesService.getContinents(function(continents) {
 						vm.continents = continents
 					}, vm.item.indicator_id);
@@ -88,12 +80,34 @@
 			return found;
 		};
 
+		function addColorRange(){
+			vm.item.style.color_range = [
+				new vm.ColorHandle('rgba(102,102,102,1)', 0.00),
+				new vm.ColorHandle(vm.item.style.base_color, 0.53),
+				new vm.ColorHandle('rgba(255,255,255,1)', 1.00)];
+				VectorlayerService.paint(	vm.item.style.color_range);
+		}
 
 		$scope.$watch('vm.item.style', function(n, o) {
 			if (n === o || !n.basemap) return;
 			VectorlayerService.setBaseLayer(n.basemap);
-			VectorlayerService.paint(n.base_color);
+			//Choose between color and rang
+			VectorlayerService.paint(n.color_range || n.base_color);
 		}, true);
+
+
+		//Stuff for the Gradient Designer
+		//should move to its own Controller/Component
+		vm.addColorHandle = addColorHandle;
+		vm.deleteColorHandle = deleteColorHandle;
+
+		function addColorHandle(stop) {
+			vm.item.style.color_range.push(new vm.ColorHandle('rgba(0,0,0,0)', stop));
+		}
+
+		function deleteColorHandle(colorHandle) {
+				vm.item.style.color_range.splice(	vm.item.style.color_range.indexOf(colorHandle), 1);
+		}
 	});
 
 })();

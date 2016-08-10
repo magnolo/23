@@ -31,6 +31,7 @@
         */
 
         dependentDataChange = function(dependentData) {
+				
           var ColorHandle, ColorHandles, a, b, g, gradientType, grd, height, innerCircleX, innerCircleY, matches, outerCircleX, outerCircleY, r, r1, r1Fixed, r2, r2Fixed, regEx, rotateDegrees, scaleX, scaleY, width, x1, x1Fixed, x2, x2Fixed, y1, y1Fixed, y2, y2Fixed, _i, _len, _ref, _ref1, _ref2, _ref3, _ref4;
           ColorHandles = dependentData.ColorHandles;
           gradientType = dependentData.gradientType;

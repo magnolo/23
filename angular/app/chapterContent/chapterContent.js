@@ -231,7 +231,7 @@
 				};
 				VectorlayerService.setBaseLayer(item.style.basemap);
 				VectorlayerService.setMapDefaults(item.style);
-				VectorlayerService.setData(indicator.data, indicator, item.style.base_color, true);
+				VectorlayerService.setData(indicator.data, indicator, item.style.color_range || item.style.base_color, true);
 
 				if (typeof done == "function") {
 					done();

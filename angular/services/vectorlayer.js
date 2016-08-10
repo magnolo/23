@@ -101,10 +101,26 @@
 				this.mapLayer.scrollWheelZoom.disable()
 			}
 			if (style.legends) {
-				this.legend = {
-					colors: ['#fff', style.base_color, 'rgba(102,102,102,1)'],
-					labels: ['high', 'Ø', 'low']
+				if(style.color_range){
+					this.legend = {
+						colors: [],
+						labels: []
+					}
+					if(typeof style.color_range == "string"){
+						style.color_range = JSON.parse(style.color_range);
+					}
+					angular.forEach(style.color_range, function(color){
+						that.legend.colors.push(color.color);
+						that.legend.labels.push(color.stop);
+					});
 				}
+				else{
+					this.legend = {
+						colors: ['#fff', style.base_color, 'rgba(102,102,102,1)'],
+						labels: ['high', 'Ø', 'low']
+					}
+				}
+
 			} else {
 				this.legend = {}
 			}
@@ -163,13 +179,13 @@
 		this.createFixedCanvas = function(colorRange) {
 
 			this.canvas = document.createElement('canvas');
-			this.canvas.width = 280;
+			this.canvas.width = 257;
 			this.canvas.height = 10;
 			this.ctx = this.canvas.getContext('2d');
 			var gradient = this.ctx.createLinearGradient(0, 0, 257, 10);
 
 			for (var i = 0; i < colorRange.length; i++) {
-				gradient.addColorStop(1 / (colorRange.length - 1) * i, colorRange[i]);
+				gradient.addColorStop(colorRange[i].stop, colorRange[i].color);
 			}
 			this.ctx.fillStyle = gradient;
 			this.ctx.fillRect(0, 0, 257, 10);
@@ -179,7 +195,7 @@
 		this.updateFixedCanvas = function(colorRange) {
 			var gradient = this.ctx.createLinearGradient(0, 0, 257, 10);
 			for (var i = 0; i < colorRange.length; i++) {
-				gradient.addColorStop(1 / (colorRange.length - 1) * i, colorRange[i]);
+					gradient.addColorStop(colorRange[i].stop, colorRange[i].color);
 			}
 			this.ctx.fillStyle = gradient;
 			this.ctx.fillRect(0, 0, 257, 10);
@@ -314,12 +330,22 @@
 			this.data.layer.redraw();
 		}
 		this.paint = function(color) {
-			this.setBaseColor(color);
-			if (this.ctx) {
-				this.updateCanvas(color);
-			} else {
-				this.createCanvas(color)
+			if(typeof color == "string"){
+				this.setBaseColor(color);
+				if (this.ctx) {
+					this.updateCanvas(color);
+				} else {
+					this.createCanvas(color)
+				}
 			}
+			else{
+				if (this.ctx) {
+					this.updateFixedCanvas(color);
+				} else {
+					this.createFixedCanvas(color)
+				}
+			}
+
 			this.paintCountries();
 		}
 		this.gotoCountry = function(iso) {

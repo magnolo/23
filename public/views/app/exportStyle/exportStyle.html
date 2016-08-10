@@ -1,101 +1,95 @@
 <md-content>
-<md-subheader class="md-primary">
-  <div layout="row" layout-align="space-between center">
-    <span>Indicator Style</span>
-    <md-button class="md-icon-button md-primary" ng-click="$root.goBack()">
-      <md-icon class="material-icons">close</md-icon>
-    </md-button>
+	<md-subheader class="md-primary">
+		<div layout="row" layout-align="space-between center">
+			<span>Indicator Style</span>
+			<md-button class="md-icon-button md-primary" ng-click="$root.goBack()">
+				<md-icon class="material-icons">close</md-icon>
+			</md-button>
 
-</div>
-</md-subheader>
-<md-content flex="70" layout="column" layout-align="center center" flex-offset="15">
-  <h2 class="md-headline mt0">{{vm.item.title}}</h2>
-  <div label="Main Color" md-color-picker ng-model="vm.item.style.base_color" required></div>
-
-    <!-- <color-gradient gradient="vm.gradient"></color-gradient> -->
-    <div class="gradientEditorWrapper">
-    <div class="colorHandlesWorkAreaWrapper">
-      <div class="colorHandlesWorkArea">
-    <canvas class="smallPreviewCanvas" preview-canvas
-                gradient-type="'linear'"
-                color-handles="vm.colorHandles"
-                width="543"
-                height="40"
-                rotate="0"
-                ></canvas>
-    <div gradient-click-area></div>
-    <div ng-repeat="ColorHandle in vm.colorHandles" color-handle="ColorHandle" class="ng-scope iconic arrow_up" style="left: -3.4%; color: rgb(0, 0, 0);">
-        <div class="gradient-color-picker" label="Main Color"  md-color-picker ng-model="ColorHandle.color" ></div>
-    </div>
-  </div>
-</div>
-</div>
-</md-content>
-<div layout="column" layout-align="center center">
-  <h3 class="md-subhead">Choose Basemap</h3>
-  <basemap-selector ng-model="vm.item.style"></basemap-selector>
-</div>
+		</div>
+	</md-subheader>
+	<md-content flex="70" layout="column" layout-align="center center" flex-offset="15">
+		<h2 class="md-headline mt0">{{vm.item.title}}</h2>
+		<div label="Main Color" md-color-picker ng-model="vm.item.style.base_color" required></div>
+    <md-button ng-if="!vm.item.style.color_range.length" class="md-primary md-raised" ng-click="vm.addColorRange()">Add Gradient Color</md-button>
+		<!-- <color-gradient gradient="vm.gradient"></color-gradient> -->
+		<div class="gradientEditorWrapper" ng-if="vm.item.style.color_range.length">
+			<div class="colorHandlesWorkAreaWrapper" kill-context-menu>
+				<div class="colorHandlesWorkArea">
+					<canvas class="smallPreviewCanvas" preview-canvas gradient-type="'linear'" color-handles="vm.item.style.color_range" width="543" height="40" rotate="0"></canvas>
+					<div gradient-click-area></div>
+					<div ng-repeat="colorHandle in vm.item.style.color_range" color-handle="colorHandle">
+						<div class="gradient-color-picker" label="Main Color" md-color-picker ng-model="colorHandle.color"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</md-content>
+	<div layout="column" layout-align="center center">
+		<h3 class="md-subhead">Choose Basemap</h3>
+		<basemap-selector ng-model="vm.item.style"></basemap-selector>
+	</div>
 </md-content>
 <div layout="row" layout-align="space-between start" class="adjust-container">
-  <md-content class="adjust-box md-whiteframe-z1">
-    <treeview items="vm.continents" options="vm.continentOptions" selection="vm.item.style.countries"></treeview>
+	<md-content class="adjust-box md-whiteframe-z1">
+		<treeview items="vm.continents" options="vm.continentOptions" selection="vm.item.style.countries"></treeview>
 
-     <!-- <md-subheader class="md-no-sticky">Countries Selection</md-subheader>
+		<!-- <md-subheader class="md-no-sticky">Countries Selection</md-subheader>
       <md-list>
         <md-list-item>
           <md-checkbox ng-model="message.selected" class="md-primary"></md-checkbox>
           <p>All</p>
         </md-list-item>
       </md-list> -->
-  </md-content>
-  <md-content class="adjust-box md-whiteframe-z1">
-      <md-list>
-        <md-list-item ng-class="{'enabled' : vm.item.style.fixed_title}">
-          <md-icon aria-label="Fixed Title">title</md-icon>
-          <p>Fixed Title</p>
-          <md-switch ng-model="vm.item.style.fixed_title" aria-label="Fixed Title"  ng-true-value="true" ng-false-value="false" class="md-primary md-secondary"></md-switch>
-        </md-list-item>
-        <md-list-item  ng-class="{'enabled' : vm.item.style.fixed_description}">
-          <md-icon aria-label="Fixed Description">format_color_text</md-icon>
-          <p>Fixed Description</p>
-          <md-switch ng-model="vm.item.style.fixed_description" aria-label="Fixed Description"  ng-true-value="true" ng-false-value="false" class="md-primary md-secondary" ></md-switch>
-        </md-list-item>
-        <md-list-item  ng-class="{'enabled' : vm.item.style.search_box}">
-          <md-icon aria-label="Search box">search</md-icon>
-          <p>Search box</p>
-          <md-switch ng-model="vm.item.style.search_box" aria-label="Search box"  ng-true-value="true" ng-false-value="false" class="md-primary md-secondary" ></md-switch>
-        </md-list-item>
-        <md-list-item ng-class="{'enabled' : vm.item.style.share_options}">
-          <md-icon aria-label="Share Options">send</md-icon>
-          <p>Share Options</p>
-          <md-switch ng-model="vm.item.style.share_options" aria-label="Share Options"  ng-true-value="true" ng-false-value="false" class="md-primary md-secondary" ></md-switch>
-        </md-list-item>
-        <md-list-item  ng-class="{'enabled' : vm.item.style.zoom_controls}">
-          <md-icon aria-label="Zoom Control">zoom_out_map</md-icon>
-          <p>Zoom Control</p>
-          <md-switch ng-model="vm.item.style.zoom_controls" aria-label="Zoom Control"  ng-true-value="true" ng-false-value="false" class="md-primary md-secondary" ></md-switch>
-        </md-list-item>
-        <md-list-item ng-class="{'enabled' : vm.item.style.scroll_wheel_zoom}">
-          <md-icon aria-label="Scroll Wheel Zoom">transform</md-icon>
-          <p>Scroll Wheel Zoom</p>
-          <md-switch ng-model="vm.item.style.scroll_wheel_zoom" aria-label="Scroll Wheel Zoom"  ng-true-value="true" ng-false-value="false" class="md-primary md-secondary" ></md-switch>
-        </md-list-item>
-        <md-list-item ng-class="{'enabled' : vm.item.style.layer_selection}">
-          <md-icon aria-label="Layer Selector">style</md-icon>
-          <p>Layer Selector</p>
-          <md-switch ng-model="vm.item.style.layer_selection" aria-label="Layer Selector"  ng-true-value="true" ng-false-value="false" class="md-primary md-secondary" ></md-switch>
-        </md-list-item>
-        <md-list-item  ng-class="{'enabled' : vm.item.style.legends}">
-          <md-icon aria-label="Legends">message</md-icon>
-          <p>Legends</p>
-          <md-switch ng-model="vm.item.style.legends" aria-label="Legends"  ng-true-value="true" ng-false-value="false" class="md-primary md-secondary" ></md-switch>
-        </md-list-item>
-        <md-list-item  ng-class="{'enabled' : vm.item.style.full_screen}">
-          <md-icon aria-label="Fullscreen">fullscreen</md-icon>
-          <p>Fullscreen</p>
-          <md-switch ng-model="vm.item.style.full_screen" aria-label="Fullscreen"  ng-true-value="true" ng-false-value="false" class="md-primary md-secondary" ></md-switch>
-        </md-list-item>
+	</md-content>
+	<md-content class="adjust-box md-whiteframe-z1">
+		<md-list>
+			<md-list-item ng-class="{'enabled' : vm.item.style.fixed_title}">
+				<md-icon aria-label="Fixed Title">title</md-icon>
+				<p>Fixed Title</p>
+				<md-switch ng-model="vm.item.style.fixed_title" aria-label="Fixed Title" ng-true-value="true" ng-false-value="false" class="md-primary md-secondary"></md-switch>
+			</md-list-item>
+			<md-list-item ng-class="{'enabled' : vm.item.style.fixed_description}">
+				<md-icon aria-label="Fixed Description">format_color_text</md-icon>
+				<p>Fixed Description</p>
+				<md-switch ng-model="vm.item.style.fixed_description" aria-label="Fixed Description" ng-true-value="true" ng-false-value="false" class="md-primary md-secondary"></md-switch>
+			</md-list-item>
+			<md-list-item ng-class="{'enabled' : vm.item.style.search_box}">
+				<md-icon aria-label="Search box">search</md-icon>
+				<p>Search box</p>
+				<md-switch ng-model="vm.item.style.search_box" aria-label="Search box" ng-true-value="true" ng-false-value="false" class="md-primary md-secondary"></md-switch>
+			</md-list-item>
+			<md-list-item ng-class="{'enabled' : vm.item.style.share_options}">
+				<md-icon aria-label="Share Options">send</md-icon>
+				<p>Share Options</p>
+				<md-switch ng-model="vm.item.style.share_options" aria-label="Share Options" ng-true-value="true" ng-false-value="false" class="md-primary md-secondary"></md-switch>
+			</md-list-item>
+			<md-list-item ng-class="{'enabled' : vm.item.style.zoom_controls}">
+				<md-icon aria-label="Zoom Control">zoom_out_map</md-icon>
+				<p>Zoom Control</p>
+				<md-switch ng-model="vm.item.style.zoom_controls" aria-label="Zoom Control" ng-true-value="true" ng-false-value="false" class="md-primary md-secondary"></md-switch>
+			</md-list-item>
+			<md-list-item ng-class="{'enabled' : vm.item.style.scroll_wheel_zoom}">
+				<md-icon aria-label="Scroll Wheel Zoom">transform</md-icon>
+				<p>Scroll Wheel Zoom</p>
+				<md-switch ng-model="vm.item.style.scroll_wheel_zoom" aria-label="Scroll Wheel Zoom" ng-true-value="true" ng-false-value="false" class="md-primary md-secondary"></md-switch>
+			</md-list-item>
+			<md-list-item ng-class="{'enabled' : vm.item.style.layer_selection}">
+				<md-icon aria-label="Layer Selector">style</md-icon>
+				<p>Layer Selector</p>
+				<md-switch ng-model="vm.item.style.layer_selection" aria-label="Layer Selector" ng-true-value="true" ng-false-value="false" class="md-primary md-secondary"></md-switch>
+			</md-list-item>
+			<md-list-item ng-class="{'enabled' : vm.item.style.legends}">
+				<md-icon aria-label="Legends">message</md-icon>
+				<p>Legends</p>
+				<md-switch ng-model="vm.item.style.legends" aria-label="Legends" ng-true-value="true" ng-false-value="false" class="md-primary md-secondary"></md-switch>
+			</md-list-item>
+			<md-list-item ng-class="{'enabled' : vm.item.style.full_screen}">
+				<md-icon aria-label="Fullscreen">fullscreen</md-icon>
+				<p>Fullscreen</p>
+				<md-switch ng-model="vm.item.style.full_screen" aria-label="Fullscreen" ng-true-value="true" ng-false-value="false" class="md-primary md-secondary"></md-switch>
+			</md-list-item>
 
-      </md-list>
-  </md-content>
+		</md-list>
+	</md-content>
 </div>
