@@ -8,9 +8,9 @@
 
 		</div>
 	</md-subheader>
-	<md-content flex="70" layout="column" layout-align="center center" flex-offset="15">
+	<md-content flex layout="column" layout-align="center center" >
 		<h2 class="md-headline mt0">{{vm.item.title}}</h2>
-		<div label="Main Color" md-color-picker ng-model="vm.item.style.base_color" required></div>
+		<div label="Main Color" md-color-picker="{clearButton:false}" ng-model="vm.item.style.base_color" required></div>
     <md-button ng-if="!vm.item.style.color_range.length" class="md-primary md-raised" ng-click="vm.addColorRange()">Edit Gradient</md-button>
     <!-- <color-gradient gradient="vm.gradient"></color-gradient> -->
 		<div class="gradientEditorWrapper" ng-if="vm.item.style.color_range.length">
@@ -20,11 +20,14 @@
 					<div gradient-click-area></div>
 					<div ng-repeat="colorHandle in vm.item.style.color_range" color-handle="colorHandle">
 						<div class="gradient-color-picker" label="Main Color" md-color-picker ng-model="colorHandle.color"></div>
+						<div class="gradient-pos">{{colorHandle.stop * 100 | number:0}}</div>
 					</div>
 				</div>
 			</div>
+			<md-button class="remove-button md-icon-button" ng-click="vm.removeColorRange()">
+				<md-icon>close</md-icon>
+			</md-button>
 		</div>
-    <md-button ng-if="vm.item.style.color_range.length" class="md-primary md-raised" ng-click="vm.removeColorRange()">Remove Gradient</md-button>
 
 	</md-content>
 	<div layout="column" layout-align="center center">

@@ -6,7 +6,6 @@
       var beginDragging, container, getColorHandle, mousemoveListener;
 			var dragging = false;
       container = elem.parent();
-      // elem.addClass('iconic');
       getColorHandle = function() {
         return scope.$eval(attrs.colorHandle);
       };

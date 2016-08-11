@@ -14,8 +14,8 @@
 				min: 0,
 				max: 100,
 				margin: {
-					left: 20,
-					right: 20,
+					left: 0,
+					right: 0,
 					top: 10,
 					bottom: 10
 				},

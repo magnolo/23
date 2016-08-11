@@ -1,7 +1,7 @@
 (function() {
 	"use strict";
 
-	angular.module('app.controllers').controller('ExportStyleCtrl', function($scope, $state, $timeout, ContentService, ExportService, IndizesService, leafletData, leafletMapEvents, VectorlayerService, CountriesService, ColorHandleService) {
+	angular.module('app.controllers').controller('ExportStyleCtrl', function($scope, $timeout, $state, ContentService, ExportService, IndizesService, leafletData, leafletMapEvents, VectorlayerService, CountriesService, ColorHandleService) {
 		var vm = this;
 		vm.ColorHandle = ColorHandleService;
 		vm.addColorRange = addColorRange;
@@ -42,15 +42,12 @@
 						legends: true,
 						full_screen: false,
 						countries: [],
-						color_range: [new vm.ColorHandle('rgba(0, 0, 0, 1.00)', 0.00), new vm.ColorHandle('rgba(255, 255, 255, 1.00)', 1.00)]
+						color_range: [new vm.ColorHandle('rgba(0, 0, 0, 0.60)', 0.00), new vm.ColorHandle('rgba(255, 0, 0, 0.60)', 1.00)]
 					};
-				}
-				else{
-					if(typeof vm.item.style.color_range == "string"){
+				} else {
+					if (typeof vm.item.style.color_range == "string") {
 						vm.item.style.color_range = JSON.parse(vm.item.style.color_range);
 					}
-
-				//	vm.item.style.color_range  = [new vm.ColorHandle('rgba(0, 0, 0, 1.00)', 0.00), new vm.ColorHandle('rgba(0, 0, 0, 0.00)', 1.00)]
 				}
 
 				ContentService.fetchIndicatorWithData(vm.item.indicator_id, function(indicator) {
@@ -81,23 +78,30 @@
 			return found;
 		};
 
-		function addColorRange(){
+		function addColorRange() {
 			vm.item.style.color_range = [
-				new vm.ColorHandle('rgba(102,102,102,1)', 0.00),
+				new vm.ColorHandle('rgba(102,102,102,0.6)', 0.00),
 				new vm.ColorHandle(vm.item.style.base_color, 0.53),
-				new vm.ColorHandle('rgba(255,255,255,1)', 1.00)];
-				VectorlayerService.paint(	vm.item.style.color_range);
-		}
-		function removeColorRange(){
-			vm.item.style.color_range = undefined;
-			VectorlayerService.paint(	vm.item.style.base_color);
+				new vm.ColorHandle('rgba(255,255,255,0.6)', 1.00)
+			];
+			VectorlayerService.paint(vm.item.style.color_range);
 		}
 
+		function removeColorRange() {
+			vm.item.style.color_range = undefined;
+			VectorlayerService.paint(vm.item.style.base_color);
+		}
+
+		var timeoutPromise;
+		var delayInMs = 500;
 		$scope.$watch('vm.item.style', function(n, o) {
-			if (n === o || !n.basemap) return;
-			VectorlayerService.setBaseLayer(n.basemap);
-			//Choose between color and rang
-			VectorlayerService.paint(n.color_range || n.base_color);
+			$timeout.cancel(timeoutPromise);
+			timeoutPromise = $timeout(function() {
+				if (n === o || !n.basemap) return;
+				VectorlayerService.setBaseLayer(n.basemap);
+				//Choose between color and range
+				VectorlayerService.paint(n.color_range || n.base_color);
+			}, delayInMs);
 		}, true);
 
 
@@ -107,11 +111,11 @@
 		vm.deleteColorHandle = deleteColorHandle;
 
 		function addColorHandle(stop) {
-			vm.item.style.color_range.push(new vm.ColorHandle('rgba(255,255,255,1)', stop));
+			vm.item.style.color_range.push(new vm.ColorHandle('rgba(255,255,255,0.6)', stop));
 		}
 
 		function deleteColorHandle(colorHandle) {
-				vm.item.style.color_range.splice(	vm.item.style.color_range.indexOf(colorHandle), 1);
+			vm.item.style.color_range.splice(vm.item.style.color_range.indexOf(colorHandle), 1);
 		}
 	});
 

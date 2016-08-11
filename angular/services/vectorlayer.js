@@ -156,9 +156,10 @@
 			this.canvas.height = 10;
 			this.ctx = this.canvas.getContext('2d');
 			var gradient = this.ctx.createLinearGradient(0, 0, 280, 10);
-			gradient.addColorStop(1, 'rgba(255,255,255,0)');
-			gradient.addColorStop(0.53, color || 'rgba(128, 243, 198,1)');
-			gradient.addColorStop(0, 'rgba(102,102,102,1)');
+			gradient.addColorStop(1, 'rgba(255,255,255,0.6)');
+			gradient.addColorStop(0.53, color || 'rgba(128, 243, 198,0.6)');
+			gradient.addColorStop(0, 'rgba(102,102,102,0.6)');
+
 			this.ctx.fillStyle = gradient;
 			this.ctx.fillRect(0, 0, 280, 10);
 			this.palette = this.ctx.getImageData(0, 0, 257, 1).data;
@@ -166,15 +167,17 @@
 		}
 		this.updateCanvas = function(color) {
 
-			this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
 			var gradient = this.ctx.createLinearGradient(0, 0, 257, 10);
-			gradient.addColorStop(1, 'rgba(255,255,255,1)');
-			gradient.addColorStop(0.53, color || 'rgba(128, 243, 198,1)');
-			gradient.addColorStop(0, 'rgba(102,102,102,1)');
+			gradient.addColorStop(1, 'rgba(255,255,255,0.6)');
+			gradient.addColorStop(0.53, color || 'rgba(128, 243, 198,0.6)');
+			gradient.addColorStop(0, 'rgba(102,102,102,.6)');
+
+			this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 			this.ctx.fillStyle = gradient;
 			this.ctx.fillRect(0, 0, 257, 10);
+
 			this.palette = this.ctx.getImageData(0, 0, 257, 1).data;
-			//document.getElementsByTagName('body')[0].appendChild(this.canvas);
 		}
 		this.createFixedCanvas = function(colorRange) {
 
@@ -190,13 +193,13 @@
 			this.ctx.fillStyle = gradient;
 			this.ctx.fillRect(0, 0, 257, 10);
 			this.palette = this.ctx.getImageData(0, 0, 257, 1).data;
-
 		}
 		this.updateFixedCanvas = function(colorRange) {
 			var gradient = this.ctx.createLinearGradient(0, 0, 257, 10);
 			for (var i = 0; i < colorRange.length; i++) {
 					gradient.addColorStop(colorRange[i].stop, colorRange[i].color);
 			}
+			this.ctx.clearRect(0, 0, 257,10);
 			this.ctx.fillStyle = gradient;
 			this.ctx.fillRect(0, 0, 257, 10);
 			this.palette = this.ctx.getImageData(0, 0, 257, 1).data;
@@ -409,9 +412,8 @@
 
 						var colorPos = parseInt(linearScale(parseFloat(nation[field]))) * 4; //;
 						//var colorPos = parseInt(256 / 100 * parseInt(nation[field])) * 4;
-						var color = 'rgba(' + that.palette[colorPos] + ', ' + that.palette[colorPos + 1] + ', ' + that.palette[colorPos + 2] + ',' + that.palette[colorPos + 3] + ')';
-
-						style.color = 'rgba(' + that.palette[colorPos] + ', ' + that.palette[colorPos + 1] + ', ' + that.palette[colorPos + 2] + ',0.6)'; //color;
+						var color = 'rgba(' + that.palette[colorPos] + ', ' + that.palette[colorPos + 1] + ', ' + that.palette[colorPos + 2] + ',' + (that.palette[colorPos + 3]/255) + ')';
+						style.color = color;// 'rgba(' + that.palette[colorPos] + ', ' + that.palette[colorPos + 1] + ', ' + that.palette[colorPos + 2] + ',0.6)'; //color;
 						style.outline = {
 							color: color,
 							size: 1
