@@ -67,7 +67,7 @@
 			maxZoom: 6,
 			zoomControlPosition:'bottomright'
 		};
-		this.legend = {};
+		this.legend = null;
 		this.setMap = function(map) {
 			return this.mapLayer = map;
 		}
@@ -136,7 +136,7 @@
 
 					});
 					if(this.legend.colors.length == 0){
-						this.legend = {};
+						this.legend = null;
 					}
 				}
 				else{
@@ -147,7 +147,7 @@
 				}
 
 			} else {
-				this.legend = {}
+				this.legend = null
 			}
 
 		}
