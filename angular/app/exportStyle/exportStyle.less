@@ -48,7 +48,14 @@
     .remove-button{
       position: absolute;
       right: -50px;
-      top: 0px;
+      top: -10px;
+      transform: scale(0.7);
+    }
+    .labels-button{
+      position:absolute;
+      right:-50px;
+      top: 15px;
+        transform: scale(0.7);
     }
 }
 .gradientEditorWrapper, .colorHandlesWorkArea {
@@ -57,4 +64,13 @@
 }
 .gradientEditorWrapper.hasActiveColorHandle {
     margin-right: 48px;
+}
+.cp-noinput{
+  .md-color-picker-clear,
+  md-input-container {
+      display: none;
+  }
+  .md-color-picker-preview{
+    top:0px;
+  }
 }

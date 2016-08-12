@@ -42,7 +42,7 @@
 		this.mapLayer = null;
 		this.layers = {
 			baselayers: {
-				xyz: this.basemap
+				xyz:this.basemap
 			}
 		};
 		this.center = {
@@ -110,8 +110,17 @@
 						style.color_range = JSON.parse(style.color_range);
 					}
 					angular.forEach(style.color_range, function(color){
-						that.legend.colors.push(color.color);
-						that.legend.labels.push(color.stop);
+						if(color.hasLabel){
+							that.legend.colors.push(color.color);
+							if(color.label){
+								that.legend.labels.push(color.label);
+							}
+							else{
+								that.legend.labels.push(parseFloat(color.stop*100).toFixed(0));
+							}
+
+						}
+
 					});
 				}
 				else{

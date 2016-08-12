@@ -1,7 +1,7 @@
 (function() {
 	"use strict";
 
-	angular.module('app.controllers').controller('ExportStyleCtrl', function($scope, $timeout, $state, ContentService, ExportService, IndizesService, leafletData, leafletMapEvents, VectorlayerService, CountriesService, ColorHandleService) {
+	angular.module('app.controllers').controller('ExportStyleCtrl', function($scope, $timeout, $state, ContentService, ExportService, IndizesService, leafletData, leafletMapEvents, VectorlayerService, CountriesService, ColorHandleService, DialogService) {
 		var vm = this;
 		vm.ColorHandle = ColorHandleService;
 		vm.addColorRange = addColorRange;
@@ -109,6 +109,7 @@
 		//should move to its own Controller/Component
 		vm.addColorHandle = addColorHandle;
 		vm.deleteColorHandle = deleteColorHandle;
+		vm.setLabels = setLabels;
 
 		function addColorHandle(stop) {
 			vm.item.style.color_range.push(new vm.ColorHandle('rgba(255,255,255,0.6)', stop));
@@ -116,6 +117,9 @@
 
 		function deleteColorHandle(colorHandle) {
 			vm.item.style.color_range.splice(vm.item.style.color_range.indexOf(colorHandle), 1);
+		}
+		function setLabels(){
+			DialogService.fromTemplate('gradientLabels', $scope);
 		}
 	});
 
