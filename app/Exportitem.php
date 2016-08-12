@@ -16,7 +16,7 @@ class Exportitem extends Model
       return $this->hasMany('App\Exportitem', 'parent_id')->with('children','style', 'image', 'parent', 'indicator')->orderBy('id');
     }
     public function indicator(){
-      return $this->belongsTo('App\Indicator', 'indicator_id')->with('type');
+      return $this->belongsTo('App\Indicator', 'indicator_id')->with(['type', 'dataprovider']);
     }
     public function style(){
       return $this->belongsTo('App\Style', 'style_id')->with('basemap', 'image', 'countries');

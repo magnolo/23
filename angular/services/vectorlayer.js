@@ -74,10 +74,13 @@
 		this.getMap = function() {
 			return this.mapLayer;
 		}
-		this.setBaseLayer = function(basemap) {
+		this.setBaseLayer = function(basemap, dataprovider) {
 			if (!basemap)
 				this.basemap = basemap = this.fallbackBasemap;
-
+			var attribution = '&copy; ' + (basemap.attribution || basemap.provider);
+			if(dataprovider){
+				attribution += ' | Data by <a href="'+dataprovider.url+'" target="_blank">' + dataprovider.title + '</a>';
+			}
 			this.layers.baselayers['xyz'] = {
 				name: basemap.name,
 				url: basemap.url,
@@ -86,7 +89,7 @@
 					noWrap: true,
 					continuousWorld: false,
 					detectRetina: true,
-					attribution:basemap.attribution || basemap.provider,
+					attribution:attribution,
 
 				}
 
@@ -124,6 +127,9 @@
 						}
 
 					});
+					if(this.legend.colors.length == 0){
+						this.legend = {};
+					}
 				}
 				else{
 					this.legend = {

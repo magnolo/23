@@ -229,7 +229,7 @@
 					height: 60,
 					fontSize:12
 				};
-				VectorlayerService.setBaseLayer(item.style.basemap);
+				VectorlayerService.setBaseLayer(item.style.basemap, item.indicator.dataprovider);
 				VectorlayerService.setMapDefaults(item.style);
 				VectorlayerService.setData(indicator.data, indicator, item.style.color_range || item.style.base_color, true);
 
