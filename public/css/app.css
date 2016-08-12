@@ -2111,6 +2111,7 @@ md-dialog-content p.columned {
 @media screen and (min-width: 1400px) {
 }
 
+
 .split-layout .md-subheader-content {
   text-align: center;
 }
@@ -2136,7 +2137,6 @@ md-dialog-content p.columned {
   height: 0px;
   padding: 0;
 }
-
 
 .adjust-container {
   margin: 1.5em 5em 1.5em 1.5em;
@@ -2698,6 +2698,13 @@ md-menu-bar {
 
 
 
+.md-subheader.filled .md-subheader-inner {
+  padding: 0px;
+}
+.md-subheader.filled .md-subheader-inner md-toolbar {
+  padding-left: 1em;
+}
+
 md-list-item.md-2-line {
   min-height: 62px;
 }
@@ -2706,13 +2713,6 @@ md-list-item.md-2-line a {
 }
 md-list-item.md-2-line > .md-no-style {
   min-height: 62px;
-}
-
-.md-subheader.filled .md-subheader-inner {
-  padding: 0px;
-}
-.md-subheader.filled .md-subheader-inner md-toolbar {
-  padding-left: 1em;
 }
 
 section.module-top {
@@ -3074,7 +3074,7 @@ div[ui-view='map'] {
   background: rgba(255, 255, 255, 0.9);
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);
   padding: 6px 8px;
-  min-width: 80px;
+  min-width: 90px;
   line-height: 18px;
   color: #555;
   font-family: 'Georgia';
@@ -4285,10 +4285,6 @@ JavaScript Disabled
   top: 0.5em;
 }
 
-.bars .bg {
-  fill: #ebebeb;
-}
-
 piechart {
   position: relative;
 }
@@ -4296,6 +4292,10 @@ piechart .inner-pie {
   position: absolute;
   left: 0px;
   opacity: 0.4;
+}
+
+.bars .bg {
+  fill: #ebebeb;
 }
 
 .nvd3 .nv-background {

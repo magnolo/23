@@ -113,14 +113,22 @@
 
 		function addColorHandle(stop) {
 			vm.item.style.color_range.push(new vm.ColorHandle('rgba(255,255,255,0.6)', stop));
+			sortColorHandlesByStop();
 		}
 
 		function deleteColorHandle(colorHandle) {
 			vm.item.style.color_range.splice(vm.item.style.color_range.indexOf(colorHandle), 1);
+				sortColorHandlesByStop();
 		}
 		function setLabels(){
+			sortColorHandlesByStop();
 			DialogService.fromTemplate('gradientLabels', $scope);
 		}
+		function sortColorHandlesByStop() {
+      return vm.item.style.color_range.sort(function(LeftHandle, RightHandle) {
+        return LeftHandle.stop - RightHandle.stop;
+      });
+    };
 	});
 
 })();
