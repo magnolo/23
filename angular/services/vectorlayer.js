@@ -44,7 +44,7 @@
 		this.mapLayer = null;
 		this.layers = {
 			baselayers: {
-				xyz:this.basemap
+				xyz:this.basemap,
 			}
 		};
 		this.center = {
@@ -77,7 +77,7 @@
 		this.setBaseLayer = function(basemap, dataprovider) {
 			if (!basemap)
 				this.basemap = basemap = this.fallbackBasemap;
-			var attribution = '&copy; ' + (basemap.attribution || basemap.provider);
+			var attribution = (basemap.attribution || basemap.provider);
 			if(dataprovider){
 				attribution += ' | Data by <a href="'+dataprovider.url+'" target="_blank">' + dataprovider.title + '</a>';
 			}
@@ -90,10 +90,18 @@
 					continuousWorld: false,
 					detectRetina: true,
 					attribution:attribution,
-
 				}
 
 			}
+			//DIRTY HACK TO CORRECT LAYER ON TOP: SETTING OPTIONS UP HERE CAUSES THE PROBLEM
+		 $timeout(function(){
+			 angular.forEach(that.mapLayer._layers,function(layer){
+				 if(layer.options.url != "https://www.23degree.org:3001/services/postgis/countries_big/geom/vector-tiles/{z}/{x}/{y}.pbf?fields=id,admin,adm0_a3,wb_a3,su_a3,iso_a3,iso_a2,name,name_long" ){
+						layer.bringToBack();
+				 }
+
+			 })
+		 })
 		}
 		this.setMapDefaults = function(style) {
 			this.defaults = {
@@ -257,6 +265,7 @@
 			if (typeof color != "undefined") {
 				this.data.baseColor = color;
 			}
+
 			if (!this.canvas) {
 				if (typeof this.data.baseColor == 'string') {
 					this.createCanvas(this.data.baseColor);

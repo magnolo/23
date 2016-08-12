@@ -229,6 +229,10 @@
 					height: 60,
 					fontSize:12
 				};
+				if (typeof item.style.color_range == "string") {
+					item.style.color_range = JSON.parse(item.style.color_range);
+				}
+
 				VectorlayerService.setBaseLayer(item.style.basemap, item.indicator.dataprovider);
 				VectorlayerService.setMapDefaults(item.style);
 				VectorlayerService.setData(indicator.data, indicator, item.style.color_range || item.style.base_color, true);

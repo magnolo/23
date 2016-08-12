@@ -144,6 +144,7 @@
 			map.addLayer(VectorlayerService.setLayer(layer));
 			map.addControl(MyControl);
 			map.addControl(BackHome);
+			//	VectorlayerService.getLayer().bringToFront();
 			/*map.on('click', function(){
 				alert('hello');
 			});
