@@ -10,7 +10,7 @@
 	</md-subheader>
 	<md-content flex layout="column" layout-align="center center" >
 		<h2 class="md-headline mt0">{{vm.item.title}}</h2>
-		<div label="Main Color" md-color-picker="{clearButton:false}" ng-model="vm.item.style.base_color" required></div>
+		<div label="Main Color" md-color-picker md-color-clear-button="false" ng-model="vm.item.style.base_color" required></div>
     <md-button ng-if="!vm.item.style.color_range.length" class="md-primary md-raised" ng-click="vm.addColorRange()">Edit Gradient</md-button>
     <!-- <color-gradient gradient="vm.gradient"></color-gradient> -->
 		<div class="gradientEditorWrapper" ng-if="vm.item.style.color_range.length">
