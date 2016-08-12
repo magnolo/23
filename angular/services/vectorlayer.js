@@ -8,10 +8,12 @@
 			name: 'Outdoor',
 			url: 'https://{s}.tiles.mapbox.com/v4/valderrama.d86114b6/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFnbm9sbyIsImEiOiJuSFdUYkg4In0.5HOykKk0pNP1N3isfPQGTQ',
 			type: 'xyz',
-			layerOptions: {
+
+			options: {
 				noWrap: true,
 				continuousWorld: false,
-				detectRetina: true
+				detectRetina: true,
+
 			}
 		}
 		this.basemap = this.fallbackBasemap;
@@ -80,12 +82,12 @@
 				name: basemap.name,
 				url: basemap.url,
 				type: 'xyz',
-				layerOptions: {
+				options: {
 					noWrap: true,
 					continuousWorld: false,
 					detectRetina: true,
-					// attribution:basemap.attribution || basemap.provider,
-					attribution: "Copyright:© 2014 Esri, DeLorme, HERE, TomTom"
+					attribution:basemap.attribution || basemap.provider,
+
 				}
 
 			}
