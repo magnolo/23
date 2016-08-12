@@ -278,8 +278,15 @@ p {
             .Header {
                 min-height: 0;
                 height: 0;
-                overflow: hidden;
+                //overflow: hidden;
                 transition: all 0.2s ease;
+                .customer-logo {
+                    top: 48px;
+                    transition: all .2s linear
+                }
+                .data-button {
+                    display: none;
+                }
             }
         }
         #sidebar {
@@ -352,10 +359,9 @@ p {
                 position: fixed;
                 top: 58px;
                 left: 380px;
-
             }
-            .leaflet-toggle-label{
-              display:none;
+            .leaflet-toggle-label {
+                display: none;
             }
             @media screen and (max-width: 959px) {
                 top: 36px;
@@ -379,7 +385,7 @@ p {
                     z-index: 4;
                     display: block;
                     border-radius: 50%;
-                    transition: all .3s ease;
+                    transition: all 0.3s ease;
                     a {
                         border-radius: 50%;
                         width: 48px;
@@ -401,6 +407,16 @@ p {
                     min-height: 48px;
                     height: 48px;
                     overflow: auto;
+                    .customer-logo {
+                        top: 0;
+                        right: 0;
+                        height: 48px;
+                        background-position: right center;
+                    }
+                    .data-button{
+                      display: inline-block;
+                      margin-right: 100px;
+                    }
                 }
             }
             #map {
@@ -410,7 +426,7 @@ p {
                         display: block;
                     }
                     .leaflet-control-home {
-                      bottom:135px
+                        bottom: 135px;
                     }
                 }
             }
