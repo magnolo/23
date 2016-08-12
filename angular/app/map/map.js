@@ -79,7 +79,7 @@
 			L.DomEvent.disableClickPropagation(container);
 			L.DomEvent.addListener(container, 'click', function() {
 					var map = VectorlayerService.getMap();
-					map.setView([48.209206, 16.372778], 2);
+					map.setView([48.209206, 16.372778], 3);
 
 					if($state.$current.name.indexOf('app.export.detail.chapter.indicator') > -1){
 							$state.go('app.export.detail.chapter.indicator',{
