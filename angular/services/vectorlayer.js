@@ -1,7 +1,7 @@
 (function() {
 	"use strict";
 
-	angular.module('app.services').service('VectorlayerService', function($timeout, DataService) {
+	angular.module('app.services').service('VectorlayerService', function($timeout, DataService, leafletData) {
 		var that = this,
 			_self = this;
 		this.fallbackBasemap = {
@@ -39,7 +39,8 @@
 			data: [],
 			current: [],
 			structure: [],
-			style: []
+			style: [],
+			attribution:''
 		};
 		this.mapLayer = null;
 		this.layers = {
@@ -85,23 +86,24 @@
 				name: basemap.name,
 				url: basemap.url,
 				type: 'xyz',
-				options: {
-					noWrap: true,
-					continuousWorld: false,
-					detectRetina: true,
-					attribution:attribution,
-				}
+				// options: {
+				// 	noWrap: true,
+				// 	continuousWorld: false,
+				// 	detectRetina: true,
+				// 	attribution:attribution,
+				// }
 
 			}
-			//DIRTY HACK TO CORRECT LAYER ON TOP: SETTING OPTIONS UP HERE CAUSES THE PROBLEM
-		 $timeout(function(){
-			 angular.forEach(that.mapLayer._layers,function(layer){
-				 if(layer.options.url != "https://www.23degree.org:3001/services/postgis/countries_big/geom/vector-tiles/{z}/{x}/{y}.pbf?fields=id,admin,adm0_a3,wb_a3,su_a3,iso_a3,iso_a2,name,name_long" ){
-						layer.bringToBack();
-				 }
-
-			 })
-		 })
+			this.map.attribution = attribution;
+		// 	//DIRTY HACK TO CORRECT LAYER ON TOP: SETTING OPTIONS UP HERE CAUSES THE PROBLEM
+		//  $timeout(function(){
+		// 	 angular.forEach(that.mapLayer._layers,function(layer){
+		// 		 if(layer.options.url != "https://www.23degree.org:3001/services/postgis/countries_big/geom/vector-tiles/{z}/{x}/{y}.pbf?fields=id,admin,adm0_a3,wb_a3,su_a3,iso_a3,iso_a2,name,name_long" ){
+		// 				layer.bringToBack();
+		// 		 }
+		 //
+		// 	 })
+		//  })
 		}
 		this.setMapDefaults = function(style) {
 			this.defaults = {
@@ -494,6 +496,7 @@
 			};
 			return style;
 		}
+
 
 	});
 

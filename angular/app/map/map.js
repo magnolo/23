@@ -160,6 +160,7 @@
 		/*	map.addLayer(vm.labelsLayer);
 			vm.labelsLayer.bringToFront();
 				vm.noLabel = true;*/
+
 		});
 	});
 })();
