@@ -40,12 +40,12 @@
 			current: [],
 			structure: [],
 			style: [],
-			attribution:''
+			attribution: ''
 		};
 		this.mapLayer = null;
 		this.layers = {
 			baselayers: {
-				xyz:this.basemap,
+				xyz: this.basemap,
 			}
 		};
 		this.center = {
@@ -66,7 +66,7 @@
 		this.defaults = {
 			minZoom: 2,
 			maxZoom: 6,
-			zoomControlPosition:'bottomright'
+			zoomControlPosition: 'bottomright'
 		};
 		this.legend = null;
 		this.setMap = function(map) {
@@ -75,12 +75,61 @@
 		this.getMap = function() {
 			return this.mapLayer;
 		}
+		this.createMap = function() {
+			this.mapLayer = new mapboxgl.Map({
+				container: 'mapgl',
+				minZoom: 2,
+				style: 'mapbox://styles/mapbox/light-v9'
+			});
+			this.mapLayer.on('load', function() {
+				that.mapLayer.addSource('countries_src', {
+					'type': 'vector',
+					//'tiles': ['https://www.23degree.org:3001/services/postgis/' + VectorlayerService.getName() + '/geom/vector-tiles/{z}/{x}/{y}.pbf?fields=' + VectorlayerService.fields()]
+					'url': 'mapbox://magnolo.6zzfq94v'
+				});
+				that.mapLayer.addLayer({
+					'id': that.getName(),
+					'source': 'countries_src',
+					'source-layer': "ne_10m_admin_0_countries-5pek43",
+					'type': 'fill',
+					'filter': ['!=', 'ISO_A2', ''],
+					'paint': {
+						'fill-color': "#000",
+						'fill-opacity': 1,
+					}
+				}, 'water-label');
+				that.mapLayer.addLayer({
+					"id": "country-hover",
+					"type": "fill",
+					"source": "countries_src",
+					"layout": {},
+					'source-layer': "ne_10m_admin_0_countries-5pek43",
+					"paint": {
+						"fill-outline-color": '#333',
+						"fill-color": 'rgba(0,0,0,0)'
+					},
+					"filter": ["==", "ISO_A2", ""]
+				}, 'water-label');
+
+				that.mapLayer.on("mousemove", function(e) {
+					var features = that.mapLayer.queryRenderedFeatures(e.point, {
+						layers: [that.getName()]
+					});
+					if (features.length) {
+						that.mapLayer.setFilter("country-hover", ["==", "ISO_A2", features[0].properties.ISO_A2]);
+					} else {
+						that.mapLayer.setFilter("country-hover", ["==", "ISO_A2", ""]);
+					}
+
+				});
+			})
+		}
 		this.setBaseLayer = function(basemap, dataprovider) {
 			if (!basemap)
 				this.basemap = basemap = this.fallbackBasemap;
 			var attribution = (basemap.attribution || basemap.provider);
-			if(dataprovider){
-				attribution += ' | Data by <a href="'+dataprovider.url+'" target="_blank">' + dataprovider.title + '</a>';
+			if (dataprovider) {
+				attribution += ' | Data by <a href="' + dataprovider.url + '" target="_blank">' + dataprovider.title + '</a>';
 			}
 			this.layers.baselayers['xyz'] = {
 				name: basemap.name,
@@ -95,15 +144,15 @@
 
 			}
 			this.map.attribution = attribution;
-		// 	//DIRTY HACK TO CORRECT LAYER ON TOP: SETTING OPTIONS UP HERE CAUSES THE PROBLEM
-		//  $timeout(function(){
-		// 	 angular.forEach(that.mapLayer._layers,function(layer){
-		// 		 if(layer.options.url != "https://www.23degree.org:3001/services/postgis/countries_big/geom/vector-tiles/{z}/{x}/{y}.pbf?fields=id,admin,adm0_a3,wb_a3,su_a3,iso_a3,iso_a2,name,name_long" ){
-		// 				layer.bringToBack();
-		// 		 }
-		 //
-		// 	 })
-		//  })
+			// 	//DIRTY HACK TO CORRECT LAYER ON TOP: SETTING OPTIONS UP HERE CAUSES THE PROBLEM
+			//  $timeout(function(){
+			// 	 angular.forEach(that.mapLayer._layers,function(layer){
+			// 		 if(layer.options.url != "https://www.23degree.org:3001/services/postgis/countries_big/geom/vector-tiles/{z}/{x}/{y}.pbf?fields=id,admin,adm0_a3,wb_a3,su_a3,iso_a3,iso_a2,name,name_long" ){
+			// 				layer.bringToBack();
+			// 		 }
+			//
+			// 	 })
+			//  })
 		}
 		this.setMapDefaults = function(style) {
 			this.defaults = {
@@ -116,32 +165,30 @@
 				this.mapLayer.scrollWheelZoom.disable()
 			}
 			if (style.legends) {
-				if(style.color_range){
+				if (style.color_range) {
 					this.legend = {
 						colors: [],
 						labels: []
 					}
-					if(typeof style.color_range == "string"){
+					if (typeof style.color_range == "string") {
 						style.color_range = JSON.parse(style.color_range);
 					}
-					angular.forEach(style.color_range, function(color){
-						if(color.hasLabel){
+					angular.forEach(style.color_range, function(color) {
+						if (color.hasLabel) {
 							that.legend.colors.push(color.color);
-							if(color.label){
+							if (color.label) {
 								that.legend.labels.push(color.label);
-							}
-							else{
-								that.legend.labels.push(parseFloat(color.stop*100).toFixed(0));
+							} else {
+								that.legend.labels.push(parseFloat(color.stop * 100).toFixed(0));
 							}
 
 						}
 
 					});
-					if(this.legend.colors.length == 0){
+					if (this.legend.colors.length == 0) {
 						this.legend = null;
 					}
-				}
-				else{
+				} else {
 					this.legend = {
 						colors: ['#fff', style.base_color, 'rgba(102,102,102,1)'],
 						labels: ['high', 'Ø', 'low']
@@ -183,6 +230,7 @@
 			this.canvas.height = 10;
 			this.ctx = this.canvas.getContext('2d');
 			var gradient = this.ctx.createLinearGradient(0, 0, 280, 10);
+
 			gradient.addColorStop(1, 'rgba(255,255,255,0.6)');
 			gradient.addColorStop(0.53, color || 'rgba(128, 243, 198,0.6)');
 			gradient.addColorStop(0, 'rgba(102,102,102,0.6)');
@@ -224,9 +272,9 @@
 		this.updateFixedCanvas = function(colorRange) {
 			var gradient = this.ctx.createLinearGradient(0, 0, 257, 10);
 			for (var i = 0; i < colorRange.length; i++) {
-					gradient.addColorStop(colorRange[i].stop, colorRange[i].color);
+				gradient.addColorStop(colorRange[i].stop, colorRange[i].color);
 			}
-			this.ctx.clearRect(0, 0, 257,10);
+			this.ctx.clearRect(0, 0, 257, 10);
 			this.ctx.fillStyle = gradient;
 			this.ctx.fillRect(0, 0, 257, 10);
 			this.palette = this.ctx.getImageData(0, 0, 257, 1).data;
@@ -241,7 +289,7 @@
 		this.countryClick = function(clickFunction) {
 			var that = this;
 			$timeout(function() {
-				that.data.layer.options.onClick = clickFunction;
+				that.mapLayer.on('click', clickFunction);
 			});
 
 		}
@@ -269,17 +317,14 @@
 			}
 
 			if (!this.canvas) {
-				if (typeof this.data.baseColor == 'string') {
-					this.createCanvas(this.data.baseColor);
-				} else {
-					this.createFixedCanvas(this.data.baseColor);
-				}
+
+				this.createFixedCanvas(this.data.baseColor);
+
 			} else {
-				if (typeof this.data.baseColor == 'string') {
-					this.updateCanvas(this.data.baseColor);
-				} else {
-					this.updateFixedCanvas(this.data.baseColor);
-				}
+
+
+				this.updateFixedCanvas(this.data.baseColor);
+
 			}
 			if (drawIt) {
 				this.paintCountries();
@@ -308,20 +353,25 @@
 		this.getNationByName = function(name) {
 			if (this.map.data.length == 0) return false;
 		}
+		this.getDataColors = function() {
+			var colors = {
+				'property': 'ISO_A2',
+				'type': 'categorical',
+				'stops': []
+			};
+			angular.forEach(that.map.data, function(country) {
+				var field = 'score';
+				var linearScale = d3.scale.linear().domain([that.map.structure.min, that.map.structure.max]).range([0, 256]);
+				var colorPos = parseInt(linearScale(parseFloat(country[field]))) * 4; //;
+				var color = 'rgba(' + that.palette[colorPos] + ', ' + that.palette[colorPos + 1] + ', ' + that.palette[colorPos + 2] + ', ' + parseFloat(that.palette[colorPos + 3] / 255).toFixed(2) + ')';
+				var paint = [country.iso, color];
+				colors.stops.push(paint);
+			})
+			return colors;
+		}
 		this.paintCountries = function(style, click, mutex) {
-			var that = this;
-
 			$timeout(function() {
-				if (typeof style != "undefined" && style != null) {
-					that.data.layer.setStyle(style);
-				} else {
-					//that.data.layer.setStyle(that.map.style);
-					that.data.layer.setStyle(that.countriesStyle);
-				}
-				if (typeof click != "undefined") {
-					that.data.layer.options.onClick = click
-				}
-				that.data.layer.redraw();
+				that.mapLayer.setPaintProperty('countries_big', 'fill-color', that.getDataColors())
 			});
 		}
 		this.resetSelected = function(iso) {
@@ -341,35 +391,34 @@
 		}
 		this.setSelectedFeature = function(iso, selected, deselectedAll) {
 
-			if (typeof this.data.layer.layers[this.data.name + '_geom'].features[iso] == 'undefined') {
-				console.log(iso);
-				//debugger;
-			} else {
-				if(deselectedAll){
-					angular.forEach(this.data.layer.layers[this.data.name + '_geom'].features, function(feature, key) {
-							feature.selected = false;
-
-					});
-				}
-
-				this.data.layer.layers[this.data.name + '_geom'].features[iso].selected = selected;
-				this.redraw();
-			}
+			// if (typeof this.data.layer.layers[this.data.name + '_geom'].features[iso] == 'undefined') {
+			// 	console.log(iso);
+			// 	//debugger;
+			// } else {
+			// 	if (deselectedAll) {
+			// 		angular.forEach(this.data.layer.layers[this.data.name + '_geom'].features, function(feature, key) {
+			// 			feature.selected = false;
+			//
+			// 		});
+			// 	}
+			//
+			// 	this.data.layer.layers[this.data.name + '_geom'].features[iso].selected = selected;
+			// 	this.redraw();
+			// }
 
 		}
 		this.redraw = function() {
 			this.data.layer.redraw();
 		}
 		this.paint = function(color) {
-			if(typeof color == "string"){
+			if (typeof color == "string") {
 				this.setBaseColor(color);
 				if (this.ctx) {
 					this.updateCanvas(color);
 				} else {
 					this.createCanvas(color)
 				}
-			}
-			else{
+			} else {
 				if (this.ctx) {
 					this.updateFixedCanvas(color);
 				} else {
@@ -381,10 +430,11 @@
 		}
 		this.gotoCountry = function(iso) {
 			DataService.getOne('countries/bbox', [iso]).then(function(data) {
-				var southWest = L.latLng(data.coordinates[0][0][1], data.coordinates[0][0][0]),
-					northEast = L.latLng(data.coordinates[0][2][1], data.coordinates[0][2][0]),
-					bounds = L.latLngBounds(southWest, northEast);
-
+				var bounds = [
+					[data.coordinates[0][0][0], data.coordinates[0][0][1]],
+					[data.coordinates[0][2][0], data.coordinates[0][2][1]]
+				];
+				console.log(bounds);
 				var pad = [
 					[0, 0],
 					[100, 100]
@@ -395,78 +445,31 @@
 				// 		[0, 0]
 				// 	];
 				// }
+				that.mapLayer.fitBounds(bounds ,{padding:100,maxZoom: 4});
+			});
+		}
+		this.gotoCountries = function(main, isos) {
+			//	isos.push(main);
+			DataService.getOne('countries/bbox', isos).then(function(data) {
+
+				var bounds = new mapboxgl.LngLatBounds(
+					new mapboxgl.LngLat(data.coordinates[0][0][0], data.coordinates[0][0][1]),
+					new mapboxgl.LngLat(data.coordinates[0][2][0], data.coordinates[0][2][1])
+				);
+
+				// if (vm.compare.active) {
+				// 	pad = [
+				// 		[0, 0],
+				// 		[0, 0]
+				// 	];
+				// }
 				that.mapLayer.fitBounds(bounds, {
-					padding: pad[1],
+					padding: 100,
 					maxZoom: 4
 				});
 			});
 		}
-		this.gotoCountries = function(main, isos) {
-				//	isos.push(main);
-				DataService.getOne('countries/bbox', isos).then(function(data) {
-					var southWest = L.latLng(data.coordinates[0][0][1], data.coordinates[0][0][0]),
-						northEast = L.latLng(data.coordinates[0][2][1], data.coordinates[0][2][0]),
-						bounds = L.latLngBounds(southWest, northEast);
 
-					var pad = [
-						[100, 100],
-						[100, 100]
-					];
-					// if (vm.compare.active) {
-					// 	pad = [
-					// 		[0, 0],
-					// 		[0, 0]
-					// 	];
-					// }
-					that.mapLayer.fitBounds(bounds, {
-						padding: pad[1],
-						maxZoom: 4
-					});
-				});
-			}
-			//FULL TO DO
-		this.countriesStyle = function(feature) {
-
-			var style = {};
-			var iso = feature.properties[that.iso_field];
-			var nation = that.getNationByIso(iso);
-			var field = 'score';
-			var type = feature.type;
-			feature.selected = false;
-			switch (type) {
-				case 3: //'Polygon'
-					if (typeof nation[field] != "undefined" && nation[field] != null) {
-						var linearScale = d3.scale.linear().domain([that.map.structure.min, that.map.structure.max]).range([0, 256]);
-
-						var colorPos = parseInt(linearScale(parseFloat(nation[field]))) * 4; //;
-						//var colorPos = parseInt(256 / 100 * parseInt(nation[field])) * 4;
-						var color = 'rgba(' + that.palette[colorPos] + ', ' + that.palette[colorPos + 1] + ', ' + that.palette[colorPos + 2] + ',' + (that.palette[colorPos + 3]/255) + ')';
-						style.color = color;// 'rgba(' + that.palette[colorPos] + ', ' + that.palette[colorPos + 1] + ', ' + that.palette[colorPos + 2] + ',0.6)'; //color;
-						style.outline = {
-							color: color,
-							size: 1
-						};
-						style.selected = {
-							color: 'rgba(' + that.palette[colorPos] + ', ' + that.palette[colorPos + 1] + ', ' + that.palette[colorPos + 2] + ',0.3)',
-							outline: {
-								color: 'rgba(' + that.palette[colorPos] + ', ' + that.palette[colorPos + 1] + ', ' + that.palette[colorPos + 2] + ',1)',
-								// color: 'rgba(66,66,66,0.9)',
-								size: 2
-							}
-						};
-
-					} else {
-						style.color = 'rgba(255,255,255,0)';
-						style.outline = {
-							color: 'rgba(255,255,255,0)',
-							size: 1
-						};
-
-					}
-					break;
-			}
-			return style;
-		}
 		this.invertedStyle = function(feature) {
 			var style = {};
 			var iso = feature.properties[that.iso_field];

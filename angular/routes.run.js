@@ -121,14 +121,14 @@
 
 				//$mdSidenav('leftMenu').close();
 			}
-			resetMapSize();
+			//resetMapSize();
 		});
 
-		function resetMapSize() {
-			$timeout(function() {
-				VectorlayerService.getMap().invalidateSize();
-			}, 1000);
-		}
+		// function resetMapSize() {
+		// 	$timeout(function() {
+		// 		VectorlayerService.getMap().invalidateSize();
+		// 	}, 1000);
+		// }
 		/*window.addEventListener('scroll', function(ev) {
     // avoids scrolling when the focused element is e.g. an input
     if (

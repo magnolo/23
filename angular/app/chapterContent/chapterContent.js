@@ -19,21 +19,28 @@
 		vm.compareOptions = {};
 		activate();
 
-		VectorlayerService.countryClick(function(data) {
-			if (!countryExistsInData(data.feature.id)) return false;
-			if (vm.compare) {
-				addCompareCountry(data.feature.id, true)
-				showComparison();
-			} else {
-				$state.go('app.export.detail.chapter.indicator.country', {
-					indicator: vm.ExportService.indicator.indicator_id,
-					indiname: vm.ExportService.indicator.name,
-					iso: data.feature.id
-				});
-				//$rootScope.sidebarOpen = false;
-				getCountryByIso(data.feature.id);
-				fetchNationData(data.feature.id);
+		VectorlayerService.countryClick(function(e) {
+			var feature = VectorlayerService.mapLayer.queryRenderedFeatures(e.point, {
+				layers: [VectorlayerService.getName()]
+			});
+			if(feature.length){
+				var iso = feature[0].properties.ISO_A2;
+				if (!countryExistsInData(iso)) return false;
+				if (vm.compare) {
+					addCompareCountry(iso, true)
+					showComparison();
+				} else {
+					$state.go('app.export.detail.chapter.indicator.country', {
+						indicator: vm.ExportService.indicator.indicator_id,
+						indiname: vm.ExportService.indicator.name,
+						iso: iso
+					});
+					//$rootScope.sidebarOpen = false;
+					getCountryByIso(iso);
+					fetchNationData(iso);
+				}
 			}
+
 
 		});
 
@@ -166,7 +173,7 @@
 			$state.go('app.export.detail.chapter.indicator.country', {
 				iso: nation.iso
 			});
-			VectorlayerService.setSelectedFeature(nation.iso, true, true);
+			//VectorlayerService.setSelectedFeature(nation.iso, true, true);
 			getCountryByIso(nation.iso);
 			fetchNationData(nation.iso);
 		}
@@ -235,9 +242,10 @@
 					item.style.color_range = JSON.parse(item.style.color_range);
 				}
 
-				VectorlayerService.setBaseLayer(item.style.basemap, item.indicator.dataprovider);
-				VectorlayerService.setMapDefaults(item.style);
-				VectorlayerService.setData(indicator.data, indicator, item.style.color_range || item.style.base_color, true);
+				// VectorlayerService.setBaseLayer(item.style.basemap, item.indicator.dataprovider);
+				// VectorlayerService.setMapDefaults(item.style);
+
+				 VectorlayerService.setData(indicator.data, indicator, item.style.color_range || item.style.base_color, true);
 
 				if (typeof done == "function") {
 					done();

@@ -69,8 +69,7 @@
 
       <script src="{!! asset('js/vendor.js') !!}"></script>
       <script src="{!! asset('js/app.js') !!}"></script>
-      <script src="js/pbf.min.js"></script>
-      <script src="js/MapBoxVectorTile/dist/Leaflet.MapboxVectorTile.js"></script>
+      <script src='https://api.mapbox.com/mapbox-gl-js/v0.22.0/mapbox-gl.js'></script>
       <script src="js/papaparse/papaparse.js"></script>
 
       {{--livereload--}} @if ( Config::get('app.debug') )
