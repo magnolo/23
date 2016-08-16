@@ -43,8 +43,8 @@
 
 				</div>
 				<export-chooser ng-if="vm.selectedCountry.iso" chapters="vm.ExportService.exporter.items" countries="vm.data" nation="vm.selectedCountry" selected="vm.selectedIndicator" changed="vm.selectCountry(nation)"></export-chooser>
-				<div layout-gt-sm="column" layout="row" layout-align="space-between center" layout-align-gt-sm="start" ng-if="vm.selectedCountry.iso" style="margin-left:18px">
-					<div layout="column" layout-gt-sm="row" layout-align-gt-sm="start center" layout-align="start center">
+				<div layout-gt-sm="column" layout="row" layout-align="space-between center" layout-align-gt-sm="start" ng-if="vm.selectedCountry.iso" style="margin:0 18px">
+					<div layout="column" layout-gt-sm="row" layout-align-gt-sm="start center" layout-align="start center" style="margin-right:20px;">
 
 						<!-- <triangle-graph data="vm.data" ng-model="vm.selectedCountry"></triangle-graph> -->
 						<circlegraph flex-order-gt-sm="2" item="vm.selectedCountry" options="vm.circleOptions"></circlegraph>
@@ -52,7 +52,7 @@
 					</div>
 					<!-- <span hide-gt-sm style="margin-left:20px;margin-right: -10px;" class="colored">Score</span> -->
 					<section flex class="module slide-toggle" layout-align="center center" layout="column" ng-if="vm.current  && !vm.compare.active">
-						<median flex data="vm.data" ng-model="vm.selectedCountry" options="{ showValue:false, color: vm.ExportService.indicator.style.base_color,handling: true, field: 'score', max:	vm.structure.max, min:	vm.structure.min, info:true}" style="margin:0.7em 0"></median>
+						<median flex data="vm.data" ng-model="vm.selectedCountry" options="{ showValue:false, color: vm.ExportService.indicator.style.base_color, gradient:vm.ExportService.indicator.style.color_range,handling: true, field: 'score', max:	vm.structure.max, min:	vm.structure.min, info:true}" style="margin:0.7em 0"></median>
 						<div class="colored"><b>Score in % {{vm.selectedCountry.score}}</b></div>
 					</section>
 				</div>
@@ -68,7 +68,7 @@
 			<div class="module comparison">
 				<div flex style="text-align:right;font-style: italic;font-size: 0.8em;margin-right: 20px;opacity: 0.7;margin-bottom: 1em;">{{ vm.selectedIndicator.title }} ({{vm.selectedIndicator.indicator.type.ext}})</div>
 				<div layout-wrap layout="row" ng-if="vm.current && vm.structure">
-					<compare-countries flex style="margin-left:8px;" country="vm.selectedCountry" countries="vm.countriesList" options="{field: 'score', height: 25, margin:5, color:vm.ExportService.indicator.style.base_color, duration:500, min:vm.structure.min, max:vm.structure.max}"></compare-countries>
+					<compare-countries flex style="margin-left:8px;" country="vm.selectedCountry" countries="vm.countriesList" options="vm.compareOptions"></compare-countries>
 				</div>
 			</div>
 		</md-tab>

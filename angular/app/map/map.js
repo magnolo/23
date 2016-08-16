@@ -79,7 +79,7 @@
 			L.DomEvent.disableClickPropagation(container);
 			L.DomEvent.addListener(container, 'click', function() {
 					var map = VectorlayerService.getMap();
-					map.setView([48.209206, 16.372778], 2);
+					map.setView([48.209206, 16.372778], 3);
 
 					if($state.$current.name.indexOf('app.export.detail.chapter.indicator') > -1){
 							$state.go('app.export.detail.chapter.indicator',{
@@ -144,6 +144,7 @@
 			map.addLayer(VectorlayerService.setLayer(layer));
 			map.addControl(MyControl);
 			map.addControl(BackHome);
+			//	VectorlayerService.getLayer().bringToFront();
 			/*map.on('click', function(){
 				alert('hello');
 			});
@@ -159,6 +160,7 @@
 		/*	map.addLayer(vm.labelsLayer);
 			vm.labelsLayer.bringToFront();
 				vm.noLabel = true;*/
+
 		});
 	});
 })();

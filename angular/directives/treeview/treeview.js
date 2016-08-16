@@ -11,7 +11,7 @@
 		vm.onDropComplete = onDropComplete;
 		vm.onMovedComplete = onMovedComplete;
 		vm.addChildren = addChildren;
-		console.log(vm);
+
 		activate();
 
 		function activate() {

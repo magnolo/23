@@ -26,8 +26,8 @@
 				min: 0,
 				max: 100,
 				margin: {
-					left: 20,
-					right: 20,
+					left: 0,
+					right: 0,
 					top: 10,
 					bottom: 10
 				},
@@ -118,13 +118,26 @@
 					.range([options.margin.left, options.width - options.margin.left])
 					.clamp(true);
 
+				if(options.gradient){
+					if (typeof options.gradient == "string") {
+						options.gradient = JSON.parse(options.gradient);
+					}
+					angular.forEach(options.gradient, function(color) {
+						gradient.append('svg:stop')
+							.attr('offset', (color.stop * 100) + '%')
+							.attr('stop-color', color.color)
+							//.attr('stop-opacity', color.opacity);
+					});
+				}
+				else{
+					angular.forEach(options.colors, function(color) {
+						gradient.append('svg:stop')
+							.attr('offset', color.position + '%')
+							.attr('stop-color', color.color)
+							.attr('stop-opacity', color.opacity);
+					});
+				}
 
-				angular.forEach(options.colors, function(color) {
-					gradient.append('svg:stop')
-						.attr('offset', color.position + '%')
-						.attr('stop-color', color.color)
-						.attr('stop-opacity', color.opacity);
-				});
 
 
 				if (options.info === true) {

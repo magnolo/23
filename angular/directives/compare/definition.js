@@ -250,7 +250,24 @@
 						.attr("opacity", "0")
 						.remove();
 				}
+				function getMobileOperatingSystem() {
+  var userAgent = navigator.userAgent || navigator.vendor || window.opera;
 
+  if( userAgent.match( /iPad/i ) || userAgent.match( /iPhone/i ) || userAgent.match( /iPod/i ) )
+  {
+    return 'iOS';
+
+  }
+  else if( userAgent.match( /Android/i ) )
+  {
+
+    return 'Android';
+  }
+  else
+  {
+    return 'unknown';
+  }
+}
 
 
 
@@ -265,17 +282,22 @@
 
 						if (scope.countries.length  && window.innerWidth < 960) {
 							var h = container[0].clientHeight;
-
-							if(h < window.innerHeight - 194){
-								container.attr('style', 'transform:translateY(calc(100vh - ' + (parseInt(scope.countries.length * 24)) + 'px - 260px))')
-								// map.attr('style', 'height:calc(100vh - '+(parseInt(scope.countries.length * 24))+'px + 260px)');
+							var os = getMobileOperatingSystem();
+							var extra = 0, scroll = 0, extraMore = 0;
+							if(os == "iOS"){
+								extra = 5;
+								extraMore = 35;
+								scroll = 100;
 							}
+							if(h < window.innerHeight - 194){
+								container.attr('style', 'transform:translateY(calc(100vh - ' + (parseInt(scope.countries.length * 24)) + 'px - 260px - '+(extra*scope.countries.length)+'px - '+extraMore+'px))')
+									}
 							else{
-								container.attr('style', 'transform:translateY(calc(100vh - ' + (parseInt(window.innerHeight - 200)) + 'px - 40px))')
+								container.attr('style', 'transform:translateY(calc(100vh - ' + (parseInt(window.innerHeight - 200)) + 'px - 40px - '+scroll+'px))')
 							}
 						} else {
 							container.attr('style', '');
-							// map.attr('style', '');
+
 						}
 					})
 				}, true)

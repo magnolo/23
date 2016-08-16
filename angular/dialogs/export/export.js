@@ -3,11 +3,9 @@
 
     angular.module('app.controllers').controller('ExportDialogCtrl', function($scope, DialogService){
 
-        $scope.save = function(){
-            //
-        };
-
+        console.log($scope);
         $scope.hide = function(){
+
         	DialogService.hide();
         };
 

@@ -34,22 +34,22 @@
        .enter().append('div')
          .attr('class', 'triangle-box');
 
-     svg.selectAll('.triangle-box')
-         .append('svg')
-         .attr('width', 100)
-         .attr('height', 100)
-       .append('g')
-         .attr('class', 'triangles')
-
-         .append('path')
-         .attr('d', () => 'M ' + xScale(5) + ' ' + yScale(0) + ' L ' + xScale(88) + ' ' + yScale(5) + ' L ' + xScale(88) + ' ' + yScale(18815) + ' Z')
-         .style('fill', 'rgb(222,222,222)');
-
-     svg.selectAll('.triangles')
-
-         .append('path')
-         .attr('d', (d) => 'M ' + xScale(5) + ' ' + yScale(0) + ' L ' + xScale(88) + ' ' + yScale(5) + ' L ' + xScale(88) + ' ' + yScale(d.value) + ' Z')
-         .style('fill', 'rgba(181,227,147,0.5)');
+    //  svg.selectAll('.triangle-box')
+    //      .append('svg')
+    //      .attr('width', 100)
+    //      .attr('height', 100)
+    //    .append('g')
+    //      .attr('class', 'triangles')
+		 //
+    //      .append('path')
+    //      .attr('d', () => 'M ' + xScale(5) + ' ' + yScale(0) + ' L ' + xScale(88) + ' ' + yScale(5) + ' L ' + xScale(88) + ' ' + yScale(18815) + ' Z')
+    //      .style('fill', 'rgb(222,222,222)');
+		 //
+    //  svg.selectAll('.triangles')
+		 //
+    //      .append('path')
+    //      .attr('d', (d) => 'M ' + xScale(5) + ' ' + yScale(0) + ' L ' + xScale(88) + ' ' + yScale(5) + ' L ' + xScale(88) + ' ' + yScale(d.value) + ' Z')
+    //      .style('fill', 'rgba(181,227,147,0.5)');
 
 
 				}
