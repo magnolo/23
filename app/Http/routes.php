@@ -51,6 +51,10 @@ $api->version('v1', function ($api) {
     $api->get('countries/byName/{name}', 'App\Http\Controllers\CountriesController@getByName');
     $api->get('continents', 'App\Http\Controllers\CountriesController@getContinents');
 
+    //Subnational Routes Adminstrative Level 1 - 3
+    $api->get('subnational/{adm_level}','App\Http\Controllers\SubnationalsController@index');
+    $api->get('subnational/{adm_level}/hasc','App\Http\Controllers\SubnationalsController@listHascs');
+
     $api->get('data/tables', 'App\Http\Controllers\UserdataController@index');
 
     $api->get('categories', 'App\Http\Controllers\CategoriesController@index');

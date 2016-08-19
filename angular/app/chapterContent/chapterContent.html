@@ -1,23 +1,28 @@
 <md-content layout-padding hide-xs hide-sm>
 	<div style="padding: 0 8px">
 		<md-input-container class="md-block no-margin">
-			<md-select ng-model="vm.selectedIndicator" aria-label="Select Indidicator" ng-change="vm.gotoIndicator()">
+			<md-select ng-model="vm.selectedIndicator" aria-label="Select Indicator" ng-change="vm.gotoIndicator()">
+
 				<md-optgroup ng-if="chapter.type == 'group'" label="{{chapter.title}}" ng-repeat="chapter in vm.ExportService.exporter.items" ng-style="{'color': vm.ExportService.indicator.style.base_color}">
 					<md-option ng-value="item" ng-repeat="item in chapter.children">{{ item.title}}</md-option>
 				</md-optgroup>
+
 				<md-optgroup ng-if="chapter.type != 'group'" label="{{vm.ExportService.exporter.title}}"  ng-style="{'color': vm.ExportService.indicator.style.base_color}">
 					<md-option ng-value="item" ng-if="item.type == 'indicator'" ng-repeat="item in vm.ExportService.exporter.items">{{ item.title}}</md-option>
 				</md-optgroup>
+
 			</md-select>
 		</md-input-container>
 	</div>
 </md-content>
+
 <div class="chapter-image" hide-xs hide-sm layout="column" layout-align="center center" ng-if="vm.ExportService.chapter.style.image.src" ng-class="{'dark': !vm.isDark}">
 	<div style="background-image:url('{{vm.ExportService.chapter.style.image.src}}')" class="image">
 		<div class="tint"></div>
 		<img color="vm.isDark" image-color ng-src="{{vm.ExportService.chapter.style.image.src}}" style="display:none" />
 	</div>
 </div>
+
 <md-subheader class="md-primary selector" hide-gt-sm>
 	<div>
 		<md-input-container class="md-block">
@@ -32,6 +37,7 @@
 		</md-input-container>
 	</div>
 </md-subheader>
+
 <section class="mobile-container">
 	<md-tabs md-center-tabs="true" md-swipe-content="false"  md-dynamic-height md-no-pagination="true" md-selected="vm.activeTab" md-stretch-tabs="always" md-swipe-content="true" ng-if="vm.ExportService.indicator">
 		<md-tab label="Details" md-active="vm.activeTab == 0" md-on-select="vm.setTab(0)">

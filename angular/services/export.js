@@ -63,7 +63,6 @@
 
 		}
 		vm.setExport = function(data) {
-
 			return vm.exporter = data;
 		}
 		vm.getChapter = function(id, chapter, success, ignoreFirst) {

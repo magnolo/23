@@ -53,6 +53,7 @@
 			L.DomEvent.disableClickPropagation(container);
 			L.DomEvent.addListener(container, 'click', function() {
 					var map = VectorlayerService.getMap();
+				console.log(map);
 					if (vm.noLabel) {
 						map.removeLayer(vm.labelsLayer);
 						vm.noLabel = false;
