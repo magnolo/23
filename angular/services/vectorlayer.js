@@ -42,7 +42,7 @@
 		this.data = {
 			layer: '',
 			//Tabellenname in der die Laendershapes liegen
-			name: 'countries_big',
+			name: 'tt_countries',
 			//Default Farbe
 			baseColor: '#06a99c',
 			//ISO-3 Code Spalte
@@ -348,7 +348,7 @@
 		this.getNationByName = function(name) {
 			if (this.map.data.length == 0) return false;
 		}
-		//Wenn $digest fertig, wird der Style der Vectormap festgelegt, eventuell 
+		//Wenn $digest fertig, wird der Style der Vectormap festgelegt, eventuell
 		// die ClickFunktion auf den Länder/Polygoenn
 		this.paintCountries = function(style, click, mutex) {
 			var that = this;
@@ -366,7 +366,7 @@
 				that.data.layer.redraw();
 			});
 		}
-		//Wenn ein iso Wert als Parameter mitgegeben wird, wird allen anderen Länder 
+		//Wenn ein iso Wert als Parameter mitgegeben wird, wird allen anderen Länder
 		// der selected wert auf false gesetzt, sonst passiert das selbe bei allen Lüänern
 		this.resetSelected = function(iso) {
 			if (typeof this.data.layer.layers != "undefined") {
@@ -383,7 +383,7 @@
 			}
 
 		}
-		//Setzt die select Property eines Landes auf den true/false (selected) 
+		//Setzt die select Property eines Landes auf den true/false (selected)
 		// und auf wunsch (deselectedAll = true) bei allen anderen Ländern/Polygonen auf false
 		this.setSelectedFeature = function(iso, selected, deselectAll) {
 			//Wenn das angeklickte Feature der Map keinen Iso-Wert enthält, soll nichts passieren
@@ -460,9 +460,9 @@
 				});
 			});
 		}
-		
+
 		//LE
-		//Style Function des Vectorlayers. Feature ist da angeklickte Land/Polygon 
+		//Style Function des Vectorlayers. Feature ist da angeklickte Land/Polygon
 		// mit den angeforderten Felders als Properties > this.data.fields
 		this.countriesStyle = function(feature) {
 
