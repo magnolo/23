@@ -53,7 +53,6 @@
 			L.DomEvent.disableClickPropagation(container);
 			L.DomEvent.addListener(container, 'click', function() {
 					var map = VectorlayerService.getMap();
-				console.log(map);
 					if (vm.noLabel) {
 						map.removeLayer(vm.labelsLayer);
 						vm.noLabel = false;
@@ -118,6 +117,7 @@
 			VectorlayerService.setMap(map);
 			//var url = 'http://v22015052835825358.yourvserver.net:3001/services/postgis/' + VectorlayerService.getName() + '/geom/vector-tiles/{z}/{x}/{y}.pbf?fields=' + VectorlayerService.fields(); //
 			var url = 'https://www.23degree.org:3001/services/postgis/' + VectorlayerService.getName() + '/geom/vector-tiles/{z}/{x}/{y}.pbf?fields=' + VectorlayerService.fields(); //
+			var urlAdmn1 = 'https://www.23degree.org:3001/services/postgis/' + VectorlayerService.getAdm1() + '/geom/vector-tiles/{z}/{x}/{y}.pbf?fields=id,name_1,hasc_1'; //
 			var layer = new L.TileLayer.MVTSource({
 				url: url,
 				debug: false,
@@ -141,8 +141,32 @@
 					return style;
 				}
 			});
+			var layerAdm1 = new L.TileLayer.MVTSource({
+				url: urlAdmn1,
+				debug: false,
+				detectRetina:true,
+				clickableLayers: [VectorlayerService.getName() + '_geom'],
+				mutexToggle: true,
+				getIDForLayerFeature: function(feature) {
+					return feature.properties.iso_a2;
+				},
+				filter: function(feature, context) {
+
+					return true;
+				},
+				style: function(feature) {
+					var style = {};
+					style.color = 'rgba(0,0,0,1)';
+					style.outline = {
+						color: 'rgba(255,0,0,1)',
+						size: 1
+					};
+					return style;
+				}
+			});
 
 			map.addLayer(VectorlayerService.setLayer(layer));
+			map.addLayer(VectorlayerService.setAdm1Layer(layerAdm1));
 			map.addControl(MyControl);
 			map.addControl(BackHome);
 			//	VectorlayerService.getLayer().bringToFront();

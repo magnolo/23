@@ -4,11 +4,6 @@
 	angular.module('app.services').service('VectorlayerService', function($timeout, DataService, leafletData) {
 		var that = this,
 			_self = this;
-		/**
-		 * Basemap die verwendet wird, falls von Style oder aehnlichem keine eigene Basemap mitreinkommt.
-		 * Ist allgemein ein Angular-Leaflet Config-Objekt
-		 * @type {{name: string, url: string, type: string, layerOptions: {noWrap: boolean, continuousWorld: boolean, detectRetina: boolean}}}
-         */
 		this.fallbackBasemap = {
 			name: 'Outdoor',
 			url: 'https://{s}.tiles.mapbox.com/v4/valderrama.d86114b6/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFnbm9sbyIsImEiOiJuSFdUYkg4In0.5HOykKk0pNP1N3isfPQGTQ',
@@ -21,42 +16,29 @@
 
 			}
 		}
-		/**
-		 * this.basemap ist die map die gerendert wird
-		 * @type {{name: string, url: string, type: string, layerOptions: {noWrap: boolean, continuousWorld: boolean, detectRetina: boolean}}|*}
-         */
 		this.basemap = this.fallbackBasemap;
 		this.iso_field = 'iso_a2';
-		//Ob canvas schon instatiert ist
 		this.canvas = false;
-		//Ist ein Farbverlauf anhand dessen die Farben selektiert werden um Polygone der Länder einzufärben
 		this.palette = [];
-		//Context der im Canvas erstellt wird, auf dem gezeichnet werden kann
 		this.ctx = null;
-		//API Keys
 		this.keys = {
 			mazpen: 'vector-tiles-Q3_Os5w',
 			mapbox: 'pk.eyJ1IjoibWFnbm9sbyIsImEiOiJuSFdUYkg4In0.5HOykKk0pNP1N3isfPQGTQ'
 		};
-		//Configuration fuer den Datenzugriff allgemein
 		this.data = {
 			layer: '',
-			//Tabellenname in der die Laendershapes liegen
+			layerAdm1: '',
 			name: 'tt_countries',
-			//Default Farbe
+			adm1: 'tt_adm1',
+			adm2: 'tt_adm2',
+			adm3: 'tt_adm3',
 			baseColor: '#06a99c',
-			//ISO-3 Code Spalte
 			iso3: 'adm0_a3',
-			//ISO-2 Code Spalte
 			iso2: 'iso_a2',
-			//ISO Code der tatsaechlich verwendet wird
 			iso: 'iso_a2',
-			//Felder die aus der Datenbank angefordert werden auf die Landershapes bezogen
 			fields: "id,admin,adm0_a3,wb_a3,su_a3,iso_a3,iso_a2,name,name_long",
-			//Name des Feldes mit dem abgeglichen wird
 			field: 'score'
 		};
-		// <DEPRECEATED>
 		this.map = {
 			data: [],
 			current: [],
@@ -64,21 +46,17 @@
 			style: [],
 			attribution:''
 		};
-		// Object - Hier wird der Vektorlayer abgespeichert
 		this.mapLayer = null;
-		//Leaflet Configuration für Layers
 		this.layers = {
 			baselayers: {
 				xyz:this.basemap,
 			}
 		};
-		// Leaflet Config: Center
 		this.center = {
 			lat: 48.209206,
 			lng: 16.372778,
 			zoom: 3
 		};
-		//Leaflet Config: Grenzen
 		this.maxbounds = {
 			southWest: {
 				lat: 90,
@@ -89,13 +67,11 @@
 				lng: -180
 			}
 		};
-		//Leaflet Config: Default Einstellungen
 		this.defaults = {
 			minZoom: 2,
 			maxZoom: 6,
 			zoomControlPosition:'bottomright'
 		};
-		//Leafet Config: Lengende in der Map
 		this.legend = null;
 		this.setMap = function(map) {
 			return this.mapLayer = map;
@@ -103,7 +79,6 @@
 		this.getMap = function() {
 			return this.mapLayer;
 		}
-		//Legt die gewünschte Basemap von Leaflet fest. Falls nichts vorhanden, wird die FallbackMap verwendet
 		this.setBaseLayer = function(basemap, dataprovider) {
 			if (!basemap)
 				this.basemap = basemap = this.fallbackBasemap;
@@ -134,7 +109,6 @@
 		// 	 })
 		//  })
 		}
-		//Legt die Einstellungen für die Map fest, falls andere Standardwerte gewünscht sind
 		this.setMapDefaults = function(style) {
 			this.defaults = {
 				zoomControl: style.zoom_controls,
@@ -189,11 +163,18 @@
 		this.setLayer = function(l) {
 			return this.data.layer = l;
 		}
+		this.setAdm1Layer = function(l) {
+			return this.data.layerAdm1 = l;
+		}
+
 		this.getLayer = function() {
 			return this.data.layer;
 		}
 		this.getName = function() {
 			return this.data.name;
+		}
+		this.getAdm1 = function(){
+			return this.data.adm1;
 		}
 		this.fields = function() {
 			return this.data.fields;
@@ -207,29 +188,21 @@
 		this.iso2 = function() {
 			return this.data.iso2;
 		}
-		//Erstellt das Canvas element fuer den monochromen Gradient aus dem die Palette genommen wird
 		this.createCanvas = function(color) {
-			//Erstellt canvas DOM-Element
 			this.canvas = document.createElement('canvas');
-			//Dimensionen des canvas elements
-			this.canvas.width = 257;
+			this.canvas.width = 280;
 			this.canvas.height = 10;
-			//2d Context auf dem gemalt werden kann
 			this.ctx = this.canvas.getContext('2d');
-			//Erstellt Gradient, noch nicht gezeichnet
-			var gradient = this.ctx.createLinearGradient(0, 0, 257, 10);
-			//Legt Position und Farbwert im Gradient fest
-			gradient.addColorStop(1, 'rgba(255,255,255,0)');
-			gradient.addColorStop(0.53, color || 'rgba(128, 243, 198,1)');
-			gradient.addColorStop(0, 'rgba(102,102,102,1)');
-			//Zeichnet Gradient in 2d context
+			var gradient = this.ctx.createLinearGradient(0, 0, 280, 10);
+			gradient.addColorStop(1, 'rgba(255,255,255,0.6)');
+			gradient.addColorStop(0.53, color || 'rgba(128, 243, 198,0.6)');
+			gradient.addColorStop(0, 'rgba(102,102,102,0.6)');
+
 			this.ctx.fillStyle = gradient;
-			this.ctx.fillRect(0, 0, 257, 10);
-			//Liste der RGB(vllt A) Daten die in den Gradient gezeichnet wurden
+			this.ctx.fillRect(0, 0, 280, 10);
 			this.palette = this.ctx.getImageData(0, 0, 257, 1).data;
 			//document.getElementsByTagName('body')[0].appendChild(this.canvas);
 		}
-		//Siehe oben
 		this.updateCanvas = function(color) {
 
 
@@ -244,7 +217,6 @@
 
 			this.palette = this.ctx.getImageData(0, 0, 257, 1).data;
 		}
-		//Wie oben, nur das eine Farbpalette mit gegeben wird, daher polychrom
 		this.createFixedCanvas = function(colorRange) {
 
 			this.canvas = document.createElement('canvas');
@@ -272,9 +244,11 @@
 			//document.getElementsByTagName('body')[0].appendChild(this.canvas);
 		}
 		this.setBaseColor = function(color) {
-			return this.data.baseColor = color;
-		}
-		//Was passiert wenn auf ein Land/Polygon geclickt wird
+				return this.data.baseColor = color;
+			}
+			/*	setStyle: function(style) {
+					this.data.layer.setStyle(style)
+				},*/
 		this.countryClick = function(clickFunction) {
 			var that = this;
 			$timeout(function() {
@@ -288,19 +262,16 @@
 		this.setStyle = function(style) {
 			return this.map.style = style;
 		}
-		//Legt den Style der Vectormap fest, welche zB für die Anzeige vom Ländervergleich verwendet wird. Rendert nur ausgewählte Features
 		this.invertStyle = function() {
 			this.data.layer.setStyle(that.invertedStyle);
 			that.data.layer.options.mutexToggle = false;
 			that.data.layer.redraw();
 		}
-		//Legt den default Style der Vectormap fest
 		this.localStyle = function() {
 			this.data.layer.setStyle(that.countriesStyle);
 			that.data.layer.options.mutexToggle = true;
 			that.data.layer.redraw();
 		}
-		//Legt Daten und Struktur des darzustellenden Index fest, setzt die Basecolor und rendert den Layer
 		this.setData = function(data, structure, color, drawIt) {
 			this.map.data = data;
 			this.map.structure = structure;
@@ -348,8 +319,6 @@
 		this.getNationByName = function(name) {
 			if (this.map.data.length == 0) return false;
 		}
-		//Wenn $digest fertig, wird der Style der Vectormap festgelegt, eventuell
-		// die ClickFunktion auf den Länder/Polygoenn
 		this.paintCountries = function(style, click, mutex) {
 			var that = this;
 
@@ -366,8 +335,6 @@
 				that.data.layer.redraw();
 			});
 		}
-		//Wenn ein iso Wert als Parameter mitgegeben wird, wird allen anderen Länder
-		// der selected wert auf false gesetzt, sonst passiert das selbe bei allen Lüänern
 		this.resetSelected = function(iso) {
 			if (typeof this.data.layer.layers != "undefined") {
 				angular.forEach(this.data.layer.layers[this.data.name + '_geom'].features, function(feature, key) {
@@ -383,15 +350,13 @@
 			}
 
 		}
-		//Setzt die select Property eines Landes auf den true/false (selected)
-		// und auf wunsch (deselectedAll = true) bei allen anderen Ländern/Polygonen auf false
-		this.setSelectedFeature = function(iso, selected, deselectAll) {
-			//Wenn das angeklickte Feature der Map keinen Iso-Wert enthält, soll nichts passieren
+		this.setSelectedFeature = function(iso, selected, deselectedAll) {
+
 			if (typeof this.data.layer.layers[this.data.name + '_geom'].features[iso] == 'undefined') {
 				console.log(iso);
 				//debugger;
 			} else {
-				if(deselectAll){
+				if(deselectedAll){
 					angular.forEach(this.data.layer.layers[this.data.name + '_geom'].features, function(feature, key) {
 							feature.selected = false;
 
@@ -425,7 +390,6 @@
 
 			this.paintCountries();
 		}
-		// Zoom der Map zu den gewünschte Land
 		this.gotoCountry = function(iso) {
 			DataService.getOne('countries/bbox', [iso]).then(function(data) {
 				var southWest = L.latLng(data.coordinates[0][0][1], data.coordinates[0][0][0]),
@@ -436,13 +400,18 @@
 					[0, 0],
 					[100, 100]
 				];
+				// if (vm.compare.active) {
+				// 	pad = [
+				// 		[0, 0],
+				// 		[0, 0]
+				// 	];
+				// }
 				that.mapLayer.fitBounds(bounds, {
 					padding: pad[1],
 					maxZoom: 4
 				});
 			});
 		}
-		// Zoom der Map zu den gewünschten Ländern
 		this.gotoCountries = function(main, isos) {
 				//	isos.push(main);
 				DataService.getOne('countries/bbox', isos).then(function(data) {
@@ -450,20 +419,23 @@
 						northEast = L.latLng(data.coordinates[0][2][1], data.coordinates[0][2][0]),
 						bounds = L.latLngBounds(southWest, northEast);
 
-				var pad = [
-					[100, 100],
-					[100, 100]
-				];
-				that.mapLayer.fitBounds(bounds, {
-					padding: pad[1],
-					maxZoom: 4
+					var pad = [
+						[100, 100],
+						[100, 100]
+					];
+					// if (vm.compare.active) {
+					// 	pad = [
+					// 		[0, 0],
+					// 		[0, 0]
+					// 	];
+					// }
+					that.mapLayer.fitBounds(bounds, {
+						padding: pad[1],
+						maxZoom: 4
+					});
 				});
-			});
-		}
-
-		//LE
-		//Style Function des Vectorlayers. Feature ist da angeklickte Land/Polygon
-		// mit den angeforderten Felders als Properties > this.data.fields
+			}
+			//FULL TO DO
 		this.countriesStyle = function(feature) {
 
 			var style = {};
