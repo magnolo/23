@@ -40,6 +40,6 @@ class CreateAdm2MunicipalityTable extends Migration
      */
     public function down()
     {
-        Schema::create('adm2');
+        Schema::drop('adm2');
     }
 }

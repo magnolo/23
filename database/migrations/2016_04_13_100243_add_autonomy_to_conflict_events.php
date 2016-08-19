@@ -27,7 +27,7 @@ class AddAutonomyToConflictEvents extends Migration
     {
         Schema::table('conflict_events', function (Blueprint $table) {
             //
-            Schema::drop('autonomy');
+          $table->dropColumn(['autonomy']);
         });
     }
 }

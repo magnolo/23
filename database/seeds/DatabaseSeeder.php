@@ -23,7 +23,10 @@ class DatabaseSeeder extends Seeder
         $this->call('EpiSeeder');
         $this->call('EpiDataSeeder');
         $this->call('PoiTypesSeeder');
-        $this->call('BasemapTableSeeder');
+        $this->call('Adm1TableSeeder');
+        $this->call('Adm2TableSeeder');
+        $this->call('Adm3TableSeeder');
+
         Model::reguard();
     }
 }
