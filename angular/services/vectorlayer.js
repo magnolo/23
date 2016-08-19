@@ -1,7 +1,7 @@
 (function() {
 	"use strict";
 
-	angular.module('app.services').service('VectorlayerService', function($timeout, DataService) {
+	angular.module('app.services').service('VectorlayerService', function($timeout, DataService, leafletData) {
 		var that = this,
 			_self = this;
 		/**
@@ -13,10 +13,12 @@
 			name: 'Outdoor',
 			url: 'https://{s}.tiles.mapbox.com/v4/valderrama.d86114b6/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFnbm9sbyIsImEiOiJuSFdUYkg4In0.5HOykKk0pNP1N3isfPQGTQ',
 			type: 'xyz',
-			layerOptions: {
+
+			options: {
 				noWrap: true,
 				continuousWorld: false,
-				detectRetina: true
+				detectRetina: true,
+
 			}
 		}
 		/**
@@ -59,14 +61,15 @@
 			data: [],
 			current: [],
 			structure: [],
-			style: []
+			style: [],
+			attribution:''
 		};
 		// Object - Hier wird der Vektorlayer abgespeichert
 		this.mapLayer = null;
 		//Leaflet Configuration für Layers
 		this.layers = {
 			baselayers: {
-				xyz: this.basemap
+				xyz:this.basemap,
 			}
 		};
 		// Leaflet Config: Center
@@ -93,8 +96,7 @@
 			zoomControlPosition:'bottomright'
 		};
 		//Leafet Config: Lengende in der Map
-		this.legend = {};
-
+		this.legend = null;
 		this.setMap = function(map) {
 			return this.mapLayer = map;
 		}
@@ -102,23 +104,35 @@
 			return this.mapLayer;
 		}
 		//Legt die gewünschte Basemap von Leaflet fest. Falls nichts vorhanden, wird die FallbackMap verwendet
-		this.setBaseLayer = function(basemap) {
+		this.setBaseLayer = function(basemap, dataprovider) {
 			if (!basemap)
 				this.basemap = basemap = this.fallbackBasemap;
-
+			var attribution = (basemap.attribution || basemap.provider);
+			if(dataprovider){
+				attribution += ' | Data by <a href="'+dataprovider.url+'" target="_blank">' + dataprovider.title + '</a>';
+			}
 			this.layers.baselayers['xyz'] = {
 				name: basemap.name,
 				url: basemap.url,
 				type: 'xyz',
-				layerOptions: {
-					noWrap: true,
-					continuousWorld: false,
-					detectRetina: true,
-					// attribution:basemap.attribution || basemap.provider,
-					attribution: "Copyright:© 2014 Esri, DeLorme, HERE, TomTom"
-				}
+				// options: {
+				// 	noWrap: true,
+				// 	continuousWorld: false,
+				// 	detectRetina: true,
+				// 	attribution:attribution,
+				// }
 
 			}
+			this.map.attribution = attribution;
+		// 	//DIRTY HACK TO CORRECT LAYER ON TOP: SETTING OPTIONS UP HERE CAUSES THE PROBLEM
+		//  $timeout(function(){
+		// 	 angular.forEach(that.mapLayer._layers,function(layer){
+		// 		 if(layer.options.url != "https://www.23degree.org:3001/services/postgis/countries_big/geom/vector-tiles/{z}/{x}/{y}.pbf?fields=id,admin,adm0_a3,wb_a3,su_a3,iso_a3,iso_a2,name,name_long" ){
+		// 				layer.bringToBack();
+		// 		 }
+		 //
+		// 	 })
+		//  })
 		}
 		//Legt die Einstellungen für die Map fest, falls andere Standardwerte gewünscht sind
 		this.setMapDefaults = function(style) {
@@ -132,12 +146,40 @@
 				this.mapLayer.scrollWheelZoom.disable()
 			}
 			if (style.legends) {
-				this.legend = {
-					colors: ['#fff', style.base_color, 'rgba(102,102,102,1)'],
-					labels: ['high', 'Ø', 'low']
+				if(style.color_range){
+					this.legend = {
+						colors: [],
+						labels: []
+					}
+					if(typeof style.color_range == "string"){
+						style.color_range = JSON.parse(style.color_range);
+					}
+					angular.forEach(style.color_range, function(color){
+						if(color.hasLabel){
+							that.legend.colors.push(color.color);
+							if(color.label){
+								that.legend.labels.push(color.label);
+							}
+							else{
+								that.legend.labels.push(parseFloat(color.stop*100).toFixed(0));
+							}
+
+						}
+
+					});
+					if(this.legend.colors.length == 0){
+						this.legend = null;
+					}
 				}
+				else{
+					this.legend = {
+						colors: ['#fff', style.base_color, 'rgba(102,102,102,1)'],
+						labels: ['high', 'Ø', 'low']
+					}
+				}
+
 			} else {
-				this.legend = {}
+				this.legend = null
 			}
 
 		}
@@ -190,38 +232,40 @@
 		//Siehe oben
 		this.updateCanvas = function(color) {
 
-			this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
 			var gradient = this.ctx.createLinearGradient(0, 0, 257, 10);
-			gradient.addColorStop(1, 'rgba(255,255,255,1)');
-			gradient.addColorStop(0.53, color || 'rgba(128, 243, 198,1)');
-			gradient.addColorStop(0, 'rgba(102,102,102,1)');
+			gradient.addColorStop(1, 'rgba(255,255,255,0.6)');
+			gradient.addColorStop(0.53, color || 'rgba(128, 243, 198,0.6)');
+			gradient.addColorStop(0, 'rgba(102,102,102,.6)');
+
+			this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 			this.ctx.fillStyle = gradient;
 			this.ctx.fillRect(0, 0, 257, 10);
+
 			this.palette = this.ctx.getImageData(0, 0, 257, 1).data;
-			//document.getElementsByTagName('body')[0].appendChild(this.canvas);
 		}
 		//Wie oben, nur das eine Farbpalette mit gegeben wird, daher polychrom
 		this.createFixedCanvas = function(colorRange) {
 
 			this.canvas = document.createElement('canvas');
-			this.canvas.width = 280;
+			this.canvas.width = 257;
 			this.canvas.height = 10;
 			this.ctx = this.canvas.getContext('2d');
 			var gradient = this.ctx.createLinearGradient(0, 0, 257, 10);
 
 			for (var i = 0; i < colorRange.length; i++) {
-				gradient.addColorStop(1 / (colorRange.length - 1) * i, colorRange[i]);
+				gradient.addColorStop(colorRange[i].stop, colorRange[i].color);
 			}
 			this.ctx.fillStyle = gradient;
 			this.ctx.fillRect(0, 0, 257, 10);
 			this.palette = this.ctx.getImageData(0, 0, 257, 1).data;
-
 		}
 		this.updateFixedCanvas = function(colorRange) {
 			var gradient = this.ctx.createLinearGradient(0, 0, 257, 10);
 			for (var i = 0; i < colorRange.length; i++) {
-				gradient.addColorStop(1 / (colorRange.length - 1) * i, colorRange[i]);
+					gradient.addColorStop(colorRange[i].stop, colorRange[i].color);
 			}
+			this.ctx.clearRect(0, 0, 257,10);
 			this.ctx.fillStyle = gradient;
 			this.ctx.fillRect(0, 0, 257, 10);
 			this.palette = this.ctx.getImageData(0, 0, 257, 1).data;
@@ -263,6 +307,7 @@
 			if (typeof color != "undefined") {
 				this.data.baseColor = color;
 			}
+
 			if (!this.canvas) {
 				if (typeof this.data.baseColor == 'string') {
 					this.createCanvas(this.data.baseColor);
@@ -362,12 +407,22 @@
 			this.data.layer.redraw();
 		}
 		this.paint = function(color) {
-			this.setBaseColor(color);
-			if (this.ctx) {
-				this.updateCanvas(color);
-			} else {
-				this.createCanvas(color)
+			if(typeof color == "string"){
+				this.setBaseColor(color);
+				if (this.ctx) {
+					this.updateCanvas(color);
+				} else {
+					this.createCanvas(color)
+				}
 			}
+			else{
+				if (this.ctx) {
+					this.updateFixedCanvas(color);
+				} else {
+					this.createFixedCanvas(color)
+				}
+			}
+
 			this.paintCountries();
 		}
 		// Zoom der Map zu den gewünschte Land
@@ -424,9 +479,8 @@
 
 						var colorPos = parseInt(linearScale(parseFloat(nation[field]))) * 4; //;
 						//var colorPos = parseInt(256 / 100 * parseInt(nation[field])) * 4;
-						var color = 'rgba(' + that.palette[colorPos] + ', ' + that.palette[colorPos + 1] + ', ' + that.palette[colorPos + 2] + ',' + that.palette[colorPos + 3] + ')';
-
-						style.color = 'rgba(' + that.palette[colorPos] + ', ' + that.palette[colorPos + 1] + ', ' + that.palette[colorPos + 2] + ',0.6)'; //color;
+						var color = 'rgba(' + that.palette[colorPos] + ', ' + that.palette[colorPos + 1] + ', ' + that.palette[colorPos + 2] + ',' + (that.palette[colorPos + 3]/255) + ')';
+						style.color = color;// 'rgba(' + that.palette[colorPos] + ', ' + that.palette[colorPos + 1] + ', ' + that.palette[colorPos + 2] + ',0.6)'; //color;
 						style.outline = {
 							color: color,
 							size: 1
@@ -481,6 +535,7 @@
 			};
 			return style;
 		}
+
 
 	});
 

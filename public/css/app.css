@@ -1193,6 +1193,7 @@ body,
 html {
   width: 100%;
   height: 100%;
+  padding: 0px !important;
   /*@media screen and (max-width: 600px){
       height: calc(~'100% + 32px');
     }*/
@@ -1423,8 +1424,14 @@ p.small-info:hover {
   .loose.fixed .Header {
     min-height: 0;
     height: 0;
-    overflow: hidden;
     transition: all 0.2s ease;
+  }
+  .loose.fixed .Header .customer-logo {
+    top: 48px;
+    transition: all 0.2s linear;
+  }
+  .loose.fixed .Header .data-button {
+    display: none;
   }
 }
 .loose.fixed #sidebar {
@@ -1465,13 +1472,13 @@ p.small-info:hover {
   }
 }
 @media only screen and (max-device-width: 667px) and (-webkit-device-pixel-ratio: 2) {
-  .loose.fixed:not(.iframed) .mobile-container {
-    transform: translateY(calc(100vh - 395px + 53px));
+  .loose.fixed:not(.iframed) #sidebar .mobile-container {
+    transform: translateY(calc(100vh - 395px + 60px));
   }
 }
 @media screen and (min-device-width: 414px) and (-webkit-device-pixel-ratio: 3) {
-  .loose.fixed:not(.iframed) .mobile-container {
-    transform: translateY(calc(100vh - 395px + 53px));
+  .loose.fixed:not(.iframed) #sidebar .mobile-container {
+    transform: translateY(calc(100vh - 395px + 60px));
   }
 }
 .loose.fixed.loggedIn #sidebar {
@@ -1514,11 +1521,11 @@ p.small-info:hover {
     position: fixed;
     top: auto;
     left: 10px;
-    bottom: 235px;
+    bottom: 255px;
     z-index: 4;
     display: block;
     border-radius: 50%;
-    transition: all .3s ease;
+    transition: all 0.3s ease;
   }
   .loose.fixed #map .leaflet-control-home a {
     border-radius: 50%;
@@ -1539,6 +1546,16 @@ p.small-info:hover {
     height: 48px;
     overflow: auto;
   }
+  .loose.fixed.sidebar-closed .Header .customer-logo {
+    top: 0;
+    right: 0;
+    height: 48px;
+    background-position: right center;
+  }
+  .loose.fixed.sidebar-closed .Header .data-button {
+    display: inline-block;
+    margin-right: 100px;
+  }
 }
 @media screen and (max-width: 959px) {
   .loose.fixed.sidebar-closed #map {
@@ -1548,7 +1565,7 @@ p.small-info:hover {
     display: block;
   }
   .loose.fixed.sidebar-closed #map .leaflet-control-home {
-    bottom: 135px;
+    bottom: 155px;
   }
 }
 @media only screen and (max-width: 959px) {
@@ -1614,7 +1631,6 @@ p.small-info:hover {
 .addFull .additional {
   width: 100%;
   height: auto;
-  pointer-events: none;
 }
 .addFull #map {
   top: 355px;
@@ -2155,6 +2171,61 @@ md-dialog-content p.columned {
 }
 .adjust-container .adjust-box:first-child md-list-item {
   color: #333;
+}
+.colorHandlesWorkAreaWrapper {
+  padding: 0 25px;
+  margin: 0 -25px;
+}
+.colorHandlesWorkArea {
+  height: 55px;
+  position: relative;
+}
+.smallPreviewCanvas {
+  border: 2px solid #fff;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.14), 0 2px 2px 0 rgba(0, 0, 0, 0.098), 0 1px 5px 0 rgba(0, 0, 0, 0.084);
+}
+.gradientEditorWrapper,
+.bigPreviewCanvasWrapper,
+.gradientCodeWrapper {
+  margin: 0 50px 20px 20px;
+  float: left;
+}
+.gradientEditorWrapper {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  position: relative;
+}
+.gradientEditorWrapper .remove-button {
+  position: absolute;
+  right: -50px;
+  top: -10px;
+  transform: scale(0.7);
+}
+.gradientEditorWrapper .labels-button {
+  position: absolute;
+  right: -50px;
+  top: 15px;
+  transform: scale(0.7);
+}
+.gradientEditorWrapper,
+.colorHandlesWorkArea {
+  width: 543px;
+}
+.gradientEditorWrapper.hasActiveColorHandle {
+  margin-right: 48px;
+}
+.cp-noinput .md-color-picker-clear,
+.cp-noinput md-input-container {
+  display: none;
+}
+.cp-noinput .md-color-picker-preview {
+  top: 0px;
 }
 
 .split-header {
@@ -3000,6 +3071,27 @@ div[ui-view='map'] {
   top: 0;
   height: 100%;
 }
+div[ui-view='map'] #map-attribution {
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);
+  text-overflow: hidden;
+  white-space: nowrap;
+  padding: 3px 6px;
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  font-size: 0.8em;
+  color: #606060;
+  transition: background-color 0.2s ease;
+  text-align: right;
+}
+div[ui-view='map'] #map-attribution a {
+  color: #006bb9;
+  text-decoration: none;
+}
+div[ui-view='map'] #map-attribution:hover {
+  background-color: #fff;
+}
 #map {
   position: absolute;
   width: 100%;
@@ -3022,14 +3114,14 @@ div[ui-view='map'] {
   background: rgba(255, 255, 255, 0.9);
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);
   padding: 6px 8px;
-  min-width: 55px;
+  min-width: 90px;
   line-height: 18px;
   color: #555;
   font-family: 'Georgia';
   text-align: right;
   position: absolute;
   right: 4em;
-  bottom: 15px;
+  bottom: 0px;
   transition: all .3s ease;
 }
 @media screen and (max-width: 959px) {
@@ -3042,8 +3134,12 @@ div[ui-view='map'] {
   height: 12px;
   float: right;
   margin-left: 12px;
+  display: inline-block;
   opacity: 1;
   border: 2px solid rgba(0, 0, 0, 0.2);
+}
+.angular-leaflet-map .leaflet-control-attribution {
+  display: none;
 }
 .greyed .angular-leaflet-map {
   background-color: #d9d9d9;
@@ -3118,6 +3214,9 @@ div[ui-view='map'] {
 }
 .noHeader .map-sub-menu {
   top: 6em;
+}
+.leaflet-bottom {
+  bottom: 18px;
 }
 .leaflet-bottom .leaflet-control-zoom.leaflet-bar {
   margin-right: 1em;
@@ -3317,6 +3416,63 @@ color-gradient .picker-wrapper .picker-container:hover .drag-handle {
   opacity: 1;
 }
 
+[color-handle] {
+  padding: 0 6px;
+  font-size: .9em;
+  position: absolute;
+  bottom: -5px;
+  z-index: 12;
+  cursor: pointer;
+  transition: 0.1s bottom linear;
+  -webkit-transition: 0.1s bottom linear;
+  -moz-transition: 0.1s bottom linear;
+  -o-transition: 0.1s bottom linear;
+  text-shadow: 0 1px 3px #000;
+  -webkit-filter: DropShadow(Color=#000000, OffX=0, OffY=1);
+  filter: DropShadow(Color=#000000, OffX=0, OffY=1);
+}
+[color-handle] .gradient-color-picker {
+  position: relative;
+}
+[color-handle] .gradient-color-picker .md-color-picker-clear,
+[color-handle] .gradient-color-picker md-input-container {
+  display: none;
+}
+[color-handle] .gradient-color-picker .md-color-picker-input-container .md-color-picker-preview,
+[color-handle] .gradient-color-picker md-color-picker .md-color-picker-input-container .md-color-picker-preview {
+  top: 0;
+  border-radius: 50% 0 50% 50%;
+  transform: rotate(-45deg);
+}
+[color-handle] .gradient-pos {
+  position: absolute;
+  width: 28px;
+  text-align: center;
+  top: 5px;
+  pointer-events: none;
+  color: #fff;
+  opacity: 0;
+  transition: opacity .2s ease;
+}
+[color-handle]:hover .gradient-pos {
+  opacity: 1;
+}
+[color-handle]:hover::before {
+  height: 200%;
+  top: -115%;
+}
+[color-handle]::before {
+  content: '';
+  position: absolute;
+  width: 2px;
+  height: 0%;
+  top: 0%;
+  background-color: #fff;
+  left: 50%;
+  margin-left: -1px;
+  transition: all .2s ease;
+}
+
 compare-countries svg {
   overflow: visible;
 }
@@ -3453,6 +3609,16 @@ compare-countries .ranks {
 
 
 
+[gradient-click-area] {
+  cursor: crosshair;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  z-index: 11;
+}
+
+
 
 image-uploader {
   display: inherit;
@@ -3554,6 +3720,7 @@ image-uploader .solo-label {
 .indicator-menu ng-md-icon.greyed path {
   fill: #ddd;
 }
+
 
 
 

@@ -36,6 +36,7 @@ namespace App\Logic\Export{
             if(isset($item['style']['layer_selection']))$style->layer_selection = $item['style']['layer_selection'];
             if(isset($item['style']['full_screen']))$style->full_screen = $item['style']['full_screen'];
             if(isset($item['style']['image_id']))$style->image_id = $item['style']['image_id'];
+            if(isset($item['style']['color_range']))$style->color_range = json_encode($item['style']['color_range']);
 
             $style->save();
 

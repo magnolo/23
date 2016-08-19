@@ -1,0 +1,22 @@
+<md-dialog ng-controller="GradientLabelsCtrl">
+	<form ng-submit="save()">
+		<md-dialog-content>
+			<h2 class="md-title">Color Labels</h2>
+
+			<div ng-repeat="color in vm.item.style.color_range" layout="row" layout-align="space-between center">
+				<md-switch ng-model="color.hasLabel" aria-label="{{ color.color}}"></md-switch>
+				<div label="Color at Pos: {{ color.stop * 100 | number: 0}}" md-color-picker md-color-clear-button="false" ng-model="color.color" required class="cp-noinput"></div>
+				<md-input-container>
+					<label>Label Title</label>
+					<input type="text" ng-model="color.label" ng-required="color.hasLabel"/>
+				</md-input-container>
+				</div>
+
+			</md-dialog-content>
+
+			<div class="md-actions" layout="row">
+				<md-button type="button" ng-click="hide()">Done</md-button>
+				
+			</div>
+		</form>
+	</md-dialog>

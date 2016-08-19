@@ -4,7 +4,7 @@
 	angular.module('app.controllers').controller('ChapterContentCtrl', function($scope, $rootScope, $timeout, $state, DataService, ContentService, countries, ExportService, IndizesService, IndexService, DialogService, VectorlayerService) {
 		//
 		var vm = this;
-
+		$rootScope.sidebarOpen = false;
 		vm.compare = false;
 		vm.activeTab = 0, vm.selectedIndicator;
 		vm.selectedCountry = {}, vm.current = {}, vm.circleOptions = {};
@@ -16,7 +16,7 @@
 		vm.showInfo = showInfo;
 		vm.gotoIndicator = gotoIndicator;
 		//vm.countries = countries.plain();
-
+		vm.compareOptions = {};
 		activate();
 
 		VectorlayerService.countryClick(function(data) {
@@ -229,9 +229,15 @@
 					height: 60,
 					fontSize:12
 				};
-				VectorlayerService.setBaseLayer(item.style.basemap);
+				vm.compareOptions = {field: 'score', height: 25, margin:5, color:vm.ExportService.indicator.style.base_color, duration:500, min:vm.structure.min, max:vm.structure.max}
+
+				if (typeof item.style.color_range == "string") {
+					item.style.color_range = JSON.parse(item.style.color_range);
+				}
+
+				VectorlayerService.setBaseLayer(item.style.basemap, item.indicator.dataprovider);
 				VectorlayerService.setMapDefaults(item.style);
-				VectorlayerService.setData(indicator.data, indicator, item.style.base_color, true);
+				VectorlayerService.setData(indicator.data, indicator, item.style.color_range || item.style.base_color, true);
 
 				if (typeof done == "function") {
 					done();

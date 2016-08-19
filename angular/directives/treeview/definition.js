@@ -42,7 +42,7 @@
 			replace: true,
 			compile: function(element) {
 				return RecursionHelper.compile(element, function(scope, iElement, iAttrs, controller, transcludeFn) {
-					console.log(options);
+	
 					angular.extend(options, scope.vm.options)
 
 				});
