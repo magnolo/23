@@ -4,6 +4,12 @@
     "keywords": ["laravel", "angular", "material", "starter", "ui-router", "api"],
     "license": "MIT",
     "type": "project",
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "http://github.com/magnolo/laravel-postgis"
+        }
+    ],
     "require": {
         "php": ">=5.5.9",
         "laravel/framework": "5.2.*",
@@ -18,7 +24,7 @@
         "guzzlehttp/oauth-subscriber": "^0.3.0",
         "firebase/php-jwt": "^3.0",
         "orchestra/imagine": "~3.1",
-        "phaza/laravel-postgis": "^3.1"
+        "phaza/laravel-postgis": "dev-dev-23"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
