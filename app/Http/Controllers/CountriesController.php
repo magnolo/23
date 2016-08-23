@@ -41,6 +41,7 @@ class CountriesController extends Controller
         return response()->api(json_decode($box->bbox));
     }
 
+    // Edit this function to accept HASC for subnational support
     public function getByIsoNames(Request $request){
       $data = array();
       $iso_field = $request->input('iso') == "iso-3166-2" ? 'iso_a2' : "adm0_a3";

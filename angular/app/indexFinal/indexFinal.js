@@ -25,6 +25,30 @@
 				$state.go('app.index.create');
 			}
 		}
+		
+		function checkIsoType(isoFieldLength) {
+			var type = '';
+
+			switch (isoFieldLength) {
+				case 3:
+					type = 'iso-3166-1';
+					break;
+				case 5:
+					type = 'hasc_1';
+					break;
+				case 8:
+					type = 'hasc_2';
+					break;
+				default:
+					if(isoFieldLength > 8)
+						type = "hasc_2_d"
+					else
+						type = "iso-3166-2";
+					break;
+			}
+
+			return type;
+		}
 
 		function saveData(valid) {
 			if (valid) {
@@ -43,8 +67,8 @@
 							if(vm.meta.year_field && vm.meta.year_field != "year") {
 								delete item.data[vm.meta.year_field];
 							}
-
-							vm.meta.iso_type = item.data[vm.meta.iso_field].length == 3 ? 'iso-3166-1' : 'iso-3166-2';
+							//Modify here for validation of HASCodes in CSV data (Additional add hasc here)
+							vm.meta.iso_type = checkIsoType(item.data[vm.meta.iso_field].length);
 							insertData.data.push(item.data);
 						}
 						else{
@@ -88,7 +112,7 @@
 				DataService.post('data/tables', vm.meta).then(function (response) {
 					DataService.post('data/tables/' + response.table_name + '/insert', insertData).then(function (res) {
 						if (res == true) {
-							toastr.success(insertData.data.length + ' items importet to ' + vm.meta.name, 'Success');
+							toastr.success(insertData.data.length + ' items imported to ' + vm.meta.name, 'Success');
 							IndexService.clear();
 							$state.go('app.index.mydata');
 							vm.data = [];

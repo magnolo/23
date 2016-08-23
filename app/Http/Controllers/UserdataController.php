@@ -144,6 +144,7 @@ class UserdataController extends Controller
       //dd(strtolower($name));
       $data['table_name'] = 'user_table_'.$name;
 
+        //Creates specific data table for new uploaded data
       \DB::transaction(function () use ($request, $name, &$data, $user) {
       $data['db'] = \Schema::create('user_table_'.$name, function(Blueprint $table) use ($request){
         $table->increments('id');

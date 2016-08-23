@@ -32,6 +32,10 @@
 				var isVertical = false;
 				var raw = [];
 				var rawList = {};
+				var isotype = '';
+				//Array with valid national and subnational codes
+				var isotypes = ['iso','hasc_1','hasc_2','hasc_2_d'];
+
 				input.css({
 					display: 'none'
 				});
@@ -133,7 +137,8 @@
 											}
 										}
 
-										if (headings[i].length == 3) {
+										if (isotypes.indexOf(headings[i]) !== -1) {
+											isotype = headings[i];
 											isIso.push(true);
 										}
 									}
@@ -161,7 +166,8 @@
 								if (!isVertical) {
 									angular.forEach(IndexService.getFirstEntry().data, function (item, key) {
 
-										if (key.toLowerCase().indexOf('iso') != -1 || key.toLowerCase().indexOf('code') != -1) {
+										//Check if valid area code and set it if valid code is found
+										if ( isotypes.indexOf(key.toLowerCase()) !== -1 ) {
 											IndexService.setIsoField(key);
 										}
 										if (key.toLowerCase().indexOf('country') != -1) {
@@ -177,7 +183,7 @@
 								} else {
 									angular.forEach(rawList, function (item, key) {
 										item.errors = [];
-										if (item.toLowerCase() != "undefined" && typeof key != "undefined") {
+										if (angular.isDefined(item.toLowerCase()) && angular.isDefined(key)) {
 											var r = {
 												iso: key.toUpperCase()
 											};
@@ -201,6 +207,7 @@
 											});
 										}
 									});
+									//TODO Set subnational codes for horizontal data table
 									IndexService.setIsoField('iso');
 								}
 								IndexService.setToLocalStorage();
