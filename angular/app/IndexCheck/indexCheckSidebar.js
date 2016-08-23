@@ -10,6 +10,8 @@
 		vm.clearErrors = clearErrors;
 		vm.fetchIso = fetchIso;
 
+		var subnationalTypes = ['hasc_1','hasc_2','hasc_2_d'];
+
 		activate();
 
 		function activate() {
@@ -86,114 +88,126 @@
 				toastr.error('Check your selection for the ISO field', 'Column not specified!');
 				return false;
 			}
-			if (!vm.meta.country_field) {
-				toastr.error('Check your selection for the COUNTRY field', 'Column not specified!');
-				return false;
-			}
-			if (vm.meta.country_field == vm.meta.iso_field) {
-				toastr.error('ISO field and COUNTRY field can not be the same', 'Selection error!');
-				return false;
-			}
-			$rootScope.stateIsLoading = true;
-			vm.notFound = [];
-			var entries = [];
-			var isoCheck = 0;
-			var isoType = 'iso-3166-2';
-			angular.forEach(vm.data, function(item, key) {
-				if (item.data[vm.meta.iso_field]) {
-					isoCheck += item.data[vm.meta.iso_field].length == 3 ? 1 : 0;
-				}
-				switch (item.data[vm.meta.country_field]) {
-					case 'Cabo Verde':
-						item.data[vm.meta.country_field] = 'Cape Verde';
-						break;
-					case "Democratic Peoples Republic of Korea":
-						item.data[vm.meta.country_field] = "Democratic People's Republic of Korea";
-						break;
-					case "Cote d'Ivoire":
-						item.data[vm.meta.country_field] = "Ivory Coast";
-						break;
-					case "Lao Peoples Democratic Republic":
-						item.data[vm.meta.country_field] = "Lao People's Democratic Republic";
-						break;
-					default:
-						break;
-				}
-				entries.push({
-					iso: item.data[vm.meta.iso_field],
-					name: item.data[vm.meta.country_field]
-				});
-			});
-			var isoType = isoCheck >= (entries.length / 2) ? 'iso-3166-1' : 'iso-3166-2';
-			IndexService.resetToSelect();
-			DataService.post('countries/byIsoNames', {
-				data: entries,
-				iso: isoType
-			}).then(function(response) {
-				$rootScope.stateIsLoading = false;
-				angular.forEach(response, function(country, key) {
-					angular.forEach(vm.data, function(item, k) {
-						if (country.name == item.data[vm.meta.country_field]) {
-							if (country.data.length > 1) {
-								var toSelect = {
-									entry: item,
-									options: country.data
-								};
-								IndexService.addToSelect(toSelect);
-							} else if(country.data.length == 1){
-								if (typeof country.data != "undefined") {
-									vm.data[k].data[vm.meta.iso_field] = country.data[0].iso;
-									vm.data[k].data[vm.meta.country_field] = country.data[0].admin;
-									if (item.errors.length) {
-										angular.forEach(item.errors, function(error, e) {
-											if (error.type == 2 || error.type == 3) {
-												vm.iso_errors.splice(0, 1);
-												item.errors.splice(e, 1);
-											} else if (error.type == 1) {
-												if (error.column == vm.meta.iso_field) {
-													vm.errors.splice(0, 1);
-													item.errors.splice(e, 1);
-												}
-											}
-										});
 
-									}
-								} else {
-									//console.log(vm.data[k]);
-									var error = {
-										type: "3",
-										message: "Could not locate a valid iso name!",
-										column: vm.meta.country_field
+			// Override country and iso check if is subnational code
+			if (subnationalTypes.indexOf(vm.meta.iso_field) === -1) {
+				if (!vm.meta.country_field) {
+					toastr.error('Check your selection for the COUNTRY field', 'Column not specified!');
+					return false;
+				}
+				if (vm.meta.country_field == vm.meta.iso_field) {
+					toastr.error('ISO field and COUNTRY field can not be the same', 'Selection error!');
+					return false;
+				}
+				$rootScope.stateIsLoading = true;
+				vm.notFound = [];
+				var entries = [];
+				var isoCheck = 0;
+				//var isoType = 'iso-3166-2';
+				angular.forEach(vm.data, function(item, key) {
+					if (item.data[vm.meta.iso_field]) {
+						//Modify here for validation of HASCode
+						//Better would be a check of valid codes than on string length
+						isoCheck += item.data[vm.meta.iso_field].length == 3 ? 1 : 0;
+					}
+					switch (item.data[vm.meta.country_field]) {
+						case 'Cabo Verde':
+							item.data[vm.meta.country_field] = 'Cape Verde';
+							break;
+						case "Democratic Peoples Republic of Korea":
+							item.data[vm.meta.country_field] = "Democratic People's Republic of Korea";
+							break;
+						case "Cote d'Ivoire":
+							item.data[vm.meta.country_field] = "Ivory Coast";
+							break;
+						case "Lao Peoples Democratic Republic":
+							item.data[vm.meta.country_field] = "Lao People's Democratic Republic";
+							break;
+						default:
+							break;
+					}
+					entries.push({
+						iso: item.data[vm.meta.iso_field],
+						name: item.data[vm.meta.country_field]
+					});
+				});
+				//Modify here for validation of HASCodes in CSV data (Additional add hasc here)
+				var isoType = isoCheck >= (entries.length / 2) ? 'iso-3166-1' : 'iso-3166-2';
+				IndexService.resetToSelect();
+
+				//Override this for subnationals, later to be reimplemented
+				DataService.post('countries/byIsoNames', {
+					data: entries,
+					iso: isoType
+				}).then(function(response) {
+					$rootScope.stateIsLoading = false;
+					angular.forEach(response, function(country, key) {
+						angular.forEach(vm.data, function(item, k) {
+							if (country.name == item.data[vm.meta.country_field]) {
+								if (country.data.length > 1) {
+									var toSelect = {
+										entry: item,
+										options: country.data
 									};
-									var errorFound = false;
-									angular.forEach(vm.data[k].errors, function(error, i) {
-										console.log(error);
-										if (error.type == 3) {
-											errorFound = true;
+									IndexService.addToSelect(toSelect);
+								} else if(country.data.length == 1){
+									if (typeof country.data != "undefined") {
+										vm.data[k].data[vm.meta.iso_field] = country.data[0].iso;
+										vm.data[k].data[vm.meta.country_field] = country.data[0].admin;
+										if (item.errors.length) {
+											angular.forEach(item.errors, function(error, e) {
+												if (error.type == 2 || error.type == 3) {
+													vm.iso_errors.splice(0, 1);
+													item.errors.splice(e, 1);
+												} else if (error.type == 1) {
+													if (error.column == vm.meta.iso_field) {
+														vm.errors.splice(0, 1);
+														item.errors.splice(e, 1);
+													}
+												}
+											});
+
 										}
-									})
-									if (!errorFound) {
-										IndexService.addIsoError(error);
-										item.errors.push(error);
+									} else {
+										//console.log(vm.data[k]);
+										var error = {
+											type: "3",
+											message: "Could not locate a valid iso name!",
+											column: vm.meta.country_field
+										};
+										var errorFound = false;
+										angular.forEach(vm.data[k].errors, function(error, i) {
+											console.log(error);
+											if (error.type == 3) {
+												errorFound = true;
+											}
+										})
+										if (!errorFound) {
+											IndexService.addIsoError(error);
+											item.errors.push(error);
+										}
 									}
 								}
 							}
-						}
+						});
 					});
+					vm.iso_checked = true;
+					IndexService.setToLocalStorage();
+					if (IndexService.getToSelect().length) {
+						DialogService.fromTemplate('selectisofetchers');
+					}
+				}, function(response) {
+					$rootScope.stateIsLoading = false;
+					toastr.error('Please check your field selections', response.data.message);
 				});
+			} else {
 				vm.iso_checked = true;
-				IndexService.setToLocalStorage();
-				if (IndexService.getToSelect().length) {
-					DialogService.fromTemplate('selectisofetchers');
-				}
-			}, function(response) {
-				$rootScope.stateIsLoading = false;
-				toastr.error('Please check your field selections', response.data.message);
-			});
+			}
 
 		}
 		vm.extendData = extendData;
 
+		//Function that extends already uploaded data from this user
 		function extendData() {
 			var insertData = {
 				data: []
@@ -215,7 +229,7 @@
 			console.log(insertData);
 			DataService.post('data/tables/' + vm.addDataTo.table_name + '/insert', insertData).then(function(res) {
 				if (res == true) {
-					toastr.success(insertData.data.length + ' items importet to ' + vm.meta.name, 'Success');
+					toastr.success(insertData.data.length + ' items imported to ' + vm.meta.name, 'Success');
 					vm.data = IndexService.clear();
 					$state.go('app.index.mydata');
 				}

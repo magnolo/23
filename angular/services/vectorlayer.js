@@ -72,6 +72,10 @@
 			maxZoom: 6,
 			zoomControlPosition:'bottomright'
 		};
+<<<<<<< HEAD
+=======
+		//Leafet Config: Lengende in der Map
+>>>>>>> 673a38e1d113d2e30f7f5c0be4d00576cef3da8a
 		this.legend = null;
 		this.setMap = function(map) {
 			return this.mapLayer = map;
@@ -79,6 +83,10 @@
 		this.getMap = function() {
 			return this.mapLayer;
 		}
+<<<<<<< HEAD
+=======
+		//Legt die gewünschte Basemap von Leaflet fest. Falls nichts vorhanden, wird die FallbackMap verwendet
+>>>>>>> 673a38e1d113d2e30f7f5c0be4d00576cef3da8a
 		this.setBaseLayer = function(basemap, dataprovider) {
 			if (!basemap)
 				this.basemap = basemap = this.fallbackBasemap;
@@ -193,11 +201,21 @@
 			this.canvas.width = 280;
 			this.canvas.height = 10;
 			this.ctx = this.canvas.getContext('2d');
+<<<<<<< HEAD
 			var gradient = this.ctx.createLinearGradient(0, 0, 280, 10);
 			gradient.addColorStop(1, 'rgba(255,255,255,0.6)');
 			gradient.addColorStop(0.53, color || 'rgba(128, 243, 198,0.6)');
 			gradient.addColorStop(0, 'rgba(102,102,102,0.6)');
 
+=======
+			//Erstellt Gradient, noch nicht gezeichnet
+			var gradient = this.ctx.createLinearGradient(0, 0, 257, 10);
+			//Legt Position und Farbwert im Gradient fest
+			gradient.addColorStop(1, 'rgba(255,255,255,0)');
+			gradient.addColorStop(0.53, color || 'rgba(128, 243, 198,1)');
+			gradient.addColorStop(0, 'rgba(102,102,102,1)');
+			//Zeichnet Gradient in 2d context
+>>>>>>> 673a38e1d113d2e30f7f5c0be4d00576cef3da8a
 			this.ctx.fillStyle = gradient;
 			this.ctx.fillRect(0, 0, 280, 10);
 			this.palette = this.ctx.getImageData(0, 0, 257, 1).data;
